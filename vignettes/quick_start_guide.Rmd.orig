@@ -9,9 +9,9 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-`galah` is an R interface to biodiversity data hosted by the Global Biodiversity 
-Information Facility ([GBIF](https://www.gbif.org)) and it's subsidiary node
-organisations. GBIF and it's partner nodes collate and store observations of 
+galah is an R interface to biodiversity data hosted by the Global Biodiversity 
+Information Facility ([GBIF](https://www.gbif.org)) and its subsidiary node
+organisations. GBIF and its partner nodes collate and store observations of 
 individual life forms using the ['Darwin Core'](https://dwc.tdwg.org) data 
 standard.
 
@@ -34,19 +34,20 @@ library(galah)
 ```
 
 # Configuration
-By default, `galah` downloads information from the Atlas of Living Australia 
-(ALA). To show the full list of organisations currently supported by `galah`, 
+By default, galah downloads information from the Atlas of Living Australia 
+(ALA). To show the full list of organisations currently supported by galah, 
 use  `show_all(atlases)`.
 
 ```{r}
 show_all(atlases)
 ```
 
-Use `galah_config()` to set the target organisation using its region, name, or 
-acronym. This will automatically populate the server configuration for your 
-selected GBIF node. If you wish to download occurrence records from your chosen 
-GBIF node, you will need to register with them, then provide your registration 
-email. To download from GBIF, you will need to provide the email, username, and 
+Use `galah_config()` to set the node organisation using its region, name, or 
+acronym. Once set, `galah` will automatically populate the server configuration for your 
+selected GBIF node. To download occurrence records from your chosen 
+GBIF node, you will need to register an account with them (using their website), 
+then provide your registration email to galah. 
+To download from GBIF, you will need to provide the email, username, and 
 password.
 
 ```{r, eval=FALSE}
@@ -59,7 +60,7 @@ galah_config(atlas = "GBIF",
 You can find a full list of configuration options by running `?galah_config`.
 
 # Basic syntax
-The standard method to construct queries in `galah` is via piped functions. 
+The standard method to construct queries in `{galah}` is via piped functions. 
 Pipes in `galah` start with the `galah_call()` function, and typically end with 
 `collect()`, though `collapse()` and `compute()` are also supported. The 
 development team use the base pipe by default (`|>`), but the `{magrittr}` pipe 
@@ -73,7 +74,7 @@ galah_call() |>
   collect()
 ```
 
-To pass more complex queries, you can use additional `dplyr` functions such as
+To pass more complex queries, you can use additional `{dplyr}` functions such as
 `filter()`, `select()`, and `group_by()`.
 
 ```{r}
@@ -83,15 +84,15 @@ galah_call() |>
   collect()
 ```
 
-Each GBIF node allows you to query using their own set of inbuilt fields. You 
+Each GBIF node allows you to query using their own set of in-built fields. You 
 can investigate which fields are available using `show_all()` and `search_all()`:
 
 ```{r}
 search_all(fields, "australian states")
 ```
 
-# Taxonomy
-To narrow the search to a particular taxonomic group, use `identify()`. Note 
+# Taxonomic searches
+To narrow your search to a particular taxonomic group, use `identify()`. Note 
 that this function only accepts scientific names and is not case sensitive. 
 It's good practice to first use `search_taxa()` to check that the taxa you 
 provide returns the correct taxonomic results.
@@ -100,25 +101,25 @@ provide returns the correct taxonomic results.
 search_taxa("reptilia") # Check whether taxonomic info is correct
 
 galah_call() |>
-  filter(year >= 2020) |> 
   identify("reptilia") |> 
+  filter(year >= 2020) |> 
   count() |>
   collect()
 ```
 
 If you want to query something other than the number of records, modify the 
-`type` argument in `galah_call()`, i.e. to get the number of species:
+`type` argument in `galah_call()`. Here we'll query the number of species:
 
 ```{r}
 galah_call(type = "species") |>
-  filter(year >= 2020) |> 
   identify("reptilia") |> 
+  filter(year >= 2020) |> 
   count() |>
   collect()
 ```
 
 # Download
-To download records - rather than find how many records are available - simply
+To download records---rather than find how many records are available---simply
 remove the `count()` function from your pipe.
 
 ```{r}

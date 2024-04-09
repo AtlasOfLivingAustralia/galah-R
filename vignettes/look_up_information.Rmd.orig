@@ -13,9 +13,9 @@ vignette: >
 galah_config(atlas = "Australia", verbose = FALSE)
 ```
 
-`galah` supports two functions to look up information: `show_all()` and 
-`search_all()`. The first argument to both functions is a service that you 
-wish to look up; for example to see what information fields are available, use:
+galah supports two functions to look up information: `show_all()` and 
+`search_all()`. The first argument to both functions is a type of information that you 
+wish to look up; for example to see what fields are available to filter a query by, use:
 
 ```{r}
 show_all(fields)
@@ -71,18 +71,10 @@ tribble(
 
 # `show_all_` subfunctions
 While `show_all` is useful for a variety of cases, you can 
-still call the underlying subfunctions if you prefer. These functions - with 
-the prefix `show_all_` - return a `tibble` doing exactly that; showing all the 
-possible values of the category specified. These functions include:
+still call the underlying subfunctions if you prefer. Functions with 
+the prefix `show_all_` do exactly that; they show all the 
+possible values of the category specified. 
 
--   `show_all_fields`
--   `show_all_atlases`
--   `show_all_ranks`
--   `show_all_profiles`
--   `show_all_reasons`
-
-`show_all_` functions require no arguments. Simply call the function and it will 
-return all accepted values as a tibble:
 ```{r, echo = FALSE}
 galah_config(atlas = "Australia")
 ```
@@ -93,16 +85,13 @@ show_all_reasons()
 ```
 
 # `search_` subfunctions
-The second subset of lookup subfunctions use the `search_` prefix, and differ from
-`show_all_` in that they require a query to work. They are used to search for 
-detailed information that can't be summarised across the whole atlas, and include:
+You can also call subfunctions that use the `search_` prefix to lookup information. 
+`search_` subfunctions differ from `show_all_` in that they require a query to work,
+and they useful to search for 
+detailed information that can't be summarised across the whole atlas.
 
--   `search_taxa`
--   `search_identifiers`
--   `search_fields`
--   `show_values`
-
-Search for a single taxon or multiple taxa by name with `search_taxa`.
+`search_taxa()` is an especially useful function in galah. It let's you search 
+for a single taxon or multiple taxa by name.
 
 ```{r}
 search_taxa("reptilia")
@@ -110,33 +99,25 @@ search_taxa("reptilia")
 search_taxa("reptilia", "aves", "mammalia", "pisces")
 ```
 
-Alternatively, `search_identifiers` is the partner function to `search_taxa`. 
+Alternatively, `search_identifiers()` is the partner function to `search_taxa()`. 
 If we already know a taxonomic identifier, we can search for 
-which taxa the identifier belongs to with `search_identifiers`:
+which taxa the identifier belongs to.
 
 ```{r}
 search_identifiers("urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550efd40c399")
 ```
 
-Sifting through the output of `show_all_fields` to find a specific field can be 
-inefficient. Instead, we might wish to use `search_fields` to look for specific 
-fields that match a search. As with `search_taxa`, `search_fields` requires a 
-query to work.
-
-```{r}
-search_fields("date") |> head()
-```
-
 # `show_values()` & `search_values()`
 
-Once a desired field is found, you can use `show_values` to understand the 
-information contained within that field, e.g.
+Once a desired field is found, you can use `show_values()` to understand the 
+information contained within that field. For example, we can show the values 
+contained in the field `basisOfRecord`.
 
 ```{r}
-search_all(fields, "basis") |> show_values()
+search_all(fields, "basisOfRecord") |> show_values()
 ```
 
-This provides the information you need to pass meaningful queries to `galah_filter`.
+Use this information to pass meaningful queries to `galah_filter()`.
 
 ```{r}
 galah_call() |> 

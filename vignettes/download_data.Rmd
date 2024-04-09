@@ -1,7 +1,7 @@
 ---
 title: "Download data"
 author: "Martin Westgate & Dax Kellie"
-date: '2024-04-02'
+date: '2024-04-09'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -12,27 +12,27 @@ vignette: >
 The `atlas_` functions are used to return data from the atlas chosen using 
 `galah_config()`. They are:
 
--   `atlas_counts`
--   `atlas_occurrences`
--   `atlas_species`
--   `atlas_media`
--   `atlas_taxonomy`
+-   `atlas_counts()`
+-   `atlas_occurrences()`
+-   `atlas_species()`
+-   `atlas_media()`
+-   `atlas_taxonomy()`
 
-The final `atlas_` function - `atlas_citation` - is unusual in that it does not
-return any new data. Instead it provides a citation for an existing dataset (
-downloaded using `atlas_occurrences`) that has an associated DOI. The other 
+The final `atlas_` function---`atlas_citation()`---is unusual: It does not
+return any new data, but instead provides a citation for an existing dataset 
+(downloaded using `atlas_occurrences()`) with an associated DOI. The other 
 functions are described below.
 
-Note that it is equally permissable to use the `type` argument of `galah_call()`
-to specify the kind of data you want, and then retrive it using `collect()`. 
-Here we use the `atlas_` prefix for consistency with earlier versions of `galah`,
-and because the `atlas_` functions sometimes include shortcuts to make your life
+It is equally permissable to use the `type` argument of `galah_call()`
+to specify the kind of data you want, and then retrieve the data using `collect()`. 
+Here we use the `atlas_` prefix for consistency with earlier versions of galah,
+and because many `atlas_` functions sometimes include shortcuts to make life
 easier.
 
 
 # Record counts
-`atlas_counts()` provides summary counts on records in the specified atlas, 
-without needing to download all the records. 
+`atlas_counts()` provides summary counts of records in the specified atlas 
+without needing to download all the records first. 
 
 
 ```r
@@ -45,11 +45,10 @@ atlas_counts()
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 133480524
+## 1 133616691
 ```
 
-In addition to the filter arguments, it has an optional `group_by` argument, 
-which provides counts binned by the requested field.
+Group and summarise record counts by specific fields using `galah_group_by()`.
 
 
 ```r
@@ -62,16 +61,16 @@ galah_call() |>
 ## # A tibble: 12 × 2
 ##    kingdom           count
 ##    <chr>             <int>
-##  1 Animalia      102041102
-##  2 Plantae        26438140
-##  3 Fungi           2341244
-##  4 Chromista       1049514
-##  5 Protista         311406
-##  6 Bacteria         113080
+##  1 Animalia      102148892
+##  2 Plantae        26453743
+##  3 Fungi           2343737
+##  4 Chromista       1049586
+##  5 Protista         311456
+##  6 Bacteria         113089
 ##  7 Archaea            4119
-##  8 Virus              2297
+##  8 Virus              2307
 ##  9 Bamfordvirae        204
-## 10 Orthornavirae       152
+## 10 Orthornavirae       153
 ## 11 Viroid              104
 ## 12 Shotokuvirae         39
 ```
@@ -80,9 +79,9 @@ galah_call() |>
 # Species lists
 A common use case of atlas data is to identify which species occur in a specified
 region, time period, or taxonomic group. `atlas_species()` is similar to 
-`search_taxa`, in that it returns taxonomic information and unique identifiers 
-in a `tibble`. It differs in not being able to return information on taxonomic 
-levels other than the species; but also in being more flexible by supporting filtering:
+`search_taxa()`, in that it returns taxonomic information and unique identifiers, 
+but differs by returning information only on species and is far more flexible by 
+supporting filtering.
 
 
 ```r
@@ -96,31 +95,29 @@ species |> head()
 
 ```
 ## # A tibble: 6 × 11
-##   taxon_concept_id       species_name scientific_name_auth…¹ taxon_rank kingdom
-##   <chr>                  <chr>        <chr>                  <chr>      <chr>  
-## 1 https://biodiversity.… Pseudomys d… (Gould, 1842)          species    Animal…
-## 2 https://biodiversity.… Mesembriomy… (J.E. Gray, 1843)      species    Animal…
-## 3 https://biodiversity.… Zyzomys arg… (Thomas, 1889)         species    Animal…
-## 4 https://biodiversity.… Pseudomys h… (Waite, 1896)          species    Animal…
-## 5 https://biodiversity.… Melomys bur… (Ramsay, 1887)         species    Animal…
-## 6 https://biodiversity.… Notomys ale… Thomas, 1922           species    Animal…
+##   taxon_concept_id                                                    species_name scientific_name_auth…¹ taxon_rank kingdom phylum class order family genus vernacular_name
+##   <chr>                                                               <chr>        <chr>                  <chr>      <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr>          
+## 1 https://biodiversity.org.au/afd/taxa/a6a91fbd-77f4-4440-ba66-7d043… Pseudomys d… (Gould, 1842)          species    Animal… Chord… Mamm… Rode… Murid… Pseu… Delicate Mouse 
+## 2 https://biodiversity.org.au/afd/taxa/d3d03db1-3305-4f09-9f3f-64d8c… Mesembriomy… (J.E. Gray, 1843)      species    Animal… Chord… Mamm… Rode… Murid… Mese… Black-footed T…
+## 3 https://biodiversity.org.au/afd/taxa/936ee591-1e1a-4f9e-934e-4bc17… Zyzomys arg… (Thomas, 1889)         species    Animal… Chord… Mamm… Rode… Murid… Zyzo… Common Rock-rat
+## 4 https://biodiversity.org.au/afd/taxa/635a8ab7-774e-4676-9e75-8dc31… Pseudomys h… (Waite, 1896)          species    Animal… Chord… Mamm… Rode… Murid… Pseu… Sandy Inland M…
+## 5 https://biodiversity.org.au/afd/taxa/20ca6a48-09d2-4f05-ba8e-bbae4… Melomys bur… (Ramsay, 1887)         species    Animal… Chord… Mamm… Rode… Murid… Melo… Grassland Melo…
+## 6 https://biodiversity.org.au/afd/taxa/53115180-4024-4d50-baf7-edc45… Notomys ale… Thomas, 1922           species    Animal… Chord… Mamm… Rode… Murid… Noto… Spinifex Hoppi…
 ## # ℹ abbreviated name: ¹​scientific_name_authorship
-## # ℹ 6 more variables: phylum <chr>, class <chr>, order <chr>, family <chr>,
-## #   genus <chr>, vernacular_name <chr>
 ```
 
 
 # Occurrence data
-To download occurrence data you will need to specify your email in
-`galah_config()`. This email must be associated with an active ALA account. See
-more information in the [config section](#config)
+To download occurrence data you will need to specify an email in
+`galah_config()` that has been registered to an account with your selected GBIF node. 
+See more information in the [config section](#config).
 
 
 ```r
 galah_config(email = "your_email@email.com", atlas = "Australia")
 ```
 
-Download occurrence records for *Eolophus roseicapilla*
+Download occurrence records for *Eolophus roseicapilla*.
 
 
 ```r
@@ -147,24 +144,21 @@ occ |> head()
 
 ```
 ## # A tibble: 6 × 9
-##   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
-##   <chr>          <chr>          <chr>                    <dbl>            <dbl>
-## 1 0000a928-d756… Eolophus rose… https://biodi…           -35.6             149.
-## 2 0001bc78-d2e9… Eolophus rose… https://biodi…           -35.2             149.
-## 3 0002064f-08ea… Eolophus rose… https://biodi…           -35.3             149.
-## 4 00022dd2-9f85… Eolophus rose… https://biodi…           -35.3             149.
-## 5 0002cc35-8d5a… Eolophus rose… https://biodi…           -35.3             149.
-## 6 00030a8c-082f… Eolophus rose… https://biodi…           -35.3             149.
-## # ℹ 4 more variables: eventDate <dttm>, occurrenceStatus <chr>,
-## #   dataResourceName <chr>, institutionID <lgl>
+##   recordID                             scientificName    taxonConceptID decimalLatitude decimalLongitude eventDate           occurrenceStatus dataResourceName institutionID
+##   <chr>                                <chr>             <chr>                    <dbl>            <dbl> <dttm>              <chr>            <chr>            <lgl>        
+## 1 0000a928-d756-42eb-8058-6faa3901926d Eolophus roseica… https://biodi…           -35.6             149. 2017-04-19 09:11:00 PRESENT          eBird Australia  NA           
+## 2 0001bc78-d2e9-48aa-8b9d-d69b55c81fd2 Eolophus roseica… https://biodi…           -35.2             149. 2019-08-13 15:13:00 PRESENT          eBird Australia  NA           
+## 3 0002064f-08ea-425b-97c5-2677e1e1aa5a Eolophus roseica… https://biodi…           -35.3             149. 2014-03-16 06:48:00 PRESENT          eBird Australia  NA           
+## 4 00022dd2-9f85-4802-b837-7ff7515acf21 Eolophus roseica… https://biodi…           -35.3             149. 2022-05-08 08:20:00 PRESENT          eBird Australia  NA           
+## 5 0002cc35-8d5a-4d20-8012-12649dc16df1 Eolophus roseica… https://biodi…           -35.3             149. 2015-11-01 08:00:00 PRESENT          eBird Australia  NA           
+## 6 00030a8c-082f-44f0-898a-adf6b78985b9 Eolophus roseica… https://biodi…           -35.3             149. 2022-01-06 11:47:00 PRESENT          eBird Australia  NA
 ```
 
 
 # Media metadata
 In addition to text data describing individual occurrences and their attributes, 
 ALA stores images, sounds and videos associated with a given record. Metadata on
-these records can be downloaded to `R` using `atlas_media()` and the same set of 
-filters as the other data download functions.
+these records can be downloaded using `atlas_media()`.
 
 
 ```r
@@ -174,32 +168,40 @@ media_data <- galah_call() |>
     year == 2020,
     cl22 == "Australian Capital Territory") |>
   atlas_media()
-  
+```
+
+```
+## Retrying in 1 seconds.
+```
+
+```r
 media_data |> head()
 ```
 
 ```
 ## # A tibble: 6 × 19
-##   media_id               recordID scientificName taxonConceptID decimalLatitude
-##   <chr>                  <chr>    <chr>          <chr>                    <dbl>
-## 1 ff8322d0-f44c-47a3-b2… 003a192… Eolophus rose… https://biodi…           -35.3
-## 2 c66fc819-7022-44ff-9a… 015ee7c… Eolophus rose… https://biodi…           -35.4
-## 3 fe6d7b94-9e61-4ac4-8b… 05e86b7… Eolophus rose… https://biodi…           -35.4
-## 4 2f4d32c0-a084-4bb3-a9… 063bb0f… Eolophus rose… https://biodi…           -35.6
-## 5 73407414-0707-4292-a2… 063bb0f… Eolophus rose… https://biodi…           -35.6
-## 6 89171c49-5a64-423c-a7… 063bb0f… Eolophus rose… https://biodi…           -35.6
-## # ℹ 14 more variables: decimalLongitude <dbl>, eventDate <dttm>,
-## #   occurrenceStatus <chr>, dataResourceName <chr>, multimedia <chr>,
-## #   images <chr>, videos <lgl>, sounds <lgl>, creator <chr>, license <chr>,
-## #   mimetype <chr>, width <int>, height <int>, image_url <chr>
+##   media_id     recordID scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           occurrenceStatus dataResourceName multimedia images videos sounds
+##   <chr>        <chr>    <chr>          <chr>                    <dbl>            <dbl> <dttm>              <chr>            <chr>            <chr>      <chr>  <lgl>  <lgl> 
+## 1 ff8322d0-f4… 003a192… Eolophus rose… https://biodi…           -35.3             149. 2020-09-12 06:11:00 PRESENT          iNaturalist Aus… Image      ff832… NA     NA    
+## 2 c66fc819-70… 015ee7c… Eolophus rose… https://biodi…           -35.4             149. 2020-08-09 05:11:00 PRESENT          iNaturalist Aus… Image      c66fc… NA     NA    
+## 3 fe6d7b94-9e… 05e86b7… Eolophus rose… https://biodi…           -35.4             149. 2020-11-13 22:29:00 PRESENT          NatureMapr       Image      fe6d7… NA     NA    
+## 4 2f4d32c0-a0… 063bb0f… Eolophus rose… https://biodi…           -35.6             149. 2020-08-04 01:50:00 PRESENT          iNaturalist Aus… Image      2f4d3… NA     NA    
+## 5 73407414-07… 063bb0f… Eolophus rose… https://biodi…           -35.6             149. 2020-08-04 01:50:00 PRESENT          iNaturalist Aus… Image      73407… NA     NA    
+## 6 89171c49-5a… 063bb0f… Eolophus rose… https://biodi…           -35.6             149. 2020-08-04 01:50:00 PRESENT          iNaturalist Aus… Image      89171… NA     NA    
+## # ℹ 6 more variables: creator <chr>, license <chr>, mimetype <chr>, width <int>, height <int>, image_url <chr>
 ```
 
 To actually download the media files to your computer, use [collect_media()].
 
 
+```r
+media_data |>
+  collect_media()
+```
+
 # Taxonomic trees
-`atlas_taxonomy` provides a way to build taxonomic trees from one clade down to 
-another using each service's internal taxonomy. Specify which taxonomic level 
+`atlas_taxonomy()` provides a way to build taxonomic trees from one clade down to 
+another using each GBIF node's internal taxonomy. Specify which taxonomic level 
 your tree will go down to with `galah_filter()` using the `rank` argument.
 
 
@@ -212,37 +214,38 @@ galah_call() |>
 
 ```
 ## # A tibble: 19 × 4
-##    name            rank      parent_taxon_concept_id           taxon_concept_id
-##    <chr>           <chr>     <chr>                             <chr>           
-##  1 Chordata        phylum    <NA>                              https://biodive…
-##  2 Cephalochordata subphylum https://biodiversity.org.au/afd/… https://biodive…
-##  3 Tunicata        subphylum https://biodiversity.org.au/afd/… https://biodive…
-##  4 Appendicularia  class     https://biodiversity.org.au/afd/… https://biodive…
-##  5 Ascidiacea      class     https://biodiversity.org.au/afd/… https://biodive…
-##  6 Thaliacea       class     https://biodiversity.org.au/afd/… https://biodive…
-##  7 Vertebrata      subphylum https://biodiversity.org.au/afd/… https://biodive…
-##  8 Agnatha         informal  https://biodiversity.org.au/afd/… https://biodive…
-##  9 Myxini          informal  https://biodiversity.org.au/afd/… https://biodive…
-## 10 Petromyzontida  informal  https://biodiversity.org.au/afd/… https://biodive…
-## 11 Gnathostomata   informal  https://biodiversity.org.au/afd/… https://biodive…
-## 12 Amphibia        class     https://biodiversity.org.au/afd/… https://biodive…
-## 13 Aves            class     https://biodiversity.org.au/afd/… https://biodive…
-## 14 Mammalia        class     https://biodiversity.org.au/afd/… https://biodive…
-## 15 Pisces          informal  https://biodiversity.org.au/afd/… https://biodive…
-## 16 Actinopterygii  class     https://biodiversity.org.au/afd/… https://biodive…
-## 17 Chondrichthyes  class     https://biodiversity.org.au/afd/… https://biodive…
-## 18 Sarcopterygii   class     https://biodiversity.org.au/afd/… https://biodive…
-## 19 Reptilia        class     https://biodiversity.org.au/afd/… https://biodive…
+##    name            rank      parent_taxon_concept_id                                                   taxon_concept_id                                                     
+##    <chr>           <chr>     <chr>                                                                     <chr>                                                                
+##  1 Chordata        phylum    <NA>                                                                      https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c7…
+##  2 Cephalochordata subphylum https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd https://biodiversity.org.au/afd/taxa/298d7998-81d6-49e9-858c-56f8837…
+##  3 Tunicata        subphylum https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d53…
+##  4 Appendicularia  class     https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d533cc51 https://biodiversity.org.au/afd/taxa/adf459be-49b5-42e8-88dd-82de53b…
+##  5 Ascidiacea      class     https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d533cc51 https://biodiversity.org.au/afd/taxa/98b20d78-39fe-4d9e-9895-f4d4e68…
+##  6 Thaliacea       class     https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d533cc51 https://biodiversity.org.au/afd/taxa/fc1224c8-a856-430b-a3f7-8c936eb…
+##  7 Vertebrata      subphylum https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd https://biodiversity.org.au/afd/taxa/5d6076b1-b7c7-487f-9d61-0fea011…
+##  8 Agnatha         informal  https://biodiversity.org.au/afd/taxa/5d6076b1-b7c7-487f-9d61-0fea0111cc7e https://biodiversity.org.au/afd/taxa/66db22c8-891d-4b16-a1a2-b66feae…
+##  9 Myxini          informal  https://biodiversity.org.au/afd/taxa/66db22c8-891d-4b16-a1a2-b66feaeaa3e0 https://biodiversity.org.au/afd/taxa/6bf4d623-abde-4df0-8e6e-54da896…
+## 10 Petromyzontida  informal  https://biodiversity.org.au/afd/taxa/66db22c8-891d-4b16-a1a2-b66feaeaa3e0 https://biodiversity.org.au/afd/taxa/8982a097-19d8-4225-9ad3-8fff9e9…
+## 11 Gnathostomata   informal  https://biodiversity.org.au/afd/taxa/5d6076b1-b7c7-487f-9d61-0fea0111cc7e https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f89…
+## 12 Amphibia        class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/taxa/257dcc26-6efb-4e13-9a7b-5fc4de6…
+## 13 Aves            class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/taxa/65625205-db74-4a87-b566-ca387b1…
+## 14 Mammalia        class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/taxa/e9e7db31-04df-41fb-bd8d-e0b0f3c…
+## 15 Reptilia        class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd4…
+## 16 Pisces          informal  https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bd…
+## 17 Actinopterygii  class     https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bdaa051 https://biodiversity.org.au/afd/taxa/83e82cc3-be4e-40e8-9e7a-985737c…
+## 18 Chondrichthyes  class     https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bdaa051 https://biodiversity.org.au/afd/taxa/6f1093ab-9b44-4a55-9066-7daa2f9…
+## 19 Sarcopterygii   class     https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bdaa051 https://biodiversity.org.au/afd/taxa/d8d85e26-e55f-4e44-ac44-6108e25…
 ```
 
-# Configuring `galah`
+# Configuring galah
 Various aspects of the galah package can be customized. 
 
 ## Email
-To download occurrence records, you will need to provide an email address
-registered with the service that you want to use (e.g. for the ALA you can 
-create an account 
+To download occurrence records, species lists or media, you will need to 
+provide an email address registered with the service that you want to use 
+(e.g. for the ALA you can create an account 
 [here](https://auth.ala.org.au/userdetails/registration/createAccount)).
+
 Once an email is registered, it should be stored in the config:
 
 ```r
@@ -250,7 +253,7 @@ galah_config(email = "myemail@gmail.com")
 ```
 
 ## Setting your directory
-By default, `galah` stores downloads in a temporary folder, meaning that the 
+By default, galah stores downloads in a temporary folder, meaning that the 
 local files are automatically deleted when the R session is ended. This 
 behaviour can be altered so that downloaded files are preserved by setting the 
 directory to a non-temporary location.
@@ -262,9 +265,9 @@ galah_config(directory = "example/dir")
 
 ## Setting the download reason
 ALA requires that you provide a reason when downloading occurrence data 
-(via the galah `atlas_occurrences()` function). The reason is set as 
+(via the galah `atlas_occurrences()` function). `reason` is set as 
 "scientific research" by default, but you can change this using `galah_config()`. 
-See `show_all_reasons()` for valid download reasons.
+See `show_all(reasons)` for valid download reasons.
 
 
 ```r
@@ -273,8 +276,7 @@ galah_config(download_reason_id = your_reason_id)
 
 ## Debugging
 If things aren't working as expected, more detail (particularly about web 
-requests and caching behaviour) can be obtained by setting the `verbose` 
-configuration option:
+requests and caching behaviour) can be obtained by setting `verbose = TRUE`.
 
 
 ```r

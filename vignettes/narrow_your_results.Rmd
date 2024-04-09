@@ -1,7 +1,7 @@
 ---
 title: "Narrow your results"
 author: "Martin Westgate & Dax Kellie"
-date: '2024-04-02'
+date: '2024-04-09'
 output: html_document
 editor_options: 
   chunk_output_type: inline
@@ -16,38 +16,36 @@ vignette: >
 Each occurrence record contains taxonomic information and 
 information about the observation itself, like its location and the date
 of observation. These pieces of information are recorded and categorised into 
-respective **fields**. When you import data using `galah`, columns of the 
+respective **fields**. When you import data using galah, columns of the 
 resulting `tibble` correspond to these fields.
 
-Data fields are important because they provide a means to manipulate queries
+Data fields are important because they provide a means to narrow and refine queries
 to return only the information that you need, and no more. Consequently, much of 
-the architecture of `galah` has been designed to make narrowing as simple as 
+the architecture of galah has been designed to make narrowing as simple as 
 possible. These functions include:
 
--   `galah_identify` or `identify`
--   `galah_filter` or `filter`
--   `galah_select` or `select`
--   `galah_group_by` or `group_by`
--   `galah_geolocate` or `st_crop`
+-   `galah_identify()` or `identify()`
+-   `galah_filter()` or `filter()`
+-   `galah_select()` or `select()`
+-   `galah_group_by()` or `group_by()`
+-   `galah_geolocate()` or `st_crop()`
 
-These names have been chosen to echo comparable functions from `dplyr`; namely
-`filter`, `select` and `group_by`. With the exception of `galah_geolocate`, they
-also use `dplyr` tidy evaluation and syntax. This means that you can alternate
-between `dplyr` and `galah` versions of these functions as you see fit. Below we 
+These names have been chosen to echo comparable functions from `{dplyr}`; namely
+`filter()`, `select()` and `group_by()`. With the exception of `galah_geolocate()`, 
+they also use `{dplyr}` tidy evaluation and syntax. This means that you can alternate
+between dplyr and galah versions of these functions as you see fit. Below we 
 use the `galah_` prefix for consistency with earlier versions of this vignette.
 
 
 # `galah_identify` & `search_taxa`
 Perhaps unsurprisingly, `search_taxa()` searches for taxonomic information. 
-It uses fuzzy matching to work a lot like the search bar on the 
+`search_taxa()` uses fuzzy-matching to work a lot like the search bar on the 
 [Atlas of Living Australia website](https://bie-ws.ala.org.au/), 
-and you can use it to search for taxa by their scientific name. Finding your 
-desired taxon with `search_taxa` is an important step to using this taxonomic 
-information to download  data with `galah`.  
-  
-For example, to search for reptiles, we first need to identify whether we have 
-the correct query:
+and you can use it to search for taxa by their scientific name. 
 
+Finding your desired taxon with `search_taxa()` is an important step to using this taxonomic 
+information to download data. For example, to search for reptiles, we first need 
+to identify whether we have the correct query:
 
 
 ```r
@@ -56,15 +54,14 @@ search_taxa("Reptilia")
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id  rank  match_type kingdom phylum
-##   <chr>       <chr>           <chr>             <chr> <chr>      <chr>   <chr> 
-## 1 Reptilia    REPTILIA        https://biodiver… class exactMatch Animal… Chord…
-## # ℹ 2 more variables: class <chr>, issues <chr>
+##   search_term scientific_name taxon_concept_id                                                          rank  match_type kingdom  phylum   class    issues 
+##   <chr>       <chr>           <chr>                                                                     <chr> <chr>      <chr>    <chr>    <chr>    <chr>  
+## 1 Reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd40c399 class exactMatch Animalia Chordata Reptilia noIssue
 ```
 
-If we want to be more specific by providing additional taxonomic information
-to `search_taxa`, you can provide a `tibble` (or `data.frame`) containing more 
-levels of the taxonomic hierarchy:
+If we want to be more specific, we can provide a `tibble` (or `data.frame`) 
+providing additional taxonomic information.
+
 
 ```r
 search_taxa(tibble(genus = "Eolophus", kingdom = "Aves"))
@@ -72,16 +69,13 @@ search_taxa(tibble(genus = "Eolophus", kingdom = "Aves"))
 
 ```
 ## # A tibble: 1 × 13
-##   search_term   scientific_name scientific_name_author…¹ taxon_concept_id rank 
-##   <chr>         <chr>           <chr>                    <chr>            <chr>
-## 1 Eolophus_Aves Eolophus        Bonaparte, 1854          https://biodive… genus
-## # ℹ abbreviated name: ¹​scientific_name_authorship
-## # ℹ 8 more variables: match_type <chr>, kingdom <chr>, phylum <chr>,
-## #   class <chr>, order <chr>, family <chr>, genus <chr>, issues <chr>
+##   search_term   scientific_name scientific_name_authorship taxon_concept_id                                  rank  match_type kingdom phylum class order family genus issues
+##   <chr>         <chr>           <chr>                      <chr>                                             <chr> <chr>      <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr> 
+## 1 Eolophus_Aves Eolophus        Bonaparte, 1854            https://biodiversity.org.au/afd/taxa/009169a9-a9… genus exactMatch Animal… Chord… Aves  Psit… Cacat… Eolo… noIss…
 ```
 
 Once we know that our search matches the correct taxon or taxa, we 
-can use `galah_identify` to narrow the results of our queries:
+can use `galah_identify()` to narrow the results of our query.
 
 ```r
 galah_call() |>
@@ -93,7 +87,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 1730767
+## 1 1732625
 ```
 
 
@@ -109,10 +103,10 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 1094642
+## 1 1094712
 ```
 
-If you're using an international atlas, `search_taxa` will automatically 
+If you're using an international atlas, `search_taxa()` will automatically 
 switch to using the local name-matching service. For example, Portugal uses the
 GBIF taxonomic backbone, but integrates seamlessly with our standard workflow.
 
@@ -144,7 +138,7 @@ galah_call() |>
 ```
 
 Conversely, the UK's [National Biodiversity Network](https://nbn.org.uk) (NBN), 
-has its' own taxonomic backbone, but is supported using the same function call.
+has its own taxonomic backbone, but is supported using the same function call.
 
 
 ```r
@@ -172,8 +166,8 @@ galah_call() |>
 ```
 
 # galah_filter
-Perhaps the most important function in `galah` is `galah_filter`, which is used
-to filter the rows of queries:
+Perhaps the most important function in galah is `galah_filter()`, which is used
+to filter the rows of queries.
 
 
 ```r
@@ -195,7 +189,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 91975852
+## 1 92053621
 ```
 
 ```r
@@ -211,16 +205,16 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 6548343
+## 1 6589403
 ```
 
 To find available fields and corresponding valid values, use the field lookup 
 functions `show_all(fields)`, `search_all(fields)` & `show_values()`.  
 
-Finally, a special case of `galah_filter` is to make more complex taxonomic
-queries than are possible using `search_taxa`. By using the `taxonConceptID` 
+`galah_filter()` can also be used to make more complex taxonomic
+queries than are possible using `search_taxa()`. By using the `taxonConceptID` 
 field, it is possible to build queries that exclude certain taxa, for example.
-This can be useful for paraphyletic concepts such as invertebrates:
+This can be useful to filter for paraphyletic concepts such as invertebrates.
 
 
 ```r
@@ -237,22 +231,23 @@ galah_call() |>
 ## # A tibble: 70 × 2
 ##    class          count
 ##    <chr>          <int>
-##  1 Insecta      6207849
-##  2 Gastropoda    967461
-##  3 Arachnida     764556
-##  4 Maxillopoda   700528
-##  5 Malacostraca  655514
-##  6 Polychaeta    275969
-##  7 Bivalvia      230606
-##  8 Anthozoa      220130
-##  9 Cephalopoda   147001
-## 10 Demospongiae  117636
+##  1 Insecta      6228043
+##  2 Gastropoda    970153
+##  3 Arachnida     812946
+##  4 Maxillopoda   700845
+##  5 Malacostraca  657558
+##  6 Polychaeta    276240
+##  7 Bivalvia      231228
+##  8 Anthozoa      221108
+##  9 Cephalopoda   148054
+## 10 Demospongiae  117913
 ## # ℹ 60 more rows
 ```
 
 # galah_apply_profile
-When working with the ALA, a notable feature is the ability to specify a `profile` to 
-remove records that are suspect in some way.
+When working with the ALA, a notable feature is the ability to specify a data 
+`profile`---a set of data quality filters---to remove records that are suspect 
+in some way.
 
 
 ```r
@@ -266,13 +261,13 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 81930668
+## 1 82002698
 ```
 
 To see a full list of data quality profiles, use `show_all(profiles)`.
 
 # galah_group_by
-Use `galah_group_by` to group record counts and summarise counts by specified fields:
+Use `galah_group_by()` to group and summarise record counts by specified fields.
 
 
 ```r
@@ -287,27 +282,27 @@ galah_call() |>
 ## # A tibble: 36 × 3
 ##    year  basisOfRecord         count
 ##    <chr> <chr>                 <int>
-##  1 2020  HUMAN_OBSERVATION   6583043
+##  1 2020  HUMAN_OBSERVATION   6583810
 ##  2 2020  OCCURRENCE           419843
-##  3 2020  PRESERVED_SPECIMEN    85751
+##  3 2020  PRESERVED_SPECIMEN    86211
 ##  4 2020  MACHINE_OBSERVATION   39643
 ##  5 2020  OBSERVATION           24801
 ##  6 2020  MATERIAL_SAMPLE        2034
 ##  7 2020  LIVING_SPECIMEN          62
-##  8 2019  HUMAN_OBSERVATION   5753578
+##  8 2019  HUMAN_OBSERVATION   5753392
 ##  9 2019  OCCURRENCE           290610
-## 10 2019  PRESERVED_SPECIMEN   167208
+## 10 2019  PRESERVED_SPECIMEN   167373
 ## # ℹ 26 more rows
 ```
 
 # galah_select
-Use `galah_select` to choose which columns are returned when downloading records:
+Use `galah_select()` to select which columns are returned when downloading records.
 
 
 
 
 ```r
-# Get *Reptilia* records from 1930, but only 'eventDate' and 'kingdom' columns
+Return columns 'kingdom', 'eventDate' & `species` only
 occurrences <- galah_call() |>
   galah_identify("reptilia") |>
   galah_filter(year == 1930) |>
@@ -318,19 +313,13 @@ occurrences |> head()
 ```
 
 ```
-## # A tibble: 6 × 3
-##   kingdom  species              eventDate          
-##   <chr>    <chr>                <dttm>             
-## 1 Animalia Gehyra variegata     1930-11-30 00:00:00
-## 2 Animalia Antaresia maculosa   1930-01-01 00:00:00
-## 3 Animalia Eulamprus heatwolei  1930-12-11 00:00:00
-## 4 Animalia Ctenophorus nuchalis 1930-11-30 00:00:00
-## 5 Animalia <NA>                 1930-04-23 00:00:00
-## 6 Animalia Simalia kinghorni    1930-01-01 00:00:00
+## Error: <text>:1:8: unexpected symbol
+## 1: Return columns
+##            ^
 ```
 
-You can also use other `dplyr` functions that work with `dplyr::select()` with 
-`galah_select()`
+You can also use other `{dplyr}` functions that work with `dplyr::select()` with 
+`galah_select()`.
 
 
 ```r
@@ -345,24 +334,22 @@ occurrences |> head()
 
 ```
 ## # A tibble: 6 × 6
-##   acceptedNameUsage acceptedNameUsageID basisOfRecord      raw_basisOfRecord
-##   <chr>             <lgl>               <chr>              <chr>            
-## 1 <NA>              NA                  HUMAN_OBSERVATION  HumanObservation 
-## 2 <NA>              NA                  PRESERVED_SPECIMEN PreservedSpecimen
-## 3 <NA>              NA                  PRESERVED_SPECIMEN Museum specimen  
-## 4 <NA>              NA                  HUMAN_OBSERVATION  HumanObservation 
-## 5 <NA>              NA                  PRESERVED_SPECIMEN PreservedSpecimen
-## 6 <NA>              NA                  PRESERVED_SPECIMEN PreservedSpecimen
-## # ℹ 2 more variables: OCCURRENCE_STATUS_INFERRED_FROM_BASIS_OF_RECORD <lgl>,
-## #   userDuplicateRecord <lgl>
+##   acceptedNameUsage acceptedNameUsageID basisOfRecord      raw_basisOfRecord OCCURRENCE_STATUS_INFERRED_FROM_BASIS_OF_RECORD userDuplicateRecord
+##   <chr>             <lgl>               <chr>              <chr>             <lgl>                                           <lgl>              
+## 1 <NA>              NA                  PRESERVED_SPECIMEN Museum specimen   FALSE                                           FALSE              
+## 2 <NA>              NA                  PRESERVED_SPECIMEN PreservedSpecimen FALSE                                           FALSE              
+## 3 <NA>              NA                  PRESERVED_SPECIMEN Museum specimen   FALSE                                           FALSE              
+## 4 <NA>              NA                  HUMAN_OBSERVATION  HumanObservation  FALSE                                           FALSE              
+## 5 <NA>              NA                  PRESERVED_SPECIMEN PreservedSpecimen FALSE                                           FALSE              
+## 6 <NA>              NA                  PRESERVED_SPECIMEN PreservedSpecimen FALSE                                           FALSE
 ```
 
 # galah_geolocate
-Use `galah_geolocate` to specify a geographic area or region to limit your search:
+Use `galah_geolocate()` to specify a geographic area or region to limit your search.
 
 
 ```r
-# Get list of perameles species only in area specified:
+# Get list of perameles species in area specified:
 # (Note: This can also be specified by a shapefile)
 wkt <- "POLYGON((131.36328125 -22.506468769126,135.23046875 -23.396716654542,134.17578125 -27.287832521411,127.40820312499 -26.661206402316,128.111328125 -21.037340349154,131.36328125 -22.506468769126))"
 
@@ -374,10 +361,11 @@ galah_call() |>
 
 ```
 ## # A tibble: 1 × 11
-##   taxon_concept_id       species_name scientific_name_auth…¹ taxon_rank kingdom
-##   <chr>                  <chr>        <chr>                  <chr>      <chr>  
-## 1 https://biodiversity.… Perameles e… Spencer, 1897          species    Animal…
+##   taxon_concept_id                                                    species_name scientific_name_auth…¹ taxon_rank kingdom phylum class order family genus vernacular_name
+##   <chr>                                                               <chr>        <chr>                  <chr>      <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr>          
+## 1 https://biodiversity.org.au/afd/taxa/f234f91f-8e00-405d-a89b-eb8fb… Perameles e… Spencer, 1897          species    Animal… Chord… Mamm… Pera… Peram… Pera… Desert Bandico…
 ## # ℹ abbreviated name: ¹​scientific_name_authorship
-## # ℹ 6 more variables: phylum <chr>, class <chr>, order <chr>, family <chr>,
-## #   genus <chr>, vernacular_name <chr>
 ```
+
+`galah_geolocate()` also accepts shapefiles. More complex shapefiles may need to 
+be simplified first (e.g., using [`rmapshaper::ms_simplify()`](https://andyteucher.ca/rmapshaper/reference/ms_simplify.html))
