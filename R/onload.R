@@ -17,9 +17,9 @@
             silent = TRUE)) ## get the galah version, if we can
       bullets <- c(
         cli::cli_text("galah: version {galah_version}"),
-        # i = "By default, {galah} queries the Atlas of Living Australia (ALA).",
-        i = cli::cli_text("{cli::col_magenta('See a list of supported GBIF nodes using `show_all(atlases)`.')}"),
-        i = cli::cli_text("{cli::col_magenta('Default node set to ALA (ala.org.au). To change nodes, use e.g. `galah_config(atlas = \"GBIF\")`.')}")
+        i = cli::cli_text("{cli::col_magenta('Default node set to ALA (ala.org.au).')}"),
+        i = cli::cli_text("{cli::col_magenta('See all supported GBIF nodes with `show_all(atlases)`.')}"),
+        i = cli::cli_text("{cli::col_magenta('To change nodes, use e.g. `galah_config(atlas = \"GBIF\")`.')}")
       )
       inform(bullets)
     }
