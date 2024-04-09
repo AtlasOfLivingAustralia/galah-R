@@ -168,13 +168,7 @@ media_data <- galah_call() |>
     year == 2020,
     cl22 == "Australian Capital Territory") |>
   atlas_media()
-```
-
-```
-## Retrying in 1 seconds.
-```
-
-```r
+  
 media_data |> head()
 ```
 
