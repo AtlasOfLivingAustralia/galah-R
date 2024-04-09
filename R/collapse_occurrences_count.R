@@ -77,20 +77,23 @@ collapse_occurrences_count_atlas <- function(identify = NULL,
 #' @keywords Internal
 #' @noRd
 collapse_occurrences_count_gbif <- function(identify = NULL, 
-                                            filter = NULL, 
+                                            filter = NULL,
+                                            geolocate = NULL,
                                             group_by = NULL,
                                             slice = NULL
                                             ){
   # get relevant information
   if(is.null(group_by)){
-    result <- list(type = "data/occurrences-count")
     url <- url_lookup("data/occurrences-count") |> 
       url_parse()
-    url$query <- c(build_query_gbif(identify, filter),
-                   limit = 0)
-    result$url <- url_build(url)
-    result$slot_name <- "count"
-    result$expand <- FALSE
+    url$query <- c(
+      build_query_gbif(identify, filter, geolocate),
+      limit = 0)
+    result <- list(
+      type = "data/occurrences-count",
+      url = url_build(url),
+      slot_name = "count",
+      expand = FALSE)
   # add facets
   }else{
     result <- list(type = "data/occurrences-count-groupby")
@@ -101,7 +104,7 @@ collapse_occurrences_count_gbif <- function(identify = NULL,
     if(is.null(slice)){
       slice <- tibble(slice_n = 30, slice_called = FALSE)
     }
-    url$query <- c(build_query_gbif(identify, filter),
+    url$query <- c(build_query_gbif(identify, filter, geolocate),
                    limit = 0,
                    facets,
                    facetLimit = slice$slice_n)

@@ -79,11 +79,13 @@ build_query <- function(identify = NULL,
 }
 
 #' Build query list from constituent arguments for GBIF only
+#' @importFrom glue glue_data
+#' @importFrom potions pour
 #' @noRd
 #' @keywords Internal
-#' @importFrom potions pour
 build_query_gbif <- function(identify = NULL, 
-                             filter = NULL){
+                             filter = NULL,
+                             location = NULL){
   if(is.null(identify)) {
     taxa_query <- list(taxonKey = 1)
   }else{
@@ -102,8 +104,22 @@ build_query_gbif <- function(identify = NULL,
       filter_query <- build_filter_query(filter)
     }
   }
-  # return merged output
-  c(taxa_query, filter_query)
+  # merge
+  query <- c(taxa_query, filter_query)
+  # geographic stuff
+  if (!is.null(location)) {
+    # if location is for a point radius vs polygon/bbox
+    if(!is.null(names(location))){
+      if(all(!is.null(location$radius))) { # `galah_radius()` will always pass radius argument
+        query$geoDistance <- glue_data(location,
+                                       "{lat},{lon},{radius}km")
+      }else
+        query$geometry <- location
+    } else {
+      query$geometry <- location
+    }
+  }
+  query
 }
 
 #' collapse multiple fq args into one

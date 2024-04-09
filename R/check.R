@@ -150,8 +150,7 @@ check_fields <- function(.query) {
     if(any(!is.na(check_result))) {
       returned_invalid <- tibble(
         function_name = c("`galah_filter()`", "`galah_group_by()`"),
-        fields = check_result
-      ) |>
+        fields = check_result) |>
         drop_na()
       
       glue_template <- "{returned_invalid$function_name}: {returned_invalid$fields}"
@@ -216,9 +215,10 @@ check_fields_gbif_counts <- function(.query){
   url <- url_parse(.query$url[1])
 
   # get fields from url
+  skip_fields <- c("limit", "facet", "facetLimit",
+                   "taxonKey", "geometry", "geoDistance") # GBIF-specific fields
   query_names <- names(url$query)
-  fields <- query_names[!(query_names %in% 
-                          c("limit", "facet", "facetLimit", "taxonKey"))] # note: taxonKey here as specified internally
+  fields <- query_names[!(query_names %in% skip_fields)]
   # check invalid fields
   filter_invalid <- NA
   if (length(fields) > 0) {
@@ -238,7 +238,7 @@ check_fields_gbif_counts <- function(.query){
     }
   }
   
-  c(filter_invalid, NA, group_by_invalid)
+  c(filter_invalid, group_by_invalid)
 }
 
 #' sub-function to `check_fields()` for living atlases
@@ -265,7 +265,7 @@ check_fields_gbif_predicates <- function(.query){
       filter_invalid <- glue_collapse(invalid_fields, sep = ", ")
     }
   }
-  c(filter_invalid, NA, NA)
+  c(filter_invalid, NA)
 }
 
 #' sub-function to `check_fields()` for living atlases

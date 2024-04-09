@@ -9,7 +9,11 @@ collect_taxa <- function(.query){
   if(grepl("namematching", .query$url$url[1])){
     collect_taxa_namematching(.query) # Australia, Sweden
   }else{
-    collect_taxa_la(.query)  # tested for Austria, UK
+    if(is_gbif()){
+      collect_taxa_gbif(.query)
+    }else{
+      collect_taxa_la(.query)  # tested for Austria, UK 
+    }
   }
 }
 
@@ -22,11 +26,11 @@ collect_taxa_namematching <- function(.query){
                    build_tibble_from_nested_list) |> 
     bind_rows()
   # break chain for use case where all search terms are dubious (i.e. no taxonConceptID)
-  if(any(colnames(result) == "taxonConceptID")){
+  # if(any(colnames(result) == "taxonConceptID")){
     # NOTE: This code was meant to remove duplicates, but also removes all rows with NAs (which we don't want)
     #       Might be worth returning to if this functionality is needed
     # result <- filter(result, !duplicated(taxonConceptID))
-  }
+  # }
   
   result <- result |>   
     mutate("search_term" = search_terms, .before = "success",
@@ -47,6 +51,7 @@ collect_taxa_namematching <- function(.query){
 }
 
 #' Internal function to `collect()` taxa for other living atlases
+#' @importFrom dplyr any_of
 #' @importFrom dplyr bind_rows
 #' @importFrom dplyr filter
 #' @importFrom dplyr mutate
@@ -55,24 +60,34 @@ collect_taxa_namematching <- function(.query){
 #' @keywords Internal
 collect_taxa_la <- function(.query){
   search_terms <- .query$url$search_term
-  if(is_gbif()){
-    result <- query_API(.query) |>
-      bind_rows() |>
-      mutate("search_term" = search_terms, .before = "scientificName")
-  }else{
-    result <- query_API(.query) |>
-      clean_la_taxa(search_terms = search_terms) |>
-      bind_rows()
-    if(ncol(result) > 1){
-      name <- switch(pour("atlas", "region"),
-                     "France" = "referenceID",
-                     "Portugal" = "usageKey",
-                     "guid")
-      result <- result |>
-        filter(!duplicated({{name}})) |>
-        mutate("search_term" = search_terms, .before = 1)
-    }
+  result <- query_API(.query) |>
+    clean_la_taxa(search_terms = search_terms) |>
+    bind_rows()
+  if(ncol(result) > 1){
+    name <- switch(pour("atlas", "region"),
+                   "France" = "referenceID",
+                   "Portugal" = "usageKey",
+                   "guid")
+    result <- result |>
+      filter(!duplicated({{name}})) |>
+      mutate("search_term" = search_terms)
   }
+  names(result) <- rename_columns(names(result), type = "taxa") # old code
+  result |> select(any_of(wanted_columns("taxa")))
+}
+
+#' Internal function to `collect()` taxa for GBIF
+#' @importFrom dplyr any_of
+#' @importFrom dplyr bind_rows
+#' @importFrom dplyr mutate
+#' @importFrom dplyr select
+#' @noRd
+#' @keywords Internal
+collect_taxa_gbif <- function(.query){
+  search_terms <- .query$url$search_term
+  result <- query_API(.query) |>
+    bind_rows() |>
+    mutate("search_term" = search_terms, .before = 1)
   names(result) <- rename_columns(names(result), type = "taxa") # old code
   result |> select(any_of(wanted_columns("taxa")))
 }
