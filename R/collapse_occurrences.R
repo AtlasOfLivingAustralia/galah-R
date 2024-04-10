@@ -64,7 +64,7 @@ collapse_occurrences_gbif <- function(.query, format = "SIMPLE_CSV"){
     type = "data/occurrences",
     url = url_lookup("data/occurrences"),
     headers =  list(
-      `User-Agent` = galah_version_string(), # or "r-curl/4.3.3 crul/1.3 galah/1.5.1"
+      `User-Agent` = galah_version_string(), 
       `X-USER-AGENT` = galah_version_string(),
       `Content-Type` = "application/json",
       Accept = "application/json"),
@@ -72,9 +72,11 @@ collapse_occurrences_gbif <- function(.query, format = "SIMPLE_CSV"){
       httpauth = 1,
       userpwd = paste0(
         pour("user", "username", .pkg = "galah"),
-        ":", 
+        ":",
         pour("user", "password", .pkg = "galah"))),
-    body = build_predicates(.query$filter, format = format))
+    body = build_predicates(.query$filter, 
+                            .query$geolocate,
+                            format = format))
   class(result) <- "query"
   return(result)
 }

@@ -1,4 +1,5 @@
 #' @rdname galah_geolocate
+#' @order 3
 #' @export
 galah_polygon <- function(...){
   # check to see if any of the inputs are a data request
@@ -22,6 +23,7 @@ galah_polygon <- function(...){
 }
 
 #' @rdname galah_geolocate
+#' @order 5
 #' @param x An object of class `data_request`, created using [galah_call()]
 #' @param y A valid Well-Known Text string (wkt), a `POLYGON` or a `MULTIPOLYGON`
 #' @export

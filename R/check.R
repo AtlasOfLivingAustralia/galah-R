@@ -543,15 +543,16 @@ check_n_inputs <- function(dots, error_call = caller_env()) {
 
 #' Internal function to ensure correct data extracted from API for LA/GBIF
 #' It makes all calls consistent so we only need one queue checking function
+#' @importFrom stringr str_trim
 #' @noRd
 #' @keywords Internal
 check_occurrence_response <- function(.query){
-  
   names(.query) <- camel_to_snake_case(names(.query))
   
   if (!is.null(.query$status_code)) {
     
-    error_type <- sub("\\:.*", "", .query$message) |> stringr::str_trim()
+    error_type <- sub("\\:.*", "", .query$message) |> 
+      str_trim()
     
     bullets <- c(
       "There was a problem with your query.",

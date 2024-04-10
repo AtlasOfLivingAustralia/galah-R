@@ -269,6 +269,36 @@ test_that("`count()` works with `galah_radius()` for GBIF", {
   expect_lt(result$count, result_space$count)
 })
 
+test_that("`atlas_occurrences()` works with `galah_polygon()` for GBIF", {
+  wkt <- "POLYGON((142.36 -29.01,142.36 -29.39,142.74 -29.39,142.74 -29.01,142.36 -29.01))"
+  base_query <- galah_call() |>
+    identify("Mammalia") |>
+    galah_polygon(wkt) 
+  count <- base_query |>
+    count() |>
+    collect()
+  result <- base_query |> collect()
+  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  expect_gt(ncol(result), 30)
+  expect_equal(nrow(result), count$count)
+})
+
+test_that("`atlas_occurences()` works with `galah_radius()` for GBIF", {
+  base_query <- galah_call() |>
+    identify("Mammalia") |>
+    galah_radius(lat = -33.7,
+                 lon = 151.3,
+                 radius = 0.5)
+  count <- base_query |>
+    count() |>
+    collect()
+  result <- base_query |>
+    collect()
+  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  expect_gt(ncol(result), 30)
+  expect_equal(nrow(result), count$count)
+})
+
 test_that("`galah_select()` returns message for GBIF", {
   expect_message({x <- galah_select(galah_call())})
   expect_true(is.null(x$select))

@@ -1,4 +1,5 @@
 #' @rdname galah_geolocate
+#' @order 4
 #' @export
 galah_radius <- function(...){
   

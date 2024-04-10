@@ -47,6 +47,7 @@
 #' If `type = "radius"`,
 #' `list` of `lat`, `long` and `radius` values.
 #' @name galah_geolocate
+#' @order 1
 #' @examples \dontrun{
 #' # Search for records within a polygon using a shapefile
 #' location <- sf::st_read("path/to/shapefile.shp")
@@ -139,4 +140,3 @@ galah_geolocate <- function(..., type = c("polygon", "bbox", "radius")) {
   )
 
 }
-
