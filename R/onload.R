@@ -4,7 +4,6 @@
 #' @importFrom cli cli_text
 #' @importFrom cli col_magenta
 #' @importFrom potions brew
-#' @importFrom rlang inform
 .onLoad <- function(libname, pkgname) {
     if (pkgname == "galah") {
       brew(.pkg = "galah")
@@ -22,10 +21,6 @@
         i = cli::cli_text("{cli::col_magenta('See all supported GBIF nodes with `show_all(atlases)`.')}"),
         i = cli::cli_text("{cli::col_magenta('To change nodes, use e.g. `galah_config(atlas = \"GBIF\")`.')}")
       )
-      inform(bullets,
-             class = c("packageStartupMessage",  # see ?packageStartupMessage (required by `check()`)
-                       "simpleMessage", 
-                       "message", 
-                       "condition"))
+      packageStartupMessage(bullets)
     }
 }
