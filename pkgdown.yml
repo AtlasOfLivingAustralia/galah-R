@@ -1,5 +1,5 @@
-pandoc: 2.19.2
-pkgdown: 2.0.7
+pandoc: 3.1.11
+pkgdown: 2.0.8
 pkgdown_sha: ~
 articles:
   choosing_an_atlas: choosing_an_atlas.html
@@ -7,12 +7,11 @@ articles:
   look_up_information: look_up_information.html
   narrow_your_results: narrow_your_results.html
   object_oriented_programming: object_oriented_programming.html
-  piping: piping.html
   quick_start_guide: quick_start_guide.html
   spatial_filtering: spatial_filtering.html
   taxonomic_filtering: taxonomic_filtering.html
   temporal_filtering: temporal_filtering.html
-last_built: 2024-02-05T23:40Z
+last_built: 2024-04-12T05:35Z
 urls:
   reference: https://galah.ala.org.au/R/reference
   article: https://galah.ala.org.au/R/articles

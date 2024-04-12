@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="galah">
-<title>Object-Oriented Programming in galah • galah</title>
+<title>Object-Oriented Programming • galah</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -15,11 +15,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.8/font.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.9/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="Object-Oriented Programming in galah">
+<meta property="og:title" content="Object-Oriented Programming">
 <meta property="og:description" content="galah">
 <meta property="og:image" content="https://galah.ala.org.au/R/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -31,11 +31,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,11 +93,11 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Object-Oriented Programming in galah</h1>
-                        <h4 data-toc-skip class="author">Martin
-Westgate, Dax Kellie</h4>
+      <img src="../logo.png" class="logo" alt=""><h1>Object-Oriented Programming</h1>
+                        <h4 data-toc-skip class="author">Martin Westgate
+&amp; Dax Kellie</h4>
             
-            <h4 data-toc-skip class="date">2024-02-02</h4>
+            <h4 data-toc-skip class="date">2024-04-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/vignettes/object_oriented_programming.Rmd" class="external-link"><code>vignettes/object_oriented_programming.Rmd</code></a></small>
       <div class="d-none name"><code>object_oriented_programming.Rmd</code></div>
@@ -105,22 +105,16 @@ Westgate, Dax Kellie</h4>
 
     
     
-<p>From version 2.0 onwards, galah is built around object-oriented
-programming principles. In practice, this won’t change the experience
-for most users. However, it does enable new ways of programming that
-were not previously available.</p>
-<div class="section level2">
-<h2 id="masked-functions">Masked functions<a class="anchor" aria-label="anchor" href="#masked-functions"></a>
-</h2>
-<p>The default method for building queries in galah is to first use
-<code><a href="../reference/galah_call.html">galah_call()</a></code> to create a query object called a
-<code>data_request</code>. This object class is specific to galah.</p>
+<p>The default method for building queries in <code>galah</code> is to
+first use <code><a href="../reference/galah_call.html">galah_call()</a></code> to create a query object called a
+“<code>data_request</code>”. This object class is specific to
+<code>galah</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">genus</span> <span class="op">==</span> <span class="st">"Crinia"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">genus</span> <span class="op">==</span> <span class="st">"Crinia"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "data_request"</span></span></code></pre>
-<p>When an object is of class <code>data_request</code>, galah can
+<p>When a piped object is of class <code>data_request</code>, galah can
 trigger functions to use specific methods for this object class, even if
 a function name is used by another package. For example, users can use
 <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> functions from <a href="https://dplyr.tidyverse.org/index.html" class="external-link">dplyr</a> instead of
@@ -140,14 +134,14 @@ synonymous:</p>
 <pre><code><span><span class="co">## # A tibble: 16 × 2</span></span>
 <span><span class="co">##    species                 count</span></span>
 <span><span class="co">##    &lt;chr&gt;                   &lt;int&gt;</span></span>
-<span><span class="co">##  1 Crinia signifera        58579</span></span>
-<span><span class="co">##  2 Crinia parinsignifera   12782</span></span>
+<span><span class="co">##  1 Crinia signifera        58619</span></span>
+<span><span class="co">##  2 Crinia parinsignifera   12912</span></span>
 <span><span class="co">##  3 Crinia glauerti          3090</span></span>
 <span><span class="co">##  4 Crinia georgiana         1490</span></span>
 <span><span class="co">##  5 Crinia remota             784</span></span>
-<span><span class="co">##  6 Crinia sloanei            644</span></span>
+<span><span class="co">##  6 Crinia sloanei            693</span></span>
 <span><span class="co">##  7 Crinia insignifera        536</span></span>
-<span><span class="co">##  8 Crinia tinnula            417</span></span>
+<span><span class="co">##  8 Crinia tinnula            418</span></span>
 <span><span class="co">##  9 Crinia deserticola        278</span></span>
 <span><span class="co">## 10 Crinia pseudinsignifera   236</span></span>
 <span><span class="co">## 11 Crinia tasmaniensis       189</span></span>
@@ -192,17 +186,15 @@ call is evaluated. To actually build and run the query, we’ll need to
 use one or more of a different set of dplyr verbs:
 <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">compute()</a></code> and
 <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code>.</p>
-</div>
 <div class="section level2">
 <h2 id="advanced-query-building">Advanced query building<a class="anchor" aria-label="anchor" href="#advanced-query-building"></a>
 </h2>
 <p>The usual way to begin a query to request data in galah is using
-<code><a href="../reference/galah_call.html">galah_call()</a></code>. From version 2.0, to make galah more flexible
-and modular, the underlying architecture of <code><a href="../reference/galah_call.html">galah_call()</a></code>
-has been divided into several types of <code>request_</code> functions.
-You can begin your pipe with one of these dedicated
-<code>request_</code> functions (rather than <code><a href="../reference/galah_call.html">galah_call()</a></code>)
-depending on the type of data you want to collect.</p>
+<code><a href="../reference/galah_call.html">galah_call()</a></code>. However, this function now calls one of three
+types of <code>request_</code> functions. If you prefer, you can begin
+your pipe with one of these dedicated <code>request_</code> functions
+(rather than <code><a href="../reference/galah_call.html">galah_call()</a></code>) depending on the type of data
+you want to collect.</p>
 <p>For example, if you want to download occurrences, use
 <code><a href="../reference/galah_call.html">request_data()</a></code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -210,13 +202,13 @@ depending on the type of data you want to collect.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Crinia tinnula"</span>, </span>
 <span>         <span class="va">year</span> <span class="op">==</span> <span class="fl">2010</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>You’ll notice that this query differs slightly from the typical query
-structure users of galah are familiar with. The desired data type,
-<code>"occurrences"</code>, is specified at the beginning of the query
-within <code><a href="../reference/galah_call.html">request_data()</a></code> rather than at the end using
-<code><a href="../reference/atlas_occurrences.html">atlas_occurrences()</a></code>. Specifying the data type at the start
-allows users to make use of advanced query building using three newly
-implemented stages of query building: <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code>,
+<p>You’ll notice that this query differs slightly from the query
+structure used in earlier versions of <code>galah</code>. The desired
+data type, <code>"occurrences"</code>, is specified at the beginning of
+the query within <code><a href="../reference/galah_call.html">request_data()</a></code> rather than at the end
+using <code><a href="../reference/atlas_occurrences.html">atlas_occurrences()</a></code>. Specifying the data type at the
+start allows users to make use of advanced query building using three
+newly implemented stages of query building: <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code>,
 <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">compute()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code>. These stages mirror
 existing <a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">functions in
 dplyr for querying databases</a>, and act in the following way:</p>
@@ -297,7 +289,7 @@ constructed with the following information, returned by
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">1900</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Object of class query with type data/occurrences </span></span>
-<span><span class="co">## url: https://biocache-ws.ala.org.au/ws/occurrences/offline/download?fq=%28l...</span></span></code></pre>
+<span><span class="co">## url: https://biocache-ws.ala.org.au/ws/occurrences/offline/download?fq=%28y...</span></span></code></pre>
 <p>The <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code> stage includes an additional argument
 (<code>.expand</code>) that, when set to <code>TRUE</code>, shows all
 the APIs called to construct the user-requested query. This is
@@ -379,18 +371,17 @@ to download large metadata queries using the process detailed above in
 “Advanced query building” to get around this issue.</p>
 </div>
 <div class="section level2">
-<h2 id="do-i-need-to-use-advanced-query-building">Do I need to use advanced query building?<a class="anchor" aria-label="anchor" href="#do-i-need-to-use-advanced-query-building"></a>
+<h2 id="which-syntax-should-i-prefer">Which syntax should I prefer?<a class="anchor" aria-label="anchor" href="#which-syntax-should-i-prefer"></a>
 </h2>
-<p>Despite these benefits, we have no plans to <em>require</em> this new
-syntax; functions prefixed with <code>galah_</code> or
-<code>atlas_</code> are not going away.</p>
-<p>Indeed, while there is perfect redundancy between old and new syntax
-in some cases, in others they serve different purposes. In
-<code><a href="../reference/atlas_media.html">atlas_media()</a></code> for example, several calls are made and
-joined in a way that reduces the number of steps required by the
-user.</p>
-<p>Under the hood, however, all <code>atlas_</code> functions are now
-entirely built using the above syntax.</p>
+<p>Despite these benefits, we have no plans to <em>require</em> users to
+call masked functions. Functions prefixed with <code>galah_</code> or
+<code>atlas_</code> are not going away. Indeed, while there is perfect
+redundancy between old and new syntax in some cases, in others they
+serve different purposes. In <code><a href="../reference/atlas_media.html">atlas_media()</a></code> for example,
+several calls are made and joined in a way that reduces the number of
+steps required by the user. Under the hood, however, all
+<code>atlas_</code> functions are now entirely built using the above
+syntax.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
@@ -405,7 +396,7 @@ entirely built using the above syntax.</p>
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.8.</p>
 </div>
 
     </footer>

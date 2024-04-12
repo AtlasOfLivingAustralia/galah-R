@@ -15,7 +15,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.8/font.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.9/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
@@ -31,11 +31,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,8 +94,8 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Temporal filtering</h1>
-                        <h4 data-toc-skip class="author">Callum Waite,
-Shandiya Balasubramaniam</h4>
+                        <h4 data-toc-skip class="author">Callum Waite
+&amp; Shandiya Balasubramaniam</h4>
             
             <h4 data-toc-skip class="date">2023-10-13</h4>
       
@@ -143,35 +143,36 @@ the <code>year</code> and <code>month</code> fields.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"your_email_here"</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">class</span> <span class="op">==</span> <span class="st">"Amphibia"</span>, <span class="va">year</span> <span class="op">==</span> <span class="fl">2021</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_group_by.html">galah_group_by</a></span><span class="op">(</span><span class="va">month</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">class</span> <span class="op">==</span> <span class="st">"Amphibia"</span>, <span class="va">year</span> <span class="op">==</span> <span class="fl">2021</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">month</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 12 × 2</span></span>
-<span><span class="co">##    month     count</span></span>
-<span><span class="co">##    &lt;chr&gt;     &lt;int&gt;</span></span>
-<span><span class="co">##  1 October   52816</span></span>
-<span><span class="co">##  2 September 42206</span></span>
-<span><span class="co">##  3 January   32825</span></span>
-<span><span class="co">##  4 August    26252</span></span>
-<span><span class="co">##  5 March     25423</span></span>
-<span><span class="co">##  6 February  23473</span></span>
-<span><span class="co">##  7 November  23389</span></span>
-<span><span class="co">##  8 July      12301</span></span>
-<span><span class="co">##  9 April     10005</span></span>
-<span><span class="co">## 10 June       9217</span></span>
-<span><span class="co">## 11 May        8083</span></span>
-<span><span class="co">## 12 December   3998</span></span></code></pre>
+<span><span class="co">##    month count</span></span>
+<span><span class="co">##    &lt;chr&gt; &lt;int&gt;</span></span>
+<span><span class="co">##  1 10    54478</span></span>
+<span><span class="co">##  2 9     42345</span></span>
+<span><span class="co">##  3 1     33092</span></span>
+<span><span class="co">##  4 8     26525</span></span>
+<span><span class="co">##  5 3     25641</span></span>
+<span><span class="co">##  6 2     23796</span></span>
+<span><span class="co">##  7 11    23535</span></span>
+<span><span class="co">##  8 7     12407</span></span>
+<span><span class="co">##  9 4     10034</span></span>
+<span><span class="co">## 10 6      9258</span></span>
+<span><span class="co">## 11 5      8100</span></span>
+<span><span class="co">## 12 12     4069</span></span></code></pre>
 <p>It is also important to observe that the outputted <code>month</code>
 column is of type <code>character</code> even though the values are
 numeric. This is the case for each of the <code>year</code>,
 <code>month</code> and <code>day</code> fields. However, they can be
 queried as either numeric or character values within
-<code><a href="../reference/galah_filter.html">galah_filter()</a></code>.</p>
+<code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code>.</p>
 <p>One limitation of using these fields for queries with
-<code><a href="../reference/galah_filter.html">galah_filter()</a></code> is their independence; they cannot be used
-to query within windows bounded by two dates because the day and month
-filters are applied universally.</p>
-<p>For instance, consider the native perennial Australian wildflower <a href="https://bie.ala.org.au/species/https://id.biodiversity.org.au/node/apni/2920316" class="external-link"><em>Chamaescilla
+<code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code> is their independence; they cannot be used to
+query within windows bounded by two dates because the day and month
+filters are applied universally. For instance, consider the native
+perennial Australian wildflower <a href="https://bie.ala.org.au/species/https://id.biodiversity.org.au/node/apni/2920316" class="external-link"><em>Chamaescilla
 corymbosa</em></a>, whose known growth and flowering times are from
 August–October. We might be interested in the number of records for this
 species in the first week of spring (i.e. September) in each of the last
@@ -180,10 +181,15 @@ species in the first week of spring (i.e. September) in each of the last
 within all 3 windows at once.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Chamaescilla corymbosa"</span>,</span>
-<span>               <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2013</span>, <span class="va">year</span> <span class="op">&lt;=</span> <span class="fl">2023</span>, <span class="va">month</span> <span class="op">==</span> <span class="fl">9</span>, <span class="va">day</span> <span class="op">&gt;=</span> <span class="fl">1</span>, <span class="va">day</span> <span class="op">&lt;=</span> <span class="fl">7</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_group_by.html">galah_group_by</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Chamaescilla corymbosa"</span>,</span>
+<span>         <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2013</span>, </span>
+<span>         <span class="va">year</span> <span class="op">&lt;=</span> <span class="fl">2023</span>, </span>
+<span>         <span class="va">month</span> <span class="op">==</span> <span class="fl">9</span>, </span>
+<span>         <span class="va">day</span> <span class="op">&gt;=</span> <span class="fl">1</span>, </span>
+<span>         <span class="va">day</span> <span class="op">&lt;=</span> <span class="fl">7</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 11 × 2</span></span>
 <span><span class="co">##    year  count</span></span>
@@ -194,7 +200,7 @@ within all 3 windows at once.</p>
 <span><span class="co">##  4 2016      7</span></span>
 <span><span class="co">##  5 2017      1</span></span>
 <span><span class="co">##  6 2018      9</span></span>
-<span><span class="co">##  7 2019      5</span></span>
+<span><span class="co">##  7 2019      6</span></span>
 <span><span class="co">##  8 2020     20</span></span>
 <span><span class="co">##  9 2021     36</span></span>
 <span><span class="co">## 10 2022     25</span></span>
@@ -207,36 +213,36 @@ within all 3 windows at once.</p>
 the <code>eventDate</code> field. This field contains the exact date and
 time information of records and enables specific time windows to be
 queried easily. The only caveat is that the time/date must be provided
-in a specific format to <code><a href="../reference/galah_filter.html">galah_filter()</a></code> for the ALA query to
-work.</p>
+in a specific format to <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code> for the query to work.</p>
 <p>The required format of dates in <code>eventDate</code> is the <a href="https://en.wikipedia.org/wiki/ISO_8601" class="external-link">ISO 8601 International
 Date Standard</a> format. This requires dates and times to be of the
-form “YYYY-MM-DDTHH:MM:SSZ”. Note that the T in the middle should be the
-actual letter “T” to delimit the date and time components, while the “Z”
-officially denotes that the time should be queried as UTC (Greenwich
-Meridian) time. Timezones can be confusing at the best of times, however
-it is easiest to remember that all ALA records are recorded at the local
-time of their location, and all times are then treated as effectively
-being UTC times.</p>
+form “YYYY-MM-DDTHH:MM:SSZ”. Note that the <code>T</code> in the middle
+should be the actual letter “T” to delimit the date and time components,
+while the “Z” officially denotes that the time should be queried as UTC
+(Greenwich Meridian) time. Timezones can be confusing at the best of
+times, however it is easiest to remember that all ALA records are
+recorded at the local time of their location, and all times are then
+treated as effectively being UTC times.</p>
 <p>The upshot of this specific formatting is that, for instance, the
 time I am writing this paragraph, 4:26pm on the 2nd of August 2023,
 would be represented as <code>"2023-08-02T16:26:44Z"</code> in the ALA,
 even though officially my timezone is <code>"+0930"</code>.</p>
 <p>Because <code>eventDate</code> specifies the time to seconds, it is
 recommended that greater or less than queries are used rather than exact
-matches. When used with <code><a href="../reference/galah_filter.html">galah_filter()</a></code>, we can easily
-identify how many records of the humpback whale (<em>Megaptera
-novaeangliae</em>) have occurred since the species was removed from the
-Australian threatened species list on 26/02/2022.</p>
+matches. When used with <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code>, we can easily identify
+how many records of the humpback whale (<em>Megaptera novaeangliae</em>)
+have occurred since the species was removed from the Australian
+threatened species list on 26/02/2022.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Megaptera novaeangliae"</span>, </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Megaptera novaeangliae"</span>, </span>
 <span>               <span class="va">eventDate</span> <span class="op">&gt;=</span> <span class="st">"2022-02-26T00:00:00Z"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##   count</span></span>
 <span><span class="co">##   &lt;int&gt;</span></span>
-<span><span class="co">## 1   542</span></span></code></pre>
+<span><span class="co">## 1   690</span></span></code></pre>
 <p>It can be unintuitive to provide dates in this format. Luckily, it is
 very simple to convert standard R dates or {lubridate} dates into this
 format because they are already in the required “YYYY-MM-DD” form. If we
@@ -252,7 +258,7 @@ using base R or lubridate as follows:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu">dmy</span><span class="op">(</span><span class="va">humpback_date</span><span class="op">)</span>, <span class="st">"T00:00:00Z"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "2022-02-26T00:00:00Z"</span></span></code></pre>
 <p>After sending a query, any outputted <code>eventDate</code> values
-returned by a galah query will be of date class
+returned by a <code>galah</code> query will be of date class
 <code>"POSIXct"</code>.</p>
 </div>
 <div class="section level3">
@@ -273,10 +279,11 @@ week:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Total records of Cactua galerita in Jan 1-7</span></span>
 <span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Cacatua galerita"</span>,</span>
-<span>               <span class="va">eventDate</span> <span class="op">&gt;=</span> <span class="st">"2023-01-07T00:00:00Z"</span>, </span>
-<span>               <span class="va">eventDate</span> <span class="op">&lt;</span> <span class="st">"2023-01-08T00:00:00Z"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Cacatua galerita"</span>,</span>
+<span>         <span class="va">eventDate</span> <span class="op">&gt;=</span> <span class="st">"2023-01-07T00:00:00Z"</span>, </span>
+<span>         <span class="va">eventDate</span> <span class="op">&lt;</span> <span class="st">"2023-01-08T00:00:00Z"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##   count</span></span>
 <span><span class="co">##   &lt;int&gt;</span></span>
@@ -284,11 +291,12 @@ week:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Records of Cactua galerita uploaded in Jan 1-14</span></span>
 <span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Cacatua galerita"</span>,</span>
-<span>               <span class="va">eventDate</span> <span class="op">&gt;=</span> <span class="st">"2023-01-07T00:00:00Z"</span>, </span>
-<span>               <span class="va">eventDate</span> <span class="op">&lt;</span> <span class="st">"2023-01-08T00:00:00Z"</span>,</span>
-<span>               <span class="va">firstLoadedDate</span> <span class="op">&lt;</span> <span class="st">"2023-01-15T00:00:00Z"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Cacatua galerita"</span>,</span>
+<span>         <span class="va">eventDate</span> <span class="op">&gt;=</span> <span class="st">"2023-01-07T00:00:00Z"</span>, </span>
+<span>         <span class="va">eventDate</span> <span class="op">&lt;</span> <span class="st">"2023-01-08T00:00:00Z"</span>,</span>
+<span>         <span class="va">firstLoadedDate</span> <span class="op">&lt;</span> <span class="st">"2023-01-15T00:00:00Z"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##   count</span></span>
 <span><span class="co">##   &lt;int&gt;</span></span>
@@ -310,7 +318,7 @@ uploaded before they’ve occurred).</p>
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.8.</p>
 </div>
 
     </footer>

@@ -15,7 +15,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.8/font.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.9/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
@@ -31,11 +31,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -97,7 +97,7 @@
                         <h4 data-toc-skip class="author">Martin Westgate
 &amp; Dax Kellie</h4>
             
-            <h4 data-toc-skip class="date">2023-12-14</h4>
+            <h4 data-toc-skip class="date">2024-04-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/vignettes/download_data.Rmd" class="external-link"><code>vignettes/download_data.Rmd</code></a></small>
       <div class="d-none name"><code>download_data.Rmd</code></div>
@@ -108,22 +108,28 @@
 <p>The <code>atlas_</code> functions are used to return data from the
 atlas chosen using <code><a href="../reference/galah_config.html">galah_config()</a></code>. They are:</p>
 <ul>
-<li><code>atlas_counts</code></li>
-<li><code>atlas_occurrences</code></li>
-<li><code>atlas_species</code></li>
-<li><code>atlas_media</code></li>
-<li><code>atlas_taxonomy</code></li>
+<li><code><a href="../reference/atlas_counts.html">atlas_counts()</a></code></li>
+<li><code><a href="../reference/atlas_occurrences.html">atlas_occurrences()</a></code></li>
+<li><code><a href="../reference/atlas_species.html">atlas_species()</a></code></li>
+<li><code><a href="../reference/atlas_media.html">atlas_media()</a></code></li>
+<li><code><a href="../reference/atlas_taxonomy.html">atlas_taxonomy()</a></code></li>
 </ul>
-<p>The final <code>atlas_</code> function - <code>atlas_citation</code>
-- is unusual in that it does not return any new data. Instead it
-provides a citation for an existing dataset ( downloaded using
-<code>atlas_occurrences</code>) that has an associated DOI. The other
-functions are described below.</p>
+<p>The final <code>atlas_</code>
+function—<code><a href="../reference/atlas_citation.html">atlas_citation()</a></code>—is unusual: It does not return
+any new data, but instead provides a citation for an existing dataset
+(downloaded using <code><a href="../reference/atlas_occurrences.html">atlas_occurrences()</a></code>) with an associated
+DOI. The other functions are described below.</p>
+<p>It is equally permissable to use the <code>type</code> argument of
+<code><a href="../reference/galah_call.html">galah_call()</a></code> to specify the kind of data you want, and then
+retrieve the data using <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code>. Here we use the
+<code>atlas_</code> prefix for consistency with earlier versions of
+galah, and because many <code>atlas_</code> functions sometimes include
+shortcuts to make life easier.</p>
 <div class="section level2">
 <h2 id="record-counts">Record counts<a class="anchor" aria-label="anchor" href="#record-counts"></a>
 </h2>
-<p><code><a href="../reference/atlas_counts.html">atlas_counts()</a></code> provides summary counts on records in the
-specified atlas, without needing to download all the records.</p>
+<p><code><a href="../reference/atlas_counts.html">atlas_counts()</a></code> provides summary counts of records in the
+specified atlas without needing to download all the records first.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>atlas <span class="op">=</span> <span class="st">"Australia"</span><span class="op">)</span></span>
 <span><span class="co"># Total number of records in the ALA</span></span>
@@ -131,39 +137,38 @@ specified atlas, without needing to download all the records.</p>
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##       count</span></span>
 <span><span class="co">##       &lt;int&gt;</span></span>
-<span><span class="co">## 1 132342396</span></span></code></pre>
-<p>In addition to the filter arguments, it has an optional
-<code>group_by</code> argument, which provides counts binned by the
-requested field.</p>
+<span><span class="co">## 1 133616691</span></span></code></pre>
+<p>Group and summarise record counts by specific fields using
+<code><a href="../reference/galah_group_by.html">galah_group_by()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_group_by.html">galah_group_by</a></span><span class="op">(</span><span class="va">kingdom</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 11 × 2</span></span>
-<span><span class="co">##    kingdom       count</span></span>
-<span><span class="co">##    &lt;chr&gt;         &lt;int&gt;</span></span>
-<span><span class="co">##  1 Animalia  101442503</span></span>
-<span><span class="co">##  2 Plantae    26136825</span></span>
-<span><span class="co">##  3 Fungi       2293753</span></span>
-<span><span class="co">##  4 Chromista   1021828</span></span>
-<span><span class="co">##  5 Protista     352983</span></span>
-<span><span class="co">##  6 Bacteria     113118</span></span>
-<span><span class="co">##  7 Eukaryota      8826</span></span>
-<span><span class="co">##  8 Protozoa       4765</span></span>
-<span><span class="co">##  9 Archaea        4119</span></span>
-<span><span class="co">## 10 Virus          2307</span></span>
-<span><span class="co">## 11 Viroid          103</span></span></code></pre>
+<pre><code><span><span class="co">## # A tibble: 12 × 2</span></span>
+<span><span class="co">##    kingdom           count</span></span>
+<span><span class="co">##    &lt;chr&gt;             &lt;int&gt;</span></span>
+<span><span class="co">##  1 Animalia      102148892</span></span>
+<span><span class="co">##  2 Plantae        26453743</span></span>
+<span><span class="co">##  3 Fungi           2343737</span></span>
+<span><span class="co">##  4 Chromista       1049586</span></span>
+<span><span class="co">##  5 Protista         311456</span></span>
+<span><span class="co">##  6 Bacteria         113089</span></span>
+<span><span class="co">##  7 Archaea            4119</span></span>
+<span><span class="co">##  8 Virus              2307</span></span>
+<span><span class="co">##  9 Bamfordvirae        204</span></span>
+<span><span class="co">## 10 Orthornavirae       153</span></span>
+<span><span class="co">## 11 Viroid              104</span></span>
+<span><span class="co">## 12 Shotokuvirae         39</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="species-lists">Species lists<a class="anchor" aria-label="anchor" href="#species-lists"></a>
 </h2>
 <p>A common use case of atlas data is to identify which species occur in
 a specified region, time period, or taxonomic group.
-<code><a href="../reference/atlas_species.html">atlas_species()</a></code> is similar to <code>search_taxa</code>, in
-that it returns taxonomic information and unique identifiers in a
-<code>tibble</code>. It differs in not being able to return information
-on taxonomic levels other than the species; but also in being more
-flexible by supporting filtering:</p>
+<code><a href="../reference/atlas_species.html">atlas_species()</a></code> is similar to <code><a href="../reference/search_all.html">search_taxa()</a></code>,
+in that it returns taxonomic information and unique identifiers, but
+differs by returning information only on species and is far more
+flexible by supporting filtering.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">species</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Rodentia"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -171,26 +176,26 @@ flexible by supporting filtering:</p>
 <span>  <span class="fu"><a href="../reference/atlas_species.html">atlas_species</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  </span>
 <span><span class="va">species</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 6 × 10</span></span>
-<span><span class="co">##   kingdom  phylum   class    order    family  genus        species                     author            species_guid    vernacular_name</span></span>
-<span><span class="co">##   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;        &lt;chr&gt;                       &lt;chr&gt;             &lt;chr&gt;           &lt;chr&gt;          </span></span>
-<span><span class="co">## 1 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys delicatulus       (Gould, 1842)     https://biodiv… Delicate Mouse </span></span>
-<span><span class="co">## 2 Animalia Chordata Mammalia Rodentia Muridae Mesembriomys Mesembriomys gouldii        (J.E. Gray, 1843) https://biodiv… Black-footed T…</span></span>
-<span><span class="co">## 3 Animalia Chordata Mammalia Rodentia Muridae Zyzomys      Zyzomys argurus             (Thomas, 1889)    https://biodiv… Common Rock-rat</span></span>
-<span><span class="co">## 4 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys hermannsburgensis (Waite, 1896)     https://biodiv… Sandy Inland M…</span></span>
-<span><span class="co">## 5 Animalia Chordata Mammalia Rodentia Muridae Melomys      Melomys burtoni             (Ramsay, 1887)    https://biodiv… Grassland Melo…</span></span>
-<span><span class="co">## 6 Animalia Chordata Mammalia Rodentia Muridae Notomys      Notomys alexis              Thomas, 1922      https://biodiv… Spinifex Hoppi…</span></span></code></pre>
+<pre><code><span><span class="co">## # A tibble: 6 × 11</span></span>
+<span><span class="co">##   taxon_concept_id                                                    species_name scientific_name_auth…¹ taxon_rank kingdom phylum class order family genus vernacular_name</span></span>
+<span><span class="co">##   &lt;chr&gt;                                                               &lt;chr&gt;        &lt;chr&gt;                  &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;          </span></span>
+<span><span class="co">## 1 https://biodiversity.org.au/afd/taxa/a6a91fbd-77f4-4440-ba66-7d043… Pseudomys d… (Gould, 1842)          species    Animal… Chord… Mamm… Rode… Murid… Pseu… Delicate Mouse </span></span>
+<span><span class="co">## 2 https://biodiversity.org.au/afd/taxa/d3d03db1-3305-4f09-9f3f-64d8c… Mesembriomy… (J.E. Gray, 1843)      species    Animal… Chord… Mamm… Rode… Murid… Mese… Black-footed T…</span></span>
+<span><span class="co">## 3 https://biodiversity.org.au/afd/taxa/936ee591-1e1a-4f9e-934e-4bc17… Zyzomys arg… (Thomas, 1889)         species    Animal… Chord… Mamm… Rode… Murid… Zyzo… Common Rock-rat</span></span>
+<span><span class="co">## 4 https://biodiversity.org.au/afd/taxa/635a8ab7-774e-4676-9e75-8dc31… Pseudomys h… (Waite, 1896)          species    Animal… Chord… Mamm… Rode… Murid… Pseu… Sandy Inland M…</span></span>
+<span><span class="co">## 5 https://biodiversity.org.au/afd/taxa/20ca6a48-09d2-4f05-ba8e-bbae4… Melomys bur… (Ramsay, 1887)         species    Animal… Chord… Mamm… Rode… Murid… Melo… Grassland Melo…</span></span>
+<span><span class="co">## 6 https://biodiversity.org.au/afd/taxa/53115180-4024-4d50-baf7-edc45… Notomys ale… Thomas, 1922           species    Animal… Chord… Mamm… Rode… Murid… Noto… Spinifex Hoppi…</span></span>
+<span><span class="co">## # ℹ abbreviated name: ¹​scientific_name_authorship</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="occurrence-data">Occurrence data<a class="anchor" aria-label="anchor" href="#occurrence-data"></a>
 </h2>
-<p>To download occurrence data you will need to specify your email in
-<code><a href="../reference/galah_config.html">galah_config()</a></code>. This email must be associated with an
-active ALA account. See more information in the <a href="#config">config
-section</a></p>
+<p>To download occurrence data you will need to specify an email in
+<code><a href="../reference/galah_config.html">galah_config()</a></code> that has been registered to an account with
+your selected GBIF node. See more information in the <a href="#config">config section</a>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"your_email@email.com"</span>, atlas <span class="op">=</span> <span class="st">"Australia"</span><span class="op">)</span></span></code></pre></div>
-<p>Download occurrence records for <em>Eolophus roseicapilla</em></p>
+<p>Download occurrence records for <em>Eolophus roseicapilla</em>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">occ</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Eolophus roseicapilla"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -203,133 +208,128 @@ section</a></p>
 <span>  <span class="fu"><a href="../reference/atlas_occurrences.html">atlas_occurrences</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Retrying in 1 seconds.</span></span>
 <span><span class="co">## Retrying in 2 seconds.</span></span>
-<span><span class="co">## Retrying in 4 seconds.</span></span>
-<span><span class="co">## Retrying in 8 seconds.</span></span></code></pre>
+<span><span class="co">## Retrying in 4 seconds.</span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">occ</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 6 × 9</span></span>
-<span><span class="co">##   recordID          scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           occurrenceStatus dataResourceName</span></span>
-<span><span class="co">##   &lt;chr&gt;             &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;            &lt;chr&gt;           </span></span>
-<span><span class="co">## 1 0000a928-d756-42… Eolophus rose… https://biodi…           -35.6             149. 2017-04-19 09:11:00 PRESENT          eBird Australia </span></span>
-<span><span class="co">## 2 0001bc78-d2e9-48… Eolophus rose… https://biodi…           -35.2             149. 2019-08-13 15:13:00 PRESENT          eBird Australia </span></span>
-<span><span class="co">## 3 0002064f-08ea-42… Eolophus rose… https://biodi…           -35.3             149. 2014-03-16 06:48:00 PRESENT          eBird Australia </span></span>
-<span><span class="co">## 4 00022dd2-9f85-48… Eolophus rose… https://biodi…           -35.3             149. 2022-05-08 08:20:00 PRESENT          eBird Australia </span></span>
-<span><span class="co">## 5 0002cc35-8d5a-4d… Eolophus rose… https://biodi…           -35.3             149. 2015-11-01 08:00:00 PRESENT          eBird Australia </span></span>
-<span><span class="co">## 6 00030a8c-082f-44… Eolophus rose… https://biodi…           -35.3             149. 2022-01-06 11:47:00 PRESENT          eBird Australia </span></span>
-<span><span class="co">## # ℹ 1 more variable: institutionID &lt;lgl&gt;</span></span></code></pre>
+<span><span class="co">##   recordID                             scientificName    taxonConceptID decimalLatitude decimalLongitude eventDate           occurrenceStatus dataResourceName institutionID</span></span>
+<span><span class="co">##   &lt;chr&gt;                                &lt;chr&gt;             &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;            &lt;chr&gt;            &lt;lgl&gt;        </span></span>
+<span><span class="co">## 1 0000a928-d756-42eb-8058-6faa3901926d Eolophus roseica… https://biodi…           -35.6             149. 2017-04-19 09:11:00 PRESENT          eBird Australia  NA           </span></span>
+<span><span class="co">## 2 0001bc78-d2e9-48aa-8b9d-d69b55c81fd2 Eolophus roseica… https://biodi…           -35.2             149. 2019-08-13 15:13:00 PRESENT          eBird Australia  NA           </span></span>
+<span><span class="co">## 3 0002064f-08ea-425b-97c5-2677e1e1aa5a Eolophus roseica… https://biodi…           -35.3             149. 2014-03-16 06:48:00 PRESENT          eBird Australia  NA           </span></span>
+<span><span class="co">## 4 00022dd2-9f85-4802-b837-7ff7515acf21 Eolophus roseica… https://biodi…           -35.3             149. 2022-05-08 08:20:00 PRESENT          eBird Australia  NA           </span></span>
+<span><span class="co">## 5 0002cc35-8d5a-4d20-8012-12649dc16df1 Eolophus roseica… https://biodi…           -35.3             149. 2015-11-01 08:00:00 PRESENT          eBird Australia  NA           </span></span>
+<span><span class="co">## 6 00030a8c-082f-44f0-898a-adf6b78985b9 Eolophus roseica… https://biodi…           -35.3             149. 2022-01-06 11:47:00 PRESENT          eBird Australia  NA</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="media-metadata">Media metadata<a class="anchor" aria-label="anchor" href="#media-metadata"></a>
 </h2>
 <p>In addition to text data describing individual occurrences and their
 attributes, ALA stores images, sounds and videos associated with a given
-record. Metadata on these records can be downloaded to <code>R</code>
-using <code><a href="../reference/atlas_media.html">atlas_media()</a></code> and the same set of filters as the
-other data download functions.</p>
+record. Metadata on these records can be downloaded using
+<code><a href="../reference/atlas_media.html">atlas_media()</a></code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">media_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Eolophus roseicapilla"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span></span>
 <span>    <span class="va">year</span> <span class="op">==</span> <span class="fl">2020</span>,</span>
 <span>    <span class="va">cl22</span> <span class="op">==</span> <span class="st">"Australian Capital Territory"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/atlas_media.html">atlas_media</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Retrying in 1 seconds.</span></span>
-<span><span class="co">## Retrying in 2 seconds.</span></span>
-<span><span class="co">## Retrying in 4 seconds.</span></span></code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">media_data</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/atlas_media.html">atlas_media</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="va">media_data</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 6 × 19</span></span>
-<span><span class="co">##   media_id recordID scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           occurrenceStatus dataResourceName</span></span>
-<span><span class="co">##   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;            &lt;chr&gt;           </span></span>
-<span><span class="co">## 1 ff8322d… 003a192… Eolophus rose… https://biodi…           -35.3             149. 2020-09-12 06:11:00 PRESENT          iNaturalist Aus…</span></span>
-<span><span class="co">## 2 c66fc81… 015ee7c… Eolophus rose… https://biodi…           -35.4             149. 2020-08-09 05:11:00 PRESENT          iNaturalist Aus…</span></span>
-<span><span class="co">## 3 fe6d7b9… 05e86b7… Eolophus rose… https://biodi…           -35.4             149. 2020-11-13 22:29:00 PRESENT          NatureMapr      </span></span>
-<span><span class="co">## 4 2f4d32c… 063bb0f… Eolophus rose… https://biodi…           -35.6             149. 2020-08-04 01:50:00 PRESENT          iNaturalist Aus…</span></span>
-<span><span class="co">## 5 7340741… 063bb0f… Eolophus rose… https://biodi…           -35.6             149. 2020-08-04 01:50:00 PRESENT          iNaturalist Aus…</span></span>
-<span><span class="co">## 6 89171c4… 063bb0f… Eolophus rose… https://biodi…           -35.6             149. 2020-08-04 01:50:00 PRESENT          iNaturalist Aus…</span></span>
-<span><span class="co">## # ℹ 10 more variables: multimedia &lt;chr&gt;, images &lt;chr&gt;, videos &lt;lgl&gt;, sounds &lt;lgl&gt;, creator &lt;chr&gt;, license &lt;chr&gt;, mimetype &lt;chr&gt;,</span></span>
-<span><span class="co">## #   width &lt;int&gt;, height &lt;int&gt;, image_url &lt;chr&gt;</span></span></code></pre>
+<span><span class="co">##   media_id     recordID scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           occurrenceStatus dataResourceName multimedia images videos sounds</span></span>
+<span><span class="co">##   &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;      &lt;chr&gt;  &lt;lgl&gt;  &lt;lgl&gt; </span></span>
+<span><span class="co">## 1 ff8322d0-f4… 003a192… Eolophus rose… https://biodi…           -35.3             149. 2020-09-12 06:11:00 PRESENT          iNaturalist Aus… Image      ff832… NA     NA    </span></span>
+<span><span class="co">## 2 c66fc819-70… 015ee7c… Eolophus rose… https://biodi…           -35.4             149. 2020-08-09 05:11:00 PRESENT          iNaturalist Aus… Image      c66fc… NA     NA    </span></span>
+<span><span class="co">## 3 fe6d7b94-9e… 05e86b7… Eolophus rose… https://biodi…           -35.4             149. 2020-11-13 22:29:00 PRESENT          NatureMapr       Image      fe6d7… NA     NA    </span></span>
+<span><span class="co">## 4 2f4d32c0-a0… 063bb0f… Eolophus rose… https://biodi…           -35.6             149. 2020-08-04 01:50:00 PRESENT          iNaturalist Aus… Image      2f4d3… NA     NA    </span></span>
+<span><span class="co">## 5 73407414-07… 063bb0f… Eolophus rose… https://biodi…           -35.6             149. 2020-08-04 01:50:00 PRESENT          iNaturalist Aus… Image      73407… NA     NA    </span></span>
+<span><span class="co">## 6 89171c49-5a… 063bb0f… Eolophus rose… https://biodi…           -35.6             149. 2020-08-04 01:50:00 PRESENT          iNaturalist Aus… Image      89171… NA     NA    </span></span>
+<span><span class="co">## # ℹ 6 more variables: creator &lt;chr&gt;, license &lt;chr&gt;, mimetype &lt;chr&gt;, width &lt;int&gt;, height &lt;int&gt;, image_url &lt;chr&gt;</span></span></code></pre>
 <p>To actually download the media files to your computer, use
 [collect_media()].</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">media_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/collect_media.html">collect_media</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="taxonomic-trees">Taxonomic trees<a class="anchor" aria-label="anchor" href="#taxonomic-trees"></a>
 </h2>
-<p><code>atlas_taxonomy</code> provides a way to build taxonomic trees
-from one clade down to another using each service’s internal taxonomy.
+<p><code><a href="../reference/atlas_taxonomy.html">atlas_taxonomy()</a></code> provides a way to build taxonomic trees
+from one clade down to another using each GBIF node’s internal taxonomy.
 Specify which taxonomic level your tree will go down to with
 <code><a href="../reference/galah_filter.html">galah_filter()</a></code> using the <code>rank</code> argument.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"chordata"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">rank</span> <span class="op">==</span> <span class="va">class</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_taxonomy.html">atlas_taxonomy</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 19 × 4</span></span>
-<span><span class="co">##    name            rank      parent_taxon_concept_id                                                   taxon_concept_id                 </span></span>
-<span><span class="co">##    &lt;chr&gt;           &lt;chr&gt;     &lt;chr&gt;                                                                     &lt;chr&gt;                            </span></span>
-<span><span class="co">##  1 Chordata        phylum    &lt;NA&gt;                                                                      https://biodiversity.org.au/afd/…</span></span>
-<span><span class="co">##  2 Cephalochordata subphylum https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd https://biodiversity.org.au/afd/…</span></span>
-<span><span class="co">##  3 Tunicata        subphylum https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd https://biodiversity.org.au/afd/…</span></span>
-<span><span class="co">##  4 Appendicularia  class     https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d533cc51 https://biodiversity.org.au/afd/…</span></span>
-<span><span class="co">##  5 Ascidiacea      class     https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d533cc51 https://biodiversity.org.au/afd/…</span></span>
-<span><span class="co">##  6 Thaliacea       class     https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d533cc51 https://biodiversity.org.au/afd/…</span></span>
-<span><span class="co">##  7 Vertebrata      subphylum https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd https://biodiversity.org.au/afd/…</span></span>
-<span><span class="co">##  8 Agnatha         informal  https://biodiversity.org.au/afd/taxa/5d6076b1-b7c7-487f-9d61-0fea0111cc7e https://biodiversity.org.au/afd/…</span></span>
-<span><span class="co">##  9 Myxini          informal  https://biodiversity.org.au/afd/taxa/66db22c8-891d-4b16-a1a2-b66feaeaa3e0 https://biodiversity.org.au/afd/…</span></span>
-<span><span class="co">## 10 Petromyzontida  informal  https://biodiversity.org.au/afd/taxa/66db22c8-891d-4b16-a1a2-b66feaeaa3e0 https://biodiversity.org.au/afd/…</span></span>
-<span><span class="co">## 11 Gnathostomata   informal  https://biodiversity.org.au/afd/taxa/5d6076b1-b7c7-487f-9d61-0fea0111cc7e https://biodiversity.org.au/afd/…</span></span>
-<span><span class="co">## 12 Amphibia        class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/…</span></span>
-<span><span class="co">## 13 Aves            class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/…</span></span>
-<span><span class="co">## 14 Mammalia        class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/…</span></span>
-<span><span class="co">## 15 Pisces          informal  https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/…</span></span>
-<span><span class="co">## 16 Actinopterygii  class     https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bdaa051 https://biodiversity.org.au/afd/…</span></span>
-<span><span class="co">## 17 Chondrichthyes  class     https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bdaa051 https://biodiversity.org.au/afd/…</span></span>
-<span><span class="co">## 18 Sarcopterygii   class     https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bdaa051 https://biodiversity.org.au/afd/…</span></span>
-<span><span class="co">## 19 Reptilia        class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/…</span></span></code></pre>
+<span><span class="co">##    name            rank      parent_taxon_concept_id                                                   taxon_concept_id                                                     </span></span>
+<span><span class="co">##    &lt;chr&gt;           &lt;chr&gt;     &lt;chr&gt;                                                                     &lt;chr&gt;                                                                </span></span>
+<span><span class="co">##  1 Chordata        phylum    &lt;NA&gt;                                                                      https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c7…</span></span>
+<span><span class="co">##  2 Cephalochordata subphylum https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd https://biodiversity.org.au/afd/taxa/298d7998-81d6-49e9-858c-56f8837…</span></span>
+<span><span class="co">##  3 Tunicata        subphylum https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d53…</span></span>
+<span><span class="co">##  4 Appendicularia  class     https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d533cc51 https://biodiversity.org.au/afd/taxa/adf459be-49b5-42e8-88dd-82de53b…</span></span>
+<span><span class="co">##  5 Ascidiacea      class     https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d533cc51 https://biodiversity.org.au/afd/taxa/98b20d78-39fe-4d9e-9895-f4d4e68…</span></span>
+<span><span class="co">##  6 Thaliacea       class     https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d533cc51 https://biodiversity.org.au/afd/taxa/fc1224c8-a856-430b-a3f7-8c936eb…</span></span>
+<span><span class="co">##  7 Vertebrata      subphylum https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd https://biodiversity.org.au/afd/taxa/5d6076b1-b7c7-487f-9d61-0fea011…</span></span>
+<span><span class="co">##  8 Agnatha         informal  https://biodiversity.org.au/afd/taxa/5d6076b1-b7c7-487f-9d61-0fea0111cc7e https://biodiversity.org.au/afd/taxa/66db22c8-891d-4b16-a1a2-b66feae…</span></span>
+<span><span class="co">##  9 Myxini          informal  https://biodiversity.org.au/afd/taxa/66db22c8-891d-4b16-a1a2-b66feaeaa3e0 https://biodiversity.org.au/afd/taxa/6bf4d623-abde-4df0-8e6e-54da896…</span></span>
+<span><span class="co">## 10 Petromyzontida  informal  https://biodiversity.org.au/afd/taxa/66db22c8-891d-4b16-a1a2-b66feaeaa3e0 https://biodiversity.org.au/afd/taxa/8982a097-19d8-4225-9ad3-8fff9e9…</span></span>
+<span><span class="co">## 11 Gnathostomata   informal  https://biodiversity.org.au/afd/taxa/5d6076b1-b7c7-487f-9d61-0fea0111cc7e https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f89…</span></span>
+<span><span class="co">## 12 Amphibia        class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/taxa/257dcc26-6efb-4e13-9a7b-5fc4de6…</span></span>
+<span><span class="co">## 13 Aves            class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/taxa/65625205-db74-4a87-b566-ca387b1…</span></span>
+<span><span class="co">## 14 Mammalia        class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/taxa/e9e7db31-04df-41fb-bd8d-e0b0f3c…</span></span>
+<span><span class="co">## 15 Reptilia        class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd4…</span></span>
+<span><span class="co">## 16 Pisces          informal  https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bd…</span></span>
+<span><span class="co">## 17 Actinopterygii  class     https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bdaa051 https://biodiversity.org.au/afd/taxa/83e82cc3-be4e-40e8-9e7a-985737c…</span></span>
+<span><span class="co">## 18 Chondrichthyes  class     https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bdaa051 https://biodiversity.org.au/afd/taxa/6f1093ab-9b44-4a55-9066-7daa2f9…</span></span>
+<span><span class="co">## 19 Sarcopterygii   class     https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bdaa051 https://biodiversity.org.au/afd/taxa/d8d85e26-e55f-4e44-ac44-6108e25…</span></span></code></pre>
 </div>
 <div class="section level2">
-<h2 id="configuring-galah">Configuring <code>galah</code><a class="anchor" aria-label="anchor" href="#configuring-galah"></a>
+<h2 id="configuring-galah">Configuring galah<a class="anchor" aria-label="anchor" href="#configuring-galah"></a>
 </h2>
 <p>Various aspects of the galah package can be customized.</p>
 <div class="section level3">
 <h3 id="email">Email<a class="anchor" aria-label="anchor" href="#email"></a>
 </h3>
-<p>To download occurrence records, you will need to provide an email
-address registered with the service that you want to use (e.g. for the
-ALA you can create an account <a href="https://auth.ala.org.au/userdetails/registration/createAccount" class="external-link">here</a>).
-Once an email is registered, it should be stored in the config:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<p>To download occurrence records, species lists or media, you will need
+to provide an email address registered with the service that you want to
+use (e.g. for the ALA you can create an account <a href="https://auth.ala.org.au/userdetails/registration/createAccount" class="external-link">here</a>).</p>
+<p>Once an email is registered, it should be stored in the config:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"myemail@gmail.com"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="setting-your-directory">Setting your directory<a class="anchor" aria-label="anchor" href="#setting-your-directory"></a>
 </h3>
-<p>By default, <code>galah</code> stores downloads in a temporary
-folder, meaning that the local files are automatically deleted when the
-R session is ended. This behaviour can be altered so that downloaded
-files are preserved by setting the directory to a non-temporary
-location.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<p>By default, galah stores downloads in a temporary folder, meaning
+that the local files are automatically deleted when the R session is
+ended. This behaviour can be altered so that downloaded files are
+preserved by setting the directory to a non-temporary location.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>directory <span class="op">=</span> <span class="st">"example/dir"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="setting-the-download-reason">Setting the download reason<a class="anchor" aria-label="anchor" href="#setting-the-download-reason"></a>
 </h3>
 <p>ALA requires that you provide a reason when downloading occurrence
-data (via the galah <code><a href="../reference/atlas_occurrences.html">atlas_occurrences()</a></code> function). The
-reason is set as “scientific research” by default, but you can change
-this using <code><a href="../reference/galah_config.html">galah_config()</a></code>. See
-<code><a href="../reference/show_all.html">show_all_reasons()</a></code> for valid download reasons.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+data (via the galah <code><a href="../reference/atlas_occurrences.html">atlas_occurrences()</a></code> function).
+<code>reason</code> is set as “scientific research” by default, but you
+can change this using <code><a href="../reference/galah_config.html">galah_config()</a></code>. See
+<code>show_all(reasons)</code> for valid download reasons.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>download_reason_id <span class="op">=</span> <span class="va">your_reason_id</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="debugging">Debugging<a class="anchor" aria-label="anchor" href="#debugging"></a>
 </h3>
 <p>If things aren’t working as expected, more detail (particularly about
-web requests and caching behaviour) can be obtained by setting the
-<code>verbose</code> configuration option:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+web requests and caching behaviour) can be obtained by setting
+<code>verbose = TRUE</code>.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
@@ -346,7 +346,7 @@ web requests and caching behaviour) can be obtained by setting the
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.8.</p>
 </div>
 
     </footer>

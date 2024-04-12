@@ -15,7 +15,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.8/font.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.9/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
@@ -31,11 +31,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -97,7 +97,7 @@
                         <h4 data-toc-skip class="author">Martin Westgate
 &amp; Dax Kellie</h4>
             
-            <h4 data-toc-skip class="date">2023-12-14</h4>
+            <h4 data-toc-skip class="date">2024-04-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/vignettes/quick_start_guide.Rmd" class="external-link"><code>vignettes/quick_start_guide.Rmd</code></a></small>
       <div class="d-none name"><code>quick_start_guide.Rmd</code></div>
@@ -105,22 +105,10 @@
 
     
     
-<div class="section level2">
-<h2 id="about">About<a class="anchor" aria-label="anchor" href="#about"></a>
-</h2>
-<p><code>galah</code> is an R interface to biodiversity data hosted by
-the ‘living atlases’; a set of organisations that share a common
-codebase, and act as nodes of the Global Biodiversity Information
-Facility (<a href="https://www.gbif.org" class="external-link">GBIF</a>). These organisations
-collate and store observations of individual life forms, using the <a href="https://dwc.tdwg.org" class="external-link">‘Darwin Core’</a> data standard.</p>
-<p><code>galah</code> enables users to locate and download species
-observations, taxonomic information, record counts, or associated media
-such as images or sounds. Users can restrict their queries to particular
-taxa or locations by specifying which columns and rows are returned by a
-query, or by restricting their results to observations that meet
-particular quality-control criteria. All functions return a
-<code>tibble</code> as their standard format.</p>
-</div>
+<p>galah is an R interface to biodiversity data hosted by the Global
+Biodiversity Information Facility (<a href="https://www.gbif.org" class="external-link">GBIF</a>) and its subsidiary node
+organisations. GBIF and its partner nodes collate and store observations
+of individual life forms using the <a href="https://dwc.tdwg.org" class="external-link">‘Darwin Core’</a> data standard.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -136,11 +124,11 @@ particular quality-control criteria. All functions return a
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://galah.ala.org.au/R/">galah</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="choosing-an-atlas">Choosing an atlas<a class="anchor" aria-label="anchor" href="#choosing-an-atlas"></a>
+<h2 id="configuration">Configuration<a class="anchor" aria-label="anchor" href="#configuration"></a>
 </h2>
-<p>By default, <code>galah</code> downloads information from the Atlas
-of Living Australia (ALA). To show the full list of Atlases currently
-supported by <code>galah</code>, use <code>show_all(atlases)</code>.</p>
+<p>By default, galah downloads information from the Atlas of Living
+Australia (ALA). To show the full list of organisations currently
+supported by galah, use <code>show_all(atlases)</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/show_all.html">show_all</a></span><span class="op">(</span><span class="va">atlases</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 11 × 4</span></span>
@@ -157,116 +145,125 @@ supported by <code>galah</code>, use <code>show_all(atlases)</code>.</p>
 <span><span class="co">##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es         </span></span>
 <span><span class="co">## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.se </span></span>
 <span><span class="co">## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk</span></span></code></pre>
-<p>Use <code><a href="../reference/galah_config.html">galah_config()</a></code> to set the Atlas to use. This will
-automatically populate the server configuration for your selected Atlas.
-By default, the atlas is Australia.</p>
+<p>Use <code><a href="../reference/galah_config.html">galah_config()</a></code> to set the node organisation using
+its region, name, or acronym. Once set, <code>galah</code> will
+automatically populate the server configuration for your selected GBIF
+node. To download occurrence records from your chosen GBIF node, you
+will need to register an account with them (using their website), then
+provide your registration email to galah. To download from GBIF, you
+will need to provide the email, username, and password.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>atlas <span class="op">=</span> <span class="st">"United Kingdom"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>atlas <span class="op">=</span> <span class="st">"GBIF"</span>,</span>
+<span>             username <span class="op">=</span> <span class="st">"user1"</span>,</span>
+<span>             email <span class="op">=</span> <span class="st">"email@email.com"</span>,</span>
+<span>             password <span class="op">=</span> <span class="st">"my_password"</span><span class="op">)</span></span></code></pre></div>
+<p>You can find a full list of configuration options by running
+<code><a href="../reference/galah_config.html">?galah_config</a></code>.</p>
 </div>
 <div class="section level2">
-<h2 id="building-queries">Building queries<a class="anchor" aria-label="anchor" href="#building-queries"></a>
+<h2 id="basic-syntax">Basic syntax<a class="anchor" aria-label="anchor" href="#basic-syntax"></a>
 </h2>
-<p>Functions that return data from the chosen atlas have the prefix
-<code>atlas_</code>; e.g. to find the total number of records in the
-atlas, use:</p>
+<p>The standard method to construct queries in <a href="https://galah.ala.org.au/R/">galah</a> is
+via piped functions. Pipes in <code>galah</code> start with the
+<code><a href="../reference/galah_call.html">galah_call()</a></code> function, and typically end with
+<code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code>, though <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code> and
+<code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">compute()</a></code> are also supported. The development team use the
+base pipe by default (<code>|&gt;</code>), but the
+<a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a> pipe (<code>%&gt;%</code>) should work too.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>atlas <span class="op">=</span> <span class="st">"ALA"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>atlas <span class="op">=</span> <span class="st">"ALA"</span>,</span>
+<span>             verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##       count</span></span>
 <span><span class="co">##       &lt;int&gt;</span></span>
-<span><span class="co">## 1 132342396</span></span></code></pre>
-<p>To pass more complex queries, start with the
-<code><a href="../reference/galah_call.html">galah_call()</a></code> function and pipe additional arguments to
-modify the query. modifying functions have a <code>galah_</code> prefix
-and support non-standard evaluation (NSE).</p>
+<span><span class="co">## 1 133616691</span></span></code></pre>
+<p>To pass more complex queries, you can use additional
+<a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a> functions such as <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code>,
+<code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code>, and <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##      count</span></span>
 <span><span class="co">##      &lt;int&gt;</span></span>
-<span><span class="co">## 1 27234237</span></span></code></pre>
-<p>Alternatively, you can use a subset of <code>dplyr</code> verbs to
-pipe your queries, assuming you start with
-<code><a href="../reference/galah_call.html">galah_call()</a></code>.</p>
+<span><span class="co">## 1 28235670</span></span></code></pre>
+<p>Each GBIF node allows you to query using their own set of in-built
+fields. You can investigate which fields are available using
+<code><a href="../reference/show_all.html">show_all()</a></code> and <code><a href="../reference/search_all.html">search_all()</a></code>:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 4 × 2</span></span>
-<span><span class="co">##   year    count</span></span>
-<span><span class="co">##   &lt;chr&gt;   &lt;int&gt;</span></span>
-<span><span class="co">## 1 2022  8409790</span></span>
-<span><span class="co">## 2 2021  8254306</span></span>
-<span><span class="co">## 3 2020  7124140</span></span>
-<span><span class="co">## 4 2023  3446001</span></span></code></pre>
-<p>To narrow the search to a particular taxonomic group, use
-<code><a href="../reference/galah_identify.html">galah_identify()</a></code> or <code>identify</code>. Note that this
-function only accepts scientific names and is not case sensitive. It’s
-good practice to first use <code><a href="../reference/search_all.html">search_taxa()</a></code> to check that the
-taxa you provide returns the correct taxonomic results.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/search_all.html">search_taxa</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="co"># Check whether taxonomic info is correct</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 1 × 9</span></span>
-<span><span class="co">##   search_term scientific_name taxon_concept_id                                              rank  match_type kingdom phylum class issues</span></span>
-<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                                                         &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; </span></span>
-<span><span class="co">## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b… class exactMatch Animal… Chord… Rept… noIss…</span></span></code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
-<span><span class="co">##    count</span></span>
-<span><span class="co">##    &lt;int&gt;</span></span>
-<span><span class="co">## 1 226794</span></span></code></pre>
-</div>
-<div class="section level2">
-<h2 id="downloading-records">Downloading records<a class="anchor" aria-label="anchor" href="#downloading-records"></a>
-</h2>
-<p>The most common use case for <code>galah</code> is to download
-‘occurrence’ records; observations of plants or animals made by
-contributors to the atlas. To download, first register with the relevant
-atlas, then provide your registration email. For GBIF queries, you will
-need to provide the email, username, and password that you have
-registered with GBIF.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"email@email.com"</span><span class="op">)</span></span></code></pre></div>
-<p>Search for fields and field IDs to filter your query.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">fields</span>, <span class="st">"australian states"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 2 × 3</span></span>
 <span><span class="co">##   id     description                            type  </span></span>
 <span><span class="co">##   &lt;chr&gt;  &lt;chr&gt;                                  &lt;chr&gt; </span></span>
 <span><span class="co">## 1 cl2013 ASGS Australian States and Territories fields</span></span>
 <span><span class="co">## 2 cl22   Australian States and Territories      fields</span></span></code></pre>
-<p>Then you can customise records you require and query the atlas in
-question.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+</div>
+<div class="section level2">
+<h2 id="taxonomic-searches">Taxonomic searches<a class="anchor" aria-label="anchor" href="#taxonomic-searches"></a>
+</h2>
+<p>To narrow your search to a particular taxonomic group, use
+<code><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify()</a></code>. Note that this function only accepts scientific
+names and is not case sensitive. It’s good practice to first use
+<code><a href="../reference/search_all.html">search_taxa()</a></code> to check that the taxa you provide returns
+the correct taxonomic results.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/search_all.html">search_taxa</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="co"># Check whether taxonomic info is correct</span></span></code></pre></div>
+<pre><code><span><span class="co">## # A tibble: 1 × 9</span></span>
+<span><span class="co">##   search_term scientific_name taxon_concept_id                                                          rank  match_type kingdom  phylum   class    issues </span></span>
+<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                                                                     &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;  </span></span>
+<span><span class="co">## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd40c399 class exactMatch Animalia Chordata Reptilia noIssue</span></span></code></pre>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
+<span><span class="co">##    count</span></span>
+<span><span class="co">##    &lt;int&gt;</span></span>
+<span><span class="co">## 1 252833</span></span></code></pre>
+<p>If you want to query something other than the number of records,
+modify the <code>type</code> argument in <code><a href="../reference/galah_call.html">galah_call()</a></code>. Here
+we’ll query the number of species:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
+<span><span class="co">##   count</span></span>
+<span><span class="co">##   &lt;int&gt;</span></span>
+<span><span class="co">## 1   866</span></span></code></pre>
+</div>
+<div class="section level2">
+<h2 id="download">Download<a class="anchor" aria-label="anchor" href="#download"></a>
+</h2>
+<p>To download records—rather than find how many records are
+available—simply remove the <code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count()</a></code> function from your
+pipe.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Litoria"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span>, <span class="va">cl22</span> <span class="op">==</span> <span class="st">"Tasmania"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_select.html">galah_select</a></span><span class="op">(</span><span class="va">basisOfRecord</span>, group <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/atlas_occurrences.html">atlas_occurrences</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Retrying in 1 seconds.</span></span>
-<span><span class="co">## Retrying in 2 seconds.</span></span>
-<span><span class="co">## Retrying in 4 seconds.</span></span></code></pre>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">result</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="st">"Litoria"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span>, <span class="va">cl22</span> <span class="op">==</span> <span class="st">"Tasmania"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">basisOfRecord</span>, group <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">result</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 6 × 9</span></span>
-<span><span class="co">##   recordID          scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           occurrenceStatus dataResourceName</span></span>
-<span><span class="co">##   &lt;chr&gt;             &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;            &lt;chr&gt;           </span></span>
-<span><span class="co">## 1 00250163-ec50-4e… Litoria        https://biodi…           -41.2             147. 2023-08-23 01:49:28 PRESENT          iNaturalist Aus…</span></span>
-<span><span class="co">## 2 003e0f63-9f95-4a… Litoria ewing… https://biodi…           -42.9             148. 2022-12-23 19:27:00 PRESENT          iNaturalist Aus…</span></span>
-<span><span class="co">## 3 00410554-5289-41… Litoria ewing… https://biodi…           -41.7             147. 2021-05-06 00:00:00 PRESENT          FrogID          </span></span>
-<span><span class="co">## 4 0081e7ef-459b-42… Litoria ewing… https://biodi…           -43.2             147. 2020-08-02 00:00:00 PRESENT          FrogID          </span></span>
-<span><span class="co">## 5 0086def1-8415-4b… Litoria ewing… https://biodi…           -41.2             147. 2020-12-31 00:00:00 PRESENT          FrogID          </span></span>
-<span><span class="co">## 6 00b40ee7-074b-4d… Litoria ewing… https://biodi…           -41.5             147. 2020-11-01 00:00:00 PRESENT          FrogID          </span></span>
-<span><span class="co">## # ℹ 1 more variable: basisOfRecord &lt;chr&gt;</span></span></code></pre>
+<span><span class="co">##   recordID                             scientificName    taxonConceptID decimalLatitude decimalLongitude eventDate           occurrenceStatus dataResourceName basisOfRecord</span></span>
+<span><span class="co">##   &lt;chr&gt;                                &lt;chr&gt;             &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;        </span></span>
+<span><span class="co">## 1 00168ca6-84d0-4af1-8fa8-875fd69d25da Litoria raniform… https://biodi…           -41.2             146. 2023-12-20 23:20:19 PRESENT          iNaturalist Aus… HUMAN_OBSERV…</span></span>
+<span><span class="co">## 2 00250163-ec50-4eda-a5d5-58ae98bc5834 Litoria raniform… https://biodi…           -41.2             147. 2023-08-23 01:49:28 PRESENT          iNaturalist Aus… HUMAN_OBSERV…</span></span>
+<span><span class="co">## 3 003e0f63-9f95-4af9-b272-10db6d7b6371 Litoria ewingii   https://biodi…           -42.9             148. 2022-12-23 19:27:00 PRESENT          iNaturalist Aus… HUMAN_OBSERV…</span></span>
+<span><span class="co">## 4 00410554-5289-416f-9848-74df4a814b93 Litoria ewingii   https://biodi…           -41.7             147. 2021-05-06 00:00:00 PRESENT          FrogID           OCCURRENCE   </span></span>
+<span><span class="co">## 5 0070521f-bb45-46fb-8385-1a542c3a81a5 Litoria ewingii   https://biodi…           -43.1             147. 2023-12-20 03:29:23 PRESENT          iNaturalist Aus… HUMAN_OBSERV…</span></span>
+<span><span class="co">## 6 0081e7ef-459b-42a9-8f0b-b3664ec94d0e Litoria ewingii   https://biodi…           -43.2             147. 2020-08-02 00:00:00 PRESENT          FrogID           OCCURRENCE</span></span></code></pre>
 <p>Check out our other vignettes for more detail on how to use these
 functions.</p>
 </div>
@@ -283,7 +280,7 @@ functions.</p>
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.8.</p>
 </div>
 
     </footer>
