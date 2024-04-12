@@ -212,7 +212,7 @@ test_that("atlas_species works for Sweden", {
     try(silent = TRUE)
   skip_if(inherits(spp, "try-error"), message = "API not available")
   expect_gt(nrow(spp), 20) # actual number 105 spp on 2024-03-22
-  expect_equal(ncol(spp), 10)
+  expect_gte(ncol(spp), 10) # actual number 11 cols on 2024-04-12
   expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
 })
 

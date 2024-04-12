@@ -90,7 +90,6 @@ reference:
   - atlas_taxonomy
   - atlas_media
   - collect_media
-  - collapse.data_request
 - title: Configure session
   contents: galah_config
 - title: Cite

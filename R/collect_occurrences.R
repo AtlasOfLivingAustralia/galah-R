@@ -27,8 +27,7 @@ collect_occurrences_uk <- function(.query, file){
     inform("Download failed")
     return(tibble())
   }else{
-    result |>
-      enforce_field_names_and_types(.query)
+    result
   }
 }
 

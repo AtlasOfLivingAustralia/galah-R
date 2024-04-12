@@ -57,7 +57,7 @@ test_that("show_all(licences) works for Austria", {
   expect_lte(nrow(x), 10)
   # this API exists, but is empty at time of writing (2024-02-26)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-  y <- request_metadata(type = "lists") |> collect()
+  y <- request_metadata(type = "licences") |> collect()
   expect_equal(x, y)
 })
 
@@ -183,7 +183,6 @@ test_that("atlas_counts works with group_by for Austria", {
   expect_equal(names(result), c("year", "count"))
 })
 
-# FAILS
 test_that("atlas_species works for Austria", {
   skip_if_offline()
   galah_config(
@@ -196,6 +195,7 @@ test_that("atlas_species works for Austria", {
     atlas_species() |>
     try(silent = TRUE)
   skip_if(inherits(spp, "try-error"), message = "API not available")
+  skip_if((nrow(spp) < 1 & ncol(spp) < 1), message = "API not available")
   expect_gt(nrow(spp), 20) # actual number 105 spp on 2024-03-22
   expect_gt(ncol(spp), 8) # actually 10
   expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
@@ -236,11 +236,10 @@ test_that("atlas_media() works for Austria", {
            year == 2010) |>
     # count() |>
     select(record_number, image_url) |>
-    collect() 
+    collect(wait = TRUE) |>
   # should return 10 occurrences
   # fails rn due to bugs in biocache-service (2024-02-27)
   # stages after this can't be tested until above issue is resolved.
-  # wait = TRUE) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(nrow(x), 0)

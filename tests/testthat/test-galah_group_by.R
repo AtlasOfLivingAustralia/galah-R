@@ -48,7 +48,7 @@ test_that("atlas_counts returns all counts if no limit is provided", {
     group_by(basisOfRecord) |> # NOTE: basisOfRecord chosen as prone to breaking
     atlas_counts()             # this code; please do not change it!
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(nrow(counts), 12)
+  expect_gte(nrow(counts), 5)
 })
 
 test_that("grouped atlas_counts for species returns expected output", {

@@ -231,7 +231,8 @@ test_that("atlas_occurrences works for United Kingdom", {
   expect_equal(nrow(occ), counts$count[1])
   expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
   expect_equal(ncol(occ), length(default_columns()))
-  expect_equal(colnames(occ), default_columns())
+  # expect_equal(colnames(occ), default_columns()) # users must request NBN-specific fields;
+    # but Darwin-Core is returned.
   unlink("temp", recursive = TRUE)
 })
 

@@ -15,14 +15,11 @@ test_that("galah_radius returns list from lon/lat/radius arguments", {
 test_that("galah_radius assigns default radius when missing argument", {
   lon <- 151.3174
   lat <- -33.66741
-  radius_object <- galah_radius(lon = lon, 
-                                lat = lat)
+  radius_object <- expect_warning(galah_radius(lon = lon, lat = lat),
+                                  "No radius value specified.")
   expected_object <- list(lat = -33.66741,
                           lon = 151.3174,
                           radius = 10) # default is 10 km
-  expect_warning(galah_radius(lon = lon, 
-                              lat = lat),
-                 "No radius value specified.")
   expect_equal(radius_object, expected_object)
 })
 

@@ -2,6 +2,7 @@
 
 ### Minor improvements
 * Experimental `galah_geolocate(type = "radius")` added. Supports filtering by point location and radius (in km) (#216)
+* Support `galah_geolocate()` and associated sub-functions for GBIF queries
 * `galah_filter()` no longer fails when assertions are specified in `galah_filter()` (#199)
 * Improved behaviour and robustness of `atlas_species()`, particularly for other atlases (#234)
 * Improved behavior of `select()`, including supporting `atlas_species()` and adding new `group = "taxonomy"` option (#218)

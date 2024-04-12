@@ -270,6 +270,7 @@ test_that("`count()` works with `galah_radius()` for GBIF", {
 })
 
 test_that("`atlas_occurrences()` works with `galah_polygon()` for GBIF", {
+  skip_if_offline()
   wkt <- "POLYGON((142.36 -29.01,142.36 -29.39,142.74 -29.39,142.74 -29.01,142.36 -29.01))"
   base_query <- galah_call() |>
     identify("Mammalia") |>
@@ -284,6 +285,7 @@ test_that("`atlas_occurrences()` works with `galah_polygon()` for GBIF", {
 })
 
 test_that("`atlas_occurences()` works with `galah_radius()` for GBIF", {
+  skip_if_offline()
   base_query <- galah_call() |>
     identify("Mammalia") |>
     galah_radius(lat = -33.7,
