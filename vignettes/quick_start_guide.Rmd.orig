@@ -9,20 +9,11 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-# About
-`galah` is an R interface to biodiversity data hosted by the 'living atlases'; 
-a set of organisations that share a common codebase, and act as nodes of the
-Global Biodiversity Information Facility ([GBIF](https://www.gbif.org)). These 
-organisations collate and store observations of individual life forms, using the 
-['Darwin Core'](https://dwc.tdwg.org) data standard.
-
-`galah` enables users to locate and download species observations, taxonomic
-information, record counts, or associated media such as images or sounds. Users 
-can restrict their queries to particular taxa or locations by specifying which 
-columns and rows are returned by a query, or by restricting their results to 
-observations that meet particular quality-control criteria. All functions return 
-a `tibble` as their standard format.
-
+galah is an R interface to biodiversity data hosted by the Global Biodiversity 
+Information Facility ([GBIF](https://www.gbif.org)) and its subsidiary node
+organisations. GBIF and its partner nodes collate and store observations of 
+individual life forms using the ['Darwin Core'](https://dwc.tdwg.org) data 
+standard.
 
 # Installation
 
@@ -42,96 +33,101 @@ Load the package
 library(galah)
 ```
 
-# Choosing an atlas
-By default, `galah` downloads information from the Atlas of Living Australia (ALA).
-To show the full list of Atlases currently supported by `galah`, use 
-`show_all(atlases)`.
+# Configuration
+By default, galah downloads information from the Atlas of Living Australia 
+(ALA). To show the full list of organisations currently supported by galah, 
+use  `show_all(atlases)`.
 
 ```{r}
 show_all(atlases)
 ```
 
-Use `galah_config()` to set the Atlas to use. This will automatically populate the 
-server configuration for your selected Atlas. By default, the atlas is Australia.
+Use `galah_config()` to set the node organisation using its region, name, or 
+acronym. Once set, `galah` will automatically populate the server configuration for your 
+selected GBIF node. To download occurrence records from your chosen 
+GBIF node, you will need to register an account with them (using their website), 
+then provide your registration email to galah. 
+To download from GBIF, you will need to provide the email, username, and 
+password.
 
-```{r eval=FALSE}
-galah_config(atlas = "United Kingdom")
+```{r, eval=FALSE}
+galah_config(atlas = "GBIF",
+             username = "user1",
+             email = "email@email.com",
+             password = "my_password")
+
 ```
+You can find a full list of configuration options by running `?galah_config`.
 
-# Building queries
-Functions that return data from the chosen atlas have the prefix `atlas_`; e.g.
-to find the total number of records in the atlas, use:
+# Basic syntax
+The standard method to construct queries in `{galah}` is via piped functions. 
+Pipes in `galah` start with the `galah_call()` function, and typically end with 
+`collect()`, though `collapse()` and `compute()` are also supported. The 
+development team use the base pipe by default (`|>`), but the `{magrittr}` pipe 
+(`%>%`) should work too.
   
 ```{r}
-galah_config(atlas = "ALA")
-atlas_counts()
-```
-
-To pass more complex queries, start with the `galah_call()` function and pipe
-additional arguments to modify the query. modifying functions have a `galah_`
-prefix and support non-standard evaluation (NSE).
-
-```{r}
-galah_call() |> 
-  galah_filter(year >= 2020) |> 
-  atlas_counts()
-```
-
-Alternatively, you can use a subset of `dplyr` verbs to pipe your queries, 
-assuming you start with `galah_call()`.
-
-```{r}
+galah_config(atlas = "ALA",
+             verbose = FALSE)
 galah_call() |>
-  filter(year >= 2020) |> 
-  group_by(year) |>
   count() |>
   collect()
 ```
 
-To narrow the search to a particular taxonomic group, use `galah_identify()` or 
-`identify`. Note that this function only accepts scientific names and is not case 
-sensitive. It's good practice to first use `search_taxa()` to check that the taxa 
-you provide returns the correct taxonomic results.
+To pass more complex queries, you can use additional `{dplyr}` functions such as
+`filter()`, `select()`, and `group_by()`.
 
 ```{r}
-search_taxa("reptilia") # Check whether taxonomic info is correct
-
-galah_call() |>
-  galah_filter(year >= 2020) |> 
-  galah_identify("reptilia") |> 
-  atlas_counts()
+galah_call() |> 
+  filter(year >= 2020) |> 
+  count() |>
+  collect()
 ```
 
-# Downloading records
-
-The most common use case for `galah` is to download 'occurrence' records; 
-observations of plants or animals made by contributors to the atlas. To download,
-first register with the relevant atlas, then provide your registration email. 
-For GBIF queries, you will need to provide the email, username, and password that
-you have registered with GBIF.
-
-```{r, eval=FALSE}
-galah_config(email = "email@email.com")
-```
-
-```{r, echo=FALSE}
-galah_config(verbose = FALSE)
-```
-
-Search for fields and field IDs to filter your query.
+Each GBIF node allows you to query using their own set of in-built fields. You 
+can investigate which fields are available using `show_all()` and `search_all()`:
 
 ```{r}
 search_all(fields, "australian states")
 ```
 
-Then you can customise records you require and query the atlas in question.
+# Taxonomic searches
+To narrow your search to a particular taxonomic group, use `identify()`. Note 
+that this function only accepts scientific names and is not case sensitive. 
+It's good practice to first use `search_taxa()` to check that the taxa you 
+provide returns the correct taxonomic results.
+
+```{r}
+search_taxa("reptilia") # Check whether taxonomic info is correct
+
+galah_call() |>
+  identify("reptilia") |> 
+  filter(year >= 2020) |> 
+  count() |>
+  collect()
+```
+
+If you want to query something other than the number of records, modify the 
+`type` argument in `galah_call()`. Here we'll query the number of species:
+
+```{r}
+galah_call(type = "species") |>
+  identify("reptilia") |> 
+  filter(year >= 2020) |> 
+  count() |>
+  collect()
+```
+
+# Download
+To download records---rather than find how many records are available---simply
+remove the `count()` function from your pipe.
 
 ```{r}
 result <- galah_call() |>
-  galah_identify("Litoria") |>
-  galah_filter(year >= 2020, cl22 == "Tasmania") |>
-  galah_select(basisOfRecord, group = "basic") |>
-  atlas_occurrences()
+  identify("Litoria") |>
+  filter(year >= 2020, cl22 == "Tasmania") |>
+  select(basisOfRecord, group = "basic") |>
+  collect()
 
 result |> head()
 ```

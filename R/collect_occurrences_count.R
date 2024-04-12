@@ -81,35 +81,41 @@ clean_group_by <- function(result, .query){
 
 #' Internal function to clean up columns when group_by() is specified
 #' @importFrom dplyr all_of
+#' @importFrom dplyr any_of
+#' @importFrom dplyr last_col
+#' @importFrom dplyr relocate
 #' @importFrom dplyr rename
 #' @importFrom dplyr select
+#' @importFrom stringr str_extract
+#' @importFrom stringr str_replace
 #' @noRd
 #' @keywords Internal
 clean_labels <- function(df){
-  if(all(c("label", "i18nCode") %in% colnames(df))){
-    dot_placement <- regexpr("\\.", df$i18nCode[1]) |>
-      as.integer()
-    field_name <- substr(df$i18nCode[1], 
-                         start = 1, 
-                         stop = dot_placement[1] - 1)
-    col_lookup <- c("label")
-    names(col_lookup) <- field_name
-    df <- df |> 
-      rename(all_of(col_lookup)) 
-    df |> 
-      select(-"fq", -"i18nCode")
-  }else{
+  if(any(colnames(df) == "i18nCode")){
+    values <- df$i18nCode |>
+      str_extract("\\.([:graph:]|\\s)+$") |>
+      str_replace("^\\.", "")
+    variable <- df$i18nCode[1] |>
+      str_extract("^[:graph:]+\\.") |>
+      str_replace("\\.$", "")
+    df[[variable]] <- values
+    df |>
+      select(-any_of(c("label", "i18nCode", "fq"))) |>
+      relocate("count", .after = last_col())
+  }else{ 
     # Some atlases (e.g. Estonia) only have "label" column
-    if("label" %in% colnames(df) & !"i18nCode" %in% colnames(df)) {
-      field_name <- stringr::str_extract(df$fq[1], "[^:]+") |> as.character()
+    if(any(colnames(df) == "label")){
+      field_name <- str_extract(df$fq[1], "[^:]+") |> 
+        as.character()
       col_lookup <- c("label")
       names(col_lookup) <- field_name
-      df <- df |>
+      df |>
         rename(all_of(col_lookup)) |>
-        select(-"fq")
+        select(-"fq")      
+    }else{
+    # some are completely empty
       df
     }
-    df
   }
 }
 

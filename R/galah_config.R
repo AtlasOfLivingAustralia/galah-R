@@ -108,6 +108,7 @@ galah_config <- function(...) {
     if(any(names(result) == "atlas")){
       brew(atlas = list(atlas = result$atlas))
       result <- result[names(result) != "atlas"]
+      result$atlas_config_called_by_user <- TRUE
     }
     
     if(length(result) > 0){
@@ -130,7 +131,8 @@ default_config <- function(){
       verbose = TRUE,
       run_checks = TRUE,
       send_email = FALSE,
-      directory = tempdir()),
+      directory = tempdir(),
+      atlas_config_called_by_user = FALSE),
     user = list(
       username = "",
       email = "",

@@ -5,15 +5,6 @@ test_that("swapping to atlas = Sweden works", {
   expect_message(galah_config(atlas = "Sweden"))
 })
 
-test_that("show_all(fields) works for Sweden", {
-  skip_if_offline()
-  x <- show_all(fields) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
-  expect_gt(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-})
-
 test_that("show_all(collections) works for Sweden", {
   skip_if_offline()
   x <- show_all(collections, limit = 10) |>
@@ -26,6 +17,34 @@ test_that("show_all(collections) works for Sweden", {
 test_that("show_all(datasets) works for Sweden", {
   skip_if_offline()
   x <- show_all(datasets, limit = 10) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_lte(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(fields) works for Sweden", {
+  skip_if_offline()
+  x <- show_all(fields) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gt(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(licences) works for Sweden", {
+  skip_if_offline()
+  x <- show_all(licences, limit = 10) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  # this API exists, but is empty at time of writing (2024-02-26)
+  expect_lte(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(lists) works for Sweden", {
+  skip_if_offline()
+  x <- show_all(lists, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_lte(nrow(x), 10)
@@ -61,10 +80,6 @@ test_that("show_all(assertions) works for Sweden", {
 
 test_that("show_all(profiles) fails for Sweden", {
   expect_error(show_all(profiles))
-})
-
-test_that("show_all(lists) fails for Sweden", {
-  expect_error(show_all(lists))
 })
 
 test_that("search_all(fields) works for Sweden", {
@@ -127,6 +142,16 @@ test_that("show_values works for Sweden", {
   expect_gt(nrow(x), 1)
 })
 
+test_that("show_values works for lists for Sweden", {
+  skip_if_offline()
+  x <- try({search_all(lists, "dr156") |> 
+      show_values()},
+      silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
 test_that("atlas_counts works with type = 'occurrences' for Sweden", {
   skip_if_offline()
   x <- atlas_counts() |>
@@ -175,6 +200,22 @@ test_that("atlas_counts works with group_by for Sweden", {
   expect_equal(names(result), c("year", "count"))
 })
 
+test_that("atlas_species works for Sweden", {
+  skip_if_offline()
+  galah_config(
+    atlas = "Sweden",
+    email = "martinjwestgate@gmail.com",
+    send_email = FALSE)
+  spp <- galah_call() |>
+    galah_identify("Carnivora") |>
+    atlas_species() |>
+    try(silent = TRUE)
+  skip_if(inherits(spp, "try-error"), message = "API not available")
+  expect_gt(nrow(spp), 20) # actual number 105 spp on 2024-03-22
+  expect_gte(ncol(spp), 10) # actual number 11 cols on 2024-04-12
+  expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
+})
+
 test_that("atlas_occurrences works for Sweden", {
   skip_if_offline()
   galah_config(
@@ -184,13 +225,39 @@ test_that("atlas_occurrences works for Sweden", {
   occ <- galah_call() |>
     galah_identify("Mammalia") |>
     galah_filter(year < 1850) |>
-    galah_select(taxon_name, year) |>
+    galah_select(group = "basic") |> # use defaults
     atlas_occurrences() |>
     try(silent = TRUE)
   skip_if(inherits(occ, "try-error"), message = "API not available")
   expect_gt(nrow(occ), 0)
-  expect_equal(ncol(occ), 2)
+  expect_equal(ncol(occ), 8)
   expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
+})
+
+# FIXME
+test_that("atlas_media() works for Sweden", {
+  skip_if_offline()
+  galah_config(
+    atlas = "Sweden",
+    email = "martinjwestgate@gmail.com",
+    send_email = FALSE)
+  x <- request_data() |>
+    identify("Aves") |>
+    filter(!is.na(images)) |>
+    count() |>
+    collect()
+    select(group = c("basic", "media")) |>
+    collect(wait = TRUE) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gt(nrow(x), 0)
+  y <- request_metadata() |>
+    filter(media == x) |>
+    collect() |>
+    try(silent = TRUE)
+  skip_if(inherits(y, "try-error"), message = "API not available")
+  expect_gt(nrow(y), 0)
+  # collect_media(y)
 })
 
 galah_config(atlas = "Australia")

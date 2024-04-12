@@ -1,3 +1,25 @@
+# galah 2.0.2
+
+### Minor improvements
+* Experimental `galah_geolocate(type = "radius")` added. Supports filtering by point location and radius (in km) (#216)
+* Support `galah_geolocate()` and associated sub-functions for GBIF queries
+* `galah_filter()` no longer fails when assertions are specified in `galah_filter()` (#199)
+* Improved behaviour and robustness of `atlas_species()`, particularly for other atlases (#234)
+* Improved behavior of `select()`, including supporting `atlas_species()` and adding new `group = "taxonomy"` option (#218)
+* Updated namematching services for SBDI (Sweden) (#210)
+* Add onLoad message so user is clear which organisation is being queried
+
+### Bug fixes
+* `collect_media()` no longer fails when a thumbnail is missing (#215)
+* `galah_filter()` parses apostrophes correctly in value names (#214)
+* `group_by() |> atlas_counts()` no longer truncates rows at 30 (#223, #198) 
+* Fix bug where `search_values()` did not return matched values
+* `show_values()` & `atlas_counts()` return correctly formatted values (#233)
+* `atlas_occurrences()` no longer overwrites returned field names with user-supplied ones
+* `galah_apply_profile()` now works as expected
+* List items are no longer truncated when using `show_values()` (#235)
+
+
 # galah 2.0.1
 
 ### Minor improvements

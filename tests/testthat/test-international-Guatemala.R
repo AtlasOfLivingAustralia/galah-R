@@ -146,6 +146,17 @@ test_that("atlas_counts works with group_by for Guatemala", {
   expect_equal(names(result), c("basis_of_record", "count"))
 })
 
+test_that("atlas_species fails for Guatemala due to unavailable API", {
+  skip_if_offline()
+  galah_config(
+    atlas = "Guatemala",
+    email = "test@ala.org.au", 
+    send_email = FALSE)
+  expect_error({galah_call() |>
+    galah_identify("Carnivora") |>
+    atlas_species()})
+})
+
 test_that("atlas_occurrences works for Guatemala", {
   skip_if_offline()
   galah_config(

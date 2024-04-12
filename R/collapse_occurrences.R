@@ -3,8 +3,10 @@
 #' @noRd
 #' @keywords Internal
 collapse_occurrences <- function(.query){
-  if(is.null(.query$filter) & is.null(.query$identify)){
-    abort("No filters supplied to atlas_occurrences()")
+  if(is.null(.query$filter) & 
+     is.null(.query$identify) & 
+     is.null(.query$geolocate)){
+    abort("No filters supplied to `collapse()` with `type = \"occurrences\"`")
   }
   switch(pour("atlas", "region"),
          "United Kingdom" = collapse_occurrences_uk(.query),
@@ -28,7 +30,7 @@ collapse_occurrences_uk <- function(.query){
   url$query <- c(build_query(identify = .query$identify,
                              filter = .query$filter, 
                              location = .query$geolocate, 
-                             data_profile = .query$data_profile$data_profile),
+                             data_profile = .query$data_profile),
                  fields = "`SELECT_PLACEHOLDER`",
                  qa = "`ASSERTIONS_PLACEHOLDER`",
                  sourceTypeId = 2001,
@@ -62,7 +64,7 @@ collapse_occurrences_gbif <- function(.query, format = "SIMPLE_CSV"){
     type = "data/occurrences",
     url = url_lookup("data/occurrences"),
     headers =  list(
-      `User-Agent` = galah_version_string(), # or "r-curl/4.3.3 crul/1.3 galah/1.5.1"
+      `User-Agent` = galah_version_string(), 
       `X-USER-AGENT` = galah_version_string(),
       `Content-Type` = "application/json",
       Accept = "application/json"),
@@ -70,9 +72,11 @@ collapse_occurrences_gbif <- function(.query, format = "SIMPLE_CSV"){
       httpauth = 1,
       userpwd = paste0(
         pour("user", "username", .pkg = "galah"),
-        ":", 
+        ":",
         pour("user", "password", .pkg = "galah"))),
-    body = build_predicates(.query$filter, format = format))
+    body = build_predicates(.query$filter, 
+                            .query$geolocate,
+                            format = format))
   class(result) <- "query"
   return(result)
 }
@@ -90,7 +94,7 @@ collapse_occurrences_la <- function(.query){
   query <- c(build_query(identify = .query$identify,
                          filter = .query$filter, 
                          location = .query$geolocate, 
-                         data_profile = .query$data_profile$data_profile),
+                         data_profile = .query$data_profile),
              fields = "`SELECT_PLACEHOLDER`",
              qa = "`ASSERTIONS_PLACEHOLDER`",
              facet = "false", # not tested

@@ -149,7 +149,8 @@ test_that("atlas_species works for France", {
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   expect_gt(nrow(x), 1)
-  expect_gt(ncol(x), 1)
+  expect_equal(ncol(x), 11)
+  expect_equal(colnames(x)[1], "taxon_concept_id")
 })
 
 test_that("atlas_occurrences works for France", {

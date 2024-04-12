@@ -3,7 +3,11 @@
 # Hadley Wickham, section 8.3 'Internal data'
 # https://r-pkgs.org/data.html
 
+USE_TEST_SYSTEM <- FALSE # set to TRUE to run against ALA 'test' system
+# default is FALSE, which runs against the 'production' system.
+
 devtools::load_all()
+galah_config(atlas = "Australia")
 library(readr) # import csvs straight to tibble
 library(tibble) # generate tibbles
 library(dplyr) # data manipulation
@@ -15,7 +19,7 @@ library(usethis) # adding content to sysdata.rda
 node_metadata <- read_csv("./data-raw/node_metadata.csv") |>
   filter(supported == TRUE) |>
   select(-supported)
-  
+
 node_metadata$institution[
   which(node_metadata$acronym == "OpenObs")
   ] <- "Portail français d'accès aux données d'observation sur les espèces"
@@ -26,8 +30,18 @@ node_metadata$institution[
   # All other atlases use GBIF taxonomy
   # Order of priority is local-namematching > local-species > GBIF-namematching
 node_config <- read_csv("./data-raw/node_config.csv") |> 
-  filter(atlas %in% node_metadata$region) |>
+  filter(atlas %in% node_metadata$region,
+         functional == TRUE) |>
   select(-functional)
+
+# if running on test server, reset requisite APIs
+if(USE_TEST_SYSTEM){
+  lookup <- grepl("^https://biocache-ws.ala.org.au/ws/", node_config$url)
+  node_config$url[lookup] <- sub(
+      "^https://biocache-ws.ala.org.au/ws/",
+      "https://biocache-ws-test.ala.org.au/ws/",
+      node_config$url[lookup])
+}
 
 # ALA defaults
 # add other data

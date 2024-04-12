@@ -1,3 +1,35 @@
+#' Build a query set
+#' 
+#' This function is designed to be called before `collapse()`. Primarily used
+#' internally and for debugging, it shows the maximum set of APIs that need
+#' to be evaluated to answer the question posed by the user.
+#' @param x An object of class `data_request`, `metadata_request` or 
+#' `files_request` (see `galah_call()`).
+#' @param mint_doi `logical`: by default no DOI will be generated. Set to
+#' `TRUE` if you intend to use the data in a publication or similar. Only
+#' applies to occurrence downloads.
+#' @param thumbnail Logical: should thumbnail-size images be returned? Defaults 
+#' to `FALSE`, indicating full-size images are required. Only applies to image
+#' downloads.
+#' @param ... Arguments passed to other methods. 
+#' @returns An object of class `query_set`
+#' @noRd
+#' @keywords Internal
+build_query_set <- function(x, mint_doi, thumbnail, ...){
+  switch(class(x), 
+         "data_request" = {
+           if(x$type == "distributions"){
+             build_query_set_distributions(x)
+           }else{
+             build_query_set_data(x, mint_doi = mint_doi, ...)    
+           }
+         },
+         "metadata_request" = build_query_set_metadata(x),
+         "files_request" = build_query_set_files(x, thumbnail = thumbnail, ...),
+         abort("unknown object class")
+      )
+}
+
 #' Internal function to build a `query_set` object 
 #' for object of class `data_request`
 #' @noRd
@@ -21,7 +53,7 @@ build_query_set_data <- function(x, mint_doi, ...){
     is.null
   ) |>
     unlist()
-  if (pour("package", "run_checks") & x$type != "occurrences-doi") {
+  if (pour("package", "run_checks") & x$type != "occurrences-doi"){
     # add check here to see whether any filters are specified
     # it is possible to only call `identify()`, for example
     if (any(!fields_absent) | x$type %in% c("species-count", "species")) {
@@ -68,6 +100,32 @@ build_query_set_data <- function(x, mint_doi, ...){
 }
 
 #' Internal function to build a `query_set` object 
+#' for object of class `data_request` when `type = distributions`
+#' @noRd
+#' @keywords Internal
+build_query_set_distributions <- function(x, ...){
+  if(is.null(x$identify) & is.null(x$filter)){
+    # find all expert distributions
+    result <- list(
+      collapse_distributions_metadata(),
+      collapse_distributions(x)
+    )
+  }else{
+    if(!is.null(x$identify)){
+      result <- list(
+        collapse_taxa(list(identify = x$identify))
+      )
+      result[[2]] <- collapse_distributions(x)
+    }else{
+      # i.e. !is.null(x$filter)
+      result <- list(collapse_distributions(x))
+    }
+  }
+  class(result) <- "query_set"
+  result
+}
+
+#' Internal function to build a `query_set` object 
 #' for object of class `metadata_request`
 #' @noRd
 #' @keywords Internal
@@ -101,6 +159,7 @@ build_query_set_metadata <- function(x, ...){
                                            "atlases" = collapse_atlases(),
                                            "collections" = collapse_collections(x),
                                            "datasets" = collapse_datasets(x),
+                                           "distributions" = collapse_distributions_metadata(x),
                                            "fields" = collapse_fields(),
                                            "fields-unnest" = collapse_fields_unnest(x),
                                            "licences" = collapse_licences(),

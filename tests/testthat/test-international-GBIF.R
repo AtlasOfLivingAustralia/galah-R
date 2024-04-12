@@ -202,11 +202,104 @@ test_that("`count` works with `group_by` for GBIF", {
   expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(z), 1)
   expect_equal(names(z), c("year", "count"))
+  # group_by fails when an invalid field is given
+  expect_error({
+    galah_call() |>
+      identify("Crinia") |>
+      group_by(species) |>
+      count() |>
+      collect()
+  })
 })
 
 # FIXME: GBIF grouped counts only work for n = 1 - expand this or add warning
 # FIXME: `slice_head()` not tested for GBIF
 # FIXME: `check_fields()` not tested for GBIF - try sending invalid fields to `filter()`
+
+test_that("`count()` works with `galah_polygon()` for GBIF", {
+  skip_if_offline()
+  # errors when points given clockwise
+  wkt <- "POLYGON((142.36 -29.01,142.74 -29.01,142.74 -29.39,142.36 -29.39,142.36 -29.01))"
+  expect_error({galah_call() |>
+      galah_polygon(wkt) |>
+      count() |>
+      collect()})
+  # works when points given counter-clockwise
+  wkt <- "POLYGON((142.36 -29.01,142.36 -29.39,142.74 -29.39,142.74 -29.01,142.36 -29.01))"
+  result <- galah_call() |>
+    identify("Mammalia") |>
+    galah_polygon(wkt) |>
+    count() |>
+    collect()
+  # compare against a taxonomic query in the same place
+  result_taxa <- galah_call() |>
+    identify("Mammalia") |>
+    count() |>
+    collect()
+  # compare against a purely spatial query
+  result_space <- galah_call() |>
+    galah_polygon(wkt) |>
+    count() |>
+    collect()
+  expect_lt(result$count, result_taxa$count)
+  expect_lt(result$count, result_space$count)
+})
+
+test_that("`count()` works with `galah_radius()` for GBIF", {
+  skip_if_offline()
+  # ditto for a point and radius
+  result <- galah_call() |>
+    identify("Mammalia") |>
+    galah_radius(lat = -33.7,
+                 lon = 151.3,
+                 radius = 5) |>
+    count() |>
+    collect()
+  result_space <- galah_call() |>
+    galah_radius(lat = -33.7,
+                 lon = 151.3,
+                 radius = 5) |>
+    count() |>
+    collect()
+  result_taxa <- galah_call() |>
+    identify("Mammalia") |>
+    count() |>
+    collect()
+  expect_lt(result$count, result_taxa$count)
+  expect_lt(result$count, result_space$count)
+})
+
+test_that("`atlas_occurrences()` works with `galah_polygon()` for GBIF", {
+  skip_if_offline()
+  wkt <- "POLYGON((142.36 -29.01,142.36 -29.39,142.74 -29.39,142.74 -29.01,142.36 -29.01))"
+  base_query <- galah_call() |>
+    identify("Mammalia") |>
+    galah_polygon(wkt) 
+  count <- base_query |>
+    count() |>
+    collect()
+  result <- base_query |> collect()
+  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  expect_gt(ncol(result), 30)
+  expect_equal(nrow(result), count$count)
+})
+
+test_that("`atlas_occurences()` works with `galah_radius()` for GBIF", {
+  skip_if_offline()
+  base_query <- galah_call() |>
+    identify("Mammalia") |>
+    galah_radius(lat = -33.7,
+                 lon = 151.3,
+                 radius = 0.5)
+  count <- base_query |>
+    count() |>
+    collect()
+  result <- base_query |>
+    collect()
+  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  expect_gt(ncol(result), 30)
+  expect_equal(nrow(result), count$count)
+})
 
 test_that("`galah_select()` returns message for GBIF", {
   expect_message({x <- galah_select(galah_call())})

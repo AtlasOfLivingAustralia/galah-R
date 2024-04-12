@@ -13,8 +13,8 @@ galah_select(..., group)
 \item{...}{zero or more individual column names to include}
 
 \item{group}{\code{string}: (optional) name of one or more column groups to
-include. Valid options are \code{"basic"}, \code{"event"} and
-\code{"assertions"}}
+include. Valid options are \code{"basic"}, \code{"event"} \code{"taxonomy"}, \code{"media"} and
+\code{"assertions"}.}
 
 \item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
 }
@@ -24,7 +24,7 @@ specifying the name and type of each column to include in the
 call to \code{atlas_counts()} or \code{atlas_occurrences()}.
 }
 \description{
-GBIF and it's partner nodes store content in hundreds of
+GBIF nodes store content in hundreds of
 different fields, and users often require thousands or millions of records at
 a time. To reduce time taken to download data, and limit complexity of the
 resulting \code{tibble}, it is sensible to restrict the fields returned by
@@ -68,8 +68,21 @@ Using \code{group = "media"} returns the following columns:
 \item \code{sounds}
 }
 
+Using \code{group = "taxonomy"} returns higher taxonomic information for a given
+query. It is the only \code{group} that is accepted by \code{atlas_species()} as well
+as \code{atlas_occurrences()}.
+
 Using \code{group = "assertions"} returns all quality assertion-related
 columns. The list of assertions is shown by \code{show_all_assertions()}.
+
+For \code{atlas_occurrences()}, arguments passed to \code{...} should be valid field
+names, which you can check using \code{show_all(fields)}. For \code{atlas_species()},
+it should be one or more of:
+\itemize{
+\item \code{counts} to include counts of occurrences per species.
+\item \code{synonyms} to include any synonymous names.
+\item \code{lists} to include authoritiative lists that each species is included on.
+}
 }
 \examples{
 \dontrun{

@@ -5,6 +5,7 @@
 #' @importFrom dplyr mutate
 #' @importFrom dplyr select
 #' @importFrom purrr pluck
+#' @importFrom stringr str_extract
 #' @noRd
 #' @keywords Internal
 collect_fields_unnest <- function(.query, error_call = caller_env()){
@@ -39,7 +40,17 @@ collect_fields_unnest <- function(.query, error_call = caller_env()){
       query_API() |>
       pluck(!!!list(1, "fieldResult")) |>
       bind_rows()
-    colnames(result)[which(colnames(result) == "label")[1]] <- facet
+    
+    # extract unformatted facet values
+    result <- result |>
+      mutate(
+        field_value = stringr::str_extract(
+          result$i18nCode, 
+          "(?<=\\.).*" # everything after .
+          )
+        )
+    
+    colnames(result)[which(colnames(result) == "field_value")[1]] <- facet
     select(result, {{facet}})
   }
 }

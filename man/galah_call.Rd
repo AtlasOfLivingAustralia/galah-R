@@ -17,7 +17,7 @@ request_data(
 
 request_metadata(type)
 
-request_files(type = c("media"))
+request_files(type = "media")
 }
 \arguments{
 \item{method}{string: what \code{request} function should be called. Should be one

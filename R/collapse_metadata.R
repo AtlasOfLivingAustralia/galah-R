@@ -82,6 +82,18 @@ collapse_datasets <- function(.query){
   return(result)
 }
 
+#' Internal function to `collapse()` distributions
+#' @noRd
+#' @keywords Internal
+collapse_distributions_metadata <- function(.query){
+  url <- url_lookup("metadata/distributions")
+  result <- list(type = "metadata/distributions",
+                 url = url,
+                 headers = build_headers()) 
+  class(result) <- "query"
+  return(result)
+}
+
 #' Internal function to `collapse()` fields
 #' Note that this is inconsistent with `show_all_fields()` which returns data
 #' from multiple APIs

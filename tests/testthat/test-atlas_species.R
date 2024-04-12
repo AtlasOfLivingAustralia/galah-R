@@ -21,11 +21,12 @@ test_that("atlas_species returns correct results when piped", {
     atlas_species()
   expected_species <- c("Perameles nasuta", "Perameles gunnii", 
                         "Perameles pallescens", "Perameles bougainville")
-  expected_cols <- c("kingdom", "phylum", "class", "order", "family",
-                          "genus", "species", "author", "species_guid", 
-                          "vernacular_name")
+  expected_cols <- c("taxon_concept_id", "species_name",
+                     "scientific_name_authorship", "taxon_rank",
+                     "kingdom", "phylum", "class", "order", "family",
+                     "genus", "vernacular_name")
   expect_setequal(names(species), expected_cols)
-  expect_equal(species$species[1:4], expected_species)
+  expect_equal(species$species_name[1:4], expected_species)
   expect_gt(nrow(species), 1)
   expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
 })
@@ -41,11 +42,12 @@ test_that("atlas_species returns correct results filtered by galah_geolocate", {
     galah_geolocate(wkt) |>
     atlas_species()
   expected_species <- c("Perameles gunnii")
-  expected_cols <- c("kingdom", "phylum", "class", "order", "family",
-                     "genus", "species", "author", "species_guid", 
-                     "vernacular_name")
+  expected_cols <- c("taxon_concept_id", "species_name",
+                     "scientific_name_authorship", "taxon_rank",
+                     "kingdom", "phylum", "class", "order", "family",
+                     "genus", "vernacular_name")
   expect_setequal(names(species), expected_cols)
-  expect_equal(species$species[1], expected_species)
+  expect_equal(species$species_name[1], expected_species)
   expect_gt(nrow(species), 0)
   expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
 })

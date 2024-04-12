@@ -176,6 +176,19 @@ test_that("atlas_counts works with group_by for United Kingdom", {
   expect_equal(names(result), c("year", "count"))
 })
 
+test_that("atlas_species fails for UK due to unavailable API", {
+  skip_if_offline()
+  galah_config(
+    atlas = "United Kingdom",
+    email = "ala4r@ala.org.au",
+    run_checks = TRUE,
+    download_reason_id = 10,
+    send_email = FALSE)
+  expect_error({galah_call(type = "species") |>
+      identify("Canidae") |>
+      atlas_species()})
+})
+
 test_that("atlas_occurrences works for United Kingdom", {
   skip_if_offline()
   galah_config(
@@ -218,7 +231,8 @@ test_that("atlas_occurrences works for United Kingdom", {
   expect_equal(nrow(occ), counts$count[1])
   expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
   expect_equal(ncol(occ), length(default_columns()))
-  expect_equal(colnames(occ), default_columns())
+  # expect_equal(colnames(occ), default_columns()) # users must request NBN-specific fields;
+    # but Darwin-Core is returned.
   unlink("temp", recursive = TRUE)
 })
 

@@ -49,6 +49,29 @@ test_that("show_all(fields) works for Austria", {
   expect_equal(x, y)
 })
 
+test_that("show_all(licences) works for Austria", {
+  skip_if_offline()
+  x <- show_all(licences) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_lte(nrow(x), 10)
+  # this API exists, but is empty at time of writing (2024-02-26)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  y <- request_metadata(type = "licences") |> collect()
+  expect_equal(x, y)
+})
+
+test_that("show_all(lists) works for Austria", {
+  skip_if_offline()
+  x <- show_all(lists) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gt(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  y <- request_metadata(type = "lists") |> collect()
+  expect_equal(x, y)
+})
+
 test_that("show_all(providers) works for Austria", {
   skip_if_offline()
   x <- show_all(providers) |>
@@ -73,17 +96,6 @@ test_that("show_all(reasons) works for Austria", {
 
 test_that("show_all(profiles) fails for Austria", {
   expect_error(show_all(profiles))
-})
-
-test_that("show_all(lists) works for Austria", {
-  skip_if_offline()
-  x <- show_all(lists) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
-  expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-  y <- request_metadata(type = "lists") |> collect()
-  expect_equal(x, y)
 })
 
 test_that("search_all(fields) works for Austria", {
@@ -171,6 +183,24 @@ test_that("atlas_counts works with group_by for Austria", {
   expect_equal(names(result), c("year", "count"))
 })
 
+test_that("atlas_species works for Austria", {
+  skip_if_offline()
+  galah_config(
+    atlas = "Austria",
+    email = "ala4r@ala.org.au", 
+    download_reason_id = "testing",
+    send_email = FALSE)
+  spp <- galah_call() |>
+    galah_identify("Carnivora") |>
+    atlas_species() |>
+    try(silent = TRUE)
+  skip_if(inherits(spp, "try-error"), message = "API not available")
+  skip_if((nrow(spp) < 1 & ncol(spp) < 1), message = "API not available")
+  expect_gt(nrow(spp), 20) # actual number 105 spp on 2024-03-22
+  expect_gt(ncol(spp), 8) # actually 10
+  expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
+})
+
 ## FIXME: Test only works when run_checks = TRUE
 test_that("atlas_occurrences works for Austria", {
   skip_if_offline()
@@ -192,6 +222,34 @@ test_that("atlas_occurrences works for Austria", {
   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
 })
 
+test_that("atlas_media() works for Austria", {
+  skip_if_offline()
+  galah_config(
+    atlas = "Austria",
+    email = "ala4r@ala.org.au", 
+    download_reason_id = "testing",
+    run_checks = TRUE,
+    send_email = FALSE)
+  x <- request_data() |>
+    identify("Mammalia") |>
+    filter(!is.na(image_url),
+           year == 2010) |>
+    # count() |>
+    select(record_number, image_url) |>
+    collect(wait = TRUE) |>
+  # should return 10 occurrences
+  # fails rn due to bugs in biocache-service (2024-02-27)
+  # stages after this can't be tested until above issue is resolved.
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gt(nrow(x), 0)
+  y <- request_metadata() |>
+    filter(media == x) |>
+    collect() |>
+    try(silent = TRUE)
+  skip_if(inherits(y, "try-error"), message = "API not available")
+  expect_gt(nrow(y), 0)
+})
 
 ## FIXME: atlas_taxonomy doesn't work
 test_that("atlas_taxonomy works for Austria", {

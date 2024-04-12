@@ -27,8 +27,7 @@ collect_occurrences_uk <- function(.query, file){
     inform("Download failed")
     return(tibble())
   }else{
-    result |>
-      enforce_field_names_and_types(.query)
+    result
   }
 }
 
@@ -62,7 +61,7 @@ collect_occurrences_default <- function(.query, wait, file){
     return(tibble())
   }else{
     result <- result |>
-      enforce_field_names_and_types(.query) |>
+      check_field_identities(.query) |>
       check_media_cols()  # check for, and then clean, media info
     # exception for GBIF to ensure DOIs are preserved
     if(!is.null(.query$doi)){
@@ -95,36 +94,6 @@ collect_occurrences_doi <- function(.query,
   }else{
     result
   }
-}
-
-#' Ensure that names given in `select` are returned
-#' Note that `fields` and `assertions` are always separated
-#' assertions are also handled here for efficiency reasons
-#' @importFrom rlang abort
-#' @importFrom rlang caller_env
-#' @noRd
-#' @keywords Internal
-enforce_field_names_and_types <- function(df, .query){
-  if(!is.null(.query$fields)){
-    # get basic info
-    n_fields <- length(.query$fields)
-    n_cols <- ncol(df)
-    # first handle field names (ensure they match those given by the user)
-    if(n_fields > n_cols){
-      bullets <- c("More fields were requested than are present in the download.",
-                   i = "Consider using `show_all(fields)` to ensure all fields are valid.",
-                   i = "Alternatively set `galah_config(run_checks = TRUE)`")
-      abort(bullets, call = caller_env())
-    }
-    fields_not_assertions <- seq_len(n_fields)
-    names(df)[fields_not_assertions] <- .query$fields
-    # then assertions (replace 'true' and 'false' with boolean)
-    if(n_fields < n_cols){
-      assertions_not_fields <- seq((n_fields + 1), n_cols, by = 1)
-      df <- fix_assertion_cols(df, names(df)[assertions_not_fields])
-    }
-  }
-  df
 }
 
 #' Internal function to load zip files, without unzipping them first

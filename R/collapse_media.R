@@ -19,7 +19,14 @@ collapse_media <- function(.query){
   media_ids <- do.call(c, occ[, media_cols]) |>
     unlist()
   media_ids <- media_ids[!is.na(media_ids)]
+  ## Note: next `gsub()` calls were added specifically for SBDI parsing
+  ## In practice, that image service treats inputs as invalid whether they are 
+  ## quoted or not. Suspected server-side problem. Tested 2024-02-27.
+  # media_ids <- media_ids |>
+  #   gsub("\"", "", x = _) |> # remove quotes
+  #   gsub("^\\[|\\]$", "", x = _) # remove leading or trailing square brackets
   names(media_ids) <- NULL
+  
   result <- list(
     type = "metadata/media",
     url = url_lookup("metadata/media"),

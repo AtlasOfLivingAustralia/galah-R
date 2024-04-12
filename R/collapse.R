@@ -22,9 +22,9 @@
 #' least the slots `type` and `url`.
 #' @export
 collapse.data_request <- function(x, ..., mint_doi, .expand = FALSE){
-  query_set <- build_query_set_data(x, 
-                                    mint_doi = mint_doi, 
-                                    ...)
+  query_set <- build_query_set(x, 
+                               mint_doi = mint_doi, 
+                               ...)
   result <- query_set |>
     build_checks() |>
     parse_checks() |>
@@ -40,7 +40,7 @@ collapse.data_request <- function(x, ..., mint_doi, .expand = FALSE){
 #' @order 2
 #' @export
 collapse.metadata_request <- function(x, .expand = FALSE, ...){
-  query_set <- build_query_set_metadata(x, ...)
+  query_set <- build_query_set(x, ...)
   result <- query_set |>
     build_checks() |>
     parse_checks() |>
@@ -63,9 +63,9 @@ collapse.files_request <- function(x,
                                    thumbnail = FALSE,
                                    ...
                                    ){
-  build_query_set_files(x, 
-                        thumbnail = thumbnail, 
-                        ...) |>
+  build_query_set(x, 
+                  thumbnail = thumbnail, 
+                  ...) |>
     # note: files requests do not need to call build_checks()
     pluck(!!!list(1))
 }

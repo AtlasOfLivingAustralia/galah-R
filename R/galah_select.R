@@ -1,6 +1,6 @@
 #' @title Specify fields for occurrence download
 #'
-#' @description GBIF and it's partner nodes store content in hundreds of 
+#' @description GBIF nodes store content in hundreds of 
 #' different fields, and users often require thousands or millions of records at 
 #' a time. To reduce time taken to download data, and limit complexity of the 
 #' resulting `tibble`, it is sensible to restrict the fields returned by 
@@ -14,8 +14,8 @@
 #'
 #' @param ... zero or more individual column names to include
 #' @param group `string`: (optional) name of one or more column groups to
-#' include. Valid options are `"basic"`, `"event"` and
-#' `"assertions"`
+#' include. Valid options are `"basic"`, `"event"` `"taxonomy"`, `"media"` and
+#' `"assertions"`.
 #' @return A tibble
 #' specifying the name and type of each column to include in the 
 #' call to `atlas_counts()` or `atlas_occurrences()`.
@@ -48,8 +48,20 @@
 #'   * `videos`
 #'   * `sounds`
 #' 
+#' Using `group = "taxonomy"` returns higher taxonomic information for a given
+#' query. It is the only `group` that is accepted by `atlas_species()` as well 
+#' as `atlas_occurrences()`.
+#' 
 #' Using `group = "assertions"` returns all quality assertion-related
 #' columns. The list of assertions is shown by `show_all_assertions()`.
+#' 
+#' For `atlas_occurrences()`, arguments passed to `...` should be valid field
+#' names, which you can check using `show_all(fields)`. For `atlas_species()`,
+#' it should be one or more of:
+#' 
+#'   * `counts` to include counts of occurrences per species.
+#'   * `synonyms` to include any synonymous names.
+#'   * `lists` to include authoritiative lists that each species is included on.
 #'
 #' @seealso [search_taxa()], [galah_filter()] and
 #' [galah_geolocate()] for other ways to restrict the information returned
@@ -179,7 +191,15 @@ preset_groups <- function(group_name) {
                  "media" = c("multimedia",
                              "images",
                              "videos",
-                             "sounds"))
+                             "sounds"),
+                 "taxonomy" = c("kingdom",
+                                "phylum",
+                                "class", 
+                                "order", 
+                                "family",
+                                "genus",
+                                "species",
+                                "subspecies"))
   # note: assertions handled elsewhere
   return(cols)
 }

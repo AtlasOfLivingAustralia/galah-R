@@ -1,6 +1,6 @@
 ---
 title: "Taxonomic filtering"
-author: "Callum Waite, Shandiya Balasubramaniam"
+author: "Callum Waite & Shandiya Balasubramaniam"
 date: '2023-10-13'
 output:
   rmarkdown::html_vignette
@@ -34,23 +34,23 @@ galah_config(email = "your_email_here", verbose = FALSE)
 search_taxa("Petroica boodang") |> gt::gt()
 ```
 
-<!--html_preserve--><div id="oakaplipcu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#oakaplipcu table {
+<!--html_preserve--><div id="dfgbacvvbi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dfgbacvvbi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#oakaplipcu thead, #oakaplipcu tbody, #oakaplipcu tfoot, #oakaplipcu tr, #oakaplipcu td, #oakaplipcu th {
+#dfgbacvvbi thead, #dfgbacvvbi tbody, #dfgbacvvbi tfoot, #dfgbacvvbi tr, #dfgbacvvbi td, #dfgbacvvbi th {
   border-style: none;
 }
 
-#oakaplipcu p {
+#dfgbacvvbi p {
   margin: 0;
   padding: 0;
 }
 
-#oakaplipcu .gt_table {
+#dfgbacvvbi .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -76,12 +76,12 @@ search_taxa("Petroica boodang") |> gt::gt()
   border-left-color: #D3D3D3;
 }
 
-#oakaplipcu .gt_caption {
+#dfgbacvvbi .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#oakaplipcu .gt_title {
+#dfgbacvvbi .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -93,7 +93,7 @@ search_taxa("Petroica boodang") |> gt::gt()
   border-bottom-width: 0;
 }
 
-#oakaplipcu .gt_subtitle {
+#dfgbacvvbi .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -105,7 +105,7 @@ search_taxa("Petroica boodang") |> gt::gt()
   border-top-width: 0;
 }
 
-#oakaplipcu .gt_heading {
+#dfgbacvvbi .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -117,13 +117,13 @@ search_taxa("Petroica boodang") |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#oakaplipcu .gt_bottom_border {
+#dfgbacvvbi .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#oakaplipcu .gt_col_headings {
+#dfgbacvvbi .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -138,7 +138,7 @@ search_taxa("Petroica boodang") |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#oakaplipcu .gt_col_heading {
+#dfgbacvvbi .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -158,7 +158,7 @@ search_taxa("Petroica boodang") |> gt::gt()
   overflow-x: hidden;
 }
 
-#oakaplipcu .gt_column_spanner_outer {
+#dfgbacvvbi .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -170,15 +170,15 @@ search_taxa("Petroica boodang") |> gt::gt()
   padding-right: 4px;
 }
 
-#oakaplipcu .gt_column_spanner_outer:first-child {
+#dfgbacvvbi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#oakaplipcu .gt_column_spanner_outer:last-child {
+#dfgbacvvbi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#oakaplipcu .gt_column_spanner {
+#dfgbacvvbi .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -190,11 +190,11 @@ search_taxa("Petroica boodang") |> gt::gt()
   width: 100%;
 }
 
-#oakaplipcu .gt_spanner_row {
+#dfgbacvvbi .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#oakaplipcu .gt_group_heading {
+#dfgbacvvbi .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -220,7 +220,7 @@ search_taxa("Petroica boodang") |> gt::gt()
   text-align: left;
 }
 
-#oakaplipcu .gt_empty_group_heading {
+#dfgbacvvbi .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -235,15 +235,15 @@ search_taxa("Petroica boodang") |> gt::gt()
   vertical-align: middle;
 }
 
-#oakaplipcu .gt_from_md > :first-child {
+#dfgbacvvbi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#oakaplipcu .gt_from_md > :last-child {
+#dfgbacvvbi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#oakaplipcu .gt_row {
+#dfgbacvvbi .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -262,7 +262,7 @@ search_taxa("Petroica boodang") |> gt::gt()
   overflow-x: hidden;
 }
 
-#oakaplipcu .gt_stub {
+#dfgbacvvbi .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -275,7 +275,7 @@ search_taxa("Petroica boodang") |> gt::gt()
   padding-right: 5px;
 }
 
-#oakaplipcu .gt_stub_row_group {
+#dfgbacvvbi .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -289,15 +289,15 @@ search_taxa("Petroica boodang") |> gt::gt()
   vertical-align: top;
 }
 
-#oakaplipcu .gt_row_group_first td {
+#dfgbacvvbi .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#oakaplipcu .gt_row_group_first th {
+#dfgbacvvbi .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#oakaplipcu .gt_summary_row {
+#dfgbacvvbi .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -307,16 +307,16 @@ search_taxa("Petroica boodang") |> gt::gt()
   padding-right: 5px;
 }
 
-#oakaplipcu .gt_first_summary_row {
+#dfgbacvvbi .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#oakaplipcu .gt_first_summary_row.thick {
+#dfgbacvvbi .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#oakaplipcu .gt_last_summary_row {
+#dfgbacvvbi .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -326,7 +326,7 @@ search_taxa("Petroica boodang") |> gt::gt()
   border-bottom-color: #D3D3D3;
 }
 
-#oakaplipcu .gt_grand_summary_row {
+#dfgbacvvbi .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -336,7 +336,7 @@ search_taxa("Petroica boodang") |> gt::gt()
   padding-right: 5px;
 }
 
-#oakaplipcu .gt_first_grand_summary_row {
+#dfgbacvvbi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -346,7 +346,7 @@ search_taxa("Petroica boodang") |> gt::gt()
   border-top-color: #D3D3D3;
 }
 
-#oakaplipcu .gt_last_grand_summary_row_top {
+#dfgbacvvbi .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -356,11 +356,11 @@ search_taxa("Petroica boodang") |> gt::gt()
   border-bottom-color: #D3D3D3;
 }
 
-#oakaplipcu .gt_striped {
+#dfgbacvvbi .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#oakaplipcu .gt_table_body {
+#dfgbacvvbi .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -369,7 +369,7 @@ search_taxa("Petroica boodang") |> gt::gt()
   border-bottom-color: #D3D3D3;
 }
 
-#oakaplipcu .gt_footnotes {
+#dfgbacvvbi .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -383,7 +383,7 @@ search_taxa("Petroica boodang") |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#oakaplipcu .gt_footnote {
+#dfgbacvvbi .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -392,7 +392,7 @@ search_taxa("Petroica boodang") |> gt::gt()
   padding-right: 5px;
 }
 
-#oakaplipcu .gt_sourcenotes {
+#dfgbacvvbi .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -406,7 +406,7 @@ search_taxa("Petroica boodang") |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#oakaplipcu .gt_sourcenote {
+#dfgbacvvbi .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -414,63 +414,63 @@ search_taxa("Petroica boodang") |> gt::gt()
   padding-right: 5px;
 }
 
-#oakaplipcu .gt_left {
+#dfgbacvvbi .gt_left {
   text-align: left;
 }
 
-#oakaplipcu .gt_center {
+#dfgbacvvbi .gt_center {
   text-align: center;
 }
 
-#oakaplipcu .gt_right {
+#dfgbacvvbi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#oakaplipcu .gt_font_normal {
+#dfgbacvvbi .gt_font_normal {
   font-weight: normal;
 }
 
-#oakaplipcu .gt_font_bold {
+#dfgbacvvbi .gt_font_bold {
   font-weight: bold;
 }
 
-#oakaplipcu .gt_font_italic {
+#dfgbacvvbi .gt_font_italic {
   font-style: italic;
 }
 
-#oakaplipcu .gt_super {
+#dfgbacvvbi .gt_super {
   font-size: 65%;
 }
 
-#oakaplipcu .gt_footnote_marks {
+#dfgbacvvbi .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#oakaplipcu .gt_asterisk {
+#dfgbacvvbi .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#oakaplipcu .gt_indent_1 {
+#dfgbacvvbi .gt_indent_1 {
   text-indent: 5px;
 }
 
-#oakaplipcu .gt_indent_2 {
+#dfgbacvvbi .gt_indent_2 {
   text-indent: 10px;
 }
 
-#oakaplipcu .gt_indent_3 {
+#dfgbacvvbi .gt_indent_3 {
   text-indent: 15px;
 }
 
-#oakaplipcu .gt_indent_4 {
+#dfgbacvvbi .gt_indent_4 {
   text-indent: 20px;
 }
 
-#oakaplipcu .gt_indent_5 {
+#dfgbacvvbi .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -524,23 +524,23 @@ search_taxa("Petroica boodang") |> gt::gt()
 search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
 ```
 
-<!--html_preserve--><div id="uxkzlzkngj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#uxkzlzkngj table {
+<!--html_preserve--><div id="odxbwcznik" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#odxbwcznik table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#uxkzlzkngj thead, #uxkzlzkngj tbody, #uxkzlzkngj tfoot, #uxkzlzkngj tr, #uxkzlzkngj td, #uxkzlzkngj th {
+#odxbwcznik thead, #odxbwcznik tbody, #odxbwcznik tfoot, #odxbwcznik tr, #odxbwcznik td, #odxbwcznik th {
   border-style: none;
 }
 
-#uxkzlzkngj p {
+#odxbwcznik p {
   margin: 0;
   padding: 0;
 }
 
-#uxkzlzkngj .gt_table {
+#odxbwcznik .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -566,12 +566,12 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   border-left-color: #D3D3D3;
 }
 
-#uxkzlzkngj .gt_caption {
+#odxbwcznik .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#uxkzlzkngj .gt_title {
+#odxbwcznik .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -583,7 +583,7 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   border-bottom-width: 0;
 }
 
-#uxkzlzkngj .gt_subtitle {
+#odxbwcznik .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -595,7 +595,7 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   border-top-width: 0;
 }
 
-#uxkzlzkngj .gt_heading {
+#odxbwcznik .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -607,13 +607,13 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#uxkzlzkngj .gt_bottom_border {
+#odxbwcznik .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#uxkzlzkngj .gt_col_headings {
+#odxbwcznik .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -628,7 +628,7 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#uxkzlzkngj .gt_col_heading {
+#odxbwcznik .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -648,7 +648,7 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   overflow-x: hidden;
 }
 
-#uxkzlzkngj .gt_column_spanner_outer {
+#odxbwcznik .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -660,15 +660,15 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   padding-right: 4px;
 }
 
-#uxkzlzkngj .gt_column_spanner_outer:first-child {
+#odxbwcznik .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#uxkzlzkngj .gt_column_spanner_outer:last-child {
+#odxbwcznik .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#uxkzlzkngj .gt_column_spanner {
+#odxbwcznik .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -680,11 +680,11 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   width: 100%;
 }
 
-#uxkzlzkngj .gt_spanner_row {
+#odxbwcznik .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#uxkzlzkngj .gt_group_heading {
+#odxbwcznik .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -710,7 +710,7 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   text-align: left;
 }
 
-#uxkzlzkngj .gt_empty_group_heading {
+#odxbwcznik .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -725,15 +725,15 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   vertical-align: middle;
 }
 
-#uxkzlzkngj .gt_from_md > :first-child {
+#odxbwcznik .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#uxkzlzkngj .gt_from_md > :last-child {
+#odxbwcznik .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#uxkzlzkngj .gt_row {
+#odxbwcznik .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -752,7 +752,7 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   overflow-x: hidden;
 }
 
-#uxkzlzkngj .gt_stub {
+#odxbwcznik .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -765,7 +765,7 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   padding-right: 5px;
 }
 
-#uxkzlzkngj .gt_stub_row_group {
+#odxbwcznik .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -779,15 +779,15 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   vertical-align: top;
 }
 
-#uxkzlzkngj .gt_row_group_first td {
+#odxbwcznik .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#uxkzlzkngj .gt_row_group_first th {
+#odxbwcznik .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#uxkzlzkngj .gt_summary_row {
+#odxbwcznik .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -797,16 +797,16 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   padding-right: 5px;
 }
 
-#uxkzlzkngj .gt_first_summary_row {
+#odxbwcznik .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#uxkzlzkngj .gt_first_summary_row.thick {
+#odxbwcznik .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#uxkzlzkngj .gt_last_summary_row {
+#odxbwcznik .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -816,7 +816,7 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   border-bottom-color: #D3D3D3;
 }
 
-#uxkzlzkngj .gt_grand_summary_row {
+#odxbwcznik .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -826,7 +826,7 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   padding-right: 5px;
 }
 
-#uxkzlzkngj .gt_first_grand_summary_row {
+#odxbwcznik .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -836,7 +836,7 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   border-top-color: #D3D3D3;
 }
 
-#uxkzlzkngj .gt_last_grand_summary_row_top {
+#odxbwcznik .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -846,11 +846,11 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   border-bottom-color: #D3D3D3;
 }
 
-#uxkzlzkngj .gt_striped {
+#odxbwcznik .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#uxkzlzkngj .gt_table_body {
+#odxbwcznik .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -859,7 +859,7 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   border-bottom-color: #D3D3D3;
 }
 
-#uxkzlzkngj .gt_footnotes {
+#odxbwcznik .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -873,7 +873,7 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#uxkzlzkngj .gt_footnote {
+#odxbwcznik .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -882,7 +882,7 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   padding-right: 5px;
 }
 
-#uxkzlzkngj .gt_sourcenotes {
+#odxbwcznik .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -896,7 +896,7 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#uxkzlzkngj .gt_sourcenote {
+#odxbwcznik .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -904,63 +904,63 @@ search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
   padding-right: 5px;
 }
 
-#uxkzlzkngj .gt_left {
+#odxbwcznik .gt_left {
   text-align: left;
 }
 
-#uxkzlzkngj .gt_center {
+#odxbwcznik .gt_center {
   text-align: center;
 }
 
-#uxkzlzkngj .gt_right {
+#odxbwcznik .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#uxkzlzkngj .gt_font_normal {
+#odxbwcznik .gt_font_normal {
   font-weight: normal;
 }
 
-#uxkzlzkngj .gt_font_bold {
+#odxbwcznik .gt_font_bold {
   font-weight: bold;
 }
 
-#uxkzlzkngj .gt_font_italic {
+#odxbwcznik .gt_font_italic {
   font-style: italic;
 }
 
-#uxkzlzkngj .gt_super {
+#odxbwcznik .gt_super {
   font-size: 65%;
 }
 
-#uxkzlzkngj .gt_footnote_marks {
+#odxbwcznik .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#uxkzlzkngj .gt_asterisk {
+#odxbwcznik .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#uxkzlzkngj .gt_indent_1 {
+#odxbwcznik .gt_indent_1 {
   text-indent: 5px;
 }
 
-#uxkzlzkngj .gt_indent_2 {
+#odxbwcznik .gt_indent_2 {
   text-indent: 10px;
 }
 
-#uxkzlzkngj .gt_indent_3 {
+#odxbwcznik .gt_indent_3 {
   text-indent: 15px;
 }
 
-#uxkzlzkngj .gt_indent_4 {
+#odxbwcznik .gt_indent_4 {
   text-indent: 20px;
 }
 
-#uxkzlzkngj .gt_indent_5 {
+#odxbwcznik .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1021,23 +1021,23 @@ search_taxa("Morganella") |> gt::gt()
 ## ✖ Homonym issue with "Morganella".
 ```
 
-<!--html_preserve--><div id="ppdjiksiow" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ppdjiksiow table {
+<!--html_preserve--><div id="watnbtggoz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#watnbtggoz table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ppdjiksiow thead, #ppdjiksiow tbody, #ppdjiksiow tfoot, #ppdjiksiow tr, #ppdjiksiow td, #ppdjiksiow th {
+#watnbtggoz thead, #watnbtggoz tbody, #watnbtggoz tfoot, #watnbtggoz tr, #watnbtggoz td, #watnbtggoz th {
   border-style: none;
 }
 
-#ppdjiksiow p {
+#watnbtggoz p {
   margin: 0;
   padding: 0;
 }
 
-#ppdjiksiow .gt_table {
+#watnbtggoz .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1063,12 +1063,12 @@ search_taxa("Morganella") |> gt::gt()
   border-left-color: #D3D3D3;
 }
 
-#ppdjiksiow .gt_caption {
+#watnbtggoz .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ppdjiksiow .gt_title {
+#watnbtggoz .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1080,7 +1080,7 @@ search_taxa("Morganella") |> gt::gt()
   border-bottom-width: 0;
 }
 
-#ppdjiksiow .gt_subtitle {
+#watnbtggoz .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1092,7 +1092,7 @@ search_taxa("Morganella") |> gt::gt()
   border-top-width: 0;
 }
 
-#ppdjiksiow .gt_heading {
+#watnbtggoz .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1104,13 +1104,13 @@ search_taxa("Morganella") |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#ppdjiksiow .gt_bottom_border {
+#watnbtggoz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ppdjiksiow .gt_col_headings {
+#watnbtggoz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1125,7 +1125,7 @@ search_taxa("Morganella") |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#ppdjiksiow .gt_col_heading {
+#watnbtggoz .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1145,7 +1145,7 @@ search_taxa("Morganella") |> gt::gt()
   overflow-x: hidden;
 }
 
-#ppdjiksiow .gt_column_spanner_outer {
+#watnbtggoz .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1157,15 +1157,15 @@ search_taxa("Morganella") |> gt::gt()
   padding-right: 4px;
 }
 
-#ppdjiksiow .gt_column_spanner_outer:first-child {
+#watnbtggoz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ppdjiksiow .gt_column_spanner_outer:last-child {
+#watnbtggoz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ppdjiksiow .gt_column_spanner {
+#watnbtggoz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1177,11 +1177,11 @@ search_taxa("Morganella") |> gt::gt()
   width: 100%;
 }
 
-#ppdjiksiow .gt_spanner_row {
+#watnbtggoz .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ppdjiksiow .gt_group_heading {
+#watnbtggoz .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1207,7 +1207,7 @@ search_taxa("Morganella") |> gt::gt()
   text-align: left;
 }
 
-#ppdjiksiow .gt_empty_group_heading {
+#watnbtggoz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1222,15 +1222,15 @@ search_taxa("Morganella") |> gt::gt()
   vertical-align: middle;
 }
 
-#ppdjiksiow .gt_from_md > :first-child {
+#watnbtggoz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ppdjiksiow .gt_from_md > :last-child {
+#watnbtggoz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ppdjiksiow .gt_row {
+#watnbtggoz .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1249,7 +1249,7 @@ search_taxa("Morganella") |> gt::gt()
   overflow-x: hidden;
 }
 
-#ppdjiksiow .gt_stub {
+#watnbtggoz .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1262,7 +1262,7 @@ search_taxa("Morganella") |> gt::gt()
   padding-right: 5px;
 }
 
-#ppdjiksiow .gt_stub_row_group {
+#watnbtggoz .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1276,15 +1276,15 @@ search_taxa("Morganella") |> gt::gt()
   vertical-align: top;
 }
 
-#ppdjiksiow .gt_row_group_first td {
+#watnbtggoz .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ppdjiksiow .gt_row_group_first th {
+#watnbtggoz .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ppdjiksiow .gt_summary_row {
+#watnbtggoz .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1294,16 +1294,16 @@ search_taxa("Morganella") |> gt::gt()
   padding-right: 5px;
 }
 
-#ppdjiksiow .gt_first_summary_row {
+#watnbtggoz .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ppdjiksiow .gt_first_summary_row.thick {
+#watnbtggoz .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ppdjiksiow .gt_last_summary_row {
+#watnbtggoz .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1313,7 +1313,7 @@ search_taxa("Morganella") |> gt::gt()
   border-bottom-color: #D3D3D3;
 }
 
-#ppdjiksiow .gt_grand_summary_row {
+#watnbtggoz .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1323,7 +1323,7 @@ search_taxa("Morganella") |> gt::gt()
   padding-right: 5px;
 }
 
-#ppdjiksiow .gt_first_grand_summary_row {
+#watnbtggoz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1333,7 +1333,7 @@ search_taxa("Morganella") |> gt::gt()
   border-top-color: #D3D3D3;
 }
 
-#ppdjiksiow .gt_last_grand_summary_row_top {
+#watnbtggoz .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1343,11 +1343,11 @@ search_taxa("Morganella") |> gt::gt()
   border-bottom-color: #D3D3D3;
 }
 
-#ppdjiksiow .gt_striped {
+#watnbtggoz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ppdjiksiow .gt_table_body {
+#watnbtggoz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1356,7 +1356,7 @@ search_taxa("Morganella") |> gt::gt()
   border-bottom-color: #D3D3D3;
 }
 
-#ppdjiksiow .gt_footnotes {
+#watnbtggoz .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1370,7 +1370,7 @@ search_taxa("Morganella") |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#ppdjiksiow .gt_footnote {
+#watnbtggoz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1379,7 +1379,7 @@ search_taxa("Morganella") |> gt::gt()
   padding-right: 5px;
 }
 
-#ppdjiksiow .gt_sourcenotes {
+#watnbtggoz .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1393,7 +1393,7 @@ search_taxa("Morganella") |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#ppdjiksiow .gt_sourcenote {
+#watnbtggoz .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1401,63 +1401,63 @@ search_taxa("Morganella") |> gt::gt()
   padding-right: 5px;
 }
 
-#ppdjiksiow .gt_left {
+#watnbtggoz .gt_left {
   text-align: left;
 }
 
-#ppdjiksiow .gt_center {
+#watnbtggoz .gt_center {
   text-align: center;
 }
 
-#ppdjiksiow .gt_right {
+#watnbtggoz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ppdjiksiow .gt_font_normal {
+#watnbtggoz .gt_font_normal {
   font-weight: normal;
 }
 
-#ppdjiksiow .gt_font_bold {
+#watnbtggoz .gt_font_bold {
   font-weight: bold;
 }
 
-#ppdjiksiow .gt_font_italic {
+#watnbtggoz .gt_font_italic {
   font-style: italic;
 }
 
-#ppdjiksiow .gt_super {
+#watnbtggoz .gt_super {
   font-size: 65%;
 }
 
-#ppdjiksiow .gt_footnote_marks {
+#watnbtggoz .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ppdjiksiow .gt_asterisk {
+#watnbtggoz .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ppdjiksiow .gt_indent_1 {
+#watnbtggoz .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ppdjiksiow .gt_indent_2 {
+#watnbtggoz .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ppdjiksiow .gt_indent_3 {
+#watnbtggoz .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ppdjiksiow .gt_indent_4 {
+#watnbtggoz .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ppdjiksiow .gt_indent_5 {
+#watnbtggoz .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1483,23 +1483,23 @@ search_taxa("Morganella") |> gt::gt()
 search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
 ```
 
-<!--html_preserve--><div id="copnjjmepq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#copnjjmepq table {
+<!--html_preserve--><div id="lnpwibtwtp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lnpwibtwtp table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#copnjjmepq thead, #copnjjmepq tbody, #copnjjmepq tfoot, #copnjjmepq tr, #copnjjmepq td, #copnjjmepq th {
+#lnpwibtwtp thead, #lnpwibtwtp tbody, #lnpwibtwtp tfoot, #lnpwibtwtp tr, #lnpwibtwtp td, #lnpwibtwtp th {
   border-style: none;
 }
 
-#copnjjmepq p {
+#lnpwibtwtp p {
   margin: 0;
   padding: 0;
 }
 
-#copnjjmepq .gt_table {
+#lnpwibtwtp .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1525,12 +1525,12 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   border-left-color: #D3D3D3;
 }
 
-#copnjjmepq .gt_caption {
+#lnpwibtwtp .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#copnjjmepq .gt_title {
+#lnpwibtwtp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1542,7 +1542,7 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   border-bottom-width: 0;
 }
 
-#copnjjmepq .gt_subtitle {
+#lnpwibtwtp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1554,7 +1554,7 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   border-top-width: 0;
 }
 
-#copnjjmepq .gt_heading {
+#lnpwibtwtp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1566,13 +1566,13 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#copnjjmepq .gt_bottom_border {
+#lnpwibtwtp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#copnjjmepq .gt_col_headings {
+#lnpwibtwtp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1587,7 +1587,7 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#copnjjmepq .gt_col_heading {
+#lnpwibtwtp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1607,7 +1607,7 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   overflow-x: hidden;
 }
 
-#copnjjmepq .gt_column_spanner_outer {
+#lnpwibtwtp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1619,15 +1619,15 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   padding-right: 4px;
 }
 
-#copnjjmepq .gt_column_spanner_outer:first-child {
+#lnpwibtwtp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#copnjjmepq .gt_column_spanner_outer:last-child {
+#lnpwibtwtp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#copnjjmepq .gt_column_spanner {
+#lnpwibtwtp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1639,11 +1639,11 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   width: 100%;
 }
 
-#copnjjmepq .gt_spanner_row {
+#lnpwibtwtp .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#copnjjmepq .gt_group_heading {
+#lnpwibtwtp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1669,7 +1669,7 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   text-align: left;
 }
 
-#copnjjmepq .gt_empty_group_heading {
+#lnpwibtwtp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1684,15 +1684,15 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   vertical-align: middle;
 }
 
-#copnjjmepq .gt_from_md > :first-child {
+#lnpwibtwtp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#copnjjmepq .gt_from_md > :last-child {
+#lnpwibtwtp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#copnjjmepq .gt_row {
+#lnpwibtwtp .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1711,7 +1711,7 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   overflow-x: hidden;
 }
 
-#copnjjmepq .gt_stub {
+#lnpwibtwtp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1724,7 +1724,7 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   padding-right: 5px;
 }
 
-#copnjjmepq .gt_stub_row_group {
+#lnpwibtwtp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1738,15 +1738,15 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   vertical-align: top;
 }
 
-#copnjjmepq .gt_row_group_first td {
+#lnpwibtwtp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#copnjjmepq .gt_row_group_first th {
+#lnpwibtwtp .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#copnjjmepq .gt_summary_row {
+#lnpwibtwtp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1756,16 +1756,16 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   padding-right: 5px;
 }
 
-#copnjjmepq .gt_first_summary_row {
+#lnpwibtwtp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#copnjjmepq .gt_first_summary_row.thick {
+#lnpwibtwtp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#copnjjmepq .gt_last_summary_row {
+#lnpwibtwtp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1775,7 +1775,7 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   border-bottom-color: #D3D3D3;
 }
 
-#copnjjmepq .gt_grand_summary_row {
+#lnpwibtwtp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1785,7 +1785,7 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   padding-right: 5px;
 }
 
-#copnjjmepq .gt_first_grand_summary_row {
+#lnpwibtwtp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1795,7 +1795,7 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   border-top-color: #D3D3D3;
 }
 
-#copnjjmepq .gt_last_grand_summary_row_top {
+#lnpwibtwtp .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1805,11 +1805,11 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   border-bottom-color: #D3D3D3;
 }
 
-#copnjjmepq .gt_striped {
+#lnpwibtwtp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#copnjjmepq .gt_table_body {
+#lnpwibtwtp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1818,7 +1818,7 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   border-bottom-color: #D3D3D3;
 }
 
-#copnjjmepq .gt_footnotes {
+#lnpwibtwtp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1832,7 +1832,7 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#copnjjmepq .gt_footnote {
+#lnpwibtwtp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1841,7 +1841,7 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   padding-right: 5px;
 }
 
-#copnjjmepq .gt_sourcenotes {
+#lnpwibtwtp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1855,7 +1855,7 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#copnjjmepq .gt_sourcenote {
+#lnpwibtwtp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1863,63 +1863,63 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
   padding-right: 5px;
 }
 
-#copnjjmepq .gt_left {
+#lnpwibtwtp .gt_left {
   text-align: left;
 }
 
-#copnjjmepq .gt_center {
+#lnpwibtwtp .gt_center {
   text-align: center;
 }
 
-#copnjjmepq .gt_right {
+#lnpwibtwtp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#copnjjmepq .gt_font_normal {
+#lnpwibtwtp .gt_font_normal {
   font-weight: normal;
 }
 
-#copnjjmepq .gt_font_bold {
+#lnpwibtwtp .gt_font_bold {
   font-weight: bold;
 }
 
-#copnjjmepq .gt_font_italic {
+#lnpwibtwtp .gt_font_italic {
   font-style: italic;
 }
 
-#copnjjmepq .gt_super {
+#lnpwibtwtp .gt_super {
   font-size: 65%;
 }
 
-#copnjjmepq .gt_footnote_marks {
+#lnpwibtwtp .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#copnjjmepq .gt_asterisk {
+#lnpwibtwtp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#copnjjmepq .gt_indent_1 {
+#lnpwibtwtp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#copnjjmepq .gt_indent_2 {
+#lnpwibtwtp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#copnjjmepq .gt_indent_3 {
+#lnpwibtwtp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#copnjjmepq .gt_indent_4 {
+#lnpwibtwtp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#copnjjmepq .gt_indent_5 {
+#lnpwibtwtp .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1963,49 +1963,50 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
 </div><!--/html_preserve-->
 <br>
 
-### galah_identify()
+### identify()
 
-`galah_identify()` is similar to `search_taxa()`, except that it can be used within a piped workflow to retrieve counts, species, or records e.g.
+`identify()` is similar to `search_taxa()`, except that it can be used within a piped workflow to retrieve counts, species, or records e.g.
 
 
 ```r
 galah_call() |>
-  galah_identify("Petroica boodang") |>
-  atlas_counts() 
+  identify("Petroica boodang") |>
+  count() |>
+  collect()
 ```
 
 ```
 ## # A tibble: 1 × 1
 ##    count
 ##    <int>
-## 1 118998
+## 1 119417
 ```
 
 
 ```r
-galah_call() |>
-  galah_identify("Muscicapa chrysoptera", "Guniibuu") |>
-  atlas_species() |> 
+galah_call(type = "species") |>
+  identify("Muscicapa chrysoptera", "Guniibuu") |>
+  collect() |> 
   gt::gt()
 ```
 
-<!--html_preserve--><div id="akzhkzprjm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#akzhkzprjm table {
+<!--html_preserve--><div id="ytplxfejdg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ytplxfejdg table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#akzhkzprjm thead, #akzhkzprjm tbody, #akzhkzprjm tfoot, #akzhkzprjm tr, #akzhkzprjm td, #akzhkzprjm th {
+#ytplxfejdg thead, #ytplxfejdg tbody, #ytplxfejdg tfoot, #ytplxfejdg tr, #ytplxfejdg td, #ytplxfejdg th {
   border-style: none;
 }
 
-#akzhkzprjm p {
+#ytplxfejdg p {
   margin: 0;
   padding: 0;
 }
 
-#akzhkzprjm .gt_table {
+#ytplxfejdg .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2031,12 +2032,12 @@ galah_call() |>
   border-left-color: #D3D3D3;
 }
 
-#akzhkzprjm .gt_caption {
+#ytplxfejdg .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#akzhkzprjm .gt_title {
+#ytplxfejdg .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2048,7 +2049,7 @@ galah_call() |>
   border-bottom-width: 0;
 }
 
-#akzhkzprjm .gt_subtitle {
+#ytplxfejdg .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2060,7 +2061,7 @@ galah_call() |>
   border-top-width: 0;
 }
 
-#akzhkzprjm .gt_heading {
+#ytplxfejdg .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2072,13 +2073,13 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#akzhkzprjm .gt_bottom_border {
+#ytplxfejdg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#akzhkzprjm .gt_col_headings {
+#ytplxfejdg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2093,7 +2094,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#akzhkzprjm .gt_col_heading {
+#ytplxfejdg .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2113,7 +2114,7 @@ galah_call() |>
   overflow-x: hidden;
 }
 
-#akzhkzprjm .gt_column_spanner_outer {
+#ytplxfejdg .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2125,15 +2126,15 @@ galah_call() |>
   padding-right: 4px;
 }
 
-#akzhkzprjm .gt_column_spanner_outer:first-child {
+#ytplxfejdg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#akzhkzprjm .gt_column_spanner_outer:last-child {
+#ytplxfejdg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#akzhkzprjm .gt_column_spanner {
+#ytplxfejdg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2145,11 +2146,11 @@ galah_call() |>
   width: 100%;
 }
 
-#akzhkzprjm .gt_spanner_row {
+#ytplxfejdg .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#akzhkzprjm .gt_group_heading {
+#ytplxfejdg .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2175,7 +2176,7 @@ galah_call() |>
   text-align: left;
 }
 
-#akzhkzprjm .gt_empty_group_heading {
+#ytplxfejdg .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2190,15 +2191,15 @@ galah_call() |>
   vertical-align: middle;
 }
 
-#akzhkzprjm .gt_from_md > :first-child {
+#ytplxfejdg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#akzhkzprjm .gt_from_md > :last-child {
+#ytplxfejdg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#akzhkzprjm .gt_row {
+#ytplxfejdg .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2217,7 +2218,7 @@ galah_call() |>
   overflow-x: hidden;
 }
 
-#akzhkzprjm .gt_stub {
+#ytplxfejdg .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2230,7 +2231,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#akzhkzprjm .gt_stub_row_group {
+#ytplxfejdg .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2244,15 +2245,15 @@ galah_call() |>
   vertical-align: top;
 }
 
-#akzhkzprjm .gt_row_group_first td {
+#ytplxfejdg .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#akzhkzprjm .gt_row_group_first th {
+#ytplxfejdg .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#akzhkzprjm .gt_summary_row {
+#ytplxfejdg .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2262,16 +2263,16 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#akzhkzprjm .gt_first_summary_row {
+#ytplxfejdg .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#akzhkzprjm .gt_first_summary_row.thick {
+#ytplxfejdg .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#akzhkzprjm .gt_last_summary_row {
+#ytplxfejdg .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2281,7 +2282,7 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#akzhkzprjm .gt_grand_summary_row {
+#ytplxfejdg .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2291,7 +2292,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#akzhkzprjm .gt_first_grand_summary_row {
+#ytplxfejdg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2301,7 +2302,7 @@ galah_call() |>
   border-top-color: #D3D3D3;
 }
 
-#akzhkzprjm .gt_last_grand_summary_row_top {
+#ytplxfejdg .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2311,11 +2312,11 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#akzhkzprjm .gt_striped {
+#ytplxfejdg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#akzhkzprjm .gt_table_body {
+#ytplxfejdg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2324,7 +2325,7 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#akzhkzprjm .gt_footnotes {
+#ytplxfejdg .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2338,7 +2339,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#akzhkzprjm .gt_footnote {
+#ytplxfejdg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2347,7 +2348,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#akzhkzprjm .gt_sourcenotes {
+#ytplxfejdg .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2361,7 +2362,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#akzhkzprjm .gt_sourcenote {
+#ytplxfejdg .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2369,63 +2370,63 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#akzhkzprjm .gt_left {
+#ytplxfejdg .gt_left {
   text-align: left;
 }
 
-#akzhkzprjm .gt_center {
+#ytplxfejdg .gt_center {
   text-align: center;
 }
 
-#akzhkzprjm .gt_right {
+#ytplxfejdg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#akzhkzprjm .gt_font_normal {
+#ytplxfejdg .gt_font_normal {
   font-weight: normal;
 }
 
-#akzhkzprjm .gt_font_bold {
+#ytplxfejdg .gt_font_bold {
   font-weight: bold;
 }
 
-#akzhkzprjm .gt_font_italic {
+#ytplxfejdg .gt_font_italic {
   font-style: italic;
 }
 
-#akzhkzprjm .gt_super {
+#ytplxfejdg .gt_super {
   font-size: 65%;
 }
 
-#akzhkzprjm .gt_footnote_marks {
+#ytplxfejdg .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#akzhkzprjm .gt_asterisk {
+#ytplxfejdg .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#akzhkzprjm .gt_indent_1 {
+#ytplxfejdg .gt_indent_1 {
   text-indent: 5px;
 }
 
-#akzhkzprjm .gt_indent_2 {
+#ytplxfejdg .gt_indent_2 {
   text-indent: 10px;
 }
 
-#akzhkzprjm .gt_indent_3 {
+#ytplxfejdg .gt_indent_3 {
   text-indent: 15px;
 }
 
-#akzhkzprjm .gt_indent_4 {
+#ytplxfejdg .gt_indent_4 {
   text-indent: 20px;
 }
 
-#akzhkzprjm .gt_indent_5 {
+#ytplxfejdg .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2433,38 +2434,41 @@ galah_call() |>
   <thead>
     
     <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="taxon_concept_id">taxon_concept_id</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="species_name">species_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="scientific_name_authorship">scientific_name_authorship</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="taxon_rank">taxon_rank</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="kingdom">kingdom</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="phylum">phylum</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="class">class</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="order">order</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="family">family</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="genus">genus</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="species">species</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="author">author</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="species_guid">species_guid</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="vernacular_name">vernacular_name</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td headers="kingdom" class="gt_row gt_left">Animalia</td>
+    <tr><td headers="taxon_concept_id" class="gt_row gt_left">https://biodiversity.org.au/afd/taxa/10dbd908-00f3-4ec2-9a9c-a2fd4782eaf1</td>
+<td headers="species_name" class="gt_row gt_left">Petroica (Petroica) goodenovii</td>
+<td headers="scientific_name_authorship" class="gt_row gt_left">(Vigors &amp; Horsfield, 1827)</td>
+<td headers="taxon_rank" class="gt_row gt_left">species</td>
+<td headers="kingdom" class="gt_row gt_left">Animalia</td>
 <td headers="phylum" class="gt_row gt_left">Chordata</td>
 <td headers="class" class="gt_row gt_left">Aves</td>
 <td headers="order" class="gt_row gt_left">Passeriformes</td>
 <td headers="family" class="gt_row gt_left">Petroicidae</td>
 <td headers="genus" class="gt_row gt_left">Petroica</td>
-<td headers="species" class="gt_row gt_left">Petroica (Petroica) goodenovii</td>
-<td headers="author" class="gt_row gt_left">(Vigors &amp; Horsfield, 1827)</td>
-<td headers="species_guid" class="gt_row gt_left">https://biodiversity.org.au/afd/taxa/10dbd908-00f3-4ec2-9a9c-a2fd4782eaf1</td>
 <td headers="vernacular_name" class="gt_row gt_left">Red-capped Robin</td></tr>
-    <tr><td headers="kingdom" class="gt_row gt_left">Animalia</td>
+    <tr><td headers="taxon_concept_id" class="gt_row gt_left">https://biodiversity.org.au/afd/taxa/fe74e658-4848-437a-a23d-f1001a198552</td>
+<td headers="species_name" class="gt_row gt_left">Petroica (Littlera) phoenicea</td>
+<td headers="scientific_name_authorship" class="gt_row gt_left">Gould, 1837</td>
+<td headers="taxon_rank" class="gt_row gt_left">species</td>
+<td headers="kingdom" class="gt_row gt_left">Animalia</td>
 <td headers="phylum" class="gt_row gt_left">Chordata</td>
 <td headers="class" class="gt_row gt_left">Aves</td>
 <td headers="order" class="gt_row gt_left">Passeriformes</td>
 <td headers="family" class="gt_row gt_left">Petroicidae</td>
 <td headers="genus" class="gt_row gt_left">Petroica</td>
-<td headers="species" class="gt_row gt_left">Petroica (Littlera) phoenicea</td>
-<td headers="author" class="gt_row gt_left">Gould, 1837</td>
-<td headers="species_guid" class="gt_row gt_left">https://biodiversity.org.au/afd/taxa/fe74e658-4848-437a-a23d-f1001a198552</td>
 <td headers="vernacular_name" class="gt_row gt_left">Flame Robin</td></tr>
   </tbody>
   
@@ -2475,29 +2479,29 @@ galah_call() |>
 
 ```r
 galah_call() |>
-  galah_identify(tibble(kingdom = "Fungi", genus = "Morganella")) |>
-  atlas_occurrences() |>
+  identify(tibble(kingdom = "Fungi", genus = "Morganella")) |>
+  collect() |>
   head() |> 
   gt::gt()
 ```
 
-<!--html_preserve--><div id="ljgwvnryfs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ljgwvnryfs table {
+<!--html_preserve--><div id="dcqwoxuqqh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dcqwoxuqqh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ljgwvnryfs thead, #ljgwvnryfs tbody, #ljgwvnryfs tfoot, #ljgwvnryfs tr, #ljgwvnryfs td, #ljgwvnryfs th {
+#dcqwoxuqqh thead, #dcqwoxuqqh tbody, #dcqwoxuqqh tfoot, #dcqwoxuqqh tr, #dcqwoxuqqh td, #dcqwoxuqqh th {
   border-style: none;
 }
 
-#ljgwvnryfs p {
+#dcqwoxuqqh p {
   margin: 0;
   padding: 0;
 }
 
-#ljgwvnryfs .gt_table {
+#dcqwoxuqqh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2523,12 +2527,12 @@ galah_call() |>
   border-left-color: #D3D3D3;
 }
 
-#ljgwvnryfs .gt_caption {
+#dcqwoxuqqh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ljgwvnryfs .gt_title {
+#dcqwoxuqqh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2540,7 +2544,7 @@ galah_call() |>
   border-bottom-width: 0;
 }
 
-#ljgwvnryfs .gt_subtitle {
+#dcqwoxuqqh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2552,7 +2556,7 @@ galah_call() |>
   border-top-width: 0;
 }
 
-#ljgwvnryfs .gt_heading {
+#dcqwoxuqqh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2564,13 +2568,13 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#ljgwvnryfs .gt_bottom_border {
+#dcqwoxuqqh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ljgwvnryfs .gt_col_headings {
+#dcqwoxuqqh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2585,7 +2589,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#ljgwvnryfs .gt_col_heading {
+#dcqwoxuqqh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2605,7 +2609,7 @@ galah_call() |>
   overflow-x: hidden;
 }
 
-#ljgwvnryfs .gt_column_spanner_outer {
+#dcqwoxuqqh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2617,15 +2621,15 @@ galah_call() |>
   padding-right: 4px;
 }
 
-#ljgwvnryfs .gt_column_spanner_outer:first-child {
+#dcqwoxuqqh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ljgwvnryfs .gt_column_spanner_outer:last-child {
+#dcqwoxuqqh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ljgwvnryfs .gt_column_spanner {
+#dcqwoxuqqh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2637,11 +2641,11 @@ galah_call() |>
   width: 100%;
 }
 
-#ljgwvnryfs .gt_spanner_row {
+#dcqwoxuqqh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ljgwvnryfs .gt_group_heading {
+#dcqwoxuqqh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2667,7 +2671,7 @@ galah_call() |>
   text-align: left;
 }
 
-#ljgwvnryfs .gt_empty_group_heading {
+#dcqwoxuqqh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2682,15 +2686,15 @@ galah_call() |>
   vertical-align: middle;
 }
 
-#ljgwvnryfs .gt_from_md > :first-child {
+#dcqwoxuqqh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ljgwvnryfs .gt_from_md > :last-child {
+#dcqwoxuqqh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ljgwvnryfs .gt_row {
+#dcqwoxuqqh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2709,7 +2713,7 @@ galah_call() |>
   overflow-x: hidden;
 }
 
-#ljgwvnryfs .gt_stub {
+#dcqwoxuqqh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2722,7 +2726,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#ljgwvnryfs .gt_stub_row_group {
+#dcqwoxuqqh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2736,15 +2740,15 @@ galah_call() |>
   vertical-align: top;
 }
 
-#ljgwvnryfs .gt_row_group_first td {
+#dcqwoxuqqh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ljgwvnryfs .gt_row_group_first th {
+#dcqwoxuqqh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ljgwvnryfs .gt_summary_row {
+#dcqwoxuqqh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2754,16 +2758,16 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#ljgwvnryfs .gt_first_summary_row {
+#dcqwoxuqqh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ljgwvnryfs .gt_first_summary_row.thick {
+#dcqwoxuqqh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ljgwvnryfs .gt_last_summary_row {
+#dcqwoxuqqh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2773,7 +2777,7 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#ljgwvnryfs .gt_grand_summary_row {
+#dcqwoxuqqh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2783,7 +2787,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#ljgwvnryfs .gt_first_grand_summary_row {
+#dcqwoxuqqh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2793,7 +2797,7 @@ galah_call() |>
   border-top-color: #D3D3D3;
 }
 
-#ljgwvnryfs .gt_last_grand_summary_row_top {
+#dcqwoxuqqh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2803,11 +2807,11 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#ljgwvnryfs .gt_striped {
+#dcqwoxuqqh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ljgwvnryfs .gt_table_body {
+#dcqwoxuqqh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2816,7 +2820,7 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#ljgwvnryfs .gt_footnotes {
+#dcqwoxuqqh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2830,7 +2834,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#ljgwvnryfs .gt_footnote {
+#dcqwoxuqqh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2839,7 +2843,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#ljgwvnryfs .gt_sourcenotes {
+#dcqwoxuqqh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2853,7 +2857,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#ljgwvnryfs .gt_sourcenote {
+#dcqwoxuqqh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2861,63 +2865,63 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#ljgwvnryfs .gt_left {
+#dcqwoxuqqh .gt_left {
   text-align: left;
 }
 
-#ljgwvnryfs .gt_center {
+#dcqwoxuqqh .gt_center {
   text-align: center;
 }
 
-#ljgwvnryfs .gt_right {
+#dcqwoxuqqh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ljgwvnryfs .gt_font_normal {
+#dcqwoxuqqh .gt_font_normal {
   font-weight: normal;
 }
 
-#ljgwvnryfs .gt_font_bold {
+#dcqwoxuqqh .gt_font_bold {
   font-weight: bold;
 }
 
-#ljgwvnryfs .gt_font_italic {
+#dcqwoxuqqh .gt_font_italic {
   font-style: italic;
 }
 
-#ljgwvnryfs .gt_super {
+#dcqwoxuqqh .gt_super {
   font-size: 65%;
 }
 
-#ljgwvnryfs .gt_footnote_marks {
+#dcqwoxuqqh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ljgwvnryfs .gt_asterisk {
+#dcqwoxuqqh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ljgwvnryfs .gt_indent_1 {
+#dcqwoxuqqh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ljgwvnryfs .gt_indent_2 {
+#dcqwoxuqqh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ljgwvnryfs .gt_indent_3 {
+#dcqwoxuqqh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ljgwvnryfs .gt_indent_4 {
+#dcqwoxuqqh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ljgwvnryfs .gt_indent_5 {
+#dcqwoxuqqh .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2990,43 +2994,48 @@ galah_call() |>
 </table>
 </div><!--/html_preserve-->
 
-<br>
-We recommend using `search_taxa()` prior to calling `galah_identify()` in a workflow to confirm the validity of the provided search term. Setting `search = TRUE` passes the results of `search_taxa()` to `galah_identify()`, which also speeds up the query.
 
+### filter()
 
-```r
-robins <- search_taxa("Muscicapa chrysoptera", "Guniibuu") 
-
-galah_call() |>
-  galah_identify(robins$taxon_concept_id, search = FALSE) |>
-  atlas_counts()
-```
-
-```
-## Error:
-## ! The `search` argument of `galah_identify()` was deprecated in galah 2.0.0 and is now defunct.
-## ℹ `galah_identify()` now always does a search to verify search terms. To pass identifiers, please use `filter(lsid ==
-##   'identifier_here') instead.
-```
-<br>
-
-### galah_filter()
-
-`galah_filter()` subsets records by searching for exact matches to an expression, and may also be used for taxonomic filtering e.g.
+`filter()` subsets records by searching for exact matches to an expression, and 
+may also be used for taxonomic filtering e.g.
 
 
 ```r
 galah_call() |>
-  galah_filter(species == "Petroica boodang") |>
-  atlas_counts()
+  filter(species == "Petroica boodang") |>
+  count() |>
+  collect()
 ```
 
 ```
 ## # A tibble: 1 × 1
 ##    count
 ##    <int>
-## 1 118998
+## 1 119417
 ```
+
+Alternatively, we could use `filter()` after first checking taxonomy with 
+`search_taxa()`, in place of `identify()`:
+
+
+```r
+robins <- search_taxa("Muscicapa chrysoptera", "Guniibuu") 
+
+galah_call() |>
+  filter(taxonConceptID == robins$taxon_concept_id) |>
+  count() |>
+  collect()
+```
+
+```
+## # A tibble: 1 × 1
+##   count
+##   <int>
+## 1 81570
+```
+
+It is also possible to specify several species at once using `filter()`:
 
 
 ```r
@@ -3035,29 +3044,30 @@ aus_petroica <- c("Petroica boodang", "Petroica goodenovii",
                   "Petroica rodinogaster", "Petroica multicolor")
 
 galah_call() |>
-  galah_filter(species == aus_petroica) |>
-  galah_group_by(species, vernacularName) |>
-  atlas_counts() |> 
+  filter(species %in% aus_petroica) |>
+  group_by(species, vernacularName) |>
+  count() |> 
+  collect() |>
   gt::gt()
 ```
 
-<!--html_preserve--><div id="henjulwvtq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#henjulwvtq table {
+<!--html_preserve--><div id="kmflxtrlrm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kmflxtrlrm table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#henjulwvtq thead, #henjulwvtq tbody, #henjulwvtq tfoot, #henjulwvtq tr, #henjulwvtq td, #henjulwvtq th {
+#kmflxtrlrm thead, #kmflxtrlrm tbody, #kmflxtrlrm tfoot, #kmflxtrlrm tr, #kmflxtrlrm td, #kmflxtrlrm th {
   border-style: none;
 }
 
-#henjulwvtq p {
+#kmflxtrlrm p {
   margin: 0;
   padding: 0;
 }
 
-#henjulwvtq .gt_table {
+#kmflxtrlrm .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3083,12 +3093,12 @@ galah_call() |>
   border-left-color: #D3D3D3;
 }
 
-#henjulwvtq .gt_caption {
+#kmflxtrlrm .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#henjulwvtq .gt_title {
+#kmflxtrlrm .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3100,7 +3110,7 @@ galah_call() |>
   border-bottom-width: 0;
 }
 
-#henjulwvtq .gt_subtitle {
+#kmflxtrlrm .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3112,7 +3122,7 @@ galah_call() |>
   border-top-width: 0;
 }
 
-#henjulwvtq .gt_heading {
+#kmflxtrlrm .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3124,13 +3134,13 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#henjulwvtq .gt_bottom_border {
+#kmflxtrlrm .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#henjulwvtq .gt_col_headings {
+#kmflxtrlrm .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3145,7 +3155,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#henjulwvtq .gt_col_heading {
+#kmflxtrlrm .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3165,7 +3175,7 @@ galah_call() |>
   overflow-x: hidden;
 }
 
-#henjulwvtq .gt_column_spanner_outer {
+#kmflxtrlrm .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3177,15 +3187,15 @@ galah_call() |>
   padding-right: 4px;
 }
 
-#henjulwvtq .gt_column_spanner_outer:first-child {
+#kmflxtrlrm .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#henjulwvtq .gt_column_spanner_outer:last-child {
+#kmflxtrlrm .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#henjulwvtq .gt_column_spanner {
+#kmflxtrlrm .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3197,11 +3207,11 @@ galah_call() |>
   width: 100%;
 }
 
-#henjulwvtq .gt_spanner_row {
+#kmflxtrlrm .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#henjulwvtq .gt_group_heading {
+#kmflxtrlrm .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3227,7 +3237,7 @@ galah_call() |>
   text-align: left;
 }
 
-#henjulwvtq .gt_empty_group_heading {
+#kmflxtrlrm .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3242,15 +3252,15 @@ galah_call() |>
   vertical-align: middle;
 }
 
-#henjulwvtq .gt_from_md > :first-child {
+#kmflxtrlrm .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#henjulwvtq .gt_from_md > :last-child {
+#kmflxtrlrm .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#henjulwvtq .gt_row {
+#kmflxtrlrm .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3269,7 +3279,7 @@ galah_call() |>
   overflow-x: hidden;
 }
 
-#henjulwvtq .gt_stub {
+#kmflxtrlrm .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3282,7 +3292,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#henjulwvtq .gt_stub_row_group {
+#kmflxtrlrm .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3296,15 +3306,15 @@ galah_call() |>
   vertical-align: top;
 }
 
-#henjulwvtq .gt_row_group_first td {
+#kmflxtrlrm .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#henjulwvtq .gt_row_group_first th {
+#kmflxtrlrm .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#henjulwvtq .gt_summary_row {
+#kmflxtrlrm .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3314,16 +3324,16 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#henjulwvtq .gt_first_summary_row {
+#kmflxtrlrm .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#henjulwvtq .gt_first_summary_row.thick {
+#kmflxtrlrm .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#henjulwvtq .gt_last_summary_row {
+#kmflxtrlrm .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3333,7 +3343,7 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#henjulwvtq .gt_grand_summary_row {
+#kmflxtrlrm .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3343,7 +3353,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#henjulwvtq .gt_first_grand_summary_row {
+#kmflxtrlrm .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3353,7 +3363,7 @@ galah_call() |>
   border-top-color: #D3D3D3;
 }
 
-#henjulwvtq .gt_last_grand_summary_row_top {
+#kmflxtrlrm .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3363,11 +3373,11 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#henjulwvtq .gt_striped {
+#kmflxtrlrm .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#henjulwvtq .gt_table_body {
+#kmflxtrlrm .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3376,7 +3386,7 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#henjulwvtq .gt_footnotes {
+#kmflxtrlrm .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3390,7 +3400,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#henjulwvtq .gt_footnote {
+#kmflxtrlrm .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3399,7 +3409,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#henjulwvtq .gt_sourcenotes {
+#kmflxtrlrm .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3413,7 +3423,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#henjulwvtq .gt_sourcenote {
+#kmflxtrlrm .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3421,63 +3431,63 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#henjulwvtq .gt_left {
+#kmflxtrlrm .gt_left {
   text-align: left;
 }
 
-#henjulwvtq .gt_center {
+#kmflxtrlrm .gt_center {
   text-align: center;
 }
 
-#henjulwvtq .gt_right {
+#kmflxtrlrm .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#henjulwvtq .gt_font_normal {
+#kmflxtrlrm .gt_font_normal {
   font-weight: normal;
 }
 
-#henjulwvtq .gt_font_bold {
+#kmflxtrlrm .gt_font_bold {
   font-weight: bold;
 }
 
-#henjulwvtq .gt_font_italic {
+#kmflxtrlrm .gt_font_italic {
   font-style: italic;
 }
 
-#henjulwvtq .gt_super {
+#kmflxtrlrm .gt_super {
   font-size: 65%;
 }
 
-#henjulwvtq .gt_footnote_marks {
+#kmflxtrlrm .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#henjulwvtq .gt_asterisk {
+#kmflxtrlrm .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#henjulwvtq .gt_indent_1 {
+#kmflxtrlrm .gt_indent_1 {
   text-indent: 5px;
 }
 
-#henjulwvtq .gt_indent_2 {
+#kmflxtrlrm .gt_indent_2 {
   text-indent: 10px;
 }
 
-#henjulwvtq .gt_indent_3 {
+#kmflxtrlrm .gt_indent_3 {
   text-indent: 15px;
 }
 
-#henjulwvtq .gt_indent_4 {
+#kmflxtrlrm .gt_indent_4 {
   text-indent: 20px;
 }
 
-#henjulwvtq .gt_indent_5 {
+#kmflxtrlrm .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -3493,57 +3503,74 @@ galah_call() |>
   <tbody class="gt_table_body">
     <tr><td headers="species" class="gt_row gt_left">Petroica boodang</td>
 <td headers="vernacularName" class="gt_row gt_left">Scarlet Robin</td>
-<td headers="count" class="gt_row gt_right">118822</td></tr>
+<td headers="count" class="gt_row gt_right">115735</td></tr>
+    <tr><td headers="species" class="gt_row gt_left">Petroica boodang</td>
+<td headers="vernacularName" class="gt_row gt_left">Eastern Scarlet Robin</td>
+<td headers="count" class="gt_row gt_right">3496</td></tr>
+    <tr><td headers="species" class="gt_row gt_left">Petroica boodang</td>
+<td headers="vernacularName" class="gt_row gt_left">South-western Scarlet Robin</td>
+<td headers="count" class="gt_row gt_right">160</td></tr>
+    <tr><td headers="species" class="gt_row gt_left">Petroica boodang</td>
+<td headers="vernacularName" class="gt_row gt_left">Tasmanian Scarlet Robin</td>
+<td headers="count" class="gt_row gt_right">26</td></tr>
     <tr><td headers="species" class="gt_row gt_left">Petroica goodenovii</td>
 <td headers="vernacularName" class="gt_row gt_left">Red-capped Robin</td>
-<td headers="count" class="gt_row gt_right">110138</td></tr>
+<td headers="count" class="gt_row gt_right">110284</td></tr>
     <tr><td headers="species" class="gt_row gt_left">Petroica phoenicea</td>
 <td headers="vernacularName" class="gt_row gt_left">Flame Robin</td>
-<td headers="count" class="gt_row gt_right">81321</td></tr>
+<td headers="count" class="gt_row gt_right">81570</td></tr>
     <tr><td headers="species" class="gt_row gt_left">Petroica rosea</td>
 <td headers="vernacularName" class="gt_row gt_left">Rose Robin</td>
-<td headers="count" class="gt_row gt_right">52328</td></tr>
+<td headers="count" class="gt_row gt_right">52414</td></tr>
     <tr><td headers="species" class="gt_row gt_left">Petroica rodinogaster</td>
 <td headers="vernacularName" class="gt_row gt_left">Pink Robin</td>
-<td headers="count" class="gt_row gt_right">13380</td></tr>
+<td headers="count" class="gt_row gt_right">13417</td></tr>
+    <tr><td headers="species" class="gt_row gt_left">Petroica rodinogaster</td>
+<td headers="vernacularName" class="gt_row gt_left">Mainland Pink Robin</td>
+<td headers="count" class="gt_row gt_right">60</td></tr>
+    <tr><td headers="species" class="gt_row gt_left">Petroica rodinogaster</td>
+<td headers="vernacularName" class="gt_row gt_left">Tasmanian Pink Robin</td>
+<td headers="count" class="gt_row gt_right">14</td></tr>
     <tr><td headers="species" class="gt_row gt_left">Petroica multicolor</td>
-<td headers="vernacularName" class="gt_row gt_left">Norfolk Island Robin</td>
-<td headers="count" class="gt_row gt_right">6694</td></tr>
+<td headers="vernacularName" class="gt_row gt_left">Pacific Robin</td>
+<td headers="count" class="gt_row gt_right">6699</td></tr>
   </tbody>
   
   
 </table>
 </div><!--/html_preserve-->
 
-This can be useful in searching for paraphyletic or polyphyletic groups, which cannot be done using `galah_identify()`. For example, to get counts of non-chordates:
+This can be useful in searching for paraphyletic or polyphyletic groups, which 
+cannot be done using `identify()`. For example, to get counts of non-chordates:
 
 
 ```r
 galah_call() |>
-  galah_filter(kingdom == "Animalia", phylum != "Chordata") |>
-  galah_group_by(phylum) |>
-  atlas_counts() |>
+  filter(kingdom == "Animalia", phylum != "Chordata") |>
+  group_by(phylum) |>
+  count() |>
+  collect() |>
   head() |> 
   gt::gt()
 ```
 
-<!--html_preserve--><div id="gtqgslnvhm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#gtqgslnvhm table {
+<!--html_preserve--><div id="lgbkmpqmhm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lgbkmpqmhm table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#gtqgslnvhm thead, #gtqgslnvhm tbody, #gtqgslnvhm tfoot, #gtqgslnvhm tr, #gtqgslnvhm td, #gtqgslnvhm th {
+#lgbkmpqmhm thead, #lgbkmpqmhm tbody, #lgbkmpqmhm tfoot, #lgbkmpqmhm tr, #lgbkmpqmhm td, #lgbkmpqmhm th {
   border-style: none;
 }
 
-#gtqgslnvhm p {
+#lgbkmpqmhm p {
   margin: 0;
   padding: 0;
 }
 
-#gtqgslnvhm .gt_table {
+#lgbkmpqmhm .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3569,12 +3596,12 @@ galah_call() |>
   border-left-color: #D3D3D3;
 }
 
-#gtqgslnvhm .gt_caption {
+#lgbkmpqmhm .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#gtqgslnvhm .gt_title {
+#lgbkmpqmhm .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3586,7 +3613,7 @@ galah_call() |>
   border-bottom-width: 0;
 }
 
-#gtqgslnvhm .gt_subtitle {
+#lgbkmpqmhm .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3598,7 +3625,7 @@ galah_call() |>
   border-top-width: 0;
 }
 
-#gtqgslnvhm .gt_heading {
+#lgbkmpqmhm .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3610,13 +3637,13 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#gtqgslnvhm .gt_bottom_border {
+#lgbkmpqmhm .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gtqgslnvhm .gt_col_headings {
+#lgbkmpqmhm .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3631,7 +3658,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#gtqgslnvhm .gt_col_heading {
+#lgbkmpqmhm .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3651,7 +3678,7 @@ galah_call() |>
   overflow-x: hidden;
 }
 
-#gtqgslnvhm .gt_column_spanner_outer {
+#lgbkmpqmhm .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3663,15 +3690,15 @@ galah_call() |>
   padding-right: 4px;
 }
 
-#gtqgslnvhm .gt_column_spanner_outer:first-child {
+#lgbkmpqmhm .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gtqgslnvhm .gt_column_spanner_outer:last-child {
+#lgbkmpqmhm .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gtqgslnvhm .gt_column_spanner {
+#lgbkmpqmhm .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3683,11 +3710,11 @@ galah_call() |>
   width: 100%;
 }
 
-#gtqgslnvhm .gt_spanner_row {
+#lgbkmpqmhm .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#gtqgslnvhm .gt_group_heading {
+#lgbkmpqmhm .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3713,7 +3740,7 @@ galah_call() |>
   text-align: left;
 }
 
-#gtqgslnvhm .gt_empty_group_heading {
+#lgbkmpqmhm .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3728,15 +3755,15 @@ galah_call() |>
   vertical-align: middle;
 }
 
-#gtqgslnvhm .gt_from_md > :first-child {
+#lgbkmpqmhm .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gtqgslnvhm .gt_from_md > :last-child {
+#lgbkmpqmhm .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gtqgslnvhm .gt_row {
+#lgbkmpqmhm .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3755,7 +3782,7 @@ galah_call() |>
   overflow-x: hidden;
 }
 
-#gtqgslnvhm .gt_stub {
+#lgbkmpqmhm .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3768,7 +3795,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#gtqgslnvhm .gt_stub_row_group {
+#lgbkmpqmhm .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3782,15 +3809,15 @@ galah_call() |>
   vertical-align: top;
 }
 
-#gtqgslnvhm .gt_row_group_first td {
+#lgbkmpqmhm .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#gtqgslnvhm .gt_row_group_first th {
+#lgbkmpqmhm .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#gtqgslnvhm .gt_summary_row {
+#lgbkmpqmhm .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3800,16 +3827,16 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#gtqgslnvhm .gt_first_summary_row {
+#lgbkmpqmhm .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#gtqgslnvhm .gt_first_summary_row.thick {
+#lgbkmpqmhm .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#gtqgslnvhm .gt_last_summary_row {
+#lgbkmpqmhm .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3819,7 +3846,7 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#gtqgslnvhm .gt_grand_summary_row {
+#lgbkmpqmhm .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3829,7 +3856,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#gtqgslnvhm .gt_first_grand_summary_row {
+#lgbkmpqmhm .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3839,7 +3866,7 @@ galah_call() |>
   border-top-color: #D3D3D3;
 }
 
-#gtqgslnvhm .gt_last_grand_summary_row_top {
+#lgbkmpqmhm .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3849,11 +3876,11 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#gtqgslnvhm .gt_striped {
+#lgbkmpqmhm .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gtqgslnvhm .gt_table_body {
+#lgbkmpqmhm .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3862,7 +3889,7 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#gtqgslnvhm .gt_footnotes {
+#lgbkmpqmhm .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3876,7 +3903,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#gtqgslnvhm .gt_footnote {
+#lgbkmpqmhm .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3885,7 +3912,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#gtqgslnvhm .gt_sourcenotes {
+#lgbkmpqmhm .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3899,7 +3926,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#gtqgslnvhm .gt_sourcenote {
+#lgbkmpqmhm .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3907,63 +3934,63 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#gtqgslnvhm .gt_left {
+#lgbkmpqmhm .gt_left {
   text-align: left;
 }
 
-#gtqgslnvhm .gt_center {
+#lgbkmpqmhm .gt_center {
   text-align: center;
 }
 
-#gtqgslnvhm .gt_right {
+#lgbkmpqmhm .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gtqgslnvhm .gt_font_normal {
+#lgbkmpqmhm .gt_font_normal {
   font-weight: normal;
 }
 
-#gtqgslnvhm .gt_font_bold {
+#lgbkmpqmhm .gt_font_bold {
   font-weight: bold;
 }
 
-#gtqgslnvhm .gt_font_italic {
+#lgbkmpqmhm .gt_font_italic {
   font-style: italic;
 }
 
-#gtqgslnvhm .gt_super {
+#lgbkmpqmhm .gt_super {
   font-size: 65%;
 }
 
-#gtqgslnvhm .gt_footnote_marks {
+#lgbkmpqmhm .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#gtqgslnvhm .gt_asterisk {
+#lgbkmpqmhm .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#gtqgslnvhm .gt_indent_1 {
+#lgbkmpqmhm .gt_indent_1 {
   text-indent: 5px;
 }
 
-#gtqgslnvhm .gt_indent_2 {
+#lgbkmpqmhm .gt_indent_2 {
   text-indent: 10px;
 }
 
-#gtqgslnvhm .gt_indent_3 {
+#lgbkmpqmhm .gt_indent_3 {
   text-indent: 15px;
 }
 
-#gtqgslnvhm .gt_indent_4 {
+#lgbkmpqmhm .gt_indent_4 {
   text-indent: 20px;
 }
 
-#gtqgslnvhm .gt_indent_5 {
+#lgbkmpqmhm .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -3977,56 +4004,63 @@ galah_call() |>
   </thead>
   <tbody class="gt_table_body">
     <tr><td headers="phylum" class="gt_row gt_left">Arthropoda</td>
-<td headers="count" class="gt_row gt_right">8223999</td></tr>
+<td headers="count" class="gt_row gt_right">8567585</td></tr>
     <tr><td headers="phylum" class="gt_row gt_left">Mollusca</td>
-<td headers="count" class="gt_row gt_right">1338998</td></tr>
+<td headers="count" class="gt_row gt_right">1378754</td></tr>
     <tr><td headers="phylum" class="gt_row gt_left">Annelida</td>
-<td headers="count" class="gt_row gt_right">313898</td></tr>
+<td headers="count" class="gt_row gt_right">316619</td></tr>
     <tr><td headers="phylum" class="gt_row gt_left">Cnidaria</td>
-<td headers="count" class="gt_row gt_right">278180</td></tr>
+<td headers="count" class="gt_row gt_right">273227</td></tr>
     <tr><td headers="phylum" class="gt_row gt_left">Echinodermata</td>
-<td headers="count" class="gt_row gt_right">192131</td></tr>
+<td headers="count" class="gt_row gt_right">196016</td></tr>
     <tr><td headers="phylum" class="gt_row gt_left">Porifera</td>
-<td headers="count" class="gt_row gt_right">130767</td></tr>
+<td headers="count" class="gt_row gt_right">130249</td></tr>
   </tbody>
   
   
 </table>
 </div><!--/html_preserve-->
 
-### galah_filter(), galah_identify(), and taxonomic ranks
+### filter(), identify(), and taxonomic ranks
 
-Deciding between using `galah_filter()` and `galah_identify()` in a query comes down to how a record has been classified, and whether or not you have the correct *unique* name and classification of the taxa of interest.
+Deciding between using `filter()` and `identify()` in a query comes down to how 
+a record has been classified, and whether or not you have the correct *unique* 
+name and classification of the taxa of interest.
 
-The ALA has fields for the primary taxonomic ranks (`kingdom`, `phylum`, `class`, `order`, `family`, `genus`, `species`) and some secondary ranks (e.g. `subfamily`, `subgenus`), all of which may be used with `galah_filter()` and `galah_identify()`. Additionally, there is a field named `scientificName`, which refers to the lowest taxonomic rank to which a record has been identified e.g.
+The ALA has fields for the primary taxonomic ranks (`kingdom`, `phylum`, `class`, 
+`order`, `family`, `genus`, `species`) and some secondary ranks (e.g. `subfamily`, 
+`subgenus`), all of which may be used with `galah_filter()` and `galah_identify()`. 
+Additionally, there is a field named `scientificName`, which refers to the lowest 
+taxonomic rank to which a record has been identified e.g.
 
 
 ```r
 galah_call() |>
-  galah_identify(tibble(genus = "Pitta")) |>
-  galah_group_by(scientificName, taxonRank) |>
-  atlas_counts() |>
+  identify(tibble(genus = "Pitta")) |>
+  group_by(scientificName, taxonRank) |>
+  count() |>
+  collect() |>
   filter(!is.na(scientificName)) |>
   gt::gt()
 ```
 
-<!--html_preserve--><div id="hsxepcdokj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hsxepcdokj table {
+<!--html_preserve--><div id="aydpywfhin" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#aydpywfhin table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hsxepcdokj thead, #hsxepcdokj tbody, #hsxepcdokj tfoot, #hsxepcdokj tr, #hsxepcdokj td, #hsxepcdokj th {
+#aydpywfhin thead, #aydpywfhin tbody, #aydpywfhin tfoot, #aydpywfhin tr, #aydpywfhin td, #aydpywfhin th {
   border-style: none;
 }
 
-#hsxepcdokj p {
+#aydpywfhin p {
   margin: 0;
   padding: 0;
 }
 
-#hsxepcdokj .gt_table {
+#aydpywfhin .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -4052,12 +4086,12 @@ galah_call() |>
   border-left-color: #D3D3D3;
 }
 
-#hsxepcdokj .gt_caption {
+#aydpywfhin .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hsxepcdokj .gt_title {
+#aydpywfhin .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -4069,7 +4103,7 @@ galah_call() |>
   border-bottom-width: 0;
 }
 
-#hsxepcdokj .gt_subtitle {
+#aydpywfhin .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -4081,7 +4115,7 @@ galah_call() |>
   border-top-width: 0;
 }
 
-#hsxepcdokj .gt_heading {
+#aydpywfhin .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -4093,13 +4127,13 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#hsxepcdokj .gt_bottom_border {
+#aydpywfhin .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hsxepcdokj .gt_col_headings {
+#aydpywfhin .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4114,7 +4148,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#hsxepcdokj .gt_col_heading {
+#aydpywfhin .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4134,7 +4168,7 @@ galah_call() |>
   overflow-x: hidden;
 }
 
-#hsxepcdokj .gt_column_spanner_outer {
+#aydpywfhin .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4146,15 +4180,15 @@ galah_call() |>
   padding-right: 4px;
 }
 
-#hsxepcdokj .gt_column_spanner_outer:first-child {
+#aydpywfhin .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hsxepcdokj .gt_column_spanner_outer:last-child {
+#aydpywfhin .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hsxepcdokj .gt_column_spanner {
+#aydpywfhin .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -4166,11 +4200,11 @@ galah_call() |>
   width: 100%;
 }
 
-#hsxepcdokj .gt_spanner_row {
+#aydpywfhin .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hsxepcdokj .gt_group_heading {
+#aydpywfhin .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4196,7 +4230,7 @@ galah_call() |>
   text-align: left;
 }
 
-#hsxepcdokj .gt_empty_group_heading {
+#aydpywfhin .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4211,15 +4245,15 @@ galah_call() |>
   vertical-align: middle;
 }
 
-#hsxepcdokj .gt_from_md > :first-child {
+#aydpywfhin .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hsxepcdokj .gt_from_md > :last-child {
+#aydpywfhin .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hsxepcdokj .gt_row {
+#aydpywfhin .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4238,7 +4272,7 @@ galah_call() |>
   overflow-x: hidden;
 }
 
-#hsxepcdokj .gt_stub {
+#aydpywfhin .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4251,7 +4285,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#hsxepcdokj .gt_stub_row_group {
+#aydpywfhin .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4265,15 +4299,15 @@ galah_call() |>
   vertical-align: top;
 }
 
-#hsxepcdokj .gt_row_group_first td {
+#aydpywfhin .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hsxepcdokj .gt_row_group_first th {
+#aydpywfhin .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hsxepcdokj .gt_summary_row {
+#aydpywfhin .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4283,16 +4317,16 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#hsxepcdokj .gt_first_summary_row {
+#aydpywfhin .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hsxepcdokj .gt_first_summary_row.thick {
+#aydpywfhin .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hsxepcdokj .gt_last_summary_row {
+#aydpywfhin .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4302,7 +4336,7 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#hsxepcdokj .gt_grand_summary_row {
+#aydpywfhin .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4312,7 +4346,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#hsxepcdokj .gt_first_grand_summary_row {
+#aydpywfhin .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4322,7 +4356,7 @@ galah_call() |>
   border-top-color: #D3D3D3;
 }
 
-#hsxepcdokj .gt_last_grand_summary_row_top {
+#aydpywfhin .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4332,11 +4366,11 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#hsxepcdokj .gt_striped {
+#aydpywfhin .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hsxepcdokj .gt_table_body {
+#aydpywfhin .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4345,7 +4379,7 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#hsxepcdokj .gt_footnotes {
+#aydpywfhin .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4359,7 +4393,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#hsxepcdokj .gt_footnote {
+#aydpywfhin .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -4368,7 +4402,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#hsxepcdokj .gt_sourcenotes {
+#aydpywfhin .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4382,7 +4416,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#hsxepcdokj .gt_sourcenote {
+#aydpywfhin .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -4390,63 +4424,63 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#hsxepcdokj .gt_left {
+#aydpywfhin .gt_left {
   text-align: left;
 }
 
-#hsxepcdokj .gt_center {
+#aydpywfhin .gt_center {
   text-align: center;
 }
 
-#hsxepcdokj .gt_right {
+#aydpywfhin .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hsxepcdokj .gt_font_normal {
+#aydpywfhin .gt_font_normal {
   font-weight: normal;
 }
 
-#hsxepcdokj .gt_font_bold {
+#aydpywfhin .gt_font_bold {
   font-weight: bold;
 }
 
-#hsxepcdokj .gt_font_italic {
+#aydpywfhin .gt_font_italic {
   font-style: italic;
 }
 
-#hsxepcdokj .gt_super {
+#aydpywfhin .gt_super {
   font-size: 65%;
 }
 
-#hsxepcdokj .gt_footnote_marks {
+#aydpywfhin .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hsxepcdokj .gt_asterisk {
+#aydpywfhin .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hsxepcdokj .gt_indent_1 {
+#aydpywfhin .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hsxepcdokj .gt_indent_2 {
+#aydpywfhin .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hsxepcdokj .gt_indent_3 {
+#aydpywfhin .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hsxepcdokj .gt_indent_4 {
+#aydpywfhin .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hsxepcdokj .gt_indent_5 {
+#aydpywfhin .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -4461,37 +4495,37 @@ galah_call() |>
   </thead>
   <tbody class="gt_table_body">
     <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Pitta) versicolor</td>
-<td headers="taxonRank" class="gt_row gt_left">Species</td>
-<td headers="count" class="gt_row gt_right">26023</td></tr>
+<td headers="taxonRank" class="gt_row gt_left">species</td>
+<td headers="count" class="gt_row gt_right">26085</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Pitta) iris</td>
-<td headers="taxonRank" class="gt_row gt_left">Species</td>
-<td headers="count" class="gt_row gt_right">5716</td></tr>
+<td headers="taxonRank" class="gt_row gt_left">species</td>
+<td headers="count" class="gt_row gt_right">5722</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Erythropitta)</td>
-<td headers="taxonRank" class="gt_row gt_left">Subgenus</td>
-<td headers="count" class="gt_row gt_right">724</td></tr>
+<td headers="taxonRank" class="gt_row gt_left">subgenus</td>
+<td headers="count" class="gt_row gt_right">728</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Pitta) versicolor versicolor</td>
-<td headers="taxonRank" class="gt_row gt_left">Subspecies</td>
-<td headers="count" class="gt_row gt_right">303</td></tr>
+<td headers="taxonRank" class="gt_row gt_left">subspecies</td>
+<td headers="count" class="gt_row gt_right">310</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Erythropitta) erythrogaster</td>
-<td headers="taxonRank" class="gt_row gt_left">Species</td>
+<td headers="taxonRank" class="gt_row gt_left">species</td>
 <td headers="count" class="gt_row gt_right">190</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Pitta) iris iris</td>
-<td headers="taxonRank" class="gt_row gt_left">Subspecies</td>
+<td headers="taxonRank" class="gt_row gt_left">subspecies</td>
 <td headers="count" class="gt_row gt_right">76</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Pitta</td>
-<td headers="taxonRank" class="gt_row gt_left">Genus</td>
-<td headers="count" class="gt_row gt_right">73</td></tr>
+<td headers="taxonRank" class="gt_row gt_left">genus</td>
+<td headers="count" class="gt_row gt_right">74</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Pitta) versicolor intermedia</td>
-<td headers="taxonRank" class="gt_row gt_left">Subspecies</td>
+<td headers="taxonRank" class="gt_row gt_left">subspecies</td>
 <td headers="count" class="gt_row gt_right">42</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Pitta) versicolor simillima</td>
-<td headers="taxonRank" class="gt_row gt_left">Subspecies</td>
-<td headers="count" class="gt_row gt_right">36</td></tr>
+<td headers="taxonRank" class="gt_row gt_left">subspecies</td>
+<td headers="count" class="gt_row gt_right">38</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Pitta) iris johnstoneiana</td>
-<td headers="taxonRank" class="gt_row gt_left">Subspecies</td>
+<td headers="taxonRank" class="gt_row gt_left">subspecies</td>
 <td headers="count" class="gt_row gt_right">27</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Erythropitta) erythrogaster digglesi</td>
-<td headers="taxonRank" class="gt_row gt_left">Subspecies</td>
+<td headers="taxonRank" class="gt_row gt_left">subspecies</td>
 <td headers="count" class="gt_row gt_right">21</td></tr>
   </tbody>
   
@@ -4499,9 +4533,18 @@ galah_call() |>
 </table>
 </div><!--/html_preserve-->
 
-If, for instance, you have the correct species or subspecies name, then searching for matches against the `species` and `subspecies` fields, respectively, will provide more precise results. This is because the field `scientificName` may include subgenera. If you've used `search_taxa()` to get the ALA-matched name of a taxon and only want records identified to a particular level of classification, searching for matches against `scientificName` is recommended.
+If, for instance, you have the correct species or subspecies name, then searching 
+for matches against the `species` and `subspecies` fields, respectively, will 
+provide more precise results. This is because the field `scientificName` may 
+include subgenera. If you've used `search_taxa()` to get the ALA-matched name of 
+a taxon and only want records identified to a particular level of classification, 
+searching for matches against `scientificName` is recommended.
 
-Paraphyletic or polyphyletic groups may contain taxa identified to different taxonomic levels. In this case, it is simpler to use `search_taxa()` and `galah_identify()` rather than `galah_filter()`. In the example below, `search_taxa()` matches terms to one genus, three species, and two subspecies. This can then be used in a piped workflow with `galah_identify()`.
+Paraphyletic or polyphyletic groups may contain taxa identified to different 
+taxonomic levels. In this case, it is simpler to use `search_taxa()` and 
+`identify()` rather than `filter()`. In the example below, `search_taxa()` 
+matches terms to one genus, three species, and two subspecies. This can then be 
+used in a piped workflow with `identify()`.
 
 
 ```r
@@ -4515,23 +4558,23 @@ tas_endemic <- c("Sarcophilus", # Tasmanian Devil
 search_taxa(tas_endemic) |> gt::gt()
 ```
 
-<!--html_preserve--><div id="rumplzcolc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#rumplzcolc table {
+<!--html_preserve--><div id="djhkbewrwr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#djhkbewrwr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#rumplzcolc thead, #rumplzcolc tbody, #rumplzcolc tfoot, #rumplzcolc tr, #rumplzcolc td, #rumplzcolc th {
+#djhkbewrwr thead, #djhkbewrwr tbody, #djhkbewrwr tfoot, #djhkbewrwr tr, #djhkbewrwr td, #djhkbewrwr th {
   border-style: none;
 }
 
-#rumplzcolc p {
+#djhkbewrwr p {
   margin: 0;
   padding: 0;
 }
 
-#rumplzcolc .gt_table {
+#djhkbewrwr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -4557,12 +4600,12 @@ search_taxa(tas_endemic) |> gt::gt()
   border-left-color: #D3D3D3;
 }
 
-#rumplzcolc .gt_caption {
+#djhkbewrwr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#rumplzcolc .gt_title {
+#djhkbewrwr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -4574,7 +4617,7 @@ search_taxa(tas_endemic) |> gt::gt()
   border-bottom-width: 0;
 }
 
-#rumplzcolc .gt_subtitle {
+#djhkbewrwr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -4586,7 +4629,7 @@ search_taxa(tas_endemic) |> gt::gt()
   border-top-width: 0;
 }
 
-#rumplzcolc .gt_heading {
+#djhkbewrwr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -4598,13 +4641,13 @@ search_taxa(tas_endemic) |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#rumplzcolc .gt_bottom_border {
+#djhkbewrwr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#rumplzcolc .gt_col_headings {
+#djhkbewrwr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4619,7 +4662,7 @@ search_taxa(tas_endemic) |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#rumplzcolc .gt_col_heading {
+#djhkbewrwr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4639,7 +4682,7 @@ search_taxa(tas_endemic) |> gt::gt()
   overflow-x: hidden;
 }
 
-#rumplzcolc .gt_column_spanner_outer {
+#djhkbewrwr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4651,15 +4694,15 @@ search_taxa(tas_endemic) |> gt::gt()
   padding-right: 4px;
 }
 
-#rumplzcolc .gt_column_spanner_outer:first-child {
+#djhkbewrwr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#rumplzcolc .gt_column_spanner_outer:last-child {
+#djhkbewrwr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#rumplzcolc .gt_column_spanner {
+#djhkbewrwr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -4671,11 +4714,11 @@ search_taxa(tas_endemic) |> gt::gt()
   width: 100%;
 }
 
-#rumplzcolc .gt_spanner_row {
+#djhkbewrwr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#rumplzcolc .gt_group_heading {
+#djhkbewrwr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4701,7 +4744,7 @@ search_taxa(tas_endemic) |> gt::gt()
   text-align: left;
 }
 
-#rumplzcolc .gt_empty_group_heading {
+#djhkbewrwr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4716,15 +4759,15 @@ search_taxa(tas_endemic) |> gt::gt()
   vertical-align: middle;
 }
 
-#rumplzcolc .gt_from_md > :first-child {
+#djhkbewrwr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#rumplzcolc .gt_from_md > :last-child {
+#djhkbewrwr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#rumplzcolc .gt_row {
+#djhkbewrwr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4743,7 +4786,7 @@ search_taxa(tas_endemic) |> gt::gt()
   overflow-x: hidden;
 }
 
-#rumplzcolc .gt_stub {
+#djhkbewrwr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4756,7 +4799,7 @@ search_taxa(tas_endemic) |> gt::gt()
   padding-right: 5px;
 }
 
-#rumplzcolc .gt_stub_row_group {
+#djhkbewrwr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4770,15 +4813,15 @@ search_taxa(tas_endemic) |> gt::gt()
   vertical-align: top;
 }
 
-#rumplzcolc .gt_row_group_first td {
+#djhkbewrwr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#rumplzcolc .gt_row_group_first th {
+#djhkbewrwr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#rumplzcolc .gt_summary_row {
+#djhkbewrwr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4788,16 +4831,16 @@ search_taxa(tas_endemic) |> gt::gt()
   padding-right: 5px;
 }
 
-#rumplzcolc .gt_first_summary_row {
+#djhkbewrwr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#rumplzcolc .gt_first_summary_row.thick {
+#djhkbewrwr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#rumplzcolc .gt_last_summary_row {
+#djhkbewrwr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4807,7 +4850,7 @@ search_taxa(tas_endemic) |> gt::gt()
   border-bottom-color: #D3D3D3;
 }
 
-#rumplzcolc .gt_grand_summary_row {
+#djhkbewrwr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4817,7 +4860,7 @@ search_taxa(tas_endemic) |> gt::gt()
   padding-right: 5px;
 }
 
-#rumplzcolc .gt_first_grand_summary_row {
+#djhkbewrwr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4827,7 +4870,7 @@ search_taxa(tas_endemic) |> gt::gt()
   border-top-color: #D3D3D3;
 }
 
-#rumplzcolc .gt_last_grand_summary_row_top {
+#djhkbewrwr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4837,11 +4880,11 @@ search_taxa(tas_endemic) |> gt::gt()
   border-bottom-color: #D3D3D3;
 }
 
-#rumplzcolc .gt_striped {
+#djhkbewrwr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#rumplzcolc .gt_table_body {
+#djhkbewrwr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4850,7 +4893,7 @@ search_taxa(tas_endemic) |> gt::gt()
   border-bottom-color: #D3D3D3;
 }
 
-#rumplzcolc .gt_footnotes {
+#djhkbewrwr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4864,7 +4907,7 @@ search_taxa(tas_endemic) |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#rumplzcolc .gt_footnote {
+#djhkbewrwr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -4873,7 +4916,7 @@ search_taxa(tas_endemic) |> gt::gt()
   padding-right: 5px;
 }
 
-#rumplzcolc .gt_sourcenotes {
+#djhkbewrwr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4887,7 +4930,7 @@ search_taxa(tas_endemic) |> gt::gt()
   border-right-color: #D3D3D3;
 }
 
-#rumplzcolc .gt_sourcenote {
+#djhkbewrwr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -4895,63 +4938,63 @@ search_taxa(tas_endemic) |> gt::gt()
   padding-right: 5px;
 }
 
-#rumplzcolc .gt_left {
+#djhkbewrwr .gt_left {
   text-align: left;
 }
 
-#rumplzcolc .gt_center {
+#djhkbewrwr .gt_center {
   text-align: center;
 }
 
-#rumplzcolc .gt_right {
+#djhkbewrwr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#rumplzcolc .gt_font_normal {
+#djhkbewrwr .gt_font_normal {
   font-weight: normal;
 }
 
-#rumplzcolc .gt_font_bold {
+#djhkbewrwr .gt_font_bold {
   font-weight: bold;
 }
 
-#rumplzcolc .gt_font_italic {
+#djhkbewrwr .gt_font_italic {
   font-style: italic;
 }
 
-#rumplzcolc .gt_super {
+#djhkbewrwr .gt_super {
   font-size: 65%;
 }
 
-#rumplzcolc .gt_footnote_marks {
+#djhkbewrwr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#rumplzcolc .gt_asterisk {
+#djhkbewrwr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#rumplzcolc .gt_indent_1 {
+#djhkbewrwr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#rumplzcolc .gt_indent_2 {
+#djhkbewrwr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#rumplzcolc .gt_indent_3 {
+#djhkbewrwr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#rumplzcolc .gt_indent_4 {
+#djhkbewrwr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#rumplzcolc .gt_indent_5 {
+#djhkbewrwr .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -4995,7 +5038,7 @@ search_taxa(tas_endemic) |> gt::gt()
     <tr><td headers="search_term" class="gt_row gt_left">Bettongia gaimardi</td>
 <td headers="scientific_name" class="gt_row gt_left">Bettongia gaimardi</td>
 <td headers="scientific_name_authorship" class="gt_row gt_left">(Desmarest, 1822)</td>
-<td headers="taxon_concept_id" class="gt_row gt_left">https://biodiversity.org.au/afd/taxa/19c9bfdf-0fbd-4b1b-a7c4-64498290d059</td>
+<td headers="taxon_concept_id" class="gt_row gt_left">https://biodiversity.org.au/afd/taxa/8f7da937-6338-4c39-8b11-4f83807afe11</td>
 <td headers="rank" class="gt_row gt_left">species</td>
 <td headers="match_type" class="gt_row gt_left">exactMatch</td>
 <td headers="kingdom" class="gt_row gt_left">Animalia</td>
@@ -5050,7 +5093,7 @@ search_taxa(tas_endemic) |> gt::gt()
 <td headers="family" class="gt_row gt_left">Accipitridae</td>
 <td headers="genus" class="gt_row gt_left">Aquila</td>
 <td headers="species" class="gt_row gt_left">Aquila audax</td>
-<td headers="vernacular_name" class="gt_row gt_left">NA</td>
+<td headers="vernacular_name" class="gt_row gt_left">Tasmanian Wedge-tailed Eagle</td>
 <td headers="issues" class="gt_row gt_left">noIssue</td></tr>
     <tr><td headers="search_term" class="gt_row gt_left">Tyto novaehollandiae castanops</td>
 <td headers="scientific_name" class="gt_row gt_left">Tyto novaehollandiae castanops</td>
@@ -5065,7 +5108,7 @@ search_taxa(tas_endemic) |> gt::gt()
 <td headers="family" class="gt_row gt_left">Tytonidae</td>
 <td headers="genus" class="gt_row gt_left">Tyto</td>
 <td headers="species" class="gt_row gt_left">Tyto novaehollandiae</td>
-<td headers="vernacular_name" class="gt_row gt_left">NA</td>
+<td headers="vernacular_name" class="gt_row gt_left">Tasmanian Masked Owl</td>
 <td headers="issues" class="gt_row gt_left">noIssue</td></tr>
   </tbody>
   
@@ -5075,30 +5118,31 @@ search_taxa(tas_endemic) |> gt::gt()
 
 ```r
 galah_call() |>
-  galah_identify(tas_endemic) |>
-  galah_group_by(scientificName) |>
-  atlas_counts() |>
+  identify(tas_endemic) |>
+  group_by(scientificName) |>
+  count() |>
+  collect() |>
   arrange(scientificName) |>
   gt::gt()
 ```
 
-<!--html_preserve--><div id="lirbkqqktu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lirbkqqktu table {
+<!--html_preserve--><div id="uvtluwiuuo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#uvtluwiuuo table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lirbkqqktu thead, #lirbkqqktu tbody, #lirbkqqktu tfoot, #lirbkqqktu tr, #lirbkqqktu td, #lirbkqqktu th {
+#uvtluwiuuo thead, #uvtluwiuuo tbody, #uvtluwiuuo tfoot, #uvtluwiuuo tr, #uvtluwiuuo td, #uvtluwiuuo th {
   border-style: none;
 }
 
-#lirbkqqktu p {
+#uvtluwiuuo p {
   margin: 0;
   padding: 0;
 }
 
-#lirbkqqktu .gt_table {
+#uvtluwiuuo .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -5124,12 +5168,12 @@ galah_call() |>
   border-left-color: #D3D3D3;
 }
 
-#lirbkqqktu .gt_caption {
+#uvtluwiuuo .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lirbkqqktu .gt_title {
+#uvtluwiuuo .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -5141,7 +5185,7 @@ galah_call() |>
   border-bottom-width: 0;
 }
 
-#lirbkqqktu .gt_subtitle {
+#uvtluwiuuo .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -5153,7 +5197,7 @@ galah_call() |>
   border-top-width: 0;
 }
 
-#lirbkqqktu .gt_heading {
+#uvtluwiuuo .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -5165,13 +5209,13 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#lirbkqqktu .gt_bottom_border {
+#uvtluwiuuo .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lirbkqqktu .gt_col_headings {
+#uvtluwiuuo .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -5186,7 +5230,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#lirbkqqktu .gt_col_heading {
+#uvtluwiuuo .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5206,7 +5250,7 @@ galah_call() |>
   overflow-x: hidden;
 }
 
-#lirbkqqktu .gt_column_spanner_outer {
+#uvtluwiuuo .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5218,15 +5262,15 @@ galah_call() |>
   padding-right: 4px;
 }
 
-#lirbkqqktu .gt_column_spanner_outer:first-child {
+#uvtluwiuuo .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lirbkqqktu .gt_column_spanner_outer:last-child {
+#uvtluwiuuo .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lirbkqqktu .gt_column_spanner {
+#uvtluwiuuo .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -5238,11 +5282,11 @@ galah_call() |>
   width: 100%;
 }
 
-#lirbkqqktu .gt_spanner_row {
+#uvtluwiuuo .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lirbkqqktu .gt_group_heading {
+#uvtluwiuuo .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5268,7 +5312,7 @@ galah_call() |>
   text-align: left;
 }
 
-#lirbkqqktu .gt_empty_group_heading {
+#uvtluwiuuo .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -5283,15 +5327,15 @@ galah_call() |>
   vertical-align: middle;
 }
 
-#lirbkqqktu .gt_from_md > :first-child {
+#uvtluwiuuo .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lirbkqqktu .gt_from_md > :last-child {
+#uvtluwiuuo .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lirbkqqktu .gt_row {
+#uvtluwiuuo .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5310,7 +5354,7 @@ galah_call() |>
   overflow-x: hidden;
 }
 
-#lirbkqqktu .gt_stub {
+#uvtluwiuuo .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5323,7 +5367,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#lirbkqqktu .gt_stub_row_group {
+#uvtluwiuuo .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5337,15 +5381,15 @@ galah_call() |>
   vertical-align: top;
 }
 
-#lirbkqqktu .gt_row_group_first td {
+#uvtluwiuuo .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lirbkqqktu .gt_row_group_first th {
+#uvtluwiuuo .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lirbkqqktu .gt_summary_row {
+#uvtluwiuuo .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5355,16 +5399,16 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#lirbkqqktu .gt_first_summary_row {
+#uvtluwiuuo .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lirbkqqktu .gt_first_summary_row.thick {
+#uvtluwiuuo .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lirbkqqktu .gt_last_summary_row {
+#uvtluwiuuo .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5374,7 +5418,7 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#lirbkqqktu .gt_grand_summary_row {
+#uvtluwiuuo .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5384,7 +5428,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#lirbkqqktu .gt_first_grand_summary_row {
+#uvtluwiuuo .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5394,7 +5438,7 @@ galah_call() |>
   border-top-color: #D3D3D3;
 }
 
-#lirbkqqktu .gt_last_grand_summary_row_top {
+#uvtluwiuuo .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5404,11 +5448,11 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#lirbkqqktu .gt_striped {
+#uvtluwiuuo .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lirbkqqktu .gt_table_body {
+#uvtluwiuuo .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -5417,7 +5461,7 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#lirbkqqktu .gt_footnotes {
+#uvtluwiuuo .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5431,7 +5475,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#lirbkqqktu .gt_footnote {
+#uvtluwiuuo .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -5440,7 +5484,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#lirbkqqktu .gt_sourcenotes {
+#uvtluwiuuo .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5454,7 +5498,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#lirbkqqktu .gt_sourcenote {
+#uvtluwiuuo .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -5462,63 +5506,63 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#lirbkqqktu .gt_left {
+#uvtluwiuuo .gt_left {
   text-align: left;
 }
 
-#lirbkqqktu .gt_center {
+#uvtluwiuuo .gt_center {
   text-align: center;
 }
 
-#lirbkqqktu .gt_right {
+#uvtluwiuuo .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lirbkqqktu .gt_font_normal {
+#uvtluwiuuo .gt_font_normal {
   font-weight: normal;
 }
 
-#lirbkqqktu .gt_font_bold {
+#uvtluwiuuo .gt_font_bold {
   font-weight: bold;
 }
 
-#lirbkqqktu .gt_font_italic {
+#uvtluwiuuo .gt_font_italic {
   font-style: italic;
 }
 
-#lirbkqqktu .gt_super {
+#uvtluwiuuo .gt_super {
   font-size: 65%;
 }
 
-#lirbkqqktu .gt_footnote_marks {
+#uvtluwiuuo .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lirbkqqktu .gt_asterisk {
+#uvtluwiuuo .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lirbkqqktu .gt_indent_1 {
+#uvtluwiuuo .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lirbkqqktu .gt_indent_2 {
+#uvtluwiuuo .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lirbkqqktu .gt_indent_3 {
+#uvtluwiuuo .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lirbkqqktu .gt_indent_4 {
+#uvtluwiuuo .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lirbkqqktu .gt_indent_5 {
+#uvtluwiuuo .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -5532,21 +5576,21 @@ galah_call() |>
   </thead>
   <tbody class="gt_table_body">
     <tr><td headers="scientificName" class="gt_row gt_left">Aquila (Uroaetus) audax fleayi</td>
-<td headers="count" class="gt_row gt_right">4909</td></tr>
+<td headers="count" class="gt_row gt_right">4935</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Bettongia gaimardi</td>
-<td headers="count" class="gt_row gt_right">1174</td></tr>
+<td headers="count" class="gt_row gt_right">1941</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Bettongia gaimardi cuniculus</td>
 <td headers="count" class="gt_row gt_right">41</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Bettongia gaimardi gaimardi</td>
 <td headers="count" class="gt_row gt_right">9</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Melanodryas (Amaurodryas) vittata</td>
-<td headers="count" class="gt_row gt_right">14111</td></tr>
+<td headers="count" class="gt_row gt_right">14131</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Melanodryas (Amaurodryas) vittata kingi</td>
 <td headers="count" class="gt_row gt_right">15</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Melanodryas (Amaurodryas) vittata vittata</td>
-<td headers="count" class="gt_row gt_right">36</td></tr>
+<td headers="count" class="gt_row gt_right">39</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Platycercus (Platycercus) caledonicus</td>
-<td headers="count" class="gt_row gt_right">43344</td></tr>
+<td headers="count" class="gt_row gt_right">43463</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Platycercus (Platycercus) caledonicus brownii</td>
 <td headers="count" class="gt_row gt_right">24</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Platycercus (Platycercus) caledonicus caledonicus</td>
@@ -5554,9 +5598,9 @@ galah_call() |>
     <tr><td headers="scientificName" class="gt_row gt_left">Sarcophilus</td>
 <td headers="count" class="gt_row gt_right">3</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Sarcophilus harrisii</td>
-<td headers="count" class="gt_row gt_right">36240</td></tr>
+<td headers="count" class="gt_row gt_right">36302</td></tr>
     <tr><td headers="scientificName" class="gt_row gt_left">Tyto novaehollandiae castanops</td>
-<td headers="count" class="gt_row gt_right">62</td></tr>
+<td headers="count" class="gt_row gt_right">63</td></tr>
   </tbody>
   
   

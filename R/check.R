@@ -150,8 +150,7 @@ check_fields <- function(.query) {
     if(any(!is.na(check_result))) {
       returned_invalid <- tibble(
         function_name = c("`galah_filter()`", "`galah_group_by()`"),
-        fields = check_result
-      ) |>
+        fields = check_result) |>
         drop_na()
       
       glue_template <- "{returned_invalid$function_name}: {returned_invalid$fields}"
@@ -169,6 +168,40 @@ check_fields <- function(.query) {
   .query
 }
 
+#' Check whether fields match those requested, and if not, inform the user
+#' @importFrom rlang warn
+#' @importFrom rlang caller_env
+#' @noRd
+#' @keywords Internal
+check_field_identities <- function(df, .query){
+  if(!is.null(.query$fields) & pour("package", "run_checks")){
+    # get basic info
+    n_fields <- length(.query$fields)
+    field_names <- colnames(df)
+    field_names <- field_names[!(field_names %in% show_all_assertions()$id)]
+    n_cols <- length(field_names)
+    # check for missingness
+    missing_check <- !(.query$fields %in% field_names)
+    if(any(missing_check)){
+      missing_fields <- .query$fields[missing_check]
+      names(missing_fields) <- rep("*", length(missing_fields))
+      bullets <- c("The following fields, requested in your query, were not downloaded:",
+                   missing_fields)
+      warn(bullets)
+    }
+    # check for additions
+    added_check <- !(field_names %in% .query$fields)
+    if(any(added_check)){
+      added_fields <- field_names[added_check]
+      names(added_fields) <- rep("*", length(added_fields))
+      bullets <- c("The following fields were downloaded, but weren't requested in your query:",
+                   added_fields)
+      warn(bullets)
+    }
+  }
+  df
+}
+
 #' sub-function to `check_fields()` for living atlases
 #' @importFrom jsonlite fromJSON
 #' @importFrom purrr pluck
@@ -182,9 +215,10 @@ check_fields_gbif_counts <- function(.query){
   url <- url_parse(.query$url[1])
 
   # get fields from url
+  skip_fields <- c("limit", "facet", "facetLimit",
+                   "taxonKey", "geometry", "geoDistance") # GBIF-specific fields
   query_names <- names(url$query)
-  fields <- query_names[!(query_names %in% 
-                          c("limit", "facet", "facetLimit", "taxonKey"))] # note: taxonKey here as specified internally
+  fields <- query_names[!(query_names %in% skip_fields)]
   # check invalid fields
   filter_invalid <- NA
   if (length(fields) > 0) {
@@ -204,7 +238,7 @@ check_fields_gbif_counts <- function(.query){
     }
   }
   
-  c(filter_invalid, NA, group_by_invalid)
+  c(filter_invalid, group_by_invalid)
 }
 
 #' sub-function to `check_fields()` for living atlases
@@ -231,14 +265,18 @@ check_fields_gbif_predicates <- function(.query){
       filter_invalid <- glue_collapse(invalid_fields, sep = ", ")
     }
   }
-  c(filter_invalid, NA, NA)
+  c(filter_invalid, NA)
 }
 
 #' sub-function to `check_fields()` for living atlases
 #' @noRd
 #' @keywords Internal
 check_fields_la <- function(.query){
-  url <- url_parse(.query$url[1])
+  if(inherits(.query$url, "data.frame")){
+    url <- url_parse(.query$url$url[1])
+  }else{
+    url <- url_parse(.query$url[1])  
+  }
   queries <- url$query
   
   # set fields to check against
@@ -297,7 +335,11 @@ check_groups <- function(group, n){
     }
   }else{
     match.arg(group, 
-              choices = c("basic", "event", "media", "assertions"),
+              choices = c("basic", 
+                          "event",
+                          "taxonomy",
+                          "media",
+                          "assertions"),
               several.ok = TRUE)
   }
 }
@@ -360,7 +402,12 @@ check_identifiers_gbif_predicates <- function(.query){
 #' @noRd
 #' @keywords Internal
 check_identifiers_la <- function(.query, error_call = caller_env()){
-  url <- url_parse(.query$url[1]) # FIXME: test if every >1 urls here
+  # FIXME: test if every >1 urls here
+  if(inherits(.query$url, "data.frame")){
+    url <- url_parse(.query$url$url[1])
+  }else{
+    url <- url_parse(.query$url[1]) 
+  }
   queries <- url$query
   if(!is.null(queries$fq)){
     if(grepl("(`TAXON_PLACEHOLDER`)", queries$fq)){
@@ -390,7 +437,8 @@ check_identifiers_la <- function(.query, error_call = caller_env()){
       metadata_lookup <- grepl("^metadata/taxa", names(.query))
       if(any(metadata_lookup)){ 
         identifiers <- .query[[which(metadata_lookup)[1]]]
-        taxa_id <- identifiers$taxon_concept_id[1]
+        taxa_id <- URLencode(identifiers$taxon_concept_id[1],
+                             reserved = TRUE)
         .query$url[1] <- sub("%60TAXON_PLACEHOLDER%60", taxa_id, .query$url[1])
       }else{
         abort("The query has a taxonomic placeholder, but no taxon search has been run.")
@@ -489,21 +537,22 @@ check_n_inputs <- function(dots, error_call = caller_env()) {
       "More than 1 spatial area provided.",
       "*" = glue("Using first location, ignoring additional {n_geolocations - 1} location(s).")
     )
-    warn(bullets, call = caller_env())
+    warn(bullets, call = error_call)
   }
 }
 
 #' Internal function to ensure correct data extracted from API for LA/GBIF
 #' It makes all calls consistent so we only need one queue checking function
+#' @importFrom stringr str_trim
 #' @noRd
 #' @keywords Internal
 check_occurrence_response <- function(.query){
-  
   names(.query) <- camel_to_snake_case(names(.query))
   
   if (!is.null(.query$status_code)) {
     
-    error_type <- sub("\\:.*", "", .query$message) |> stringr::str_trim()
+    error_type <- sub("\\:.*", "", .query$message) |> 
+      str_trim()
     
     bullets <- c(
       "There was a problem with your query.",

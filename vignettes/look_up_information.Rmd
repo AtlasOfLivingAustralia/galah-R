@@ -1,7 +1,7 @@
 ---
 title: "Look up information"
 author: "Martin Westgate & Dax Kellie"
-date: '2023-12-14'
+date: '2024-04-09'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -11,53 +11,9 @@ vignette: >
 ---
 
 
-# `show_all()` & `search_all()`
-
-As of galah 1.5.0, there are two simplified functions to look up information: 
-`show_all()` and `search_all()`. 
-
-These are individual functions that are able to return all types of information 
-in one place, rather than using specific sub-functions to look up information.
-
-For example, to show all available Living Atlases supported:
-
-
-```r
-show_all(atlases)
-```
-
-```
-## # A tibble: 11 × 4
-##    region         institution                                                             acronym url                         
-##    <chr>          <chr>                                                                   <chr>   <chr>                       
-##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au      
-##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas.at
-##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br        
-##  4 Estonia        eElurikkus                                                              <NA>    https://elurikkus.ee        
-##  5 France         Portail français d'accès aux données d'observation sur les espèces      OpenObs https://openobs.mnhn.fr     
-##  6 Global         Global Biodiversity Information Facility                                GBIF    https://gbif.org            
-##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt   
-##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt         
-##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es         
-## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.se 
-## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
-```
-
-To search for a specific available Living Atlas:
-
-
-```r
-search_all(atlases, "Spain")
-```
-
-```
-## # A tibble: 1 × 4
-##   region institution acronym url                
-##   <chr>  <chr>       <chr>   <chr>              
-## 1 Spain  GBIF Spain  GBIF.es https://www.gbif.es
-```
-
-To show all fields:
+galah supports two functions to look up information: `show_all()` and 
+`search_all()`. The first argument to both functions is a type of information that you 
+wish to look up; for example to see what fields are available to filter a query by, use:
 
 
 ```r
@@ -184,18 +140,10 @@ Here is a list of information types that can be used with `show_all()` and
 
 # `show_all_` subfunctions
 While `show_all` is useful for a variety of cases, you can 
-still call the underlying subfunctions if you prefer. These functions - with 
-the prefix `show_all_` - return a `tibble` doing exactly that; showing all the 
-possible values of the category specified. These functions include:
+still call the underlying subfunctions if you prefer. Functions with 
+the prefix `show_all_` do exactly that; they show all the 
+possible values of the category specified. 
 
--   `show_all_fields`
--   `show_all_atlases`
--   `show_all_ranks`
--   `show_all_profiles`
--   `show_all_reasons`
-
-`show_all_` functions require no arguments. Simply call the function and it will 
-return all accepted values as a tibble:
 
 
 
@@ -244,16 +192,13 @@ show_all_reasons()
 ```
 
 # `search_` subfunctions
-The second subset of lookup subfunctions use the `search_` prefix, and differ from
-`show_all_` in that they require a query to work. They are used to search for 
-detailed information that can't be summarised across the whole atlas, and include:
+You can also call subfunctions that use the `search_` prefix to lookup information. 
+`search_` subfunctions differ from `show_all_` in that they require a query to work,
+and they useful to search for 
+detailed information that can't be summarised across the whole atlas.
 
--   `search_taxa`
--   `search_identifiers`
--   `search_fields`
--   `show_values`
-
-Search for a single taxon or multiple taxa by name with `search_taxa`.
+`search_taxa()` is an especially useful function in galah. It let's you search 
+for a single taxon or multiple taxa by name.
 
 
 ```r
@@ -262,9 +207,9 @@ search_taxa("reptilia")
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                              rank  match_type kingdom phylum class issues
-##   <chr>       <chr>           <chr>                                                         <chr> <chr>      <chr>   <chr>  <chr> <chr> 
-## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b… class exactMatch Animal… Chord… Rept… noIss…
+##   search_term scientific_name taxon_concept_id                                                          rank  match_type kingdom  phylum   class    issues 
+##   <chr>       <chr>           <chr>                                                                     <chr> <chr>      <chr>    <chr>    <chr>    <chr>  
+## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd40c399 class exactMatch Animalia Chordata Reptilia noIssue
 ```
 
 ```r
@@ -273,14 +218,14 @@ search_taxa("reptilia", "aves", "mammalia", "pisces")
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                              rank  match_type kingdom phylum class issues
-##   <chr>       <chr>           <chr>                                                         <chr> <chr>      <chr>   <chr>  <chr> <chr> 
-## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b… class exactMatch Animal… Chord… Rept… noIss…
+##   search_term scientific_name taxon_concept_id                                                          rank  match_type kingdom  phylum   class    issues 
+##   <chr>       <chr>           <chr>                                                                     <chr> <chr>      <chr>    <chr>    <chr>    <chr>  
+## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd40c399 class exactMatch Animalia Chordata Reptilia noIssue
 ```
 
-Alternatively, `search_identifiers` is the partner function to `search_taxa`. 
+Alternatively, `search_identifiers()` is the partner function to `search_taxa()`. 
 If we already know a taxonomic identifier, we can search for 
-which taxa the identifier belongs to with `search_identifiers`:
+which taxa the identifier belongs to.
 
 
 ```r
@@ -289,42 +234,20 @@ search_identifiers("urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-83
 
 ```
 ## # A tibble: 1 × 15
-##   search_term    success scientific_name taxon_concept_id rank  rank_id   lft   rgt match_type kingdom kingdom_id phylum phylum_id class
-##   <chr>          <lgl>   <chr>           <chr>            <chr>   <int> <int> <int> <chr>      <chr>   <chr>      <chr>  <chr>     <chr>
-## 1 urn:lsid:biod… TRUE    REPTILIA        https://biodive… class    3000 46718 49924 taxonIdMa… Animal… https://b… Chord… https://… Rept…
-## # ℹ 1 more variable: class_id <chr>
-```
-
-Sifting through the output of `show_all_fields` to find a specific field can be 
-inefficient. Instead, we might wish to use `search_fields` to look for specific 
-fields that match a search. As with `search_taxa`, `search_fields` requires a 
-query to work.
-
-
-```r
-search_fields("date") |> head()
-```
-
-```
-## # A tibble: 6 × 3
-##   id             description     type  
-##   <chr>          <chr>           <chr> 
-## 1 eventDate      Event Date      fields
-## 2 lastLoadDate   lastLoadDate    fields
-## 3 datePrecision  Date precision  fields
-## 4 eventDateEnd   <NA>            fields
-## 5 dateIdentified Date Identified fields
-## 6 raw_eventDate  <NA>            fields
+##   search_term                               success scientific_name taxon_concept_id rank  rank_id   lft   rgt match_type kingdom kingdom_id phylum phylum_id class class_id
+##   <chr>                                     <lgl>   <chr>           <chr>            <chr>   <int> <int> <int> <chr>      <chr>   <chr>      <chr>  <chr>     <chr> <chr>   
+## 1 urn:lsid:biodiversity.org.au:afd.taxon:6… TRUE    REPTILIA        https://biodive… class    3000 33626 36658 taxonIdMa… Animal… https://b… Chord… https://… Rept… https:/…
 ```
 
 # `show_values()` & `search_values()`
 
-Once a desired field is found, you can use `show_values` to understand the 
-information contained within that field, e.g.
+Once a desired field is found, you can use `show_values()` to understand the 
+information contained within that field. For example, we can show the values 
+contained in the field `basisOfRecord`.
 
 
 ```r
-search_all(fields, "basis") |> show_values()
+search_all(fields, "basisOfRecord") |> show_values()
 ```
 
 ```
@@ -336,18 +259,18 @@ search_all(fields, "basis") |> show_values()
 ## # A tibble: 9 × 1
 ##   basisOfRecord      
 ##   <chr>              
-## 1 Human observation  
-## 2 Preserved specimen 
-## 3 Observation        
-## 4 Occurrence         
-## 5 Machine observation
-## 6 Material Sample    
-## 7 Living specimen    
-## 8 Material Citation  
-## 9 Fossil specimen
+## 1 HUMAN_OBSERVATION  
+## 2 PRESERVED_SPECIMEN 
+## 3 OBSERVATION        
+## 4 OCCURRENCE         
+## 5 MACHINE_OBSERVATION
+## 6 MATERIAL_SAMPLE    
+## 7 LIVING_SPECIMEN    
+## 8 MATERIAL_CITATION  
+## 9 FOSSIL_SPECIMEN
 ```
 
-This provides the information you need to pass meaningful queries to `galah_filter`.
+Use this information to pass meaningful queries to `galah_filter()`.
 
 
 ```r
@@ -378,12 +301,12 @@ search_all(profiles, "ALA") |>
 
 ```
 ## # A tibble: 6 × 5
-##      id enabled description                                                                                          filter displayOrder
-##   <int> <lgl>   <chr>                                                                                                <chr>         <int>
-## 1    94 TRUE    "Exclude all records where spatial validity is \"false\""                                            "-spa…            1
-## 2    96 TRUE    "Exclude all records with an assertion that the scientific name provided does not match any of the … "-ass…            1
-## 3    97 TRUE    "Exclude all records with an assertion that the scientific name provided is not structured as a val… "-ass…            2
-## 4    98 TRUE    "Exclude all records with an assertion that the name and classification supplied can't be used to c… "-ass…            3
-## 5    99 TRUE    "Exclude all records with an assertion that kingdom provided doesn't match a known kingdom e.g. Ani… "-ass…            4
-## 6   100 TRUE    "Exclude all records with an assertion that the scientific name provided in the record does not mat… "-ass…            5
+##      id enabled description                                                                                                                              filter displayOrder
+##   <int> <lgl>   <chr>                                                                                                                                    <chr>         <int>
+## 1    94 TRUE    "Exclude all records where spatial validity is \"false\""                                                                                "-spa…            1
+## 2    96 TRUE    "Exclude all records with an assertion that the scientific name provided does not match any of the names lists used by the ALA.  For a … "-ass…            1
+## 3    97 TRUE    "Exclude all records with an assertion that the scientific name provided is not structured as a valid scientific name. Also catches ran… "-ass…            2
+## 4    98 TRUE    "Exclude all records with an assertion that the name and classification supplied can't be used to choose between 2 homonyms"             "-ass…            3
+## 5    99 TRUE    "Exclude all records with an assertion that kingdom provided doesn't match a known kingdom e.g. Animalia, Plantae"                       "-ass…            4
+## 6   100 TRUE    "Exclude all records with an assertion that the scientific name provided in the record does not match the expected taxonomic scope of t… "-ass…            5
 ```

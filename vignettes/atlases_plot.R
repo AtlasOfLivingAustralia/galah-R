@@ -22,7 +22,7 @@ df <- paste0(data_dir, "/data-raw/node_config.csv") |>
   bind_rows( # add cached gbif data
     tibble(
       atlas = "Global",
-      type = c("metadata/fields", "metadata/assertions"))) |>
+      type = c("data/species", "metadata/fields", "metadata/assertions"))) |>
   left_join(
     select(node_metadata, region, url),
     by = c("atlas" = "region")
@@ -61,7 +61,9 @@ df_functions$type <- factor(type_seq,
 # order atlases in descending order of availability
 count_df <- df_functions |>
   group_by(atlas) |>
-  summarize(count = n()) |>
+  summarize(count = n())
+count_df$count[grepl("Global", count_df$atlas)] <- 100 # put GBIF on top
+count_df <- count_df |>
   arrange(count) |>
   mutate(order = seq_len(11))
 

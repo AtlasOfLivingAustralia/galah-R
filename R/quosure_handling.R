@@ -44,14 +44,10 @@ detect_request_object <- function(dots){
 parse_quosures_data <- function(dots){
   if(length(dots) > 0){
     result <- lapply(dots, switch_expr_type) |>
-     bind_rows()
-    # OR statement MUST be wrapped in () to work - parse here
-    or_lookup <- grepl("OR", result$query) # add AND here?
-    if(any(or_lookup)){
-      or_strings <- result$query[which(or_lookup)]
-      result$query[which(or_lookup)] <- glue("({or_strings})") |>
-        as.character()
-    }
+      bind_rows() |>
+      clean_assertions() |>
+      clean_logical_statements()
+    result$query <- as.character(result$query)
   }else{
     result <- NULL
   }
@@ -63,6 +59,60 @@ parse_quosures_data <- function(dots){
       query = character())
   }
   result
+}
+
+#' Function to ensure assertions are placed first in a query
+#' This is important so that they are parsed correctly
+#' Note this only gets triggered for AND statements - OR is handled earlier
+#' @noRd
+#' @keywords Internal
+clean_assertions <- function(df){
+  assertions_check <- grepl("assertions", df$variable)
+  if(any(assertions_check)){
+    check_1 <- concatenate_assertions(df[assertions_check, ], logical = "!=")
+    check_2 <- concatenate_assertions(df[assertions_check, ], logical = "==")
+    if(all(is.null(c(check_1, check_2)))){
+      bind_rows(
+        df[assertions_check, ],
+        df[!assertions_check, ]
+      )
+    }else{
+      bind_rows(
+        check_1,
+        check_2,
+        df[!assertions_check, ]
+      )      
+    }
+  }else{
+    df
+  }
+}
+
+#' Glue together AND-ed assertions
+#' @noRd
+#' @keywords Internal
+concatenate_assertions <- function(df, logical){
+    assertions_matched <- df$logical == logical
+    if(length(which(assertions_matched)) > 1){
+      df[assertions_matched, ] |>
+        concatenate_logical_tibbles(provided_string = "&",
+                                    logical_string = " AND ")
+    }else{
+      NULL
+    }
+}
+
+#' Function to ensure OR statements parse correctly
+#' @noRd
+#' @keywords Internal
+clean_logical_statements <- function(df){
+  or_lookup <- grepl("\\sOR\\s", df$query) # add AND here?
+  if(any(or_lookup)){
+    or_strings <- df$query[which(or_lookup)]
+    df$query[which(or_lookup)] <- glue("({or_strings})") |>
+      as.character()
+  }
+  df
 }
 
 #' parse quosures, but for `select` and related functions
@@ -297,7 +347,7 @@ parse_relational <- function(x, ...){
   # handle `!`
   dots <- list(...)
   if("excl" %in% names(dots) && result$logical == "==") {
-  result$logical <- as.character("!=")
+    result$logical <- as.character("!=")
   }else if ("excl" %in% names(dots) && result$logical == "!="){
     result$logical <- as.character("==")
   } else {
@@ -316,6 +366,7 @@ parse_relational <- function(x, ...){
 #' Handle & and | statements
 #' @importFrom rlang as_quosure
 #' @importFrom rlang as_string
+#' @importFrom rlang quo_get_env
 #' @noRd
 #' @keywords internal
 parse_logical <- function(x, ...){
@@ -338,35 +389,36 @@ parse_logical <- function(x, ...){
 
 #' Internal function to handle concatenation of logicals
 #' @importFrom glue glue
+#' @importFrom glue glue_collapse
+#' @importFrom tibble tibble
 #' @noRd
 #' @keywords Internal
 concatenate_logical_tibbles <- function(df,
                                         provided_string = "|",
                                         logical_string = " OR "){
-  query_text <- join_logical_strings(df$query, sep = logical_string)
+  if(all(df$variable == "assertions")){
+    query_text <- df$query |>
+      gsub("^-", "", x = _) |>
+      glue_collapse(sep = logical_string) 
+    if(all(df$logical == "!=")){
+      query_text <- glue("-({query_text})")
+    }
+  }else{
+    query_text <- df$query |>
+      glue_collapse(sep = logical_string)
+  }
   tibble(
-    variable = join_logical_strings(df$variable, sep = provided_string),
-    logical  = join_logical_strings(df$logical, sep = provided_string),
-    value    = join_logical_strings(df$value, sep = provided_string),
+    variable = glue_collapse(df$variable, sep = provided_string),
+    logical  = glue_collapse(df$logical,  sep = provided_string),
+    value    = glue_collapse(df$value,  sep = provided_string),
     query    = as.character(glue("{query_text}")))
 }
 
-#' Messy internal function called by `parse_logical`
-#' @importFrom glue glue_collapse
-#' @noRd
-#' @keywords internal
-join_logical_strings <- function(x, sep){
-  if(length(unique(x)) > 1){
-    glue_collapse(x, sep = sep)
-  }else{
-    x[[1]]
-  }
-}
-
 #' Parse `call`s that contain brackets 
-#' 
 #' Where this happens, they are always length-2, with "(" as the first entry.
 #' @importFrom rlang as_quosure
+#' @importFrom rlang quo_get_expr
+#' @importFrom rlang quo_get_env
 #' @noRd
 #' @keywords internal
 parse_brackets <- function(x, ...){
@@ -377,9 +429,10 @@ parse_brackets <- function(x, ...){
 }
 
 #' Parse `call`s that contain exclamations 
-#' 
 #' Where this happens, they are always length-2, with "(" as the first entry.
 #' @importFrom rlang as_quosure
+#' @importFrom rlang quo_get_expr
+#' @importFrom rlang quo_get_env
 #' @noRd
 #' @keywords internal
 parse_exclamation <- function(x){
@@ -389,23 +442,18 @@ parse_exclamation <- function(x){
                    excl = TRUE) # pass this down the chain
 }
 
-
 #' Parse `call`s that contain `is.na()`
-#' 
 #' Where this happens, they are always length-2, with "(" as the first entry.
-#' @importFrom rlang as_quosure is_empty
+#' @importFrom rlang as_quosure
+#' @importFrom rlang is_empty
+#' @importFrom rlang quo_get_expr
+#' @importFrom rlang quo_get_env
 #' @noRd
 #' @keywords internal
 parse_is_na <- function(x, ...){
   if(length(quo_get_expr(x)) != 2L){filter_error()}
-  
   dots <- list(...)
-  if(rlang::is_empty(dots)) {
-    logical <- as.character("==")
-  }else{
-    logical <- as.character("!=")
-  }
-  
+  logical <- ifelse(is_empty(dots), "==", "!=")
   # for LA cases
   result <- tibble(
     variable = switch_expr_type(as_quosure(quo_get_expr(x)[[2]], 
@@ -417,7 +465,6 @@ parse_is_na <- function(x, ...){
 }
 
 #' Parse `call`s that contain `dplyr::between()`
-#' 
 #' Where this happens, they are always length-4, with "between" as the first entry.
 #' @importFrom rlang as_quosure
 #' @noRd
@@ -445,69 +492,58 @@ parse_between <- function(x, excl){
 #' Parse `call`s that contain `%in%`
 #' 
 #' Where this happens, they are always length-3, with "%in%" as the first entry.
+#' @importFrom glue glue
+#' @importFrom glue glue_collapse
 #' @importFrom rlang as_quosure
-#' @importFrom glue glue_collapse glue
-#' @importFrom rlang parse_expr enquo
+#' @importFrom rlang enquo 
+#' @importFrom rlang parse_expr 
 #' @noRd
 #' @keywords internal
 parse_in <- function(x, excl){ 
-  # if(length(quo_get_expr(x)) < 3L){filter_error()}
-  
   # convert to logical format using OR statements
   variable <- as_label(quo_get_expr(x)[[2]])
-  
-  if(missing(excl)) {
-    logical <- "=="
-  } else{
-    logical <- "!="
-  }
-  
+  logical <- ifelse(missing(excl), "==", "!=")
   value <- switch_expr_type(as_quosure(quo_get_expr(x)[[3]], 
                                        env = quo_get_env(x)))
-  
   # handle apostrophes (')
   if(any(str_detect(value, "\\'"))) {
     value <- gsub("'", "\\\\'", value)
   }
-  
+  # convert to formula
   in_as_or_statements <- rlang::parse_expr(
     glue::glue_collapse(
       glue("{variable} {logical} '{value}'"), 
       sep = " | "
     ))
-
-  parse_logical(as_quosure(in_as_or_statements, quo_get_env(x))) # pass this to parse_logical
+  # convert to quosure and pass to `parse_logical()`
+  as_quosure(in_as_or_statements, quo_get_env(x)) |>
+    parse_logical()
 }
 
 #' Parse `call`s that contain `c()`
-#' 
 #' Where this happens, they are always length-2, with "c()" as the first entry.
+#' @importFrom glue glue
+#' @importFrom glue glue_collapse
 #' @importFrom rlang as_quosure
-#' @importFrom glue glue_collapse glue
-#' @importFrom rlang parse_expr enquo
+#' @importFrom rlang enquo
+#' @importFrom rlang parse_expr
+#' @importFrom rlang quo_get_env
+#' @importFrom rlang quo_get_expr
 #' @noRd
 #' @keywords internal
 parse_c <- function(x, excl){ 
   if(length(quo_get_expr(x)) < 2L){filter_error()}
-  
   # convert to logical format using OR statements
-  variable <- as_label(quo_get_expr(x)[[1]])
-  
-  if(missing(excl)) {
-    logical <- "=="
-  } else{
-    logical <- "!="
-  }
-  
-  value <- switch_expr_type(as_quosure(quo_get_expr(x)[[3]], 
-                                       env = quo_get_env(x)))
-  
-  in_as_or_statements <- rlang::parse_expr(
-    glue::glue_collapse(
-      glue("{variable} {logical} '{value}'"), 
-      sep = " | "
-    ))
-  
+  variable <- quo_get_expr(x)[[1]] |>
+    as_label()
+  logical <- ifelse(missing(excl), "==", "!=")
+  value <- as_quosure(quo_get_expr(x)[[3]], 
+                      env = quo_get_env(x)) |>
+    switch_expr_type()
+  in_as_or_statements <- glue_collapse(
+    glue("{variable} {logical} '{value}'"), 
+    sep = " | ") |>
+    parse_expr()
   parse_logical(enquo(in_as_or_statements), quo_get_env(x)) # pass this to parse_logical
 }
 
@@ -527,17 +563,21 @@ parse_solr <- function(df){
 }
 
 #' Internal function to `parse_solr()`
+#' @importFrom glue glue_data
 #' @noRd
 #' @keywords internal
 switch_solr <- function(df){
   switch(df$logical,
-         "=" = {query_term(df$variable, df$value, TRUE)},
-         "==" = {query_term(df$variable, df$value, TRUE)},
-         "!=" = {query_term(df$variable, df$value, FALSE)},
-         ">=" = {paste0(df$variable, ":[", df$value, " TO *]")},
-         ">" = {paste0(df$variable, ":[", df$value, " TO *] AND -", query_term(df$variable, df$value, TRUE))},
-         "<=" = {paste0(df$variable, ":[* TO ", df$value, "]")},
-         "<" = {paste0(df$variable, ":[* TO ", df$value, "] AND -", query_term(df$variable, df$value, TRUE))}
+         "==" = query_term(df$variable, df$value, TRUE),
+         "!=" = query_term(df$variable, df$value, FALSE),
+         ">=" = glue_data(df, "{variable}:[{value} TO *]"),
+         ">"  = {
+           lowest_value <- query_term(df$variable, df$value, TRUE)
+           glue_data(df, "{variable}:[{value} TO *] AND -{lowest_value}")},
+         "<=" = glue_data(df, "{variable}:[* TO {value}]"),
+         "<"  = {
+           highest_value <- query_term(df$variable, df$value, TRUE)
+           glue_data(df, "{variable}:[* TO {value}] AND -{highest_value}")}
   )
 }
 
@@ -547,41 +587,31 @@ switch_solr <- function(df){
 #' @keywords internal
 filter_error <- function(){abort("Invalid argument passed to `filter()`.")}
 
-
 #' Subfunction called by `parse_solr()`
+#' @importFrom glue glue
+#' @importFrom rlang expr_text
 #' @noRd
 #' @keywords internal
 query_term <- function(name, value, include) {
-  # check for blank value
-  blank_value <- if(value == "") {TRUE} else {FALSE}
-  
   # add quotes around value
-  value <- lapply(value, rlang::expr_text) # format query value as solr-readable text
-  
-  # add quotes around value
-  if(isTRUE(blank_value)) {
-    value_str <- parse_blank_query(name, include)
+  value <- lapply(value, expr_text) # format query value as solr-readable text
+  if(value %in% c("", "\"\"")) {
+    if(include){
+      value_str <- glue("(*:* AND -{name}:*)")  # queries with "=="
+    }else{
+      value_str <- glue("({name}:*)") # queries with "!="
+    }
   } else {
-    if (include) {
-      value_str <- paste0("(", 
-                          paste(name, value, collapse = " OR ", sep = ":"),
-                          ")")
-    } else {
-      value_str <- paste0("-(", 
-                          paste(name, value, collapse = " OR ", sep = ":"), 
-                          ")")
+    # assertions do not require brackets
+    if(name == "assertions"){
+      value_str <- glue("{name}:{value}")
+    }else{
+      value_str <- glue("({name}:{value})")
+    }
+    # negations have a leading `-`
+    if(!include){
+      value_str <- glue("-{value_str}")
     }
   }
   value_str
-}
-
-#' Subfunction called by `query_term()`
-#' @noRd
-#' @keywords internal
-parse_blank_query <- function(name, include) {
-  if (include) { 
-    value_str <- paste0("(*:* AND -", name, ":*)") # queries with "=="
-  } else { 
-    value_str <- paste0("(", name, ":*)") # queries with "!="
-  }
 }

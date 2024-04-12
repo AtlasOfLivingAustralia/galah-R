@@ -8,17 +8,89 @@ test_that("galah_filter gives an error for single equals sign", {
   expect_error(galah_filter(year = 2010))
 })
 
-## FIXME: ensure assertions are handled correctly
-# Did this ever work correctly?
+test_that("galah_filter works with assertions", {
+  skip_if_offline()
+  count_all <- atlas_counts() |>
+    pull(count)
+  count_invalid_spp <- galah_call() |>
+    filter(assertions == "INVALID_SCIENTIFIC_NAME") |>
+    count() |>
+    collect() |>
+    pull(count)
+  count_valid_spp <- galah_call() |>
+    filter(assertions != "INVALID_SCIENTIFIC_NAME") |>
+    count() |>
+    collect() |>
+    pull(count)
+  expect_lt(count_invalid_spp, count_all)
+  expect_lt(count_valid_spp, count_all)
+  expect_lt(count_invalid_spp, count_valid_spp)
+  expect_equal(count_invalid_spp + count_valid_spp,
+               count_all)
+})
 
-# test_that("galah_filter handles assertion filters", {
-#   filters <- galah_filter(ZERO_COORDINATE == FALSE)
-#   expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
-#   expect_true(grepl("assertions", filters$query))   # FIXME 
-# })
+test_that("galah_filter handles multiple assertions", {
+  skip_if_offline()
+  # OR statements
+  all_records <- atlas_counts() |>
+    pull(count)
+  either_valid <- galah_call() |>
+    filter(assertions != c("INVALID_SCIENTIFIC_NAME", "COORDINATE_INVALID")) |>
+    count() |>
+    collect() |>
+    pull(count)
+  either_invalid <- galah_call() |>
+    filter(assertions == c("INVALID_SCIENTIFIC_NAME", "COORDINATE_INVALID")) |>
+    count() |>
+    collect() |>
+    pull(count)
+  expect_lt(either_valid, all_records)
+  expect_lt(either_invalid, all_records)
+  expect_lt(either_invalid, either_valid)
+  expect_equal(either_valid + either_invalid, all_records)
+  
+  # AND statements
+  both_invalid <- galah_call() |>
+    filter(assertions == "INVALID_SCIENTIFIC_NAME",
+           assertions ==  "COORDINATE_INVALID") |>
+    count() |>
+    collect() |>
+    pull(count)
+  both_valid <- galah_call() |>
+    filter(assertions != "INVALID_SCIENTIFIC_NAME",
+           assertions !=  "COORDINATE_INVALID") |>
+    count() |>
+    collect() |>
+    pull(count)
+  expect_lt(both_valid, all_records)
+  expect_lt(both_invalid, all_records)
+  expect_lt(both_invalid, both_valid)
+  expect_lt(both_invalid, either_invalid)
+  
+  ## some further comparisons:
+  # expect_lt(both_valid, either_valid) 
+  # expect_lt(both_valid + both_invalid, all_records) 
+  ## These tests fail, which suggests the query is still not being
+  ## constructed carefully enough. More testing needed
+  
+})
 
-# negative assertions:
-# galah_filter(BASIS_OF_RECORD_INVALID == FALSE)
+test_that("galah_filter handles assertions and taxa", {
+  skip_if_offline()
+  problem_families <- galah_call() |>
+    filter(assertions == "INVALID_SCIENTIFIC_NAME") |>
+    group_by(family) |>
+    slice_head(n = 5) |>
+    count() |>
+    collect() 
+  top_family <- galah_call() |>
+    identify(problem_families$family[1]) |>
+    filter(assertions == "INVALID_SCIENTIFIC_NAME") |>
+    group_by(family) |>
+    count() |>
+    collect() 
+  expect_equal(problem_families$count[1], top_family$count)
+})
 
 test_that("galah_filter returns empty tibble when no arguments specified", {
   filters <- galah_filter()
@@ -227,6 +299,49 @@ test_that("galah_filter handles %in% even with multiple filters", {
   expect_equal(nrow(filter_multiple), 2)
   expect_equal("((year:\"2020\") OR (year:\"2021\") OR (year:\"2022\"))", filter_single$query[[1]])
   expect_equal("((year:\"2020\") OR (year:\"2021\") OR (year:\"2022\"))", filter_multiple$query[[1]])
+})
+
+test_that("galah_filter parses fields correctly with is.na()", {
+  skip_if_offline()
+  expect_no_error(galah_call() |> 
+                    galah_filter(is.na(decimalLongitude)) |> 
+                    atlas_counts()
+                  )
+  expect_no_error(galah_call() |>
+                    galah_filter(year == 2001, is.na(decimalLongitude)) |>
+                    atlas_counts()
+                  )
+  expect_no_error(galah_call() |>
+                    galah_filter(is.na(coordinateUncertaintyInMeters) | coordinateUncertaintyInMeters <= 1000) |>
+                    atlas_counts()
+                  )
+  # misspelled or wrong fields
+  expect_error(galah_call() |>
+                 galah_filter(is.na(decimalLongitde)) |>
+                 atlas_counts()
+               )
+  expect_error(galah_call() |>
+                 galah_filter(year == 2001, is.na(decimalLongitde)) |>
+                 atlas_counts()
+               )
+  expect_error(galah_call() |>
+                 galah_filter(is.na(bork) | coordinatencertaintyInMeters <= 1000) |>
+                 atlas_counts()
+               )
+})
+
+test_that("`galah_filter()` handles apostrophes (') correctly", {
+  skip_if_offline()
+  names <- c("Australia's Virtual Herbarium", 
+             "iNaturalist observations",
+             "iNaturalist research-grade observations")
+  filter <- galah_filter(datasetName %in% names)$query
+  query <- galah_call() |>
+    galah_filter(datasetName %in% names) |>
+    atlas_counts()
+  expect_equal(nrow(query), 1) # returns result
+  expect_gte(query$count[1], 1)
+  expect_match(filter, "\\(\\(datasetName:\\\"Australia's Virtual Herbarium\\\"\\)")
 })
 
 test_that("`galah_filter()` accepts {{}} on lhs of formula", {

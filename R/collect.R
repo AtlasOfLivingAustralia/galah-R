@@ -5,7 +5,7 @@
 #' @name collect_galah
 #' @order 1
 #' @param x An object of class `data_request`, `metadata_request` or 
-#' `files_request` (from `galah_call()`); or an oject of class `query_set` or 
+#' `files_request` (from `galah_call()`); or an object of class `query_set` or 
 #' `query` (from `collapse()` or `compute()`)
 #' @param ... Arguments passed on to other methods
 #' @param wait logical; should `galah` wait for a response? Defaults to FALSE.
@@ -71,6 +71,7 @@ collect.computed_query <- function(x,
     tibble()
   }else{
     switch(x$type,
+           "data/distributions" = collect_distributions(x),
            "data/occurrences" = collect_occurrences(x, wait = wait, file = file),
            "data/occurrences-count" = collect_occurrences_count(x),
            "data/occurrences-count-groupby" = collect_occurrences_count(x),
@@ -84,6 +85,7 @@ collect.computed_query <- function(x,
            "metadata/atlases" = collect_atlases(x),
            "metadata/collections" = collect_collections(x),
            "metadata/datasets" = collect_datasets(x),
+           "metadata/distributions" = collect_distributions_metadata(x),
            "metadata/fields" = collect_fields(x),
            "metadata/fields-unnest" = collect_fields_unnest(x),
            "metadata/licences" = collect_licences(x),

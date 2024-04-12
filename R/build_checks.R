@@ -15,7 +15,7 @@ build_checks <- function(.query){
     # parse `data`, including supplied metadata
     # this assumes only one `data` field is available per `query_set`
     .query[[which(data_lookup)]] |>
-      add_metadata(metadata_results)     
+      add_metadata(metadata_results)
   }else if(any(names_vec %in% c("metadata/fields-unnest", 
                                 "metadata/profiles-unnest",
                                 "metadata/taxa-unnest"))){
@@ -43,7 +43,7 @@ parse_metadata <- function(names_vec, .query){
     !grepl("-unnest$", names_vec) # unnest functions only parse in collect()
   if(any(metadata_lookup)){
     metadata_names <- names_vec[metadata_lookup]
-    metadata_results <- lapply(.query[metadata_lookup], collect)
+    metadata_results <- lapply(.query[which(metadata_lookup)], collect)
     names(metadata_results) <- metadata_names   
     metadata_results
   }else{

@@ -110,12 +110,43 @@ collect_datasets <- function(.query){
   }else{
     result <- query_API(.query)
     result <- result |> 
-      bind_rows()
-    result <- result |> 
+      bind_rows() |> 
       relocate("uid") |>
       rename("id" = "uid")
   }
   attr(result, "call") <- "datasets"
+  attr(result, "region") <- pour("atlas", "region") 
+  result 
+}
+
+#' Internal function to `collect()` distributions
+#' @importFrom dplyr any_of
+#' @importFrom dplyr rename
+#' @importFrom dplyr select
+#' @noRd
+#' @keywords Internal
+collect_distributions_metadata <- function(.query){
+  result <- query_API(.query)
+  result <- result |>
+    bind_rows() |>
+    select("spcode", 
+           "family", 
+           "genus_name", 
+           "scientific", 
+           "common_nam",
+           "lsid",
+           "area_name",
+           "area_km",
+           "data_resource_uid") |>
+    rename(
+      "id" = "spcode", # this is chosen as ID because it is called by later APIs
+      "genus" = "genus_name",
+      "species" = "scientific",
+      "taxon_concept_id" = "lsid",
+      "label" = "area_name",
+      "common_name" = "common_nam")  |>
+    mutate("common_name" = trimws(.data$common_name)) # remove leading or trailing spaces
+  attr(result, "call") <- "distributions"
   attr(result, "region") <- pour("atlas", "region") 
   result 
 }
@@ -164,14 +195,21 @@ collect_fields <- function(.query){
 #' @keywords Internal
 collect_licences <- function(.query){
   result <- query_API(.query) 
-  if (any(duplicated(names(result[[1]])))) { # remove duplicate columns (i.e. Spain atlas)
-    result <- lapply(result, function(x) x[unique(names(x))])
+  if(length(result) > 0){
+    if (any(duplicated(names(result[[1]])))) { # remove duplicate columns (i.e. Spain atlas)
+      result <- lapply(result, function(x) x[unique(names(x))])
+    }
+    result <- result |> 
+      bind_rows() 
+    result <- result |>
+      select(all_of(c("id", "name", "acronym", "url"))) |> 
+      arrange(result$id)
+  }else{
+    result <- tibble(id = character(),
+                     name = character(),
+                     acronym = character(),
+                     url = character())
   }
-  result <- result |> 
-    bind_rows() 
-  result <- result |>
-    select(all_of(c("id", "name", "acronym", "url"))) |> 
-    arrange(result$id)
   attr(result, "call") <- "licences"
   attr(result, "region") <- pour("atlas", "region") 
   result

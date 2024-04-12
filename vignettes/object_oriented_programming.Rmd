@@ -1,31 +1,24 @@
 ---
-title: "Object-Oriented Programming in galah"
-author: "Martin Westgate, Dax Kellie"
-date: '2024-02-02'
+title: "Object-Oriented Programming"
+author: "Martin Westgate & Dax Kellie"
+date: '2024-04-09'
 output:
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Object-Oriented Programming in galah}
+  %\VignetteIndexEntry{Object-Oriented Programming}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 
-From version 2.0 onwards, galah is built around object-oriented programming 
-principles. In practice, this won't change the experience for most users. 
-However, it does enable new ways of programming that were not previously 
-available. 
-
-## Masked functions
-
-The default method for building queries in galah is to first use `galah_call()`
-to create a query object called a `data_request`. This object class is specific 
-to galah. 
+The default method for building queries in `galah` is to first use `galah_call()`
+to create a query object called a "`data_request`". This object class is specific 
+to `galah`.
 
 
 ```r
 galah_call() |>
-  galah_filter(genus == "Crinia") |>
+  filter(genus == "Crinia") |>
   class()
 ```
 
@@ -33,8 +26,8 @@ galah_call() |>
 ## [1] "data_request"
 ```
 
-When an object is of class `data_request`, galah can trigger functions to use 
-specific methods for this object class, even if a function name is used by 
+When a piped object is of class `data_request`, galah can trigger functions to 
+use specific methods for this object class, even if a function name is used by 
 another package. For example, users can use `filter()` and `group_by()` functions 
 from [dplyr](https://dplyr.tidyverse.org/index.html) instead 
 of `galah_filter()` and `galah_group_by()` to construct a query. Consequently,
@@ -59,14 +52,14 @@ galah_call() |>
 ## # A tibble: 16 × 2
 ##    species                 count
 ##    <chr>                   <int>
-##  1 Crinia signifera        58579
-##  2 Crinia parinsignifera   12782
+##  1 Crinia signifera        58619
+##  2 Crinia parinsignifera   12912
 ##  3 Crinia glauerti          3090
 ##  4 Crinia georgiana         1490
 ##  5 Crinia remota             784
-##  6 Crinia sloanei            644
+##  6 Crinia sloanei            693
 ##  7 Crinia insignifera        536
-##  8 Crinia tinnula            417
+##  8 Crinia tinnula            418
 ##  9 Crinia deserticola        278
 ## 10 Crinia pseudinsignifera   236
 ## 11 Crinia tasmaniensis       189
@@ -97,9 +90,8 @@ set of dplyr verbs: `collapse()`, `compute()` and `collect()`.
 ## Advanced query building
 
 The usual way to begin a query to request data in galah is using `galah_call()`. 
-From version 2.0, to make galah more flexible and modular, the underlying 
-architecture of `galah_call()` has been divided into several types of `request_` 
-functions. You can begin your pipe with one of these dedicated `request_`
+However, this function now calls one of three types of `request_` functions. 
+If you prefer, you can begin your pipe with one of these dedicated `request_`
 functions (rather than `galah_call()`) depending on the type of data you 
 want to collect. 
 
@@ -113,8 +105,8 @@ x <- request_data("occurrences") |> # note that "occurrences" is the default `ty
   collect()
 ```
 
-You'll notice that this query differs slightly from the typical query structure 
-users of galah are familiar with. The desired data type, `"occurrences"`, 
+You'll notice that this query differs slightly from the query structure used in 
+earlier versions of `galah`. The desired data type, `"occurrences"`, 
 is specified at the beginning of the query within `request_data()` rather than 
 at the end using `atlas_occurrences()`. Specifying the data type at the start 
 allows users to make use of advanced query building using three newly 
@@ -217,7 +209,7 @@ request_data() |>
 
 ```
 ## Object of class query with type data/occurrences 
-## url: https://biocache-ws.ala.org.au/ws/occurrences/offline/download?fq=%28l...
+## url: https://biocache-ws.ala.org.au/ws/occurrences/offline/download?fq=%28y...
 ```
 
 The `collapse()` stage includes an additional argument (`.expand`) that, 
@@ -299,15 +291,12 @@ users are able to download large metadata queries using the process detailed
 above in "Advanced query building" to get around this issue.
 
 
-## Do I need to use advanced query building?
+## Which syntax should I prefer?
 
-Despite these benefits, we have no plans to _require_ this new syntax; functions
-prefixed with `galah_` or `atlas_` are not going away. 
-
+Despite these benefits, we have no plans to _require_ users to call masked 
+functions. Functions prefixed with `galah_` or `atlas_` are not going away. 
 Indeed, while there is perfect redundancy between old and new syntax in some 
 cases, in others they serve different purposes. In `atlas_media()` for example, 
 several calls are made and joined in a way that reduces the number of steps 
-required by the user. 
-
-Under the hood, however, all `atlas_` functions are now entirely built using the 
-above syntax.
+required by the user. Under the hood, however, all `atlas_` functions are now 
+entirely built using the above syntax.

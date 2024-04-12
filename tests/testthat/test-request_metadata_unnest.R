@@ -23,7 +23,7 @@ test_that("request_metadata() |> unnest() works for type = 'fields'", {
   expect_gte(nrow(x), 4)
   expect_equal(ncol(x), 1)
   expect_equal(colnames(x), "basisOfRecord")
-  expect_true(any(x[[1]] == "Human observation"))
+  expect_true(any(x[[1]] == "HUMAN_OBSERVATION"))
 })
 
 test_that("request_metadata() |> unnest() works for type = 'lists'", {

@@ -123,6 +123,7 @@ galah_call <- function(method = c("data", "metadata", "files"),
 request_data <- function(type = c("occurrences", 
                                   "occurrences-count",
                                   "occurrences-doi",
+                                  # "distributions",
                                   "species",
                                   "species-count"
                                   ),
@@ -169,7 +170,7 @@ request_metadata <- function(type){
                    "atlases",
                    "collections",
                    "datasets",
-                   # distributions" # new
+                   # "distributions",
                    "licences",
                    "lists",
                    "media",
@@ -188,9 +189,7 @@ request_metadata <- function(type){
 #' @rdname galah_call
 #' @export
 request_files <- function(
-    type = c(#"distributions",
-             "media"
-    ) 
+    type = "media"
     # note: option to add `...` here for consistency with `request_data()`
 ){
   x <- list(type = match.arg(type))

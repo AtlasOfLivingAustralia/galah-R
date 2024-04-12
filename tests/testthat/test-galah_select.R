@@ -1,5 +1,5 @@
 test_that("`galah_select()` doesn't return error when columns don't exist", {
-  expect_no_error(galah_select(basisOfRecors))
+  expect_no_error(galah_select(basisOfRecord))
   expect_no_error(galah_select(year, basisOfRecord, eventdate))
 })
 
@@ -10,17 +10,13 @@ test_that("`galah_select()` triggers error during `compute()` when columns don't
       identify("perameles") |>
       filter(year == 2003) |>
       galah_select(basisOfRecors) |>
-      compute(),
-    "Can't subset columns that don't exist."
-  )
+      compute())
   expect_error(
     galah_call() |>
       identify("perameles") |>
       filter(year == 2003) |>
-      select(year, basisOfRecord, eventdate) |>
-      compute(),
-    "Can't subset columns that don't exist."
-  )
+      select(year, basisOfRecors, eventdate) |>
+      compute())
 })
 
 test_that("`galah_select()` returns requested columns", {
@@ -70,7 +66,6 @@ test_that("`galah_select()` builds expected columns when group = event", {
   expect_equal(y$qa, "none")
 })
 
-# test multiple groups work
 test_that("`galah_select()` accepts multiple groups", {
   skip_if_offline()
   x <- galah_call() |>
@@ -85,14 +80,32 @@ test_that("`galah_select()` accepts multiple groups", {
 
 test_that("galah_select defaults to group = 'basic' when there are no args", {
   skip_if_offline()
-  galah_config(run_checks = FALSE)
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     collapse()
   y <- url_parse(x$url)$query
   expect_equal(strsplit(y$fields, ",")[[1]], preset_groups("basic"))
   expect_equal(y$qa, "none")
-  galah_config(run_checks = TRUE)
+})
+
+test_that("galah_select works with group = 'taxonomy'", {
+  skip_if_offline()
+  x <- galah_call() |>
+    identify("oxyopes dingo") |>
+    select(group = "taxonomy") |>
+    collapse()
+  y <- url_parse(x$url)$query
+  fields <- strsplit(tolower(y$fields), ",")[[1]]
+  expect_equal(fields,
+               c("recordid",
+                 "kingdom",
+                 "phylum", 
+                 "class",
+                 "order",
+                 "family",
+                 "genus",
+                 "species",
+                 "subspecies"))
 })
 
 test_that("galah_select returns assertions + recordID when group = assertions", {
@@ -175,4 +188,42 @@ test_that("galah_select can use tidyselect::last_col & group", {
   expect_equal(strsplit(y$fields, ",")[[1]], 
                preset_groups("basic"))
   expect_equal(y$qa, "ZERO_COORDINATE")
+})
+
+test_that("galah_select warns for invalid field names when type = 'species'", {
+  skip_if_offline()
+  expect_warning({galah_call(type = "species") |>
+    identify("Crinia") |>
+    select(an_unrecognised_field_name) |>
+    collapse()})
+})
+
+test_that("galah_select works for type = 'species' with no arguments", {
+  skip_if_offline()
+  x <- galah_call(type = "species") |>
+    identify("Crinia") |>
+    select() |>
+    collect()
+  expect_equal(colnames(x), "taxon_concept_id")
+  expect_gt(nrow(x), 10)
+})
+
+test_that("galah_select works for type = 'species'", {
+  skip_if_offline()
+  x <- galah_call(type = "species") |>
+      identify("Crinia") |>
+      select(counts) |>
+      collect()
+  expect_equal(colnames(x), c("taxon_concept_id", "count"))
+  expect_gt(nrow(x), 10)
+})
+
+test_that("galah_select works for type = 'species' with group = 'taxonomy'", {
+  skip_if_offline()
+  x <- galah_call(type = "species") |>
+    identify("Crinia") |>
+    select(counts, lists, group = "taxonomy") |>
+    collect()
+  expect_true(all(c("taxon_concept_id", "count", "kingdom", "phylum") %in% colnames(x)))
+  expect_gt(nrow(x), 10)
 })

@@ -1,7 +1,7 @@
 Package: galah
 Type: Package
 Title: Biodiversity Data from the GBIF Node Network
-Version: 2.0.1
+Version: 2.0.2
 Authors@R: 
     c(person(given = "Martin",
              family = "Westgate",
@@ -52,6 +52,7 @@ Suggests:
     knitr,
     magrittr,
     pkgdown,
+    reactable,
     rmarkdown,
     testthat
 License: MPL-2.0

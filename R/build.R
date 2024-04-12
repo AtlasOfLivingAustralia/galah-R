@@ -51,10 +51,21 @@ build_query <- function(identify = NULL,
     }
   }
   # merge
-  query <- list(fq = c(taxa_query, filter_query)) 
+  query <- list(fq = c(filter_query, taxa_query)) 
   # geographic stuff
   if (!is.null(location)) {
+    # if location is for a point radius vs polygon/bbox
+    if(!is.null(names(location))){
+      if(all(!is.null(location$radius))) { # `galah_radius()` will always pass radius argument
+        query$q <- paste0("*:*")
+        query$lon <- location$lon
+        query$lat <- location$lat
+        query$radius <- location$radius      
+    }else
+      query$wkt <- location
+    } else {
     query$wkt <- location
+    }
   }
   # add profiles information (ALA only)  
   if(pour("atlas", "region") == "Australia"){
@@ -68,11 +79,13 @@ build_query <- function(identify = NULL,
 }
 
 #' Build query list from constituent arguments for GBIF only
+#' @importFrom glue glue_data
+#' @importFrom potions pour
 #' @noRd
 #' @keywords Internal
-#' @importFrom potions pour
 build_query_gbif <- function(identify = NULL, 
-                             filter = NULL){
+                             filter = NULL,
+                             location = NULL){
   if(is.null(identify)) {
     taxa_query <- list(taxonKey = 1)
   }else{
@@ -91,8 +104,22 @@ build_query_gbif <- function(identify = NULL,
       filter_query <- build_filter_query(filter)
     }
   }
-  # return merged output
-  c(taxa_query, filter_query)
+  # merge
+  query <- c(taxa_query, filter_query)
+  # geographic stuff
+  if (!is.null(location)) {
+    # if location is for a point radius vs polygon/bbox
+    if(!is.null(names(location))){
+      if(all(!is.null(location$radius))) { # `galah_radius()` will always pass radius argument
+        query$geoDistance <- glue_data(location,
+                                       "{lat},{lon},{radius}km")
+      }else
+        query$geometry <- location
+    } else {
+      query$geometry <- location
+    }
+  }
+  query
 }
 
 #' collapse multiple fq args into one
@@ -101,8 +128,9 @@ build_query_gbif <- function(identify = NULL,
 build_single_fq <- function(query){
   if(any(names(query) == "fq")){
     # ensure all arguments from galah_filter are enclosed in brackets
+    # EXCEPT for assertions
     fq <- query$fq
-    missing_brackets <- !grepl("^\\(", fq)
+    missing_brackets <- !grepl("^\\(", fq) & !grepl("assertions", fq)
     if(any(missing_brackets)){
       fq[missing_brackets] <- paste0("(", fq[missing_brackets], ")")
     }
@@ -152,16 +180,6 @@ build_taxa_query <- function(ids) {
                     sep = glue(" OR {id_tag}:")),
       ")")
   }
-}
-
-#' Sub-function to convert assertions to logicals in `collect_occurrences()`
-#' @noRd
-#' @keywords Internal
-fix_assertion_cols <- function(df, assertion_cols) {
-  for (col in assertion_cols) {
-    df[[col]] <- as.logical(df[[col]])
-  }
-  df
 }
 
 #' Internal function to handle APIs that return complex outputs
