@@ -1,6 +1,7 @@
 #' Internal function to run metadata checks
 #' This is useful for testing, particularly in testing `galah_select()`
 #' called by `collapse()`
+#' @importFrom utils URLdecode
 #' @noRd
 #' @keywords Internal
 parse_checks <- function(.query){
