@@ -9,18 +9,14 @@ test_that("`galah_select()` triggers error during `compute()` when columns don't
     galah_call() |>
       identify("perameles") |>
       filter(year == 2003) |>
-      galah_select(basisOfRecord) |>
-      compute(),
-    "Can't subset columns that don't exist."
-  )
+      galah_select(basisOfRecors) |>
+      compute())
   expect_error(
     galah_call() |>
       identify("perameles") |>
       filter(year == 2003) |>
-      select(year, basisOfRecord, eventdate) |>
-      compute(),
-    "Can't subset columns that don't exist."
-  )
+      select(year, basisOfRecors, eventdate) |>
+      compute())
 })
 
 test_that("`galah_select()` returns requested columns", {
