@@ -26,7 +26,7 @@ Description: The Global Biodiversity Information Facility
     Australia ('ALA', <https://www.ala.org.au>). 'galah' enables the R community 
     to directly access data and resources hosted by 'GBIF' and its partner nodes.
 Depends:
-    R (>= 4.1.0)
+    R (>= 4.2.2)
 Imports:
     cli,
     crayon,
@@ -61,6 +61,6 @@ BugReports: https://github.com/AtlasOfLivingAustralia/galah-R/issues
 Maintainer: Martin Westgate <martin.westgate@csiro.au>
 LazyLoad: yes
 VignetteBuilder: knitr
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

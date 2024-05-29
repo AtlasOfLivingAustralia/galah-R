@@ -2,8 +2,8 @@
 % Please edit documentation in R/galah-package.R
 \docType{package}
 \name{galah}
-\alias{galah}
 \alias{galah-package}
+\alias{galah}
 \title{Biodiversity Data from the GBIF Node Network}
 \description{
 The Global Biodiversity Information Facility (GBIF; \url{https://www.gbif.org})
