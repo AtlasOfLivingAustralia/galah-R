@@ -35,7 +35,7 @@ test_that("galah_filter handles multiple assertions", {
   all_records <- atlas_counts() |>
     pull(count)
   either_valid <- galah_call() |>
-    filter(assertions != c("INVALID_SCIENTIFIC_NAME", "COORDINATE_INVALID")) |>
+    galah_filter(assertions != c("INVALID_SCIENTIFIC_NAME", "COORDINATE_INVALID")) |>
     count() |>
     collect() |>
     pull(count)
@@ -342,6 +342,20 @@ test_that("`galah_filter()` handles apostrophes (') correctly", {
   expect_equal(nrow(query), 1) # returns result
   expect_gte(query$count[1], 1)
   expect_match(filter, "\\(\\(datasetName:\\\"Australia's Virtual Herbarium\\\"\\)")
+})
+
+test_that("`galah_filter()` handles multiple values with brackets correctly", {
+  skip_if_offline()
+  filter <- galah_filter(
+    scientificName == c("Aviceda (Aviceda) subcristata", 
+                        "Todiramphus (Todiramphus) sanctus"))$query
+  query <- galah_call() |>
+    galah_filter(scientificName == c("Aviceda (Aviceda) subcristata", 
+                                     "Todiramphus (Todiramphus) sanctus")) |>
+    atlas_counts()
+  expect_equal(nrow(query), 1) # returns result
+  expect_gte(query$count[1], 1)
+  expect_match(filter, "\\(\\(scientificName:\\\"Aviceda \\(Aviceda\\) subcristata\\\"\\)")
 })
 
 test_that("`galah_filter()` accepts {{}} on lhs of formula", {
