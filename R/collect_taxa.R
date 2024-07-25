@@ -32,9 +32,19 @@ collect_taxa_namematching <- function(.query){
     # result <- filter(result, !duplicated(taxonConceptID))
   # }
   
+  # handle one or more returned issues values
+  issues <- unlist(result$issues)
+  
+  if(length(issues) > 1) {
+    issues_c <- paste(issues, collapse = ", ")
+  } else {
+    issues_c <- issues
+  }
+  
+  # add issues to result
   result <- result |>   
     mutate("search_term" = search_terms, .before = "success",
-           issues = unlist(result$issues))
+           issues = issues_c)
   
   # Check for homonyms
   if(any(colnames(result) == "issues")){
