@@ -715,6 +715,7 @@ check_reason <- function(.query, error_call = caller_env()){
 #' @importFrom httr2 url_build
 #' @importFrom rlang is_quosure
 #' @importFrom tidyselect eval_select
+#' @importFrom cli cli_warn
 #' @noRd
 #' @keywords Internal
 check_select <- function(.query){
@@ -771,23 +772,27 @@ check_select <- function(.query){
       ## This problem also occurs when a single field is requested
       ## under some circumstances (e.g. "images"), even when that field is 
       ## fully populated.
-      if(length(dot_names) > 1){
+      # browser()
+      if(length(dot_names) > 0){
         individual_cols <- dot_names
-      }else{ 
-        if(length(dot_names) == 1){ # i.e. a single field selected
-          if(length(group_names) == 0){
-            individual_cols <- unique(c(id_col, dot_names))
-          }else{
-            individual_cols <- dot_names
-          }
-        }else{ # i.e. length(dot_names) == 0, meaning no fields selected
+        if(length(group_names) == 0 && !id_col %in% dot_names){
+          individual_cols <- unique(c(id_col, dot_names))
+          
+          bullets <- c(
+            "Appended {.field {id_col}} to query."
+          )
+          cli_warn(bullets)
+          
+        }else{
+          individual_cols <- dot_names
+        }
+      }else{ # i.e. length(dot_names) == 0, meaning no fields selected
           if(length(group_initial) <= 1 & !any(group_names == id_col)){
             individual_cols <- id_col
           }else{
             individual_cols <- NULL
           }
         }
-      }
       
       # 5. merge to create output object
       # NOTE: placing `recordID` first is critical;
