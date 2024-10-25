@@ -1,20 +1,25 @@
-#' Subset first rows of `data_request`
+#' Subset rows using their positions
 #' 
 #' @description 
 #' `r lifecycle::badge("experimental")`  
 #' 
-#' This is a simple function to set the `limit` argument in [atlas_counts()]
-#' using `dplyr` syntax. As of galah 2.0.0, `slice_head()` is only supported in 
-#' queries of type `occurrences-count()`, or metadata requests. Note also that 
-#' `slice_head()` is lazily evaluated; it only affects a query once it is run by
-#' `compute()` or (more likely) `collect()`.
+#' `slice()` lets you index rows by their (integer) locations. For objects of
+#' classes `data_request` or `metadata_request`, only `slice_head()` is
+#' currently implemented, and selects the first `n` rows.
 #' 
+#' If `.data` has been grouped using 
+#' \code{\link[=group_by.data_request]{group_by()}}, the operation will be 
+#' performed on each group, so that (e.g.) `slice_head(df, n = 5)` will select 
+#' the first five rows in each group.
+#' @name slice_head.data_request
 #' @param .data An object of class `data_request`, created using [galah_call()]
-#' @param ... currently ignored
+#' @param ... Currently ignored
 #' @param n The number of rows to be returned. If data are grouped 
-#' (using [group_by]), this operation will be performed on each group.
-#' @param prop currently ignored, but could be added later
-#' @param by currently ignored
+#' \code{\link[=group_by.data_request]{group_by()}}, this operation will be 
+#' performed on each group.
+#' @param prop Currently ignored.
+#' @param by Currently ignored.
+#' @returns An amended `data_request` with a completed `slice` slot.
 #' @examples \dontrun{
 #' # Limit number of rows returned to 3.
 #' # In this case, our query returns the top 3 years with most records.
@@ -27,7 +32,6 @@
 #'   collect()
 #' }
 #' @importFrom tibble tibble
-#' @rdname slice_head
 #' @export
 slice_head.data_request <- function(.data, ..., n, prop, by = NULL){
   # handle inputs
@@ -50,7 +54,7 @@ slice_head.data_request <- function(.data, ..., n, prop, by = NULL){
   }
 }
 
-#' @rdname slice_head
+#' @rdname slice_head.data_request
 #' @export
 slice_head.metadata_request <- slice_head.data_request
 

@@ -54,7 +54,8 @@ search_taxa(...)
 \item{query}{A string specifying a search term. Searches are not
 case-sensitive.}
 
-\item{...}{A set of strings or a tibble to be queried}
+\item{...}{A set of strings or a tibble to be queried; see
+Details.}
 }
 \value{
 An object of class \code{tbl_df} and \code{data.frame} (aka a tibble)
@@ -131,8 +132,6 @@ request_metadata(type = "fields") |>
 }
 }
 \seealso{
-See \code{\link[=search_taxa]{search_taxa()}} and \code{\link[=search_identifiers]{search_identifiers()}} for more information
-on taxonomic searches.
 Use the \code{\link[=show_all]{show_all()}} function and \code{show_all_()} sub-functions to
 show available options of information. These functions are used to pass valid
 arguments to \code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}}, and related functions.

@@ -1,5 +1,5 @@
-#' @rdname galah_geolocate
-#' @order 4
+#' @rdname st_crop.data_request
+#' @order 5
 #' @export
 galah_radius <- function(...){
   

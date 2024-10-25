@@ -3,7 +3,7 @@
 \name{arrange.data_request}
 \alias{arrange.data_request}
 \alias{arrange.metadata_request}
-\title{Arrange rows of a query}
+\title{Order rows using column values}
 \usage{
 \method{arrange}{data_request}(.data, ...)
 
@@ -12,24 +12,23 @@
 \arguments{
 \item{.data}{An object of class \code{data_request}}
 
-\item{...}{Either \code{count} or \code{index}}
+\item{...}{A variable to arrange the resulting tibble by. Should be one of
+the variables also listed in \code{\link[=group_by.data_request]{group_by()}}.}
+}
+\value{
+An amended \code{data_request} with a completed \code{arrange} slot.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 \code{arrange.data_request()} arranges rows of a query on the server side, meaning
-that prior to sending a query, the query is constructed in such a way that
-information will be arranged when the query is processed. Any data that is
-then returned by the query will have rows already pre-arranged.
-
-The benefit of using \code{arrange()} within a \code{galah_call()} is that it is faster
-to process arranging rows on the server side than arranging rows locally on
-downloaded data,
-especially if the dataset is large or complex.
-
-\code{arrange()} can be used within a \code{galah_call()} pipe, but only
-for queries of  \code{type = "occurrences-count"}. The \code{galah_call()} pipe must
-include \code{count()} and finish with \code{collect()} (see examples).
+that the query is constructed in such a way that information will be arranged
+when the query is processed. This only has an effect when used in combination
+with \code{\link[=count.data_request]{count()}} and
+\code{\link[=group_by.data_request]{group_by()}}. The benefit of using
+\code{arrange()} within a \code{galah_call()} pipe is that it is sometimes beneficial
+to choose a non-default order for data to be delivered in, particularly if
+\code{\link[=slice_head.data_request]{slice_head()}} is also called.
 }
 \examples{
 \dontrun{

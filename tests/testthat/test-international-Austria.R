@@ -190,13 +190,13 @@ test_that("atlas_species works for Austria", {
     email = "ala4r@ala.org.au", 
     download_reason_id = "testing",
     send_email = FALSE)
-  spp <- galah_call() |>
-    galah_identify("Carnivora") |>
-    atlas_species() |>
+  spp <- galah_call(type = "species") |>
+    identify("Mammalia") |> # NOTE: testing with Reptilia failed as this taxon not uniquely matched
+    collect() |>
     try(silent = TRUE)
   skip_if(inherits(spp, "try-error"), message = "API not available")
   skip_if((nrow(spp) < 1 & ncol(spp) < 1), message = "API not available")
-  expect_gt(nrow(spp), 20) # actual number 105 spp on 2024-03-22
+  expect_gt(nrow(spp), 100) # actual number 569 spp on 2024-08-22
   expect_gt(ncol(spp), 8) # actually 10
   expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
 })
@@ -211,10 +211,10 @@ test_that("atlas_occurrences works for Austria", {
     run_checks = TRUE, ## FIXME: Test only works when run_checks = TRUE
     send_email = FALSE)
   occ <- galah_call() |>
-    galah_identify("Mammalia") |>
-    galah_filter(year == 1990) |>
-    galah_select(species, year) |>
-    atlas_occurrences() |>
+    identify("Mammalia") |>
+    filter(year == 1990) |>
+    select(species, year) |>
+    collect() |>
     try(silent = TRUE)
   skip_if(inherits(occ, "try-error"), message = "API not available")
   expect_gt(nrow(occ), 0)

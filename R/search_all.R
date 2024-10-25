@@ -18,6 +18,8 @@
 #' @param type A string to specify what type of parameters should be searched.
 #' @param query A string specifying a search term. Searches are not 
 #' case-sensitive.
+#' @param ... A set of strings or a tibble to be queried; see 
+#' Details.
 #' @details There are five categories of information, each with their own 
 #' specific sub-functions to look-up each type of information. 
 #' The available types of information for `search_all()` are:
@@ -51,9 +53,7 @@
 #' @references 
 #' *  Darwin Core terms <https://dwc.tdwg.org/terms/>
 #' 
-#' @seealso See [search_taxa()] and [search_identifiers()] for more information 
-#' on taxonomic searches. 
-#' Use the [show_all()] function and `show_all_()` sub-functions to 
+#' @seealso Use the [show_all()] function and `show_all_()` sub-functions to 
 #' show available options of information. These functions are used to pass valid 
 #' arguments to [galah_select()], [galah_filter()], and related functions.
 #' 
@@ -226,7 +226,6 @@ search_datasets <- function(query){search_all("datasets", query)}
 search_fields <- function(query){search_all("fields", query)}
 
 #' @rdname search_all
-#' @param ... A set of strings or a tibble to be queried
 #' @export
 search_identifiers <- function(...){search_all("identifiers", unlist(list(...)))}
 

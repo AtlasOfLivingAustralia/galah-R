@@ -7,7 +7,7 @@
 #' `files_request` (from `request_files()`) are all supported by `collapse()`. 
 #' Any of these objects can be created using `galah_call()` via the `method`
 #' argument.
-#' @name collapse_galah
+#' @name collapse.data_request
 #' @order 1
 #' @param x An object of class `data_request`, `metadata_request` or 
 #' `files_request`
@@ -36,7 +36,7 @@ collapse.data_request <- function(x, ..., mint_doi, .expand = FALSE){
 }
 
 # if calling `collapse()` after `request_metadata()`
-#' @rdname collapse_galah
+#' @rdname collapse.data_request
 #' @order 2
 #' @export
 collapse.metadata_request <- function(x, .expand = FALSE, ...){
@@ -52,7 +52,7 @@ collapse.metadata_request <- function(x, .expand = FALSE, ...){
 }
 
 # if calling `collapse()` after `request_files()`
-#' @rdname collapse_galah
+#' @rdname collapse.data_request
 #' @order 3
 #' @param thumbnail Logical: should thumbnail-size images be returned? Defaults 
 #' to `FALSE`, indicating full-size images are required.

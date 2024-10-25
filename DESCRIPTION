@@ -61,6 +61,6 @@ BugReports: https://github.com/AtlasOfLivingAustralia/galah-R/issues
 Maintainer: Martin Westgate <martin.westgate@csiro.au>
 LazyLoad: yes
 VignetteBuilder: knitr
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
