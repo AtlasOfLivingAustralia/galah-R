@@ -101,11 +101,18 @@ pre {
     background-color: #f8fcfc;
 }
 
-/*
+
+
+
+
 .text-muted {
-  color: #f5b2d0!important;
+  color: #6d7379!important;
 }
-/*
+
+.dropdown-menu {
+  --bs-dropdown-bg: #f3f3f3;
+}
+
 /*.navbar a:active, .dropdown:active .dropbtn {
   background-color: #003A70;
   background: #003A70;
