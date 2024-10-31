@@ -10,9 +10,11 @@
 #' search term within the valid options for the information specified by the 
 #' suffix.
 #' 
+#' **For more information about taxonomic searches using `search_taxa()`, see `?taxonomic_searches`**.
+#' 
 #' `r lifecycle::badge("stable")`
-#' `search_all()` is a helper function that can do searches within multiple 
-#' types of information from `search_` sub-functions. 
+#' `search_all()` is a helper function that can do searches for multiple 
+#' types of information, acting as a wrapper around many `search_` sub-functions. 
 #' See `Details` (below) for accepted values.
 #' 
 #' @param type A string to specify what type of parameters should be searched.
@@ -252,7 +254,7 @@ search_ranks <- function(query){search_all("ranks", query)}
 #' @rdname search_all
 #' @export
 search_reasons <- function(query){search_all("reasons", query)}
-
+ 
 #' @rdname search_all
 #' @export
 search_taxa <- function(...){search_all("taxa", list(...))}

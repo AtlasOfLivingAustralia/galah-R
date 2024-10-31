@@ -70,9 +70,11 @@ Functions prefixed with \code{search_} do this, displaying any matches to a
 search term within the valid options for the information specified by the
 suffix.
 
+\strong{For more information about taxonomic searches using \code{search_taxa()}, see \code{?taxonomic_searches}}.
+
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-\code{search_all()} is a helper function that can do searches within multiple
-types of information from \code{search_} sub-functions.
+\code{search_all()} is a helper function that can do searches for multiple
+types of information, acting as a wrapper around many \code{search_} sub-functions.
 See \code{Details} (below) for accepted values.
 }
 \details{

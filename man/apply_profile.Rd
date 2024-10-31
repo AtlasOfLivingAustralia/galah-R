@@ -44,6 +44,6 @@ galah_call() |>
 }
 \seealso{
 \code{\link[=show_all]{show_all()}} and \code{\link[=search_all]{search_all()}} to look up available data profiles.
-\code{\link[=galah_filter]{galah_filter()}} can be used for more bespoke editing of individual data
+\code{\link[=filter.data_request]{filter.data_request()}} can be used for more bespoke editing of individual data
 profile filters.
 }
