@@ -111,7 +111,7 @@ Australian threatened species list on 26/02/2022.
 ```{r}
 galah_call() |>
   filter(species == "Megaptera novaeangliae", 
-               eventDate >= "2022-02-26T00:00:00Z") |>
+         eventDate >= "2022-02-26T00:00:00Z") |>
   count() |>
   collect()
 ```

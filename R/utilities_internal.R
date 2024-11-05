@@ -86,13 +86,14 @@ camel_to_snake_case <- function(x){
 }
 
 #' Simple internal function to split strings
+#' @importFrom stringr str_extract
 #' @importFrom stringr str_extract_all
 #' @importFrom stringr str_trim
 #' @importFrom stringr str_remove
+#' @importFrom tibble as_tibble
 #' @noRd
 #' @keywords Internal
 string_to_tibble <- function(string, split_by = c(":")){
-  
   # ChatGPT created the reprex in this function. 
   # Possibly over-engineered, but it works
   
@@ -105,7 +106,7 @@ string_to_tibble <- function(string, split_by = c(":")){
     # new
     stringr::str_extract_all(
       string,
-      "(?<=\\(|OR|AND|-)\\s*([-\\w\\(\\)]+)\\s*(?=:)"
+      "(?<=\\(|OR|AND)\\s*([-\\w\\(\\)]+)\\s*(?=:)"
     ) |>
     # old (v2.0.2)
     # stringr::str_extract_all(
@@ -113,8 +114,9 @@ string_to_tibble <- function(string, split_by = c(":")){
     #   "(?<=\\()[^\\*]*?(?=\\:)|(?<=OR\\s)[^\\*]*?(?=\\:)"
     #   ) |>
     unlist() |>
-    stringr::str_remove("-") |>
-    stringr::str_trim() |>
+    str_remove("-|\\(") |>
+    str_extract("[:alnum:]+") |>
+    str_trim() |>
     as_tibble() |>
     unique()
   return(extracted_strings)

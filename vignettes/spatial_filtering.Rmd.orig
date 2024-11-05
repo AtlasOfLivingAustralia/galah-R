@@ -83,12 +83,12 @@ galah_call() |>
   gt::gt()
 ```
 
-### galah_geolocate()
+### Filtering data to a polygon
 
 While server-side spatial information is useful, there are likely to be cases 
 where the shapefile or region you wish to query will not be pre-loaded as a 
 contextual layer in the ALA. In this case, shapefiles can be introduced to the 
-filtering process using the {sf} package and the `galah_geolocate()` function. 
+filtering process using the {sf} package and the `geolocate()` function. 
 Shapefiles can be provided as an `sf` object, whether that is by importing them 
 with `sf::st_read()` or taking a `POLYGON` or `MULTIPOLYGON` character string and 
 transforming them with `sf::st_as_sfc()`.
@@ -105,12 +105,12 @@ king_george_sq <- "MULTIPOLYGON(((153.0243 -27.46886, 153.0242 -27.46896, 153.02
 ```
 
 We can provide this `MULTIPOLYGON` in our filter as the argument of 
-`galah_geolocate()` to assess which species have been recorded in King George 
+`geolocate()` to assess which species have been recorded in King George 
 Square.
 
 ```{r}
 galah_call() |>
-  galah_geolocate(king_george_sq) |>
+  geolocate(king_george_sq) |>
   select(decimalLatitude, 
          decimalLongitude, 
          eventDate, 
@@ -121,7 +121,7 @@ galah_call() |>
   gt::gt()
 ```
 
-There is a second argument of `galah_geolocate()` called `type`, which defaults 
+There is a second argument of `geolocate()` called `type`, which defaults 
 to value `"polygon"`. By setting the `type` argument to `"bbox"`, the provided 
 `POLYGON` or `MULTIPOLYGON` will be converted into the smallest bounding box 
 (rectangle) that contains the `POLYGON`. In this case, records will be included 
@@ -129,7 +129,7 @@ that may not exactly lie inside the provided shape.
 
 ```{r}
 galah_call() |>
-  galah_geolocate(king_george_sq, type = "bbox") |>
+  geolocate(king_george_sq, type = "bbox") |>
   select(decimalLatitude, 
          decimalLongitude, 
          eventDate, 
@@ -147,7 +147,7 @@ The `type` argument with option `"bbox"` is provided because `sf` objects with
 shapefile, using `type = "bbox"` will at least enable an initial reduction of 
 the data that is downloaded, before finer filtering to the actual shapefile will 
 obtain the desired set of occurrences. Alternatively, one can also perform the 
-`"bbox"` reduction before passing the shape to `galah_geolocate()` by using 
+`"bbox"` reduction before passing the shape to `geolocate()` by using 
 `sf::st_bbox()`.
 
 A common situation for this to occur is when a shapefile with multiple shapes is 
@@ -181,7 +181,7 @@ brisbane_parks_bbox <- brisbane_parks |> sf::st_bbox()
 lorikeet_brisbane <- galah_call() |>
   filter(scientificName == "Trichoglossus chlorolepidotus", 
          year >= 2020) |>
-  galah_geolocate(brisbane_parks_bbox, type = "bbox") |>
+  geolocate(brisbane_parks_bbox, type = "bbox") |>
   collect()
 ```
 

@@ -39,6 +39,17 @@ test_that("`identify()` reduces the number of records returned by `count()`", {
   expect_true(counts_mammals$count < counts_all$count)
 })
 
+test_that("`filter()` works with dates", {
+  skip_if_offline()
+  counts <- galah_call() |>
+    filter(species == "Cacatua galerita",
+           eventDate >= "2023-01-07T00:00:00Z", 
+           eventDate < "2023-01-08T00:00:00Z") |>
+    count() |>
+    collect()
+  expect_type(counts$count, "integer")
+})
+
 test_that("`galah_identify()` works with `atlas_counts()`", {
   skip_if_offline()
   counts_all <- galah_call() |>

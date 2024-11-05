@@ -65,7 +65,7 @@ count_df <- df_functions |>
 count_df$count[grepl("Global", count_df$atlas)] <- 100 # put GBIF on top
 count_df <- count_df |>
   arrange(count) |>
-  mutate(order = seq_len(11))
+  mutate(order = seq_len(nrow(node_metadata)))
 
 atlas_seq <- lapply(df_functions$atlas, function(a){
   count_df$order[which(count_df$atlas == a)]
@@ -105,5 +105,5 @@ p <- ggplot(df_functions,
 
 ggsave("./vignettes/atlases_plot.png", 
        width = 8, 
-       height = 6, 
+       height = 5.5, 
        units = "in")

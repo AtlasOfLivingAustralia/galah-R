@@ -1,7 +1,7 @@
 ---
 title: "Choosing an atlas"
 author: "Martin Westgate & Dax Kellie"
-date: '2024-04-02'
+date: '2024-11-05'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -17,7 +17,7 @@ collate biodiversity data from their own countries, with GBIF acting as an
 umbrella organisation to store data from all nodes. Several nodes have their 
 own APIs, often built from the 'living atlas' codebase developed by the ALA.
 galah enables you to download data either from GBIF (also see `{rgbif}`) or 
-from one of 10 node organisations.
+from one of 9 GBIF nodes:
 
 
 ```{r, echo = FALSE}
