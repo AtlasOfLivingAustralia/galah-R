@@ -92,7 +92,7 @@
 #' 
 #'   * `counts` to include counts of occurrences per species.
 #'   * `synonyms` to include any synonymous names.
-#'   * `lists` to include authoritiative lists that each species is included on.
+#'   * `lists` to include authoritative lists that each species is included on.
 #'
 #' @seealso \code{\link[=filter.data_request]{filter()}}, 
 #' \code{\link[=st_crop.data_request]{st_crop()}} and

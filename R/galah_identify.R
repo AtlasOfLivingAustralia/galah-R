@@ -19,9 +19,10 @@
 #'   `galah_identify()` now always does a search to verify search terms; ergo
 #'    this argument is ignored.
 #' @return A tibble containing identified taxa.
-#' @seealso [search_taxa()] to find identifiers from scientific names;
-#' [search_identifiers()] for how to get names if taxonomic identifiers 
-#' are already known.
+#' @seealso \code{\link[=filter.data_request]{filter()}} or [geolocate()] for 
+#' other ways to filter a query. You can also use [search_taxa()] to check that 
+#' supplied names are being matched correctly on the server-side; see 
+#' [taxonomic_searches] for a detailed overview.
 #' @importFrom dplyr rename
 #' @importFrom dplyr select
 #' @examples \dontrun{

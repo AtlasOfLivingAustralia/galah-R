@@ -18,19 +18,18 @@
 #'    `r lifecycle::badge("deprecated")`  
 #'    Use `galah_apply_profile` instead. 
 #' @return A tibble containing filter values.
-#' @seealso [galah_select()], [galah_group_by()] and [galah_geolocate()] for 
-#' other ways to amend the information returned by [atlas_occurrences()] and 
-#' related functions. Use `search_all(fields)` to find fields that you can 
-#' filter by, and [show_values()] to find what values of those filters are 
-#' available.
+#' @seealso \code{\link[=select.data_request]{select()}}, 
+#' \code{\link[=group_by.data_request]{group_by()}} and [geolocate()] for 
+#' other ways to amend the information returned by [atlas_()] functions. Use 
+#' `search_all(fields)` to find fields that you can filter by, and 
+#' [show_values()] to find what values of those filters are available.
 #' @details
 #' 
 #' *Syntax*
 #' 
-#' `galah_filter` uses non-standard evaluation (NSE),
-#' and is designed to be as compatible as possible with `dplyr::filter()`
-#' syntax. Statements take the form of field - logical - value. Permissible 
-#' examples include:
+#' `filter.data_request()` and `galah_filter()` uses non-standard evaluation 
+#' (NSE), and are designed to be as compatible as possible with 
+#' `dplyr::filter()` syntax. Permissible examples include:
 #' 
 #'   * `==` (e.g. `year = 2020`) but not `=` (for consistency with `dplyr`)
 #'   * `!=`, e.g. `year != 2020`)
@@ -65,12 +64,22 @@
 #' When requesting a data download from a DOI, the field `doi` is valid, i.e.:
 #' \preformatted{galah_call() |> 
 #'   filter(doi = "a-long-doi-string") |> 
-#'   collect()`}
+#'   collect()}
+#' 
+#' For taxonomic metadata, the `taxa` field is valid:
+#' \preformatted{request_metadata() |> 
+#'   filter(taxa == "Chordata") |> 
+#'   unnest()}
 #'  
-#' `request_metadata() |> filter(taxa == "Chordata") |> unnest()`
-#' `rank == "class"` in `atlas_taxonomy()` replacement for `galah_down_to()`
+#' For building taxonomic trees, the `rank` field is valid:
+#' \preformatted{request_data() |>
+#'   identify("Chordata") |>
+#'   filter(rank == "class") |>
+#'   atlas_taxonomy()}
 #'   
-#' Users wishing to break down media queries into their respective API calls
+#' Media queries are more involved, but break two rules: they accept the `media`
+#' field, and they accept a tibble on the rhs of the equation. For example, 
+#' users wishing to break down media queries into their respective API calls
 #' should begin with an occurrence query:
 #' 
 #' \preformatted{occurrences <- galah_call() |> 
@@ -84,8 +93,8 @@
 #'   collect()}
 #' 
 #' And finally, the metadata tibble can be used to request files:
-#' \preformatted{media_metadata <- galah_call("files") |>
-#'   filter(media == occurrences) |>
+#' \preformatted{galah_call("files") |>
+#'   filter(media == media_metadata) |>
 #'   collect()}
 #'   
 #' @examples \dontrun{

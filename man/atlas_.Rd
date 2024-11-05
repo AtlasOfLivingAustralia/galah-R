@@ -108,7 +108,7 @@ it will have columns specified by
 }
 \description{
 An alternative to using \code{collect()} at the end of a query pipe is to
-call a function with the \code{atlas_} prefix. These functions are basically
+call a function with the \code{atlas_} prefix. These solutions are basically
 synonymous, but \code{atlas_} functions differ in two ways:
 \itemize{
 \item They have the ability to accept \code{filter}, \code{select} etc as arguments,

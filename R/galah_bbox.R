@@ -1,4 +1,4 @@
-#' @rdname st_crop.data_request
+#' @rdname geolocate
 #' @order 4
 #' @importFrom glue glue
 #' @importFrom rlang abort

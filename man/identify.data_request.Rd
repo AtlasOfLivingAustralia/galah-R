@@ -52,7 +52,8 @@ galah_call() |>
 }
 }
 \seealso{
-\code{\link[=search_taxa]{search_taxa()}} to find identifiers from scientific names;
-\code{\link[=search_identifiers]{search_identifiers()}} for how to get names if taxonomic identifiers
-are already known.
+\code{\link[=filter.data_request]{filter()}} or \code{\link[=geolocate]{geolocate()}} for
+other ways to filter a query. You can also use \code{\link[=search_taxa]{search_taxa()}} to check that
+supplied names are being matched correctly on the server-side; see
+\link{taxonomic_searches} for a detailed overview.
 }

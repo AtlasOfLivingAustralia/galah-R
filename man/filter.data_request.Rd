@@ -41,10 +41,9 @@ by \code{collect()} or one of the \code{atlas_} family of functions (such as
 \details{
 \emph{Syntax}
 
-\code{galah_filter} uses non-standard evaluation (NSE),
-and is designed to be as compatible as possible with \code{dplyr::filter()}
-syntax. Statements take the form of field - logical - value. Permissible
-examples include:
+\code{filter.data_request()} and \code{galah_filter()} uses non-standard evaluation
+(NSE), and are designed to be as compatible as possible with
+\code{dplyr::filter()} syntax. Permissible examples include:
 \itemize{
 \item \code{==} (e.g. \code{year = 2020}) but not \code{=} (for consistency with \code{dplyr})
 \item \code{!=}, e.g. \code{year != 2020})
@@ -82,12 +81,22 @@ required, as follows.
 When requesting a data download from a DOI, the field \code{doi} is valid, i.e.:
 \preformatted{galah_call() |> 
   filter(doi = "a-long-doi-string") |> 
-  collect()`}
+  collect()}
 
-\code{request_metadata() |> filter(taxa == "Chordata") |> unnest()}
-\code{rank == "class"} in \code{atlas_taxonomy()} replacement for \code{galah_down_to()}
+For taxonomic metadata, the \code{taxa} field is valid:
+\preformatted{request_metadata() |> 
+  filter(taxa == "Chordata") |> 
+  unnest()}
 
-Users wishing to break down media queries into their respective API calls
+For building taxonomic trees, the \code{rank} field is valid:
+\preformatted{request_data() |>
+  identify("Chordata") |>
+  filter(rank == "class") |>
+  atlas_taxonomy()}
+
+Media queries are more involved, but break two rules: they accept the \code{media}
+field, and they accept a tibble on the rhs of the equation. For example,
+users wishing to break down media queries into their respective API calls
 should begin with an occurrence query:
 
 \preformatted{occurrences <- galah_call() |> 
@@ -101,8 +110,8 @@ They can then use the \code{media} field to request media metadata:
   collect()}
 
 And finally, the metadata tibble can be used to request files:
-\preformatted{media_metadata <- galah_call("files") |>
-  filter(media == occurrences) |>
+\preformatted{galah_call("files") |>
+  filter(media == media_metadata) |>
   collect()}
 }
 \examples{
@@ -115,9 +124,9 @@ galah_call() |>
 }
 }
 \seealso{
-\code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_group_by]{galah_group_by()}} and \code{\link[=galah_geolocate]{galah_geolocate()}} for
-other ways to amend the information returned by \code{\link[=atlas_occurrences]{atlas_occurrences()}} and
-related functions. Use \code{search_all(fields)} to find fields that you can
-filter by, and \code{\link[=show_values]{show_values()}} to find what values of those filters are
-available.
+\code{\link[=select.data_request]{select()}},
+\code{\link[=group_by.data_request]{group_by()}} and \code{\link[=geolocate]{geolocate()}} for
+other ways to amend the information returned by \code{\link[=atlas_]{atlas_()}} functions. Use
+\code{search_all(fields)} to find fields that you can filter by, and
+\code{\link[=show_values]{show_values()}} to find what values of those filters are available.
 }

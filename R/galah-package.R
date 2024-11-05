@@ -5,10 +5,12 @@
 #' provides tools to enable users to find, access, combine and visualise 
 #' biodiversity data. `galah` enables the R community to directly access data and 
 #' resources hosted by GBIF and several of it's subsidiary organisations, known
-#' as 'nodes'. The basic unit of observation stored by these infrastructures is 
-#' an **occurrence** record, based on the Darwin Core' data standard 
-#' (<https://dwc.tdwg.org>); however `galah` also enables users to locate and 
-#' download taxonomic information, or associated media such images or sounds, 
+#' as 'nodes'. 
+#' 
+#' The basic unit of data stored by these infrastructures is 
+#' an **occurrence** record, which is an observation of a biological entity at
+#' a specific time and place. However, `galah` also facilitates access to 
+#' taxonomic information, or associated media such images or sounds, 
 #' all while restricting their queries to particular taxa or locations. Users 
 #' can specify which columns are returned by a query, or restrict their results 
 #' to observations that meet particular quality-control criteria. 
@@ -34,11 +36,11 @@
 #'   * \code{\link[=count.data_request]{count()}} Request counts of the specified data type
 #'   * [desc()] Arrange counts in descending order (when combined with \code{\link[=arrange.data_request]{arrange()}})
 #'   * \code{\link[=filter.data_request]{filter()}}/[galah_filter()] Filter records
+#'   * [geolocate()]/[galah_geolocate()] Spatial filtering of a query
 #'   * \code{\link[=group_by.data_request]{group_by()}}/[galah_group_by()] Group counts by one or more fields
-#'   * \code{\link[=identify.data_request]{identify()}}/[galah_identify()] Search for taxonomic identifiers
+#'   * \code{\link[=identify.data_request]{identify()}}/[galah_identify()] Search for taxonomic identifiers (see also \code{\link[=taxonomic_searches]{taxonomic_searches}})
 #'   * \code{\link[=select.data_request]{select()}}/[galah_select()] Fields to report information for
 #'   * \code{\link[=slice_head.data_request]{slice_head()}} Choose the first n rows of a download
-#'   * \code{\link[=st_crop.data_request]{st_crop()}}/[galah_geolocate()] Specify a location
 #'   * [unnest()] Expand metadata for `fields`, `lists`, `profiles` or `taxa`
 #'
 #' **Execute a query via API**

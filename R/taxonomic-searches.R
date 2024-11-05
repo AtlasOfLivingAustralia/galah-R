@@ -3,29 +3,31 @@
 #' @title Look up taxon information
 #' 
 #' @description
-#' `search_taxa()` allows users to look up taxonomic names before downloading 
-#' data from the ALA (using [atlas_occurrences()], [atlas_species()] or 
-#' [atlas_counts()]). Taxon information returned by `search_taxa()` may be
-#' passed to [galah_identify()] as the `identify` argument of 
-#' `atlas_` functions. `search_taxa()` allows users to disambiguate homonyms 
-#' (i.e. where the same name refers to taxa in different clades) prior to  
-#' downloading data. 
+#' `search_taxa()` allows users to look up taxonomic names, and ensure they are
+#' being matched correctly, before downloading data from the specified 
+#' organisation.
 #' 
-#' Users can also specify taxonomic levels in a search using a data frame 
-#' (tibble). Taxa may be specified using either the `specificEpithet` argument 
-#' to designate the second element of a Latin binomial, 
-#' or the `scientificName` argument to specify the 
-#' scientific name (which may include the subspecific epithet if required). 
+#' By default, names are supplied as strings; but users can also specify 
+#' taxonomic levels in a search using a `data.frame` or `tibble`. This is useful
+#' when the taxonomic _level_ of the name in question needs to be specified,
+#' in addition to it's identity. For example, a common method is to use the 
+#' `scientificName` column to list a Latinized binomial, but it is also possible
+#' to list these separately under `genus` and `specificEpithet` (respectively).
+#' A more common use-case is to distinguish between homonyms by listing higher
+#' taxonomic units, by supplying columns like `kingdom`, `phylum` or `class`.
 #'
 #' `search_identifiers()` allows users to look up matching taxonomic names using 
 #' their unique `taxonConceptID`. In the ALA, all records are associated with 
 #' an identifier that uniquely identifies the taxon to which that record belongs. 
-#' Once those identifiers
-#' are known, this function allows you to use them to look up further information
-#' on the taxon in question. Effectively this is the inverse function to 
-#' [search_taxa()], which takes names and provides identifiers. The resulting
-#' `tibble` of taxonomic information can also be passed to [galah_identify()] to
-#' filter queries to the specified taxon or taxa.
+#' Once those identifiers are known, this function allows you to use them to 
+#' look up further information on the taxon in question. Effectively this is the 
+#' inverse function to [search_taxa()], which takes names and provides 
+#' identifiers.
+#' 
+#' Note that when taxonomic look-up is required within a pipe, the equivalent
+#' to `search_taxa()` is \code{\link[=identify.data_request]{identify()}} (or
+#' [galah_identify()]). The equivalent to `search_identifiers()` is to use 
+#' \code{\link[=filter.data_request]{filter()}} to filter by `taxonConceptId`.
 #' 
 #' @details
 #' `search_taxa()` returns the taxonomic match of a supplied text string, along 
@@ -48,11 +50,10 @@
 #' 
 #' 
 #' @seealso [search_all()] for how to get names if taxonomic identifiers 
-#' are already known. [galah_identify()], [galah_select()], [galah_filter()], and
-#' [galah_geolocate()] for ways to restrict the information returned by
-#' [atlas_occurrences()] and related functions. [atlas_taxonomy()] to look 
-#' up taxonomic trees.
-#' 
+#' are already known. \code{\link[=filter.data_request]{filter()}}, 
+#' \code{\link[=select.data_request]{select()}},
+#' \code{\link[=identify.data_request]{identify()}} and [geolocate()] for ways 
+#' to restrict the information returned by [atlas_()] functions.
 #' @examples 
 #' # Search using a single string. 
 #' # Note that `search_taxa()` is not case sensitive
@@ -80,4 +81,3 @@
 #' # Look up a unique taxon identifier
 #' search_identifiers(query = "https://id.biodiversity.org.au/node/apni/2914510")
 NULL
-#' NULL

@@ -10,10 +10,12 @@ The Global Biodiversity Information Facility (GBIF; \url{https://www.gbif.org})
 provides tools to enable users to find, access, combine and visualise
 biodiversity data. \code{galah} enables the R community to directly access data and
 resources hosted by GBIF and several of it's subsidiary organisations, known
-as 'nodes'. The basic unit of observation stored by these infrastructures is
-an \strong{occurrence} record, based on the Darwin Core' data standard
-(\url{https://dwc.tdwg.org}); however \code{galah} also enables users to locate and
-download taxonomic information, or associated media such images or sounds,
+as 'nodes'.
+
+The basic unit of data stored by these infrastructures is
+an \strong{occurrence} record, which is an observation of a biological entity at
+a specific time and place. However, \code{galah} also facilitates access to
+taxonomic information, or associated media such images or sounds,
 all while restricting their queries to particular taxa or locations. Users
 can specify which columns are returned by a query, or restrict their results
 to observations that meet particular quality-control criteria.
@@ -40,11 +42,11 @@ For those outside Australia, 'galah' is the common name of
 \item \code{\link[=count.data_request]{count()}} Request counts of the specified data type
 \item \code{\link[=desc]{desc()}} Arrange counts in descending order (when combined with \code{\link[=arrange.data_request]{arrange()}})
 \item \code{\link[=filter.data_request]{filter()}}/\code{\link[=galah_filter]{galah_filter()}} Filter records
+\item \code{\link[=geolocate]{geolocate()}}/\code{\link[=galah_geolocate]{galah_geolocate()}} Spatial filtering of a query
 \item \code{\link[=group_by.data_request]{group_by()}}/\code{\link[=galah_group_by]{galah_group_by()}} Group counts by one or more fields
-\item \code{\link[=identify.data_request]{identify()}}/\code{\link[=galah_identify]{galah_identify()}} Search for taxonomic identifiers
+\item \code{\link[=identify.data_request]{identify()}}/\code{\link[=galah_identify]{galah_identify()}} Search for taxonomic identifiers (see also \code{\link[=taxonomic_searches]{taxonomic_searches}})
 \item \code{\link[=select.data_request]{select()}}/\code{\link[=galah_select]{galah_select()}} Fields to report information for
 \item \code{\link[=slice_head.data_request]{slice_head()}} Choose the first n rows of a download
-\item \code{\link[=st_crop.data_request]{st_crop()}}/\code{\link[=galah_geolocate]{galah_geolocate()}} Specify a location
 \item \code{\link[=unnest]{unnest()}} Expand metadata for \code{fields}, \code{lists}, \code{profiles} or \code{taxa}
 }
 

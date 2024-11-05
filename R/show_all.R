@@ -40,7 +40,8 @@
 #' *  Darwin Core terms <https://dwc.tdwg.org/terms/>
 #' @seealso Use the [search_all()] function and `search_()` sub-functions to 
 #' search for information. These functions are used to pass valid arguments to
-#' [galah_select()], [galah_filter()], and related functions.
+#' \code{\link[=filter.data_request]{filter()}}, 
+#' \code{\link[=select.data_request]{select()}}, and related functions.
 #' @examples \dontrun{
 #' # See all supported atlases
 #' show_all(atlases)

@@ -30,7 +30,8 @@ For example:
 \itemize{
 \item The \code{field} "year" contains values 2021, 2020, 2019, etc.
 \item The \code{field} "stateProvince" contains values New South Wales, Victoria, Queensland, etc.
-These are used to narrow queries with \code{\link[=galah_filter]{galah_filter()}}.
+These are used to narrow queries with
+\code{\link[=filter.data_request]{filter()}} or \code{\link[=galah_filter]{galah_filter()}}.
 }
 
 Each \strong{Profile} consists of many individual quality filters.

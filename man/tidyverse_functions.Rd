@@ -62,5 +62,5 @@ show_all(fields, "basisOfRecord") |>
 }
 }
 \seealso{
-\code{\link[=arrange.data_request]{arrange.data_request()}}, \code{\link[=galah_call]{galah_call()}}
+\code{\link[=arrange.data_request]{arrange()}}, \code{\link[=galah_call]{galah_call()}}
 }

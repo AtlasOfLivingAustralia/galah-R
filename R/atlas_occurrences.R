@@ -2,7 +2,7 @@
 #'
 #' @description
 #' An alternative to using `collect()` at the end of a query pipe is to 
-#' call a function with the `atlas_` prefix. These functions are basically 
+#' call a function with the `atlas_` prefix. These solutions are basically 
 #' synonymous, but `atlas_` functions differ in two ways:
 #' 
 #'   * They have the ability to accept `filter`, `select` etc as arguments,

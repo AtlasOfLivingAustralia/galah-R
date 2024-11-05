@@ -1,4 +1,4 @@
-#' @rdname st_crop.data_request
+#' @rdname geolocate
 #' @order 5
 #' @export
 galah_radius <- function(...){

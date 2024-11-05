@@ -128,13 +128,11 @@ request_metadata(type = "fields") |>
  dplyr::filter(grepl("date", id))
 }
 }
-\references{
-\itemize{
-\item Darwin Core terms \url{https://dwc.tdwg.org/terms/}
-}
-}
 \seealso{
 Use the \code{\link[=show_all]{show_all()}} function and \code{show_all_()} sub-functions to
 show available options of information. These functions are used to pass valid
-arguments to \code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}}, and related functions.
+arguments to \code{\link[=filter.data_request]{filter()}},
+\code{\link[=select.data_request]{select()}}, and related functions.
+Taxonomic queries are somewhat more involved; see \link{taxonomic_searches} for
+details.
 }

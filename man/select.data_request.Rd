@@ -115,7 +115,7 @@ it should be one or more of:
 \itemize{
 \item \code{counts} to include counts of occurrences per species.
 \item \code{synonyms} to include any synonymous names.
-\item \code{lists} to include authoritiative lists that each species is included on.
+\item \code{lists} to include authoritative lists that each species is included on.
 }
 }
 \examples{

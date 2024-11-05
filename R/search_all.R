@@ -52,13 +52,12 @@
 #' @aliases search_collections search_datasets search_licences search_apis
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble) 
 #' containing all data that match the search query.
-#' @references 
-#' *  Darwin Core terms <https://dwc.tdwg.org/terms/>
-#' 
 #' @seealso Use the [show_all()] function and `show_all_()` sub-functions to 
 #' show available options of information. These functions are used to pass valid 
-#' arguments to [galah_select()], [galah_filter()], and related functions.
-#' 
+#' arguments to \code{\link[=filter.data_request]{filter()}}, 
+#' \code{\link[=select.data_request]{select()}}, and related functions. 
+#' Taxonomic queries are somewhat more involved; see [taxonomic_searches] for
+#' details.
 #' @examples \dontrun{
 #' # Search for fields that include the word "date"
 #' search_all(fields, "date")

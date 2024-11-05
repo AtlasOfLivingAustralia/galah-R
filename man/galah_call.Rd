@@ -84,39 +84,39 @@ to separate different types of requests to perform better. For example,
 
 # Get number of records of *Aves* from 2001 to 2004 by year
 galah_call() |>
-  galah_identify("Aves") |>
-  galah_filter(year > 2000 & year < 2005) |>
-  galah_group_by(year) |>
+  identify("Aves") |>
+  filter(year > 2000 & year < 2005) |>
+  group_by(year) |>
   atlas_counts()
   
 # Get information for all species in *Cacatuidae* family
 galah_call() |>
-  galah_identify("Cacatuidae") |>
+  identify("Cacatuidae") |>
   atlas_species()
   
 # Download records of genus *Eolophus* from 2001 to 2004
 galah_config(email = "your-email@email.com")
 
 galah_call() |>
-  galah_identify("Eolophus") |>
-  galah_filter(year > 2000 & year < 2005) |>
-  atlas_occurrences()
+  identify("Eolophus") |>
+  filter(year > 2000 & year < 2005) |>
+  atlas_occurrences() # synonymous with `collect()`
 
 
-# ----------
-# Since galah 2.0.0, a pipe can start with a `request_` function.
-# This allows users to use `collapse()`, `compute()` and `collect()`.
+# galah_call() is a wrapper to various `request_` functions.
+# These can be called directly for greater specificity.
 
 # Get number of records of *Aves* from 2001 to 2004 by year
-request_data(type = "occurrences-count") |>
-  galah_identify("Aves") |>
-  galah_filter(year > 2000 & year < 2005) |>
-  galah_group_by(year) |>
+request_data() |>
+  identify("Aves") |>
+  filter(year > 2000 & year < 2005) |>
+  group_by(year) |>
+  count() |>
   collect()
 
 # Get information for all species in *Cacatuidae* family
 request_data(type = "species") |>
-  galah_identify("Cacatuidae") |>
+  identify("Cacatuidae") |>
   collect()
   
 # Get metadata information about supported atlases in galah

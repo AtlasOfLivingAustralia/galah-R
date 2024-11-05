@@ -4,29 +4,31 @@
 \alias{taxonomic_searches}
 \title{Look up taxon information}
 \description{
-\code{search_taxa()} allows users to look up taxonomic names before downloading
-data from the ALA (using \code{\link[=atlas_occurrences]{atlas_occurrences()}}, \code{\link[=atlas_species]{atlas_species()}} or
-\code{\link[=atlas_counts]{atlas_counts()}}). Taxon information returned by \code{search_taxa()} may be
-passed to \code{\link[=galah_identify]{galah_identify()}} as the \code{identify} argument of
-\code{atlas_} functions. \code{search_taxa()} allows users to disambiguate homonyms
-(i.e. where the same name refers to taxa in different clades) prior to
-downloading data.
+\code{search_taxa()} allows users to look up taxonomic names, and ensure they are
+being matched correctly, before downloading data from the specified
+organisation.
 
-Users can also specify taxonomic levels in a search using a data frame
-(tibble). Taxa may be specified using either the \code{specificEpithet} argument
-to designate the second element of a Latin binomial,
-or the \code{scientificName} argument to specify the
-scientific name (which may include the subspecific epithet if required).
+By default, names are supplied as strings; but users can also specify
+taxonomic levels in a search using a \code{data.frame} or \code{tibble}. This is useful
+when the taxonomic \emph{level} of the name in question needs to be specified,
+in addition to it's identity. For example, a common method is to use the
+\code{scientificName} column to list a Latinized binomial, but it is also possible
+to list these separately under \code{genus} and \code{specificEpithet} (respectively).
+A more common use-case is to distinguish between homonyms by listing higher
+taxonomic units, by supplying columns like \code{kingdom}, \code{phylum} or \code{class}.
 
 \code{search_identifiers()} allows users to look up matching taxonomic names using
 their unique \code{taxonConceptID}. In the ALA, all records are associated with
 an identifier that uniquely identifies the taxon to which that record belongs.
-Once those identifiers
-are known, this function allows you to use them to look up further information
-on the taxon in question. Effectively this is the inverse function to
-\code{\link[=search_taxa]{search_taxa()}}, which takes names and provides identifiers. The resulting
-\code{tibble} of taxonomic information can also be passed to \code{\link[=galah_identify]{galah_identify()}} to
-filter queries to the specified taxon or taxa.
+Once those identifiers are known, this function allows you to use them to
+look up further information on the taxon in question. Effectively this is the
+inverse function to \code{\link[=search_taxa]{search_taxa()}}, which takes names and provides
+identifiers.
+
+Note that when taxonomic look-up is required within a pipe, the equivalent
+to \code{search_taxa()} is \code{\link[=identify.data_request]{identify()}} (or
+\code{\link[=galah_identify]{galah_identify()}}). The equivalent to \code{search_identifiers()} is to use
+\code{\link[=filter.data_request]{filter()}} to filter by \code{taxonConceptId}.
 }
 \details{
 \code{search_taxa()} returns the taxonomic match of a supplied text string, along
@@ -78,8 +80,8 @@ search_identifiers(query = "https://id.biodiversity.org.au/node/apni/2914510")
 }
 \seealso{
 \code{\link[=search_all]{search_all()}} for how to get names if taxonomic identifiers
-are already known. \code{\link[=galah_identify]{galah_identify()}}, \code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}}, and
-\code{\link[=galah_geolocate]{galah_geolocate()}} for ways to restrict the information returned by
-\code{\link[=atlas_occurrences]{atlas_occurrences()}} and related functions. \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} to look
-up taxonomic trees.
+are already known. \code{\link[=filter.data_request]{filter()}},
+\code{\link[=select.data_request]{select()}},
+\code{\link[=identify.data_request]{identify()}} and \code{\link[=geolocate]{geolocate()}} for ways
+to restrict the information returned by \code{\link[=atlas_]{atlas_()}} functions.
 }

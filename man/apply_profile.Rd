@@ -36,9 +36,9 @@ For more bespoke editing of filters within a profile, use
 \dontrun{
 # Apply a data quality profile to a query
 galah_call() |> 
-  galah_identify("reptilia") |>
-  galah_filter(year == 2021) |>
-  galah_apply_profile(ALA) |>
+  identify("reptilia") |>
+  filter(year == 2021) |>
+  apply_profile(ALA) |>
   atlas_counts()
 }
 }
