@@ -15,6 +15,7 @@ navbar:
     - articles
     - reference
     right:
+    - search
     - news
     - github
   components:
