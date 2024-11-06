@@ -74,23 +74,23 @@ body { font-family: Roboto; }
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus .navbar-nav>.drop>a:hover{
     color: #ffffff;
-    background-color: #003A70;
+    background-color: #60a3a3;
 }
 
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
     color: #ffffff;
-    background-color: #003A70;
+    background-color: #60a3a3;
 }
 
 .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
     color: #ffffff;
     text-decoration: none;
-    background-color: #003A70;
+    background-color: #60a3a3;
 }
 
 .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
     color: #ffffff;
-    background-color: #003A70;
+    background-color: #60a3a3;
 }
 
 .row>main, .row>aside {
