@@ -45,9 +45,9 @@
 #'
 #' **Execute a query via API**
 #' 
-#'   * \code{\link[=collapse_galah]{collapse()}} Convert a `data_request` into a `query` 
-#'   * \code{\link[=compute_galah]{compute()}} Compute a query
-#'   * \code{\link[=collect_galah]{collect()}}/\code{\link[=atlas_]{atlas_()}}/[collect_media()] Retrieve a database query
+#'   * \code{\link[=collapse.data_request]{collapse()}} Convert a `data_request` into a `query` 
+#'   * \code{\link[=compute.data_request]{compute()}} Compute a query
+#'   * \code{\link[=collect.data_request]{collect()}}/\code{\link[=atlas_]{atlas_()}}/[collect_media()] Retrieve a database query
 #' 
 #' **Miscellaneous functions**
 #' 

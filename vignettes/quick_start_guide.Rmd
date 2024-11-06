@@ -1,7 +1,7 @@
 ---
 title: "Quick start guide"
 author: "Martin Westgate & Dax Kellie"
-date: '2024-11-05'
+date: '2024-11-06'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -48,18 +48,18 @@ show_all(atlases)
 
 ```
 ## # A tibble: 10 × 4
-##    region         institution                                 acronym url  
-##    <chr>          <chr>                                       <chr>   <chr>
-##  1 Australia      Atlas of Living Australia                   ALA     http…
-##  2 Austria        Biodiversitäts-Atlas Österreich             BAO     http…
-##  3 Brazil         Sistemas de Informações sobre a Biodiversi… SiBBr   http…
-##  4 France         Portail français d'accès aux données d'obs… OpenObs http…
-##  5 Global         Global Biodiversity Information Facility    GBIF    http…
-##  6 Guatemala      Sistema Nacional de Información sobre Dive… SNIBgt  http…
-##  7 Portugal       GBIF Portugal                               GBIF.pt http…
-##  8 Spain          GBIF Spain                                  GBIF.es http…
-##  9 Sweden         Swedish Biodiversity Data Infrastructure    SBDI    http…
-## 10 United Kingdom National Biodiversity Network               NBN     http…
+##    region         institution                                                      acronym url  
+##    <chr>          <chr>                                                            <chr>   <chr>
+##  1 Australia      Atlas of Living Australia                                        ALA     http…
+##  2 Austria        Biodiversitäts-Atlas Österreich                                  BAO     http…
+##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira        SiBBr   http…
+##  4 France         Portail français d'accès aux données d'observation sur les espè… OpenObs http…
+##  5 Global         Global Biodiversity Information Facility                         GBIF    http…
+##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de G… SNIBgt  http…
+##  7 Portugal       GBIF Portugal                                                    GBIF.pt http…
+##  8 Spain          GBIF Spain                                                       GBIF.es http…
+##  9 Sweden         Swedish Biodiversity Data Infrastructure                         SBDI    http…
+## 10 United Kingdom National Biodiversity Network                                    NBN     http…
 ```
 
 Use `galah_config()` to set the node organisation using its region, name, or 
@@ -99,7 +99,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 145933379
+## 1 146058161
 ```
 
 To pass more complex queries, you can use additional `{dplyr}` functions such as
@@ -117,7 +117,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 40058752
+## 1 40080012
 ```
 
 Each GBIF node allows you to query using their own set of in-built fields. You 
@@ -149,10 +149,9 @@ search_taxa("reptilia") # Check whether taxonomic info is correct
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id     rank  match_type kingdom
-##   <chr>       <chr>           <chr>                <chr> <chr>      <chr>  
-## 1 reptilia    REPTILIA        https://biodiversit… class exactMatch Animal…
-## # ℹ 3 more variables: phylum <chr>, class <chr>, issues <chr>
+##   search_term scientific_name taxon_concept_id      rank  match_type kingdom phylum class issues
+##   <chr>       <chr>           <chr>                 <chr> <chr>      <chr>   <chr>  <chr> <chr> 
+## 1 reptilia    REPTILIA        https://biodiversity… class exactMatch Animal… Chord… Rept… noIss…
 ```
 
 ``` r
@@ -167,7 +166,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##    count
 ##    <int>
-## 1 334280
+## 1 334294
 ```
 
 If you want to query something other than the number of records, modify the 
@@ -204,6 +203,8 @@ result <- galah_call() |>
 
 ```
 ## Retrying in 1 seconds.
+## Retrying in 2 seconds.
+## Retrying in 4 seconds.
 ```
 
 ``` r
@@ -212,16 +213,15 @@ result |> head()
 
 ```
 ## # A tibble: 6 × 9
-##   recordID   scientificName taxonConceptID decimalLatitude decimalLongitude
-##   <chr>      <chr>          <chr>                    <dbl>            <dbl>
-## 1 00052544-… Litoria ewing… https://biodi…           -42.9             147.
-## 2 00168ca6-… Litoria ranif… https://biodi…           -41.2             146.
-## 3 001a43fe-… Litoria ewing… https://biodi…           -43.0             147.
-## 4 00250163-… Litoria ranif… https://biodi…           -41.2             147.
-## 5 003e0f63-… Litoria ewing… https://biodi…           -42.9             148.
-## 6 0070521f-… Litoria ewing… https://biodi…           -43.1             147.
-## # ℹ 4 more variables: eventDate <dttm>, occurrenceStatus <chr>,
-## #   dataResourceName <chr>, basisOfRecord <chr>
+##   recordID    scientificName taxonConceptID decimalLatitude decimalLongitude eventDate          
+##   <chr>       <chr>          <chr>                    <dbl>            <dbl> <dttm>             
+## 1 00052544-d… Litoria ewing… https://biodi…           -42.9             147. 2022-09-19 00:00:00
+## 2 00168ca6-8… Litoria ranif… https://biodi…           -41.2             146. 2023-12-21 10:20:19
+## 3 001a43fe-8… Litoria ewing… https://biodi…           -43.0             147. 2021-08-07 00:00:00
+## 4 00250163-e… Litoria ranif… https://biodi…           -41.2             147. 2023-08-23 11:49:28
+## 5 003e0f63-9… Litoria ewing… https://biodi…           -42.9             148. 2022-12-24 06:27:00
+## 6 0070521f-b… Litoria ewing… https://biodi…           -43.1             147. 2023-12-20 14:29:23
+## # ℹ 3 more variables: occurrenceStatus <chr>, dataResourceName <chr>, basisOfRecord <chr>
 ```
 
 Check out our other vignettes for more detail on how to use these functions.

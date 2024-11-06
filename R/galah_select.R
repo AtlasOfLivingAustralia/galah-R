@@ -9,30 +9,30 @@
 #' 
 #' `select()` supports `dplyr` **selection helpers**, including:
 #' 
-#'   * \code{\link[dplyr]{everything()}}: Matches all variables.
-#'   * \code{\link[dplyr]{last_col()}}: Select last variable, possibly with an 
+#'   * \code{\link[dplyr]{everything}}: Matches all variables.
+#'   * \code{\link[dplyr]{last_col}}: Select last variable, possibly with an 
 #'     offset.
 #'
 #' Other helpers select variables by matching patterns in their names:
 #'  
-#'   * \code{\link[dplyr]{starts_with()}}: Starts with a prefix.
-#'   * \code{\link[dplyr]{ends_with()}}: Ends with a suffix.
-#'   * \code{\link[dplyr]{contains()}}: Contains a literal string.
-#'   * \code{\link[dplyr]{matches()}}: Matches a regular expression.
-#'   * \code{\link[dplyr]{num_range()}}: Matches a numerical range like x01, 
+#'   * \code{\link[dplyr]{starts_with}}: Starts with a prefix.
+#'   * \code{\link[dplyr]{ends_with}}: Ends with a suffix.
+#'   * \code{\link[dplyr]{contains}}: Contains a literal string.
+#'   * \code{\link[dplyr]{matches}}: Matches a regular expression.
+#'   * \code{\link[dplyr]{num_range}}: Matches a numerical range like x01, 
 #'     x02, x03.
 #'
 #' Or from variables stored in a character vector:
 #'  
-#'   * \code{\link[dplyr]{all_of()}}: Matches variable names in a character 
+#'   * \code{\link[dplyr]{all_of}}: Matches variable names in a character 
 #'     vector. All names must be present, otherwise an out-of-bounds error is 
 #'     thrown.
-#'   * \code{\link[dplyr]{any_of()}}: Same as `all_of()`, except that no error 
+#'   * \code{\link[dplyr]{any_of}}: Same as `all_of()`, except that no error 
 #'     is thrown for names that don't exist.
 #'
 #' Or using a predicate function:
 #'
-#'   * \code{\link[dplyr]{where()}}: Applies a function to all variables and selects those for which the function returns `TRUE`.
+#'   * \code{\link[dplyr]{where}}: Applies a function to all variables and selects those for which the function returns `TRUE`.
 #' @name select.data_request
 #' @param .data An object of class `data_request`, created using [galah_call()].
 #' @param ... Zero or more individual column names to include.

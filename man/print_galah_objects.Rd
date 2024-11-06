@@ -45,6 +45,7 @@ of class \code{galah_config} which (unsurprisingly) stores configuration
 information.
 }
 \examples{
+\dontrun{
 # The most common way to start a pipe is with `galah_call()`
 # later functions update the `data_request` object
 galah_call() |> # same as calling `request_data()`
@@ -66,4 +67,5 @@ print(x)
   
 # Each `query_set` contains one or more `query` objects
 x[[3]]
+}
 }

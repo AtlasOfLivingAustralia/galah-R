@@ -2,9 +2,9 @@
 #' @order 5
 #' @param constrain_ids `string`: Optional string to limit which `taxon_concept_id`'s
 #' are returned. This is useful for restricting taxonomy to particular 
-#' authoritative sources. Default is `"biodiversity.org.au"` for Australia 
-#' (this can be overridded by setting `constrain_ids = NULL`) and NULL otherwise. 
-#' Powered by `grepl()` meaning it supports regular expressions.
+#' authoritative sources. Default is `"biodiversity.org.au"` for Australia, 
+#' which is the infix common to National Species List IDs; use
+#' `NULL` to suppress source filtering. Regular expressions are supported.
 #' @importFrom dplyr bind_rows
 #' @importFrom dplyr filter
 #' @importFrom dplyr mutate
@@ -38,7 +38,10 @@ atlas_taxonomy <- function(request = NULL,
   start_row <- taxa_info |>
     mutate(name = str_to_title(taxa_info$scientific_name),
            parent_taxon_concept_id = NA) |>
-    select("name", "rank", "taxon_concept_id", "parent_taxon_concept_id") 
+    select("name", 
+           "rank", 
+           "taxon_concept_id", 
+           "parent_taxon_concept_id") 
 
   # build then flatten a tree
   taxonomy_tree <- drill_down_taxonomy(start_row, 
@@ -49,12 +52,15 @@ atlas_taxonomy <- function(request = NULL,
   }
   result <- bind_rows(taxonomy_tree)
   
-  # remove rows with ranks that are to low
+  # remove rows with ranks that are too low
   index <- rank_index(result$rank)
   down_to_index <- rank_index(.query$filter$value)
   result |>
     filter({{index}} <= {{down_to_index}} | is.na({{index}})) |>
-    select("name", "rank", "parent_taxon_concept_id", "taxon_concept_id")
+    select("name", 
+           "rank", 
+           "parent_taxon_concept_id", 
+           "taxon_concept_id")
 }
 
 #' Internal function to check whether constraints have been passed

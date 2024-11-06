@@ -11,7 +11,7 @@ galah_call(method = c("data", "metadata", "files"), type, ...)
 
 request_data(
   type = c("occurrences", "occurrences-count", "occurrences-doi", "species",
-    "species-count", "taxonomy"),
+    "species-count"),
   ...
 )
 
@@ -69,7 +69,7 @@ functions. For more details see the object-oriented programming vignette:
 Accepted values of the \code{type} argument are set by the underlying \code{request_}
 functions. While all accepted types can be set directly, some are affected
 by later functions. The most common example is that adding
-\code{\link[=count.data_request()]{count()}} to a pipe updates \code{type},
+\code{\link[=count.data_request]{count()}} to a pipe updates \code{type},
 converting \code{type = "occurrences"} to \code{type = "occurrences-count"} (and ditto
 for \code{type = "species"}).
 

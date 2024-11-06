@@ -95,9 +95,9 @@ deprecated but remain functional.}
 
 \item{constrain_ids}{\code{string}: Optional string to limit which \code{taxon_concept_id}'s
 are returned. This is useful for restricting taxonomy to particular
-authoritative sources. Default is \code{"biodiversity.org.au"} for Australia
-(this can be overridded by setting \code{constrain_ids = NULL}) and NULL otherwise.
-Powered by \code{grepl()} meaning it supports regular expressions.}
+authoritative sources. Default is \code{"biodiversity.org.au"} for Australia,
+which is the infix common to National Species List IDs; use
+\code{NULL} to suppress source filtering. Regular expressions are supported.}
 }
 \value{
 An object of class \code{tbl_df} and \code{data.frame} (aka a tibble). For

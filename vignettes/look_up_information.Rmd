@@ -1,7 +1,7 @@
 ---
 title: "Look up information"
 author: "Martin Westgate & Dax Kellie"
-date: '2024-11-05'
+date: '2024-11-06'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -55,14 +55,87 @@ search_all(fields, "australian states")
 Here is a list of information types that can be used with `show_all()` and 
 `search_all()`:
 
-
-```
-## Error in library(kableExtra): there is no package called 'kableExtra'
-```
-
-```
-## Error in pack_rows(., "Data providers", 11, 13, label_row_css = "background-color: #fdebf2; color: #343a40;"): could not find function "pack_rows"
-```
+<table class="table lightable-paper" style='width: auto !important; margin-left: auto; margin-right: auto; font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Information type </th>
+   <th style="text-align:left;"> Description </th>
+   <th style="text-align:left;"> Sub-functions </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr grouplength="3"><td colspan="3" style="background-color: #fdebf2; color: #343a40;"><strong>Configuration</strong></td></tr>
+<tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> atlases </td>
+   <td style="text-align:left;"> Show what living atlases are available </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_atlases(), search_atlases() </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> apis </td>
+   <td style="text-align:left;"> Show what APIs &amp; functions are available for each atlas </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_apis(), search_apis() </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> reasons </td>
+   <td style="text-align:left;"> Show what values are acceptable as 'download reasons' for a specified atlas </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_reasons(), search_reasons() </td>
+  </tr>
+  <tr grouplength="3"><td colspan="3" style="background-color: #fdebf2; color: #343a40;"><strong>Taxonomy</strong></td></tr>
+<tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> taxa </td>
+   <td style="text-align:left;"> Search for one or more taxonomic names </td>
+   <td style="text-align:left;font-family: monospace;"> search_taxa() </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> identifiers </td>
+   <td style="text-align:left;"> Take a universal identifier and return taxonomic information </td>
+   <td style="text-align:left;font-family: monospace;"> search_identifiers() </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> ranks </td>
+   <td style="text-align:left;"> Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_ranks(), search_ranks()) </td>
+  </tr>
+  <tr grouplength="2"><td colspan="3" style="background-color: #fdebf2; color: #343a40;"><strong>Filters</strong></td></tr>
+<tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> fields </td>
+   <td style="text-align:left;"> Show fields that are stored in an atlas </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_fields(), search_fields() </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> assertions </td>
+   <td style="text-align:left;"> Show results of data quality checks run by each atlas </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_assertions(), search_assertions() </td>
+  </tr>
+  <tr grouplength="2"><td colspan="3" style="background-color: #fdebf2; color: #343a40;"><strong>Group filters</strong></td></tr>
+<tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> profiles </td>
+   <td style="text-align:left;"> Show what data quality profiles are available </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_profiles(), search_profiles() </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> lists </td>
+   <td style="text-align:left;"> Show what species lists are available </td>
+   <td style="text-align:left;font-family: monospace;"> show_lists(), search_lists() </td>
+  </tr>
+  <tr grouplength="3"><td colspan="3" style="background-color: #fdebf2; color: #343a40;"><strong>Data providers</strong></td></tr>
+<tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> providers </td>
+   <td style="text-align:left;"> Show which institutions have provided data </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_providers(), search_providers() </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> collections </td>
+   <td style="text-align:left;"> Show the specific collections within those institutions </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_collections(), search_collections() </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> datasets </td>
+   <td style="text-align:left;"> Shows all the data groupings within those collections </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_datasets(), search_datasets() </td>
+  </tr>
+</tbody>
+</table>
 
 
 # `show_all_` subfunctions
@@ -80,18 +153,18 @@ show_all_atlases()
 
 ```
 ## # A tibble: 10 × 4
-##    region         institution                                 acronym url  
-##    <chr>          <chr>                                       <chr>   <chr>
-##  1 Australia      Atlas of Living Australia                   ALA     http…
-##  2 Austria        Biodiversitäts-Atlas Österreich             BAO     http…
-##  3 Brazil         Sistemas de Informações sobre a Biodiversi… SiBBr   http…
-##  4 France         Portail français d'accès aux données d'obs… OpenObs http…
-##  5 Global         Global Biodiversity Information Facility    GBIF    http…
-##  6 Guatemala      Sistema Nacional de Información sobre Dive… SNIBgt  http…
-##  7 Portugal       GBIF Portugal                               GBIF.pt http…
-##  8 Spain          GBIF Spain                                  GBIF.es http…
-##  9 Sweden         Swedish Biodiversity Data Infrastructure    SBDI    http…
-## 10 United Kingdom National Biodiversity Network               NBN     http…
+##    region         institution                                                      acronym url  
+##    <chr>          <chr>                                                            <chr>   <chr>
+##  1 Australia      Atlas of Living Australia                                        ALA     http…
+##  2 Austria        Biodiversitäts-Atlas Österreich                                  BAO     http…
+##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira        SiBBr   http…
+##  4 France         Portail français d'accès aux données d'observation sur les espè… OpenObs http…
+##  5 Global         Global Biodiversity Information Facility                         GBIF    http…
+##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de G… SNIBgt  http…
+##  7 Portugal       GBIF Portugal                                                    GBIF.pt http…
+##  8 Spain          GBIF Spain                                                       GBIF.es http…
+##  9 Sweden         Swedish Biodiversity Data Infrastructure                         SBDI    http…
+## 10 United Kingdom National Biodiversity Network                                    NBN     http…
 ```
 
 ``` r
@@ -133,10 +206,9 @@ search_taxa("reptilia")
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id     rank  match_type kingdom
-##   <chr>       <chr>           <chr>                <chr> <chr>      <chr>  
-## 1 reptilia    REPTILIA        https://biodiversit… class exactMatch Animal…
-## # ℹ 3 more variables: phylum <chr>, class <chr>, issues <chr>
+##   search_term scientific_name taxon_concept_id      rank  match_type kingdom phylum class issues
+##   <chr>       <chr>           <chr>                 <chr> <chr>      <chr>   <chr>  <chr> <chr> 
+## 1 reptilia    REPTILIA        https://biodiversity… class exactMatch Animal… Chord… Rept… noIss…
 ```
 
 ``` r
@@ -145,10 +217,9 @@ search_taxa("reptilia", "aves", "mammalia", "pisces")
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id     rank  match_type kingdom
-##   <chr>       <chr>           <chr>                <chr> <chr>      <chr>  
-## 1 reptilia    REPTILIA        https://biodiversit… class exactMatch Animal…
-## # ℹ 3 more variables: phylum <chr>, class <chr>, issues <chr>
+##   search_term scientific_name taxon_concept_id      rank  match_type kingdom phylum class issues
+##   <chr>       <chr>           <chr>                 <chr> <chr>      <chr>   <chr>  <chr> <chr> 
+## 1 reptilia    REPTILIA        https://biodiversity… class exactMatch Animal… Chord… Rept… noIss…
 ```
 
 Alternatively, `search_identifiers()` is the partner function to `search_taxa()`. 
@@ -162,12 +233,11 @@ search_identifiers("urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-83
 
 ```
 ## # A tibble: 1 × 15
-##   search_term  success scientific_name taxon_concept_id rank  rank_id   lft
-##   <chr>        <lgl>   <chr>           <chr>            <chr>   <int> <int>
-## 1 urn:lsid:bi… TRUE    REPTILIA        https://biodive… class    3000 33626
-## # ℹ 8 more variables: rgt <int>, match_type <chr>, kingdom <chr>,
-## #   kingdom_id <chr>, phylum <chr>, phylum_id <chr>, class <chr>,
-## #   class_id <chr>
+##   search_term      success scientific_name taxon_concept_id rank  rank_id   lft   rgt match_type
+##   <chr>            <lgl>   <chr>           <chr>            <chr>   <int> <int> <int> <chr>     
+## 1 urn:lsid:biodiv… TRUE    REPTILIA        https://biodive… class    3000 33626 36658 taxonIdMa…
+## # ℹ 6 more variables: kingdom <chr>, kingdom_id <chr>, phylum <chr>, phylum_id <chr>,
+## #   class <chr>, class_id <chr>
 ```
 
 # `show_values()` & `search_values()`
@@ -232,12 +302,12 @@ search_all(profiles, "ALA") |>
 
 ```
 ## # A tibble: 6 × 5
-##      id enabled description                             filter displayOrder
-##   <int> <lgl>   <chr>                                   <chr>         <int>
-## 1    94 TRUE    "Exclude all records where spatial val… "-spa…            1
-## 2    96 TRUE    "Exclude all records with an assertion… "-ass…            1
-## 3    97 TRUE    "Exclude all records with an assertion… "-ass…            2
-## 4    98 TRUE    "Exclude all records with an assertion… "-ass…            3
-## 5    99 TRUE    "Exclude all records with an assertion… "-ass…            4
-## 6   100 TRUE    "Exclude all records with an assertion… "-ass…            5
+##      id enabled description                                                  filter displayOrder
+##   <int> <lgl>   <chr>                                                        <chr>         <int>
+## 1    94 TRUE    "Exclude all records where spatial validity is \"false\""    "-spa…            1
+## 2    96 TRUE    "Exclude all records with an assertion that the scientific … "-ass…            1
+## 3    97 TRUE    "Exclude all records with an assertion that the scientific … "-ass…            2
+## 4    98 TRUE    "Exclude all records with an assertion that the name and cl… "-ass…            3
+## 5    99 TRUE    "Exclude all records with an assertion that kingdom provide… "-ass…            4
+## 6   100 TRUE    "Exclude all records with an assertion that the scientific … "-ass…            5
 ```

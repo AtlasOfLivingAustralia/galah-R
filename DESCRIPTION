@@ -1,7 +1,7 @@
 Package: galah
 Type: Package
 Title: Biodiversity Data from the GBIF Node Network
-Version: 2.0.2
+Version: 2.0.3
 Authors@R: 
     c(person(given = "Martin",
              family = "Westgate",
@@ -26,7 +26,7 @@ Description: The Global Biodiversity Information Facility
     Australia ('ALA', <https://www.ala.org.au>). 'galah' enables the R community 
     to directly access data and resources hosted by 'GBIF' and its partner nodes.
 Depends:
-    R (>= 4.2.2)
+    R (>= 4.3.0)
 Imports:
     cli,
     crayon,

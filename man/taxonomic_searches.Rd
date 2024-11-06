@@ -52,6 +52,7 @@ on the \href{https://github.com/AtlasOfLivingAustralia/ala-name-matching?tab=rea
 }
 }
 \examples{
+\dontrun{
 # Search using a single string. 
 # Note that `search_taxa()` is not case sensitive
 search_taxa("Reptilia")
@@ -77,6 +78,7 @@ search_taxa(tibble::tibble(
 
 # Look up a unique taxon identifier
 search_identifiers(query = "https://id.biodiversity.org.au/node/apni/2914510")
+}
 }
 \seealso{
 \code{\link[=search_all]{search_all()}} for how to get names if taxonomic identifiers

@@ -54,7 +54,7 @@
 #' \code{\link[=select.data_request]{select()}},
 #' \code{\link[=identify.data_request]{identify()}} and [geolocate()] for ways 
 #' to restrict the information returned by [atlas_()] functions.
-#' @examples 
+#' @examples \dontrun{
 #' # Search using a single string. 
 #' # Note that `search_taxa()` is not case sensitive
 #' search_taxa("Reptilia")
@@ -80,4 +80,5 @@
 #'
 #' # Look up a unique taxon identifier
 #' search_identifiers(query = "https://id.biodiversity.org.au/node/apni/2914510")
+#' }
 NULL

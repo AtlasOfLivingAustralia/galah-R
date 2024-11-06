@@ -25,7 +25,7 @@
 #' Accepted values of the `type` argument are set by the underlying `request_`
 #' functions. While all accepted types can be set directly, some are affected
 #' by later functions. The most common example is that adding 
-#' \code{\link[=count.data_request()]{count()}} to a pipe updates `type`, 
+#' \code{\link[=count.data_request]{count()}} to a pipe updates `type`, 
 #' converting `type = "occurrences"` to `type = "occurrences-count"` (and ditto 
 #' for `type = "species"`).
 #' 
@@ -120,8 +120,7 @@ request_data <- function(type = c("occurrences",
                                   "occurrences-doi",
                                   # "distributions",
                                   "species",
-                                  "species-count",
-                                  "taxonomy"
+                                  "species-count"
                                   ),
                          ...){
   if(!missing(type)){
@@ -181,7 +180,7 @@ request_metadata <- function(type = c("fields",
       i = "See `?show_all()` for a list of valid metadata types.",
       x = glue("Can't find metadata type `{type}`.")
     )
-    abort(bullets, call = error_call)   
+    abort(bullets)   
   }
   x <- list(type = type)
   class(x) <- "metadata_request"

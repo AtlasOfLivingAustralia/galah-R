@@ -52,9 +52,9 @@ For those outside Australia, 'galah' is the common name of
 
 \strong{Execute a query via API}
 \itemize{
-\item \code{\link[=collapse_galah]{collapse()}} Convert a \code{data_request} into a \code{query}
-\item \code{\link[=compute_galah]{compute()}} Compute a query
-\item \code{\link[=collect_galah]{collect()}}/\code{\link[=atlas_]{atlas_()}}/\code{\link[=collect_media]{collect_media()}} Retrieve a database query
+\item \code{\link[=collapse.data_request]{collapse()}} Convert a \code{data_request} into a \code{query}
+\item \code{\link[=compute.data_request]{compute()}} Compute a query
+\item \code{\link[=collect.data_request]{collect()}}/\code{\link[=atlas_]{atlas_()}}/\code{\link[=collect_media]{collect_media()}} Retrieve a database query
 }
 
 \strong{Miscellaneous functions}

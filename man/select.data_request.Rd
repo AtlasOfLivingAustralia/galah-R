@@ -33,33 +33,33 @@ or messages will be triggered at the end of the pipe.
 
 \code{select()} supports \code{dplyr} \strong{selection helpers}, including:
 \itemize{
-\item \code{\link[dplyr]{everything()}}: Matches all variables.
-\item \code{\link[dplyr]{last_col()}}: Select last variable, possibly with an
+\item \code{\link[dplyr]{everything}}: Matches all variables.
+\item \code{\link[dplyr]{last_col}}: Select last variable, possibly with an
 offset.
 }
 
 Other helpers select variables by matching patterns in their names:
 \itemize{
-\item \code{\link[dplyr]{starts_with()}}: Starts with a prefix.
-\item \code{\link[dplyr]{ends_with()}}: Ends with a suffix.
-\item \code{\link[dplyr]{contains()}}: Contains a literal string.
-\item \code{\link[dplyr]{matches()}}: Matches a regular expression.
-\item \code{\link[dplyr]{num_range()}}: Matches a numerical range like x01,
+\item \code{\link[dplyr]{starts_with}}: Starts with a prefix.
+\item \code{\link[dplyr]{ends_with}}: Ends with a suffix.
+\item \code{\link[dplyr]{contains}}: Contains a literal string.
+\item \code{\link[dplyr]{matches}}: Matches a regular expression.
+\item \code{\link[dplyr]{num_range}}: Matches a numerical range like x01,
 x02, x03.
 }
 
 Or from variables stored in a character vector:
 \itemize{
-\item \code{\link[dplyr]{all_of()}}: Matches variable names in a character
+\item \code{\link[dplyr]{all_of}}: Matches variable names in a character
 vector. All names must be present, otherwise an out-of-bounds error is
 thrown.
-\item \code{\link[dplyr]{any_of()}}: Same as \code{all_of()}, except that no error
+\item \code{\link[dplyr]{any_of}}: Same as \code{all_of()}, except that no error
 is thrown for names that don't exist.
 }
 
 Or using a predicate function:
 \itemize{
-\item \code{\link[dplyr]{where()}}: Applies a function to all variables and selects those for which the function returns \code{TRUE}.
+\item \code{\link[dplyr]{where}}: Applies a function to all variables and selects those for which the function returns \code{TRUE}.
 }
 }
 \details{
