@@ -173,8 +173,9 @@ request_metadata <- function(type = c("fields",
                                       "reasons",
                                       "taxa",
                                       "identifiers")){
-  type <- try(match.arg(type))
-  if(inherits(type, "try-error")){
+  type_checked <- try(match.arg(type),
+                      silent = TRUE)
+  if(inherits(type_checked, "try-error")){
     bullets <- c(
       glue("Unrecognised metadata requested."),
       i = "See `?show_all()` for a list of valid metadata types.",
@@ -182,7 +183,7 @@ request_metadata <- function(type = c("fields",
     )
     abort(bullets)   
   }
-  x <- list(type = type)
+  x <- list(type = type_checked)
   class(x) <- "metadata_request"
   return(x)
 }

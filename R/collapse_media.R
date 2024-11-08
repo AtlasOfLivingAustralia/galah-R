@@ -30,8 +30,9 @@ collapse_media <- function(.query){
   result <- list(
     type = "metadata/media",
     url = url_lookup("metadata/media"),
+    headers = build_headers(),
     body = toJSON(list(imageIds = media_ids)),
-    headers = build_headers())
+    filter = .query$filter)
   
   class(result) <- "query"
   return(result)

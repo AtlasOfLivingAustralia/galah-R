@@ -34,14 +34,16 @@ collapse_species_count_atlas <- function(identify = NULL,
                        filter, 
                        geolocate, 
                        data_profile = data_profile)
-  result <- list(type = "data/species-count")
   # set behaviour depending on `group_by()`
   if(is.null(group_by)){
     url$query <- c(query,
                    list(flimit = 1, 
                         facets = species_facets()))
-    result$url <- url_build(url)
-    result$expand <- FALSE
+    result <- list(type = "data/species-count",
+                   url = url_build(url),
+                   headers = build_headers(),
+                   filter = filter,
+                   expand = FALSE)
   }else{
     facets <- c(as.list(group_by$name), species_facets())
     names(facets) <- rep("facets", length(facets))
@@ -54,12 +56,13 @@ collapse_species_count_atlas <- function(identify = NULL,
     slice_arrange <- bind_cols(slice, arrange) 
     arrange_list <- check_slice_arrange(slice_arrange)
     url$query <- c(query, facets, arrange_list)
-    result$url <- url_build(url)
-    result$expand <- TRUE
-    result$arrange <- slice_arrange
+    result <- list(type = "data/species-count",
+                   url = url_build(url),
+                   headers = build_headers(),
+                   filter = filter,
+                   expand = TRUE,
+                   arrange = slice_arrange)
   }
-  # aggregate and return
-  result$headers <- build_headers()
   class(result) <- "query"
   return(result)
 }

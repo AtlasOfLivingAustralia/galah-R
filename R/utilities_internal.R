@@ -85,44 +85,6 @@ camel_to_snake_case <- function(x){
     tolower()
 }
 
-#' Simple internal function to split strings
-#' @importFrom stringr str_extract
-#' @importFrom stringr str_extract_all
-#' @importFrom stringr str_trim
-#' @importFrom stringr str_remove
-#' @importFrom tibble as_tibble
-#' @noRd
-#' @keywords Internal
-string_to_tibble <- function(string, split_by = c(":")){
-  # ChatGPT created the reprex in this function. 
-  # Possibly over-engineered, but it works
-  
-  # The pattern logic is:
-  #   (?<=\\(|OR|AND|-): A positive lookbehind to ensure the match is preceded by (, OR, AND, or -.
-  #   \\s*: Matches any whitespace characters.
-  #   ([-\\w\\(\\)]+): Captures one or more word characters, hyphens, or parentheses.
-  #   \\s*(?=:): Matches any whitespace characters followed by a colon, using a positive lookahead to ensure the match is followed by a colon.
-  extracted_strings <-
-    # new
-    stringr::str_extract_all(
-      string,
-      "(?<=\\(|OR|AND)\\s*([-\\w\\(\\)]+)\\s*(?=:)"
-    ) |>
-    # old (v2.0.2)
-    # stringr::str_extract_all(
-    #   string, 
-    #   "(?<=\\()[^\\*]*?(?=\\:)|(?<=OR\\s)[^\\*]*?(?=\\:)"
-    #   ) |>
-    unlist() |>
-    str_remove("-|\\(") |>
-    str_extract("[:alnum:]+") |>
-    str_trim() |>
-    as_tibble() |>
-    unique()
-  return(extracted_strings)
-  
-}
-
 ##---------------------------------------------------------------
 ##                   Other helpful functions                   --
 ##---------------------------------------------------------------

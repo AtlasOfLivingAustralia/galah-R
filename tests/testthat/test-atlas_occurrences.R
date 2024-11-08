@@ -41,7 +41,7 @@ test_that("`compute(type = 'occurrences')` works", {
   # collapse
   query_collapse <- collapse(base_query)
   expect_true(inherits(query_collapse, "query"))
-  expect_equal(length(query_collapse), 3)
+  expect_equal(length(query_collapse), 4)
   expect_equal(query_collapse$type, "data/occurrences")
   # compute
   response <- compute(base_query)

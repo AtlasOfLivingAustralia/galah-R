@@ -42,6 +42,7 @@ collapse_occurrences_uk <- function(.query){
     type = "data/occurrences",
     url = url_build(url),
     headers = build_headers(),
+    filter = .query$filter,
     select = .query$select)
   class(result) <- "query"
   return(result)
@@ -117,6 +118,7 @@ collapse_occurrences_la <- function(.query){
     type = "data/occurrences",
     url = url_build(url),
     headers = build_headers(),
+    filter = .query$filter,
     select = .query$select)
   class(result) <- "query"
   return(result)

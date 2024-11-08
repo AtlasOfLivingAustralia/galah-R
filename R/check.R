@@ -202,7 +202,7 @@ check_field_identities <- function(df, .query){
   df
 }
 
-#' sub-function to `check_fields()` for living atlases
+#' sub-function to `check_fields()` for GBIF
 #' @importFrom jsonlite fromJSON
 #' @importFrom purrr pluck
 #' @noRd
@@ -241,7 +241,7 @@ check_fields_gbif_counts <- function(.query){
   c(filter_invalid, group_by_invalid)
 }
 
-#' sub-function to `check_fields()` for living atlases
+#' sub-function to `check_fields()` for GBIF
 #' @importFrom jsonlite fromJSON
 #' @importFrom purrr pluck
 #' @noRd
@@ -272,12 +272,6 @@ check_fields_gbif_predicates <- function(.query){
 #' @noRd
 #' @keywords Internal
 check_fields_la <- function(.query){
-  if(inherits(.query$url, "data.frame")){
-    url <- url_parse(.query$url$url[1])
-  }else{
-    url <- url_parse(.query$url[1])  
-  }
-  queries <- url$query
   
   # set fields to check against
   # NOTE: These are retrieved in collapse()
@@ -287,20 +281,18 @@ check_fields_la <- function(.query){
   
   # extract fields from filter & identify
   filter_invalid <- NA
-  if(is.null(queries$fq)){
+  if(is.null(.query$filter)){
     # note: above was previously: `exists("fq", where = queries)`
     # Error in as.environment(where) : using 'as.environment(NULL)' is defunct
     filters <- NULL
   }else{
-    if (nchar(queries$fq) > 0) {
-      provided_fields <- string_to_tibble(queries$fq)
-      filters <- provided_fields |>
-        pull("value") |>
-        gsub("\\(|\\)|\\-|\\:", "", x = _)
-    } else {
-      filters <- NULL
-    }
-    
+    # extract field names
+    # note: `filter()` often concatenates field names with logical statements
+    # hence `strsplit()` step here
+    filters <- .query$filter$variable |>
+      strsplit("\\||\\&") |>
+      unlist() |>
+      unique()
     if (length(filters) > 0) {
       if (!all(filters %in% valid_any)) {
         invalid_fields <- filters[!(filters %in% valid_any)]
@@ -311,6 +303,12 @@ check_fields_la <- function(.query){
 
   # galah_group_by fields check
   group_by_invalid <- NA
+  if(inherits(.query$url, "data.frame")){
+    url <- url_parse(.query$url$url[1])
+  }else{
+    url <- url_parse(.query$url[1])
+  }
+  queries <- url$query
   if (!is.null(queries$facets)) {
     facets <- queries[names(queries) == "facets"] |> unlist() # NOTE: arrange() is missing
     if (length(facets) > 0) {

@@ -256,8 +256,13 @@ test_that("galah_filter handles lsid as an input", {
     collapse()
   # number of taxa searches is 3, not 4
   expect_s3_class(query, "query")
-  expect_equal(length(query), 5)
-  expect_equal(names(query), c("type", "url", "slot_name", "expand", "headers"))
+  expect_equal(length(query), 6)
+  expect_equal(names(query), c("type", 
+                               "url", 
+                               "headers",
+                               "filter",
+                               "slot_name", 
+                               "expand"))
 })
 
 test_that("galah_filter handles different fields separated by OR", {

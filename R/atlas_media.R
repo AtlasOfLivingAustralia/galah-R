@@ -71,9 +71,9 @@ atlas_media <- function(request = NULL,
   # note that behaviour here depends on whether we have run compute_checks() above
   if(inherits(.query, "data_request")){
     .query$filter <- bind_rows(.query$filter, 
-                              tibble(variable = "media",
-                                     logical = "==",
-                                     value = paste(present_fields, collapse = "|"),
+                              tibble(variable = present_fields,
+                                     logical = "!=",
+                                     value = "\"\"",
                                      query = as.character(media_fq)))  
   }else if(inherits(.query, "query")){ # i.e. if .query is already a `query`
     url <- url_parse(.query$url)
