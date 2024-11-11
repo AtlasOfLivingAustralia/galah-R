@@ -185,6 +185,20 @@ test_that("atlas_counts works with galah_identify for Spain", {
     0.1) # i.e. <1% margin of error
 })
 
+test_that("atlas_counts works with apply_profile for Spain", {
+  skip_if_offline()
+  without_profile <- galah_call() |>
+    count() |>
+    collect()
+  with_profile <- galah_call() |>
+    apply_profile(LA) |>
+    count() |>
+    collect()
+  expect_gt(with_profile$count, 0)
+  expect_equal(class(without_profile), class(with_profile))
+  expect_lt(with_profile$count, without_profile$count)
+})
+
 test_that("atlas_counts works with group_by for Spain", {
   skip_if_offline()
   result <- galah_call() |>

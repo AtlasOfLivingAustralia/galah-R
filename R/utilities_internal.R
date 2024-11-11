@@ -132,6 +132,8 @@ atlas_supports_reasons_api <- function(){
 
 ## show_all_atlases / search_atlases --------------------------#
 
+#' @noRd
+#' @keywords Internal
 image_fields <- function() {
   atlas <- pour("atlas", "region")
   switch (atlas,
@@ -142,6 +144,8 @@ image_fields <- function() {
   )
 }
 
+#' @noRd
+#' @keywords Internal
 species_facets <- function(){
   atlas <- pour("atlas", "region")
   if(atlas %in% c("Australia", "France", "Spain", "Sweden")) { # i.e. those using 'pipelines'
@@ -149,4 +153,13 @@ species_facets <- function(){
   }else{
     "species_guid"
   }
+}
+
+#' @noRd
+#' @keywords Internal
+source_type_id_lookup <- function(region){
+  switch(region,
+         "Austria" = 1,
+         "United Kingdom" = 2001,
+         "2004") # ALA default for galah
 }

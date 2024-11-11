@@ -207,22 +207,33 @@ test_that("atlas_occurrences works for Austria", {
   galah_config(
     atlas = "Austria",
     email = "ala4r@ala.org.au", 
-    download_reason_id = "testing",
+    download_reason_id = 10,
     run_checks = TRUE, ## FIXME: Test only works when run_checks = TRUE
     send_email = FALSE)
-  occ <- galah_call() |>
+  occ_collapse <- galah_call() |>
     identify("Mammalia") |>
     filter(year == 1990) |>
     select(species, year) |>
-    collect() |>
+    collapse()
+  skip_if(inherits(occ_collapse, "try-error"), message = "API not available")
+  expect_s3_class(occ_collapse, "query")
+  expect_equal(names(occ_collapse), 
+               c("type", "url", "headers", "filter"))
+  expect_equal(occ_collapse$type, "data/occurrences")
+  # compute
+  occ_compute <- compute(occ_collapse) # fails here
+  expect_s3_class(occ_compute, "computed_query")
+  # collect
+  occ <- collect(occ_compute) |>
     try(silent = TRUE)
-  skip_if(inherits(occ, "try-error"), message = "API not available")
-  expect_gt(nrow(occ), 0)
+  skip_if(inherits(occ_compute, "try-error"), message = "API not available")
+  expect_equal(nrow(occ), counts$count[1])
+  expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
   expect_equal(ncol(occ), 2)
-  expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
+  unlink("temp", recursive = TRUE)
 })
 
-test_that("atlas_media() works for Austria", {
+test_that("atlas_media() fails for Austria", {
   skip_if_offline()
   galah_config(
     atlas = "Austria",
@@ -230,25 +241,33 @@ test_that("atlas_media() works for Austria", {
     download_reason_id = "testing",
     run_checks = TRUE,
     send_email = FALSE)
-  x <- request_data() |>
-    identify("Mammalia") |>
-    filter(!is.na(image_url),
-           year == 2010) |>
-    # count() |>
-    select(record_number, image_url) |>
-    collect(wait = TRUE) |>
-  # should return 10 occurrences
-  # fails rn due to bugs in biocache-service (2024-02-27)
-  # stages after this can't be tested until above issue is resolved.
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
-  expect_gt(nrow(x), 0)
-  y <- request_metadata() |>
-    filter(media == x) |>
-    collect() |>
-    try(silent = TRUE)
-  skip_if(inherits(y, "try-error"), message = "API not available")
-  expect_gt(nrow(y), 0)
+  expect_error({
+    request_data() |>
+      identify("Mammalia") |>
+      filter(!is.na(all_image_url),
+             year == 2010) |>
+      select(group = "basic", all_image_url) |>
+      atlas_media()
+  })
+  ## Note this actually works:
+  # x <- request_data() |>
+  #   identify("Mammalia") |>
+  #   filter(!is.na(all_image_url),
+  #          year == 2010) |>
+  #   # count() |>
+  #   select(group = "basic", all_image_url) |>
+  #   collect(wait = TRUE) |>
+  #   try(silent = TRUE)
+  # skip_if(inherits(x, "try-error"), message = "API not available")
+  # expect_gt(nrow(x), 0)
+  # # But fails below here, apparently because there is no bulk lookup API for images
+  # # for this service (ditto Brazil). Could code this if needed.
+  # y <- request_metadata() |>
+  #   filter(media == x) |>
+  #   collapse() |>
+  #   try(silent = TRUE)
+  # skip_if(inherits(y, "try-error"), message = "API not available")
+  # expect_gt(nrow(y), 0)
 })
 
 ## FIXME: atlas_taxonomy doesn't work

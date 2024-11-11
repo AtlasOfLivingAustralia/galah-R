@@ -23,6 +23,7 @@ df <- paste0(data_dir, "/data-raw/node_config.csv") |>
     tibble(
       atlas = "Global",
       type = c("data/species", "metadata/fields", "metadata/assertions"))) |>
+  arrange(atlas, type) |>
   left_join(
     select(node_metadata, region, url),
     by = c("atlas" = "region")

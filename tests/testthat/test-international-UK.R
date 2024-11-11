@@ -215,7 +215,7 @@ test_that("atlas_occurrences works for United Kingdom", {
   # with run checks, this gives n = 5. Without it's n = 2
   expect_s3_class(occ_collapse, "query")
   expect_equal(names(occ_collapse), 
-               c("type", "url", "headers"))
+               c("type", "url", "headers", "filter"))
   expect_equal(occ_collapse$type, "data/occurrences")
   # compute
   # notes: 

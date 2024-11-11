@@ -8,8 +8,10 @@ parse_profile_values <- function(.query){
   profile_name <- extract_profile_name(url)
   short_name <- profile_short_name(profile_name)
   if (!pour("atlas", "region") == "Spain") {
-    url$path <- paste0("/dqf-service/api/v1/data-profiles/", 
-                       short_name)
+    path_name <- url |>
+      pluck("path") |>
+      dirname()
+    url$path <- glue("{path_name}/{short_name}")
   }
   result <- list(type = .query$type,
                  url = url_build(url))
@@ -63,7 +65,7 @@ extract_profile_name <- function(url) {
   } else {
     profile_name <- url |>
       pluck("path") |>
-      sub("/dqf-service/api/v1/data-profiles/", "", x = _)
+      basename()
   }
   return(profile_name)
 }

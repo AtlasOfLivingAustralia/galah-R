@@ -26,7 +26,7 @@ Australia,metadata/reasons,https://api.ala.org.au/logger/service/logger/reasons,
 Australia,metadata/taxa-multiple,https://api.ala.org.au/namematching/api/searchByClassification,TRUE
 Australia,metadata/taxa-single,https://api.ala.org.au/namematching/api/search?q={name},TRUE
 Australia,metadata/taxa-unnest,https://api.ala.org.au/species/childConcepts/{id},TRUE
-Austria,data/occurrences,https://biocache.biodiversityatlas.at/ws/occurrences/offline/download,TRUE
+Austria,data/occurrences,https://biocache.biodiversityatlas.at/ws/occurrences/download,TRUE
 Austria,data/occurrences-count,https://biocache.biodiversityatlas.at/ws/occurrences/search,TRUE
 Austria,data/occurrences-count-groupby,https://biocache.biodiversityatlas.at/ws/occurrence/facets,TRUE
 Austria,data/species,https://biocache.biodiversityatlas.at/ws/occurrences/facets/download,TRUE
@@ -73,7 +73,7 @@ Estonia,metadata/fields-unnest,https://elurikkus.ee/biocache-service/occurrence/
 Estonia,metadata/providers,https://elurikkus.ee/collectory/ws/dataProvider,TRUE
 Estonia,metadata/taxa-single,https://elurikkus.ee/bie-index/search?q={name}&pageSize=5,TRUE
 Estonia,metadata/taxa-unnest,https://elurikkus.ee/bie-index/childConcepts/{id},TRUE
-France,data/occurrences,https://openobs.mnhn.fr/biocache-service/occurrences/offline/download,TRUE
+France,data/occurrences,https://openobs.mnhn.fr/biocache-service/occurrences/download,TRUE
 France,data/occurrences-count,https://openobs.mnhn.fr/biocache-service/occurrences/search,TRUE
 France,data/occurrences-count-groupby,https://openobs.mnhn.fr/biocache-service/occurrence/facets,TRUE
 France,data/species,https://openobs.mnhn.fr/biocache-service/occurrences/facets/download,TRUE
@@ -167,6 +167,8 @@ Sweden,metadata/licences,https://images.biodiversitydata.se/ws/licence,TRUE
 Sweden,metadata/lists,https://lists.biodiversitydata.se/ws/speciesList,TRUE
 Sweden,metadata/lists-unnest,https://lists.biodiversitydata.se/ws/speciesListItems/{list_id},TRUE
 Sweden,metadata/media,https://images.biodiversitydata.se/ws/getImageInfoForIdList,TRUE
+Sweden,metadata/profiles,https://data-quality-service.biodiversitydata.se/api/v1/data-profiles?enabled=true,TRUE
+Sweden,metadata/profiles-unnest,https://data-quality-service.biodiversitydata.se/api/v1/data-profiles/{profile},TRUE
 Sweden,metadata/providers,https://collections.biodiversitydata.se/ws/dataProvider,TRUE
 Sweden,metadata/reasons,https://logger.biodiversitydata.se/service/logger/reasons,TRUE
 Sweden,metadata/taxa-multiple,https://namematching.biodiversitydata.se/api/searchByClassification,TRUE
