@@ -123,16 +123,11 @@
 #' @importFrom rlang inform
 #' @export
 select.data_request <- function(.data, ..., group){
-  if(is_gbif()){
-    inform("`select()` is not supported for GBIF: skipping")
-    .data
-  }else{
-    dots <- enquos(..., .ignore_empty = "all") |>
-      as.list() |>
-      add_summary() |>
-      add_group(group)
-    update_data_request(.data, select = dots)  
-  }
+  dots <- enquos(..., .ignore_empty = "all") |>
+    as.list() |>
+    add_summary() |>
+    add_group(group)
+  update_data_request(.data, select = dots)
 }
 
 #' @rdname select.data_request
@@ -141,22 +136,13 @@ galah_select <- function(..., group){
   dots <- enquos(..., .ignore_empty = "all") |>
     detect_request_object() |>
     as.list()
-  if(is_gbif()){
-    inform("`select()` is not supported for GBIF: skipping")
-    if(inherits(dots[[1]], "data_request")){
-      dots[[1]]
-    }else{
-      NULL
-    }
+  dots <- dots |>
+    add_summary() |>
+    add_group(group)
+  if(inherits(dots[[1]], "data_request")){
+    update_data_request(dots[[1]], select = dots[-1]) 
   }else{
-    dots <- dots |>
-      add_summary() |>
-      add_group(group)
-    if(inherits(dots[[1]], "data_request")){
-      update_data_request(dots[[1]], select = dots[-1]) 
-    }else{
-      dots
-    } 
+    dots
   }
 }
 
@@ -246,6 +232,13 @@ default_columns <- function() {
                         "occurrence_date",
                         "occurrence_status",
                         "data_resource_uid"),
+          "Global" = c("gbifid",
+                       "taxonkey",
+                       "decimallatitude",
+                       "decimallongitude",
+                       "eventdate",
+                       "occurrencestatus",
+                       "datasetkey"),
           "Guatemala" = c("id",
                           "taxon_name",
                           "taxon_concept_lsid",

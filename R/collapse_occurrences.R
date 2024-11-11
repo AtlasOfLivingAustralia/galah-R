@@ -10,7 +10,7 @@ collapse_occurrences <- function(.query){
   }
   switch(pour("atlas", "region"),
          "United Kingdom" = collapse_occurrences_uk(.query),
-         "Global" = collapse_occurrences_gbif(.query),
+         "Global" = collapse_occurrences_gbif_sql(.query),
          collapse_occurrences_la(.query))
 }
 
@@ -48,7 +48,45 @@ collapse_occurrences_uk <- function(.query){
   return(result)
 }
 
+#' Attempt to implement SQL API for GBIF
+#' 
+#' Beneficial as it supports `select()`
+#' @noRd
+#' @keywords Internal
+collapse_occurrences_gbif_sql <- function(.query){
+  # set default columns
+  if(is.null(.query$select)){
+    .query$select <- galah_select(group = "basic")
+  }
+  
+  username <- pour("user", "username", .pkg = "galah")
+  password <- pour("user", "password", .pkg = "galah")
+  
+  result <- list(
+    type = "data/occurrences",
+    url = url_lookup("data/occurrences"),
+    headers =  list(
+      `User-Agent` = galah_version_string(), 
+      `X-USER-AGENT` = galah_version_string(),
+      `Content-Type` = "application/json",
+      Accept = "application/json"),
+    options = list(
+      httpauth = 1,
+      user = glue("{username}:{password}")),
+    body = build_sql(.query))
+  # NOTE: there are currently two query builders for GBIF
+    # build.R contains build_query_gbif(), which is for simple queries
+    # build_predicates() has an exception for occurrences
+  # it would appear that a version based more closely on the former would be best for SQL
+  
+  class(result) <- "query"
+  return(result)
+}
+
 #' calculate the query to be returned for GBIF
+#' 
+#' Largely obsolete with introduction of SQL; but kept for 
+#' format = "SPECIES_LIST", which powers `atlas_species()`
 #' @noRd
 #' @keywords Internal
 collapse_occurrences_gbif <- function(.query, format = "SIMPLE_CSV"){

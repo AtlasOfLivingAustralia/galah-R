@@ -354,6 +354,7 @@ parse_relational <- function(x, ...){
     result$logical <- result$logical
   }
   result$query <- parse_solr(result) # from `galah_filter.R`
+  ## result$sql_query <- parse_sql(result) # thinking ahead to GBIF here.
   # add exception for nrow(result) > 1
   # this occurs when rhs is `c()`, which we interpret as "OR"
   if(nrow(result) > 1){

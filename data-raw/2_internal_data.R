@@ -115,10 +115,19 @@ galah_internal_cached <- lapply(
 # lapply(galah_internal_cached, attributes) # check
 names(galah_internal_cached) <- stored_types
 
+# import gbif fields
+gbif_fields <- jsonlite::fromJSON(
+  "https://api.gbif.org/v1/occurrence/download/describe/sql")
+gbif_fields <- as.data.frame(gbif_fields)
+colnames(gbif_fields) <- c("field", "type", "url", "nullable")
+gbif_fields <- as_tibble(gbif_fields) |>
+  mutate(type = tolower(type)) |>
+  select(-nullable)
+
 # Import web-scraped gbif data as csv
 gbif_internal_archived <- list(
   assertions = read_csv("./data-raw/gbif_assertions.csv"),
-  fields = read_csv("./data-raw/gbif_fields.csv"),
+  fields = gbif_fields, # read_csv("./data-raw/gbif_fields.csv"),
   ranks =  tibble(
     id = seq_len(9),
     name = c("kingdom", "phylum", "class", 

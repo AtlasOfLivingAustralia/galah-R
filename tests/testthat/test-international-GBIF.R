@@ -301,11 +301,6 @@ test_that("`atlas_occurences()` works with `galah_radius()` for GBIF", {
   expect_equal(nrow(result), count$count)
 })
 
-test_that("`galah_select()` returns message for GBIF", {
-  expect_message({x <- galah_select(galah_call())})
-  expect_true(is.null(x$select))
-})
-
 test_that("atlas_species works for GBIF", {
   skip_if_offline()
   x <- request_data(type = "species") |>
@@ -340,6 +335,10 @@ test_that("atlas_media fails for GBIF", {
 
 test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
   skip_if_offline()
+  galah_config(atlas = "GBIF",
+               username = "atlasoflivingaustralia",
+               email = "ala4r@ala.org.au",
+               password = "galah-gbif-test-login")
   # collapse
   base_query <- request_data() |>
     identify("Vulpes vulpes") |>
