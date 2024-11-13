@@ -22,10 +22,17 @@ atlas_media <- function(request = NULL,
                         ) {
   
   atlas <- pour("atlas", "region", .pkg = "galah")
-  if(!(atlas %in% c("Austraila", "Sweden"))){
+  supported_atlases <- c("Austraila",
+                         # "Austria", # not currently working
+                         "Brazil",
+                         "Guatemala",
+                         "Sweden", 
+                         "Spain", 
+                         "United Kingdom")
+  if(!(atlas %in% supported_atlases)){
     abort(glue("`atlas_media` is not supported for atlas = {atlas}"))
   }
-  
+
   # capture supplied arguments
   args <- as.list(environment())
   # convert to `data_request` object
@@ -36,13 +43,12 @@ atlas_media <- function(request = NULL,
   if(is.null(.query$filter)){
     abort("You must specify a valid `filter()` to use `atlas_media()`")
   }
-  
+
   # ensure media columns are present in `select`
-  media_fields <- c("images", "videos", "sounds")
   if(is.null(.query$select)){
     .query <- update_data_request(.query, 
                                   select = galah_select(group = c("basic", "media")))
-    present_fields <- media_fields
+    present_fields <- image_fields()
     query_collapse <- collapse(.query)
     # if `select` is present, ensure that at least one 'media' field is requested
   }else{
@@ -70,17 +76,11 @@ atlas_media <- function(request = NULL,
   # add media content to filters
   if(length(present_fields) > 0){
     # do region-specific filter parsing
-    atlas <- pour("atlas", "region")
-    if(atlas == "Sweden"){
-      sbdi_filter_fields <- present_fields |>
-        str_remove("s$") |>
-        paste0("IDsCount")
-      media_fq <- glue("{sbdi_filter_fields}:[1 TO *]")
-    }else{ # i.e. Australia
-      media_fq <- glue("({present_fields}:*)")
-    }
+    media_fq <- parse_regional_media_filters(present_fields)
     # add back to source object
-    media_fq <- glue("({glue_collapse(media_fq, ' OR ')})")
+    if(length(media_fq) > 1){
+      media_fq <- glue("({glue_collapse(media_fq, ' OR ')})") 
+    }
     url <- url_parse(query_collapse$url)
     url$query$fq <- paste0(url$query$fq, " AND ", media_fq)
     query_collapse$url <- url_build(url)
@@ -90,14 +90,49 @@ atlas_media <- function(request = NULL,
   occ <- query_collapse |> 
     collect(wait = TRUE) |>
     unnest_longer(col = any_of(present_fields))
-  occ$media_id <- build_media_id(occ) 
+  
+  if(!any(colnames(occ) == "all_image_url")){
+    occ$media_id <- build_media_id(occ)
+  }
+
   # collect media metadata
   media <- request_metadata() |>
     filter(media == occ) |>
     collect()
+  
   # join and return
-  occ_media <- right_join(occ, 
+  if(any(colnames(occ) == "all_image_url")){
+    occ <- rename(occ, "media_id" = "all_image_url")
+  }
+  occ_media <- right_join(occ,
                           media, 
                           by = join_by("media_id" == "image_id"))
   relocate(occ_media, "media_id", 1)
+}
+
+#' Set filters that work for media in each atlas
+#' @importFrom glue glue
+#' @importFrom stringr str_remove
+#' @noRd
+#' @keywords Internal
+parse_regional_media_filters <- function(present_fields){
+  
+  atlas <- pour("atlas", "region")
+  switch(atlas,
+         "Austria" = "(all_image_url:*)",
+         "Australia" = glue("({present_fields}:*)"),
+         "Brazil" = "(all_image_url:*)",
+         "Guatemala" = "(all_image_url:*)",
+         "Portugal" = "(all_image_url:*)",
+         "Spain" = {filter_fields <- present_fields |>
+                       str_remove("s$") |>
+                       paste0("IDsCount")
+                     glue("{filter_fields}:[1 TO *]")},
+         "Sweden" = {filter_fields <- present_fields |>
+                       str_remove("s$") |>
+                       paste0("IDsCount")
+                     glue("{filter_fields}:[1 TO *]")},
+         "United Kingdom" = "(all_image_url:*)", # !is.na(all_image_url),
+         abort(glue("`atlas_media` is not supported for atlas = {atlas}"))
+  )
 }

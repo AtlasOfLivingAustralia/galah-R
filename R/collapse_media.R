@@ -2,6 +2,7 @@
 #' @param .query An object of class `metadata_request` (from `request_metadata()`)
 #' @importFrom jsonlite toJSON
 #' @importFrom rlang abort
+#' @importFrom tibble tibble
 #' @noRd
 #' @keywords Internal
 collapse_media <- function(.query){
@@ -15,13 +16,13 @@ collapse_media <- function(.query){
     abort("Requests for metadata of type = \"media\" must have information passed via `filter()`")
   }
   occ <- .query$filter$data
-  if(any(colnames(occ) %in% c("images", "videos", "sounds"))){ # Australia, Sweden
+  if(any(colnames(occ) %in% c("images", "videos", "sounds"))){ # Australia, Sweden, Spain
     media_cols <- which(colnames(occ) %in% c("images", "videos", "sounds"))
     media_ids <- do.call(c, occ[, media_cols]) |>
       unlist()
     media_ids <- media_ids[!is.na(media_ids)]
-    names(media_ids) <- NULL    
-  }else if(any(colnames(occ) == "all_image_url")){ # Austria
+    names(media_ids) <- NULL
+  }else if(any(colnames(occ) == "all_image_url")){ # Austria, Sweden, UK
     media_ids <- pull(occ, "all_image_url")
     media_ids <- media_ids[!is.na(media_ids)]
     names(media_ids) <- NULL
@@ -29,13 +30,26 @@ collapse_media <- function(.query){
     abort("Media metadata not found in supplied tibble")
   }
   
-  result <- list(
-    type = "metadata/media",
-    url = url_lookup("metadata/media"),
-    headers = build_headers(),
-    body = toJSON(list(imageIds = media_ids)),
-    filter = .query$filter)
-  
+  # check suffix of api url
+  # if it is 'image', we loop across GET queries
+  api_lookup <- url_lookup("metadata/media")
+  if(grepl("%7Bimage%7D|\\{image\\}", basename(api_lookup))){
+    url_tibble <- tibble(url = url_lookup("metadata/media", 
+                                          image = media_ids))
+    result <- list(
+      type = "metadata/media",
+      url = url_tibble,
+      headers = build_headers(),
+      filter = .query$filter) # required?
+  # otherwise we POST all at once
+  }else{
+    result <- list(
+      type = "metadata/media",
+      url = api_lookup,
+      headers = build_headers(),
+      body = toJSON(list(imageIds = media_ids)),
+      filter = .query$filter)
+  }
   class(result) <- "query"
   return(result)
 }
@@ -121,6 +135,7 @@ build_file_path <- function(ids, types){
 #' @keywords Internal
 build_file_extension <- function(x){
   case_match(x,
+             "image/jpg" ~ "jpg",
              "image/jpeg" ~ "jpg",
              "image/png" ~ "png",
              "audio/mpeg" ~ "mpg",

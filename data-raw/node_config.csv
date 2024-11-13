@@ -39,7 +39,7 @@ Austria,metadata/fields-unnest,https://biocache.biodiversityatlas.at/ws/occurren
 Austria,metadata/licences,https://images.biodiversityatlas.at/ws/licence,TRUE
 Austria,metadata/lists,https://lists.biodiversityatlas.at/ws/speciesList/,TRUE
 Austria,metadata/lists-unnest,https://lists.biodiversityatlas.at/ws/speciesListItems/{list_id},TRUE
-Austria,metadata/media,https://images.biodiversityatlas.at/ws/image/,TRUE
+Austria,metadata/media,https://images.biodiversityatlas.at/ws/image/{image},TRUE
 Austria,metadata/providers,https://collectory.biodiversityatlas.at/ws/dataProvider,TRUE
 Austria,metadata/reasons,https://logger.biodiversityatlas.at/service/logger/reasons,TRUE
 Austria,metadata/taxa-single,https://bie.biodiversityatlas.at/ws/search?q={name}&pageSize=5,TRUE
@@ -57,7 +57,7 @@ Brazil,metadata/fields-unnest,https://biocache-service.sibbr.gov.br/biocache-ser
 Brazil,metadata/licences,https://images.sibbr.gov.br/images/ws/licence,TRUE
 Brazil,metadata/lists,https://specieslist.sibbr.gov.br/ws/speciesList/,TRUE
 Brazil,metadata/lists-unnest,https://specieslist.sibbr.gov.br/ws/speciesListItems/{list_id},TRUE
-Brazil,metadata/media,https://images.sibbr.gov.br/images/ws/image/,FALSE
+Brazil,metadata/media,https://images.sibbr.gov.br/ws/getImageInfoForIdList,TRUE
 Brazil,metadata/providers,https://collectory.sibbr.gov.br/collectory/ws/dataProvider,TRUE
 Brazil,metadata/taxa-single,https://bie-webservice.sibbr.gov.br/bie-index/search?q={name}&pageSize=5,TRUE
 Brazil,metadata/taxa-unnest,https://bie-webservice.sibbr.gov.br/bie-index/childConcepts/{id},TRUE
@@ -108,7 +108,7 @@ Guatemala,metadata/datasets,https://snib.conap.gob.gt/colecciones/ws/dataResourc
 Guatemala,metadata/fields,https://snib.conap.gob.gt/registros-ws/index/fields,TRUE
 Guatemala,metadata/fields-unnest,https://snib.conap.gob.gt/registros-ws/occurrence/facets,TRUE
 Guatemala,metadata/licences,https://imagenes.snib.conap.gob.gt/licence,TRUE
-Guatemala,metadata/media,https://imagenes.snib.conap.gob.gt/image/,FALSE
+Guatemala,metadata/media,https://imagenes.snib.conap.gob.gt/ws/imageInfoForList,TRUE
 Guatemala,metadata/providers,https://snib.conap.gob.gt/colecciones/ws/dataProvider,TRUE
 Guatemala,metadata/reasons,https://snib.conap.gob.gt/logger/service/logger/reasons,TRUE
 Guatemala,metadata/taxa-single,https://snib.conap.gob.gt/especies-ws/search?q={name}&pageSize=5,TRUE
@@ -123,7 +123,7 @@ Portugal,metadata/datasets,https://metadados.gbif.pt/ws/dataResource,TRUE
 Portugal,metadata/fields,https://registos-ws.gbif.pt/index/fields,TRUE
 Portugal,metadata/fields-unnest,https://registos-ws.gbif.pt/occurrence/facets,TRUE
 Portugal,metadata/licences,https://imagens.gbif.pt/ws/licence,TRUE
-Portugal,metadata/media,https://imagens.gbif.pt/ws/image/,FALSE
+Portugal,metadata/media,https://imagens.gbif.pt/ws/imageInfoForList,TRUE
 Portugal,metadata/providers,https://metadados.gbif.pt/ws/dataProvider,TRUE
 Portugal,metadata/reasons,https://logger.gbif.pt/service/logger/reasons,TRUE
 Portugal,metadata/taxa-single,https://api.gbif.org/v1/species/match?verbose=FALSE&name={name},TRUE
@@ -143,7 +143,7 @@ Spain,metadata/identifiers,https://name-matching.gbif.es/api/getByTaxonID,TRUE
 Spain,metadata/licences,https://imagenes.gbif.es/ws/licence,TRUE
 Spain,metadata/lists,https://listas.gbif.es/ws/speciesList,TRUE
 Spain,metadata/lists-unnest,https://listas.gbif.es/ws/speciesListItems/{list_id},TRUE
-Spain,metadata/media,https://imagenes.gbif.es/ws/image/,FALSE
+Spain,metadata/media,https://imagenes.gbif.es/ws/getImageInfoForIdList,TRUE
 Spain,metadata/profiles,https://data-quality.gbif.es/api/v1/data-profiles,TRUE
 Spain,metadata/profiles-unnest,https://data-quality.gbif.es/api/v1/quality/activeProfile?profileName={profile},TRUE
 Spain,metadata/providers,https://colecciones.gbif.es/ws/dataProvider,TRUE
@@ -187,7 +187,7 @@ United Kingdom,metadata/fields-unnest,https://records-ws.nbnatlas.org/occurrence
 United Kingdom,metadata/licences,https://images.nbnatlas.org/licence,TRUE
 United Kingdom,metadata/lists,https://lists.nbnatlas.org/ws/speciesList,TRUE
 United Kingdom,metadata/lists-unnest,https://lists.nbnatlas.org/ws/speciesListItems/{list_id},TRUE
-United Kingdom,metadata/media,https://images.nbnatlas.org/ws/getImageInfoForIdList,FALSE
+United Kingdom,metadata/media,https://images.nbnatlas.org/ws/getImageInfoForIdList,TRUE
 United Kingdom,metadata/providers,https://registry.nbnatlas.org/ws/dataProvider,TRUE
 United Kingdom,metadata/reasons,https://logger.nbnatlas.org/service/logger/reasons,TRUE
 United Kingdom,metadata/taxa-single,https://species-ws.nbnatlas.org/search?q={name}&pageSize=5,TRUE

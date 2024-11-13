@@ -173,9 +173,7 @@ validate_config <- function(name, value, error_call = caller_env()) {
          },
          "caching"         = enforce_logical(value),
          "directory"       = check_directory(value),
-         "download_reason_id" = {
-           value <- enforce_download_reason(value) |> 
-             convert_reason()},
+         "download_reason_id" = enforce_download_reason(value),
          "email"           = enforce_character(value),
          "password"        = enforce_character(value),
          "run_checks"      = enforce_logical(value),
@@ -229,24 +227,42 @@ enforce_character <- function(value, error_call = caller_env()){
 #' @noRd
 #' @keywords Internal
 enforce_download_reason <- function(value, error_call = caller_env()){
-  if (is.numeric(value) & !(value %in% show_all_reasons()$id)) {
-    bullets <- c(
-      "Invalid download reason ID.",
-      i = "Use `show_all(reasons)` to see all valid reasons.",
-      x = glue("{value} does not match an existing reason ID.")
-    )
-    abort(bullets, call = error_call)
-  } else {
-    if(is.character(value) & !(value %in% show_all_reasons()$name)) {
+  # first ensure API is available. Currently missing for Brazil, for example.
+  reasons_api_available <- url_lookup("metadata/reasons") |> 
+    try(silent = TRUE)
+  if(inherits(reasons_api_available, "try-error")){
+    return(1)
+  }else{
+    if (is.numeric(value) & !(value %in% show_all_reasons()$id)) {
       bullets <- c(
-        "Invalid download reason name.",
+        "Invalid download reason ID.",
         i = "Use `show_all(reasons)` to see all valid reasons.",
-        x = glue("\"{value}\" does not match an existing reason name.")
+        x = glue("{value} does not match an existing reason ID.")
       )
       abort(bullets, call = error_call)
+    } else {
+      if(is.character(value) & !(value %in% show_all_reasons()$name)) {
+        bullets <- c(
+          "Invalid download reason name.",
+          i = "Use `show_all(reasons)` to see all valid reasons.",
+          x = glue("\"{value}\" does not match an existing reason name.")
+        )
+        abort(bullets, call = error_call)
+      }
+    }
+    if (is.character(value) & (value %in% show_all_reasons()$name)) {
+      valid_reasons <- show_all_reasons()
+      value_id <- valid_reasons |>
+        filter(valid_reasons$name == value) |>
+        select("id") |>
+        pull("id")
+      inform(c("v" = glue("Matched \"{value}\" to valid download reason ID {value_id}.")))
+      value <- value_id
+      return(value)
+    }else{
+      value
     }
   }
-  value
 }
 
 #' catch all failure for unknown names
@@ -296,7 +312,6 @@ configure_atlas <- function(query){
   }
 }
 
-
 #' Provide a message if atlas is changed
 #' @importFrom glue glue
 #' @importFrom rlang inform
@@ -306,27 +321,5 @@ check_atlas <- function(current_data, new_data){
   if(new_data$region != current_data$region){
     inform(glue(
       "Atlas selected: {new_data$organisation} ({new_data$acronym}) [{new_data$region}]"))
-  }
-}
-
-
-#' Ensure download reasons are valid
-#' @importFrom rlang abort
-#' @importFrom glue glue
-#' @noRd
-#' @keywords Internal
-convert_reason <- function(value, error_call = caller_env()) {
-  # convert text reason to numeric reason id
-  if (is.character(value) & (value %in% show_all_reasons()$name)) {
-    valid_reasons <- show_all_reasons()
-    value_id <- valid_reasons |>
-      filter(valid_reasons$name == value) |>
-      select("id") |>
-      pull("id")
-    inform(c("v" = glue("Matched \"{value}\" to valid download reason ID {value_id}.")))
-    value <- value_id
-    return(value)
-  }else{
-    value
   }
 }

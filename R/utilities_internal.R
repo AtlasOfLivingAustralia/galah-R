@@ -49,7 +49,8 @@ rename_columns <- function(varnames, type) {
   varnames <- camel_to_snake_case(varnames)
   switch(type,
     "media" = {
-      varnames[varnames == "imageIdentifier"] <- "media_id"
+      varnames[varnames %in% c("image_identifier")] <- "image_id"
+      varnames[varnames == "mime_type"] <- "mimetype"
     },
     "taxa" = {
       varnames[varnames == "classs"] <- "class"
@@ -132,15 +133,110 @@ atlas_supports_reasons_api <- function(){
 
 ## show_all_atlases / search_atlases --------------------------#
 
+#' Internal function to populate `groups` arg in `select()`
+#' @noRd
+#' @keywords Internal
+preset_groups <- function(group_name) {
+  cols <- switch(group_name,
+                 "basic" = default_columns(),
+                 "event" = c("eventRemarks",
+                             "eventTime",
+                             "eventID",
+                             "eventDate",
+                             "samplingEffort",
+                             "samplingProtocol"),
+                 "media" = image_fields(),
+                 "taxonomy" = c("kingdom",
+                                "phylum",
+                                "class", 
+                                "order", 
+                                "family",
+                                "genus",
+                                "species",
+                                "subspecies"))
+  # note: assertions handled elsewhere
+  return(cols)
+}
+
+#' Internal function to specify 'basic' columns in `select()`
+#' @noRd
+#' @keywords Internal
+default_columns <- function() {
+  atlas <- pour("atlas", "region")
+  switch (atlas,
+          "Austria" = c("id",
+                        "taxon_name",
+                        "taxon_concept_lsid",
+                        "latitude",
+                        "longitude",
+                        "occurrence_date",
+                        "occurrence_status",
+                        "data_resource_uid"),
+          "Brazil" = c("id",
+                       "taxon_name",
+                       "taxon_concept_lsid",
+                       "latitude",
+                       "longitude",
+                       "occurrence_date",
+                       "occurrence_status",
+                       "data_resource_uid"),
+          "Guatemala" = c("id",
+                          "taxon_name",
+                          "taxon_concept_lsid",
+                          "latitude",
+                          "longitude",
+                          "occurrence_date",
+                          "occurrence_status",
+                          "data_resource_uid"),
+          "Portugal" = c("id",
+                         "taxon_name",
+                         "taxon_concept_lsid",
+                         "latitude",
+                         "longitude",
+                         "occurrence_date",
+                         "occurrence_status",
+                         "data_resource_uid"),
+          "Spain" = c("recordID",
+                      "scientificName",
+                      "taxonConceptID",
+                      "decimalLatitude",
+                      "decimalLongitude",
+                      "eventDate",
+                      "occurrenceStatus",
+                      "dataResourceUid"),
+          "United Kingdom" = c("id",
+                               "taxon_name",
+                               "taxon_concept_lsid",
+                               "latitude",
+                               "longitude",
+                               "occurrence_date",
+                               "occurrence_status",
+                               "data_resource_uid"),
+          c("recordID", # note this requires that the ALA name (`id`) be corrected
+            "scientificName",
+            "taxonConceptID",
+            "decimalLatitude",
+            "decimalLongitude",
+            "eventDate",
+            "occurrenceStatus",
+            "dataResourceName")
+  )
+}
+
 #' @noRd
 #' @keywords Internal
 image_fields <- function() {
   atlas <- pour("atlas", "region")
   switch (atlas,
           "Austria" = "all_image_url",
+          "Australia" = c("images", "sounds", "videos"),
+          "Brazil" = "all_image_url",
           "Guatemala" = "all_image_url",
-          "Spain" = "all_image_url",
-          c("images", "videos", "sounds")
+          "Portugal" = "all_image_url",
+          "Spain" = c("images", "sounds", "videos"),
+          "Sweden" = c("images", "videos", "sounds"),
+          "United Kingdom" = "all_image_url"
+          # Guatemala ?
   )
 }
 
@@ -148,7 +244,7 @@ image_fields <- function() {
 #' @keywords Internal
 species_facets <- function(){
   atlas <- pour("atlas", "region")
-  if(atlas %in% c("Australia", "France", "Spain", "Sweden")) { # i.e. those using 'pipelines'
+  if(atlas %in% c("Australia", "France", "Spain", "Sweden")) {
     "speciesID"
   }else{
     "species_guid"

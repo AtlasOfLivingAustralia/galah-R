@@ -233,63 +233,41 @@ test_that("atlas_occurrences works for Austria", {
   unlink("temp", recursive = TRUE)
 })
 
-test_that("atlas_media() fails for Austria", {
-  skip_if_offline()
-  galah_config(
-    atlas = "Austria",
-    email = "ala4r@ala.org.au", 
-    download_reason_id = "testing",
-    run_checks = TRUE,
-    send_email = FALSE)
-  expect_error({
-    request_data() |>
-      identify("Mammalia") |>
-      filter(!is.na(all_image_url),
-             year == 2010) |>
-      select(group = "basic", all_image_url) |>
-      atlas_media()
-  })
-  ## Note this actually works:
-  # x <- request_data() |>
-  #   identify("Mammalia") |>
-  #   filter(!is.na(all_image_url),
-  #          year == 2010) |>
-  #   # count() |>
-  #   select(group = "basic", all_image_url) |>
-  #   collect(wait = TRUE) |>
-  #   try(silent = TRUE)
-  # skip_if(inherits(x, "try-error"), message = "API not available")
-  # expect_gt(nrow(x), 0)
-  # # But fails below here, apparently because there is no bulk lookup API for images
-  # # for this service (ditto Brazil). Could code this if needed.
-  # y <- request_metadata() |>
-  #   filter(media == x) |>
-  #   collapse() |>
-  #   try(silent = TRUE)
-  # skip_if(inherits(y, "try-error"), message = "API not available")
-  # expect_gt(nrow(y), 0)
-})
+## Metadata API at images.biodiversityatlas.at currently down
+## Otherwise this API should be functional.
+# test_that("atlas_media() works for Austria", {
+#   skip_if_offline()
+#   galah_config(
+#     atlas = "Austria",
+#     email = "ala4r@ala.org.au", 
+#     download_reason_id = "testing",
+#     run_checks = TRUE,
+#     send_email = FALSE)
+#   x <- request_data() |>
+#     identify("Mammalia") |>
+#     filter(year == 2010,
+#            # !is.na(all_image_url)
+#     ) |>
+#     # count() |>
+#     # collect()
+#     atlas_media() |>
+#     try(silent = TRUE)
+#   skip_if(inherits(x, "try-error"), message = "API not available")
+#   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+#   expect_gte(nrow(x), 1)
+#   expect_equal(colnames(x)[1:2],
+#                c("media_id", "recordID"))
+#   # download a subset
+#   n_downloads <- 5
+#   collect_media(x[seq_len(n_downloads), ])
+#   expect_equal(length(list.files("temp", pattern = ".jpg$")),
+#                n_downloads)
+#   unlink("temp", recursive = TRUE)
+# })
 
 ## FIXME: atlas_taxonomy doesn't work
 test_that("atlas_taxonomy works for Austria", {
   skip_if_offline()
-  
-  ## FIXME: Obsolete syntax. Necessary test? ------------
-  # first test child values lookup
-  # taxon <- search_taxa("Reptilia")
-  # x <- request_values() |>
-    # filter(taxa == taxon$taxon_concept_id) |> # should be able to replace this with `identify()`
-    # collect()
-  # Note that this maxes out at 1000 rows. Clearly, there are two problems here:
-  # many taxa missing levels of their taxonomic hierarchy
-  # lack of pagination in `galah`
-  # add tests
-  # expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
-  # expect_gte(nrow(x), 10)
-  # expect_equal(ncol(x), 8)
-  # now test if recursive children works via `atlas_taxonomy()`
-  # ------------------------------
-  
   y <- galah_call() |>
     identify("Aves") |>
     filter(rank >= order) |>

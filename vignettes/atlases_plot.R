@@ -22,7 +22,11 @@ df <- paste0(data_dir, "/data-raw/node_config.csv") |>
   bind_rows( # add cached gbif data
     tibble(
       atlas = "Global",
-      type = c("data/species", "metadata/fields", "metadata/assertions"))) |>
+      type = c("data/species", "metadata/fields", "metadata/assertions")),
+    tibble(
+      atlas = c("Brazil", "Guatemala", "Portugal", "Spain", "United Kingdom"),
+      type = "files/media"
+    )) |>
   arrange(atlas, type) |>
   left_join(
     select(node_metadata, region, url),
@@ -64,6 +68,7 @@ count_df <- df_functions |>
   group_by(atlas) |>
   summarize(count = n())
 count_df$count[grepl("Global", count_df$atlas)] <- 100 # put GBIF on top
+count_df$count[grepl("Australia", count_df$atlas)] <- 90 # Australia second
 count_df <- count_df |>
   arrange(count) |>
   mutate(order = seq_len(nrow(node_metadata)))

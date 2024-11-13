@@ -755,11 +755,7 @@ check_select <- function(.query){
         unlist()
 
       # 3a: set 'identifier' column name
-      if(pour("atlas", "region") == "United Kingdom"){
-        id_col <- "id"
-      }else{
-        id_col <- "recordID"
-      }
+      id_col <- default_columns()[1]
       
       # 4: set behaviour depending on what names are given
       # NOTE:
