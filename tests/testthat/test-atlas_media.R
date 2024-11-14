@@ -138,10 +138,10 @@ test_that("atlas_media gives a warning when old arguments are used", {
 
 test_that("collect_media handles different file formats", {
   skip_if_offline()
-  galah_config(email = "ala4r@ala.org.au")
+  
   media_dir <- "test_media"
-  unlink(media_dir, recursive = TRUE)
-  dir.create(media_dir)
+  galah_config(email = "ala4r@ala.org.au", 
+               directory = media_dir)
   media_data <- galah_call() |>
     galah_identify("Regent Honeyeater") |>
     galah_filter(year == 2012) |>
@@ -159,10 +159,9 @@ test_that("collect_media handles different file formats", {
 
 test_that("collect_media handles thumbnails", {
   skip_if_offline()
-  galah_config(email = "ala4r@ala.org.au")
   media_dir <- "test_media"
-  unlink(media_dir, recursive = TRUE)
-  dir.create(media_dir)
+  galah_config(email = "ala4r@ala.org.au", 
+               directory = media_dir)
   z <- galah_call() |> 
     galah_identify("Candovia aberrata") |>
     galah_filter(year == 2023) |>

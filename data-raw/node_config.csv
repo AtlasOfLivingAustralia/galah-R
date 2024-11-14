@@ -1,7 +1,7 @@
 ﻿atlas,type,url,functional
 Australia,data/distributions-id,https://api.ala.org.au/spatial-service/distribution/{id},FALSE
 Australia,data/distributions-taxa,https://api.ala.org.au/spatial-service/distribution/lsids/{lsid}?nowkt=false,FALSE
-Australia,data/occurrences,https://biocache-ws.ala.org.au/ws/occurrences/offline/download,TRUE
+Australia,data/occurrences,https://api.ala.org.au/occurrences/occurrences/offline/download,TRUE
 Australia,data/occurrences-count,https://api.ala.org.au/occurrences/occurrences/search,TRUE
 Australia,data/occurrences-count-groupby,https://api.ala.org.au/occurrences/occurrences/facets,TRUE
 Australia,data/occurrences-doi,https://api.ala.org.au/doi/api/doi/{doi_string}/download,TRUE
@@ -73,7 +73,7 @@ Estonia,metadata/fields-unnest,https://elurikkus.ee/biocache-service/occurrence/
 Estonia,metadata/providers,https://elurikkus.ee/collectory/ws/dataProvider,TRUE
 Estonia,metadata/taxa-single,https://elurikkus.ee/bie-index/search?q={name}&pageSize=5,TRUE
 Estonia,metadata/taxa-unnest,https://elurikkus.ee/bie-index/childConcepts/{id},TRUE
-France,data/occurrences,https://openobs.mnhn.fr/biocache-service/occurrences/download,TRUE
+France,data/occurrences,https://openobs.mnhn.fr/biocache-service/occurrences/offline/download,TRUE
 France,data/occurrences-count,https://openobs.mnhn.fr/biocache-service/occurrences/search,TRUE
 France,data/occurrences-count-groupby,https://openobs.mnhn.fr/biocache-service/occurrence/facets,TRUE
 France,data/species,https://openobs.mnhn.fr/biocache-service/occurrences/facets/download,TRUE
@@ -113,6 +113,7 @@ Guatemala,metadata/providers,https://snib.conap.gob.gt/colecciones/ws/dataProvid
 Guatemala,metadata/reasons,https://snib.conap.gob.gt/logger/service/logger/reasons,TRUE
 Guatemala,metadata/taxa-single,https://snib.conap.gob.gt/especies-ws/search?q={name}&pageSize=5,TRUE
 Guatemala,metadata/taxa-unnest,https://snib.conap.gob.gt/especies-ws/childConcepts/{id},TRUE
+Portugal,data/occurrences,https://registos-ws.gbif.pt/occurrences/offline/download,FALSE
 Portugal,data/occurrences-count,https://registos-ws.gbif.pt/occurrences/search,TRUE
 Portugal,data/occurrences-count-groupby,https://registos-ws.gbif.pt/occurrence/facets,TRUE
 Portugal,data/species,https://registos-ws.gbif.pt/occurrences/facets/download,FALSE

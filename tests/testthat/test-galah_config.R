@@ -41,3 +41,13 @@ test_that("galah_config checks inputs", {
                verbose = FALSE,
                download_reason_id = "testing")
 })
+
+test_that("galah_config can swap between atlases", {
+  expect_message(galah_config(atlas = "GBIF"))
+  x <- galah_config()
+  expect_equal(x$atlas, 
+               list(organisation = "Global Biodiversity Information Facility",
+                    acronym = "GBIF",
+                    region = "Global"))
+  galah_config(atlas = "ALA")
+})

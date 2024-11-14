@@ -154,7 +154,7 @@ restructure_config <- function(dots){
   result <- lapply(names(dots),
          function(a){validate_config(a, dots[[a]])})
   names(result) <- names(dots)
-  return(result)
+  result
 }
 
 #' Catch errors in user-provided config
@@ -164,7 +164,7 @@ restructure_config <- function(dots){
 #' @noRd
 #' @keywords Internal
 validate_config <- function(name, value, error_call = caller_env()) {
-  switch(name, 
+  result <- switch(name, 
          "api_key"         = enforce_character(value),
          "atlas" = {
            value <- configure_atlas(value)
@@ -181,7 +181,7 @@ validate_config <- function(name, value, error_call = caller_env()) {
          "username"        = enforce_character(value),
          "verbose"         = enforce_logical(value),
          enforce_invalid_name(name))
-  return(value)
+  result
 }
 
 #' Ensure some arguments are logical
@@ -191,6 +191,8 @@ validate_config <- function(name, value, error_call = caller_env()) {
 enforce_logical <- function(value, error_call = caller_env()){
   if (!is.logical(value)) {
     abort("Supplied value must be TRUE or FALSE.", call = error_call)
+  }else{
+    value
   }
 }
 
@@ -204,7 +206,7 @@ enforce_exists <- function(value, error_call = caller_env()){
                  i = "Does the directory entered exist?")
     abort(bullets, call = error_call)
   }else{
-    return(value)
+    value
   }
 }
 
@@ -219,6 +221,8 @@ enforce_character <- function(value, error_call = caller_env()){
       i = "Value must be entered as a string."
     )
     abort(bullets, call = error_call)
+  }else{
+    value
   }
 }
 
@@ -228,6 +232,7 @@ enforce_character <- function(value, error_call = caller_env()){
 #' @keywords Internal
 enforce_download_reason <- function(value, error_call = caller_env()){
   # first ensure API is available. Currently missing for Brazil, for example.
+  
   reasons_api_available <- url_lookup("metadata/reasons") |> 
     try(silent = TRUE)
   if(inherits(reasons_api_available, "try-error")){
@@ -240,15 +245,13 @@ enforce_download_reason <- function(value, error_call = caller_env()){
         x = glue("{value} does not match an existing reason ID.")
       )
       abort(bullets, call = error_call)
-    } else {
-      if(is.character(value) & !(value %in% show_all_reasons()$name)) {
-        bullets <- c(
-          "Invalid download reason name.",
-          i = "Use `show_all(reasons)` to see all valid reasons.",
-          x = glue("\"{value}\" does not match an existing reason name.")
-        )
-        abort(bullets, call = error_call)
-      }
+    } else if(is.character(value) & !(value %in% show_all_reasons()$name)) {
+      bullets <- c(
+        "Invalid download reason name.",
+        i = "Use `show_all(reasons)` to see all valid reasons.",
+        x = glue("\"{value}\" does not match an existing reason name.")
+      )
+      abort(bullets, call = error_call)
     }
     if (is.character(value) & (value %in% show_all_reasons()$name)) {
       valid_reasons <- show_all_reasons()
@@ -257,8 +260,7 @@ enforce_download_reason <- function(value, error_call = caller_env()){
         select("id") |>
         pull("id")
       inform(c("v" = glue("Matched \"{value}\" to valid download reason ID {value_id}.")))
-      value <- value_id
-      return(value)
+      value_id
     }else{
       value
     }
@@ -322,4 +324,5 @@ check_atlas <- function(current_data, new_data){
     inform(glue(
       "Atlas selected: {new_data$organisation} ({new_data$acronym}) [{new_data$region}]"))
   }
+  new_data
 }

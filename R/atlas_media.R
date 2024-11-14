@@ -22,7 +22,7 @@ atlas_media <- function(request = NULL,
                         ) {
   
   atlas <- pour("atlas", "region", .pkg = "galah")
-  supported_atlases <- c("Austraila",
+  supported_atlases <- c("Australia",
                          # "Austria", # not currently working
                          "Brazil",
                          "Guatemala",
@@ -62,13 +62,13 @@ atlas_media <- function(request = NULL,
       pluck(!!!list(1))
     
     # abort if none are given
-    if(!any(selected_fields %in% media_fields)){
+    if(!any(selected_fields %in% image_fields())){
       selected_text <- paste(selected_fields, collapse = ", ")
       bullets <- c("No media fields requested by `select()`", 
                    i = glue("try `galah_select({selected_text}, group = 'media')` instead"))
       abort(bullets)
     }else{
-      present_fields <- selected_fields[selected_fields %in% media_fields]
+      present_fields <- selected_fields[selected_fields %in% image_fields()]
       query_collapse <- x
     }
   } # end `select` checks

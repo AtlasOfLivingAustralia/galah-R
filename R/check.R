@@ -499,15 +499,14 @@ check_media_cols_present <- function(.query, error_call = caller_env()){
     pluck("query", "fields") |>
     strsplit(",") |>
     pluck(1)
-  media_fields <- c("images", "videos", "sounds")
-  fields_check <- media_fields %in% fields
+  fields_check <- image_fields() %in% fields
   if(!any(fields_check)){
     abort(c("No media fields requested.",
             i = "Use `select()` to specify which media fields are required.",
             i = "Valid fields are 'images', 'videos' and 'sounds'."),
           call = error_call)
   }else{
-    media_fields[fields_check]
+    image_fields()[fields_check]
   }
 }
 

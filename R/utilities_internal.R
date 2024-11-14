@@ -180,6 +180,14 @@ default_columns <- function() {
                        "occurrence_date",
                        "occurrence_status",
                        "data_resource_uid"),
+          "France" = c("id",
+                       "scientificName",
+                       "taxonConceptID",
+                       "decimalLatitude",
+                       "decimalLongitude",
+                       "eventDate",
+                       "occurrenceStatus",
+                       "dataResourceUid"),
           "Guatemala" = c("id",
                           "taxon_name",
                           "taxon_concept_lsid",
@@ -229,12 +237,12 @@ image_fields <- function() {
   atlas <- pour("atlas", "region")
   switch (atlas,
           "Austria" = "all_image_url",
-          "Australia" = c("images", "sounds", "videos"),
+          "Australia" = c("multimedia", "images", "sounds", "videos"),
           "Brazil" = "all_image_url",
           "Guatemala" = "all_image_url",
           "Portugal" = "all_image_url",
-          "Spain" = c("images", "sounds", "videos"),
-          "Sweden" = c("images", "videos", "sounds"),
+          "Spain" = c("multimedia", "images", "sounds", "videos"),
+          "Sweden" = c("multimedia", "images", "videos", "sounds"),
           "United Kingdom" = "all_image_url"
           # Guatemala ?
   )

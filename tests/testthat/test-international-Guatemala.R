@@ -182,7 +182,7 @@ test_that("atlas_occurrences works for Guatemala", {
     try(silent = TRUE)
   skip_if(inherits(occ, "try-error"), message = "API not available")
   expect_gt(nrow(occ), 0)
-  expect_equal(ncol(occ), 2)
+  expect_equal(ncol(occ), 8)
   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
 })
 

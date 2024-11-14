@@ -131,7 +131,7 @@ test_that("unnest syntax works", {
     filter(field == "cl22") |>
     unnest() |>
     collect() 
-  expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
+  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_equal(colnames(x), "cl22")
   expect_gte(nrow(x), 1)
   # profiles
@@ -139,7 +139,7 @@ test_that("unnest syntax works", {
     filter(profile == "ALA") |>
     unnest() |>
     collect() 
-  expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(colnames(x), "cl22")
-  expect_gte(nrow(x), 1)
+  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
+  expect_gte(ncol(y), 4)
+  expect_gte(nrow(y), 1)
 })

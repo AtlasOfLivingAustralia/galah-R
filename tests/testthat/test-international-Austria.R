@@ -210,18 +210,23 @@ test_that("atlas_occurrences works for Austria", {
     download_reason_id = 10,
     run_checks = TRUE, ## FIXME: Test only works when run_checks = TRUE
     send_email = FALSE)
-  occ_collapse <- galah_call() |>
+  base_query <- galah_call() |>
     identify("Mammalia") |>
-    filter(year == 1990) |>
+    filter(year == 1990) 
+  counts <- base_query |>
+    count() |>
+    collect()
+  occ_collapse <- base_query |>
     select(species, year) |>
-    collapse()
+    collapse() |>
+    try(silent = TRUE)
   skip_if(inherits(occ_collapse, "try-error"), message = "API not available")
   expect_s3_class(occ_collapse, "query")
   expect_equal(names(occ_collapse), 
                c("type", "url", "headers", "filter"))
   expect_equal(occ_collapse$type, "data/occurrences")
   # compute
-  occ_compute <- compute(occ_collapse) # fails here
+  occ_compute <- compute(occ_collapse)
   expect_s3_class(occ_compute, "computed_query")
   # collect
   occ <- collect(occ_compute) |>
