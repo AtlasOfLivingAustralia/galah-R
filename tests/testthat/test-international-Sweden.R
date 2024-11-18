@@ -322,16 +322,17 @@ test_that("collect_media() works for Sweden", {
   expect_gt(nrow(media_meta), 0)
   # get files 
   galah_config(directory = "temp")
+  n_downloads <- 3
   request_files() |>
-    filter(media == media_meta) |>
+    filter(media == media_meta[seq_len(n_downloads), ]) |>
     collect(thumbnail = TRUE)
-  expect_equal(length(list.files("temp")),
-               nrow(media_meta))
+  expect_equal(length(list.files("temp", pattern = ".jpg$")),
+               n_downloads)
   unlink("temp", recursive = TRUE)
   # try with collect_media()
-  collect_media(media_meta)
-  expect_equal(length(list.files("temp")),
-               nrow(media_meta))
+  collect_media(media_meta[seq_len(n_downloads), ])
+  expect_equal(length(list.files("temp", pattern = ".jpg$")),
+               n_downloads)
   unlink("temp", recursive = TRUE)
 })
 

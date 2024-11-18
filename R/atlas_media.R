@@ -61,14 +61,18 @@ atlas_media <- function(request = NULL,
       strsplit(split = ",") |>
       pluck(!!!list(1))
     
-    # abort if none are given
-    if(!any(selected_fields %in% image_fields())){
+    # `multimedia` should be in `select`, but not `filter`
+    image_select <- image_fields()
+    image_select <- image_select[image_select != "multimedia"] 
+    
+    # abort if no fields are given to `select`
+    if(!any(selected_fields %in% image_select)){
       selected_text <- paste(selected_fields, collapse = ", ")
       bullets <- c("No media fields requested by `select()`", 
                    i = glue("try `galah_select({selected_text}, group = 'media')` instead"))
       abort(bullets)
     }else{
-      present_fields <- selected_fields[selected_fields %in% image_fields()]
+      present_fields <- selected_fields[selected_fields %in% image_select]
       query_collapse <- x
     }
   } # end `select` checks

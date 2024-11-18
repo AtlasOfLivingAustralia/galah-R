@@ -207,6 +207,7 @@ test_that("atlas_occurrences works for Austria", {
   galah_config(
     atlas = "Austria",
     email = "ala4r@ala.org.au", 
+    directory = "temp",
     download_reason_id = 10,
     run_checks = TRUE, ## FIXME: Test only works when run_checks = TRUE
     send_email = FALSE)
@@ -244,6 +245,7 @@ test_that("atlas_media() works for Austria", {
     atlas = "Austria",
     email = "ala4r@ala.org.au",
     download_reason_id = "testing",
+    directory = "temp",
     run_checks = TRUE,
     send_email = FALSE)
   x <- request_data() |>
