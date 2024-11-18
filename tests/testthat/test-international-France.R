@@ -165,19 +165,22 @@ test_that("atlas_occurrences works for France", {
     collect()
   occ_collapse <-  base_query |>
     # select(species, year) |>
-    collapse()
+    collapse() |>
+    try(silent = TRUE)
   skip_if(inherits(occ_collapse, "try-error"), message = "API not available")
   expect_s3_class(occ_collapse, "query")
   expect_equal(names(occ_collapse), 
                c("type", "url", "headers", "filter"))
   expect_equal(occ_collapse$type, "data/occurrences")
   # compute
-  occ_compute <- compute(occ_collapse)
+  occ_compute <- compute(occ_collapse) |>
+    try(silent = TRUE)
+  skip_if(inherits(occ_compute, "try-error"), message = "API not available")
   expect_s3_class(occ_compute, "computed_query")
   # collect
   occ <- collect(occ_compute) |>
     try(silent = TRUE)
-  skip_if(inherits(occ_compute, "try-error"), message = "API not available")
+  skip_if(inherits(occ, "try-error"), message = "API not available")
   expect_equal(nrow(occ), counts$count[1])
   expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
   expect_equal(ncol(occ), 8)

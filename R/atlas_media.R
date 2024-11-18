@@ -23,7 +23,7 @@ atlas_media <- function(request = NULL,
   
   atlas <- pour("atlas", "region", .pkg = "galah")
   supported_atlases <- c("Australia",
-                         # "Austria", # not currently working
+                         "Austria", # not currently working
                          "Brazil",
                          "Guatemala",
                          "Sweden", 

@@ -12,7 +12,6 @@
 collect_occurrences <- function(.query, wait, file = NULL){
   switch(pour("atlas", "region"),
          "Austria" = collect_occurrences_direct(.query, file = file),
-         "France" = collect_occurrences_direct(.query, file = file),
          "United Kingdom" = collect_occurrences_direct(.query, file = file),
          collect_occurrences_default(.query, wait = wait, file = file))
 }

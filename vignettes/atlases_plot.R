@@ -24,7 +24,7 @@ df <- paste0(data_dir, "/data-raw/node_config.csv") |>
       atlas = "Global",
       type = c("data/species", "metadata/fields", "metadata/assertions")),
     tibble(
-      atlas = c("Brazil", "Guatemala", "Portugal", "Spain", "United Kingdom"),
+      atlas = c("Austria", "Brazil", "Guatemala", "Portugal", "Spain", "United Kingdom"),
       type = "files/media"
     )) |>
   arrange(atlas, type) |>
@@ -48,12 +48,15 @@ df_functions$group <- factor(
   levels = seq_len(3),
   labels = c("metadata", "data", "files"))
 
+# add extra space to distinguish between "metadata/media" and "files/media"
+df_functions$type[df_functions$type == "media" & df_functions$group == "files"] <- "media "
+
 # order types
 count_df <- df_functions |>
   group_by(type) |>
   summarize(count = n()) |>
   arrange(desc(count)) |>
-  mutate(order = seq_len(23))
+  mutate(order = seq_len(24))
 
 type_seq <- lapply(df_functions$type, function(a){
   count_df$order[which(count_df$type == a)]

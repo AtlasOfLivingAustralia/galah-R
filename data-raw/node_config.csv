@@ -39,7 +39,7 @@ Austria,metadata/fields-unnest,https://biocache.biodiversityatlas.at/ws/occurren
 Austria,metadata/licences,https://images.biodiversityatlas.at/ws/licence,TRUE
 Austria,metadata/lists,https://lists.biodiversityatlas.at/ws/speciesList/,TRUE
 Austria,metadata/lists-unnest,https://lists.biodiversityatlas.at/ws/speciesListItems/{list_id},TRUE
-Austria,metadata/media,https://images.biodiversityatlas.at/ws/image/{image},TRUE
+Austria,metadata/media,https://images.biodiversityatlas.at/ws/imageInfoForList,TRUE
 Austria,metadata/providers,https://collectory.biodiversityatlas.at/ws/dataProvider,TRUE
 Austria,metadata/reasons,https://logger.biodiversityatlas.at/service/logger/reasons,TRUE
 Austria,metadata/taxa-single,https://bie.biodiversityatlas.at/ws/search?q={name}&pageSize=5,TRUE
@@ -178,7 +178,7 @@ Sweden,metadata/taxa-unnest,https://species.biodiversitydata.se/ws/childConcepts
 United Kingdom,data/occurrences,https://records-ws.nbnatlas.org/occurrences/index/download,TRUE
 United Kingdom,data/occurrences-count,https://records-ws.nbnatlas.org/occurrences/search,TRUE
 United Kingdom,data/occurrences-count-groupby,https://records-ws.nbnatlas.org/occurrence/facets,TRUE
-United Kingdom,data/species,https://records-ws.nbnatlas.org/occurrences/facets/download,FALSE
+United Kingdom,data/species,https://records-ws.nbnatlas.org/occurrences/facets/download,TRUE
 United Kingdom,data/species-count,https://records-ws.nbnatlas.org/occurrence/facets,TRUE
 United Kingdom,metadata/assertions,https://records-ws.nbnatlas.org/assertions/codes,TRUE
 United Kingdom,metadata/collections,https://registry.nbnatlas.org/ws/collection,TRUE

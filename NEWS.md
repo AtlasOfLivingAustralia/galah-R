@@ -1,14 +1,19 @@
-# galah 2.0.3
+# galah 2.1.0
+
+## Major improvements
+Support media downloads for all atlases except GBIF and France (for whom these APIs are not yet supported)
 
 ### Minor improvements
-* Support media downloads for most atlases (Brazil, Guatemala, Spain, Sweden and Portugal) in addition to ALA
+* Reorganise help files for improved clarity, largely following `dplyr` syntax
 * Support data profiles for Sweden and Spain
-* Update to new APIs from Austria (#231)
+* Temporarily remove Estonian atlas (https://elurikkus.ee) during system upgrades
+
+### Bug fixes
 * Species downloads (via `atlas_species()`) now work for Sweden, France, and Spain (#234)
-* `select()` now works for species downloads (i.e. via `atlas_species()`; #227)
-* reorganise help files for improved clarity
-* Swap to new ALA APIs (issue no.)
-* Fix bugs in filter, group by etc not recognising fields (FIX MEDIA FIRST)
+* `select()` now works for species downloads (i.e. via `atlas_species()`; #185, #227)
+* Swap to new APIs for Australia (#163) and Austria (#231, #242)
+* Fix bugs in `filter`, `group_by` etc. not recognising fields (#237)
+* Re-add taxonomic help under `?taxonomic_searches` (#241)
 
 # galah 2.0.2
 

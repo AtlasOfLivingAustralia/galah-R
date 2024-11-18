@@ -30,26 +30,12 @@ collapse_media <- function(.query){
     abort("Media metadata not found in supplied tibble")
   }
   
-  # check suffix of api url
-  # if it is 'image', we loop across GET queries
-  api_lookup <- url_lookup("metadata/media")
-  if(grepl("%7Bimage%7D|\\{image\\}", basename(api_lookup))){
-    url_tibble <- tibble(url = url_lookup("metadata/media", 
-                                          image = media_ids))
-    result <- list(
-      type = "metadata/media",
-      url = url_tibble,
-      headers = build_headers(),
-      filter = .query$filter) # required?
-  # otherwise we POST all at once
-  }else{
-    result <- list(
-      type = "metadata/media",
-      url = api_lookup,
-      headers = build_headers(),
-      body = toJSON(list(imageIds = media_ids)),
-      filter = .query$filter)
-  }
+  result <- list(
+    type = "metadata/media",
+    url = url_lookup("metadata/media"),
+    headers = build_headers(),
+    body = toJSON(list(imageIds = media_ids)),
+    filter = .query$filter)
   class(result) <- "query"
   return(result)
 }

@@ -249,7 +249,6 @@ test_that("galah_filter handles lsid as an input", {
            "https://id.biodiversity.org.au/node/apni/2910467",
            "https://id.biodiversity.org.au/node/apni/291047") # wrong id
   query <- galah_call() |>
-    # galah_identify(ids, search = FALSE) |>
     galah_filter(year == 2020,
                  lsid == ids) |>
     count() |>

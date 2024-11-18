@@ -9,39 +9,6 @@
 #' @noRd
 #' @keywords Internal
 collect_media_metadata <- function(.query){
-  if(is.null(.query$body)){
-    collect_media_metadata_GET(.query)
-  }else{
-    collect_media_metadata_POST(.query)
-  }
-}
-
-#' Internal function for processing GET media metadata queries
-#' @noRd
-#' @keywords Internal
-collect_media_metadata_GET <- function(.query){
-  result <- lapply(query_API(.query), 
-                   build_tibble_from_nested_list) |> 
-    bind_rows() 
-  if(nrow(result) < 1){ # case where no data returned
-    if(pour("package", "verbose")){
-      warn("No data returned from `metadata/media` API")
-    }
-    ids <- basename(.query$url$url)
-    result <- tibble(image_id = ids)
-  }else{
-    colnames(result) <- rename_columns(names(result), type = "media")
-  }
-  # Select only the rows and columns we want 
-  result |> 
-    filter(!is.na(result$image_id)) |>
-    select(any_of(wanted_columns("media")))
-}
-
-#' Internal function for processing POST media metadata queries
-#' @noRd
-#' @keywords Internal
-collect_media_metadata_POST <- function(.query){
   result <- query_API(.query) |>
     pluck("results") |>
     bind_rows()   

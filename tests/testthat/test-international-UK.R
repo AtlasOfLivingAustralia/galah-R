@@ -176,7 +176,7 @@ test_that("atlas_counts works with group_by for United Kingdom", {
   expect_equal(names(result), c("year", "count"))
 })
 
-test_that("atlas_species fails for UK due to unavailable API", {
+test_that("atlas_species works for United Kingdom, but doesn't return data", {
   skip_if_offline()
   galah_config(
     atlas = "United Kingdom",
@@ -184,9 +184,12 @@ test_that("atlas_species fails for UK due to unavailable API", {
     run_checks = TRUE,
     download_reason_id = 10,
     send_email = FALSE)
-  expect_error({galah_call(type = "species") |>
+  x <- galah_call() |>
       identify("Canidae") |>
-      atlas_species()})
+      atlas_species()
+  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(nrow(x), 0)
+  expect_equal(ncol(x), 0)
 })
 
 test_that("atlas_occurrences works for United Kingdom", {
