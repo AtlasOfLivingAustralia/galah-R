@@ -95,7 +95,7 @@ transforming them with `sf::st_as_sfc()`.
 
 For instance, we might interested in species occurrences in King George Square, 
 Brisbane. We can take the `MULTIPOLYGON` object for the square (as sourced from 
-the [Brisbane City Council](https://www.data.brisbane.qld.gov.au/data/dataset/park-locations)) 
+the [Brisbane City Council](https://data.brisbane.qld.gov.au/data/dataset/park-locations)) 
 and transform it into `sfc` and then `sf` objects.
 
 ```{r}
@@ -156,10 +156,9 @@ a mock workflow using a subset of a shapefile of
 [all 2,184 Brisbane parks](https://www.data.brisbane.qld.gov.au/data/dataset/park-locations).
 
 Let's say we are interested in knowing which parks in the Brisbane postcode 4075 
-have the most occurrences of the Scaly-Breasted Lorikeet, 
-[*Trichoglossus chlorolepidotus*](https://bie.ala.org.au//species/https://biodiversity.org.au/afd/taxa/ecaca7ec-da2e-4c6b-b190-14e7a1738884), 
-since 2020. We can download the entire shapefile from the above link, and 
-perform our filtering and summarising as follows:
+have the most occurrences of the Scaly-Breasted Lorikeet (*Trichoglossus 
+chlorolepidotus*) since 2020. We can download the entire shapefile from the 
+link above, and perform our filtering and summarising as follows:
 
 ```{r, include = FALSE}
 # import actual data (WILL NEED TO SET YOUR OWN FILE PATH HERE)

@@ -1,7 +1,7 @@
 # galah 2.1.0
 
-## Major improvements
-Support media downloads for all atlases except GBIF and France (for whom these APIs are not yet supported)
+### Image downloads
+galah now supports media downloads for all atlases. The only exceptions are GBIF and France, for whom these APIs are not supported (yet)
 
 ### Minor improvements
 * Reorganise help files for improved clarity, largely following `dplyr` syntax
@@ -128,7 +128,7 @@ The current implementation is experimental and back-end changes are expected in 
 
 ### Minor improvements
 * `galah_config()` gains a `print` function, and now uses fuzzy matching for the `atlas` field to match to region, organisation or acronym (as defined by `show_all(atlases)`). An example use case is to match to organisations via acronyms, e.g. `galah_config(atlas = "ALA")`.
-* Improved support for data from Spain via [gbif.es](https://www.gbif.es) (name-matching, lists, spatial)
+* Improved support for data from Spain via [gbif.es](https://gbif.es) (name-matching, lists, spatial)
 * Swapped provider for data from France; formerly [gbif.fr](http://www.gbif.fr), now [OpenObs](https://openobs.mnhn.fr), as per advice from maintainers
 * Reading data from disk now uses `readr::read_csv` in place of `utils::read.csv` for improved speed
 * `show_all` (and associated sub-functions) gain a `limit` argument, set to NULL (i.e. no limit) by default

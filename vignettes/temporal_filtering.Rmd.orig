@@ -57,8 +57,7 @@ or character values within `filter()`.
 One limitation of using these fields for queries with `filter()` is their 
 independence; they cannot be used to query within windows bounded by two dates 
 because the day and month filters are applied universally. For instance, consider 
-the native perennial Australian wildflower 
-[*Chamaescilla corymbosa*](https://bie.ala.org.au/species/https://id.biodiversity.org.au/node/apni/2920316), 
+the native perennial Australian wildflower *Chamaescilla corymbosa*, 
 whose known growth and flowering times are from August–October. We might be 
 interested in the number of records for this species in the first week of spring 
 (i.e. September) in each of the last 10 years. The following query does not 

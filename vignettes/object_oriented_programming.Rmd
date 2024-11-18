@@ -1,7 +1,7 @@
 ---
 title: "Object-Oriented Programming"
 author: "Martin Westgate & Dax Kellie"
-date: '2024-11-06'
+date: '2024-11-19'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -53,7 +53,7 @@ galah_call() |>
 ##    species                 count
 ##    <chr>                   <int>
 ##  1 Crinia signifera        42621
-##  2 Crinia parinsignifera    8663
+##  2 Crinia parinsignifera    8664
 ##  3 Crinia glauerti          3111
 ##  4 Crinia georgiana         1509
 ##  5 Crinia remota             718
@@ -209,21 +209,22 @@ request_data() |>
 
 ```
 ## Object of class query with type data/occurrences 
-## url: https://biocache-ws.ala.org.au/ws/occurrences/offline/download?fq=%28y...
+## url: https://api.ala.org.au/occurrences/occurrences/offline/download?fq=%28...
 ```
 
 The `collapse()` stage includes an additional argument (`.expand`) that, 
 when set to `TRUE`, shows all the APIs called to construct the user-requested
 query. This is especially useful for debugging.
 
-## New object classes
+## Object classes
 
-Under the hood, the different query-building verbs amend our object to a new class:
+Under the hood, the different query-building verbs each amend the supplied 
+object to a new class:
 
 - `collapse()` returns class `query`, which is a list containing a `type` slot
    and one or more `url`s
 - `compute()` returns a single object of class `computed_query`
-- `collect()` doesn't add a new data class (returns class `tibble`)
+- `collect()` returns a `tibble`
 
 These can be called directly, or via the `method` and `type` arguments of 
 `galah_call()`, which specify which dedicated `request_` function and data type 
@@ -283,13 +284,11 @@ search_all(fields, "cl22") |>
   show_values()
 ```
 
-Although there is little reason to use `request_metadata()` rather than 
-`show_all()` most of the time, in some cases larger databases like 
-GBIF return huge `data.frame`s of metadata. galah allows users to use 
-`collapse()`, `compute()` and `collect()` on all types of requests, meaning 
-users are able to download large metadata queries using the process detailed 
-above in "Advanced query building" to get around this issue.
-
+While `request_metadata()` is more modular than `show_all()`, there is 
+little benefit to using it for most applications. However, in some cases,
+larger databases like GBIF return huge `data.frame`s of metadata when called 
+via `show_all()`. Using `request_metdata()` allows users to specify a 
+`slice_head()` line within their pipe to get around this issue.
 
 ## Which syntax should I prefer?
 
