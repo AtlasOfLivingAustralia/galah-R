@@ -23,7 +23,8 @@ test_that("atlas_occurrences gives a nice error for invalid emails", {
   galah_config(email = "ala4r@ala.org.au")
 })
 
-test_that("collapse(type = 'occurrences') creates an object, but doesn't ping an API", {
+test_that("collapse(type = 'occurrences') creates an object", {
+  skip_if_offline()
   result <- galah_call() |> 
     identify("Perameles") |>
     collapse()
