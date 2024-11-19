@@ -49,6 +49,7 @@ atlas_media <- function(request = NULL,
     .query <- update_data_request(.query, 
                                   select = galah_select(group = c("basic", "media")))
     present_fields <- image_fields()
+    present_fields <- present_fields[present_fields != "multimedia"] # check these fields for Spain
     query_collapse <- collapse(.query)
     # if `select` is present, ensure that at least one 'media' field is requested
   }else{

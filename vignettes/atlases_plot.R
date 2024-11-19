@@ -112,7 +112,7 @@ p <- ggplot(df_functions,
     plot.margin = margin(2, 8, 0, 2, unit = "mm"),
     legend.position = "none")
 
-ggsave("./vignettes/atlases_plot.png", 
+ggsave("./man/figures/atlases_plot.png",
        width = 8, 
        height = 5.5, 
        units = "in")
