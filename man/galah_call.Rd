@@ -15,7 +15,11 @@ request_data(
   ...
 )
 
-request_metadata(type)
+request_metadata(
+  type = c("fields", "apis", "assertions", "atlases", "collections", "datasets",
+    "licences", "lists", "media", "profiles", "providers", "ranks", "reasons", "taxa",
+    "identifiers")
+)
 
 request_files(type = "media")
 }
@@ -26,12 +30,26 @@ of \code{"data"} (default), \code{"metadata"} or \code{"files"}}
 \item{type}{string: what form of data should be returned? Acceptable values
 are specified by the corresponding \code{request} function}
 
-\item{...}{Zero or more arguments to alter a query. See 'details'.}
+\item{...}{Zero or more arguments passed to
+\code{\link[=collapse.data_request]{collapse()}} to alter a query. Currently
+only \code{mint.doi} (for occurrences) and \code{thumbnail} (for media downloads) are
+supported. Both are logical.}
 }
 \value{
 Each sub-function returns a different object class: \code{request_data()}
 returns \code{data_request}. \code{request_metadata} returns \code{metadata_request},
-\code{request_files()} returns \code{files_request}.
+\code{request_files()} returns \code{files_request}. These objects are list-like and
+contain the following slots:
+\itemize{
+\item \code{filter}: edit by piping \code{\link[=filter.data_request]{filter()}} or \code{\link[=galah_filter]{galah_filter()}}.
+\item \code{select}: edit by piping \code{\link[=filter.data_request]{select}} or \code{\link[=galah_select]{galah_select()}}.
+\item \code{group_by}: edit by piping \code{\link[=group_by.data_request]{group_by()}} or \code{\link[=galah_group_by]{galah_group_by()}}.
+\item \code{identify}: edit by piping \code{\link[=identify.data_request]{identify()}} or \code{\link[=galah_identify]{galah_identify()}}.
+\item \code{geolocate}: edit by piping \code{\link[=st_crop.data_request]{st_crop()}},
+\code{\link[=galah_geolocate]{galah_geolocate()}}, \code{\link[=galah_polygon]{galah_polygon()}} or \code{\link[=galah_bbox]{galah_bbox()}}.
+\item \code{limit}: edit by piping \code{\link[=slice_head.data_request]{slice_head()}}.
+\item \code{doi}: edit by piping \code{\link[=filter.data_request]{filter(doi == "my-doi-here")}}.
+}
 }
 \description{
 To download data from the selected atlas, one must construct a query. This
@@ -39,45 +57,26 @@ query tells the atlas API what data to download and return, as well as how it
 should be filtered. Using \code{galah_call()} allows you to build a piped query to
 download data, in the same way that you would wrangle data with \code{dplyr} and
 the \code{tidyverse}.
+}
+\details{
+In practice, \code{galah_call()} is a wrapper to a group of underlying
+\code{request_} functions, selected using the \code{method} argument.
+Each of these functions can begin a piped query and end with \code{collapse()},
+\code{compute()} or \code{collect()}, or optionally one of the \code{atlas_} family of
+functions. For more details see the object-oriented programming vignette:
+\code{vignette("object_oriented_programming", package = "galah")}
 
-Since version 2.0, \code{galah_call()} is a wrapper to a group of underlying
-\code{request_} functions. Each of these functions can begin a piped query and end
-with \code{collapse()}, \code{compute()} or \code{collect()}.
+Accepted values of the \code{type} argument are set by the underlying \code{request_}
+functions. While all accepted types can be set directly, some are affected
+by later functions. The most common example is that adding
+\code{\link[=count.data_request]{count()}} to a pipe updates \code{type},
+converting \code{type = "occurrences"} to \code{type = "occurrences-count"} (and ditto
+for \code{type = "species"}).
 
-The underlying \code{request_} #' functions are useful because they allow \code{galah}
+The underlying \code{request_} functions are useful because they allow \code{galah}
 to separate different types of requests to perform better. For example,
 \code{filter.data_request} translates filters in R to \code{solr}, whereas
 \code{filter.metadata_request} searches using a search term.
-
-For more details see the object-oriented programming vignette:
-\code{vignette("object_oriented_programming", package = "galah")}
-}
-\details{
-Each atlas has several types of data that can be chosen. Currently supported
-are \code{"occurrences"} (the default), \code{"species"} and \code{"media"} (the latter
-currently only for ALA). It is also possible to use
-\code{type = "occurrences-count"} and \code{type = "species-count"}; but in practice
-this is synonymous with \code{galah_call() |> count()}, and is
-therefore only practically useful for debugging (via \code{collapse()} and
-\code{compute()}).
-
-Other named arguments are supported via \code{...}. In practice, functions
-with a \code{galah_} prefix and S3 methods ported from \code{dplyr} assign
-information to the correct slots internally. Overwriting these with
-user-defined alternatives is possible, but not advised. Accepted
-arguments are:
-\itemize{
-\item \code{filter} (accepts \code{galah_filter()} or \code{\link[=filter.data_request]{filter()}})
-\item \code{select} (accepts \code{galah_select()} or \code{\link[=filter.data_request]{select}})
-\item \code{group_by} (accepts \code{galah_group_by()} or \code{\link[=group_by.data_request]{group_by()}})
-\item \code{identify} (accepts \code{galah_identify()} or \code{\link[=identify.data_request]{identify()}})
-\item \code{geolocate} (accepts \code{galah_geolocate()}, \code{galah_polygon()} \code{galah_bbox()} or
-\code{\link[=st_crop.data_request]{st_crop()}})
-\item \code{limit} (accepts \code{\link[=slice_head.data_request]{slice_head()}})
-\item \code{doi} (accepts a sting listing a valid DOI, specific to \code{collect()} when \code{type = "doi"})
-}
-
-Unrecognised names are ignored by \code{collect()} and related functions.
 }
 \examples{
 \dontrun{ 
@@ -85,39 +84,39 @@ Unrecognised names are ignored by \code{collect()} and related functions.
 
 # Get number of records of *Aves* from 2001 to 2004 by year
 galah_call() |>
-  galah_identify("Aves") |>
-  galah_filter(year > 2000 & year < 2005) |>
-  galah_group_by(year) |>
+  identify("Aves") |>
+  filter(year > 2000 & year < 2005) |>
+  group_by(year) |>
   atlas_counts()
   
 # Get information for all species in *Cacatuidae* family
 galah_call() |>
-  galah_identify("Cacatuidae") |>
+  identify("Cacatuidae") |>
   atlas_species()
   
 # Download records of genus *Eolophus* from 2001 to 2004
 galah_config(email = "your-email@email.com")
 
 galah_call() |>
-  galah_identify("Eolophus") |>
-  galah_filter(year > 2000 & year < 2005) |>
-  atlas_occurrences()
+  identify("Eolophus") |>
+  filter(year > 2000 & year < 2005) |>
+  atlas_occurrences() # synonymous with `collect()`
 
 
-# ----------
-# Since galah 2.0.0, a pipe can start with a `request_` function.
-# This allows users to use `collapse()`, `compute()` and `collect()`.
+# galah_call() is a wrapper to various `request_` functions.
+# These can be called directly for greater specificity.
 
 # Get number of records of *Aves* from 2001 to 2004 by year
-request_data(type = "occurrences-count") |>
-  galah_identify("Aves") |>
-  galah_filter(year > 2000 & year < 2005) |>
-  galah_group_by(year) |>
+request_data() |>
+  identify("Aves") |>
+  filter(year > 2000 & year < 2005) |>
+  group_by(year) |>
+  count() |>
   collect()
 
 # Get information for all species in *Cacatuidae* family
 request_data(type = "species") |>
-  galah_identify("Cacatuidae") |>
+  identify("Cacatuidae") |>
   collect()
   
 # Get metadata information about supported atlases in galah

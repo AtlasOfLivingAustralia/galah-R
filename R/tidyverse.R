@@ -17,7 +17,7 @@
 #' @returns 
 #'  - `galah::desc()` returns a `tibble` used by `arrange.data_request()` to arrange rows of a query. 
 #'  - `galah::unnest()` returns an object of class `metadata_request`.
-#' @seealso [arrange.data_request()], [galah_call()]
+#' @seealso \code{\link[=arrange.data_request]{arrange()}}, [galah_call()]
 #' @examples \dontrun{
 #' # Arrange grouped record counts by descending year
 #' galah_call() |>

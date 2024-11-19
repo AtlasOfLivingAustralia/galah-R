@@ -75,7 +75,7 @@ build_query_set_data <- function(x, mint_doi, ...){
     if(!fields_absent[["select"]] | x$type %in% c("occurrences", "species")){
       result <- list(collapse_fields(), collapse_assertions())
     }else{
-      result <- list() 
+      result <- list()
     }
   }
   # handle `identify()`

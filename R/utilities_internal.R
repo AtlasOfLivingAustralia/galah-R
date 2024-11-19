@@ -49,7 +49,8 @@ rename_columns <- function(varnames, type) {
   varnames <- camel_to_snake_case(varnames)
   switch(type,
     "media" = {
-      varnames[varnames == "imageIdentifier"] <- "media_id"
+      varnames[varnames %in% c("image_identifier")] <- "image_id"
+      varnames[varnames == "mime_type"] <- "mimetype"
     },
     "taxa" = {
       varnames[varnames == "classs"] <- "class"
@@ -83,36 +84,6 @@ camel_to_snake_case <- function(x){
     trimws(which = "both") |> # end spaces
     gsub("\\.+|\\s+", "_", x = _) |> # internal dots or spaces
     tolower()
-}
-
-#' Simple internal function to split strings
-#' @importFrom stringr str_extract_all
-#' @noRd
-#' @keywords Internal
-string_to_tibble <- function(string, split_by = c(":")){
-  # everything after ( and before : except *
-  # OR
-  # everything after "OR " and before : except *
-  # OR
-  # everything after "AND " and before : except *
-  extracted_strings <-
-    stringr::str_extract_all(
-      string, 
-      "(?<=\\()[^\\*]*?(?=\\:)|(?<=OR\\s)[^\\*]*?(?=\\:)|(?<=AND\\s)[^\\*]*?(?=\\:)"
-      ) |>
-    unlist() |>
-    stringr::str_remove("-") |>
-    as_tibble() |>
-    unique()
-  return(extracted_strings)
-  
-  ## Old code
-  # x <- strsplit(string, split_by) 
-  # x_df <- do.call(rbind, x) |> 
-  #   as.data.frame() |>
-  #   tibble()
-  # colnames(x_df) <- c("variable", "value")
-  # return(x_df)
 }
 
 ##---------------------------------------------------------------
@@ -162,21 +133,137 @@ atlas_supports_reasons_api <- function(){
 
 ## show_all_atlases / search_atlases --------------------------#
 
+#' Internal function to populate `groups` arg in `select()`
+#' @noRd
+#' @keywords Internal
+preset_groups <- function(group_name) {
+  cols <- switch(group_name,
+                 "basic" = default_columns(),
+                 "event" = c("eventRemarks",
+                             "eventTime",
+                             "eventID",
+                             "eventDate",
+                             "samplingEffort",
+                             "samplingProtocol"),
+                 "media" = image_fields(),
+                 "taxonomy" = c("kingdom",
+                                "phylum",
+                                "class", 
+                                "order", 
+                                "family",
+                                "genus",
+                                "species",
+                                "subspecies"))
+  # note: assertions handled elsewhere
+  return(cols)
+}
+
+#' Internal function to specify 'basic' columns in `select()`
+#' @noRd
+#' @keywords Internal
+default_columns <- function() {
+  atlas <- pour("atlas", "region")
+  switch (atlas,
+          "Austria" = c("id",
+                        "taxon_name",
+                        "taxon_concept_lsid",
+                        "latitude",
+                        "longitude",
+                        "occurrence_date",
+                        "occurrence_status",
+                        "data_resource_uid"),
+          "Brazil" = c("id",
+                       "taxon_name",
+                       "taxon_concept_lsid",
+                       "latitude",
+                       "longitude",
+                       "occurrence_date",
+                       "occurrence_status",
+                       "data_resource_uid"),
+          "France" = c("id",
+                       "scientificName",
+                       "taxonConceptID",
+                       "decimalLatitude",
+                       "decimalLongitude",
+                       "eventDate",
+                       "occurrenceStatus",
+                       "dataResourceUid"),
+          "Guatemala" = c("id",
+                          "taxon_name",
+                          "taxon_concept_lsid",
+                          "latitude",
+                          "longitude",
+                          "occurrence_date",
+                          "occurrence_status",
+                          "data_resource_uid"),
+          "Portugal" = c("id",
+                         "taxon_name",
+                         "taxon_concept_lsid",
+                         "latitude",
+                         "longitude",
+                         "occurrence_date",
+                         "occurrence_status",
+                         "data_resource_uid"),
+          "Spain" = c("recordID",
+                      "scientificName",
+                      "taxonConceptID",
+                      "decimalLatitude",
+                      "decimalLongitude",
+                      "eventDate",
+                      "occurrenceStatus",
+                      "dataResourceUid"),
+          "United Kingdom" = c("id",
+                               "taxon_name",
+                               "taxon_concept_lsid",
+                               "latitude",
+                               "longitude",
+                               "occurrence_date",
+                               "occurrence_status",
+                               "data_resource_uid"),
+          c("recordID", # note this requires that the ALA name (`id`) be corrected
+            "scientificName",
+            "taxonConceptID",
+            "decimalLatitude",
+            "decimalLongitude",
+            "eventDate",
+            "occurrenceStatus",
+            "dataResourceName")
+  )
+}
+
+#' @noRd
+#' @keywords Internal
 image_fields <- function() {
   atlas <- pour("atlas", "region")
   switch (atlas,
           "Austria" = "all_image_url",
+          "Australia" = c("multimedia", "images", "sounds", "videos"),
+          "Brazil" = "all_image_url",
           "Guatemala" = "all_image_url",
-          "Spain" = "all_image_url",
-          c("images", "videos", "sounds")
+          "Portugal" = "all_image_url",
+          "Spain" = c("multimedia", "images", "sounds", "videos"),
+          "Sweden" = c("multimedia", "images", "videos", "sounds"),
+          "United Kingdom" = "all_image_url"
+          # Guatemala ?
   )
 }
 
+#' @noRd
+#' @keywords Internal
 species_facets <- function(){
   atlas <- pour("atlas", "region")
-  if(atlas %in% c("Australia", "France", "Spain", "Sweden")) { # i.e. those using 'pipelines'
+  if(atlas %in% c("Australia", "France", "Spain", "Sweden")) {
     "speciesID"
   }else{
     "species_guid"
   }
+}
+
+#' @noRd
+#' @keywords Internal
+source_type_id_lookup <- function(region){
+  switch(region,
+         "Austria" = 1,
+         "United Kingdom" = 2001,
+         "2004") # ALA default for galah
 }

@@ -1,76 +1,106 @@
-#' Narrow a query by specifying filters
+#' Keep rows that match a condition
 #'
-#' "Filters" are arguments of the form `field` `logical` `value` that are used
-#' to narrow down the number of records returned by a specific query.
-#' For example, it is common for users to request records from a particular year
-#' (`year == 2020`), or to return all records except for fossils
-#'  (`basisOfRecord != "FossilSpecimen"`).
-#'  
-#' The result of `galah_filter()` can be passed to the `filter`
-#' argument in [atlas_occurrences()], [atlas_species()], 
-#' [atlas_counts()] or [atlas_media()]. 
-#' 
-#' `galah_filter` uses non-standard evaluation (NSE),
-#' and is designed to be as compatible as possible with `dplyr::filter()`
-#' syntax.
-#'
-#' @param ... filters, in the form `field logical value`
+#' The `filter()` function is used to subset a data, retaining all rows that 
+#' satisfy your conditions. To be retained, the row must produce a value of 
+#' `TRUE` for all conditions. Unlike 'local' filters that act on a `tibble`,
+#' the galah implementations work by amending a query which is then enacted 
+#' by `collect()` or one of the `atlas_` family of functions (such as 
+#' `atlas_counts()` or `atlas_occurrences()`).
+#' @name filter.data_request
+#' @order 1
+#' @param .data An object of class `data_request`, `metadata_request` 
+#' or `files_request`, created using [galah_call()] or related functions.
+#' @param ... Expressions that return a logical value, and are defined in terms 
+#' of the variables in the selected atlas (and checked using `show_all(fields)`. 
+#' If multiple expressions are included, they are combined with the & operator. 
+#' Only rows for which all conditions evaluate to `TRUE` are kept.
 #' @param profile 
 #'    `r lifecycle::badge("deprecated")`  
 #'    Use `galah_apply_profile` instead. 
 #' @return A tibble containing filter values.
-#' @seealso [search_taxa()] and [galah_geolocate()] for other ways to restrict 
-#' the information returned by [atlas_occurrences()] and related functions. Use
-#' `search_all(fields)` to find fields that
-#' you can filter by, and [show_values()] to find what values
-#' of those filters are available.
+#' @seealso \code{\link[=select.data_request]{select()}}, 
+#' \code{\link[=group_by.data_request]{group_by()}} and [geolocate()] for 
+#' other ways to amend the information returned by [atlas_()] functions. Use 
+#' `search_all(fields)` to find fields that you can filter by, and 
+#' [show_values()] to find what values of those filters are available.
 #' @details
-#' All statements passed to `galah_filter()` (except the `profile`
-#' argument) take the form of field - logical - value. Permissible examples include:
-#'   * `=` or `==` (e.g. `year = 2020`)
+#' 
+#' *Syntax*
+#' 
+#' `filter.data_request()` and `galah_filter()` uses non-standard evaluation 
+#' (NSE), and are designed to be as compatible as possible with 
+#' `dplyr::filter()` syntax. Permissible examples include:
+#' 
+#'   * `==` (e.g. `year = 2020`) but not `=` (for consistency with `dplyr`)
 #'   * `!=`, e.g. `year != 2020`)
 #'   * `>` or `>=` (e.g. `year >= 2020`)
 #'   * `<` or `<=` (e.g. `year <= 2020`)
 #'   * `OR` statements (e.g. `year == 2018 | year == 2020`)
 #'   * `AND` statements (e.g. `year >= 2000 & year <= 2020`)
 #' 
-#' In some cases `R` will fail to parse inputs with a single equals sign 
-#' (`=`), particularly where statements are separated by `&` or 
-#' `|`. This problem can be avoided by using a double-equals (`==`) instead.
-#' 
-#' *Notes on behaviour*
-#' 
-#' Separating statements with a comma is equivalent to an `AND` statement; 
-#' Ergo `galah_filter(year >= 2010 & year < 2020)` is the same as
-#' `galah_filter(year >= 2010, year < 2020)`.
-#'     
-#' All statements must include the field name; so
-#' `galah_filter(year == 2010 | year == 2021)` works, as does 
-#' `galah_filter(year == c(2010, 2021))`, but `galah_filter(year == 2010 | 2021)` 
+#' Some general tips:
+#'  * Separating statements with a comma is equivalent to an `AND` statement; 
+#' Ergo `filter(year >= 2010 & year < 2020)` is the same as
+#' `_filter(year >= 2010, year < 2020)`.
+#'  * All statements must include the field name; so
+#' `filter(year == 2010 | year == 2021)` works, as does 
+#' `filter(year == c(2010, 2021))`, but `filter(year == 2010 | 2021)` 
 #' fails. 
-#'     
-#' It is possible to use an object to specify required values, e.g.
-#' `year_value <- 2010; galah_filter(year > year_value)`
-#'     
-#' `solr` supports range queries on text as well as numbers; so this is valid: 
-#' `galah_filter(cl22 >= "Tasmania")`
-#' 
-#' It is possible to filter by 'assertions', which are statements about data 
-#' validity, e.g. to remove those lacking critical spatial or taxonomic data:
-#' `galah_filter(assertions != c("INVALID_SCIENTIFIC_NAME", "COORDINATE_INVALID")`
+#'  * It is possible to use an object to specify required values, e.g.
+#' `year_value <- 2010; filter(year > year_value)`.
+#'  * `solr` supports range queries on text as well as numbers; so 
+#' `filter(cl22 >= "Tasmania")` is valid.
+#'  * It is possible to filter by 'assertions', which are statements about data 
+#' validity, such as `filter(assertions != c("INVALID_SCIENTIFIC_NAME", "COORDINATE_INVALID")`.
 #' Valid assertions can be found using `show_all(assertions)`.
 #' 
-#' @examples \dontrun{
-#' # Filter query results to return records of interest
-#' galah_call() |>
-#'   galah_filter(year >= 2019,
-#'                basisOfRecord == "HumanObservation") |>
-#'   atlas_counts()
+#' *Exceptions*
 #' 
-#' # Alternatively, the same call using `dplyr` functions:
-#' request_data() |>
+#' When querying occurrences, species, or their respective counts (i.e. all of
+#' the above examples), field names are checked internally against 
+#' `show_all(fields)`. There are some cases where bespoke field names are 
+#' required, as follows.
+#' 
+#' When requesting a data download from a DOI, the field `doi` is valid, i.e.:
+#' \preformatted{galah_call() |> 
+#'   filter(doi = "a-long-doi-string") |> 
+#'   collect()}
+#' 
+#' For taxonomic metadata, the `taxa` field is valid:
+#' \preformatted{request_metadata() |> 
+#'   filter(taxa == "Chordata") |> 
+#'   unnest()}
+#'  
+#' For building taxonomic trees, the `rank` field is valid:
+#' \preformatted{request_data() |>
+#'   identify("Chordata") |>
+#'   filter(rank == "class") |>
+#'   atlas_taxonomy()}
+#'   
+#' Media queries are more involved, but break two rules: they accept the `media`
+#' field, and they accept a tibble on the rhs of the equation. For example, 
+#' users wishing to break down media queries into their respective API calls
+#' should begin with an occurrence query:
+#' 
+#' \preformatted{occurrences <- galah_call() |> 
+#'    identify("Litoria peronii) |> 
+#'    select(group = c("basic", "media") |> 
+#'    collect()}
+#' 
+#' They can then use the `media` field to request media metadata:
+#' \preformatted{media_metadata <- galah_call("metadata") |>
+#'   filter(media == occurrences) |>
+#'   collect()}
+#' 
+#' And finally, the metadata tibble can be used to request files:
+#' \preformatted{galah_call("files") |>
+#'   filter(media == media_metadata) |>
+#'   collect()}
+#'   
+#' @examples \dontrun{
+#' galah_call() |>
 #'   filter(year >= 2019,
-#'                basisOfRecord == "HumanObservation") |>
+#'          basisOfRecord == "HumanObservation") |>
 #'   count() |>
 #'   collect()
 #' }
@@ -83,32 +113,6 @@
 #' @importFrom rlang quo_get_expr
 #' @importFrom rlang quo_squash
 #' @export
-galah_filter <- function(..., profile = NULL){
-  dots <- enquos(..., .ignore_empty = "all") |>
-    detect_request_object()
-  check_named_input(dots)
-  switch(class(dots[[1]])[1],
-         "data_request" = {
-           update_data_request(dots[[1]], 
-                               filter = parse_quosures_data(dots[-1]))
-         },
-         "metadata_request" = {
-           parse_quosures_metadata(dots[[1]], dots[-1])
-         },
-         "files_request" = {
-           input <- dots[[1]]
-           parsed_dots <- parse_quosures_files(dots[-1])
-           input$filter <- parsed_dots$data
-           input$type <- parsed_dots$variable
-           input
-         },
-         parse_quosures_data(dots)
-  )
-}
-
-#' @rdname galah_filter
-#' @param .data An object of class `data_request`, created using [request_data()]
-#' @export
 filter.data_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
   check_named_input(dots)
@@ -116,11 +120,11 @@ filter.data_request <- function(.data, ...){
                       filter = parse_quosures_data(dots)) # see `quosure_handling.R`
 }
 # usually filters as previously for ALA, but some exceptions:
-  # doi == "x" in `atlas_occurrences()`
-  # rank == "class" in `atlas_taxonomy()` replacement for `galah_down_to()`
+# doi == "x" in `atlas_occurrences()`
+# rank == "class" in `atlas_taxonomy()` replacement for `galah_down_to()`
 
-#' @rdname galah_filter
-#' @param .data An object of class `metadata_request`, created using [request_metadata()]
+#' @rdname filter.data_request
+#' @order 2
 #' @export
 filter.metadata_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
@@ -160,8 +164,8 @@ parse_quosures_metadata <- function(request, dots){
   request
 }
 
-#' @rdname galah_filter
-#' @param .data An object of class `files_request`, created using [request_files()]
+#' @rdname filter.data_request
+#' @order 3
 #' @importFrom rlang .data
 #' @export
 filter.files_request <- function(.data, ...){
@@ -172,4 +176,30 @@ filter.files_request <- function(.data, ...){
   .data$type <- dots_parsed$variable
   .data$filter <- dots_parsed$data
   .data
+}
+
+#' @rdname filter.data_request
+#' @order 4
+#' @export
+galah_filter <- function(..., profile = NULL){
+  dots <- enquos(..., .ignore_empty = "all") |>
+    detect_request_object()
+  check_named_input(dots)
+  switch(class(dots[[1]])[1],
+         "data_request" = {
+           update_data_request(dots[[1]], 
+                               filter = parse_quosures_data(dots[-1]))
+         },
+         "metadata_request" = {
+           parse_quosures_metadata(dots[[1]], dots[-1])
+         },
+         "files_request" = {
+           input <- dots[[1]]
+           parsed_dots <- parse_quosures_files(dots[-1])
+           input$filter <- parsed_dots$data
+           input$type <- parsed_dots$variable
+           input
+         },
+         parse_quosures_data(dots)
+  )
 }

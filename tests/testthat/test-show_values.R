@@ -123,3 +123,23 @@ test_that("show_values returns unformatted names", {
   expect_equal(search |> show_values() |> head(2L), 
                expected)
 })
+
+test_that("unnest syntax works", {
+  skip_if_offline()
+  # fields
+  x <- request_metadata() |>
+    filter(field == "cl22") |>
+    unnest() |>
+    collect() 
+  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(colnames(x), "cl22")
+  expect_gte(nrow(x), 1)
+  # profiles
+  y <- request_metadata() |>
+    filter(profile == "ALA") |>
+    unnest() |>
+    collect() 
+  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
+  expect_gte(ncol(y), 4)
+  expect_gte(nrow(y), 1)
+})

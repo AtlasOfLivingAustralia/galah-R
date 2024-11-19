@@ -10,7 +10,7 @@
 #' @return An object of classes `sf`, `tbl`, `tbl_df` and `data.frame` 
 #' (aka a Simple feature collection) of distribution maps, with one column per
 #' map, and spatial data stored in the `geometry` column.
-#' @examples
+#' @examples \dontrun{
 #' 
 #' x <- show_all(distributions) |>
 #'   slice_head(n = 4)
@@ -21,6 +21,7 @@
 #' ggplot() +
 #'   geom_sf(data = ozmap_country) +
 #'   geom_sf(data = st_as_sf(x))
+#' }
 #' @noRd
 #' @keywords Internal
 atlas_distributions <- function(request = NULL, 

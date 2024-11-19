@@ -1,7 +1,7 @@
 ---
 title: "Look up information"
 author: "Martin Westgate & Dax Kellie"
-date: '2024-04-09'
+date: '2024-11-19'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -16,12 +16,12 @@ galah supports two functions to look up information: `show_all()` and
 wish to look up; for example to see what fields are available to filter a query by, use:
 
 
-```r
+``` r
 show_all(fields)
 ```
 
 ```
-## # A tibble: 646 × 3
+## # A tibble: 695 × 3
 ##    id                  description               type  
 ##    <chr>               <chr>                     <chr> 
 ##  1 _nest_parent_       <NA>                      fields
@@ -34,13 +34,13 @@ show_all(fields)
 ##  8 annotationsDoi      <NA>                      fields
 ##  9 annotationsUid      Referenced by publication fields
 ## 10 assertionUserId     Assertions by user        fields
-## # ℹ 636 more rows
+## # ℹ 685 more rows
 ```
 
 And to search for a specific field:
 
 
-```r
+``` r
 search_all(fields, "australian states")
 ```
 
@@ -147,28 +147,27 @@ possible values of the category specified.
 
 
 
-```r
+``` r
 show_all_atlases()
 ```
 
 ```
-## # A tibble: 11 × 4
-##    region         institution                                                             acronym url                         
-##    <chr>          <chr>                                                                   <chr>   <chr>                       
-##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au      
-##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas.at
-##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br        
-##  4 Estonia        eElurikkus                                                              <NA>    https://elurikkus.ee        
-##  5 France         Portail français d'accès aux données d'observation sur les espèces      OpenObs https://openobs.mnhn.fr     
-##  6 Global         Global Biodiversity Information Facility                                GBIF    https://gbif.org            
-##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt   
-##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt         
-##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es         
-## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.se 
-## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
+## # A tibble: 10 × 4
+##    region         institution                                                             acronym url                    
+##    <chr>          <chr>                                                                   <chr>   <chr>                  
+##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au 
+##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityat…
+##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br   
+##  4 France         Portail français d'accès aux données d'observation sur les espèces      OpenObs https://openobs.mnhn.fr
+##  5 Global         Global Biodiversity Information Facility                                GBIF    https://gbif.org       
+##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob…
+##  7 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt    
+##  8 Spain          GBIF Spain                                                              GBIF.es https://gbif.es        
+##  9 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversityda…
+## 10 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
 ```
 
-```r
+``` r
 show_all_reasons()
 ```
 
@@ -201,26 +200,26 @@ detailed information that can't be summarised across the whole atlas.
 for a single taxon or multiple taxa by name.
 
 
-```r
+``` r
 search_taxa("reptilia")
 ```
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                                          rank  match_type kingdom  phylum   class    issues 
-##   <chr>       <chr>           <chr>                                                                     <chr> <chr>      <chr>    <chr>    <chr>    <chr>  
-## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd40c399 class exactMatch Animalia Chordata Reptilia noIssue
+##   search_term scientific_name taxon_concept_id                               rank  match_type kingdom phylum class issues
+##   <chr>       <chr>           <chr>                                          <chr> <chr>      <chr>   <chr>  <chr> <chr> 
+## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228… class exactMatch Animal… Chord… Rept… noIss…
 ```
 
-```r
+``` r
 search_taxa("reptilia", "aves", "mammalia", "pisces")
 ```
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                                          rank  match_type kingdom  phylum   class    issues 
-##   <chr>       <chr>           <chr>                                                                     <chr> <chr>      <chr>    <chr>    <chr>    <chr>  
-## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd40c399 class exactMatch Animalia Chordata Reptilia noIssue
+##   search_term scientific_name taxon_concept_id                               rank  match_type kingdom phylum class issues
+##   <chr>       <chr>           <chr>                                          <chr> <chr>      <chr>   <chr>  <chr> <chr> 
+## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228… class exactMatch Animal… Chord… Rept… noIss…
 ```
 
 Alternatively, `search_identifiers()` is the partner function to `search_taxa()`. 
@@ -228,15 +227,16 @@ If we already know a taxonomic identifier, we can search for
 which taxa the identifier belongs to.
 
 
-```r
+``` r
 search_identifiers("urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550efd40c399")
 ```
 
 ```
 ## # A tibble: 1 × 15
-##   search_term                               success scientific_name taxon_concept_id rank  rank_id   lft   rgt match_type kingdom kingdom_id phylum phylum_id class class_id
-##   <chr>                                     <lgl>   <chr>           <chr>            <chr>   <int> <int> <int> <chr>      <chr>   <chr>      <chr>  <chr>     <chr> <chr>   
-## 1 urn:lsid:biodiversity.org.au:afd.taxon:6… TRUE    REPTILIA        https://biodive… class    3000 33626 36658 taxonIdMa… Animal… https://b… Chord… https://… Rept… https:/…
+##   search_term     success scientific_name taxon_concept_id rank  rank_id   lft   rgt match_type kingdom kingdom_id phylum
+##   <chr>           <lgl>   <chr>           <chr>            <chr>   <int> <int> <int> <chr>      <chr>   <chr>      <chr> 
+## 1 urn:lsid:biodi… TRUE    REPTILIA        https://biodive… class    3000 33626 36658 taxonIdMa… Animal… https://b… Chord…
+## # ℹ 3 more variables: phylum_id <chr>, class <chr>, class_id <chr>
 ```
 
 # `show_values()` & `search_values()`
@@ -246,7 +246,7 @@ information contained within that field. For example, we can show the values
 contained in the field `basisOfRecord`.
 
 
-```r
+``` r
 search_all(fields, "basisOfRecord") |> show_values()
 ```
 
@@ -261,9 +261,9 @@ search_all(fields, "basisOfRecord") |> show_values()
 ##   <chr>              
 ## 1 HUMAN_OBSERVATION  
 ## 2 PRESERVED_SPECIMEN 
-## 3 OBSERVATION        
+## 3 MACHINE_OBSERVATION
 ## 4 OCCURRENCE         
-## 5 MACHINE_OBSERVATION
+## 5 OBSERVATION        
 ## 6 MATERIAL_SAMPLE    
 ## 7 LIVING_SPECIMEN    
 ## 8 MATERIAL_CITATION  
@@ -273,7 +273,7 @@ search_all(fields, "basisOfRecord") |> show_values()
 Use this information to pass meaningful queries to `galah_filter()`.
 
 
-```r
+``` r
 galah_call() |> 
   galah_filter(basisOfRecord == "LIVING_SPECIMEN") |> 
   atlas_counts()
@@ -289,7 +289,7 @@ galah_call() |>
 This works for other types of query, such as data profiles:
 
 
-```r
+``` r
 search_all(profiles, "ALA") |> 
   show_values() |> 
   head()
@@ -301,12 +301,12 @@ search_all(profiles, "ALA") |>
 
 ```
 ## # A tibble: 6 × 5
-##      id enabled description                                                                                                                              filter displayOrder
-##   <int> <lgl>   <chr>                                                                                                                                    <chr>         <int>
-## 1    94 TRUE    "Exclude all records where spatial validity is \"false\""                                                                                "-spa…            1
-## 2    96 TRUE    "Exclude all records with an assertion that the scientific name provided does not match any of the names lists used by the ALA.  For a … "-ass…            1
-## 3    97 TRUE    "Exclude all records with an assertion that the scientific name provided is not structured as a valid scientific name. Also catches ran… "-ass…            2
-## 4    98 TRUE    "Exclude all records with an assertion that the name and classification supplied can't be used to choose between 2 homonyms"             "-ass…            3
-## 5    99 TRUE    "Exclude all records with an assertion that kingdom provided doesn't match a known kingdom e.g. Animalia, Plantae"                       "-ass…            4
-## 6   100 TRUE    "Exclude all records with an assertion that the scientific name provided in the record does not match the expected taxonomic scope of t… "-ass…            5
+##      id enabled description                                                                           filter displayOrder
+##   <int> <lgl>   <chr>                                                                                 <chr>         <int>
+## 1    94 TRUE    "Exclude all records where spatial validity is \"false\""                             "-spa…            1
+## 2    96 TRUE    "Exclude all records with an assertion that the scientific name provided does not ma… "-ass…            1
+## 3    97 TRUE    "Exclude all records with an assertion that the scientific name provided is not stru… "-ass…            2
+## 4    98 TRUE    "Exclude all records with an assertion that the name and classification supplied can… "-ass…            3
+## 5    99 TRUE    "Exclude all records with an assertion that kingdom provided doesn't match a known k… "-ass…            4
+## 6   100 TRUE    "Exclude all records with an assertion that the scientific name provided in the reco… "-ass…            5
 ```

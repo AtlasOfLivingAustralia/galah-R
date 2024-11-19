@@ -163,16 +163,56 @@ test_that("atlas_occurrences works for Guatemala", {
     atlas = "Guatemala",
     email = "test@ala.org.au", 
     send_email = FALSE)
-  occ <- galah_call() |>
-    galah_identify("Mammalia") |>
-    galah_filter(year <= 1900) |>
-    galah_select(taxon_name, year) |>
-    atlas_occurrences() |>
+  occ_collapse <- galah_call() |>
+    identify("Mammalia") |>
+    filter(year <= 1900) |>
+    # select(taxon_name, year)
+    collapse() |>
+    try(silent = TRUE)
+  skip_if(inherits(occ_collapse, "try-error"), message = "API not available")
+  expect_s3_class(occ_collapse, "query")
+  expect_equal(names(occ_collapse), 
+               c("type", "url", "headers", "filter"))
+  occ_compute <- compute(occ_collapse) |>
+    try(silent = TRUE)
+  skip_if(inherits(occ_compute, "try-error"), message = "API not available")
+  expect_s3_class(occ_compute, "computed_query")
+  occ <- occ_compute |>
+    collect(wait = TRUE) |>
     try(silent = TRUE)
   skip_if(inherits(occ, "try-error"), message = "API not available")
   expect_gt(nrow(occ), 0)
-  expect_equal(ncol(occ), 2)
-  expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(ncol(occ), 8)
+  expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("atlas_media() works for Guatemala", {
+  skip_if_offline()
+  galah_config(
+    atlas = "Guatemala",
+    email = "test@ala.org.au",
+    # download_reason_id = 10,
+    directory = "temp",
+    send_email = FALSE)
+  x <- request_data() |>
+    identify("Mammalia") |>
+    filter(year == 2020) |>
+    #        !is.na(all_image_url)) |>
+    # count() |>
+    # collect()
+    atlas_media() |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_gte(nrow(x), 1)
+  expect_equal(colnames(x)[1:2],
+               c("media_id", "recordID"))
+  # download a subset
+  n_downloads <- 5
+  collect_media(x[seq_len(n_downloads), ])
+  expect_equal(length(list.files("temp", pattern = ".jpg$")),
+               n_downloads)
+  unlink("temp", recursive = TRUE)
 })
 
 galah_config(atlas = "Australia")

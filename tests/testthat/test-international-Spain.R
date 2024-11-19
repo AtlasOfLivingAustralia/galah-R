@@ -185,6 +185,20 @@ test_that("atlas_counts works with galah_identify for Spain", {
     0.1) # i.e. <1% margin of error
 })
 
+test_that("atlas_counts works with apply_profile for Spain", {
+  skip_if_offline()
+  without_profile <- galah_call() |>
+    count() |>
+    collect()
+  with_profile <- galah_call() |>
+    apply_profile(LA) |>
+    count() |>
+    collect()
+  expect_gt(with_profile$count, 0)
+  expect_equal(class(without_profile), class(with_profile))
+  expect_lt(with_profile$count, without_profile$count)
+})
+
 test_that("atlas_counts works with group_by for Spain", {
   skip_if_offline()
   result <- galah_call() |>
@@ -198,20 +212,19 @@ test_that("atlas_counts works with group_by for Spain", {
   expect_equal(names(result), c("basis_of_record", "count"))
   })
 
-## profiles system is available for Spain, but not implemented in biocache
-# test_that("galah_apply_profile filters counts for Spain", {
-#   vcr::use_cassette("IA_Spain_apply_profile_counts", {
-#     without_profile <- galah_call() |>
-#       atlas_counts()
-#     with_profile <- galah_call() |>
-#       galah_apply_profile(LA) |>
-#       atlas_counts()
-#   })
-#   
-#   expect_gt(with_profile[[1]], 0)
-#   expect_equal(class(without_profile), class(with_profile))
-#   expect_lt(with_profile[[1]], without_profile[[1]])
-# })
+test_that("atlas_counts works with apply_profile for Spain", {
+  skip_if_offline()
+  without_profile <- galah_call() |>
+    count() |>
+    collect()
+  with_profile <- galah_call() |>
+    apply_profile(LA) |>
+    count() |>
+    collect()
+  expect_gt(with_profile$count, 0)
+  expect_equal(class(without_profile), class(with_profile))
+  expect_lt(with_profile$count, without_profile$count)
+})
 
 test_that("atlas_species works for Spain", {
   skip_if_offline()
@@ -244,24 +257,53 @@ test_that("galah_select works for Spain", {
   expect_true(inherits(y[[1]], c("quosure", "formula"))) 
 })
 
-# Occurrences working as of 2023/10/31
 test_that("atlas_occurrences works for Spain", {
-  skip_on_cran()
   skip_if_offline()
   galah_config(
     atlas = "Spain",
     email = "test@ala.org.au",
+    download_reason_id = 10,
     send_email = FALSE)
   occ <- galah_call() |>
-    galah_identify("Mammalia") |>
-    galah_filter(year <= 1800) |>
-    galah_select(species, year) |>
+    identify("Mammalia") |>
+    filter(year <= 1800) |>
+    select(species, year) |>
     atlas_occurrences() |>
     try(silent = TRUE)
   skip_if(inherits(occ, "try-error"), message = "API not available")
   expect_gt(nrow(occ), 0)
   expect_equal(ncol(occ), 2)
   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("atlas_media() works for Spain", {
+  skip_if_offline()
+  galah_config(
+    atlas = "Spain",
+    email = "test@ala.org.au",
+    download_reason_id = 10,
+    directory = "temp",
+    send_email = FALSE)
+  x <- request_data() |>
+    identify("Mammalia") |>
+    filter(year >= 2023
+           # imageIDsCount > 0
+           ) |>
+    # count() |>
+    # collect()
+    atlas_media() |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_gte(nrow(x), 1)
+  expect_equal(colnames(x)[1:2],
+               c("media_id", "recordID"))
+  # download a subset
+  n_downloads <- 5
+  collect_media(x[seq_len(n_downloads), ])
+  expect_equal(length(list.files("temp", pattern = ".jpg$")),
+               n_downloads)
+  unlink("temp", recursive = TRUE)
 })
 
 galah_config(atlas = "Australia")

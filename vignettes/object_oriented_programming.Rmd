@@ -1,7 +1,7 @@
 ---
 title: "Object-Oriented Programming"
 author: "Martin Westgate & Dax Kellie"
-date: '2024-04-09'
+date: '2024-11-19'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -16,7 +16,7 @@ to create a query object called a "`data_request`". This object class is specifi
 to `galah`.
 
 
-```r
+``` r
 galah_call() |>
   filter(genus == "Crinia") |>
   class()
@@ -34,14 +34,14 @@ of `galah_filter()` and `galah_group_by()` to construct a query. Consequently,
 the following queries are synonymous:
 
 
-```r
+``` r
 galah_call() |>
   galah_filter(genus == "Crinia", year == 2020) |>
   galah_group_by(species) |>
   atlas_counts()
 ```
 
-```r
+``` r
 galah_call() |> 
   filter(genus == "Crinia", year == 2020) |>
   group_by(species) |>
@@ -52,19 +52,19 @@ galah_call() |>
 ## # A tibble: 16 × 2
 ##    species                 count
 ##    <chr>                   <int>
-##  1 Crinia signifera        58619
-##  2 Crinia parinsignifera   12912
-##  3 Crinia glauerti          3090
-##  4 Crinia georgiana         1490
-##  5 Crinia remota             784
-##  6 Crinia sloanei            693
-##  7 Crinia insignifera        536
-##  8 Crinia tinnula            418
-##  9 Crinia deserticola        278
-## 10 Crinia pseudinsignifera   236
-## 11 Crinia tasmaniensis       189
-## 12 Crinia bilingua            75
-## 13 Crinia subinsignifera      45
+##  1 Crinia signifera        42621
+##  2 Crinia parinsignifera    8664
+##  3 Crinia glauerti          3111
+##  4 Crinia georgiana         1509
+##  5 Crinia remota             718
+##  6 Crinia sloanei            682
+##  7 Crinia insignifera        530
+##  8 Crinia tinnula            291
+##  9 Crinia deserticola        253
+## 10 Crinia pseudinsignifera   223
+## 11 Crinia tasmaniensis       181
+## 12 Crinia bilingua            74
+## 13 Crinia subinsignifera      46
 ## 14 Crinia riparia             10
 ## 15 Crinia flindersensis        3
 ## 16 Crinia nimba                1
@@ -98,7 +98,7 @@ want to collect.
 For example, if you want to download occurrences, use `request_data()`:
 
 
-```r
+``` r
 x <- request_data("occurrences") |> # note that "occurrences" is the default `type`
   filter(species == "Crinia tinnula", 
          year == 2010) |>
@@ -130,7 +130,7 @@ following way:
 We can use these in sequence, or just leap ahead to the stage we want:
 
 
-```r
+``` r
 x <- request_data() |>
   filter(genus == "Crinia", year == 2020) |>
   group_by(species) |>
@@ -142,21 +142,21 @@ collapse(x)
 
 ```
 ## Object of class query with type data/occurrences-count-groupby 
-## url: https://biocache-ws.ala.org.au/ws/occurrences/facets?fq=%28genus%3A%22... 
+## url: https://api.ala.org.au/occurrences/occurrences/facets?fq=%28genus%3A%2... 
 ## arrange: species (ascending)
 ```
 
-```r
+``` r
 compute(x)
 ```
 
 ```
 ## Object of class computed_query with type data/occurrences-count-groupby 
-## url: https://biocache-ws.ala.org.au/ws/occurrences/facets?fq=%28genus%3A%22... 
+## url: https://api.ala.org.au/occurrences/occurrences/facets?fq=%28genus%3A%2... 
 ## arrange: species (ascending)
 ```
 
-```r
+``` r
 collect(x) |> head()
 ```
 
@@ -164,12 +164,12 @@ collect(x) |> head()
 ## # A tibble: 6 × 2
 ##   species              count
 ##   <chr>                <int>
-## 1 Crinia bilingua         75
-## 2 Crinia deserticola     278
+## 1 Crinia bilingua         74
+## 2 Crinia deserticola     253
 ## 3 Crinia flindersensis     3
-## 4 Crinia georgiana      1490
-## 5 Crinia glauerti       3090
-## 6 Crinia insignifera     536
+## 4 Crinia georgiana      1509
+## 5 Crinia glauerti       3111
+## 6 Crinia insignifera     530
 ```
 
 The benefit of using `collapse()`, `compute()` and `collect()` is that queries 
@@ -179,7 +179,7 @@ has finished — downloading with `collect()` later — rather than waiting for 
 request to finish within R.
 
 
-```r
+``` r
 # Create and send query to be calculated server-side
 request <- request_data() |>
   identify("perameles") |>
@@ -200,7 +200,7 @@ For example, the query above is constructed with the following information,
 returned by `collapse()`.
 
 
-```r
+``` r
 request_data() |>
   identify("perameles") |>
   filter(year > 1900) |>
@@ -209,21 +209,22 @@ request_data() |>
 
 ```
 ## Object of class query with type data/occurrences 
-## url: https://biocache-ws.ala.org.au/ws/occurrences/offline/download?fq=%28y...
+## url: https://api.ala.org.au/occurrences/occurrences/offline/download?fq=%28...
 ```
 
 The `collapse()` stage includes an additional argument (`.expand`) that, 
 when set to `TRUE`, shows all the APIs called to construct the user-requested
 query. This is especially useful for debugging.
 
-## New object classes
+## Object classes
 
-Under the hood, the different query-building verbs amend our object to a new class:
+Under the hood, the different query-building verbs each amend the supplied 
+object to a new class:
 
 - `collapse()` returns class `query`, which is a list containing a `type` slot
    and one or more `url`s
 - `compute()` returns a single object of class `computed_query`
-- `collect()` doesn't add a new data class (returns class `tibble`)
+- `collect()` returns a `tibble`
 
 These can be called directly, or via the `method` and `type` arguments of 
 `galah_call()`, which specify which dedicated `request_` function and data type 
@@ -232,7 +233,7 @@ using different syntax, all return the number of records available for the year
 2020:
 
 
-```r
+``` r
 # new syntax
 request_data() |>
   filter(year == 2020) |>
@@ -254,7 +255,7 @@ galah_call() |>
 Another example is to list available `fields` in the selected atlas:
 
 
-```r
+``` r
 request_metadata(type = "fields") |>
   collect()
 
@@ -268,7 +269,7 @@ show_all(fields)
 Or to show values for states and territories:
 
 
-```r
+``` r
 request_metadata() |>
   filter(field == "cl22") |>
   unnest() |>
@@ -283,13 +284,11 @@ search_all(fields, "cl22") |>
   show_values()
 ```
 
-Although there is little reason to use `request_metadata()` rather than 
-`show_all()` most of the time, in some cases larger databases like 
-GBIF return huge `data.frame`s of metadata. galah allows users to use 
-`collapse()`, `compute()` and `collect()` on all types of requests, meaning 
-users are able to download large metadata queries using the process detailed 
-above in "Advanced query building" to get around this issue.
-
+While `request_metadata()` is more modular than `show_all()`, there is 
+little benefit to using it for most applications. However, in some cases,
+larger databases like GBIF return huge `data.frame`s of metadata when called 
+via `show_all()`. Using `request_metdata()` allows users to specify a 
+`slice_head()` line within their pipe to get around this issue.
 
 ## Which syntax should I prefer?
 

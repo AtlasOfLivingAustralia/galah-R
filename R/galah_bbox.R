@@ -1,5 +1,5 @@
-#' @rdname galah_geolocate
-#' @order 2
+#' @rdname geolocate
+#' @order 4
 #' @importFrom glue glue
 #' @importFrom rlang abort
 #' @importFrom rlang caller_env

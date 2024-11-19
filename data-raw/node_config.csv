@@ -1,19 +1,19 @@
 ﻿atlas,type,url,functional
 Australia,data/distributions-id,https://api.ala.org.au/spatial-service/distribution/{id},FALSE
 Australia,data/distributions-taxa,https://api.ala.org.au/spatial-service/distribution/lsids/{lsid}?nowkt=false,FALSE
-Australia,data/occurrences,https://biocache-ws.ala.org.au/ws/occurrences/offline/download,TRUE
-Australia,data/occurrences-count,https://biocache-ws.ala.org.au/ws/occurrences/search,TRUE
-Australia,data/occurrences-count-groupby,https://biocache-ws.ala.org.au/ws/occurrences/facets,TRUE
+Australia,data/occurrences,https://api.ala.org.au/occurrences/occurrences/offline/download,TRUE
+Australia,data/occurrences-count,https://api.ala.org.au/occurrences/occurrences/search,TRUE
+Australia,data/occurrences-count-groupby,https://api.ala.org.au/occurrences/occurrences/facets,TRUE
 Australia,data/occurrences-doi,https://api.ala.org.au/doi/api/doi/{doi_string}/download,TRUE
-Australia,data/species,https://biocache-ws.ala.org.au/ws/occurrences/facets/download,TRUE
-Australia,data/species-count,https://biocache-ws.ala.org.au/ws/occurrences/facets,TRUE
+Australia,data/species,https://api.ala.org.au/occurrences/occurrences/facets/download,TRUE
+Australia,data/species-count,https://api.ala.org.au/occurrences/occurrences/facets,TRUE
 Australia,files/media,https://api.ala.org.au/images/ws/image/{id}/original,TRUE
-Australia,metadata/assertions,https://biocache-ws.ala.org.au/ws/assertions/codes,TRUE
+Australia,metadata/assertions,https://api.ala.org.au/occurrences/assertions/codes,TRUE
 Australia,metadata/collections,https://api.ala.org.au/metadata/ws/collection,TRUE
 Australia,metadata/datasets,https://api.ala.org.au/metadata/ws/dataResource,TRUE
 Australia,metadata/distributions,https://api.ala.org.au/spatial-service/distributions,FALSE
-Australia,metadata/fields,https://biocache-ws.ala.org.au/ws/index/fields,TRUE
-Australia,metadata/fields-unnest,https://biocache-ws.ala.org.au/ws/occurrences/facets,TRUE
+Australia,metadata/fields,https://api.ala.org.au/occurrences/index/fields,TRUE
+Australia,metadata/fields-unnest,https://api.ala.org.au/occurrences/occurrences/facets,TRUE
 Australia,metadata/identifiers,https://api.ala.org.au/namematching/api/getByTaxonID,TRUE
 Australia,metadata/licences,https://api.ala.org.au/images/ws/licence,TRUE
 Australia,metadata/lists,https://api.ala.org.au/specieslist/ws/speciesList,TRUE
@@ -26,7 +26,7 @@ Australia,metadata/reasons,https://api.ala.org.au/logger/service/logger/reasons,
 Australia,metadata/taxa-multiple,https://api.ala.org.au/namematching/api/searchByClassification,TRUE
 Australia,metadata/taxa-single,https://api.ala.org.au/namematching/api/search?q={name},TRUE
 Australia,metadata/taxa-unnest,https://api.ala.org.au/species/childConcepts/{id},TRUE
-Austria,data/occurrences,https://biocache.biodiversityatlas.at/ws/occurrences/offline/download,TRUE
+Austria,data/occurrences,https://biocache.biodiversityatlas.at/ws/occurrences/download,TRUE
 Austria,data/occurrences-count,https://biocache.biodiversityatlas.at/ws/occurrences/search,TRUE
 Austria,data/occurrences-count-groupby,https://biocache.biodiversityatlas.at/ws/occurrence/facets,TRUE
 Austria,data/species,https://biocache.biodiversityatlas.at/ws/occurrences/facets/download,TRUE
@@ -39,7 +39,7 @@ Austria,metadata/fields-unnest,https://biocache.biodiversityatlas.at/ws/occurren
 Austria,metadata/licences,https://images.biodiversityatlas.at/ws/licence,TRUE
 Austria,metadata/lists,https://lists.biodiversityatlas.at/ws/speciesList/,TRUE
 Austria,metadata/lists-unnest,https://lists.biodiversityatlas.at/ws/speciesListItems/{list_id},TRUE
-Austria,metadata/media,https://images.biodiversityatlas.at/ws/image/,TRUE
+Austria,metadata/media,https://images.biodiversityatlas.at/ws/imageInfoForList,TRUE
 Austria,metadata/providers,https://collectory.biodiversityatlas.at/ws/dataProvider,TRUE
 Austria,metadata/reasons,https://logger.biodiversityatlas.at/service/logger/reasons,TRUE
 Austria,metadata/taxa-single,https://bie.biodiversityatlas.at/ws/search?q={name}&pageSize=5,TRUE
@@ -57,7 +57,7 @@ Brazil,metadata/fields-unnest,https://biocache-service.sibbr.gov.br/biocache-ser
 Brazil,metadata/licences,https://images.sibbr.gov.br/images/ws/licence,TRUE
 Brazil,metadata/lists,https://specieslist.sibbr.gov.br/ws/speciesList/,TRUE
 Brazil,metadata/lists-unnest,https://specieslist.sibbr.gov.br/ws/speciesListItems/{list_id},TRUE
-Brazil,metadata/media,https://images.sibbr.gov.br/images/ws/image/,FALSE
+Brazil,metadata/media,https://images.sibbr.gov.br/ws/getImageInfoForIdList,TRUE
 Brazil,metadata/providers,https://collectory.sibbr.gov.br/collectory/ws/dataProvider,TRUE
 Brazil,metadata/taxa-single,https://bie-webservice.sibbr.gov.br/bie-index/search?q={name}&pageSize=5,TRUE
 Brazil,metadata/taxa-unnest,https://bie-webservice.sibbr.gov.br/bie-index/childConcepts/{id},TRUE
@@ -108,11 +108,12 @@ Guatemala,metadata/datasets,https://snib.conap.gob.gt/colecciones/ws/dataResourc
 Guatemala,metadata/fields,https://snib.conap.gob.gt/registros-ws/index/fields,TRUE
 Guatemala,metadata/fields-unnest,https://snib.conap.gob.gt/registros-ws/occurrence/facets,TRUE
 Guatemala,metadata/licences,https://imagenes.snib.conap.gob.gt/licence,TRUE
-Guatemala,metadata/media,https://imagenes.snib.conap.gob.gt/image/,FALSE
+Guatemala,metadata/media,https://imagenes.snib.conap.gob.gt/ws/imageInfoForList,TRUE
 Guatemala,metadata/providers,https://snib.conap.gob.gt/colecciones/ws/dataProvider,TRUE
 Guatemala,metadata/reasons,https://snib.conap.gob.gt/logger/service/logger/reasons,TRUE
 Guatemala,metadata/taxa-single,https://snib.conap.gob.gt/especies-ws/search?q={name}&pageSize=5,TRUE
 Guatemala,metadata/taxa-unnest,https://snib.conap.gob.gt/especies-ws/childConcepts/{id},TRUE
+Portugal,data/occurrences,https://registos-ws.gbif.pt/occurrences/offline/download,FALSE
 Portugal,data/occurrences-count,https://registos-ws.gbif.pt/occurrences/search,TRUE
 Portugal,data/occurrences-count-groupby,https://registos-ws.gbif.pt/occurrence/facets,TRUE
 Portugal,data/species,https://registos-ws.gbif.pt/occurrences/facets/download,FALSE
@@ -123,7 +124,7 @@ Portugal,metadata/datasets,https://metadados.gbif.pt/ws/dataResource,TRUE
 Portugal,metadata/fields,https://registos-ws.gbif.pt/index/fields,TRUE
 Portugal,metadata/fields-unnest,https://registos-ws.gbif.pt/occurrence/facets,TRUE
 Portugal,metadata/licences,https://imagens.gbif.pt/ws/licence,TRUE
-Portugal,metadata/media,https://imagens.gbif.pt/ws/image/,FALSE
+Portugal,metadata/media,https://imagens.gbif.pt/ws/imageInfoForList,TRUE
 Portugal,metadata/providers,https://metadados.gbif.pt/ws/dataProvider,TRUE
 Portugal,metadata/reasons,https://logger.gbif.pt/service/logger/reasons,TRUE
 Portugal,metadata/taxa-single,https://api.gbif.org/v1/species/match?verbose=FALSE&name={name},TRUE
@@ -143,7 +144,7 @@ Spain,metadata/identifiers,https://name-matching.gbif.es/api/getByTaxonID,TRUE
 Spain,metadata/licences,https://imagenes.gbif.es/ws/licence,TRUE
 Spain,metadata/lists,https://listas.gbif.es/ws/speciesList,TRUE
 Spain,metadata/lists-unnest,https://listas.gbif.es/ws/speciesListItems/{list_id},TRUE
-Spain,metadata/media,https://imagenes.gbif.es/ws/image/,FALSE
+Spain,metadata/media,https://imagenes.gbif.es/ws/getImageInfoForIdList,TRUE
 Spain,metadata/profiles,https://data-quality.gbif.es/api/v1/data-profiles,TRUE
 Spain,metadata/profiles-unnest,https://data-quality.gbif.es/api/v1/quality/activeProfile?profileName={profile},TRUE
 Spain,metadata/providers,https://colecciones.gbif.es/ws/dataProvider,TRUE
@@ -167,6 +168,8 @@ Sweden,metadata/licences,https://images.biodiversitydata.se/ws/licence,TRUE
 Sweden,metadata/lists,https://lists.biodiversitydata.se/ws/speciesList,TRUE
 Sweden,metadata/lists-unnest,https://lists.biodiversitydata.se/ws/speciesListItems/{list_id},TRUE
 Sweden,metadata/media,https://images.biodiversitydata.se/ws/getImageInfoForIdList,TRUE
+Sweden,metadata/profiles,https://data-quality-service.biodiversitydata.se/api/v1/data-profiles?enabled=true,TRUE
+Sweden,metadata/profiles-unnest,https://data-quality-service.biodiversitydata.se/api/v1/data-profiles/{profile},TRUE
 Sweden,metadata/providers,https://collections.biodiversitydata.se/ws/dataProvider,TRUE
 Sweden,metadata/reasons,https://logger.biodiversitydata.se/service/logger/reasons,TRUE
 Sweden,metadata/taxa-multiple,https://namematching.biodiversitydata.se/api/searchByClassification,TRUE
@@ -175,7 +178,7 @@ Sweden,metadata/taxa-unnest,https://species.biodiversitydata.se/ws/childConcepts
 United Kingdom,data/occurrences,https://records-ws.nbnatlas.org/occurrences/index/download,TRUE
 United Kingdom,data/occurrences-count,https://records-ws.nbnatlas.org/occurrences/search,TRUE
 United Kingdom,data/occurrences-count-groupby,https://records-ws.nbnatlas.org/occurrence/facets,TRUE
-United Kingdom,data/species,https://records-ws.nbnatlas.org/occurrences/facets/download,FALSE
+United Kingdom,data/species,https://records-ws.nbnatlas.org/occurrences/facets/download,TRUE
 United Kingdom,data/species-count,https://records-ws.nbnatlas.org/occurrence/facets,TRUE
 United Kingdom,metadata/assertions,https://records-ws.nbnatlas.org/assertions/codes,TRUE
 United Kingdom,metadata/collections,https://registry.nbnatlas.org/ws/collection,TRUE
@@ -185,7 +188,7 @@ United Kingdom,metadata/fields-unnest,https://records-ws.nbnatlas.org/occurrence
 United Kingdom,metadata/licences,https://images.nbnatlas.org/licence,TRUE
 United Kingdom,metadata/lists,https://lists.nbnatlas.org/ws/speciesList,TRUE
 United Kingdom,metadata/lists-unnest,https://lists.nbnatlas.org/ws/speciesListItems/{list_id},TRUE
-United Kingdom,metadata/media,https://images.nbnatlas.org/ws/getImageInfoForIdList,FALSE
+United Kingdom,metadata/media,https://images.nbnatlas.org/ws/getImageInfoForIdList,TRUE
 United Kingdom,metadata/providers,https://registry.nbnatlas.org/ws/dataProvider,TRUE
 United Kingdom,metadata/reasons,https://logger.nbnatlas.org/service/logger/reasons,TRUE
 United Kingdom,metadata/taxa-single,https://species-ws.nbnatlas.org/search?q={name}&pageSize=5,TRUE

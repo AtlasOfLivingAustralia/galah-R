@@ -22,7 +22,12 @@ df <- paste0(data_dir, "/data-raw/node_config.csv") |>
   bind_rows( # add cached gbif data
     tibble(
       atlas = "Global",
-      type = c("data/species", "metadata/fields", "metadata/assertions"))) |>
+      type = c("data/species", "metadata/fields", "metadata/assertions")),
+    tibble(
+      atlas = c("Austria", "Brazil", "Guatemala", "Portugal", "Spain", "United Kingdom"),
+      type = "files/media"
+    )) |>
+  arrange(atlas, type) |>
   left_join(
     select(node_metadata, region, url),
     by = c("atlas" = "region")
@@ -43,12 +48,15 @@ df_functions$group <- factor(
   levels = seq_len(3),
   labels = c("metadata", "data", "files"))
 
+# add extra space to distinguish between "metadata/media" and "files/media"
+df_functions$type[df_functions$type == "media" & df_functions$group == "files"] <- "media "
+
 # order types
 count_df <- df_functions |>
   group_by(type) |>
   summarize(count = n()) |>
   arrange(desc(count)) |>
-  mutate(order = seq_len(23))
+  mutate(order = seq_len(24))
 
 type_seq <- lapply(df_functions$type, function(a){
   count_df$order[which(count_df$type == a)]
@@ -63,9 +71,10 @@ count_df <- df_functions |>
   group_by(atlas) |>
   summarize(count = n())
 count_df$count[grepl("Global", count_df$atlas)] <- 100 # put GBIF on top
+count_df$count[grepl("Australia", count_df$atlas)] <- 90 # Australia second
 count_df <- count_df |>
   arrange(count) |>
-  mutate(order = seq_len(11))
+  mutate(order = seq_len(nrow(node_metadata)))
 
 atlas_seq <- lapply(df_functions$atlas, function(a){
   count_df$order[which(count_df$atlas == a)]
@@ -103,7 +112,7 @@ p <- ggplot(df_functions,
     plot.margin = margin(2, 8, 0, 2, unit = "mm"),
     legend.position = "none")
 
-ggsave("./vignettes/atlases_plot.png", 
+ggsave("./man/figures/atlases_plot.png",
        width = 8, 
-       height = 6, 
+       height = 5.5, 
        units = "in")

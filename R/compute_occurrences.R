@@ -3,15 +3,17 @@
 #' @keywords Internal
 compute_occurrences <- function(.query){
   switch(pour("atlas", "region"),
-         "United Kingdom" = compute_occurrences_uk(.query),
+         "Austria" = compute_occurrences_la_direct(.query),
+         "United Kingdom" = compute_occurrences_la_direct(.query),
          "Global" = compute_occurrences_gbif(.query),
          compute_occurrences_la(.query))
 }
 
-#' Internal function to `compute()` for `type = "occurrences"` for UK
+#' Internal function to `compute()` for `type = "occurrences"` for 
+#' atlases that have 'direct' downloads (i.e. no true `compute` stage)
 #' @noRd
 #' @keywords Internal
-compute_occurrences_uk <- function(.query){
+compute_occurrences_la_direct <- function(.query){
   result <- c(.query,
               list(fields = extract_fields(.query)))
   class(result) <- "computed_query"

@@ -14,8 +14,19 @@ counts <- map(atlases$region,
                 atlas_counts()
               })
 services <- show_all(apis) |>
+  filter(type != "files/media") |>
+  bind_rows( # add cached gbif data
+    tibble(
+      atlas = "Global",
+      type = c("data/species", "metadata/fields", "metadata/assertions"),
+      url = NA),
+    tibble(
+      atlas = c("Austria", "Australia", "Brazil", "Guatemala", "Portugal", "Spain", "Sweden", "United Kingdom"),
+      type = "files/media",
+      url = NA)) |>
   group_by(atlas) |>
   summarize(n_services = n())
+
 
 atlases_csv <- atlases |>
   select(region, institution) |>

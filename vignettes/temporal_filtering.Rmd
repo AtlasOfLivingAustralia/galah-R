@@ -30,18 +30,18 @@ For instance, we can get monthly counts of amphibians from 2021 using the `year`
 
 
 
-```r
+``` r
 library(galah)
 library(tidyverse)
 library(gt)
 library(lubridate)
 ```
 
-```r
+``` r
 galah_config(email = "your_email_here", verbose = FALSE)
 ```
 
-```r
+``` r
 galah_call() |>
   filter(class == "Amphibia", year == 2021) |>
   group_by(month) |>
@@ -53,18 +53,18 @@ galah_call() |>
 ## # A tibble: 12 × 2
 ##    month count
 ##    <chr> <int>
-##  1 10    54478
-##  2 9     42345
-##  3 1     33092
-##  4 8     26525
-##  5 3     25641
-##  6 2     23796
-##  7 11    23535
-##  8 7     12407
-##  9 4     10034
-## 10 6      9258
-## 11 5      8100
-## 12 12     4069
+##  1 11    83810
+##  2 10    38208
+##  3 12    36578
+##  4 9     27616
+##  5 1     22352
+##  6 8     18758
+##  7 3     17964
+##  8 2     16550
+##  9 7      8945
+## 10 4      7769
+## 11 6      6961
+## 12 5      5996
 ```
 
 It is also important to observe that the outputted `month` column is of type 
@@ -75,8 +75,7 @@ or character values within `filter()`.
 One limitation of using these fields for queries with `filter()` is their 
 independence; they cannot be used to query within windows bounded by two dates 
 because the day and month filters are applied universally. For instance, consider 
-the native perennial Australian wildflower 
-[*Chamaescilla corymbosa*](https://bie.ala.org.au/species/https://id.biodiversity.org.au/node/apni/2920316), 
+the native perennial Australian wildflower *Chamaescilla corymbosa*, 
 whose known growth and flowering times are from August–October. We might be 
 interested in the number of records for this species in the first week of spring 
 (i.e. September) in each of the last 10 years. The following query does not 
@@ -84,7 +83,7 @@ provide all results between 1/9/2013 and 7/9/2023. Rather, it will only return
 results that fall within all 3 windows at once.
 
 
-```r
+``` r
 galah_call() |>
   filter(species == "Chamaescilla corymbosa",
          year >= 2013, 
@@ -111,8 +110,8 @@ galah_call() |>
 ##  7 2019      6
 ##  8 2020     20
 ##  9 2021     36
-## 10 2022     25
-## 11 2023     52
+## 10 2022     26
+## 11 2023     54
 ```
 
 ### Occurrence dates
@@ -145,10 +144,10 @@ greater or less than queries are used rather than exact matches. When used with
 Australian threatened species list on 26/02/2022.
 
 
-```r
+``` r
 galah_call() |>
   filter(species == "Megaptera novaeangliae", 
-               eventDate >= "2022-02-26T00:00:00Z") |>
+         eventDate >= "2022-02-26T00:00:00Z") |>
   count() |>
   collect()
 ```
@@ -157,7 +156,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##   count
 ##   <int>
-## 1   690
+## 1  1240
 ```
 
 It can be unintuitive to provide dates in this format. Luckily, it is very 
@@ -167,7 +166,7 @@ they are already in the required "YYYY-MM-DD" form. If we took the above date
 follows:
 
 
-```r
+``` r
 humpback_date <- "26/02/2022"
 # Base R
 paste0(as.Date(humpback_date, format = "%d/%m/%Y"), "T00:00:00Z")
@@ -177,7 +176,7 @@ paste0(as.Date(humpback_date, format = "%d/%m/%Y"), "T00:00:00Z")
 ## [1] "2022-02-26T00:00:00Z"
 ```
 
-```r
+``` r
 # lubridate
 paste0(dmy(humpback_date), "T00:00:00Z")
 ```
@@ -203,7 +202,7 @@ Cockatoos recorded in the first week of 2023 were actually loaded into the ALA
 by the following week:
 
 
-```r
+``` r
 # Total records of Cactua galerita in Jan 1-7
 galah_call() |>
   filter(species == "Cacatua galerita",
@@ -217,11 +216,11 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##   count
 ##   <int>
-## 1   388
+## 1   407
 ```
 
 
-```r
+``` r
 # Records of Cactua galerita uploaded in Jan 1-14
 galah_call() |>
   filter(species == "Cacatua galerita",
@@ -236,7 +235,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##   count
 ##   <int>
-## 1     6
+## 1     5
 ```
 
 Note that no lower bound is required for `firstLoadedDate` because `eventDate` 

@@ -68,12 +68,10 @@ build_query <- function(identify = NULL,
     }
   }
   # add profiles information (ALA only)  
-  if(pour("atlas", "region") == "Australia"){
-    if(!is.null(data_profile)) {
-      query$qualityProfile <- data_profile
-    } else {
-      query$disableAllQualityFilters <- "true"
-    }
+  if(!is.null(data_profile)) {
+    query$qualityProfile <- data_profile
+  } else {
+    query$disableAllQualityFilters <- "true"
   }
   build_single_fq(query)
 }

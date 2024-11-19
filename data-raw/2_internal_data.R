@@ -3,7 +3,10 @@
 # Hadley Wickham, section 8.3 'Internal data'
 # https://r-pkgs.org/data.html
 
-USE_TEST_SYSTEM <- FALSE # set to TRUE to run against ALA 'test' system
+## USE A TEST SYSTEM ##
+# set to TRUE to run against respective ALA 'test' system
+test_biocache = FALSE
+test_lists = FALSE
 # default is FALSE, which runs against the 'production' system.
 
 devtools::load_all()
@@ -35,13 +38,29 @@ node_config <- read_csv("./data-raw/node_config.csv") |>
   select(-functional)
 
 # if running on test server, reset requisite APIs
-if(USE_TEST_SYSTEM){
-  lookup <- grepl("^https://biocache-ws.ala.org.au/ws/", node_config$url)
-  node_config$url[lookup] <- sub(
+use_test_system <- function(biocache = FALSE,
+                            lists = FALSE) {
+  if(biocache == TRUE) {
+    lookup <- grepl("^https://biocache-ws.ala.org.au/ws/", node_config$url)
+    node_config$url[lookup] <- sub(
       "^https://biocache-ws.ala.org.au/ws/",
       "https://biocache-ws-test.ala.org.au/ws/",
       node_config$url[lookup])
+  }
+  
+  if(lists == TRUE) {
+    lookup <- grepl("^https://api.ala.org.au/specieslist/", node_config$url)
+    node_config$url[lookup] <- sub(
+      "^https://api.ala.org.au/specieslist/",
+      "https://api.test.ala.org.au/specieslist/",
+      node_config$url[lookup])
+  }
+  
+  return(node_config)
 }
+
+node_config <- use_test_system(biocache = test_biocache,
+                               lists = test_lists)
 
 # ALA defaults
 # add other data

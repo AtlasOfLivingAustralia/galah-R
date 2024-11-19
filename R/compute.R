@@ -2,7 +2,7 @@
 #' @description `compute()` is useful for several purposes. It's original 
 #' purpose is to send a request for data, which can then be processed by the 
 #' server and retrieved at a later time (via `collect()`).
-#' @name compute_galah
+#' @name compute.data_request
 #' @order 1
 #' @param x An object of class `data_request`, `metadata_request` or 
 #' `files_request` (i.e. constructed using a pipe) or `query` 
@@ -19,20 +19,20 @@ compute.data_request <- function(x, ...){
 }
 
 # if calling `compute()` after `request_metadata()` 
-#' @rdname compute_galah
+#' @rdname compute.data_request
 #' @order 2
 #' @export
 compute.metadata_request <- compute.data_request
 
 
 # if calling `compute()` after `request_files()` 
-#' @rdname compute_galah
+#' @rdname compute.data_request
 #' @order 3
 #' @export
 compute.files_request <- compute.data_request
 
 # if calling `compute()` on an object extracted from `collapse()` 
-#' @rdname compute_galah
+#' @rdname compute.data_request
 #' @order 5
 #' @export
 compute.query <- function(x, ...){

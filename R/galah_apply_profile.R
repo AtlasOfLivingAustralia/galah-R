@@ -1,5 +1,6 @@
 #' Apply a data quality profile
 #'
+#' @description
 #' A 'profile' is a group of filters that are pre-applied by the ALA. Using a 
 #' data profile allows a query to be filtered quickly to the most relevant or 
 #' quality-assured data that is fit-for-purpose. For example, the "ALA" profile
@@ -9,25 +10,37 @@
 #' Note that only one profile can be loaded at a time; if multiple profiles are 
 #' given, the first valid profile is used.
 #' 
-#' For more bespoke editing of filters within a profile, use [galah_filter()]
-#'
+#' For more bespoke editing of filters within a profile, use 
+#' [filter.data_request()].
+#' @param .data An object of class `data_request`
 #' @param ... a profile name. Should be a `string` - the name or abbreviation 
 #'    of a data quality profile to apply to the query. Valid values can be seen 
 #'    using `show_all(profiles)`
-#' @return A tibble containing a valid data profile value.
+#' @return An updated `data_request` with a completed `data_profile` slot.
 #' @seealso [show_all()] and [search_all()] to look up available data profiles. 
-#' [galah_filter()] can be used for more bespoke editing of individual data 
+#' [filter.data_request()] can be used for more bespoke editing of individual data 
 #' profile filters.
-#' @name galah_apply_profile
+#' @name apply_profile
 #' @examples \dontrun{
 #' # Apply a data quality profile to a query
 #' galah_call() |> 
-#'   galah_identify("reptilia") |>
-#'   galah_filter(year == 2021) |>
-#'   galah_apply_profile(ALA) |>
+#'   identify("reptilia") |>
+#'   filter(year == 2021) |>
+#'   apply_profile(ALA) |>
 #'   atlas_counts()
 #' }
-#' @importFrom tibble tibble
+#' @importFrom rlang enquos
+#' @export
+apply_profile <- function(.data, ...){
+  dots <- enquos(..., .ignore_empty = "all")
+  result <- parse_quosures_basic(dots) |>
+    pluck(!!!list(1)) |>
+    parse_profile()
+  update_data_request(.data, data_profile = result)
+}
+
+#' @rdname apply_profile
+#' @importFrom rlang enquos
 #' @export
 galah_apply_profile <- function(...){
   dots <- enquos(..., .ignore_empty = "all") |>
@@ -42,17 +55,6 @@ galah_apply_profile <- function(...){
            parse_quosures_basic(dots) |>
              parse_profile()
          })
-}
-
-#' @rdname galah_apply_profile
-#' @param .data An object of class `data_request`
-#' @export
-apply_profile <- function(.data, ...){
-  dots <- enquos(..., .ignore_empty = "all")
-  result <- parse_quosures_basic(dots) |>
-    pluck(!!!list(1)) |>
-    parse_profile()
-  update_data_request(.data, data_profile = result)
 }
 
 #' Internal parsing of `profile` args

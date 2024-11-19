@@ -1,18 +1,18 @@
 Package: galah
 Type: Package
 Title: Biodiversity Data from the GBIF Node Network
-Version: 2.0.2
+Version: 2.1.0
 Authors@R: 
     c(person(given = "Martin",
              family = "Westgate",
              email = "martin.westgate@csiro.au",
              role = c("aut", "cre")),
-      person(given = "Matilda",
-             family = "Stevenson",
-             role = "aut"),
       person(given = "Dax",
              family = "Kellie",
              email = "dax.kellie@csiro.au",
+             role = "aut"),
+      person(given = "Matilda",
+             family = "Stevenson",
              role = "aut"),
       person(given = "Peggy",
              family = "Newman",
@@ -26,7 +26,7 @@ Description: The Global Biodiversity Information Facility
     Australia ('ALA', <https://www.ala.org.au>). 'galah' enables the R community 
     to directly access data and resources hosted by 'GBIF' and its partner nodes.
 Depends:
-    R (>= 4.1.0)
+    R (>= 4.3.0)
 Imports:
     cli,
     crayon,
@@ -61,6 +61,6 @@ BugReports: https://github.com/AtlasOfLivingAustralia/galah-R/issues
 Maintainer: Martin Westgate <martin.westgate@csiro.au>
 LazyLoad: yes
 VignetteBuilder: knitr
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

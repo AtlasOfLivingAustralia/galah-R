@@ -13,7 +13,7 @@
 #' @param ... Arguments to be passed to or from other methods
 #' @returns Print does not return an object; instead it prints a description
 #' of the object to the console
-#' @examples
+#' @examples \dontrun{
 #' # The most common way to start a pipe is with `galah_call()`
 #' # later functions update the `data_request` object
 #' galah_call() |> # same as calling `request_data()`
@@ -35,6 +35,7 @@
 #'   
 #' # Each `query_set` contains one or more `query` objects
 #' x[[3]]
+#' }
 #' @export
 print.data_request <- function(x, # NOTE: use of `x` arg here is for consistency with `print()`,
                                ...
@@ -111,7 +112,7 @@ switch_slot_text <- function(x, a){
     },
     "select" = x[[a]]$summary,
     "group_by" =  glue_collapse(x[[a]]$name, sep = " | "),
-    "data_profile" ={x[[a]]$data_profile[1]},
+    "data_profile" ={x[[a]][1]},
     "mint_doi" = {x[[a]][1]},
     "")
 }

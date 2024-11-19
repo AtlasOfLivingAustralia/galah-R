@@ -1,7 +1,7 @@
 ---
 title: "Choosing an atlas"
 author: "Martin Westgate & Dax Kellie"
-date: '2024-04-02'
+date: '2024-11-05'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -16,8 +16,8 @@ The GBIF network consists of a series of a series of 'node' organisations who
 collate biodiversity data from their own countries, with GBIF acting as an 
 umbrella organisation to store data from all nodes. Several nodes have their 
 own APIs, often built from the 'living atlas' codebase developed by the ALA.
-galah enables you to download data either from GBIF (also see `{rgbif}`) or 
-from one of 10 node organisations.
+`galah` enables you to download data either from GBIF (see also `rgbif`) or 
+from one of 9 GBIF nodes:
 
 
 ```{r, echo = FALSE}
@@ -41,9 +41,9 @@ offer some advantages. Namely, GBIF nodes may support locally-specific:
  - **taxonomies** that reflect changes not yet adopted by the GBIF taxonomic backbone
  - **services** that are not offered by GBIF such as error checking or large downloads
  
-Ultimately, `{galah}` aims to provide _access_ to as many GBIF nodes as possible;
+Ultimately, `galah` aims to provide _access_ to as many GBIF nodes as possible;
 it's up to you which node organisation's data are suitable for your needs! 
-galah currently supports the following functions and atlases:
+We currently support the following functions and atlases:
 
 ```{r atlas-support, echo = FALSE, out.width = "100%"}
 knitr::include_graphics('../man/figures/atlases_plot.png')

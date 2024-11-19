@@ -6,8 +6,8 @@
 #' @noRd
 #' @keywords Internal
 collect_taxa <- function(.query){
-  if(grepl("namematching", .query$url$url[1])){
-    collect_taxa_namematching(.query) # Australia, Sweden
+  if(grepl("namematching|name-matching", .query$url$url[1])){
+    collect_taxa_namematching(.query) # Australia, Spain, Sweden
   }else{
     if(is_gbif()){
       collect_taxa_gbif(.query)
@@ -25,16 +25,26 @@ collect_taxa_namematching <- function(.query){
   result <- lapply(query_API(.query), 
                    build_tibble_from_nested_list) |> 
     bind_rows()
-  # break chain for use case where all search terms are dubious (i.e. no taxonConceptID)
+  # break pipe for use case where all search terms are dubious (i.e. no taxonConceptID)
   # if(any(colnames(result) == "taxonConceptID")){
     # NOTE: This code was meant to remove duplicates, but also removes all rows with NAs (which we don't want)
     #       Might be worth returning to if this functionality is needed
     # result <- filter(result, !duplicated(taxonConceptID))
   # }
   
+  # handle one or more returned issues values
+  issues <- unlist(result$issues)
+  
+  if(length(issues) > 1) {
+    issues_c <- paste(issues, collapse = ", ")
+  } else {
+    issues_c <- issues
+  }
+  
+  # add issues to result
   result <- result |>   
     mutate("search_term" = search_terms, .before = "success",
-           issues = unlist(result$issues))
+           issues = issues_c)
   
   # Check for homonyms
   if(any(colnames(result) == "issues")){

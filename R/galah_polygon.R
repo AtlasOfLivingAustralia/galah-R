@@ -1,4 +1,4 @@
-#' @rdname galah_geolocate
+#' @rdname geolocate
 #' @order 3
 #' @export
 galah_polygon <- function(...){
@@ -20,15 +20,6 @@ galah_polygon <- function(...){
   }else{
     out_query
   }   
-}
-
-#' @rdname galah_geolocate
-#' @order 5
-#' @param x An object of class `data_request`, created using [galah_call()]
-#' @param y A valid Well-Known Text string (wkt), a `POLYGON` or a `MULTIPOLYGON`
-#' @export
-st_crop.data_request <- function(x, y, ...){
-  update_data_request(x, geolocate = parse_polygon(y))
 }
 
 #' parser for polygons

@@ -190,13 +190,13 @@ test_that("atlas_species works for Austria", {
     email = "ala4r@ala.org.au", 
     download_reason_id = "testing",
     send_email = FALSE)
-  spp <- galah_call() |>
-    galah_identify("Carnivora") |>
-    atlas_species() |>
+  spp <- galah_call(type = "species") |>
+    identify("Mammalia") |> # NOTE: testing with Reptilia failed as this taxon not uniquely matched
+    collect() |>
     try(silent = TRUE)
   skip_if(inherits(spp, "try-error"), message = "API not available")
   skip_if((nrow(spp) < 1 & ncol(spp) < 1), message = "API not available")
-  expect_gt(nrow(spp), 20) # actual number 105 spp on 2024-03-22
+  expect_gt(nrow(spp), 100) # actual number 569 spp on 2024-08-22
   expect_gt(ncol(spp), 8) # actually 10
   expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
 })
@@ -207,70 +207,72 @@ test_that("atlas_occurrences works for Austria", {
   galah_config(
     atlas = "Austria",
     email = "ala4r@ala.org.au", 
-    download_reason_id = "testing",
+    directory = "temp",
+    download_reason_id = 10,
     run_checks = TRUE, ## FIXME: Test only works when run_checks = TRUE
     send_email = FALSE)
-  occ <- galah_call() |>
-    galah_identify("Mammalia") |>
-    galah_filter(year == 1990) |>
-    galah_select(species, year) |>
-    atlas_occurrences() |>
+  base_query <- galah_call() |>
+    identify("Mammalia") |>
+    filter(year == 1990) 
+  counts <- base_query |>
+    count() |>
+    collect()
+  occ_collapse <- base_query |>
+    select(species, year) |>
+    collapse() |>
     try(silent = TRUE)
-  skip_if(inherits(occ, "try-error"), message = "API not available")
-  expect_gt(nrow(occ), 0)
+  skip_if(inherits(occ_collapse, "try-error"), message = "API not available")
+  expect_s3_class(occ_collapse, "query")
+  expect_equal(names(occ_collapse), 
+               c("type", "url", "headers", "filter"))
+  expect_equal(occ_collapse$type, "data/occurrences")
+  # compute
+  occ_compute <- compute(occ_collapse)
+  expect_s3_class(occ_compute, "computed_query")
+  # collect
+  occ <- collect(occ_compute) |>
+    try(silent = TRUE)
+  skip_if(inherits(occ_compute, "try-error"), message = "API not available")
+  expect_equal(nrow(occ), counts$count[1])
+  expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
   expect_equal(ncol(occ), 2)
-  expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
+  unlink("temp", recursive = TRUE)
 })
 
 test_that("atlas_media() works for Austria", {
   skip_if_offline()
   galah_config(
     atlas = "Austria",
-    email = "ala4r@ala.org.au", 
+    email = "ala4r@ala.org.au",
     download_reason_id = "testing",
+    directory = "temp",
     run_checks = TRUE,
     send_email = FALSE)
   x <- request_data() |>
     identify("Mammalia") |>
-    filter(!is.na(image_url),
-           year == 2010) |>
+    filter(year == 2010,
+           # !is.na(all_image_url)
+    ) |>
     # count() |>
-    select(record_number, image_url) |>
-    collect(wait = TRUE) |>
-  # should return 10 occurrences
-  # fails rn due to bugs in biocache-service (2024-02-27)
-  # stages after this can't be tested until above issue is resolved.
+    # collect()
+    atlas_media() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
-  expect_gt(nrow(x), 0)
-  y <- request_metadata() |>
-    filter(media == x) |>
-    collect() |>
-    try(silent = TRUE)
-  skip_if(inherits(y, "try-error"), message = "API not available")
-  expect_gt(nrow(y), 0)
+  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_gte(nrow(x), 1)
+  expect_equal(colnames(x)[1:2],
+               c("media_id", "recordID"))
+  # download a subset
+  n_downloads <- 5
+  collect_media(x[seq_len(n_downloads), ])
+  expect_equal(length(list.files("temp", pattern = ".jpg$")),
+               n_downloads)
+  unlink("temp", recursive = TRUE)
 })
 
 ## FIXME: atlas_taxonomy doesn't work
 test_that("atlas_taxonomy works for Austria", {
   skip_if_offline()
-  
-  ## FIXME: Obsolete syntax. Necessary test? ------------
-  # first test child values lookup
-  # taxon <- search_taxa("Reptilia")
-  # x <- request_values() |>
-    # filter(taxa == taxon$taxon_concept_id) |> # should be able to replace this with `identify()`
-    # collect()
-  # Note that this maxes out at 1000 rows. Clearly, there are two problems here:
-  # many taxa missing levels of their taxonomic hierarchy
-  # lack of pagination in `galah`
-  # add tests
-  # expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
-  # expect_gte(nrow(x), 10)
-  # expect_equal(ncol(x), 8)
-  # now test if recursive children works via `atlas_taxonomy()`
-  # ------------------------------
-  
   y <- galah_call() |>
     identify("Aves") |>
     filter(rank >= order) |>

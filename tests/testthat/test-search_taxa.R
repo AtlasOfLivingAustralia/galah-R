@@ -95,6 +95,17 @@ test_that("search_taxa handles name issues", {
   expect_warning(search_taxa("Microseris"))
 })
 
+test_that("search_taxa handles multiple issues", {
+  skip_if_offline()
+  expected <- c("homonym, parentChildSynonym")
+  result <- search_taxa("Gallinago sp.")
+  
+  expect_no_error(search_taxa("Gallinago sp."))
+  expect_equal(length(result$issues), 1)
+  expect_equal(result$issues, expected) # NOTE: This test might be too rigid
+  
+})
+
 test_that("search_taxa errors nicely when piped in galah_call", {
   expect_error(galah_call() |> search_taxa("perameles"), "Can't pipe `search_taxa()")
 })

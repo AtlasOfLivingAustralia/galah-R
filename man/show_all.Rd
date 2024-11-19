@@ -110,5 +110,6 @@ request_metadata(type = "fields") |>
 \seealso{
 Use the \code{\link[=search_all]{search_all()}} function and \code{search_()} sub-functions to
 search for information. These functions are used to pass valid arguments to
-\code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}}, and related functions.
+\code{\link[=filter.data_request]{filter()}},
+\code{\link[=select.data_request]{select()}}, and related functions.
 }

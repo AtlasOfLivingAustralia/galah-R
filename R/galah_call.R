@@ -6,54 +6,47 @@
 #' should be filtered. Using `galah_call()` allows you to build a piped query to 
 #' download data, in the same way that you would wrangle data with `dplyr` and 
 #' the `tidyverse`.
-#'
-#' Since version 2.0, `galah_call()` is a wrapper to a group of underlying 
-#' `request_` functions. Each of these functions can begin a piped query and end 
-#' with `collapse()`, `compute()` or `collect()`. 
-#' 
-#' The underlying `request_` #' functions are useful because they allow `galah` 
-#' to separate different types of requests to perform better. For example, 
-#' `filter.data_request` translates filters in R to `solr`, whereas 
-#' `filter.metadata_request` searches using a search term.
-#' 
-#' For more details see the object-oriented programming vignette:  
-#' \code{vignette("object_oriented_programming", package = "galah")}
-#' 
 #' @param method string: what `request` function should be called. Should be one
 #' of `"data"` (default), `"metadata"` or `"files"`
 #' @param type string: what form of data should be returned? Acceptable values
 #' are specified by the corresponding `request` function
-#' @param ... Zero or more arguments to alter a query. See 'details'.
-#' 
+#' @param ... Zero or more arguments passed to  
+#' \code{\link[=collapse.data_request]{collapse()}} to alter a query. Currently
+#' only `mint.doi` (for occurrences) and `thumbnail` (for media downloads) are 
+#' supported. Both are logical.
 #' @details
-#' Each atlas has several types of data that can be chosen. Currently supported
-#' are `"occurrences"` (the default), `"species"` and `"media"` (the latter
-#' currently only for ALA). It is also possible to use  
-#' `type = "occurrences-count"` and `type = "species-count"`; but in practice 
-#' this is synonymous with `galah_call() |> count()`, and is 
-#' therefore only practically useful for debugging (via `collapse()` and 
-#' `compute()`).
+#' In practice, `galah_call()` is a wrapper to a group of underlying 
+#' `request_` functions, selected using the `method` argument. 
+#' Each of these functions can begin a piped query and end with `collapse()`, 
+#' `compute()` or `collect()`, or optionally one of the `atlas_` family of
+#' functions. For more details see the object-oriented programming vignette:  
+#' \code{vignette("object_oriented_programming", package = "galah")}
 #' 
-#' Other named arguments are supported via `...`. In practice, functions 
-#' with a `galah_` prefix and S3 methods ported from `dplyr` assign 
-#' information to the correct slots internally. Overwriting these with 
-#' user-defined alternatives is possible, but not advised. Accepted
-#' arguments are: 
+#' Accepted values of the `type` argument are set by the underlying `request_`
+#' functions. While all accepted types can be set directly, some are affected
+#' by later functions. The most common example is that adding 
+#' \code{\link[=count.data_request]{count()}} to a pipe updates `type`, 
+#' converting `type = "occurrences"` to `type = "occurrences-count"` (and ditto 
+#' for `type = "species"`).
 #' 
-#'  - `filter` (accepts `galah_filter()` or \code{\link[=filter.data_request]{filter()}})
-#'  - `select` (accepts `galah_select()` or \code{\link[=filter.data_request]{select}})
-#'  - `group_by` (accepts `galah_group_by()` or \code{\link[=group_by.data_request]{group_by()}})
-#'  - `identify` (accepts `galah_identify()` or \code{\link[=identify.data_request]{identify()}})
-#'  - `geolocate` (accepts `galah_geolocate()`, `galah_polygon()` `galah_bbox()` or 
-#'    \code{\link[=st_crop.data_request]{st_crop()}})
-#'  - `limit` (accepts \code{\link[=slice_head.data_request]{slice_head()}})
-#'  - `doi` (accepts a sting listing a valid DOI, specific to `collect()` when `type = "doi"`)
-#'  
-#' Unrecognised names are ignored by `collect()` and related functions.
-#' 
+#' The underlying `request_` functions are useful because they allow `galah` 
+#' to separate different types of requests to perform better. For example, 
+#' `filter.data_request` translates filters in R to `solr`, whereas 
+#' `filter.metadata_request` searches using a search term.
 #' @return Each sub-function returns a different object class: `request_data()` 
 #' returns `data_request`. `request_metadata` returns `metadata_request`,
-#' `request_files()` returns `files_request`.
+#' `request_files()` returns `files_request`. These objects are list-like and
+#' contain the following slots:
+#' 
+#'  - `filter`: edit by piping \code{\link[=filter.data_request]{filter()}} or [galah_filter()].
+#'  - `select`: edit by piping \code{\link[=filter.data_request]{select}} or [galah_select()].
+#'  - `group_by`: edit by piping \code{\link[=group_by.data_request]{group_by()}} or [galah_group_by()].
+#'  - `identify`: edit by piping \code{\link[=identify.data_request]{identify()}} or [galah_identify()].
+#'  - `geolocate`: edit by piping \code{\link[=st_crop.data_request]{st_crop()}}, 
+#'    [galah_geolocate()], [galah_polygon()] or [galah_bbox()].
+#'  - `limit`: edit by piping \code{\link[=slice_head.data_request]{slice_head()}}.
+#'  - `doi`: edit by piping \code{\link[=filter.data_request]{filter(doi == "my-doi-here")}}.
+#'  
 #' @seealso [collapse.data_request()], [compute.data_request()], [collect.data_request()]
 #' @rdname galah_call
 #' @examples \dontrun{ 
@@ -61,39 +54,39 @@
 #' 
 #' # Get number of records of *Aves* from 2001 to 2004 by year
 #' galah_call() |>
-#'   galah_identify("Aves") |>
-#'   galah_filter(year > 2000 & year < 2005) |>
-#'   galah_group_by(year) |>
+#'   identify("Aves") |>
+#'   filter(year > 2000 & year < 2005) |>
+#'   group_by(year) |>
 #'   atlas_counts()
 #'   
 #' # Get information for all species in *Cacatuidae* family
 #' galah_call() |>
-#'   galah_identify("Cacatuidae") |>
+#'   identify("Cacatuidae") |>
 #'   atlas_species()
 #'   
 #' # Download records of genus *Eolophus* from 2001 to 2004
 #' galah_config(email = "your-email@email.com")
 #' 
 #' galah_call() |>
-#'   galah_identify("Eolophus") |>
-#'   galah_filter(year > 2000 & year < 2005) |>
-#'   atlas_occurrences()
+#'   identify("Eolophus") |>
+#'   filter(year > 2000 & year < 2005) |>
+#'   atlas_occurrences() # synonymous with `collect()`
 #' 
 #' 
-#' # ----------
-#' # Since galah 2.0.0, a pipe can start with a `request_` function.
-#' # This allows users to use `collapse()`, `compute()` and `collect()`.
+#' # galah_call() is a wrapper to various `request_` functions.
+#' # These can be called directly for greater specificity.
 #' 
 #' # Get number of records of *Aves* from 2001 to 2004 by year
-#' request_data(type = "occurrences-count") |>
-#'   galah_identify("Aves") |>
-#'   galah_filter(year > 2000 & year < 2005) |>
-#'   galah_group_by(year) |>
+#' request_data() |>
+#'   identify("Aves") |>
+#'   filter(year > 2000 & year < 2005) |>
+#'   group_by(year) |>
+#'   count() |>
 #'   collect()
 #' 
 #' # Get information for all species in *Cacatuidae* family
 #' request_data(type = "species") |>
-#'   galah_identify("Cacatuidae") |>
+#'   identify("Cacatuidae") |>
 #'   collect()
 #'   
 #' # Get metadata information about supported atlases in galah
@@ -102,7 +95,9 @@
 #' 
 #' }
 #' @export
-galah_call <- function(method = c("data", "metadata", "files"),
+galah_call <- function(method = c("data", 
+                                  "metadata", 
+                                  "files"),
                        type,
                        ...){
   method <- match.arg(method)
@@ -159,29 +154,36 @@ request_data <- function(type = c("occurrences",
 }
 
 #' @rdname galah_call
+#' @importFrom glue glue
+#' @importFrom rlang abort
 #' @export
-request_metadata <- function(type){
-  if(missing(type)){
-    type <- "fields"
+request_metadata <- function(type = c("fields",
+                                      "apis",
+                                      "assertions",
+                                      "atlases",
+                                      "collections",
+                                      "datasets",
+                                      # "distributions",
+                                      "licences",
+                                      "lists",
+                                      "media",
+                                      "profiles",
+                                      "providers",
+                                      "ranks",
+                                      "reasons",
+                                      "taxa",
+                                      "identifiers")){
+  type_checked <- try(match.arg(type),
+                      silent = TRUE)
+  if(inherits(type_checked, "try-error")){
+    bullets <- c(
+      glue("Unrecognised metadata requested."),
+      i = "See `?show_all()` for a list of valid metadata types.",
+      x = glue("Can't find metadata type `{type}`.")
+    )
+    abort(bullets)   
   }
-  valid_types <- c("fields",
-                   "apis",
-                   "assertions",
-                   "atlases",
-                   "collections",
-                   "datasets",
-                   # "distributions",
-                   "licences",
-                   "lists",
-                   "media",
-                   "profiles",
-                   "providers",
-                   "ranks",
-                   "reasons",
-                   "taxa",
-                   "identifiers")
-  check_type_valid(type, valid_types)
-  x <- list(type = type)
+  x <- list(type = type_checked)
   class(x) <- "metadata_request"
   return(x)
 }

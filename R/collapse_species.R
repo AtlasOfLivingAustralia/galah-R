@@ -42,6 +42,7 @@ collapse_species_atlas <- function(.query){
     type = "data/species",
     url = url_build(url),
     headers = build_headers(),
+    filter = .query$filter,
     download = TRUE)
   class(result) <- "query"
   result

@@ -46,13 +46,12 @@ with other methods of spatial filtering. These fields are all able to be queried
 with `filter()`and so they are generally easier to use.
 
 Suppose we are interested in querying records of the Red-Necked Avocet 
-([*Recurvirostra novaehollandiae*](https://bie.ala.org.au/species/https://biodiversity.org.au/afd/taxa/c69e7308-527a-429d-a80d-143bd20b5100)) 
-in a particular protected wetlands, the Coorong wetlands in South Australia. We 
-can search the ALA fields for wetlands.
+(*Recurvirostra novaehollandiae*) in the Coorong wetlands in South Australia. 
+We can search the ALA fields for wetlands.
 
 ```{r, output = FALSE, message = FALSE, warning = FALSE}
 library(galah)
-library(tidyverse)
+library(dplyr)
 library(gt)
 library(sf)
 ```
@@ -83,20 +82,20 @@ galah_call() |>
   gt::gt()
 ```
 
-### galah_geolocate()
+### Filtering data to a polygon
 
 While server-side spatial information is useful, there are likely to be cases 
 where the shapefile or region you wish to query will not be pre-loaded as a 
 contextual layer in the ALA. In this case, shapefiles can be introduced to the 
-filtering process using the {sf} package and the `galah_geolocate()` function. 
+filtering process using the {sf} package and the `geolocate()` function. 
 Shapefiles can be provided as an `sf` object, whether that is by importing them 
 with `sf::st_read()` or taking a `POLYGON` or `MULTIPOLYGON` character string and 
 transforming them with `sf::st_as_sfc()`.
 
 For instance, we might interested in species occurrences in King George Square, 
 Brisbane. We can take the `MULTIPOLYGON` object for the square (as sourced from 
-the [Brisbane City Council](https://www.data.brisbane.qld.gov.au/data/dataset/park-locations)) 
-and transform it into `sfc` and then `sf` objects.
+the [Brisbane City Council](https://data.brisbane.qld.gov.au/pages/home/
+)) and transform it into `sfc` and then `sf` objects.
 
 ```{r}
 king_george_sq <- "MULTIPOLYGON(((153.0243 -27.46886, 153.0242 -27.46896, 153.0236 -27.46837, 153.0239 -27.46814, 153.0239 -27.46813, 153.0242 -27.46789, 153.0244 -27.46805, 153.0245 -27.46821, 153.0246 -27.46828, 153.0247 -27.46835, 153.0248 -27.46848, 153.0246 -27.4686, 153.0246 -27.46862, 153.0245 -27.46871, 153.0243 -27.46886)))" |>
@@ -105,12 +104,12 @@ king_george_sq <- "MULTIPOLYGON(((153.0243 -27.46886, 153.0242 -27.46896, 153.02
 ```
 
 We can provide this `MULTIPOLYGON` in our filter as the argument of 
-`galah_geolocate()` to assess which species have been recorded in King George 
+`geolocate()` to assess which species have been recorded in King George 
 Square.
 
 ```{r}
 galah_call() |>
-  galah_geolocate(king_george_sq) |>
+  geolocate(king_george_sq) |>
   select(decimalLatitude, 
          decimalLongitude, 
          eventDate, 
@@ -121,7 +120,7 @@ galah_call() |>
   gt::gt()
 ```
 
-There is a second argument of `galah_geolocate()` called `type`, which defaults 
+There is a second argument of `geolocate()` called `type`, which defaults 
 to value `"polygon"`. By setting the `type` argument to `"bbox"`, the provided 
 `POLYGON` or `MULTIPOLYGON` will be converted into the smallest bounding box 
 (rectangle) that contains the `POLYGON`. In this case, records will be included 
@@ -129,7 +128,7 @@ that may not exactly lie inside the provided shape.
 
 ```{r}
 galah_call() |>
-  galah_geolocate(king_george_sq, type = "bbox") |>
+  geolocate(king_george_sq, type = "bbox") |>
   select(decimalLatitude, 
          decimalLongitude, 
          eventDate, 
@@ -147,19 +146,17 @@ The `type` argument with option `"bbox"` is provided because `sf` objects with
 shapefile, using `type = "bbox"` will at least enable an initial reduction of 
 the data that is downloaded, before finer filtering to the actual shapefile will 
 obtain the desired set of occurrences. Alternatively, one can also perform the 
-`"bbox"` reduction before passing the shape to `galah_geolocate()` by using 
+`"bbox"` reduction before passing the shape to `geolocate()` by using 
 `sf::st_bbox()`.
 
 A common situation for this to occur is when a shapefile with multiple shapes is 
 provided, where we are interested in grouping our results by each shape. Here is 
-a mock workflow using a subset of a shapefile of 
-[all 2,184 Brisbane parks](https://www.data.brisbane.qld.gov.au/data/dataset/park-locations).
+a mock workflow using a subset of a shapefile of all 2,184 Brisbane parks.
 
 Let's say we are interested in knowing which parks in the Brisbane postcode 4075 
-have the most occurrences of the Scaly-Breasted Lorikeet, 
-[*Trichoglossus chlorolepidotus*](https://bie.ala.org.au//species/https://biodiversity.org.au/afd/taxa/ecaca7ec-da2e-4c6b-b190-14e7a1738884), 
-since 2020. We can download the entire shapefile from the above link, and 
-perform our filtering and summarising as follows:
+have the most occurrences of the Scaly-Breasted Lorikeet (*Trichoglossus 
+chlorolepidotus*) since 2020. We can download the entire shapefile from the 
+link above, and perform our filtering and summarising as follows:
 
 ```{r, include = FALSE}
 # import actual data (WILL NEED TO SET YOUR OWN FILE PATH HERE)
@@ -181,7 +178,7 @@ brisbane_parks_bbox <- brisbane_parks |> sf::st_bbox()
 lorikeet_brisbane <- galah_call() |>
   filter(scientificName == "Trichoglossus chlorolepidotus", 
          year >= 2020) |>
-  galah_geolocate(brisbane_parks_bbox, type = "bbox") |>
+  geolocate(brisbane_parks_bbox, type = "bbox") |>
   collect()
 ```
 

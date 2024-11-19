@@ -35,7 +35,7 @@ test_that("galah_filter handles multiple assertions", {
   all_records <- atlas_counts() |>
     pull(count)
   either_valid <- galah_call() |>
-    filter(assertions != c("INVALID_SCIENTIFIC_NAME", "COORDINATE_INVALID")) |>
+    galah_filter(assertions != c("INVALID_SCIENTIFIC_NAME", "COORDINATE_INVALID")) |>
     count() |>
     collect() |>
     pull(count)
@@ -249,15 +249,19 @@ test_that("galah_filter handles lsid as an input", {
            "https://id.biodiversity.org.au/node/apni/2910467",
            "https://id.biodiversity.org.au/node/apni/291047") # wrong id
   query <- galah_call() |>
-    # galah_identify(ids, search = FALSE) |>
     galah_filter(year == 2020,
                  lsid == ids) |>
     count() |>
     collapse()
   # number of taxa searches is 3, not 4
   expect_s3_class(query, "query")
-  expect_equal(length(query), 5)
-  expect_equal(names(query), c("type", "url", "slot_name", "expand", "headers"))
+  expect_equal(length(query), 6)
+  expect_equal(names(query), c("type", 
+                               "url", 
+                               "headers",
+                               "filter",
+                               "slot_name", 
+                               "expand"))
 })
 
 test_that("galah_filter handles different fields separated by OR", {
@@ -342,6 +346,20 @@ test_that("`galah_filter()` handles apostrophes (') correctly", {
   expect_equal(nrow(query), 1) # returns result
   expect_gte(query$count[1], 1)
   expect_match(filter, "\\(\\(datasetName:\\\"Australia's Virtual Herbarium\\\"\\)")
+})
+
+test_that("`galah_filter()` handles multiple values with brackets correctly", {
+  skip_if_offline()
+  filter <- galah_filter(
+    scientificName == c("Aviceda (Aviceda) subcristata", 
+                        "Todiramphus (Todiramphus) sanctus"))$query
+  query <- galah_call() |>
+    galah_filter(scientificName == c("Aviceda (Aviceda) subcristata", 
+                                     "Todiramphus (Todiramphus) sanctus")) |>
+    atlas_counts()
+  expect_equal(nrow(query), 1) # returns result
+  expect_gte(query$count[1], 1)
+  expect_match(filter, "\\(\\(scientificName:\\\"Aviceda \\(Aviceda\\) subcristata\\\"\\)")
 })
 
 test_that("`galah_filter()` accepts {{}} on lhs of formula", {

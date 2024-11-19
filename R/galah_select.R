@@ -1,18 +1,41 @@
-#' @title Specify fields for occurrence download
+#' @title Keep or drop columns using their names
 #'
-#' @description GBIF nodes store content in hundreds of 
-#' different fields, and users often require thousands or millions of records at 
-#' a time. To reduce time taken to download data, and limit complexity of the 
-#' resulting `tibble`, it is sensible to restrict the fields returned by 
-#' [atlas_occurrences()]. This function allows easy selection of fields, or 
-#' commonly-requested groups of columns, following syntax shared with 
-#' `dplyr::select()`.
+#' @description Select (and optionally rename) variables in a data frame, using 
+#' a concise mini-language that makes it easy to refer to variables based on 
+#' their name. Note that unlike calling `select()` on a local tibble, this 
+#' implementation is only evaluated at the 
+#' \code{\link[=collapse.data_request]{collapse()}} stage, meaning any errors 
+#' or messages will be triggered at the end of the pipe.
 #' 
-#' The full list of available fields can be viewed with `show_all(fields)`. Note
-#' that `select()` and `galah_select()` are supported for all atlases that allow 
-#' downloads, with the exception of GBIF, for which all columns are returned.
+#' `select()` supports `dplyr` **selection helpers**, including:
+#' 
+#'   * \code{\link[dplyr]{everything}}: Matches all variables.
+#'   * \code{\link[dplyr]{last_col}}: Select last variable, possibly with an 
+#'     offset.
 #'
-#' @param ... zero or more individual column names to include
+#' Other helpers select variables by matching patterns in their names:
+#'  
+#'   * \code{\link[dplyr]{starts_with}}: Starts with a prefix.
+#'   * \code{\link[dplyr]{ends_with}}: Ends with a suffix.
+#'   * \code{\link[dplyr]{contains}}: Contains a literal string.
+#'   * \code{\link[dplyr]{matches}}: Matches a regular expression.
+#'   * \code{\link[dplyr]{num_range}}: Matches a numerical range like x01, 
+#'     x02, x03.
+#'
+#' Or from variables stored in a character vector:
+#'  
+#'   * \code{\link[dplyr]{all_of}}: Matches variable names in a character 
+#'     vector. All names must be present, otherwise an out-of-bounds error is 
+#'     thrown.
+#'   * \code{\link[dplyr]{any_of}}: Same as `all_of()`, except that no error 
+#'     is thrown for names that don't exist.
+#'
+#' Or using a predicate function:
+#'
+#'   * \code{\link[dplyr]{where}}: Applies a function to all variables and selects those for which the function returns `TRUE`.
+#' @name select.data_request
+#' @param .data An object of class `data_request`, created using [galah_call()].
+#' @param ... Zero or more individual column names to include.
 #' @param group `string`: (optional) name of one or more column groups to
 #' include. Valid options are `"basic"`, `"event"` `"taxonomy"`, `"media"` and
 #' `"assertions"`.
@@ -20,6 +43,14 @@
 #' specifying the name and type of each column to include in the 
 #' call to `atlas_counts()` or `atlas_occurrences()`.
 #' @details
+#' GBIF nodes store content in hundreds of different fields, and users often 
+#' require thousands or millions of records at a time. To reduce time taken to 
+#' download data, and limit complexity of the resulting `tibble`, it is sensible 
+#' to restrict the fields returned by occurrence queries. The full list of 
+#' available fields can be viewed with `show_all(fields)`. Note that `select()` 
+#' and `galah_select()` are supported for all atlases that allow downloads, with 
+#' the exception of GBIF, for which all columns are returned.
+#' 
 #' Calling the argument `group = "basic"` returns the following columns:
 #'
 #'   * `decimalLatitude`
@@ -61,37 +92,50 @@
 #' 
 #'   * `counts` to include counts of occurrences per species.
 #'   * `synonyms` to include any synonymous names.
-#'   * `lists` to include authoritiative lists that each species is included on.
+#'   * `lists` to include authoritative lists that each species is included on.
 #'
-#' @seealso [search_taxa()], [galah_filter()] and
-#' [galah_geolocate()] for other ways to restrict the information returned
-#' by [atlas_occurrences()] and related functions; [atlas_counts()]
-#' for how to get counts by levels of variables returned by `galah_select`;
-#' `show_all(fields)` to list available fields.
-#' 
+#' @seealso \code{\link[=filter.data_request]{filter()}}, 
+#' \code{\link[=st_crop.data_request]{st_crop()}} and
+#' \code{\link[=identify.data_request]{identify()}} for other ways to restrict 
+#' the information returned; `show_all(fields)` to list available fields.
 #' @examples \dontrun{
 #' # Download occurrence records of *Perameles*, 
 #' # Only return scientificName and eventDate columns
 #' galah_config(email = "your-email@email.com")
 #' galah_call() |>
-#'   galah_identify("perameles")|>
-#'   galah_select(scientificName, eventDate) |>
-#'   atlas_occurrences()
+#'   identify("perameles")|>
+#'   select(scientificName, eventDate) |>
+#'   collect()
 #' 
 #' # Only return the "basic" group of columns and the basisOfRecord column
 #' galah_call() |>
-#'   galah_identify("perameles") |>
-#'   galah_select(basisOfRecord, group = "basic") |>
-#'   atlas_occurrences()
-#'   
-#' # When used in a pipe, `galah_select()` and `select()` are synonymous.
-#' # Hence the previous example can be rewritten as:
-#' request_data() |>
 #'   identify("perameles") |>
 #'   select(basisOfRecord, group = "basic") |>
 #'   collect()
+#'   
+#' # When used in a pipe, `galah_select()` and `select()` are synonymous.
+#' # Hence the previous example can be rewritten as:
+#' galah_call() |>
+#'   galah_identify("perameles") |>
+#'   galah_select(basisOfRecord, group = "basic") |>
+#'   collect()
 #' }
 #' @importFrom rlang inform
+#' @export
+select.data_request <- function(.data, ..., group){
+  if(is_gbif()){
+    inform("`select()` is not supported for GBIF: skipping")
+    .data
+  }else{
+    dots <- enquos(..., .ignore_empty = "all") |>
+      as.list() |>
+      add_summary() |>
+      add_group(group)
+    update_data_request(.data, select = dots)  
+  }
+}
+
+#' @rdname select.data_request
 #' @export
 galah_select <- function(..., group){
   dots <- enquos(..., .ignore_empty = "all") |>
@@ -113,22 +157,6 @@ galah_select <- function(..., group){
     }else{
       dots
     } 
-  }
-}
-
-#' @rdname galah_select
-#' @param .data An object of class `data_request`, created using [galah_call()]
-#' @export
-select.data_request <- function(.data, ..., group){
-  if(is_gbif()){
-    inform("`select()` is not supported for GBIF: skipping")
-    .data
-  }else{
-    dots <- enquos(..., .ignore_empty = "all") |>
-      as.list() |>
-      add_summary() |>
-      add_group(group)
-    update_data_request(.data, select = dots)  
   }
 }
 
@@ -174,81 +202,4 @@ add_group <- function(dots, group){
                            paste(group, collapse = ", ")) 
   }
   dots
-}
-
-#' Internal function to populate `groups` arg in `select()`
-#' @noRd
-#' @keywords Internal
-preset_groups <- function(group_name) {
-  cols <- switch(group_name,
-                 "basic" = default_columns(),
-                 "event" = c("eventRemarks",
-                             "eventTime",
-                             "eventID",
-                             "eventDate",
-                             "samplingEffort",
-                             "samplingProtocol"),
-                 "media" = c("multimedia",
-                             "images",
-                             "videos",
-                             "sounds"),
-                 "taxonomy" = c("kingdom",
-                                "phylum",
-                                "class", 
-                                "order", 
-                                "family",
-                                "genus",
-                                "species",
-                                "subspecies"))
-  # note: assertions handled elsewhere
-  return(cols)
-}
-
-#' Internal function to specify 'basic' columns in `select()`
-#' @noRd
-#' @keywords Internal
-default_columns <- function() {
-  atlas <- pour("atlas", "region")
-  switch (atlas,
-          "Austria" = c("id",
-                        "taxon_name",
-                        "taxon_concept_lsid",
-                        "latitude",
-                        "longitude",
-                        "occurrence_date",
-                        "occurrence_status",
-                        "data_resource_uid"),
-          "Guatemala" = c("id",
-                          "taxon_name",
-                          "taxon_concept_lsid",
-                          "latitude",
-                          "longitude",
-                          "occurrence_date",
-                          "occurrence_status",
-                          "data_resource_uid"),
-          "Spain" = c("id",
-                      "scientificName",
-                      "taxonConceptID",
-                      "decimalLatitude",
-                      "decimalLongitude",
-                      "eventDate",
-                      "occurrenceStatus",
-                      "dataResourceUid"),
-          "United Kingdom" = c("id",
-                               "taxon_name",
-                               "taxon_concept_lsid",
-                               "latitude",
-                               "longitude",
-                               "occurrence_date",
-                               "occurrence_status",
-                               "data_resource_uid"),
-          c("recordID", # note this requires that the ALA name (`id`) be corrected
-            "scientificName",
-            "taxonConceptID",
-            "decimalLatitude",
-            "decimalLongitude",
-            "eventDate",
-            "occurrenceStatus",
-            "dataResourceName")
-  )
 }

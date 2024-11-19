@@ -56,14 +56,24 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
     filter(media == occ_collect) |>
     collapse()
   expect_true(inherits(media_collapse, "query"))
-  expect_equal(length(media_collapse), 4)
-  expect_equal(names(media_collapse), c("type", "url", "body", "headers"))
+  expect_equal(length(media_collapse), 5)
+  expect_equal(names(media_collapse), 
+               c("type", 
+                 "url",
+                 "headers",
+                 "body",
+                 "filter"))
   expect_true(media_collapse$type == "metadata/media")
   # compute
   media_compute <- compute(media_collapse)
   expect_true(inherits(media_compute, "computed_query"))
-  expect_equal(length(media_compute), 4)
-  expect_equal(names(media_compute), c("type", "url", "body", "headers"))
+  expect_equal(length(media_compute), 5)
+  expect_equal(names(media_compute), 
+               c("type", 
+                 "url",
+                 "headers",
+                 "body",
+                 "filter"))
   # collect
   media_collect <- collect(media_compute)
   expect_s3_class(media_collect, c("tbl_df", "tbl", "data.frame"))
@@ -128,10 +138,10 @@ test_that("atlas_media gives a warning when old arguments are used", {
 
 test_that("collect_media handles different file formats", {
   skip_if_offline()
-  galah_config(email = "ala4r@ala.org.au")
+  
   media_dir <- "test_media"
-  unlink(media_dir, recursive = TRUE)
-  dir.create(media_dir)
+  galah_config(email = "ala4r@ala.org.au", 
+               directory = media_dir)
   media_data <- galah_call() |>
     galah_identify("Regent Honeyeater") |>
     galah_filter(year == 2012) |>
@@ -149,10 +159,9 @@ test_that("collect_media handles different file formats", {
 
 test_that("collect_media handles thumbnails", {
   skip_if_offline()
-  galah_config(email = "ala4r@ala.org.au")
   media_dir <- "test_media"
-  unlink(media_dir, recursive = TRUE)
-  dir.create(media_dir)
+  galah_config(email = "ala4r@ala.org.au", 
+               directory = media_dir)
   z <- galah_call() |> 
     galah_identify("Candovia aberrata") |>
     galah_filter(year == 2023) |>

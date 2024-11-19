@@ -21,11 +21,13 @@ test_that("`galah_select()` triggers error during `compute()` when columns don't
 
 test_that("`galah_select()` returns requested columns", {
   skip_if_offline()
-  galah_config(email = "ala4r@ala.org.au", run_checks = FALSE)
-  selected_columns <- galah_select(year, basisOfRecord)
-  query <- atlas_occurrences(
-    identify = galah_identify("oxyopes dingo"),
-    select = selected_columns)
+  galah_config(atlas = "Australia",
+               email = "ala4r@ala.org.au", 
+               run_checks = FALSE)
+  query <- galah_call() |>
+    identify("oxyopes dingo") |>
+    select(year, basisOfRecord) |>
+    atlas_occurrences()
   expect_s3_class(query, c("tbl_df", "tbl", "data.frame" ))
   expect_equal(names(query), c("year", "basisOfRecord"))
   expect_gte(nrow(query), 10)

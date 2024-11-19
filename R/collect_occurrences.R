@@ -11,14 +11,15 @@
 #' @importFrom tibble tibble
 collect_occurrences <- function(.query, wait, file = NULL){
   switch(pour("atlas", "region"),
-         "United Kingdom" = collect_occurrences_uk(.query, file = file),
+         "Austria" = collect_occurrences_direct(.query, file = file),
+         "United Kingdom" = collect_occurrences_direct(.query, file = file),
          collect_occurrences_default(.query, wait = wait, file = file))
 }
 
 #' Internal function to `collect_occurrences()` for UK
 #' @noRd
 #' @keywords Internal
-collect_occurrences_uk <- function(.query, file){
+collect_occurrences_direct <- function(.query, file){
   .query$download <- TRUE
   .query$file <- check_download_filename(file)
   query_API(.query)

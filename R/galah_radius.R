@@ -1,5 +1,5 @@
-#' @rdname galah_geolocate
-#' @order 4
+#' @rdname geolocate
+#' @order 5
 #' @export
 galah_radius <- function(...){
   

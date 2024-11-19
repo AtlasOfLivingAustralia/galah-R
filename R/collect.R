@@ -2,7 +2,7 @@
 #'
 #' @description `collect()` attempts to retrieve the result of a query from the 
 #' selected API. 
-#' @name collect_galah
+#' @name collect.data_request
 #' @order 1
 #' @param x An object of class `data_request`, `metadata_request` or 
 #' `files_request` (from `galah_call()`); or an object of class `query_set` or 
@@ -24,7 +24,7 @@ collect.data_request <- function(x, ..., wait = TRUE, file = NULL){
     collect(wait = wait, file = file)
 }
 
-#' @rdname collect_galah
+#' @rdname collect.data_request
 #' @order 2
 #' @export
 collect.metadata_request <- function(x, ...){
@@ -33,7 +33,7 @@ collect.metadata_request <- function(x, ...){
     collect()
 }
 
-#' @rdname collect_galah
+#' @rdname collect.data_request
 #' @order 3
 #' @export
 collect.files_request <- function(x, ...){
@@ -42,7 +42,7 @@ collect.files_request <- function(x, ...){
     collect()
 }
 
-#' @rdname collect_galah
+#' @rdname collect.data_request
 #' @order 4
 #' @export
 collect.query <- function(x, ..., wait = TRUE, file = NULL){
@@ -50,7 +50,7 @@ collect.query <- function(x, ..., wait = TRUE, file = NULL){
     collect(wait = wait, file = file)
 }
 
-#' @rdname collect_galah
+#' @rdname collect.data_request
 #' @order 5
 #' @importFrom glue glue
 #' @importFrom potions pour

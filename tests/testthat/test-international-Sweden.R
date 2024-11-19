@@ -78,8 +78,13 @@ test_that("show_all(assertions) works for Sweden", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("show_all(profiles) fails for Sweden", {
-  expect_error(show_all(profiles))
+test_that("show_all(profiles) works for Sweden", {
+  skip_if_offline()
+  x <- show_all(profiles) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("search_all(fields) works for Sweden", {
@@ -133,18 +138,28 @@ test_that("`search_taxa()` works for multiple ranks in Sweden", {
   expect_true(all(grepl("^[[:digit:]]+$", taxa$taxon_concept_id)))
 })
 
-test_that("show_values works for Sweden", {
+test_that("show_values works fields in Sweden", {
   skip_if_offline()
-  x <- search_fields("basis_of_record") |>
+  x <- search_fields("basisOfRecord") |>
     show_values() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(nrow(x), 1)
 })
 
-test_that("show_values works for lists for Sweden", {
+test_that("show_values works for lists in Sweden", {
   skip_if_offline()
   x <- try({search_all(lists, "dr156") |> 
+      show_values()},
+      silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_values works for profiles in Sweden", {
+  skip_if_offline()
+  x <- try({search_all(profiles, "SBDI") |> 
       show_values()},
       silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -200,6 +215,20 @@ test_that("atlas_counts works with group_by for Sweden", {
   expect_equal(names(result), c("year", "count"))
 })
 
+test_that("atlas_counts works with apply_profile for Sweden", {
+  skip_if_offline()
+  without_profile <- galah_call() |>
+    count() |>
+    collect()
+  with_profile <- galah_call() |>
+    apply_profile(SBDI) |>
+    count() |>
+    collect()
+  expect_gt(with_profile$count, 0)
+  expect_equal(class(without_profile), class(with_profile))
+  expect_lt(with_profile$count, without_profile$count)
+})
+
 test_that("atlas_species works for Sweden", {
   skip_if_offline()
   galah_config(
@@ -222,19 +251,27 @@ test_that("atlas_occurrences works for Sweden", {
     atlas = "Sweden",
     email = "martinjwestgate@gmail.com",
     send_email = FALSE)
-  occ <- galah_call() |>
+  occ_collapse <- galah_call() |>
     galah_identify("Mammalia") |>
     galah_filter(year < 1850) |>
     galah_select(group = "basic") |> # use defaults
-    atlas_occurrences() |>
+    collapse()
+  skip_if(inherits(occ_collapse, "try-error"), message = "API not available")
+  expect_s3_class(occ_collapse, "query")
+  expect_equal(names(occ_collapse), 
+               c("type", "url", "headers", "filter"))
+  expect_equal(occ_collapse$type, "data/occurrences")
+  # compute
+  occ_compute <- compute(occ_collapse)
+  expect_s3_class(occ_compute, "computed_query")
+  # collect
+  occ <- collect(occ_compute) |>
     try(silent = TRUE)
-  skip_if(inherits(occ, "try-error"), message = "API not available")
-  expect_gt(nrow(occ), 0)
-  expect_equal(ncol(occ), 8)
+  skip_if(inherits(occ_compute, "try-error"), message = "API not available")
   expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(ncol(occ), length(default_columns()))
 })
 
-# FIXME
 test_that("atlas_media() works for Sweden", {
   skip_if_offline()
   galah_config(
@@ -242,22 +279,61 @@ test_that("atlas_media() works for Sweden", {
     email = "martinjwestgate@gmail.com",
     send_email = FALSE)
   x <- request_data() |>
-    identify("Aves") |>
-    filter(!is.na(images)) |>
+    filter(year == 2010) |>
+    select(group = c("basic", "media")) |>
+    identify("Amphibia") |>
+    atlas_media() |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_gte(nrow(x), 1)
+  expect_equal(colnames(x)[1:2],
+               c("media_id", "recordID"))
+})
+
+test_that("collect_media() works for Sweden", {
+  skip_if_offline()
+  galah_config(
+    atlas = "Sweden",
+    email = "martinjwestgate@gmail.com",
+    send_email = FALSE)
+  x <- request_data() |>
+    identify("Amphibia") |>
+    filter(year == 2010,
+           imageIDsCount > 0) # |> # multimediaCount
+  # get counts
+  media_count <- x |>
     count() |>
-    collect()
+    collect() |>
+    try(silent = TRUE)
+  skip_if(inherits(media_count, "try-error"), message = "API not available")
+  # get occurrences
+  media_occ <- x |>
     select(group = c("basic", "media")) |>
     collect(wait = TRUE) |>
     try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
-  expect_gt(nrow(x), 0)
-  y <- request_metadata() |>
-    filter(media == x) |>
+  skip_if(inherits(media_occ, "try-error"), message = "API not available")
+  # get metadata
+  media_meta <- request_metadata() |>
+    filter(media == media_occ) |>
     collect() |>
     try(silent = TRUE)
-  skip_if(inherits(y, "try-error"), message = "API not available")
-  expect_gt(nrow(y), 0)
-  # collect_media(y)
+  skip_if(inherits(media_meta, "try-error"), message = "API not available")
+  expect_gt(nrow(media_meta), 0)
+  # get files 
+  galah_config(directory = "temp")
+  n_downloads <- 3
+  request_files() |>
+    filter(media == media_meta[seq_len(n_downloads), ]) |>
+    collect(thumbnail = TRUE)
+  expect_equal(length(list.files("temp", pattern = ".jpg$")),
+               n_downloads)
+  unlink("temp", recursive = TRUE)
+  # try with collect_media()
+  collect_media(media_meta[seq_len(n_downloads), ])
+  expect_equal(length(list.files("temp", pattern = ".jpg$")),
+               n_downloads)
+  unlink("temp", recursive = TRUE)
 })
 
 galah_config(atlas = "Australia")

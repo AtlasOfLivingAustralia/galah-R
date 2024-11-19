@@ -1,17 +1,28 @@
-#' Specify fields to group when downloading record counts
+#' Group by one or more variables
 #'
-#' `count.data_request()` and `atlas_counts()` support server-side grouping of 
-#' data. Grouping can be used to return record counts grouped by multiple, valid 
-#' fields (found by `search_all(fields)`).
+#' Most data operations are done on groups defined by variables. `group_by()`
+#' takes a query and adds a grouping variable that can be used in combination 
+#' with \code{\link[=count.data_request]{count()}} to give information on number 
+#' of occurrences per level of that variable.
 #' @param .data An object of class `data_request`
-#' @param ... zero or more individual column names to include
+#' @param ... Zero or more individual column names to include
 #' @return If any arguments are provided, returns a `data.frame` with
 #' columns `name` and `type`, as per [select.data_request()].
 #' @examples \dontrun{
 #' galah_call() |> 
-#'   galah_group_by(basisOfRecord) |>
-#'   atlas_counts()
+#'   group_by(basisOfRecord) |>
+#'   counts() |>
+#'   collect()
 #' }
+#' @export
+group_by.data_request <- function(.data, ...){
+parsed_dots <- enquos(..., .ignore_empty = "all") |>
+  parse_quosures_basic()
+df <- parse_group_by(parsed_dots)
+update_data_request(.data, group_by = df)
+}
+
+#' @rdname group_by.data_request
 #' @importFrom stringr str_detect
 #' @export
 galah_group_by <- function(...){
@@ -27,15 +38,6 @@ galah_group_by <- function(...){
            parse_quosures_basic(dots) |>
              parse_group_by()
          })
-}
-
-#' @rdname galah_group_by
-#' @export
-group_by.data_request <- function(.data, ...){
-  parsed_dots <- enquos(..., .ignore_empty = "all") |>
-    parse_quosures_basic()
-  df <- parse_group_by(parsed_dots)
-  update_data_request(.data, group_by = df)
 }
 
 #' Internal parsing of `group_by` args

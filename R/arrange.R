@@ -1,24 +1,20 @@
-#' Arrange rows of a query
+#' Order rows using column values
 #' 
 #' @description
 #' `r lifecycle::badge("experimental")`  
 #' 
 #' `arrange.data_request()` arranges rows of a query on the server side, meaning 
-#' that prior to sending a query, the query is constructed in such a way that 
-#' information will be arranged when the query is processed. Any data that is 
-#' then returned by the query will have rows already pre-arranged.
-#' 
-#' The benefit of using `arrange()` within a `galah_call()` is that it is faster 
-#' to process arranging rows on the server side than arranging rows locally on 
-#' downloaded data, 
-#' especially if the dataset is large or complex.
-#' 
-#' `arrange()` can be used within a `galah_call()` pipe, but only  
-#' for queries of  `type = "occurrences-count"`. The `galah_call()` pipe must 
-#' include `count()` and finish with `collect()` (see examples). 
-#' 
+#' that the query is constructed in such a way that information will be arranged 
+#' when the query is processed. This only has an effect when used in combination
+#' with \code{\link[=count.data_request]{count()}} and 
+#' \code{\link[=group_by.data_request]{group_by()}}. The benefit of using 
+#' `arrange()` within a `galah_call()` pipe is that it is sometimes beneficial 
+#' to choose a non-default order for data to be delivered in, particularly if
+#' \code{\link[=slice_head.data_request]{slice_head()}} is also called.
 #' @param .data An object of class `data_request`
-#' @param ... Either `count` or `index`
+#' @param ... A variable to arrange the resulting tibble by. Should be one of 
+#' the variables also listed in \code{\link[=group_by.data_request]{group_by()}}.
+#' @returns An amended `data_request` with a completed `arrange` slot.
 #' @examples \dontrun{
 #' 
 #' # Arrange grouped counts by ascending year
@@ -49,7 +45,7 @@
 #'   collect()
 #' }
 #' @importFrom dplyr bind_cols
-#' @rdname arrange
+#' @name arrange.data_request
 #' @export
 arrange.data_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
@@ -66,6 +62,6 @@ arrange.data_request <- function(.data, ...){
   return(.data)
 }
 
-#' @rdname arrange
+#' @rdname arrange.data_request
 #' @export
 arrange.metadata_request <- arrange.data_request

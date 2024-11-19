@@ -2,18 +2,20 @@
 % Please edit documentation in R/galah-package.R
 \docType{package}
 \name{galah}
-\alias{galah}
 \alias{galah-package}
+\alias{galah}
 \title{Biodiversity Data from the GBIF Node Network}
 \description{
 The Global Biodiversity Information Facility (GBIF; \url{https://www.gbif.org})
 provides tools to enable users to find, access, combine and visualise
 biodiversity data. \code{galah} enables the R community to directly access data and
 resources hosted by GBIF and several of it's subsidiary organisations, known
-as 'nodes'. The basic unit of observation stored by these infrastructures is
-an \strong{occurrence} record, based on the Darwin Core' data standard
-(\url{https://dwc.tdwg.org}); however \code{galah} also enables users to locate and
-download taxonomic information, or associated media such images or sounds,
+as 'nodes'.
+
+The basic unit of data stored by these infrastructures is
+an \strong{occurrence} record, which is an observation of a biological entity at
+a specific time and place. However, \code{galah} also facilitates access to
+taxonomic information, or associated media such images or sounds,
 all while restricting their queries to particular taxa or locations. Users
 can specify which columns are returned by a query, or restrict their results
 to observations that meet particular quality-control criteria.
@@ -23,53 +25,42 @@ For those outside Australia, 'galah' is the common name of
 }
 \section{Functions}{
 
-\strong{Piping functions}
-\itemize{
-\item \code{\link[=galah_call]{galah_call()}} or \code{\link[=request_data]{request_()}} et al.  Start to build a data query
-\item \code{\link[=collapse_galah]{collapse()}} Generate a query
-\item \code{\link[=compute_galah]{compute()}} Compute a query
-\item \code{\link[=collect_galah]{collect()}} Retrieve a database query
-}
 
-\strong{Lazy data manipulation}
+\strong{Getting Started}
 \itemize{
-\item \code{\link[=identify.data_request]{identify()}} or \code{\link[=galah_identify]{galah_identify()}} Search for taxonomic identifiers
-\item \code{\link[=filter.data_request]{filter()}} or \code{\link[=galah_filter]{galah_filter()}}Filter records
-\item \code{\link[=select.data_request]{select()}} or \code{\link[=galah_select]{galah_select()}}Fields to report information for
-\item \code{\link[=group_by.data_request]{group_by()}} or \code{\link[=galah_group_by]{galah_group_by()}} Fields to group counts by
-\item \code{\link[=st_crop.data_request]{st_crop()}} or \code{\link[=galah_geolocate]{galah_geolocate()}} Specify a location
-\item \code{\link[=apply_profile]{apply_profile()}} or \code{\link[=galah_apply_profile]{galah_apply_profile()}} Restrict to data that pass predefined checks (ALA only)
-\item \code{\link[=slice_head.data_request]{slice_head()}} Choose the first n rows of a download
-\item \code{\link[=arrange.data_request]{arrange()}} Arrange rows of a query on the server side
-}
-
-\strong{Download data}
-\itemize{
-\item \code{\link[=atlas_occurrences]{atlas_occurrences()}} Download occurrence records
-\item \code{\link[=atlas_counts]{atlas_counts()}} or \code{\link[=count.data_request]{count()}} Count the number of records or species returned by a query
-\item \code{\link[=atlas_species]{atlas_species()}} Download species lists
-\item \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} Return a section of the ALA taxonomic tree
-\item \code{\link[=atlas_media]{atlas_media()}} View images and sounds available to download
-\item \code{\link[=collect_media]{collect_media()}} Download images and sounds
-}
-
-\strong{Look up information}
-\itemize{
-\item \code{\link[=search_taxa]{search_taxa()}} Search for taxa using a text-search
-\item \code{\link[=search_identifiers]{search_identifiers()}} Search for taxa using taxonomic identifiers
+\item \code{\link[=galah_call]{galah_call()}}/\code{\link[=request_data]{request_()}} Start to build a query
+\item \code{\link[=galah_config]{galah_config()}} Set package configuration options
 \item \code{\link[=show_all]{show_all()}} & \code{\link[=search_all]{search_all()}} Data for generating filter queries
 \item \code{\link[=show_values]{show_values()}} & \code{\link[=search_values]{search_values()}} Show or search for values \emph{within}
 \code{fields}, \code{profiles}, \code{lists}, \code{collections}, \code{datasets} or \code{providers}
 }
 
-\strong{Configure session}
+\strong{Amend a query}
 \itemize{
-\item \code{\link[=galah_config]{galah_config()}} Package configuration options
+\item \code{\link[=apply_profile]{apply_profile()}}/\code{\link[=galah_apply_profile]{galah_apply_profile()}} Restrict to data that pass predefined checks (ALA only)
+\item \code{\link[=arrange.data_request]{arrange()}} Arrange rows of a query on the server side
+\item \code{\link[=count.data_request]{count()}} Request counts of the specified data type
+\item \code{\link[=desc]{desc()}} Arrange counts in descending order (when combined with \code{\link[=arrange.data_request]{arrange()}})
+\item \code{\link[=filter.data_request]{filter()}}/\code{\link[=galah_filter]{galah_filter()}} Filter records
+\item \code{\link[=geolocate]{geolocate()}}/\code{\link[=galah_geolocate]{galah_geolocate()}} Spatial filtering of a query
+\item \code{\link[=group_by.data_request]{group_by()}}/\code{\link[=galah_group_by]{galah_group_by()}} Group counts by one or more fields
+\item \code{\link[=identify.data_request]{identify()}}/\code{\link[=galah_identify]{galah_identify()}} Search for taxonomic identifiers (see also \code{\link[=taxonomic_searches]{taxonomic_searches}})
+\item \code{\link[=select.data_request]{select()}}/\code{\link[=galah_select]{galah_select()}} Fields to report information for
+\item \code{\link[=slice_head.data_request]{slice_head()}} Choose the first n rows of a download
+\item \code{\link[=unnest]{unnest()}} Expand metadata for \code{fields}, \code{lists}, \code{profiles} or \code{taxa}
 }
 
-\strong{Cite}
+\strong{Execute a query via API}
 \itemize{
-\item \code{\link[=atlas_citation]{atlas_citation()}} Citation for a dataset
+\item \code{\link[=collapse.data_request]{collapse()}} Convert a \code{data_request} into a \code{query}
+\item \code{\link[=compute.data_request]{compute()}} Compute a query
+\item \code{\link[=collect.data_request]{collect()}}/\code{\link[=atlas_]{atlas_()}}/\code{\link[=collect_media]{collect_media()}} Retrieve a database query
+}
+
+\strong{Miscellaneous functions}
+\itemize{
+\item \code{\link[=atlas_citation]{atlas_citation()}} Get a citation for a dataset
+\item \code{\link[=print.data_request]{print()}} Print functions for galah objects
 }
 }
 
@@ -126,8 +117,8 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Matilda Stevenson
   \item Dax Kellie \email{dax.kellie@csiro.au}
+  \item Matilda Stevenson
   \item Peggy Newman \email{peggy.newman@csiro.au}
 }
 

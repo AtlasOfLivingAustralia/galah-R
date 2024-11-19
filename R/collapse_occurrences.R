@@ -33,7 +33,7 @@ collapse_occurrences_uk <- function(.query){
                              data_profile = .query$data_profile),
                  fields = "`SELECT_PLACEHOLDER`",
                  qa = "`ASSERTIONS_PLACEHOLDER`",
-                 sourceTypeId = 2001,
+                 sourceTypeId = source_type_id_lookup("United Kingdom"),
                  fileType = "csv",
                  reasonTypeId = pour("user", "download_reason_id"),
                  dwcHeaders = "true")
@@ -42,12 +42,14 @@ collapse_occurrences_uk <- function(.query){
     type = "data/occurrences",
     url = url_build(url),
     headers = build_headers(),
+    filter = .query$filter,
     select = .query$select)
   class(result) <- "query"
   return(result)
 }
 
 #' calculate the query to be returned for GBIF
+#' @importFrom glue glue
 #' @noRd
 #' @keywords Internal
 collapse_occurrences_gbif <- function(.query, format = "SIMPLE_CSV"){
@@ -60,6 +62,11 @@ collapse_occurrences_gbif <- function(.query, format = "SIMPLE_CSV"){
                  value = "`TAXON_PLACEHOLDER`",
                  query = ""))
   }
+  # get user string
+  username <- pour("user", "username", .pkg = "galah")
+  password <- pour("user", "password", .pkg = "galah")
+  user_string <- glue("{username}:{password}")
+  # build object
   result <- list(
     type = "data/occurrences",
     url = url_lookup("data/occurrences"),
@@ -70,10 +77,7 @@ collapse_occurrences_gbif <- function(.query, format = "SIMPLE_CSV"){
       Accept = "application/json"),
     options = list(
       httpauth = 1,
-      userpwd = paste0(
-        pour("user", "username", .pkg = "galah"),
-        ":",
-        pour("user", "password", .pkg = "galah"))),
+      userpwd = user_string),
     body = build_predicates(.query$filter, 
                             .query$geolocate,
                             format = format))
@@ -99,7 +103,8 @@ collapse_occurrences_la <- function(.query){
              qa = "`ASSERTIONS_PLACEHOLDER`",
              facet = "false", # not tested
              emailNotify = email_notify(),
-             sourceTypeId = 2004,
+             sourceTypeId = {pour("atlas", "region") |>
+                             source_type_id_lookup()},
              reasonTypeId = pour("user", "download_reason_id"),
              email = pour("user", "email"),
              dwcHeaders = "true")
@@ -117,6 +122,7 @@ collapse_occurrences_la <- function(.query){
     type = "data/occurrences",
     url = url_build(url),
     headers = build_headers(),
+    filter = .query$filter,
     select = .query$select)
   class(result) <- "query"
   return(result)

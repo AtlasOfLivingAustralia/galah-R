@@ -54,7 +54,8 @@ search_taxa(...)
 \item{query}{A string specifying a search term. Searches are not
 case-sensitive.}
 
-\item{...}{A set of strings or a tibble to be queried}
+\item{...}{A set of strings or a tibble to be queried; see
+Details.}
 }
 \value{
 An object of class \code{tbl_df} and \code{data.frame} (aka a tibble)
@@ -69,9 +70,11 @@ Functions prefixed with \code{search_} do this, displaying any matches to a
 search term within the valid options for the information specified by the
 suffix.
 
+\strong{For more information about taxonomic searches using \code{search_taxa()}, see \code{?taxonomic_searches}}.
+
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-\code{search_all()} is a helper function that can do searches within multiple
-types of information from \code{search_} sub-functions.
+\code{search_all()} is a helper function that can do searches for multiple
+types of information, acting as a wrapper around many \code{search_} sub-functions.
 See \code{Details} (below) for accepted values.
 }
 \details{
@@ -125,15 +128,11 @@ request_metadata(type = "fields") |>
  dplyr::filter(grepl("date", id))
 }
 }
-\references{
-\itemize{
-\item Darwin Core terms \url{https://dwc.tdwg.org/terms/}
-}
-}
 \seealso{
-See \code{\link[=search_taxa]{search_taxa()}} and \code{\link[=search_identifiers]{search_identifiers()}} for more information
-on taxonomic searches.
 Use the \code{\link[=show_all]{show_all()}} function and \code{show_all_()} sub-functions to
 show available options of information. These functions are used to pass valid
-arguments to \code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}}, and related functions.
+arguments to \code{\link[=filter.data_request]{filter()}},
+\code{\link[=select.data_request]{select()}}, and related functions.
+Taxonomic queries are somewhat more involved; see \link{taxonomic_searches} for
+details.
 }

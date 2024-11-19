@@ -151,15 +151,19 @@ test_that("atlas_counts works with group_by for Portugal", {
 # so we can't test downloads. This affects `atlas_occurrences()` and 
 # `atlas_species()`
 test_that("atlas_species returns error for Portugal", {
+  skip_if_offline()
   expect_error({galah_call(type = "species") |>
                   identify("Carnivora") |>
                   collect()
     })
 })
 test_that("atlas_occurrences returns error for Portugal", {
+  skip_if_offline()
   expect_error(atlas_occurrences(
     filter = galah_filter(year == 2020)
   ))
 })
+
+# Note: atlas_media() should also work, in theory, but again am unable to test
 
 galah_config(atlas = "Australia")

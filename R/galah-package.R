@@ -5,10 +5,12 @@
 #' provides tools to enable users to find, access, combine and visualise 
 #' biodiversity data. `galah` enables the R community to directly access data and 
 #' resources hosted by GBIF and several of it's subsidiary organisations, known
-#' as 'nodes'. The basic unit of observation stored by these infrastructures is 
-#' an **occurrence** record, based on the Darwin Core' data standard 
-#' (<https://dwc.tdwg.org>); however `galah` also enables users to locate and 
-#' download taxonomic information, or associated media such images or sounds, 
+#' as 'nodes'. 
+#' 
+#' The basic unit of data stored by these infrastructures is 
+#' an **occurrence** record, which is an observation of a biological entity at
+#' a specific time and place. However, `galah` also facilitates access to 
+#' taxonomic information, or associated media such images or sounds, 
 #' all while restricting their queries to particular taxa or locations. Users 
 #' can specify which columns are returned by a query, or restrict their results 
 #' to observations that meet particular quality-control criteria. 
@@ -18,48 +20,39 @@
 #' @name galah
 #' @docType package
 #' @section Functions:
-#' **Piping functions**
-#'
-#'   * [galah_call()] or \code{\link[=request_data]{request_()}} et al.  Start to build a data query
-#'   * \code{\link[=collapse_galah]{collapse()}} Generate a query
-#'   * \code{\link[=compute_galah]{compute()}} Compute a query
-#'   * \code{\link[=collect_galah]{collect()}} Retrieve a database query
-#'   
-#' **Lazy data manipulation**
 #' 
-#'   * \code{\link[=identify.data_request]{identify()}} or [galah_identify()] Search for taxonomic identifiers
-#'   * \code{\link[=filter.data_request]{filter()}} or [galah_filter()]Filter records
-#'   * \code{\link[=select.data_request]{select()}} or [galah_select()]Fields to report information for
-#'   * \code{\link[=group_by.data_request]{group_by()}} or [galah_group_by()] Fields to group counts by
-#'   * \code{\link[=st_crop.data_request]{st_crop()}} or [galah_geolocate()] Specify a location
-#'   * [apply_profile()] or [galah_apply_profile()] Restrict to data that pass predefined checks (ALA only)
-#'   * \code{\link[=slice_head.data_request]{slice_head()}} Choose the first n rows of a download
-#'   * \code{\link[=arrange.data_request]{arrange()}} Arrange rows of a query on the server side
+#' **Getting Started**
 #' 
-#' **Download data**
-#' 
-#'   * [atlas_occurrences()] Download occurrence records
-#'   * [atlas_counts()] or \code{\link[=count.data_request]{count()}} Count the number of records or species returned by a query
-#'   * [atlas_species()] Download species lists
-#'   * [atlas_taxonomy()] Return a section of the ALA taxonomic tree
-#'   * [atlas_media()] View images and sounds available to download
-#'   * [collect_media()] Download images and sounds
-#'
-#' **Look up information**
-#'
-#'   * [search_taxa()] Search for taxa using a text-search
-#'   * [search_identifiers()] Search for taxa using taxonomic identifiers
+#'   * [galah_call()]/\code{\link[=request_data]{request_()}} Start to build a query
+#'   * [galah_config()] Set package configuration options
 #'   * [show_all()] & [search_all()] Data for generating filter queries
 #'   * [show_values()] & [search_values()] Show or search for values _within_ 
 #'   `fields`, `profiles`, `lists`, `collections`, `datasets` or `providers`
+#'   
+#' **Amend a query**
 #' 
-#' **Configure session**
+#'   * [apply_profile()]/[galah_apply_profile()] Restrict to data that pass predefined checks (ALA only)
+#'   * \code{\link[=arrange.data_request]{arrange()}} Arrange rows of a query on the server side
+#'   * \code{\link[=count.data_request]{count()}} Request counts of the specified data type
+#'   * [desc()] Arrange counts in descending order (when combined with \code{\link[=arrange.data_request]{arrange()}})
+#'   * \code{\link[=filter.data_request]{filter()}}/[galah_filter()] Filter records
+#'   * [geolocate()]/[galah_geolocate()] Spatial filtering of a query
+#'   * \code{\link[=group_by.data_request]{group_by()}}/[galah_group_by()] Group counts by one or more fields
+#'   * \code{\link[=identify.data_request]{identify()}}/[galah_identify()] Search for taxonomic identifiers (see also \code{\link[=taxonomic_searches]{taxonomic_searches}})
+#'   * \code{\link[=select.data_request]{select()}}/[galah_select()] Fields to report information for
+#'   * \code{\link[=slice_head.data_request]{slice_head()}} Choose the first n rows of a download
+#'   * [unnest()] Expand metadata for `fields`, `lists`, `profiles` or `taxa`
+#'
+#' **Execute a query via API**
 #' 
-#'   * [galah_config()] Package configuration options
+#'   * \code{\link[=collapse.data_request]{collapse()}} Convert a `data_request` into a `query` 
+#'   * \code{\link[=compute.data_request]{compute()}} Compute a query
+#'   * \code{\link[=collect.data_request]{collect()}}/\code{\link[=atlas_]{atlas_()}}/[collect_media()] Retrieve a database query
 #' 
-#' **Cite**
+#' **Miscellaneous functions**
 #' 
-#'   * [atlas_citation()] Citation for a dataset
+#'   * [atlas_citation()] Get a citation for a dataset
+#'   * \code{\link[=print.data_request]{print()}} Print functions for galah objects
 #'
 #' @section Terminology:
 #'

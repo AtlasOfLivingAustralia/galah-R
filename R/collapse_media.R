@@ -2,6 +2,7 @@
 #' @param .query An object of class `metadata_request` (from `request_metadata()`)
 #' @importFrom jsonlite toJSON
 #' @importFrom rlang abort
+#' @importFrom tibble tibble
 #' @noRd
 #' @keywords Internal
 collapse_media <- function(.query){
@@ -15,24 +16,26 @@ collapse_media <- function(.query){
     abort("Requests for metadata of type = \"media\" must have information passed via `filter()`")
   }
   occ <- .query$filter$data
-  media_cols <- which(colnames(occ) %in% c("images", "videos", "sounds"))
-  media_ids <- do.call(c, occ[, media_cols]) |>
-    unlist()
-  media_ids <- media_ids[!is.na(media_ids)]
-  ## Note: next `gsub()` calls were added specifically for SBDI parsing
-  ## In practice, that image service treats inputs as invalid whether they are 
-  ## quoted or not. Suspected server-side problem. Tested 2024-02-27.
-  # media_ids <- media_ids |>
-  #   gsub("\"", "", x = _) |> # remove quotes
-  #   gsub("^\\[|\\]$", "", x = _) # remove leading or trailing square brackets
-  names(media_ids) <- NULL
+  if(any(colnames(occ) %in% c("images", "videos", "sounds"))){ # Australia, Sweden, Spain
+    media_cols <- which(colnames(occ) %in% c("images", "videos", "sounds"))
+    media_ids <- do.call(c, occ[, media_cols]) |>
+      unlist()
+    media_ids <- media_ids[!is.na(media_ids)]
+    names(media_ids) <- NULL
+  }else if(any(colnames(occ) == "all_image_url")){ # Austria, Sweden, UK
+    media_ids <- pull(occ, "all_image_url")
+    media_ids <- media_ids[!is.na(media_ids)]
+    names(media_ids) <- NULL
+  }else{
+    abort("Media metadata not found in supplied tibble")
+  }
   
   result <- list(
     type = "metadata/media",
     url = url_lookup("metadata/media"),
+    headers = build_headers(),
     body = toJSON(list(imageIds = media_ids)),
-    headers = build_headers())
-  
+    filter = .query$filter)
   class(result) <- "query"
   return(result)
 }
@@ -118,6 +121,7 @@ build_file_path <- function(ids, types){
 #' @keywords Internal
 build_file_extension <- function(x){
   case_match(x,
+             "image/jpg" ~ "jpg",
              "image/jpeg" ~ "jpg",
              "image/png" ~ "png",
              "audio/mpeg" ~ "mpg",

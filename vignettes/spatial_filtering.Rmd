@@ -43,31 +43,31 @@ with other methods of spatial filtering. These fields are all able to be queried
 with `filter()`and so they are generally easier to use.
 
 Suppose we are interested in querying records of the Red-Necked Avocet 
-([*Recurvirostra novaehollandiae*](https://bie.ala.org.au/species/https://biodiversity.org.au/afd/taxa/c69e7308-527a-429d-a80d-143bd20b5100)) 
-in a particular protected wetlands, the Coorong wetlands in South Australia. We 
-can search the ALA fields for wetlands.
+(*Recurvirostra novaehollandiae*) in the Coorong wetlands in South Australia. 
+We can search the ALA fields for wetlands.
 
 
-```r
+``` r
 library(galah)
-library(tidyverse)
+library(dplyr)
 library(gt)
 library(sf)
 ```
 
-```r
+``` r
 galah_config(email = "your_email_here", verbose = FALSE)
 ```
 
-```r
+``` r
 search_fields("wetlands")
 ```
 
 ```
-## # A tibble: 1 × 3
-##   id    description                     type  
-##   <chr> <chr>                           <chr> 
-## 1 cl901 Directory of Important Wetlands fields
+## # A tibble: 2 × 3
+##   id      description                       type  
+##   <chr>   <chr>                             <chr> 
+## 1 cl901   Directory of Important Wetlands   fields
+## 2 cl11192 Ramsar_Wetlands_of_AustraliaWGS84 fields
 ```
 
 Our search identifies that layer `cl901` seems to match what we are looking for. 
@@ -75,7 +75,7 @@ We can then either view all possible values in the field with `show_values()`,
 or search again for our particular field.
 
 
-```r
+``` r
 search_fields("cl901") |> search_values("coorong")
 ```
 
@@ -94,7 +94,7 @@ We can filter all occurrences for exact matches with this value, `"Lake Eyre"`.
 Our `galah` query can be built as follows:
 
 
-```r
+``` r
 galah_call() |>
   identify("Recurvirostra novaehollandiae") |>
   filter(cl901 == "The Coorong, Lake Alexandrina & Lake Albert") |>
@@ -103,23 +103,29 @@ galah_call() |>
   gt::gt()
 ```
 
-<!--html_preserve--><div id="jcszlxbqcj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#jcszlxbqcj table {
+```
+## Retrying in 1 seconds.
+## Retrying in 2 seconds.
+## Retrying in 4 seconds.
+```
+
+<!--html_preserve--><div id="rmmelfqsxk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rmmelfqsxk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#jcszlxbqcj thead, #jcszlxbqcj tbody, #jcszlxbqcj tfoot, #jcszlxbqcj tr, #jcszlxbqcj td, #jcszlxbqcj th {
+#rmmelfqsxk thead, #rmmelfqsxk tbody, #rmmelfqsxk tfoot, #rmmelfqsxk tr, #rmmelfqsxk td, #rmmelfqsxk th {
   border-style: none;
 }
 
-#jcszlxbqcj p {
+#rmmelfqsxk p {
   margin: 0;
   padding: 0;
 }
 
-#jcszlxbqcj .gt_table {
+#rmmelfqsxk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -145,12 +151,12 @@ galah_call() |>
   border-left-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_caption {
+#rmmelfqsxk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#jcszlxbqcj .gt_title {
+#rmmelfqsxk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -162,7 +168,7 @@ galah_call() |>
   border-bottom-width: 0;
 }
 
-#jcszlxbqcj .gt_subtitle {
+#rmmelfqsxk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -174,7 +180,7 @@ galah_call() |>
   border-top-width: 0;
 }
 
-#jcszlxbqcj .gt_heading {
+#rmmelfqsxk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -186,13 +192,13 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_bottom_border {
+#rmmelfqsxk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_col_headings {
+#rmmelfqsxk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -207,7 +213,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_col_heading {
+#rmmelfqsxk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -227,7 +233,7 @@ galah_call() |>
   overflow-x: hidden;
 }
 
-#jcszlxbqcj .gt_column_spanner_outer {
+#rmmelfqsxk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -239,15 +245,15 @@ galah_call() |>
   padding-right: 4px;
 }
 
-#jcszlxbqcj .gt_column_spanner_outer:first-child {
+#rmmelfqsxk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#jcszlxbqcj .gt_column_spanner_outer:last-child {
+#rmmelfqsxk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#jcszlxbqcj .gt_column_spanner {
+#rmmelfqsxk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -259,11 +265,11 @@ galah_call() |>
   width: 100%;
 }
 
-#jcszlxbqcj .gt_spanner_row {
+#rmmelfqsxk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#jcszlxbqcj .gt_group_heading {
+#rmmelfqsxk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -289,7 +295,7 @@ galah_call() |>
   text-align: left;
 }
 
-#jcszlxbqcj .gt_empty_group_heading {
+#rmmelfqsxk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -304,15 +310,15 @@ galah_call() |>
   vertical-align: middle;
 }
 
-#jcszlxbqcj .gt_from_md > :first-child {
+#rmmelfqsxk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#jcszlxbqcj .gt_from_md > :last-child {
+#rmmelfqsxk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#jcszlxbqcj .gt_row {
+#rmmelfqsxk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -331,7 +337,7 @@ galah_call() |>
   overflow-x: hidden;
 }
 
-#jcszlxbqcj .gt_stub {
+#rmmelfqsxk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -344,7 +350,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#jcszlxbqcj .gt_stub_row_group {
+#rmmelfqsxk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -358,15 +364,15 @@ galah_call() |>
   vertical-align: top;
 }
 
-#jcszlxbqcj .gt_row_group_first td {
+#rmmelfqsxk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#jcszlxbqcj .gt_row_group_first th {
+#rmmelfqsxk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#jcszlxbqcj .gt_summary_row {
+#rmmelfqsxk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -376,16 +382,16 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#jcszlxbqcj .gt_first_summary_row {
+#rmmelfqsxk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_first_summary_row.thick {
+#rmmelfqsxk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#jcszlxbqcj .gt_last_summary_row {
+#rmmelfqsxk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -395,7 +401,7 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_grand_summary_row {
+#rmmelfqsxk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -405,7 +411,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#jcszlxbqcj .gt_first_grand_summary_row {
+#rmmelfqsxk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -415,7 +421,7 @@ galah_call() |>
   border-top-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_last_grand_summary_row_top {
+#rmmelfqsxk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -425,11 +431,11 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_striped {
+#rmmelfqsxk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#jcszlxbqcj .gt_table_body {
+#rmmelfqsxk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -438,7 +444,7 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_footnotes {
+#rmmelfqsxk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -452,7 +458,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_footnote {
+#rmmelfqsxk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -461,7 +467,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#jcszlxbqcj .gt_sourcenotes {
+#rmmelfqsxk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -475,7 +481,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_sourcenote {
+#rmmelfqsxk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -483,69 +489,77 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#jcszlxbqcj .gt_left {
+#rmmelfqsxk .gt_left {
   text-align: left;
 }
 
-#jcszlxbqcj .gt_center {
+#rmmelfqsxk .gt_center {
   text-align: center;
 }
 
-#jcszlxbqcj .gt_right {
+#rmmelfqsxk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#jcszlxbqcj .gt_font_normal {
+#rmmelfqsxk .gt_font_normal {
   font-weight: normal;
 }
 
-#jcszlxbqcj .gt_font_bold {
+#rmmelfqsxk .gt_font_bold {
   font-weight: bold;
 }
 
-#jcszlxbqcj .gt_font_italic {
+#rmmelfqsxk .gt_font_italic {
   font-style: italic;
 }
 
-#jcszlxbqcj .gt_super {
+#rmmelfqsxk .gt_super {
   font-size: 65%;
 }
 
-#jcszlxbqcj .gt_footnote_marks {
+#rmmelfqsxk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#jcszlxbqcj .gt_asterisk {
+#rmmelfqsxk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#jcszlxbqcj .gt_indent_1 {
+#rmmelfqsxk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#jcszlxbqcj .gt_indent_2 {
+#rmmelfqsxk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#jcszlxbqcj .gt_indent_3 {
+#rmmelfqsxk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#jcszlxbqcj .gt_indent_4 {
+#rmmelfqsxk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#jcszlxbqcj .gt_indent_5 {
+#rmmelfqsxk .gt_indent_5 {
   text-indent: 25px;
+}
+
+#rmmelfqsxk .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#rmmelfqsxk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
   <thead>
-    
     <tr class="gt_col_headings">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="recordID">recordID</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="scientificName">scientificName</th>
@@ -604,36 +618,36 @@ galah_call() |>
 </table>
 </div><!--/html_preserve-->
 
-### galah_geolocate()
+### Filtering data to a polygon
 
 While server-side spatial information is useful, there are likely to be cases 
 where the shapefile or region you wish to query will not be pre-loaded as a 
 contextual layer in the ALA. In this case, shapefiles can be introduced to the 
-filtering process using the {sf} package and the `galah_geolocate()` function. 
+filtering process using the {sf} package and the `geolocate()` function. 
 Shapefiles can be provided as an `sf` object, whether that is by importing them 
 with `sf::st_read()` or taking a `POLYGON` or `MULTIPOLYGON` character string and 
 transforming them with `sf::st_as_sfc()`.
 
 For instance, we might interested in species occurrences in King George Square, 
 Brisbane. We can take the `MULTIPOLYGON` object for the square (as sourced from 
-the [Brisbane City Council](https://www.data.brisbane.qld.gov.au/data/dataset/park-locations)) 
-and transform it into `sfc` and then `sf` objects.
+the [Brisbane City Council](https://data.brisbane.qld.gov.au/pages/home/
+)) and transform it into `sfc` and then `sf` objects.
 
 
-```r
+``` r
 king_george_sq <- "MULTIPOLYGON(((153.0243 -27.46886, 153.0242 -27.46896, 153.0236 -27.46837, 153.0239 -27.46814, 153.0239 -27.46813, 153.0242 -27.46789, 153.0244 -27.46805, 153.0245 -27.46821, 153.0246 -27.46828, 153.0247 -27.46835, 153.0248 -27.46848, 153.0246 -27.4686, 153.0246 -27.46862, 153.0245 -27.46871, 153.0243 -27.46886)))" |>
   sf::st_as_sfc() |> 
   sf::st_as_sf()
 ```
 
 We can provide this `MULTIPOLYGON` in our filter as the argument of 
-`galah_geolocate()` to assess which species have been recorded in King George 
+`geolocate()` to assess which species have been recorded in King George 
 Square.
 
 
-```r
+``` r
 galah_call() |>
-  galah_geolocate(king_george_sq) |>
+  geolocate(king_george_sq) |>
   select(decimalLatitude, 
          decimalLongitude, 
          eventDate, 
@@ -644,23 +658,23 @@ galah_call() |>
   gt::gt()
 ```
 
-<!--html_preserve--><div id="wkamkmknck" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#wkamkmknck table {
+<!--html_preserve--><div id="koxekvwcgg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#koxekvwcgg table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#wkamkmknck thead, #wkamkmknck tbody, #wkamkmknck tfoot, #wkamkmknck tr, #wkamkmknck td, #wkamkmknck th {
+#koxekvwcgg thead, #koxekvwcgg tbody, #koxekvwcgg tfoot, #koxekvwcgg tr, #koxekvwcgg td, #koxekvwcgg th {
   border-style: none;
 }
 
-#wkamkmknck p {
+#koxekvwcgg p {
   margin: 0;
   padding: 0;
 }
 
-#wkamkmknck .gt_table {
+#koxekvwcgg .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -686,12 +700,12 @@ galah_call() |>
   border-left-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_caption {
+#koxekvwcgg .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#wkamkmknck .gt_title {
+#koxekvwcgg .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -703,7 +717,7 @@ galah_call() |>
   border-bottom-width: 0;
 }
 
-#wkamkmknck .gt_subtitle {
+#koxekvwcgg .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -715,7 +729,7 @@ galah_call() |>
   border-top-width: 0;
 }
 
-#wkamkmknck .gt_heading {
+#koxekvwcgg .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -727,13 +741,13 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_bottom_border {
+#koxekvwcgg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_col_headings {
+#koxekvwcgg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -748,7 +762,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_col_heading {
+#koxekvwcgg .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -768,7 +782,7 @@ galah_call() |>
   overflow-x: hidden;
 }
 
-#wkamkmknck .gt_column_spanner_outer {
+#koxekvwcgg .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -780,15 +794,15 @@ galah_call() |>
   padding-right: 4px;
 }
 
-#wkamkmknck .gt_column_spanner_outer:first-child {
+#koxekvwcgg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#wkamkmknck .gt_column_spanner_outer:last-child {
+#koxekvwcgg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#wkamkmknck .gt_column_spanner {
+#koxekvwcgg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -800,11 +814,11 @@ galah_call() |>
   width: 100%;
 }
 
-#wkamkmknck .gt_spanner_row {
+#koxekvwcgg .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#wkamkmknck .gt_group_heading {
+#koxekvwcgg .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -830,7 +844,7 @@ galah_call() |>
   text-align: left;
 }
 
-#wkamkmknck .gt_empty_group_heading {
+#koxekvwcgg .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -845,15 +859,15 @@ galah_call() |>
   vertical-align: middle;
 }
 
-#wkamkmknck .gt_from_md > :first-child {
+#koxekvwcgg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#wkamkmknck .gt_from_md > :last-child {
+#koxekvwcgg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#wkamkmknck .gt_row {
+#koxekvwcgg .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -872,7 +886,7 @@ galah_call() |>
   overflow-x: hidden;
 }
 
-#wkamkmknck .gt_stub {
+#koxekvwcgg .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -885,7 +899,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#wkamkmknck .gt_stub_row_group {
+#koxekvwcgg .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -899,15 +913,15 @@ galah_call() |>
   vertical-align: top;
 }
 
-#wkamkmknck .gt_row_group_first td {
+#koxekvwcgg .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#wkamkmknck .gt_row_group_first th {
+#koxekvwcgg .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#wkamkmknck .gt_summary_row {
+#koxekvwcgg .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -917,16 +931,16 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#wkamkmknck .gt_first_summary_row {
+#koxekvwcgg .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_first_summary_row.thick {
+#koxekvwcgg .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#wkamkmknck .gt_last_summary_row {
+#koxekvwcgg .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -936,7 +950,7 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_grand_summary_row {
+#koxekvwcgg .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -946,7 +960,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#wkamkmknck .gt_first_grand_summary_row {
+#koxekvwcgg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -956,7 +970,7 @@ galah_call() |>
   border-top-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_last_grand_summary_row_top {
+#koxekvwcgg .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -966,11 +980,11 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_striped {
+#koxekvwcgg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#wkamkmknck .gt_table_body {
+#koxekvwcgg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -979,7 +993,7 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_footnotes {
+#koxekvwcgg .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -993,7 +1007,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_footnote {
+#koxekvwcgg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1002,7 +1016,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#wkamkmknck .gt_sourcenotes {
+#koxekvwcgg .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1016,7 +1030,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_sourcenote {
+#koxekvwcgg .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1024,69 +1038,77 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#wkamkmknck .gt_left {
+#koxekvwcgg .gt_left {
   text-align: left;
 }
 
-#wkamkmknck .gt_center {
+#koxekvwcgg .gt_center {
   text-align: center;
 }
 
-#wkamkmknck .gt_right {
+#koxekvwcgg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#wkamkmknck .gt_font_normal {
+#koxekvwcgg .gt_font_normal {
   font-weight: normal;
 }
 
-#wkamkmknck .gt_font_bold {
+#koxekvwcgg .gt_font_bold {
   font-weight: bold;
 }
 
-#wkamkmknck .gt_font_italic {
+#koxekvwcgg .gt_font_italic {
   font-style: italic;
 }
 
-#wkamkmknck .gt_super {
+#koxekvwcgg .gt_super {
   font-size: 65%;
 }
 
-#wkamkmknck .gt_footnote_marks {
+#koxekvwcgg .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#wkamkmknck .gt_asterisk {
+#koxekvwcgg .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#wkamkmknck .gt_indent_1 {
+#koxekvwcgg .gt_indent_1 {
   text-indent: 5px;
 }
 
-#wkamkmknck .gt_indent_2 {
+#koxekvwcgg .gt_indent_2 {
   text-indent: 10px;
 }
 
-#wkamkmknck .gt_indent_3 {
+#koxekvwcgg .gt_indent_3 {
   text-indent: 15px;
 }
 
-#wkamkmknck .gt_indent_4 {
+#koxekvwcgg .gt_indent_4 {
   text-indent: 20px;
 }
 
-#wkamkmknck .gt_indent_5 {
+#koxekvwcgg .gt_indent_5 {
   text-indent: 25px;
+}
+
+#koxekvwcgg .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#koxekvwcgg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
   <thead>
-    
     <tr class="gt_col_headings">
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="decimalLatitude">decimalLatitude</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="decimalLongitude">decimalLongitude</th>
@@ -1098,32 +1120,52 @@ galah_call() |>
   <tbody class="gt_table_body">
     <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46862</td>
 <td headers="decimalLongitude" class="gt_row gt_right">153.0243</td>
-<td headers="eventDate" class="gt_row gt_right">2006-03-29 23:32:00</td>
+<td headers="eventDate" class="gt_row gt_right">2006-03-30 09:32:00</td>
 <td headers="scientificName" class="gt_row gt_left">Threskiornis moluccus</td>
 <td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td></tr>
     <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46861</td>
 <td headers="decimalLongitude" class="gt_row gt_right">153.0244</td>
-<td headers="eventDate" class="gt_row gt_right">2023-12-01 23:12:02</td>
+<td headers="eventDate" class="gt_row gt_right">2023-12-02 09:12:02</td>
 <td headers="scientificName" class="gt_row gt_left">Cosmophasis baehrae</td>
 <td headers="vernacularName" class="gt_row gt_left">NA</td></tr>
     <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46855</td>
 <td headers="decimalLongitude" class="gt_row gt_right">153.0239</td>
-<td headers="eventDate" class="gt_row gt_right">2024-02-03 10:45:00</td>
+<td headers="eventDate" class="gt_row gt_right">2024-02-03 20:45:00</td>
 <td headers="scientificName" class="gt_row gt_left">Mediastinia</td>
 <td headers="vernacularName" class="gt_row gt_left">NA</td></tr>
     <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46851</td>
 <td headers="decimalLongitude" class="gt_row gt_right">153.0238</td>
-<td headers="eventDate" class="gt_row gt_right">2023-04-08 07:49:00</td>
+<td headers="eventDate" class="gt_row gt_right">2023-04-08 17:49:00</td>
 <td headers="scientificName" class="gt_row gt_left">Entomyzon cyanotis</td>
 <td headers="vernacularName" class="gt_row gt_left">Blue-faced Honeyeater</td></tr>
     <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46842</td>
 <td headers="decimalLongitude" class="gt_row gt_right">153.0241</td>
-<td headers="eventDate" class="gt_row gt_right">2022-08-30 01:29:00</td>
+<td headers="eventDate" class="gt_row gt_right">2022-08-30 11:29:00</td>
 <td headers="scientificName" class="gt_row gt_left">Threskiornis moluccus</td>
 <td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td></tr>
+    <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46836</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0241</td>
+<td headers="eventDate" class="gt_row gt_right">2024-08-28 10:31:54</td>
+<td headers="scientificName" class="gt_row gt_left">Vitellus</td>
+<td headers="vernacularName" class="gt_row gt_left">NA</td></tr>
     <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46833</td>
 <td headers="decimalLongitude" class="gt_row gt_right">153.0241</td>
 <td headers="eventDate" class="gt_row gt_right">2022-07-24 14:43:00</td>
+<td headers="scientificName" class="gt_row gt_left">Threskiornis moluccus</td>
+<td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td></tr>
+    <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46831</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0241</td>
+<td headers="eventDate" class="gt_row gt_right">2024-10-13 14:34:00</td>
+<td headers="scientificName" class="gt_row gt_left">Threskiornis moluccus</td>
+<td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td></tr>
+    <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46830</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0240</td>
+<td headers="eventDate" class="gt_row gt_right">2024-10-13 14:35:00</td>
+<td headers="scientificName" class="gt_row gt_left">Gymnorhina tibicen</td>
+<td headers="vernacularName" class="gt_row gt_left">Australian Magpie</td></tr>
+    <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46817</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0240</td>
+<td headers="eventDate" class="gt_row gt_right">2024-07-23 10:00:53</td>
 <td headers="scientificName" class="gt_row gt_left">Threskiornis moluccus</td>
 <td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td></tr>
   </tbody>
@@ -1132,16 +1174,16 @@ galah_call() |>
 </table>
 </div><!--/html_preserve-->
 
-There is a second argument of `galah_geolocate()` called `type`, which defaults 
+There is a second argument of `geolocate()` called `type`, which defaults 
 to value `"polygon"`. By setting the `type` argument to `"bbox"`, the provided 
 `POLYGON` or `MULTIPOLYGON` will be converted into the smallest bounding box 
 (rectangle) that contains the `POLYGON`. In this case, records will be included 
 that may not exactly lie inside the provided shape.
 
 
-```r
+``` r
 galah_call() |>
-  galah_geolocate(king_george_sq, type = "bbox") |>
+  geolocate(king_george_sq, type = "bbox") |>
   select(decimalLatitude, 
          decimalLongitude, 
          eventDate, 
@@ -1157,23 +1199,23 @@ galah_call() |>
 ## xmin = 153.0236 xmax = 153.0248 ymin = -27.46896 ymax = -27.46789
 ```
 
-<!--html_preserve--><div id="isqsxhfmij" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#isqsxhfmij table {
+<!--html_preserve--><div id="whxugclisi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#whxugclisi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#isqsxhfmij thead, #isqsxhfmij tbody, #isqsxhfmij tfoot, #isqsxhfmij tr, #isqsxhfmij td, #isqsxhfmij th {
+#whxugclisi thead, #whxugclisi tbody, #whxugclisi tfoot, #whxugclisi tr, #whxugclisi td, #whxugclisi th {
   border-style: none;
 }
 
-#isqsxhfmij p {
+#whxugclisi p {
   margin: 0;
   padding: 0;
 }
 
-#isqsxhfmij .gt_table {
+#whxugclisi .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1199,12 +1241,12 @@ galah_call() |>
   border-left-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_caption {
+#whxugclisi .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#isqsxhfmij .gt_title {
+#whxugclisi .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1216,7 +1258,7 @@ galah_call() |>
   border-bottom-width: 0;
 }
 
-#isqsxhfmij .gt_subtitle {
+#whxugclisi .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1228,7 +1270,7 @@ galah_call() |>
   border-top-width: 0;
 }
 
-#isqsxhfmij .gt_heading {
+#whxugclisi .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1240,13 +1282,13 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_bottom_border {
+#whxugclisi .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_col_headings {
+#whxugclisi .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1261,7 +1303,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_col_heading {
+#whxugclisi .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1281,7 +1323,7 @@ galah_call() |>
   overflow-x: hidden;
 }
 
-#isqsxhfmij .gt_column_spanner_outer {
+#whxugclisi .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1293,15 +1335,15 @@ galah_call() |>
   padding-right: 4px;
 }
 
-#isqsxhfmij .gt_column_spanner_outer:first-child {
+#whxugclisi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#isqsxhfmij .gt_column_spanner_outer:last-child {
+#whxugclisi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#isqsxhfmij .gt_column_spanner {
+#whxugclisi .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1313,11 +1355,11 @@ galah_call() |>
   width: 100%;
 }
 
-#isqsxhfmij .gt_spanner_row {
+#whxugclisi .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#isqsxhfmij .gt_group_heading {
+#whxugclisi .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1343,7 +1385,7 @@ galah_call() |>
   text-align: left;
 }
 
-#isqsxhfmij .gt_empty_group_heading {
+#whxugclisi .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1358,15 +1400,15 @@ galah_call() |>
   vertical-align: middle;
 }
 
-#isqsxhfmij .gt_from_md > :first-child {
+#whxugclisi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#isqsxhfmij .gt_from_md > :last-child {
+#whxugclisi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#isqsxhfmij .gt_row {
+#whxugclisi .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1385,7 +1427,7 @@ galah_call() |>
   overflow-x: hidden;
 }
 
-#isqsxhfmij .gt_stub {
+#whxugclisi .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1398,7 +1440,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#isqsxhfmij .gt_stub_row_group {
+#whxugclisi .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1412,15 +1454,15 @@ galah_call() |>
   vertical-align: top;
 }
 
-#isqsxhfmij .gt_row_group_first td {
+#whxugclisi .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#isqsxhfmij .gt_row_group_first th {
+#whxugclisi .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#isqsxhfmij .gt_summary_row {
+#whxugclisi .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1430,16 +1472,16 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#isqsxhfmij .gt_first_summary_row {
+#whxugclisi .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_first_summary_row.thick {
+#whxugclisi .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#isqsxhfmij .gt_last_summary_row {
+#whxugclisi .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1449,7 +1491,7 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_grand_summary_row {
+#whxugclisi .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1459,7 +1501,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#isqsxhfmij .gt_first_grand_summary_row {
+#whxugclisi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1469,7 +1511,7 @@ galah_call() |>
   border-top-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_last_grand_summary_row_top {
+#whxugclisi .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1479,11 +1521,11 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_striped {
+#whxugclisi .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#isqsxhfmij .gt_table_body {
+#whxugclisi .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1492,7 +1534,7 @@ galah_call() |>
   border-bottom-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_footnotes {
+#whxugclisi .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1506,7 +1548,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_footnote {
+#whxugclisi .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1515,7 +1557,7 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#isqsxhfmij .gt_sourcenotes {
+#whxugclisi .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1529,7 +1571,7 @@ galah_call() |>
   border-right-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_sourcenote {
+#whxugclisi .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1537,69 +1579,77 @@ galah_call() |>
   padding-right: 5px;
 }
 
-#isqsxhfmij .gt_left {
+#whxugclisi .gt_left {
   text-align: left;
 }
 
-#isqsxhfmij .gt_center {
+#whxugclisi .gt_center {
   text-align: center;
 }
 
-#isqsxhfmij .gt_right {
+#whxugclisi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#isqsxhfmij .gt_font_normal {
+#whxugclisi .gt_font_normal {
   font-weight: normal;
 }
 
-#isqsxhfmij .gt_font_bold {
+#whxugclisi .gt_font_bold {
   font-weight: bold;
 }
 
-#isqsxhfmij .gt_font_italic {
+#whxugclisi .gt_font_italic {
   font-style: italic;
 }
 
-#isqsxhfmij .gt_super {
+#whxugclisi .gt_super {
   font-size: 65%;
 }
 
-#isqsxhfmij .gt_footnote_marks {
+#whxugclisi .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#isqsxhfmij .gt_asterisk {
+#whxugclisi .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#isqsxhfmij .gt_indent_1 {
+#whxugclisi .gt_indent_1 {
   text-indent: 5px;
 }
 
-#isqsxhfmij .gt_indent_2 {
+#whxugclisi .gt_indent_2 {
   text-indent: 10px;
 }
 
-#isqsxhfmij .gt_indent_3 {
+#whxugclisi .gt_indent_3 {
   text-indent: 15px;
 }
 
-#isqsxhfmij .gt_indent_4 {
+#whxugclisi .gt_indent_4 {
   text-indent: 20px;
 }
 
-#isqsxhfmij .gt_indent_5 {
+#whxugclisi .gt_indent_5 {
   text-indent: 25px;
+}
+
+#whxugclisi .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#whxugclisi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
   <thead>
-    
     <tr class="gt_col_headings">
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="decimalLatitude">decimalLatitude</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="decimalLongitude">decimalLongitude</th>
@@ -1616,7 +1666,7 @@ galah_call() |>
 <td headers="vernacularName" class="gt_row gt_left">Bush Stone-curlew</td></tr>
     <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46882</td>
 <td headers="decimalLongitude" class="gt_row gt_right">153.0236</td>
-<td headers="eventDate" class="gt_row gt_right">2019-04-21 04:40:00</td>
+<td headers="eventDate" class="gt_row gt_right">2019-04-21 14:40:00</td>
 <td headers="scientificName" class="gt_row gt_left">Threskiornis moluccus</td>
 <td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td></tr>
     <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46882</td>
@@ -1624,41 +1674,41 @@ galah_call() |>
 <td headers="eventDate" class="gt_row gt_right">2005-08-28 12:18:00</td>
 <td headers="scientificName" class="gt_row gt_left">Threskiornis moluccus</td>
 <td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td></tr>
-    <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46862</td>
-<td headers="decimalLongitude" class="gt_row gt_right">153.0243</td>
-<td headers="eventDate" class="gt_row gt_right">2006-03-29 23:32:00</td>
-<td headers="scientificName" class="gt_row gt_left">Threskiornis moluccus</td>
-<td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td></tr>
-    <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46861</td>
-<td headers="decimalLongitude" class="gt_row gt_right">153.0244</td>
-<td headers="eventDate" class="gt_row gt_right">2023-12-01 23:12:02</td>
-<td headers="scientificName" class="gt_row gt_left">Cosmophasis baehrae</td>
-<td headers="vernacularName" class="gt_row gt_left">NA</td></tr>
-    <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46855</td>
-<td headers="decimalLongitude" class="gt_row gt_right">153.0239</td>
-<td headers="eventDate" class="gt_row gt_right">2024-02-03 10:45:00</td>
-<td headers="scientificName" class="gt_row gt_left">Mediastinia</td>
-<td headers="vernacularName" class="gt_row gt_left">NA</td></tr>
-    <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46851</td>
+    <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46868</td>
 <td headers="decimalLongitude" class="gt_row gt_right">153.0238</td>
-<td headers="eventDate" class="gt_row gt_right">2023-04-08 07:49:00</td>
-<td headers="scientificName" class="gt_row gt_left">Entomyzon cyanotis</td>
-<td headers="vernacularName" class="gt_row gt_left">Blue-faced Honeyeater</td></tr>
-    <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46842</td>
-<td headers="decimalLongitude" class="gt_row gt_right">153.0241</td>
-<td headers="eventDate" class="gt_row gt_right">2022-08-30 01:29:00</td>
-<td headers="scientificName" class="gt_row gt_left">Threskiornis moluccus</td>
-<td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td></tr>
-    <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46833</td>
-<td headers="decimalLongitude" class="gt_row gt_right">153.0241</td>
-<td headers="eventDate" class="gt_row gt_right">2022-07-24 14:43:00</td>
-<td headers="scientificName" class="gt_row gt_left">Threskiornis moluccus</td>
-<td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td></tr>
-    <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46806</td>
-<td headers="decimalLongitude" class="gt_row gt_right">153.0239</td>
-<td headers="eventDate" class="gt_row gt_right">NA</td>
-<td headers="scientificName" class="gt_row gt_left">Syntrichia laevipila</td>
-<td headers="vernacularName" class="gt_row gt_left">Screw Moss</td></tr>
+<td headers="eventDate" class="gt_row gt_right">2024-07-15 15:00:18</td>
+<td headers="scientificName" class="gt_row gt_left">Pseudanapaea denotata</td>
+<td headers="vernacularName" class="gt_row gt_left">NA</td></tr>
+    <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46868</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0238</td>
+<td headers="eventDate" class="gt_row gt_right">2024-01-13 15:07:42</td>
+<td headers="scientificName" class="gt_row gt_left">Tenodera australasiae</td>
+<td headers="vernacularName" class="gt_row gt_left">Purplewinged Mantid</td></tr>
+    <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46868</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0238</td>
+<td headers="eventDate" class="gt_row gt_right">2024-01-13 15:04:53</td>
+<td headers="scientificName" class="gt_row gt_left">Pristhesancus plagipennis</td>
+<td headers="vernacularName" class="gt_row gt_left">Bee-killer</td></tr>
+    <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46868</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0238</td>
+<td headers="eventDate" class="gt_row gt_right">2024-01-13 15:06:26</td>
+<td headers="scientificName" class="gt_row gt_left">Toxorhynchites (Toxorhynchites) speciosus</td>
+<td headers="vernacularName" class="gt_row gt_left">NA</td></tr>
+    <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46868</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0238</td>
+<td headers="eventDate" class="gt_row gt_right">2024-01-13 12:20:00</td>
+<td headers="scientificName" class="gt_row gt_left">Xixuthrus</td>
+<td headers="vernacularName" class="gt_row gt_left">NA</td></tr>
+    <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46868</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0238</td>
+<td headers="eventDate" class="gt_row gt_right">2024-07-15 12:12:27</td>
+<td headers="scientificName" class="gt_row gt_left">Columba (Columba) livia</td>
+<td headers="vernacularName" class="gt_row gt_left">Rock Dove</td></tr>
+    <tr><td headers="decimalLatitude" class="gt_row gt_right">-27.46868</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0238</td>
+<td headers="eventDate" class="gt_row gt_right">2024-01-13 15:07:42</td>
+<td headers="scientificName" class="gt_row gt_left">Lyramorpha (Lyramorpha) rosea</td>
+<td headers="vernacularName" class="gt_row gt_left">Litchi Stink Bug</td></tr>
   </tbody>
   
   
@@ -1672,31 +1722,29 @@ The `type` argument with option `"bbox"` is provided because `sf` objects with
 shapefile, using `type = "bbox"` will at least enable an initial reduction of 
 the data that is downloaded, before finer filtering to the actual shapefile will 
 obtain the desired set of occurrences. Alternatively, one can also perform the 
-`"bbox"` reduction before passing the shape to `galah_geolocate()` by using 
+`"bbox"` reduction before passing the shape to `geolocate()` by using 
 `sf::st_bbox()`.
 
 A common situation for this to occur is when a shapefile with multiple shapes is 
 provided, where we are interested in grouping our results by each shape. Here is 
-a mock workflow using a subset of a shapefile of 
-[all 2,184 Brisbane parks](https://www.data.brisbane.qld.gov.au/data/dataset/park-locations).
+a mock workflow using a subset of a shapefile of all 2,184 Brisbane parks.
 
 Let's say we are interested in knowing which parks in the Brisbane postcode 4075 
-have the most occurrences of the Scaly-Breasted Lorikeet, 
-[*Trichoglossus chlorolepidotus*](https://bie.ala.org.au//species/https://biodiversity.org.au/afd/taxa/ecaca7ec-da2e-4c6b-b190-14e7a1738884), 
-since 2020. We can download the entire shapefile from the above link, and 
-perform our filtering and summarising as follows:
+have the most occurrences of the Scaly-Breasted Lorikeet (*Trichoglossus 
+chlorolepidotus*) since 2020. We can download the entire shapefile from the 
+link above, and perform our filtering and summarising as follows:
 
 
 
 
-```r
+``` r
 brisbane_parks <- sf::st_read("path/to/Park___Locations.shp") |>
   sf::st_make_valid() |>
   filter(POST_CODE == 4075)
 ```
 
 
-```r
+``` r
 # Convert shapefile to a bounding box
 brisbane_parks_bbox <- brisbane_parks |> sf::st_bbox()
 
@@ -1704,17 +1752,18 @@ brisbane_parks_bbox <- brisbane_parks |> sf::st_bbox()
 lorikeet_brisbane <- galah_call() |>
   filter(scientificName == "Trichoglossus chlorolepidotus", 
          year >= 2020) |>
-  galah_geolocate(brisbane_parks_bbox, type = "bbox") |>
+  geolocate(brisbane_parks_bbox, type = "bbox") |>
   collect()
 ```
 
 ```
 ## Data returned for bounding box:
 ## xmin = 152.96331 xmax = 152.99668 ymin = -27.57737 ymax = -27.51606
+## Retrying in 1 seconds.
 ```
 
 
-```r
+``` r
 # Filter records down to only those in the shapefile polygons
 lorikeet_brisbane |>
   # Create a point geometry based on the occurrence coordinates
@@ -1737,16 +1786,16 @@ lorikeet_brisbane |>
 ## # A tibble: 10 × 2
 ##    park                           counts
 ##    <chr>                           <int>
-##  1 SHERWOOD ARBORETUM                276
-##  2 NYUNDARE-BA PARK                  271
-##  3 FAULKNER PARK                      51
-##  4 STRICKLAND TERRACE PARK            33
-##  5 FORT ROAD BUSHLAND                 31
-##  6 GRACEVILLE RIVERSIDE PARKLANDS     31
-##  7 BENARRAWA RESERVE                  19
-##  8 NOSWORTHY PARK                     16
-##  9 HORACE WINDOW RESERVE               9
-## 10 GRACEVILLE AVENUE PARK              6
+##  1 NYUNDARE-BA PARK                  552
+##  2 SHERWOOD ARBORETUM                472
+##  3 FAULKNER PARK                      64
+##  4 FORT ROAD BUSHLAND                 46
+##  5 STRICKLAND TERRACE PARK            44
+##  6 BENARRAWA RESERVE                  34
+##  7 GRACEVILLE RIVERSIDE PARKLANDS     32
+##  8 NOSWORTHY PARK                     17
+##  9 HORACE WINDOW RESERVE              14
+## 10 GRACEVILLE AVENUE PARK              7
 ```
 
 Some shapefiles cover large geographic areas with the caveat that even the 

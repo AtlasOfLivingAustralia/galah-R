@@ -10,14 +10,18 @@
 #' search term within the valid options for the information specified by the 
 #' suffix.
 #' 
+#' **For more information about taxonomic searches using `search_taxa()`, see `?taxonomic_searches`**.
+#' 
 #' `r lifecycle::badge("stable")`
-#' `search_all()` is a helper function that can do searches within multiple 
-#' types of information from `search_` sub-functions. 
+#' `search_all()` is a helper function that can do searches for multiple 
+#' types of information, acting as a wrapper around many `search_` sub-functions. 
 #' See `Details` (below) for accepted values.
 #' 
 #' @param type A string to specify what type of parameters should be searched.
 #' @param query A string specifying a search term. Searches are not 
 #' case-sensitive.
+#' @param ... A set of strings or a tibble to be queried; see 
+#' Details.
 #' @details There are five categories of information, each with their own 
 #' specific sub-functions to look-up each type of information. 
 #' The available types of information for `search_all()` are:
@@ -48,15 +52,12 @@
 #' @aliases search_collections search_datasets search_licences search_apis
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble) 
 #' containing all data that match the search query.
-#' @references 
-#' *  Darwin Core terms <https://dwc.tdwg.org/terms/>
-#' 
-#' @seealso See [search_taxa()] and [search_identifiers()] for more information 
-#' on taxonomic searches. 
-#' Use the [show_all()] function and `show_all_()` sub-functions to 
+#' @seealso Use the [show_all()] function and `show_all_()` sub-functions to 
 #' show available options of information. These functions are used to pass valid 
-#' arguments to [galah_select()], [galah_filter()], and related functions.
-#' 
+#' arguments to \code{\link[=filter.data_request]{filter()}}, 
+#' \code{\link[=select.data_request]{select()}}, and related functions. 
+#' Taxonomic queries are somewhat more involved; see [taxonomic_searches] for
+#' details.
 #' @examples \dontrun{
 #' # Search for fields that include the word "date"
 #' search_all(fields, "date")
@@ -226,7 +227,6 @@ search_datasets <- function(query){search_all("datasets", query)}
 search_fields <- function(query){search_all("fields", query)}
 
 #' @rdname search_all
-#' @param ... A set of strings or a tibble to be queried
 #' @export
 search_identifiers <- function(...){search_all("identifiers", unlist(list(...)))}
 
@@ -253,7 +253,7 @@ search_ranks <- function(query){search_all("ranks", query)}
 #' @rdname search_all
 #' @export
 search_reasons <- function(query){search_all("reasons", query)}
-
+ 
 #' @rdname search_all
 #' @export
 search_taxa <- function(...){search_all("taxa", list(...))}
