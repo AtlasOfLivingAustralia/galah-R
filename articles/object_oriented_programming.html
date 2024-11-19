@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="galah">
 <title>Object-Oriented Programming • galah</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -16,75 +15,57 @@
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.9/font.css" rel="stylesheet">
-<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Object-Oriented Programming">
-<meta property="og:description" content="galah">
-<meta property="og:image" content="https://galah.ala.org.au/R/logo.png">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.0</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../articles/quick_start_guide.html">Quick start guide</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../articles/quick_start_guide.html">Quick start guide</a></li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <h6 class="dropdown-header" data-toc-skip>Get started</h6>
-    <a class="dropdown-item" href="../articles/choosing_an_atlas.html">Choosing an atlas</a>
-    <a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a>
-    <a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a>
-    <a class="dropdown-item" href="../articles/download_data.html">Download data</a>
-    <div class="dropdown-divider"></div>
-    <h6 class="dropdown-header" data-toc-skip>Advanced</h6>
-    <a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a>
-    <a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a>
-    <a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a>
-    <a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><h6 class="dropdown-header" data-toc-skip>Get started</h6></li>
+    <li><a class="dropdown-item" href="../articles/choosing_an_atlas.html">Choosing an atlas</a></li>
+    <li><a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a></li>
+    <li><a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a></li>
+    <li><a class="dropdown-item" href="../articles/download_data.html">Download data</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a></li>
+    <li><a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a></li>
+    <li><a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a></li>
+    <li><a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">News</a>
-</li>
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/AtlasOfLivingAustralia/galah-R/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">News</a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/AtlasOfLivingAustralia/galah-R/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
@@ -97,9 +78,9 @@
                         <h4 data-toc-skip class="author">Martin Westgate
 &amp; Dax Kellie</h4>
             
-            <h4 data-toc-skip class="date">2024-04-09</h4>
+            <h4 data-toc-skip class="date">2024-11-19</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/vignettes/object_oriented_programming.Rmd" class="external-link"><code>vignettes/object_oriented_programming.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/main/vignettes/object_oriented_programming.Rmd" class="external-link"><code>vignettes/object_oriented_programming.Rmd</code></a></small>
       <div class="d-none name"><code>object_oriented_programming.Rmd</code></div>
     </div>
 
@@ -118,35 +99,35 @@ first use <code><a href="../reference/galah_call.html">galah_call()</a></code> t
 trigger functions to use specific methods for this object class, even if
 a function name is used by another package. For example, users can use
 <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> functions from <a href="https://dplyr.tidyverse.org/index.html" class="external-link">dplyr</a> instead of
-<code><a href="../reference/galah_filter.html">galah_filter()</a></code> and <code><a href="../reference/galah_group_by.html">galah_group_by()</a></code> to
+<code><a href="../reference/filter.data_request.html">galah_filter()</a></code> and <code><a href="../reference/group_by.data_request.html">galah_group_by()</a></code> to
 construct a query. Consequently, the following queries are
 synonymous:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">genus</span> <span class="op">==</span> <span class="st">"Crinia"</span>, <span class="va">year</span> <span class="op">==</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_group_by.html">galah_group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/filter.data_request.html">galah_filter</a></span><span class="op">(</span><span class="va">genus</span> <span class="op">==</span> <span class="st">"Crinia"</span>, <span class="va">year</span> <span class="op">==</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/group_by.data_request.html">galah_group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/atlas_.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">genus</span> <span class="op">==</span> <span class="st">"Crinia"</span>, <span class="va">year</span> <span class="op">==</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/atlas_.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 16 × 2</span></span>
 <span><span class="co">##    species                 count</span></span>
 <span><span class="co">##    &lt;chr&gt;                   &lt;int&gt;</span></span>
-<span><span class="co">##  1 Crinia signifera        58619</span></span>
-<span><span class="co">##  2 Crinia parinsignifera   12912</span></span>
-<span><span class="co">##  3 Crinia glauerti          3090</span></span>
-<span><span class="co">##  4 Crinia georgiana         1490</span></span>
-<span><span class="co">##  5 Crinia remota             784</span></span>
-<span><span class="co">##  6 Crinia sloanei            693</span></span>
-<span><span class="co">##  7 Crinia insignifera        536</span></span>
-<span><span class="co">##  8 Crinia tinnula            418</span></span>
-<span><span class="co">##  9 Crinia deserticola        278</span></span>
-<span><span class="co">## 10 Crinia pseudinsignifera   236</span></span>
-<span><span class="co">## 11 Crinia tasmaniensis       189</span></span>
-<span><span class="co">## 12 Crinia bilingua            75</span></span>
-<span><span class="co">## 13 Crinia subinsignifera      45</span></span>
+<span><span class="co">##  1 Crinia signifera        42621</span></span>
+<span><span class="co">##  2 Crinia parinsignifera    8664</span></span>
+<span><span class="co">##  3 Crinia glauerti          3111</span></span>
+<span><span class="co">##  4 Crinia georgiana         1509</span></span>
+<span><span class="co">##  5 Crinia remota             718</span></span>
+<span><span class="co">##  6 Crinia sloanei            682</span></span>
+<span><span class="co">##  7 Crinia insignifera        530</span></span>
+<span><span class="co">##  8 Crinia tinnula            291</span></span>
+<span><span class="co">##  9 Crinia deserticola        253</span></span>
+<span><span class="co">## 10 Crinia pseudinsignifera   223</span></span>
+<span><span class="co">## 11 Crinia tasmaniensis       181</span></span>
+<span><span class="co">## 12 Crinia bilingua            74</span></span>
+<span><span class="co">## 13 Crinia subinsignifera      46</span></span>
 <span><span class="co">## 14 Crinia riparia             10</span></span>
 <span><span class="co">## 15 Crinia flindersensis        3</span></span>
 <span><span class="co">## 16 Crinia nimba                1</span></span></code></pre>
@@ -161,23 +142,23 @@ list of masked functions is:</p>
 <code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count()</a></code> (<a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a>)</li>
 <li>
 <code><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify()</a></code> (<code>{graphics}</code>) as a synonym for
-<code><a href="../reference/galah_identify.html">galah_identify()</a></code>
+<code><a href="../reference/identify.data_request.html">galah_identify()</a></code>
 </li>
 <li>
 <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code> (<a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a>) as a synonym for
-<code><a href="../reference/galah_select.html">galah_select()</a></code>
+<code><a href="../reference/select.data_request.html">galah_select()</a></code>
 </li>
 <li>
 <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> (<a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a>) as a synonym for
-<code><a href="../reference/galah_group_by.html">galah_group_by()</a></code>
+<code><a href="../reference/group_by.data_request.html">galah_group_by()</a></code>
 </li>
 <li>
 <code><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head()</a></code> (<a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a>) as a synonym for
-the <code>limit</code> argument in <code><a href="../reference/atlas_counts.html">atlas_counts()</a></code>
+the <code>limit</code> argument in <code><a href="../reference/atlas_.html">atlas_counts()</a></code>
 </li>
 <li>
 <code><a href="https://r-spatial.github.io/sf/reference/st_crop.html" class="external-link">st_crop()</a></code> (<a href="https://r-spatial.github.io/sf/" class="external-link">sf</a>) as a synonym for
-<code><a href="../reference/galah_geolocate.html">galah_polygon()</a></code>
+<code><a href="../reference/geolocate.html">galah_polygon()</a></code>
 </li>
 </ul>
 <p>Note that these functions are all evaluated lazily; they amend the
@@ -206,7 +187,7 @@ you want to collect.</p>
 structure used in earlier versions of <code>galah</code>. The desired
 data type, <code>"occurrences"</code>, is specified at the beginning of
 the query within <code><a href="../reference/galah_call.html">request_data()</a></code> rather than at the end
-using <code><a href="../reference/atlas_occurrences.html">atlas_occurrences()</a></code>. Specifying the data type at the
+using <code><a href="../reference/atlas_.html">atlas_occurrences()</a></code>. Specifying the data type at the
 start allows users to make use of advanced query building using three
 newly implemented stages of query building: <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code>,
 <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">compute()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code>. These stages mirror
@@ -241,24 +222,24 @@ want:</p>
 <span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Object of class query with type data/occurrences-count-groupby </span></span>
-<span><span class="co">## url: https://biocache-ws.ala.org.au/ws/occurrences/facets?fq=%28genus%3A%22... </span></span>
+<span><span class="co">## url: https://api.ala.org.au/occurrences/occurrences/facets?fq=%28genus%3A%2... </span></span>
 <span><span class="co">## arrange: species (ascending)</span></span></code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">compute</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Object of class computed_query with type data/occurrences-count-groupby </span></span>
-<span><span class="co">## url: https://biocache-ws.ala.org.au/ws/occurrences/facets?fq=%28genus%3A%22... </span></span>
+<span><span class="co">## url: https://api.ala.org.au/occurrences/occurrences/facets?fq=%28genus%3A%2... </span></span>
 <span><span class="co">## arrange: species (ascending)</span></span></code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 6 × 2</span></span>
 <span><span class="co">##   species              count</span></span>
 <span><span class="co">##   &lt;chr&gt;                &lt;int&gt;</span></span>
-<span><span class="co">## 1 Crinia bilingua         75</span></span>
-<span><span class="co">## 2 Crinia deserticola     278</span></span>
+<span><span class="co">## 1 Crinia bilingua         74</span></span>
+<span><span class="co">## 2 Crinia deserticola     253</span></span>
 <span><span class="co">## 3 Crinia flindersensis     3</span></span>
-<span><span class="co">## 4 Crinia georgiana      1490</span></span>
-<span><span class="co">## 5 Crinia glauerti       3090</span></span>
-<span><span class="co">## 6 Crinia insignifera     536</span></span></code></pre>
+<span><span class="co">## 4 Crinia georgiana      1509</span></span>
+<span><span class="co">## 5 Crinia glauerti       3111</span></span>
+<span><span class="co">## 6 Crinia insignifera     530</span></span></code></pre>
 <p>The benefit of using <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">compute()</a></code>
 and <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code> is that queries are more modular. This is
 particularly useful for large data requests in galah. Users can send
@@ -289,17 +270,17 @@ constructed with the following information, returned by
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">1900</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Object of class query with type data/occurrences </span></span>
-<span><span class="co">## url: https://biocache-ws.ala.org.au/ws/occurrences/offline/download?fq=%28y...</span></span></code></pre>
+<span><span class="co">## url: https://api.ala.org.au/occurrences/occurrences/offline/download?fq=%28...</span></span></code></pre>
 <p>The <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code> stage includes an additional argument
 (<code>.expand</code>) that, when set to <code>TRUE</code>, shows all
 the APIs called to construct the user-requested query. This is
 especially useful for debugging.</p>
 </div>
 <div class="section level2">
-<h2 id="new-object-classes">New object classes<a class="anchor" aria-label="anchor" href="#new-object-classes"></a>
+<h2 id="object-classes">Object classes<a class="anchor" aria-label="anchor" href="#object-classes"></a>
 </h2>
-<p>Under the hood, the different query-building verbs amend our object
-to a new class:</p>
+<p>Under the hood, the different query-building verbs each amend the
+supplied object to a new class:</p>
 <ul>
 <li>
 <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code> returns class <code>query</code>, which is a
@@ -310,8 +291,8 @@ list containing a <code>type</code> slot and one or more
 <code>computed_query</code>
 </li>
 <li>
-<code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code> doesn’t add a new data class (returns class
-<code>tibble</code>)</li>
+<code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code> returns a <code>tibble</code>
+</li>
 </ul>
 <p>These can be called directly, or via the <code>method</code> and
 <code>type</code> arguments of <code><a href="../reference/galah_call.html">galah_call()</a></code>, which specify
@@ -334,8 +315,8 @@ the year 2020:</p>
 <span></span>
 <span><span class="co"># original syntax</span></span>
 <span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/filter.data_request.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/atlas_.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Another example is to list available <code>fields</code> in the
 selected atlas:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
@@ -356,19 +337,18 @@ selected atlas:</p>
 <span></span>
 <span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"metadata"</span>, </span>
 <span>           type <span class="op">=</span> <span class="st">"fields-unnest"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">id</span> <span class="op">==</span> <span class="st">"cl22"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/filter.data_request.html">galah_filter</a></span><span class="op">(</span><span class="va">id</span> <span class="op">==</span> <span class="st">"cl22"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">fields</span>, <span class="st">"cl22"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/show_values.html">show_values</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>Although there is little reason to use
-<code><a href="../reference/galah_call.html">request_metadata()</a></code> rather than <code><a href="../reference/show_all.html">show_all()</a></code> most
-of the time, in some cases larger databases like GBIF return huge
-<code>data.frame</code>s of metadata. galah allows users to use
-<code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">compute()</a></code> and
-<code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code> on all types of requests, meaning users are able
-to download large metadata queries using the process detailed above in
-“Advanced query building” to get around this issue.</p>
+<p>While <code><a href="../reference/galah_call.html">request_metadata()</a></code> is more modular than
+<code><a href="../reference/show_all.html">show_all()</a></code>, there is little benefit to using it for most
+applications. However, in some cases, larger databases like GBIF return
+huge <code>data.frame</code>s of metadata when called via
+<code><a href="../reference/show_all.html">show_all()</a></code>. Using <code>request_metdata()</code> allows
+users to specify a <code><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head()</a></code> line within their pipe to
+get around this issue.</p>
 </div>
 <div class="section level2">
 <h2 id="which-syntax-should-i-prefer">Which syntax should I prefer?<a class="anchor" aria-label="anchor" href="#which-syntax-should-i-prefer"></a>
@@ -377,34 +357,32 @@ to download large metadata queries using the process detailed above in
 call masked functions. Functions prefixed with <code>galah_</code> or
 <code>atlas_</code> are not going away. Indeed, while there is perfect
 redundancy between old and new syntax in some cases, in others they
-serve different purposes. In <code><a href="../reference/atlas_media.html">atlas_media()</a></code> for example,
+serve different purposes. In <code><a href="../reference/atlas_.html">atlas_media()</a></code> for example,
 several calls are made and joined in a way that reduces the number of
 steps required by the user. Under the hood, however, all
 <code>atlas_</code> functions are now entirely built using the above
 syntax.</p>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p>
-<p>Developed by Martin Westgate, Matilda Stevenson, Dax Kellie, Peggy Newman.</p>
+  <p>Developed by Martin Westgate, Dax Kellie, Matilda Stevenson, Peggy Newman.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.8.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>

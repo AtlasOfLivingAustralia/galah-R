@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="galah">
 <title>Taxonomic filtering • galah</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -16,75 +15,57 @@
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.9/font.css" rel="stylesheet">
-<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Taxonomic filtering">
-<meta property="og:description" content="galah">
-<meta property="og:image" content="https://galah.ala.org.au/R/logo.png">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.0</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../articles/quick_start_guide.html">Quick start guide</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../articles/quick_start_guide.html">Quick start guide</a></li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <h6 class="dropdown-header" data-toc-skip>Get started</h6>
-    <a class="dropdown-item" href="../articles/choosing_an_atlas.html">Choosing an atlas</a>
-    <a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a>
-    <a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a>
-    <a class="dropdown-item" href="../articles/download_data.html">Download data</a>
-    <div class="dropdown-divider"></div>
-    <h6 class="dropdown-header" data-toc-skip>Advanced</h6>
-    <a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a>
-    <a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a>
-    <a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a>
-    <a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><h6 class="dropdown-header" data-toc-skip>Get started</h6></li>
+    <li><a class="dropdown-item" href="../articles/choosing_an_atlas.html">Choosing an atlas</a></li>
+    <li><a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a></li>
+    <li><a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a></li>
+    <li><a class="dropdown-item" href="../articles/download_data.html">Download data</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a></li>
+    <li><a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a></li>
+    <li><a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a></li>
+    <li><a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">News</a>
-</li>
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/AtlasOfLivingAustralia/galah-R/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">News</a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/AtlasOfLivingAustralia/galah-R/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
@@ -99,7 +80,7 @@
             
             <h4 data-toc-skip class="date">2023-10-13</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/vignettes/taxonomic_filtering.Rmd" class="external-link"><code>vignettes/taxonomic_filtering.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/main/vignettes/taxonomic_filtering.Rmd" class="external-link"><code>vignettes/taxonomic_filtering.Rmd</code></a></small>
       <div class="d-none name"><code>taxonomic_filtering.Rmd</code></div>
     </div>
 
@@ -124,23 +105,23 @@ rank, and full classification for the taxon matched to the provided
 search term.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_all.html">search_taxa</a></span><span class="op">(</span><span class="st">"Petroica boodang"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div id="dfgbacvvbi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#dfgbacvvbi table {
+<div id="acqmdkvyde" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#acqmdkvyde table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#dfgbacvvbi thead, #dfgbacvvbi tbody, #dfgbacvvbi tfoot, #dfgbacvvbi tr, #dfgbacvvbi td, #dfgbacvvbi th {
+#acqmdkvyde thead, #acqmdkvyde tbody, #acqmdkvyde tfoot, #acqmdkvyde tr, #acqmdkvyde td, #acqmdkvyde th {
   border-style: none;
 }
 
-#dfgbacvvbi p {
+#acqmdkvyde p {
   margin: 0;
   padding: 0;
 }
 
-#dfgbacvvbi .gt_table {
+#acqmdkvyde .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -166,12 +147,12 @@ search term.</p>
   border-left-color: #D3D3D3;
 }
 
-#dfgbacvvbi .gt_caption {
+#acqmdkvyde .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#dfgbacvvbi .gt_title {
+#acqmdkvyde .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -183,7 +164,7 @@ search term.</p>
   border-bottom-width: 0;
 }
 
-#dfgbacvvbi .gt_subtitle {
+#acqmdkvyde .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -195,7 +176,7 @@ search term.</p>
   border-top-width: 0;
 }
 
-#dfgbacvvbi .gt_heading {
+#acqmdkvyde .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -207,13 +188,13 @@ search term.</p>
   border-right-color: #D3D3D3;
 }
 
-#dfgbacvvbi .gt_bottom_border {
+#acqmdkvyde .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dfgbacvvbi .gt_col_headings {
+#acqmdkvyde .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -228,7 +209,7 @@ search term.</p>
   border-right-color: #D3D3D3;
 }
 
-#dfgbacvvbi .gt_col_heading {
+#acqmdkvyde .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -248,7 +229,7 @@ search term.</p>
   overflow-x: hidden;
 }
 
-#dfgbacvvbi .gt_column_spanner_outer {
+#acqmdkvyde .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -260,15 +241,15 @@ search term.</p>
   padding-right: 4px;
 }
 
-#dfgbacvvbi .gt_column_spanner_outer:first-child {
+#acqmdkvyde .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dfgbacvvbi .gt_column_spanner_outer:last-child {
+#acqmdkvyde .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dfgbacvvbi .gt_column_spanner {
+#acqmdkvyde .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -280,11 +261,11 @@ search term.</p>
   width: 100%;
 }
 
-#dfgbacvvbi .gt_spanner_row {
+#acqmdkvyde .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#dfgbacvvbi .gt_group_heading {
+#acqmdkvyde .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -310,7 +291,7 @@ search term.</p>
   text-align: left;
 }
 
-#dfgbacvvbi .gt_empty_group_heading {
+#acqmdkvyde .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -325,15 +306,15 @@ search term.</p>
   vertical-align: middle;
 }
 
-#dfgbacvvbi .gt_from_md > :first-child {
+#acqmdkvyde .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dfgbacvvbi .gt_from_md > :last-child {
+#acqmdkvyde .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dfgbacvvbi .gt_row {
+#acqmdkvyde .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -352,7 +333,7 @@ search term.</p>
   overflow-x: hidden;
 }
 
-#dfgbacvvbi .gt_stub {
+#acqmdkvyde .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -365,7 +346,7 @@ search term.</p>
   padding-right: 5px;
 }
 
-#dfgbacvvbi .gt_stub_row_group {
+#acqmdkvyde .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -379,15 +360,15 @@ search term.</p>
   vertical-align: top;
 }
 
-#dfgbacvvbi .gt_row_group_first td {
+#acqmdkvyde .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dfgbacvvbi .gt_row_group_first th {
+#acqmdkvyde .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#dfgbacvvbi .gt_summary_row {
+#acqmdkvyde .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -397,16 +378,16 @@ search term.</p>
   padding-right: 5px;
 }
 
-#dfgbacvvbi .gt_first_summary_row {
+#acqmdkvyde .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dfgbacvvbi .gt_first_summary_row.thick {
+#acqmdkvyde .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dfgbacvvbi .gt_last_summary_row {
+#acqmdkvyde .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -416,7 +397,7 @@ search term.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#dfgbacvvbi .gt_grand_summary_row {
+#acqmdkvyde .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -426,7 +407,7 @@ search term.</p>
   padding-right: 5px;
 }
 
-#dfgbacvvbi .gt_first_grand_summary_row {
+#acqmdkvyde .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -436,7 +417,7 @@ search term.</p>
   border-top-color: #D3D3D3;
 }
 
-#dfgbacvvbi .gt_last_grand_summary_row_top {
+#acqmdkvyde .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -446,11 +427,11 @@ search term.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#dfgbacvvbi .gt_striped {
+#acqmdkvyde .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dfgbacvvbi .gt_table_body {
+#acqmdkvyde .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -459,7 +440,7 @@ search term.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#dfgbacvvbi .gt_footnotes {
+#acqmdkvyde .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -473,7 +454,7 @@ search term.</p>
   border-right-color: #D3D3D3;
 }
 
-#dfgbacvvbi .gt_footnote {
+#acqmdkvyde .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -482,7 +463,7 @@ search term.</p>
   padding-right: 5px;
 }
 
-#dfgbacvvbi .gt_sourcenotes {
+#acqmdkvyde .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -496,7 +477,7 @@ search term.</p>
   border-right-color: #D3D3D3;
 }
 
-#dfgbacvvbi .gt_sourcenote {
+#acqmdkvyde .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -504,64 +485,73 @@ search term.</p>
   padding-right: 5px;
 }
 
-#dfgbacvvbi .gt_left {
+#acqmdkvyde .gt_left {
   text-align: left;
 }
 
-#dfgbacvvbi .gt_center {
+#acqmdkvyde .gt_center {
   text-align: center;
 }
 
-#dfgbacvvbi .gt_right {
+#acqmdkvyde .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dfgbacvvbi .gt_font_normal {
+#acqmdkvyde .gt_font_normal {
   font-weight: normal;
 }
 
-#dfgbacvvbi .gt_font_bold {
+#acqmdkvyde .gt_font_bold {
   font-weight: bold;
 }
 
-#dfgbacvvbi .gt_font_italic {
+#acqmdkvyde .gt_font_italic {
   font-style: italic;
 }
 
-#dfgbacvvbi .gt_super {
+#acqmdkvyde .gt_super {
   font-size: 65%;
 }
 
-#dfgbacvvbi .gt_footnote_marks {
+#acqmdkvyde .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#dfgbacvvbi .gt_asterisk {
+#acqmdkvyde .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dfgbacvvbi .gt_indent_1 {
+#acqmdkvyde .gt_indent_1 {
   text-indent: 5px;
 }
 
-#dfgbacvvbi .gt_indent_2 {
+#acqmdkvyde .gt_indent_2 {
   text-indent: 10px;
 }
 
-#dfgbacvvbi .gt_indent_3 {
+#acqmdkvyde .gt_indent_3 {
   text-indent: 15px;
 }
 
-#dfgbacvvbi .gt_indent_4 {
+#acqmdkvyde .gt_indent_4 {
   text-indent: 20px;
 }
 
-#dfgbacvvbi .gt_indent_5 {
+#acqmdkvyde .gt_indent_5 {
   text-indent: 25px;
+}
+
+#acqmdkvyde .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#acqmdkvyde div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
@@ -606,23 +596,23 @@ search term.</p>
 <span><span class="co"># Guniibuu is the Yuwaalaraay Indigenous name for the Red-Capped Robin, Petroica goodenovii</span></span>
 <span><span class="fu"><a href="../reference/search_all.html">search_taxa</a></span><span class="op">(</span><span class="st">"Muscicapa chrysoptera"</span>, <span class="st">"Guniibuu"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p></p>
-<div id="odxbwcznik" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#odxbwcznik table {
+<div id="joyebwyjap" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#joyebwyjap table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#odxbwcznik thead, #odxbwcznik tbody, #odxbwcznik tfoot, #odxbwcznik tr, #odxbwcznik td, #odxbwcznik th {
+#joyebwyjap thead, #joyebwyjap tbody, #joyebwyjap tfoot, #joyebwyjap tr, #joyebwyjap td, #joyebwyjap th {
   border-style: none;
 }
 
-#odxbwcznik p {
+#joyebwyjap p {
   margin: 0;
   padding: 0;
 }
 
-#odxbwcznik .gt_table {
+#joyebwyjap .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -648,12 +638,12 @@ search term.</p>
   border-left-color: #D3D3D3;
 }
 
-#odxbwcznik .gt_caption {
+#joyebwyjap .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#odxbwcznik .gt_title {
+#joyebwyjap .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -665,7 +655,7 @@ search term.</p>
   border-bottom-width: 0;
 }
 
-#odxbwcznik .gt_subtitle {
+#joyebwyjap .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -677,7 +667,7 @@ search term.</p>
   border-top-width: 0;
 }
 
-#odxbwcznik .gt_heading {
+#joyebwyjap .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -689,13 +679,13 @@ search term.</p>
   border-right-color: #D3D3D3;
 }
 
-#odxbwcznik .gt_bottom_border {
+#joyebwyjap .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#odxbwcznik .gt_col_headings {
+#joyebwyjap .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -710,7 +700,7 @@ search term.</p>
   border-right-color: #D3D3D3;
 }
 
-#odxbwcznik .gt_col_heading {
+#joyebwyjap .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -730,7 +720,7 @@ search term.</p>
   overflow-x: hidden;
 }
 
-#odxbwcznik .gt_column_spanner_outer {
+#joyebwyjap .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -742,15 +732,15 @@ search term.</p>
   padding-right: 4px;
 }
 
-#odxbwcznik .gt_column_spanner_outer:first-child {
+#joyebwyjap .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#odxbwcznik .gt_column_spanner_outer:last-child {
+#joyebwyjap .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#odxbwcznik .gt_column_spanner {
+#joyebwyjap .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -762,11 +752,11 @@ search term.</p>
   width: 100%;
 }
 
-#odxbwcznik .gt_spanner_row {
+#joyebwyjap .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#odxbwcznik .gt_group_heading {
+#joyebwyjap .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -792,7 +782,7 @@ search term.</p>
   text-align: left;
 }
 
-#odxbwcznik .gt_empty_group_heading {
+#joyebwyjap .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -807,15 +797,15 @@ search term.</p>
   vertical-align: middle;
 }
 
-#odxbwcznik .gt_from_md > :first-child {
+#joyebwyjap .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#odxbwcznik .gt_from_md > :last-child {
+#joyebwyjap .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#odxbwcznik .gt_row {
+#joyebwyjap .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -834,7 +824,7 @@ search term.</p>
   overflow-x: hidden;
 }
 
-#odxbwcznik .gt_stub {
+#joyebwyjap .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -847,7 +837,7 @@ search term.</p>
   padding-right: 5px;
 }
 
-#odxbwcznik .gt_stub_row_group {
+#joyebwyjap .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -861,15 +851,15 @@ search term.</p>
   vertical-align: top;
 }
 
-#odxbwcznik .gt_row_group_first td {
+#joyebwyjap .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#odxbwcznik .gt_row_group_first th {
+#joyebwyjap .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#odxbwcznik .gt_summary_row {
+#joyebwyjap .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -879,16 +869,16 @@ search term.</p>
   padding-right: 5px;
 }
 
-#odxbwcznik .gt_first_summary_row {
+#joyebwyjap .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#odxbwcznik .gt_first_summary_row.thick {
+#joyebwyjap .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#odxbwcznik .gt_last_summary_row {
+#joyebwyjap .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -898,7 +888,7 @@ search term.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#odxbwcznik .gt_grand_summary_row {
+#joyebwyjap .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -908,7 +898,7 @@ search term.</p>
   padding-right: 5px;
 }
 
-#odxbwcznik .gt_first_grand_summary_row {
+#joyebwyjap .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -918,7 +908,7 @@ search term.</p>
   border-top-color: #D3D3D3;
 }
 
-#odxbwcznik .gt_last_grand_summary_row_top {
+#joyebwyjap .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -928,11 +918,11 @@ search term.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#odxbwcznik .gt_striped {
+#joyebwyjap .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#odxbwcznik .gt_table_body {
+#joyebwyjap .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -941,7 +931,7 @@ search term.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#odxbwcznik .gt_footnotes {
+#joyebwyjap .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -955,7 +945,7 @@ search term.</p>
   border-right-color: #D3D3D3;
 }
 
-#odxbwcznik .gt_footnote {
+#joyebwyjap .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -964,7 +954,7 @@ search term.</p>
   padding-right: 5px;
 }
 
-#odxbwcznik .gt_sourcenotes {
+#joyebwyjap .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -978,7 +968,7 @@ search term.</p>
   border-right-color: #D3D3D3;
 }
 
-#odxbwcznik .gt_sourcenote {
+#joyebwyjap .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -986,64 +976,73 @@ search term.</p>
   padding-right: 5px;
 }
 
-#odxbwcznik .gt_left {
+#joyebwyjap .gt_left {
   text-align: left;
 }
 
-#odxbwcznik .gt_center {
+#joyebwyjap .gt_center {
   text-align: center;
 }
 
-#odxbwcznik .gt_right {
+#joyebwyjap .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#odxbwcznik .gt_font_normal {
+#joyebwyjap .gt_font_normal {
   font-weight: normal;
 }
 
-#odxbwcznik .gt_font_bold {
+#joyebwyjap .gt_font_bold {
   font-weight: bold;
 }
 
-#odxbwcznik .gt_font_italic {
+#joyebwyjap .gt_font_italic {
   font-style: italic;
 }
 
-#odxbwcznik .gt_super {
+#joyebwyjap .gt_super {
   font-size: 65%;
 }
 
-#odxbwcznik .gt_footnote_marks {
+#joyebwyjap .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#odxbwcznik .gt_asterisk {
+#joyebwyjap .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#odxbwcznik .gt_indent_1 {
+#joyebwyjap .gt_indent_1 {
   text-indent: 5px;
 }
 
-#odxbwcznik .gt_indent_2 {
+#joyebwyjap .gt_indent_2 {
   text-indent: 10px;
 }
 
-#odxbwcznik .gt_indent_3 {
+#joyebwyjap .gt_indent_3 {
   text-indent: 15px;
 }
 
-#odxbwcznik .gt_indent_4 {
+#joyebwyjap .gt_indent_4 {
   text-indent: 20px;
 }
 
-#odxbwcznik .gt_indent_5 {
+#joyebwyjap .gt_indent_5 {
   text-indent: 25px;
+}
+
+#joyebwyjap .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#joyebwyjap div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
@@ -1092,23 +1091,23 @@ example differentiates among the genus Morganella in three kingdoms:
 <span><span class="co">## ℹ Please provide another rank in your search to clarify taxa.</span></span>
 <span><span class="co">## ℹ Use a `tibble` to clarify taxa, see `?search_taxa`.</span></span>
 <span><span class="co">## ✖ Homonym issue with "Morganella".</span></span></code></pre>
-<div id="watnbtggoz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#watnbtggoz table {
+<div id="inmqqegmgs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#inmqqegmgs table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#watnbtggoz thead, #watnbtggoz tbody, #watnbtggoz tfoot, #watnbtggoz tr, #watnbtggoz td, #watnbtggoz th {
+#inmqqegmgs thead, #inmqqegmgs tbody, #inmqqegmgs tfoot, #inmqqegmgs tr, #inmqqegmgs td, #inmqqegmgs th {
   border-style: none;
 }
 
-#watnbtggoz p {
+#inmqqegmgs p {
   margin: 0;
   padding: 0;
 }
 
-#watnbtggoz .gt_table {
+#inmqqegmgs .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1134,12 +1133,12 @@ example differentiates among the genus Morganella in three kingdoms:
   border-left-color: #D3D3D3;
 }
 
-#watnbtggoz .gt_caption {
+#inmqqegmgs .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#watnbtggoz .gt_title {
+#inmqqegmgs .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1151,7 +1150,7 @@ example differentiates among the genus Morganella in three kingdoms:
   border-bottom-width: 0;
 }
 
-#watnbtggoz .gt_subtitle {
+#inmqqegmgs .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1163,7 +1162,7 @@ example differentiates among the genus Morganella in three kingdoms:
   border-top-width: 0;
 }
 
-#watnbtggoz .gt_heading {
+#inmqqegmgs .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1175,13 +1174,13 @@ example differentiates among the genus Morganella in three kingdoms:
   border-right-color: #D3D3D3;
 }
 
-#watnbtggoz .gt_bottom_border {
+#inmqqegmgs .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#watnbtggoz .gt_col_headings {
+#inmqqegmgs .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1196,7 +1195,7 @@ example differentiates among the genus Morganella in three kingdoms:
   border-right-color: #D3D3D3;
 }
 
-#watnbtggoz .gt_col_heading {
+#inmqqegmgs .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1216,7 +1215,7 @@ example differentiates among the genus Morganella in three kingdoms:
   overflow-x: hidden;
 }
 
-#watnbtggoz .gt_column_spanner_outer {
+#inmqqegmgs .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1228,15 +1227,15 @@ example differentiates among the genus Morganella in three kingdoms:
   padding-right: 4px;
 }
 
-#watnbtggoz .gt_column_spanner_outer:first-child {
+#inmqqegmgs .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#watnbtggoz .gt_column_spanner_outer:last-child {
+#inmqqegmgs .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#watnbtggoz .gt_column_spanner {
+#inmqqegmgs .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1248,11 +1247,11 @@ example differentiates among the genus Morganella in three kingdoms:
   width: 100%;
 }
 
-#watnbtggoz .gt_spanner_row {
+#inmqqegmgs .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#watnbtggoz .gt_group_heading {
+#inmqqegmgs .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1278,7 +1277,7 @@ example differentiates among the genus Morganella in three kingdoms:
   text-align: left;
 }
 
-#watnbtggoz .gt_empty_group_heading {
+#inmqqegmgs .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1293,15 +1292,15 @@ example differentiates among the genus Morganella in three kingdoms:
   vertical-align: middle;
 }
 
-#watnbtggoz .gt_from_md > :first-child {
+#inmqqegmgs .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#watnbtggoz .gt_from_md > :last-child {
+#inmqqegmgs .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#watnbtggoz .gt_row {
+#inmqqegmgs .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1320,7 +1319,7 @@ example differentiates among the genus Morganella in three kingdoms:
   overflow-x: hidden;
 }
 
-#watnbtggoz .gt_stub {
+#inmqqegmgs .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1333,7 +1332,7 @@ example differentiates among the genus Morganella in three kingdoms:
   padding-right: 5px;
 }
 
-#watnbtggoz .gt_stub_row_group {
+#inmqqegmgs .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1347,15 +1346,15 @@ example differentiates among the genus Morganella in three kingdoms:
   vertical-align: top;
 }
 
-#watnbtggoz .gt_row_group_first td {
+#inmqqegmgs .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#watnbtggoz .gt_row_group_first th {
+#inmqqegmgs .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#watnbtggoz .gt_summary_row {
+#inmqqegmgs .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1365,16 +1364,16 @@ example differentiates among the genus Morganella in three kingdoms:
   padding-right: 5px;
 }
 
-#watnbtggoz .gt_first_summary_row {
+#inmqqegmgs .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#watnbtggoz .gt_first_summary_row.thick {
+#inmqqegmgs .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#watnbtggoz .gt_last_summary_row {
+#inmqqegmgs .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1384,7 +1383,7 @@ example differentiates among the genus Morganella in three kingdoms:
   border-bottom-color: #D3D3D3;
 }
 
-#watnbtggoz .gt_grand_summary_row {
+#inmqqegmgs .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1394,7 +1393,7 @@ example differentiates among the genus Morganella in three kingdoms:
   padding-right: 5px;
 }
 
-#watnbtggoz .gt_first_grand_summary_row {
+#inmqqegmgs .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1404,7 +1403,7 @@ example differentiates among the genus Morganella in three kingdoms:
   border-top-color: #D3D3D3;
 }
 
-#watnbtggoz .gt_last_grand_summary_row_top {
+#inmqqegmgs .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1414,11 +1413,11 @@ example differentiates among the genus Morganella in three kingdoms:
   border-bottom-color: #D3D3D3;
 }
 
-#watnbtggoz .gt_striped {
+#inmqqegmgs .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#watnbtggoz .gt_table_body {
+#inmqqegmgs .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1427,7 +1426,7 @@ example differentiates among the genus Morganella in three kingdoms:
   border-bottom-color: #D3D3D3;
 }
 
-#watnbtggoz .gt_footnotes {
+#inmqqegmgs .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1441,7 +1440,7 @@ example differentiates among the genus Morganella in three kingdoms:
   border-right-color: #D3D3D3;
 }
 
-#watnbtggoz .gt_footnote {
+#inmqqegmgs .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1450,7 +1449,7 @@ example differentiates among the genus Morganella in three kingdoms:
   padding-right: 5px;
 }
 
-#watnbtggoz .gt_sourcenotes {
+#inmqqegmgs .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1464,7 +1463,7 @@ example differentiates among the genus Morganella in three kingdoms:
   border-right-color: #D3D3D3;
 }
 
-#watnbtggoz .gt_sourcenote {
+#inmqqegmgs .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1472,64 +1471,73 @@ example differentiates among the genus Morganella in three kingdoms:
   padding-right: 5px;
 }
 
-#watnbtggoz .gt_left {
+#inmqqegmgs .gt_left {
   text-align: left;
 }
 
-#watnbtggoz .gt_center {
+#inmqqegmgs .gt_center {
   text-align: center;
 }
 
-#watnbtggoz .gt_right {
+#inmqqegmgs .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#watnbtggoz .gt_font_normal {
+#inmqqegmgs .gt_font_normal {
   font-weight: normal;
 }
 
-#watnbtggoz .gt_font_bold {
+#inmqqegmgs .gt_font_bold {
   font-weight: bold;
 }
 
-#watnbtggoz .gt_font_italic {
+#inmqqegmgs .gt_font_italic {
   font-style: italic;
 }
 
-#watnbtggoz .gt_super {
+#inmqqegmgs .gt_super {
   font-size: 65%;
 }
 
-#watnbtggoz .gt_footnote_marks {
+#inmqqegmgs .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#watnbtggoz .gt_asterisk {
+#inmqqegmgs .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#watnbtggoz .gt_indent_1 {
+#inmqqegmgs .gt_indent_1 {
   text-indent: 5px;
 }
 
-#watnbtggoz .gt_indent_2 {
+#inmqqegmgs .gt_indent_2 {
   text-indent: 10px;
 }
 
-#watnbtggoz .gt_indent_3 {
+#inmqqegmgs .gt_indent_3 {
   text-indent: 15px;
 }
 
-#watnbtggoz .gt_indent_4 {
+#inmqqegmgs .gt_indent_4 {
   text-indent: 20px;
 }
 
-#watnbtggoz .gt_indent_5 {
+#inmqqegmgs .gt_indent_5 {
   text-indent: 25px;
+}
+
+#inmqqegmgs .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#inmqqegmgs div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
@@ -1546,23 +1554,23 @@ example differentiates among the genus Morganella in three kingdoms:
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_all.html">search_taxa</a></span><span class="op">(</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>kingdom <span class="op">=</span> <span class="st">"Fungi"</span>, genus <span class="op">=</span> <span class="st">"Morganella"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p></p>
-<div id="lnpwibtwtp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lnpwibtwtp table {
+<div id="jsjykezbqx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jsjykezbqx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lnpwibtwtp thead, #lnpwibtwtp tbody, #lnpwibtwtp tfoot, #lnpwibtwtp tr, #lnpwibtwtp td, #lnpwibtwtp th {
+#jsjykezbqx thead, #jsjykezbqx tbody, #jsjykezbqx tfoot, #jsjykezbqx tr, #jsjykezbqx td, #jsjykezbqx th {
   border-style: none;
 }
 
-#lnpwibtwtp p {
+#jsjykezbqx p {
   margin: 0;
   padding: 0;
 }
 
-#lnpwibtwtp .gt_table {
+#jsjykezbqx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1588,12 +1596,12 @@ example differentiates among the genus Morganella in three kingdoms:
   border-left-color: #D3D3D3;
 }
 
-#lnpwibtwtp .gt_caption {
+#jsjykezbqx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lnpwibtwtp .gt_title {
+#jsjykezbqx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1605,7 +1613,7 @@ example differentiates among the genus Morganella in three kingdoms:
   border-bottom-width: 0;
 }
 
-#lnpwibtwtp .gt_subtitle {
+#jsjykezbqx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1617,7 +1625,7 @@ example differentiates among the genus Morganella in three kingdoms:
   border-top-width: 0;
 }
 
-#lnpwibtwtp .gt_heading {
+#jsjykezbqx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1629,13 +1637,13 @@ example differentiates among the genus Morganella in three kingdoms:
   border-right-color: #D3D3D3;
 }
 
-#lnpwibtwtp .gt_bottom_border {
+#jsjykezbqx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lnpwibtwtp .gt_col_headings {
+#jsjykezbqx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1650,7 +1658,7 @@ example differentiates among the genus Morganella in three kingdoms:
   border-right-color: #D3D3D3;
 }
 
-#lnpwibtwtp .gt_col_heading {
+#jsjykezbqx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1670,7 +1678,7 @@ example differentiates among the genus Morganella in three kingdoms:
   overflow-x: hidden;
 }
 
-#lnpwibtwtp .gt_column_spanner_outer {
+#jsjykezbqx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1682,15 +1690,15 @@ example differentiates among the genus Morganella in three kingdoms:
   padding-right: 4px;
 }
 
-#lnpwibtwtp .gt_column_spanner_outer:first-child {
+#jsjykezbqx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lnpwibtwtp .gt_column_spanner_outer:last-child {
+#jsjykezbqx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lnpwibtwtp .gt_column_spanner {
+#jsjykezbqx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1702,11 +1710,11 @@ example differentiates among the genus Morganella in three kingdoms:
   width: 100%;
 }
 
-#lnpwibtwtp .gt_spanner_row {
+#jsjykezbqx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lnpwibtwtp .gt_group_heading {
+#jsjykezbqx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1732,7 +1740,7 @@ example differentiates among the genus Morganella in three kingdoms:
   text-align: left;
 }
 
-#lnpwibtwtp .gt_empty_group_heading {
+#jsjykezbqx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1747,15 +1755,15 @@ example differentiates among the genus Morganella in three kingdoms:
   vertical-align: middle;
 }
 
-#lnpwibtwtp .gt_from_md > :first-child {
+#jsjykezbqx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lnpwibtwtp .gt_from_md > :last-child {
+#jsjykezbqx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lnpwibtwtp .gt_row {
+#jsjykezbqx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1774,7 +1782,7 @@ example differentiates among the genus Morganella in three kingdoms:
   overflow-x: hidden;
 }
 
-#lnpwibtwtp .gt_stub {
+#jsjykezbqx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1787,7 +1795,7 @@ example differentiates among the genus Morganella in three kingdoms:
   padding-right: 5px;
 }
 
-#lnpwibtwtp .gt_stub_row_group {
+#jsjykezbqx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1801,15 +1809,15 @@ example differentiates among the genus Morganella in three kingdoms:
   vertical-align: top;
 }
 
-#lnpwibtwtp .gt_row_group_first td {
+#jsjykezbqx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lnpwibtwtp .gt_row_group_first th {
+#jsjykezbqx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lnpwibtwtp .gt_summary_row {
+#jsjykezbqx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1819,16 +1827,16 @@ example differentiates among the genus Morganella in three kingdoms:
   padding-right: 5px;
 }
 
-#lnpwibtwtp .gt_first_summary_row {
+#jsjykezbqx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lnpwibtwtp .gt_first_summary_row.thick {
+#jsjykezbqx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lnpwibtwtp .gt_last_summary_row {
+#jsjykezbqx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1838,7 +1846,7 @@ example differentiates among the genus Morganella in three kingdoms:
   border-bottom-color: #D3D3D3;
 }
 
-#lnpwibtwtp .gt_grand_summary_row {
+#jsjykezbqx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1848,7 +1856,7 @@ example differentiates among the genus Morganella in three kingdoms:
   padding-right: 5px;
 }
 
-#lnpwibtwtp .gt_first_grand_summary_row {
+#jsjykezbqx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1858,7 +1866,7 @@ example differentiates among the genus Morganella in three kingdoms:
   border-top-color: #D3D3D3;
 }
 
-#lnpwibtwtp .gt_last_grand_summary_row_top {
+#jsjykezbqx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1868,11 +1876,11 @@ example differentiates among the genus Morganella in three kingdoms:
   border-bottom-color: #D3D3D3;
 }
 
-#lnpwibtwtp .gt_striped {
+#jsjykezbqx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lnpwibtwtp .gt_table_body {
+#jsjykezbqx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1881,7 +1889,7 @@ example differentiates among the genus Morganella in three kingdoms:
   border-bottom-color: #D3D3D3;
 }
 
-#lnpwibtwtp .gt_footnotes {
+#jsjykezbqx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1895,7 +1903,7 @@ example differentiates among the genus Morganella in three kingdoms:
   border-right-color: #D3D3D3;
 }
 
-#lnpwibtwtp .gt_footnote {
+#jsjykezbqx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1904,7 +1912,7 @@ example differentiates among the genus Morganella in three kingdoms:
   padding-right: 5px;
 }
 
-#lnpwibtwtp .gt_sourcenotes {
+#jsjykezbqx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1918,7 +1926,7 @@ example differentiates among the genus Morganella in three kingdoms:
   border-right-color: #D3D3D3;
 }
 
-#lnpwibtwtp .gt_sourcenote {
+#jsjykezbqx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1926,64 +1934,73 @@ example differentiates among the genus Morganella in three kingdoms:
   padding-right: 5px;
 }
 
-#lnpwibtwtp .gt_left {
+#jsjykezbqx .gt_left {
   text-align: left;
 }
 
-#lnpwibtwtp .gt_center {
+#jsjykezbqx .gt_center {
   text-align: center;
 }
 
-#lnpwibtwtp .gt_right {
+#jsjykezbqx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lnpwibtwtp .gt_font_normal {
+#jsjykezbqx .gt_font_normal {
   font-weight: normal;
 }
 
-#lnpwibtwtp .gt_font_bold {
+#jsjykezbqx .gt_font_bold {
   font-weight: bold;
 }
 
-#lnpwibtwtp .gt_font_italic {
+#jsjykezbqx .gt_font_italic {
   font-style: italic;
 }
 
-#lnpwibtwtp .gt_super {
+#jsjykezbqx .gt_super {
   font-size: 65%;
 }
 
-#lnpwibtwtp .gt_footnote_marks {
+#jsjykezbqx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lnpwibtwtp .gt_asterisk {
+#jsjykezbqx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lnpwibtwtp .gt_indent_1 {
+#jsjykezbqx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lnpwibtwtp .gt_indent_2 {
+#jsjykezbqx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lnpwibtwtp .gt_indent_3 {
+#jsjykezbqx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lnpwibtwtp .gt_indent_4 {
+#jsjykezbqx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lnpwibtwtp .gt_indent_5 {
+#jsjykezbqx .gt_indent_5 {
   text-indent: 25px;
+}
+
+#jsjykezbqx .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#jsjykezbqx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
@@ -2034,29 +2051,29 @@ species, or records e.g.</p>
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##    count</span></span>
 <span><span class="co">##    &lt;int&gt;</span></span>
-<span><span class="co">## 1 119417</span></span></code></pre>
+<span><span class="co">## 1 132981</span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="st">"Muscicapa chrysoptera"</span>, <span class="st">"Guniibuu"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div id="ytplxfejdg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ytplxfejdg table {
+<div id="zjycmsxubq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zjycmsxubq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ytplxfejdg thead, #ytplxfejdg tbody, #ytplxfejdg tfoot, #ytplxfejdg tr, #ytplxfejdg td, #ytplxfejdg th {
+#zjycmsxubq thead, #zjycmsxubq tbody, #zjycmsxubq tfoot, #zjycmsxubq tr, #zjycmsxubq td, #zjycmsxubq th {
   border-style: none;
 }
 
-#ytplxfejdg p {
+#zjycmsxubq p {
   margin: 0;
   padding: 0;
 }
 
-#ytplxfejdg .gt_table {
+#zjycmsxubq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2082,12 +2099,12 @@ species, or records e.g.</p>
   border-left-color: #D3D3D3;
 }
 
-#ytplxfejdg .gt_caption {
+#zjycmsxubq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ytplxfejdg .gt_title {
+#zjycmsxubq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2099,7 +2116,7 @@ species, or records e.g.</p>
   border-bottom-width: 0;
 }
 
-#ytplxfejdg .gt_subtitle {
+#zjycmsxubq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2111,7 +2128,7 @@ species, or records e.g.</p>
   border-top-width: 0;
 }
 
-#ytplxfejdg .gt_heading {
+#zjycmsxubq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2123,13 +2140,13 @@ species, or records e.g.</p>
   border-right-color: #D3D3D3;
 }
 
-#ytplxfejdg .gt_bottom_border {
+#zjycmsxubq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ytplxfejdg .gt_col_headings {
+#zjycmsxubq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2144,7 +2161,7 @@ species, or records e.g.</p>
   border-right-color: #D3D3D3;
 }
 
-#ytplxfejdg .gt_col_heading {
+#zjycmsxubq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2164,7 +2181,7 @@ species, or records e.g.</p>
   overflow-x: hidden;
 }
 
-#ytplxfejdg .gt_column_spanner_outer {
+#zjycmsxubq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2176,15 +2193,15 @@ species, or records e.g.</p>
   padding-right: 4px;
 }
 
-#ytplxfejdg .gt_column_spanner_outer:first-child {
+#zjycmsxubq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ytplxfejdg .gt_column_spanner_outer:last-child {
+#zjycmsxubq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ytplxfejdg .gt_column_spanner {
+#zjycmsxubq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2196,11 +2213,11 @@ species, or records e.g.</p>
   width: 100%;
 }
 
-#ytplxfejdg .gt_spanner_row {
+#zjycmsxubq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ytplxfejdg .gt_group_heading {
+#zjycmsxubq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2226,7 +2243,7 @@ species, or records e.g.</p>
   text-align: left;
 }
 
-#ytplxfejdg .gt_empty_group_heading {
+#zjycmsxubq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2241,15 +2258,15 @@ species, or records e.g.</p>
   vertical-align: middle;
 }
 
-#ytplxfejdg .gt_from_md > :first-child {
+#zjycmsxubq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ytplxfejdg .gt_from_md > :last-child {
+#zjycmsxubq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ytplxfejdg .gt_row {
+#zjycmsxubq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2268,7 +2285,7 @@ species, or records e.g.</p>
   overflow-x: hidden;
 }
 
-#ytplxfejdg .gt_stub {
+#zjycmsxubq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2281,7 +2298,7 @@ species, or records e.g.</p>
   padding-right: 5px;
 }
 
-#ytplxfejdg .gt_stub_row_group {
+#zjycmsxubq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2295,15 +2312,15 @@ species, or records e.g.</p>
   vertical-align: top;
 }
 
-#ytplxfejdg .gt_row_group_first td {
+#zjycmsxubq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ytplxfejdg .gt_row_group_first th {
+#zjycmsxubq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ytplxfejdg .gt_summary_row {
+#zjycmsxubq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2313,16 +2330,16 @@ species, or records e.g.</p>
   padding-right: 5px;
 }
 
-#ytplxfejdg .gt_first_summary_row {
+#zjycmsxubq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ytplxfejdg .gt_first_summary_row.thick {
+#zjycmsxubq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ytplxfejdg .gt_last_summary_row {
+#zjycmsxubq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2332,7 +2349,7 @@ species, or records e.g.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ytplxfejdg .gt_grand_summary_row {
+#zjycmsxubq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2342,7 +2359,7 @@ species, or records e.g.</p>
   padding-right: 5px;
 }
 
-#ytplxfejdg .gt_first_grand_summary_row {
+#zjycmsxubq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2352,7 +2369,7 @@ species, or records e.g.</p>
   border-top-color: #D3D3D3;
 }
 
-#ytplxfejdg .gt_last_grand_summary_row_top {
+#zjycmsxubq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2362,11 +2379,11 @@ species, or records e.g.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ytplxfejdg .gt_striped {
+#zjycmsxubq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ytplxfejdg .gt_table_body {
+#zjycmsxubq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2375,7 +2392,7 @@ species, or records e.g.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ytplxfejdg .gt_footnotes {
+#zjycmsxubq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2389,7 +2406,7 @@ species, or records e.g.</p>
   border-right-color: #D3D3D3;
 }
 
-#ytplxfejdg .gt_footnote {
+#zjycmsxubq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2398,7 +2415,7 @@ species, or records e.g.</p>
   padding-right: 5px;
 }
 
-#ytplxfejdg .gt_sourcenotes {
+#zjycmsxubq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2412,7 +2429,7 @@ species, or records e.g.</p>
   border-right-color: #D3D3D3;
 }
 
-#ytplxfejdg .gt_sourcenote {
+#zjycmsxubq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2420,64 +2437,73 @@ species, or records e.g.</p>
   padding-right: 5px;
 }
 
-#ytplxfejdg .gt_left {
+#zjycmsxubq .gt_left {
   text-align: left;
 }
 
-#ytplxfejdg .gt_center {
+#zjycmsxubq .gt_center {
   text-align: center;
 }
 
-#ytplxfejdg .gt_right {
+#zjycmsxubq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ytplxfejdg .gt_font_normal {
+#zjycmsxubq .gt_font_normal {
   font-weight: normal;
 }
 
-#ytplxfejdg .gt_font_bold {
+#zjycmsxubq .gt_font_bold {
   font-weight: bold;
 }
 
-#ytplxfejdg .gt_font_italic {
+#zjycmsxubq .gt_font_italic {
   font-style: italic;
 }
 
-#ytplxfejdg .gt_super {
+#zjycmsxubq .gt_super {
   font-size: 65%;
 }
 
-#ytplxfejdg .gt_footnote_marks {
+#zjycmsxubq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ytplxfejdg .gt_asterisk {
+#zjycmsxubq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ytplxfejdg .gt_indent_1 {
+#zjycmsxubq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ytplxfejdg .gt_indent_2 {
+#zjycmsxubq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ytplxfejdg .gt_indent_3 {
+#zjycmsxubq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ytplxfejdg .gt_indent_4 {
+#zjycmsxubq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ytplxfejdg .gt_indent_5 {
+#zjycmsxubq .gt_indent_5 {
   text-indent: 25px;
+}
+
+#zjycmsxubq .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#zjycmsxubq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
@@ -2530,23 +2556,24 @@ species, or records e.g.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div id="dcqwoxuqqh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#dcqwoxuqqh table {
+<pre><code><span><span class="co">## Retrying in 1 seconds.</span></span></code></pre>
+<div id="czodxzmlln" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#czodxzmlln table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#dcqwoxuqqh thead, #dcqwoxuqqh tbody, #dcqwoxuqqh tfoot, #dcqwoxuqqh tr, #dcqwoxuqqh td, #dcqwoxuqqh th {
+#czodxzmlln thead, #czodxzmlln tbody, #czodxzmlln tfoot, #czodxzmlln tr, #czodxzmlln td, #czodxzmlln th {
   border-style: none;
 }
 
-#dcqwoxuqqh p {
+#czodxzmlln p {
   margin: 0;
   padding: 0;
 }
 
-#dcqwoxuqqh .gt_table {
+#czodxzmlln .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2572,12 +2599,12 @@ species, or records e.g.</p>
   border-left-color: #D3D3D3;
 }
 
-#dcqwoxuqqh .gt_caption {
+#czodxzmlln .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#dcqwoxuqqh .gt_title {
+#czodxzmlln .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2589,7 +2616,7 @@ species, or records e.g.</p>
   border-bottom-width: 0;
 }
 
-#dcqwoxuqqh .gt_subtitle {
+#czodxzmlln .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2601,7 +2628,7 @@ species, or records e.g.</p>
   border-top-width: 0;
 }
 
-#dcqwoxuqqh .gt_heading {
+#czodxzmlln .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2613,13 +2640,13 @@ species, or records e.g.</p>
   border-right-color: #D3D3D3;
 }
 
-#dcqwoxuqqh .gt_bottom_border {
+#czodxzmlln .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dcqwoxuqqh .gt_col_headings {
+#czodxzmlln .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2634,7 +2661,7 @@ species, or records e.g.</p>
   border-right-color: #D3D3D3;
 }
 
-#dcqwoxuqqh .gt_col_heading {
+#czodxzmlln .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2654,7 +2681,7 @@ species, or records e.g.</p>
   overflow-x: hidden;
 }
 
-#dcqwoxuqqh .gt_column_spanner_outer {
+#czodxzmlln .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2666,15 +2693,15 @@ species, or records e.g.</p>
   padding-right: 4px;
 }
 
-#dcqwoxuqqh .gt_column_spanner_outer:first-child {
+#czodxzmlln .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dcqwoxuqqh .gt_column_spanner_outer:last-child {
+#czodxzmlln .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dcqwoxuqqh .gt_column_spanner {
+#czodxzmlln .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2686,11 +2713,11 @@ species, or records e.g.</p>
   width: 100%;
 }
 
-#dcqwoxuqqh .gt_spanner_row {
+#czodxzmlln .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#dcqwoxuqqh .gt_group_heading {
+#czodxzmlln .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2716,7 +2743,7 @@ species, or records e.g.</p>
   text-align: left;
 }
 
-#dcqwoxuqqh .gt_empty_group_heading {
+#czodxzmlln .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2731,15 +2758,15 @@ species, or records e.g.</p>
   vertical-align: middle;
 }
 
-#dcqwoxuqqh .gt_from_md > :first-child {
+#czodxzmlln .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dcqwoxuqqh .gt_from_md > :last-child {
+#czodxzmlln .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dcqwoxuqqh .gt_row {
+#czodxzmlln .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2758,7 +2785,7 @@ species, or records e.g.</p>
   overflow-x: hidden;
 }
 
-#dcqwoxuqqh .gt_stub {
+#czodxzmlln .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2771,7 +2798,7 @@ species, or records e.g.</p>
   padding-right: 5px;
 }
 
-#dcqwoxuqqh .gt_stub_row_group {
+#czodxzmlln .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2785,15 +2812,15 @@ species, or records e.g.</p>
   vertical-align: top;
 }
 
-#dcqwoxuqqh .gt_row_group_first td {
+#czodxzmlln .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dcqwoxuqqh .gt_row_group_first th {
+#czodxzmlln .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#dcqwoxuqqh .gt_summary_row {
+#czodxzmlln .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2803,16 +2830,16 @@ species, or records e.g.</p>
   padding-right: 5px;
 }
 
-#dcqwoxuqqh .gt_first_summary_row {
+#czodxzmlln .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dcqwoxuqqh .gt_first_summary_row.thick {
+#czodxzmlln .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dcqwoxuqqh .gt_last_summary_row {
+#czodxzmlln .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2822,7 +2849,7 @@ species, or records e.g.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#dcqwoxuqqh .gt_grand_summary_row {
+#czodxzmlln .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2832,7 +2859,7 @@ species, or records e.g.</p>
   padding-right: 5px;
 }
 
-#dcqwoxuqqh .gt_first_grand_summary_row {
+#czodxzmlln .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2842,7 +2869,7 @@ species, or records e.g.</p>
   border-top-color: #D3D3D3;
 }
 
-#dcqwoxuqqh .gt_last_grand_summary_row_top {
+#czodxzmlln .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2852,11 +2879,11 @@ species, or records e.g.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#dcqwoxuqqh .gt_striped {
+#czodxzmlln .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dcqwoxuqqh .gt_table_body {
+#czodxzmlln .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2865,7 +2892,7 @@ species, or records e.g.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#dcqwoxuqqh .gt_footnotes {
+#czodxzmlln .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2879,7 +2906,7 @@ species, or records e.g.</p>
   border-right-color: #D3D3D3;
 }
 
-#dcqwoxuqqh .gt_footnote {
+#czodxzmlln .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2888,7 +2915,7 @@ species, or records e.g.</p>
   padding-right: 5px;
 }
 
-#dcqwoxuqqh .gt_sourcenotes {
+#czodxzmlln .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2902,7 +2929,7 @@ species, or records e.g.</p>
   border-right-color: #D3D3D3;
 }
 
-#dcqwoxuqqh .gt_sourcenote {
+#czodxzmlln .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2910,64 +2937,73 @@ species, or records e.g.</p>
   padding-right: 5px;
 }
 
-#dcqwoxuqqh .gt_left {
+#czodxzmlln .gt_left {
   text-align: left;
 }
 
-#dcqwoxuqqh .gt_center {
+#czodxzmlln .gt_center {
   text-align: center;
 }
 
-#dcqwoxuqqh .gt_right {
+#czodxzmlln .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dcqwoxuqqh .gt_font_normal {
+#czodxzmlln .gt_font_normal {
   font-weight: normal;
 }
 
-#dcqwoxuqqh .gt_font_bold {
+#czodxzmlln .gt_font_bold {
   font-weight: bold;
 }
 
-#dcqwoxuqqh .gt_font_italic {
+#czodxzmlln .gt_font_italic {
   font-style: italic;
 }
 
-#dcqwoxuqqh .gt_super {
+#czodxzmlln .gt_super {
   font-size: 65%;
 }
 
-#dcqwoxuqqh .gt_footnote_marks {
+#czodxzmlln .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#dcqwoxuqqh .gt_asterisk {
+#czodxzmlln .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dcqwoxuqqh .gt_indent_1 {
+#czodxzmlln .gt_indent_1 {
   text-indent: 5px;
 }
 
-#dcqwoxuqqh .gt_indent_2 {
+#czodxzmlln .gt_indent_2 {
   text-indent: 10px;
 }
 
-#dcqwoxuqqh .gt_indent_3 {
+#czodxzmlln .gt_indent_3 {
   text-indent: 15px;
 }
 
-#dcqwoxuqqh .gt_indent_4 {
+#czodxzmlln .gt_indent_4 {
   text-indent: 20px;
 }
 
-#dcqwoxuqqh .gt_indent_5 {
+#czodxzmlln .gt_indent_5 {
   text-indent: 25px;
+}
+
+#czodxzmlln .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#czodxzmlln div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
@@ -2993,54 +3029,54 @@ species, or records e.g.</p>
 <td headers="dataResourceName" class="gt_row gt_left">NSW BioNet Atlas</td>
 </tr>
 <tr>
-<td headers="recordID" class="gt_row gt_left">02ba39cd-8077-4868-a0ff-e50765089788</td>
+<td headers="recordID" class="gt_row gt_left">005ef5cf-aae1-411c-8476-8ac01dc80e9b</td>
 <td headers="scientificName" class="gt_row gt_left">Morganella compacta</td>
 <td headers="taxonConceptID" class="gt_row gt_left">NZOR-6-128055</td>
-<td headers="decimalLatitude" class="gt_row gt_right">-41.28082</td>
-<td headers="decimalLongitude" class="gt_row gt_right">174.7943</td>
+<td headers="decimalLatitude" class="gt_row gt_right">-36.82343</td>
+<td headers="decimalLongitude" class="gt_row gt_right">175.0731</td>
 <td headers="eventDate" class="gt_row gt_right">NA</td>
 <td headers="occurrenceStatus" class="gt_row gt_left">PRESENT</td>
-<td headers="dataResourceName" class="gt_row gt_left">New Zealand Virtual Herbarium</td>
+<td headers="dataResourceName" class="gt_row gt_left">New Zealand Fungal and Plant Disease Collection</td>
 </tr>
 <tr>
-<td headers="recordID" class="gt_row gt_left">0422009d-c1f0-4e2e-8d29-e88df6de2049</td>
+<td headers="recordID" class="gt_row gt_left">0084789b-e04d-4742-95b5-2e3761d9fd9c</td>
 <td headers="scientificName" class="gt_row gt_left">Morganella compacta</td>
 <td headers="taxonConceptID" class="gt_row gt_left">NZOR-6-128055</td>
-<td headers="decimalLatitude" class="gt_row gt_right">-36.44838</td>
-<td headers="decimalLongitude" class="gt_row gt_right">174.6714</td>
-<td headers="eventDate" class="gt_row gt_right">NA</td>
+<td headers="decimalLatitude" class="gt_row gt_right">-38.03175</td>
+<td headers="decimalLongitude" class="gt_row gt_right">176.4870</td>
+<td headers="eventDate" class="gt_row gt_right">2019-05-14</td>
 <td headers="occurrenceStatus" class="gt_row gt_left">PRESENT</td>
-<td headers="dataResourceName" class="gt_row gt_left">New Zealand Virtual Herbarium</td>
+<td headers="dataResourceName" class="gt_row gt_left">New Zealand Fungal and Plant Disease Collection</td>
 </tr>
 <tr>
-<td headers="recordID" class="gt_row gt_left">04aeeb8d-0538-477c-aff1-29574eafa349</td>
+<td headers="recordID" class="gt_row gt_left">00efd1aa-ebf2-4afb-bd4d-b76af6ff0207</td>
 <td headers="scientificName" class="gt_row gt_left">Morganella compacta</td>
 <td headers="taxonConceptID" class="gt_row gt_left">NZOR-6-128055</td>
-<td headers="decimalLatitude" class="gt_row gt_right">-36.84225</td>
-<td headers="decimalLongitude" class="gt_row gt_right">174.4695</td>
-<td headers="eventDate" class="gt_row gt_right">1993-06-19</td>
+<td headers="decimalLatitude" class="gt_row gt_right">-41.09759</td>
+<td headers="decimalLongitude" class="gt_row gt_right">172.9346</td>
+<td headers="eventDate" class="gt_row gt_right">2014-05-01</td>
 <td headers="occurrenceStatus" class="gt_row gt_left">PRESENT</td>
-<td headers="dataResourceName" class="gt_row gt_left">New Zealand Virtual Herbarium</td>
+<td headers="dataResourceName" class="gt_row gt_left">New Zealand Fungal and Plant Disease Collection</td>
 </tr>
 <tr>
-<td headers="recordID" class="gt_row gt_left">092b6f3e-ef27-4cbf-bb28-b172c1b200c5</td>
-<td headers="scientificName" class="gt_row gt_left">Morganella purpurascens</td>
-<td headers="taxonConceptID" class="gt_row gt_left">https://id.biodiversity.org.au/node/fungi/60092001</td>
-<td headers="decimalLatitude" class="gt_row gt_right">-26.77940</td>
-<td headers="decimalLongitude" class="gt_row gt_right">152.8803</td>
-<td headers="eventDate" class="gt_row gt_right">2009-02-19</td>
-<td headers="occurrenceStatus" class="gt_row gt_left">PRESENT</td>
-<td headers="dataResourceName" class="gt_row gt_left">National Herbarium of Victoria (MEL) AVH data</td>
-</tr>
-<tr>
-<td headers="recordID" class="gt_row gt_left">0be95d59-29a4-4475-8586-a497cac607f7</td>
+<td headers="recordID" class="gt_row gt_left">0688cd3a-2954-45f7-9775-f83331d86519</td>
 <td headers="scientificName" class="gt_row gt_left">Morganella compacta</td>
 <td headers="taxonConceptID" class="gt_row gt_left">NZOR-6-128055</td>
-<td headers="decimalLatitude" class="gt_row gt_right">-43.15002</td>
-<td headers="decimalLongitude" class="gt_row gt_right">171.7305</td>
-<td headers="eventDate" class="gt_row gt_right">NA</td>
+<td headers="decimalLatitude" class="gt_row gt_right">-36.92053</td>
+<td headers="decimalLongitude" class="gt_row gt_right">174.4585</td>
+<td headers="eventDate" class="gt_row gt_right">1942-07-12</td>
 <td headers="occurrenceStatus" class="gt_row gt_left">PRESENT</td>
-<td headers="dataResourceName" class="gt_row gt_left">New Zealand Virtual Herbarium</td>
+<td headers="dataResourceName" class="gt_row gt_left">New Zealand Fungal and Plant Disease Collection</td>
+</tr>
+<tr>
+<td headers="recordID" class="gt_row gt_left">08010c5f-19ee-46e2-b6e0-973a5e79d135</td>
+<td headers="scientificName" class="gt_row gt_left">Morganella compacta</td>
+<td headers="taxonConceptID" class="gt_row gt_left">NZOR-6-128055</td>
+<td headers="decimalLatitude" class="gt_row gt_right">-42.24482</td>
+<td headers="decimalLongitude" class="gt_row gt_right">171.3296</td>
+<td headers="eventDate" class="gt_row gt_right">1986-04-20</td>
+<td headers="occurrenceStatus" class="gt_row gt_left">PRESENT</td>
+<td headers="dataResourceName" class="gt_row gt_left">New Zealand Fungal and Plant Disease Collection</td>
 </tr>
 </tbody>
 </table>
@@ -3051,7 +3087,7 @@ species, or records e.g.</p>
 </h3>
 <p><code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code> subsets records by searching for exact matches
 to an expression, and may also be used for taxonomic filtering e.g.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Petroica boodang"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -3059,11 +3095,11 @@ to an expression, and may also be used for taxonomic filtering e.g.</p>
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##    count</span></span>
 <span><span class="co">##    &lt;int&gt;</span></span>
-<span><span class="co">## 1 119417</span></span></code></pre>
+<span><span class="co">## 1 132981</span></span></code></pre>
 <p>Alternatively, we could use <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code> after first
 checking taxonomy with <code><a href="../reference/search_all.html">search_taxa()</a></code>, in place of
 <code><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify()</a></code>:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">robins</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_all.html">search_taxa</a></span><span class="op">(</span><span class="st">"Muscicapa chrysoptera"</span>, <span class="st">"Guniibuu"</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -3073,10 +3109,10 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##   count</span></span>
 <span><span class="co">##   &lt;int&gt;</span></span>
-<span><span class="co">## 1 81570</span></span></code></pre>
+<span><span class="co">## 1 88434</span></span></code></pre>
 <p>It is also possible to specify several species at once using
 <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code>:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">aus_petroica</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Petroica boodang"</span>, <span class="st">"Petroica goodenovii"</span>, </span>
 <span>                  <span class="st">"Petroica phoenicea"</span>, <span class="st">"Petroica rosea"</span>,</span>
 <span>                  <span class="st">"Petroica rodinogaster"</span>, <span class="st">"Petroica multicolor"</span><span class="op">)</span></span>
@@ -3087,23 +3123,23 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div id="kmflxtrlrm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kmflxtrlrm table {
+<div id="klsdkrynmr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#klsdkrynmr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kmflxtrlrm thead, #kmflxtrlrm tbody, #kmflxtrlrm tfoot, #kmflxtrlrm tr, #kmflxtrlrm td, #kmflxtrlrm th {
+#klsdkrynmr thead, #klsdkrynmr tbody, #klsdkrynmr tfoot, #klsdkrynmr tr, #klsdkrynmr td, #klsdkrynmr th {
   border-style: none;
 }
 
-#kmflxtrlrm p {
+#klsdkrynmr p {
   margin: 0;
   padding: 0;
 }
 
-#kmflxtrlrm .gt_table {
+#klsdkrynmr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3129,12 +3165,12 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   border-left-color: #D3D3D3;
 }
 
-#kmflxtrlrm .gt_caption {
+#klsdkrynmr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kmflxtrlrm .gt_title {
+#klsdkrynmr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3146,7 +3182,7 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   border-bottom-width: 0;
 }
 
-#kmflxtrlrm .gt_subtitle {
+#klsdkrynmr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3158,7 +3194,7 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   border-top-width: 0;
 }
 
-#kmflxtrlrm .gt_heading {
+#klsdkrynmr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3170,13 +3206,13 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   border-right-color: #D3D3D3;
 }
 
-#kmflxtrlrm .gt_bottom_border {
+#klsdkrynmr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kmflxtrlrm .gt_col_headings {
+#klsdkrynmr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3191,7 +3227,7 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   border-right-color: #D3D3D3;
 }
 
-#kmflxtrlrm .gt_col_heading {
+#klsdkrynmr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3211,7 +3247,7 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   overflow-x: hidden;
 }
 
-#kmflxtrlrm .gt_column_spanner_outer {
+#klsdkrynmr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3223,15 +3259,15 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   padding-right: 4px;
 }
 
-#kmflxtrlrm .gt_column_spanner_outer:first-child {
+#klsdkrynmr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kmflxtrlrm .gt_column_spanner_outer:last-child {
+#klsdkrynmr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kmflxtrlrm .gt_column_spanner {
+#klsdkrynmr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3243,11 +3279,11 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   width: 100%;
 }
 
-#kmflxtrlrm .gt_spanner_row {
+#klsdkrynmr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kmflxtrlrm .gt_group_heading {
+#klsdkrynmr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3273,7 +3309,7 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   text-align: left;
 }
 
-#kmflxtrlrm .gt_empty_group_heading {
+#klsdkrynmr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3288,15 +3324,15 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   vertical-align: middle;
 }
 
-#kmflxtrlrm .gt_from_md > :first-child {
+#klsdkrynmr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kmflxtrlrm .gt_from_md > :last-child {
+#klsdkrynmr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kmflxtrlrm .gt_row {
+#klsdkrynmr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3315,7 +3351,7 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   overflow-x: hidden;
 }
 
-#kmflxtrlrm .gt_stub {
+#klsdkrynmr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3328,7 +3364,7 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   padding-right: 5px;
 }
 
-#kmflxtrlrm .gt_stub_row_group {
+#klsdkrynmr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3342,15 +3378,15 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   vertical-align: top;
 }
 
-#kmflxtrlrm .gt_row_group_first td {
+#klsdkrynmr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kmflxtrlrm .gt_row_group_first th {
+#klsdkrynmr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kmflxtrlrm .gt_summary_row {
+#klsdkrynmr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3360,16 +3396,16 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   padding-right: 5px;
 }
 
-#kmflxtrlrm .gt_first_summary_row {
+#klsdkrynmr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kmflxtrlrm .gt_first_summary_row.thick {
+#klsdkrynmr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kmflxtrlrm .gt_last_summary_row {
+#klsdkrynmr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3379,7 +3415,7 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   border-bottom-color: #D3D3D3;
 }
 
-#kmflxtrlrm .gt_grand_summary_row {
+#klsdkrynmr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3389,7 +3425,7 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   padding-right: 5px;
 }
 
-#kmflxtrlrm .gt_first_grand_summary_row {
+#klsdkrynmr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3399,7 +3435,7 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   border-top-color: #D3D3D3;
 }
 
-#kmflxtrlrm .gt_last_grand_summary_row_top {
+#klsdkrynmr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3409,11 +3445,11 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   border-bottom-color: #D3D3D3;
 }
 
-#kmflxtrlrm .gt_striped {
+#klsdkrynmr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kmflxtrlrm .gt_table_body {
+#klsdkrynmr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3422,7 +3458,7 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   border-bottom-color: #D3D3D3;
 }
 
-#kmflxtrlrm .gt_footnotes {
+#klsdkrynmr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3436,7 +3472,7 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   border-right-color: #D3D3D3;
 }
 
-#kmflxtrlrm .gt_footnote {
+#klsdkrynmr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3445,7 +3481,7 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   padding-right: 5px;
 }
 
-#kmflxtrlrm .gt_sourcenotes {
+#klsdkrynmr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3459,7 +3495,7 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   border-right-color: #D3D3D3;
 }
 
-#kmflxtrlrm .gt_sourcenote {
+#klsdkrynmr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3467,64 +3503,73 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
   padding-right: 5px;
 }
 
-#kmflxtrlrm .gt_left {
+#klsdkrynmr .gt_left {
   text-align: left;
 }
 
-#kmflxtrlrm .gt_center {
+#klsdkrynmr .gt_center {
   text-align: center;
 }
 
-#kmflxtrlrm .gt_right {
+#klsdkrynmr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kmflxtrlrm .gt_font_normal {
+#klsdkrynmr .gt_font_normal {
   font-weight: normal;
 }
 
-#kmflxtrlrm .gt_font_bold {
+#klsdkrynmr .gt_font_bold {
   font-weight: bold;
 }
 
-#kmflxtrlrm .gt_font_italic {
+#klsdkrynmr .gt_font_italic {
   font-style: italic;
 }
 
-#kmflxtrlrm .gt_super {
+#klsdkrynmr .gt_super {
   font-size: 65%;
 }
 
-#kmflxtrlrm .gt_footnote_marks {
+#klsdkrynmr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kmflxtrlrm .gt_asterisk {
+#klsdkrynmr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kmflxtrlrm .gt_indent_1 {
+#klsdkrynmr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kmflxtrlrm .gt_indent_2 {
+#klsdkrynmr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kmflxtrlrm .gt_indent_3 {
+#klsdkrynmr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kmflxtrlrm .gt_indent_4 {
+#klsdkrynmr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kmflxtrlrm .gt_indent_5 {
+#klsdkrynmr .gt_indent_5 {
   text-indent: 25px;
+}
+
+#klsdkrynmr .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#klsdkrynmr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
@@ -3537,42 +3582,42 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
 <tr>
 <td headers="species" class="gt_row gt_left">Petroica boodang</td>
 <td headers="vernacularName" class="gt_row gt_left">Scarlet Robin</td>
-<td headers="count" class="gt_row gt_right">115735</td>
+<td headers="count" class="gt_row gt_right">129172</td>
 </tr>
 <tr>
 <td headers="species" class="gt_row gt_left">Petroica boodang</td>
 <td headers="vernacularName" class="gt_row gt_left">Eastern Scarlet Robin</td>
-<td headers="count" class="gt_row gt_right">3496</td>
+<td headers="count" class="gt_row gt_right">3593</td>
 </tr>
 <tr>
 <td headers="species" class="gt_row gt_left">Petroica boodang</td>
 <td headers="vernacularName" class="gt_row gt_left">South-western Scarlet Robin</td>
-<td headers="count" class="gt_row gt_right">160</td>
+<td headers="count" class="gt_row gt_right">166</td>
 </tr>
 <tr>
 <td headers="species" class="gt_row gt_left">Petroica boodang</td>
 <td headers="vernacularName" class="gt_row gt_left">Tasmanian Scarlet Robin</td>
-<td headers="count" class="gt_row gt_right">26</td>
+<td headers="count" class="gt_row gt_right">50</td>
 </tr>
 <tr>
 <td headers="species" class="gt_row gt_left">Petroica goodenovii</td>
 <td headers="vernacularName" class="gt_row gt_left">Red-capped Robin</td>
-<td headers="count" class="gt_row gt_right">110284</td>
+<td headers="count" class="gt_row gt_right">119914</td>
 </tr>
 <tr>
 <td headers="species" class="gt_row gt_left">Petroica phoenicea</td>
 <td headers="vernacularName" class="gt_row gt_left">Flame Robin</td>
-<td headers="count" class="gt_row gt_right">81570</td>
+<td headers="count" class="gt_row gt_right">88434</td>
 </tr>
 <tr>
 <td headers="species" class="gt_row gt_left">Petroica rosea</td>
 <td headers="vernacularName" class="gt_row gt_left">Rose Robin</td>
-<td headers="count" class="gt_row gt_right">52414</td>
+<td headers="count" class="gt_row gt_right">60101</td>
 </tr>
 <tr>
 <td headers="species" class="gt_row gt_left">Petroica rodinogaster</td>
 <td headers="vernacularName" class="gt_row gt_left">Pink Robin</td>
-<td headers="count" class="gt_row gt_right">13417</td>
+<td headers="count" class="gt_row gt_right">15640</td>
 </tr>
 <tr>
 <td headers="species" class="gt_row gt_left">Petroica rodinogaster</td>
@@ -3582,12 +3627,12 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
 <tr>
 <td headers="species" class="gt_row gt_left">Petroica rodinogaster</td>
 <td headers="vernacularName" class="gt_row gt_left">Tasmanian Pink Robin</td>
-<td headers="count" class="gt_row gt_right">14</td>
+<td headers="count" class="gt_row gt_right">21</td>
 </tr>
 <tr>
 <td headers="species" class="gt_row gt_left">Petroica multicolor</td>
 <td headers="vernacularName" class="gt_row gt_left">Pacific Robin</td>
-<td headers="count" class="gt_row gt_right">6699</td>
+<td headers="count" class="gt_row gt_right">6705</td>
 </tr>
 </tbody>
 </table>
@@ -3595,7 +3640,7 @@ checking taxonomy with <code><a href="../reference/search_all.html">search_taxa(
 <p>This can be useful in searching for paraphyletic or polyphyletic
 groups, which cannot be done using <code><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify()</a></code>. For example,
 to get counts of non-chordates:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">kingdom</span> <span class="op">==</span> <span class="st">"Animalia"</span>, <span class="va">phylum</span> <span class="op">!=</span> <span class="st">"Chordata"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">phylum</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -3603,23 +3648,23 @@ to get counts of non-chordates:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div id="lgbkmpqmhm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lgbkmpqmhm table {
+<div id="ykgigelmue" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ykgigelmue table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lgbkmpqmhm thead, #lgbkmpqmhm tbody, #lgbkmpqmhm tfoot, #lgbkmpqmhm tr, #lgbkmpqmhm td, #lgbkmpqmhm th {
+#ykgigelmue thead, #ykgigelmue tbody, #ykgigelmue tfoot, #ykgigelmue tr, #ykgigelmue td, #ykgigelmue th {
   border-style: none;
 }
 
-#lgbkmpqmhm p {
+#ykgigelmue p {
   margin: 0;
   padding: 0;
 }
 
-#lgbkmpqmhm .gt_table {
+#ykgigelmue .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3645,12 +3690,12 @@ to get counts of non-chordates:</p>
   border-left-color: #D3D3D3;
 }
 
-#lgbkmpqmhm .gt_caption {
+#ykgigelmue .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lgbkmpqmhm .gt_title {
+#ykgigelmue .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3662,7 +3707,7 @@ to get counts of non-chordates:</p>
   border-bottom-width: 0;
 }
 
-#lgbkmpqmhm .gt_subtitle {
+#ykgigelmue .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3674,7 +3719,7 @@ to get counts of non-chordates:</p>
   border-top-width: 0;
 }
 
-#lgbkmpqmhm .gt_heading {
+#ykgigelmue .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3686,13 +3731,13 @@ to get counts of non-chordates:</p>
   border-right-color: #D3D3D3;
 }
 
-#lgbkmpqmhm .gt_bottom_border {
+#ykgigelmue .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lgbkmpqmhm .gt_col_headings {
+#ykgigelmue .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3707,7 +3752,7 @@ to get counts of non-chordates:</p>
   border-right-color: #D3D3D3;
 }
 
-#lgbkmpqmhm .gt_col_heading {
+#ykgigelmue .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3727,7 +3772,7 @@ to get counts of non-chordates:</p>
   overflow-x: hidden;
 }
 
-#lgbkmpqmhm .gt_column_spanner_outer {
+#ykgigelmue .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3739,15 +3784,15 @@ to get counts of non-chordates:</p>
   padding-right: 4px;
 }
 
-#lgbkmpqmhm .gt_column_spanner_outer:first-child {
+#ykgigelmue .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lgbkmpqmhm .gt_column_spanner_outer:last-child {
+#ykgigelmue .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lgbkmpqmhm .gt_column_spanner {
+#ykgigelmue .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3759,11 +3804,11 @@ to get counts of non-chordates:</p>
   width: 100%;
 }
 
-#lgbkmpqmhm .gt_spanner_row {
+#ykgigelmue .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lgbkmpqmhm .gt_group_heading {
+#ykgigelmue .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3789,7 +3834,7 @@ to get counts of non-chordates:</p>
   text-align: left;
 }
 
-#lgbkmpqmhm .gt_empty_group_heading {
+#ykgigelmue .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3804,15 +3849,15 @@ to get counts of non-chordates:</p>
   vertical-align: middle;
 }
 
-#lgbkmpqmhm .gt_from_md > :first-child {
+#ykgigelmue .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lgbkmpqmhm .gt_from_md > :last-child {
+#ykgigelmue .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lgbkmpqmhm .gt_row {
+#ykgigelmue .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3831,7 +3876,7 @@ to get counts of non-chordates:</p>
   overflow-x: hidden;
 }
 
-#lgbkmpqmhm .gt_stub {
+#ykgigelmue .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3844,7 +3889,7 @@ to get counts of non-chordates:</p>
   padding-right: 5px;
 }
 
-#lgbkmpqmhm .gt_stub_row_group {
+#ykgigelmue .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3858,15 +3903,15 @@ to get counts of non-chordates:</p>
   vertical-align: top;
 }
 
-#lgbkmpqmhm .gt_row_group_first td {
+#ykgigelmue .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lgbkmpqmhm .gt_row_group_first th {
+#ykgigelmue .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lgbkmpqmhm .gt_summary_row {
+#ykgigelmue .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3876,16 +3921,16 @@ to get counts of non-chordates:</p>
   padding-right: 5px;
 }
 
-#lgbkmpqmhm .gt_first_summary_row {
+#ykgigelmue .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lgbkmpqmhm .gt_first_summary_row.thick {
+#ykgigelmue .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lgbkmpqmhm .gt_last_summary_row {
+#ykgigelmue .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3895,7 +3940,7 @@ to get counts of non-chordates:</p>
   border-bottom-color: #D3D3D3;
 }
 
-#lgbkmpqmhm .gt_grand_summary_row {
+#ykgigelmue .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3905,7 +3950,7 @@ to get counts of non-chordates:</p>
   padding-right: 5px;
 }
 
-#lgbkmpqmhm .gt_first_grand_summary_row {
+#ykgigelmue .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3915,7 +3960,7 @@ to get counts of non-chordates:</p>
   border-top-color: #D3D3D3;
 }
 
-#lgbkmpqmhm .gt_last_grand_summary_row_top {
+#ykgigelmue .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3925,11 +3970,11 @@ to get counts of non-chordates:</p>
   border-bottom-color: #D3D3D3;
 }
 
-#lgbkmpqmhm .gt_striped {
+#ykgigelmue .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lgbkmpqmhm .gt_table_body {
+#ykgigelmue .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3938,7 +3983,7 @@ to get counts of non-chordates:</p>
   border-bottom-color: #D3D3D3;
 }
 
-#lgbkmpqmhm .gt_footnotes {
+#ykgigelmue .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3952,7 +3997,7 @@ to get counts of non-chordates:</p>
   border-right-color: #D3D3D3;
 }
 
-#lgbkmpqmhm .gt_footnote {
+#ykgigelmue .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3961,7 +4006,7 @@ to get counts of non-chordates:</p>
   padding-right: 5px;
 }
 
-#lgbkmpqmhm .gt_sourcenotes {
+#ykgigelmue .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3975,7 +4020,7 @@ to get counts of non-chordates:</p>
   border-right-color: #D3D3D3;
 }
 
-#lgbkmpqmhm .gt_sourcenote {
+#ykgigelmue .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3983,64 +4028,73 @@ to get counts of non-chordates:</p>
   padding-right: 5px;
 }
 
-#lgbkmpqmhm .gt_left {
+#ykgigelmue .gt_left {
   text-align: left;
 }
 
-#lgbkmpqmhm .gt_center {
+#ykgigelmue .gt_center {
   text-align: center;
 }
 
-#lgbkmpqmhm .gt_right {
+#ykgigelmue .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lgbkmpqmhm .gt_font_normal {
+#ykgigelmue .gt_font_normal {
   font-weight: normal;
 }
 
-#lgbkmpqmhm .gt_font_bold {
+#ykgigelmue .gt_font_bold {
   font-weight: bold;
 }
 
-#lgbkmpqmhm .gt_font_italic {
+#ykgigelmue .gt_font_italic {
   font-style: italic;
 }
 
-#lgbkmpqmhm .gt_super {
+#ykgigelmue .gt_super {
   font-size: 65%;
 }
 
-#lgbkmpqmhm .gt_footnote_marks {
+#ykgigelmue .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lgbkmpqmhm .gt_asterisk {
+#ykgigelmue .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lgbkmpqmhm .gt_indent_1 {
+#ykgigelmue .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lgbkmpqmhm .gt_indent_2 {
+#ykgigelmue .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lgbkmpqmhm .gt_indent_3 {
+#ykgigelmue .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lgbkmpqmhm .gt_indent_4 {
+#ykgigelmue .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lgbkmpqmhm .gt_indent_5 {
+#ykgigelmue .gt_indent_5 {
   text-indent: 25px;
+}
+
+#ykgigelmue .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#ykgigelmue div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
@@ -4051,27 +4105,27 @@ to get counts of non-chordates:</p>
 <tbody class="gt_table_body">
 <tr>
 <td headers="phylum" class="gt_row gt_left">Arthropoda</td>
-<td headers="count" class="gt_row gt_right">8567585</td>
+<td headers="count" class="gt_row gt_right">9061922</td>
 </tr>
 <tr>
 <td headers="phylum" class="gt_row gt_left">Mollusca</td>
-<td headers="count" class="gt_row gt_right">1378754</td>
+<td headers="count" class="gt_row gt_right">1498353</td>
 </tr>
 <tr>
 <td headers="phylum" class="gt_row gt_left">Annelida</td>
-<td headers="count" class="gt_row gt_right">316619</td>
+<td headers="count" class="gt_row gt_right">320916</td>
 </tr>
 <tr>
 <td headers="phylum" class="gt_row gt_left">Cnidaria</td>
-<td headers="count" class="gt_row gt_right">273227</td>
+<td headers="count" class="gt_row gt_right">283139</td>
 </tr>
 <tr>
 <td headers="phylum" class="gt_row gt_left">Echinodermata</td>
-<td headers="count" class="gt_row gt_right">196016</td>
+<td headers="count" class="gt_row gt_right">206043</td>
 </tr>
 <tr>
 <td headers="phylum" class="gt_row gt_left">Porifera</td>
-<td headers="count" class="gt_row gt_right">130249</td>
+<td headers="count" class="gt_row gt_right">132106</td>
 </tr>
 </tbody>
 </table>
@@ -4089,11 +4143,11 @@ and classification of the taxa of interest.</p>
 <code>order</code>, <code>family</code>, <code>genus</code>,
 <code>species</code>) and some secondary ranks
 (e.g. <code>subfamily</code>, <code>subgenus</code>), all of which may
-be used with <code><a href="../reference/galah_filter.html">galah_filter()</a></code> and
-<code><a href="../reference/galah_identify.html">galah_identify()</a></code>. Additionally, there is a field named
+be used with <code><a href="../reference/filter.data_request.html">galah_filter()</a></code> and
+<code><a href="../reference/identify.data_request.html">galah_identify()</a></code>. Additionally, there is a field named
 <code>scientificName</code>, which refers to the lowest taxonomic rank
 to which a record has been identified e.g.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>genus <span class="op">=</span> <span class="st">"Pitta"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">scientificName</span>, <span class="va">taxonRank</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -4101,23 +4155,23 @@ to which a record has been identified e.g.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">scientificName</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div id="aydpywfhin" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#aydpywfhin table {
+<div id="yireotxtgc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#yireotxtgc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#aydpywfhin thead, #aydpywfhin tbody, #aydpywfhin tfoot, #aydpywfhin tr, #aydpywfhin td, #aydpywfhin th {
+#yireotxtgc thead, #yireotxtgc tbody, #yireotxtgc tfoot, #yireotxtgc tr, #yireotxtgc td, #yireotxtgc th {
   border-style: none;
 }
 
-#aydpywfhin p {
+#yireotxtgc p {
   margin: 0;
   padding: 0;
 }
 
-#aydpywfhin .gt_table {
+#yireotxtgc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -4143,12 +4197,12 @@ to which a record has been identified e.g.</p>
   border-left-color: #D3D3D3;
 }
 
-#aydpywfhin .gt_caption {
+#yireotxtgc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#aydpywfhin .gt_title {
+#yireotxtgc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -4160,7 +4214,7 @@ to which a record has been identified e.g.</p>
   border-bottom-width: 0;
 }
 
-#aydpywfhin .gt_subtitle {
+#yireotxtgc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -4172,7 +4226,7 @@ to which a record has been identified e.g.</p>
   border-top-width: 0;
 }
 
-#aydpywfhin .gt_heading {
+#yireotxtgc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -4184,13 +4238,13 @@ to which a record has been identified e.g.</p>
   border-right-color: #D3D3D3;
 }
 
-#aydpywfhin .gt_bottom_border {
+#yireotxtgc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#aydpywfhin .gt_col_headings {
+#yireotxtgc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4205,7 +4259,7 @@ to which a record has been identified e.g.</p>
   border-right-color: #D3D3D3;
 }
 
-#aydpywfhin .gt_col_heading {
+#yireotxtgc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4225,7 +4279,7 @@ to which a record has been identified e.g.</p>
   overflow-x: hidden;
 }
 
-#aydpywfhin .gt_column_spanner_outer {
+#yireotxtgc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4237,15 +4291,15 @@ to which a record has been identified e.g.</p>
   padding-right: 4px;
 }
 
-#aydpywfhin .gt_column_spanner_outer:first-child {
+#yireotxtgc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#aydpywfhin .gt_column_spanner_outer:last-child {
+#yireotxtgc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#aydpywfhin .gt_column_spanner {
+#yireotxtgc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -4257,11 +4311,11 @@ to which a record has been identified e.g.</p>
   width: 100%;
 }
 
-#aydpywfhin .gt_spanner_row {
+#yireotxtgc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#aydpywfhin .gt_group_heading {
+#yireotxtgc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4287,7 +4341,7 @@ to which a record has been identified e.g.</p>
   text-align: left;
 }
 
-#aydpywfhin .gt_empty_group_heading {
+#yireotxtgc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4302,15 +4356,15 @@ to which a record has been identified e.g.</p>
   vertical-align: middle;
 }
 
-#aydpywfhin .gt_from_md > :first-child {
+#yireotxtgc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#aydpywfhin .gt_from_md > :last-child {
+#yireotxtgc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#aydpywfhin .gt_row {
+#yireotxtgc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4329,7 +4383,7 @@ to which a record has been identified e.g.</p>
   overflow-x: hidden;
 }
 
-#aydpywfhin .gt_stub {
+#yireotxtgc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4342,7 +4396,7 @@ to which a record has been identified e.g.</p>
   padding-right: 5px;
 }
 
-#aydpywfhin .gt_stub_row_group {
+#yireotxtgc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4356,15 +4410,15 @@ to which a record has been identified e.g.</p>
   vertical-align: top;
 }
 
-#aydpywfhin .gt_row_group_first td {
+#yireotxtgc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#aydpywfhin .gt_row_group_first th {
+#yireotxtgc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#aydpywfhin .gt_summary_row {
+#yireotxtgc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4374,16 +4428,16 @@ to which a record has been identified e.g.</p>
   padding-right: 5px;
 }
 
-#aydpywfhin .gt_first_summary_row {
+#yireotxtgc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#aydpywfhin .gt_first_summary_row.thick {
+#yireotxtgc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#aydpywfhin .gt_last_summary_row {
+#yireotxtgc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4393,7 +4447,7 @@ to which a record has been identified e.g.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#aydpywfhin .gt_grand_summary_row {
+#yireotxtgc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4403,7 +4457,7 @@ to which a record has been identified e.g.</p>
   padding-right: 5px;
 }
 
-#aydpywfhin .gt_first_grand_summary_row {
+#yireotxtgc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4413,7 +4467,7 @@ to which a record has been identified e.g.</p>
   border-top-color: #D3D3D3;
 }
 
-#aydpywfhin .gt_last_grand_summary_row_top {
+#yireotxtgc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4423,11 +4477,11 @@ to which a record has been identified e.g.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#aydpywfhin .gt_striped {
+#yireotxtgc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#aydpywfhin .gt_table_body {
+#yireotxtgc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4436,7 +4490,7 @@ to which a record has been identified e.g.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#aydpywfhin .gt_footnotes {
+#yireotxtgc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4450,7 +4504,7 @@ to which a record has been identified e.g.</p>
   border-right-color: #D3D3D3;
 }
 
-#aydpywfhin .gt_footnote {
+#yireotxtgc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -4459,7 +4513,7 @@ to which a record has been identified e.g.</p>
   padding-right: 5px;
 }
 
-#aydpywfhin .gt_sourcenotes {
+#yireotxtgc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4473,7 +4527,7 @@ to which a record has been identified e.g.</p>
   border-right-color: #D3D3D3;
 }
 
-#aydpywfhin .gt_sourcenote {
+#yireotxtgc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -4481,64 +4535,73 @@ to which a record has been identified e.g.</p>
   padding-right: 5px;
 }
 
-#aydpywfhin .gt_left {
+#yireotxtgc .gt_left {
   text-align: left;
 }
 
-#aydpywfhin .gt_center {
+#yireotxtgc .gt_center {
   text-align: center;
 }
 
-#aydpywfhin .gt_right {
+#yireotxtgc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#aydpywfhin .gt_font_normal {
+#yireotxtgc .gt_font_normal {
   font-weight: normal;
 }
 
-#aydpywfhin .gt_font_bold {
+#yireotxtgc .gt_font_bold {
   font-weight: bold;
 }
 
-#aydpywfhin .gt_font_italic {
+#yireotxtgc .gt_font_italic {
   font-style: italic;
 }
 
-#aydpywfhin .gt_super {
+#yireotxtgc .gt_super {
   font-size: 65%;
 }
 
-#aydpywfhin .gt_footnote_marks {
+#yireotxtgc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#aydpywfhin .gt_asterisk {
+#yireotxtgc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#aydpywfhin .gt_indent_1 {
+#yireotxtgc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#aydpywfhin .gt_indent_2 {
+#yireotxtgc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#aydpywfhin .gt_indent_3 {
+#yireotxtgc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#aydpywfhin .gt_indent_4 {
+#yireotxtgc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#aydpywfhin .gt_indent_5 {
+#yireotxtgc .gt_indent_5 {
   text-indent: 25px;
+}
+
+#yireotxtgc .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#yireotxtgc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
@@ -4551,37 +4614,37 @@ to which a record has been identified e.g.</p>
 <tr>
 <td headers="scientificName" class="gt_row gt_left">Pitta (Pitta) versicolor</td>
 <td headers="taxonRank" class="gt_row gt_left">species</td>
-<td headers="count" class="gt_row gt_right">26085</td>
+<td headers="count" class="gt_row gt_right">30041</td>
 </tr>
 <tr>
 <td headers="scientificName" class="gt_row gt_left">Pitta (Pitta) iris</td>
 <td headers="taxonRank" class="gt_row gt_left">species</td>
-<td headers="count" class="gt_row gt_right">5722</td>
+<td headers="count" class="gt_row gt_right">6550</td>
 </tr>
 <tr>
 <td headers="scientificName" class="gt_row gt_left">Pitta (Erythropitta)</td>
 <td headers="taxonRank" class="gt_row gt_left">subgenus</td>
-<td headers="count" class="gt_row gt_right">728</td>
+<td headers="count" class="gt_row gt_right">883</td>
 </tr>
 <tr>
 <td headers="scientificName" class="gt_row gt_left">Pitta (Pitta) versicolor versicolor</td>
 <td headers="taxonRank" class="gt_row gt_left">subspecies</td>
-<td headers="count" class="gt_row gt_right">310</td>
+<td headers="count" class="gt_row gt_right">311</td>
 </tr>
 <tr>
 <td headers="scientificName" class="gt_row gt_left">Pitta (Erythropitta) erythrogaster</td>
 <td headers="taxonRank" class="gt_row gt_left">species</td>
-<td headers="count" class="gt_row gt_right">190</td>
+<td headers="count" class="gt_row gt_right">181</td>
 </tr>
 <tr>
 <td headers="scientificName" class="gt_row gt_left">Pitta (Pitta) iris iris</td>
 <td headers="taxonRank" class="gt_row gt_left">subspecies</td>
-<td headers="count" class="gt_row gt_right">76</td>
+<td headers="count" class="gt_row gt_right">83</td>
 </tr>
 <tr>
 <td headers="scientificName" class="gt_row gt_left">Pitta</td>
 <td headers="taxonRank" class="gt_row gt_left">genus</td>
-<td headers="count" class="gt_row gt_right">74</td>
+<td headers="count" class="gt_row gt_right">68</td>
 </tr>
 <tr>
 <td headers="scientificName" class="gt_row gt_left">Pitta (Pitta) versicolor intermedia</td>
@@ -4601,7 +4664,7 @@ to which a record has been identified e.g.</p>
 <tr>
 <td headers="scientificName" class="gt_row gt_left">Pitta (Erythropitta) erythrogaster digglesi</td>
 <td headers="taxonRank" class="gt_row gt_left">subspecies</td>
-<td headers="count" class="gt_row gt_right">21</td>
+<td headers="count" class="gt_row gt_right">6</td>
 </tr>
 </tbody>
 </table>
@@ -4620,7 +4683,7 @@ different taxonomic levels. In this case, it is simpler to use
 <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code>. In the example below, <code><a href="../reference/search_all.html">search_taxa()</a></code>
 matches terms to one genus, three species, and two subspecies. This can
 then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify()</a></code>.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tas_endemic</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sarcophilus"</span>, <span class="co"># Tasmanian Devil</span></span>
 <span>                 <span class="st">"Bettongia gaimardi"</span>, <span class="co"># Tasmanian Bettong</span></span>
 <span>                 <span class="st">"Melanodryas vittata"</span>, <span class="co"># Dusky Robin</span></span>
@@ -4629,23 +4692,23 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
 <span>                 <span class="st">"Tyto novaehollandiae castanops"</span><span class="op">)</span> <span class="co"># Tasmanian Masked Owl</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/search_all.html">search_taxa</a></span><span class="op">(</span><span class="va">tas_endemic</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div id="djhkbewrwr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#djhkbewrwr table {
+<div id="sucnbpnwsl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#sucnbpnwsl table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#djhkbewrwr thead, #djhkbewrwr tbody, #djhkbewrwr tfoot, #djhkbewrwr tr, #djhkbewrwr td, #djhkbewrwr th {
+#sucnbpnwsl thead, #sucnbpnwsl tbody, #sucnbpnwsl tfoot, #sucnbpnwsl tr, #sucnbpnwsl td, #sucnbpnwsl th {
   border-style: none;
 }
 
-#djhkbewrwr p {
+#sucnbpnwsl p {
   margin: 0;
   padding: 0;
 }
 
-#djhkbewrwr .gt_table {
+#sucnbpnwsl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -4671,12 +4734,12 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-left-color: #D3D3D3;
 }
 
-#djhkbewrwr .gt_caption {
+#sucnbpnwsl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#djhkbewrwr .gt_title {
+#sucnbpnwsl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -4688,7 +4751,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-bottom-width: 0;
 }
 
-#djhkbewrwr .gt_subtitle {
+#sucnbpnwsl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -4700,7 +4763,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-top-width: 0;
 }
 
-#djhkbewrwr .gt_heading {
+#sucnbpnwsl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -4712,13 +4775,13 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-right-color: #D3D3D3;
 }
 
-#djhkbewrwr .gt_bottom_border {
+#sucnbpnwsl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#djhkbewrwr .gt_col_headings {
+#sucnbpnwsl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4733,7 +4796,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-right-color: #D3D3D3;
 }
 
-#djhkbewrwr .gt_col_heading {
+#sucnbpnwsl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4753,7 +4816,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   overflow-x: hidden;
 }
 
-#djhkbewrwr .gt_column_spanner_outer {
+#sucnbpnwsl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4765,15 +4828,15 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   padding-right: 4px;
 }
 
-#djhkbewrwr .gt_column_spanner_outer:first-child {
+#sucnbpnwsl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#djhkbewrwr .gt_column_spanner_outer:last-child {
+#sucnbpnwsl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#djhkbewrwr .gt_column_spanner {
+#sucnbpnwsl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -4785,11 +4848,11 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   width: 100%;
 }
 
-#djhkbewrwr .gt_spanner_row {
+#sucnbpnwsl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#djhkbewrwr .gt_group_heading {
+#sucnbpnwsl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4815,7 +4878,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   text-align: left;
 }
 
-#djhkbewrwr .gt_empty_group_heading {
+#sucnbpnwsl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4830,15 +4893,15 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   vertical-align: middle;
 }
 
-#djhkbewrwr .gt_from_md > :first-child {
+#sucnbpnwsl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#djhkbewrwr .gt_from_md > :last-child {
+#sucnbpnwsl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#djhkbewrwr .gt_row {
+#sucnbpnwsl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4857,7 +4920,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   overflow-x: hidden;
 }
 
-#djhkbewrwr .gt_stub {
+#sucnbpnwsl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4870,7 +4933,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   padding-right: 5px;
 }
 
-#djhkbewrwr .gt_stub_row_group {
+#sucnbpnwsl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4884,15 +4947,15 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   vertical-align: top;
 }
 
-#djhkbewrwr .gt_row_group_first td {
+#sucnbpnwsl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#djhkbewrwr .gt_row_group_first th {
+#sucnbpnwsl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#djhkbewrwr .gt_summary_row {
+#sucnbpnwsl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4902,16 +4965,16 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   padding-right: 5px;
 }
 
-#djhkbewrwr .gt_first_summary_row {
+#sucnbpnwsl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#djhkbewrwr .gt_first_summary_row.thick {
+#sucnbpnwsl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#djhkbewrwr .gt_last_summary_row {
+#sucnbpnwsl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4921,7 +4984,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-bottom-color: #D3D3D3;
 }
 
-#djhkbewrwr .gt_grand_summary_row {
+#sucnbpnwsl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4931,7 +4994,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   padding-right: 5px;
 }
 
-#djhkbewrwr .gt_first_grand_summary_row {
+#sucnbpnwsl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4941,7 +5004,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-top-color: #D3D3D3;
 }
 
-#djhkbewrwr .gt_last_grand_summary_row_top {
+#sucnbpnwsl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4951,11 +5014,11 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-bottom-color: #D3D3D3;
 }
 
-#djhkbewrwr .gt_striped {
+#sucnbpnwsl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#djhkbewrwr .gt_table_body {
+#sucnbpnwsl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4964,7 +5027,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-bottom-color: #D3D3D3;
 }
 
-#djhkbewrwr .gt_footnotes {
+#sucnbpnwsl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4978,7 +5041,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-right-color: #D3D3D3;
 }
 
-#djhkbewrwr .gt_footnote {
+#sucnbpnwsl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -4987,7 +5050,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   padding-right: 5px;
 }
 
-#djhkbewrwr .gt_sourcenotes {
+#sucnbpnwsl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5001,7 +5064,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-right-color: #D3D3D3;
 }
 
-#djhkbewrwr .gt_sourcenote {
+#sucnbpnwsl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -5009,64 +5072,73 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   padding-right: 5px;
 }
 
-#djhkbewrwr .gt_left {
+#sucnbpnwsl .gt_left {
   text-align: left;
 }
 
-#djhkbewrwr .gt_center {
+#sucnbpnwsl .gt_center {
   text-align: center;
 }
 
-#djhkbewrwr .gt_right {
+#sucnbpnwsl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#djhkbewrwr .gt_font_normal {
+#sucnbpnwsl .gt_font_normal {
   font-weight: normal;
 }
 
-#djhkbewrwr .gt_font_bold {
+#sucnbpnwsl .gt_font_bold {
   font-weight: bold;
 }
 
-#djhkbewrwr .gt_font_italic {
+#sucnbpnwsl .gt_font_italic {
   font-style: italic;
 }
 
-#djhkbewrwr .gt_super {
+#sucnbpnwsl .gt_super {
   font-size: 65%;
 }
 
-#djhkbewrwr .gt_footnote_marks {
+#sucnbpnwsl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#djhkbewrwr .gt_asterisk {
+#sucnbpnwsl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#djhkbewrwr .gt_indent_1 {
+#sucnbpnwsl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#djhkbewrwr .gt_indent_2 {
+#sucnbpnwsl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#djhkbewrwr .gt_indent_3 {
+#sucnbpnwsl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#djhkbewrwr .gt_indent_4 {
+#sucnbpnwsl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#djhkbewrwr .gt_indent_5 {
+#sucnbpnwsl .gt_indent_5 {
   text-indent: 25px;
+}
+
+#sucnbpnwsl .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#sucnbpnwsl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
@@ -5103,7 +5175,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
 <td headers="genus" class="gt_row gt_left">Sarcophilus</td>
 <td headers="species" class="gt_row gt_left">NA</td>
 <td headers="vernacular_name" class="gt_row gt_left">NA</td>
-<td headers="issues" class="gt_row gt_left">noIssue</td>
+<td headers="issues" class="gt_row gt_left">noIssue, noIssue, noIssue, noIssue, noIssue, noIssue</td>
 </tr>
 <tr>
 <td headers="search_term" class="gt_row gt_left">Bettongia gaimardi</td>
@@ -5120,7 +5192,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
 <td headers="genus" class="gt_row gt_left">Bettongia</td>
 <td headers="species" class="gt_row gt_left">Bettongia gaimardi</td>
 <td headers="vernacular_name" class="gt_row gt_left">Tasmanian Bettong</td>
-<td headers="issues" class="gt_row gt_left">noIssue</td>
+<td headers="issues" class="gt_row gt_left">noIssue, noIssue, noIssue, noIssue, noIssue, noIssue</td>
 </tr>
 <tr>
 <td headers="search_term" class="gt_row gt_left">Melanodryas vittata</td>
@@ -5137,7 +5209,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
 <td headers="genus" class="gt_row gt_left">Melanodryas</td>
 <td headers="species" class="gt_row gt_left">Melanodryas vittata</td>
 <td headers="vernacular_name" class="gt_row gt_left">Dusky Robin</td>
-<td headers="issues" class="gt_row gt_left">noIssue</td>
+<td headers="issues" class="gt_row gt_left">noIssue, noIssue, noIssue, noIssue, noIssue, noIssue</td>
 </tr>
 <tr>
 <td headers="search_term" class="gt_row gt_left">Platycercus caledonicus</td>
@@ -5154,7 +5226,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
 <td headers="genus" class="gt_row gt_left">Platycercus</td>
 <td headers="species" class="gt_row gt_left">Platycercus caledonicus</td>
 <td headers="vernacular_name" class="gt_row gt_left">Green Rosella</td>
-<td headers="issues" class="gt_row gt_left">noIssue</td>
+<td headers="issues" class="gt_row gt_left">noIssue, noIssue, noIssue, noIssue, noIssue, noIssue</td>
 </tr>
 <tr>
 <td headers="search_term" class="gt_row gt_left">Aquila audax fleayi</td>
@@ -5171,7 +5243,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
 <td headers="genus" class="gt_row gt_left">Aquila</td>
 <td headers="species" class="gt_row gt_left">Aquila audax</td>
 <td headers="vernacular_name" class="gt_row gt_left">Tasmanian Wedge-tailed Eagle</td>
-<td headers="issues" class="gt_row gt_left">noIssue</td>
+<td headers="issues" class="gt_row gt_left">noIssue, noIssue, noIssue, noIssue, noIssue, noIssue</td>
 </tr>
 <tr>
 <td headers="search_term" class="gt_row gt_left">Tyto novaehollandiae castanops</td>
@@ -5188,12 +5260,12 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
 <td headers="genus" class="gt_row gt_left">Tyto</td>
 <td headers="species" class="gt_row gt_left">Tyto novaehollandiae</td>
 <td headers="vernacular_name" class="gt_row gt_left">Tasmanian Masked Owl</td>
-<td headers="issues" class="gt_row gt_left">noIssue</td>
+<td headers="issues" class="gt_row gt_left">noIssue, noIssue, noIssue, noIssue, noIssue, noIssue</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="va">tas_endemic</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">scientificName</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -5201,23 +5273,23 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">scientificName</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div id="uvtluwiuuo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#uvtluwiuuo table {
+<div id="ovcdvwclsl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ovcdvwclsl table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#uvtluwiuuo thead, #uvtluwiuuo tbody, #uvtluwiuuo tfoot, #uvtluwiuuo tr, #uvtluwiuuo td, #uvtluwiuuo th {
+#ovcdvwclsl thead, #ovcdvwclsl tbody, #ovcdvwclsl tfoot, #ovcdvwclsl tr, #ovcdvwclsl td, #ovcdvwclsl th {
   border-style: none;
 }
 
-#uvtluwiuuo p {
+#ovcdvwclsl p {
   margin: 0;
   padding: 0;
 }
 
-#uvtluwiuuo .gt_table {
+#ovcdvwclsl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -5243,12 +5315,12 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-left-color: #D3D3D3;
 }
 
-#uvtluwiuuo .gt_caption {
+#ovcdvwclsl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#uvtluwiuuo .gt_title {
+#ovcdvwclsl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -5260,7 +5332,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-bottom-width: 0;
 }
 
-#uvtluwiuuo .gt_subtitle {
+#ovcdvwclsl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -5272,7 +5344,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-top-width: 0;
 }
 
-#uvtluwiuuo .gt_heading {
+#ovcdvwclsl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -5284,13 +5356,13 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-right-color: #D3D3D3;
 }
 
-#uvtluwiuuo .gt_bottom_border {
+#ovcdvwclsl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#uvtluwiuuo .gt_col_headings {
+#ovcdvwclsl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -5305,7 +5377,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-right-color: #D3D3D3;
 }
 
-#uvtluwiuuo .gt_col_heading {
+#ovcdvwclsl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5325,7 +5397,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   overflow-x: hidden;
 }
 
-#uvtluwiuuo .gt_column_spanner_outer {
+#ovcdvwclsl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5337,15 +5409,15 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   padding-right: 4px;
 }
 
-#uvtluwiuuo .gt_column_spanner_outer:first-child {
+#ovcdvwclsl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#uvtluwiuuo .gt_column_spanner_outer:last-child {
+#ovcdvwclsl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#uvtluwiuuo .gt_column_spanner {
+#ovcdvwclsl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -5357,11 +5429,11 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   width: 100%;
 }
 
-#uvtluwiuuo .gt_spanner_row {
+#ovcdvwclsl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#uvtluwiuuo .gt_group_heading {
+#ovcdvwclsl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5387,7 +5459,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   text-align: left;
 }
 
-#uvtluwiuuo .gt_empty_group_heading {
+#ovcdvwclsl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -5402,15 +5474,15 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   vertical-align: middle;
 }
 
-#uvtluwiuuo .gt_from_md > :first-child {
+#ovcdvwclsl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#uvtluwiuuo .gt_from_md > :last-child {
+#ovcdvwclsl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#uvtluwiuuo .gt_row {
+#ovcdvwclsl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5429,7 +5501,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   overflow-x: hidden;
 }
 
-#uvtluwiuuo .gt_stub {
+#ovcdvwclsl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5442,7 +5514,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   padding-right: 5px;
 }
 
-#uvtluwiuuo .gt_stub_row_group {
+#ovcdvwclsl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5456,15 +5528,15 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   vertical-align: top;
 }
 
-#uvtluwiuuo .gt_row_group_first td {
+#ovcdvwclsl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#uvtluwiuuo .gt_row_group_first th {
+#ovcdvwclsl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#uvtluwiuuo .gt_summary_row {
+#ovcdvwclsl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5474,16 +5546,16 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   padding-right: 5px;
 }
 
-#uvtluwiuuo .gt_first_summary_row {
+#ovcdvwclsl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#uvtluwiuuo .gt_first_summary_row.thick {
+#ovcdvwclsl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#uvtluwiuuo .gt_last_summary_row {
+#ovcdvwclsl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5493,7 +5565,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-bottom-color: #D3D3D3;
 }
 
-#uvtluwiuuo .gt_grand_summary_row {
+#ovcdvwclsl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5503,7 +5575,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   padding-right: 5px;
 }
 
-#uvtluwiuuo .gt_first_grand_summary_row {
+#ovcdvwclsl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5513,7 +5585,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-top-color: #D3D3D3;
 }
 
-#uvtluwiuuo .gt_last_grand_summary_row_top {
+#ovcdvwclsl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5523,11 +5595,11 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-bottom-color: #D3D3D3;
 }
 
-#uvtluwiuuo .gt_striped {
+#ovcdvwclsl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#uvtluwiuuo .gt_table_body {
+#ovcdvwclsl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -5536,7 +5608,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-bottom-color: #D3D3D3;
 }
 
-#uvtluwiuuo .gt_footnotes {
+#ovcdvwclsl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5550,7 +5622,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-right-color: #D3D3D3;
 }
 
-#uvtluwiuuo .gt_footnote {
+#ovcdvwclsl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -5559,7 +5631,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   padding-right: 5px;
 }
 
-#uvtluwiuuo .gt_sourcenotes {
+#ovcdvwclsl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5573,7 +5645,7 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   border-right-color: #D3D3D3;
 }
 
-#uvtluwiuuo .gt_sourcenote {
+#ovcdvwclsl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -5581,64 +5653,73 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
   padding-right: 5px;
 }
 
-#uvtluwiuuo .gt_left {
+#ovcdvwclsl .gt_left {
   text-align: left;
 }
 
-#uvtluwiuuo .gt_center {
+#ovcdvwclsl .gt_center {
   text-align: center;
 }
 
-#uvtluwiuuo .gt_right {
+#ovcdvwclsl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#uvtluwiuuo .gt_font_normal {
+#ovcdvwclsl .gt_font_normal {
   font-weight: normal;
 }
 
-#uvtluwiuuo .gt_font_bold {
+#ovcdvwclsl .gt_font_bold {
   font-weight: bold;
 }
 
-#uvtluwiuuo .gt_font_italic {
+#ovcdvwclsl .gt_font_italic {
   font-style: italic;
 }
 
-#uvtluwiuuo .gt_super {
+#ovcdvwclsl .gt_super {
   font-size: 65%;
 }
 
-#uvtluwiuuo .gt_footnote_marks {
+#ovcdvwclsl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#uvtluwiuuo .gt_asterisk {
+#ovcdvwclsl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#uvtluwiuuo .gt_indent_1 {
+#ovcdvwclsl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#uvtluwiuuo .gt_indent_2 {
+#ovcdvwclsl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#uvtluwiuuo .gt_indent_3 {
+#ovcdvwclsl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#uvtluwiuuo .gt_indent_4 {
+#ovcdvwclsl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#uvtluwiuuo .gt_indent_5 {
+#ovcdvwclsl .gt_indent_5 {
   text-indent: 25px;
+}
+
+#ovcdvwclsl .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#ovcdvwclsl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
@@ -5649,11 +5730,11 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
 <tbody class="gt_table_body">
 <tr>
 <td headers="scientificName" class="gt_row gt_left">Aquila (Uroaetus) audax fleayi</td>
-<td headers="count" class="gt_row gt_right">4935</td>
+<td headers="count" class="gt_row gt_right">5035</td>
 </tr>
 <tr>
 <td headers="scientificName" class="gt_row gt_left">Bettongia gaimardi</td>
-<td headers="count" class="gt_row gt_right">1941</td>
+<td headers="count" class="gt_row gt_right">1964</td>
 </tr>
 <tr>
 <td headers="scientificName" class="gt_row gt_left">Bettongia gaimardi cuniculus</td>
@@ -5665,19 +5746,19 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
 </tr>
 <tr>
 <td headers="scientificName" class="gt_row gt_left">Melanodryas (Amaurodryas) vittata</td>
-<td headers="count" class="gt_row gt_right">14131</td>
+<td headers="count" class="gt_row gt_right">15719</td>
 </tr>
 <tr>
 <td headers="scientificName" class="gt_row gt_left">Melanodryas (Amaurodryas) vittata kingi</td>
-<td headers="count" class="gt_row gt_right">15</td>
+<td headers="count" class="gt_row gt_right">16</td>
 </tr>
 <tr>
 <td headers="scientificName" class="gt_row gt_left">Melanodryas (Amaurodryas) vittata vittata</td>
-<td headers="count" class="gt_row gt_right">39</td>
+<td headers="count" class="gt_row gt_right">46</td>
 </tr>
 <tr>
 <td headers="scientificName" class="gt_row gt_left">Platycercus (Platycercus) caledonicus</td>
-<td headers="count" class="gt_row gt_right">43463</td>
+<td headers="count" class="gt_row gt_right">51180</td>
 </tr>
 <tr>
 <td headers="scientificName" class="gt_row gt_left">Platycercus (Platycercus) caledonicus brownii</td>
@@ -5693,38 +5774,36 @@ then be used in a piped workflow with <code><a href="https://rdrr.io/r/graphics/
 </tr>
 <tr>
 <td headers="scientificName" class="gt_row gt_left">Sarcophilus harrisii</td>
-<td headers="count" class="gt_row gt_right">36302</td>
+<td headers="count" class="gt_row gt_right">36376</td>
 </tr>
 <tr>
 <td headers="scientificName" class="gt_row gt_left">Tyto novaehollandiae castanops</td>
-<td headers="count" class="gt_row gt_right">63</td>
+<td headers="count" class="gt_row gt_right">67</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p>
-<p>Developed by Martin Westgate, Matilda Stevenson, Dax Kellie, Peggy Newman.</p>
+  <p>Developed by Martin Westgate, Dax Kellie, Matilda Stevenson, Peggy Newman.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.8.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>

@@ -1,5 +1,5 @@
 pandoc: 3.1.11
-pkgdown: 2.0.8
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   choosing_an_atlas: choosing_an_atlas.html
@@ -11,8 +11,7 @@ articles:
   spatial_filtering: spatial_filtering.html
   taxonomic_filtering: taxonomic_filtering.html
   temporal_filtering: temporal_filtering.html
-last_built: 2024-04-12T05:37Z
+last_built: 2024-11-19T04:11Z
 urls:
   reference: https://galah.ala.org.au/R/reference
   article: https://galah.ala.org.au/R/articles
-

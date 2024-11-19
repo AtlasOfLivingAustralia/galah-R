@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="galah">
 <title>Spatial filtering • galah</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -16,75 +15,57 @@
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.9/font.css" rel="stylesheet">
-<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Spatial filtering">
-<meta property="og:description" content="galah">
-<meta property="og:image" content="https://galah.ala.org.au/R/logo.png">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.0</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../articles/quick_start_guide.html">Quick start guide</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../articles/quick_start_guide.html">Quick start guide</a></li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <h6 class="dropdown-header" data-toc-skip>Get started</h6>
-    <a class="dropdown-item" href="../articles/choosing_an_atlas.html">Choosing an atlas</a>
-    <a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a>
-    <a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a>
-    <a class="dropdown-item" href="../articles/download_data.html">Download data</a>
-    <div class="dropdown-divider"></div>
-    <h6 class="dropdown-header" data-toc-skip>Advanced</h6>
-    <a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a>
-    <a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a>
-    <a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a>
-    <a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><h6 class="dropdown-header" data-toc-skip>Get started</h6></li>
+    <li><a class="dropdown-item" href="../articles/choosing_an_atlas.html">Choosing an atlas</a></li>
+    <li><a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a></li>
+    <li><a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a></li>
+    <li><a class="dropdown-item" href="../articles/download_data.html">Download data</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a></li>
+    <li><a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a></li>
+    <li><a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a></li>
+    <li><a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">News</a>
-</li>
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/AtlasOfLivingAustralia/galah-R/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">News</a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/AtlasOfLivingAustralia/galah-R/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
@@ -99,7 +80,7 @@
             
             <h4 data-toc-skip class="date">2023-10-13</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/vignettes/spatial_filtering.Rmd" class="external-link"><code>vignettes/spatial_filtering.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/main/vignettes/spatial_filtering.Rmd" class="external-link"><code>vignettes/spatial_filtering.Rmd</code></a></small>
       <div class="d-none name"><code>spatial_filtering.Rmd</code></div>
     </div>
 
@@ -137,23 +118,22 @@ you require before proceeding with other methods of spatial filtering.
 These fields are all able to be queried with <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code>and so
 they are generally easier to use.</p>
 <p>Suppose we are interested in querying records of the Red-Necked
-Avocet (<a href="https://bie.ala.org.au/species/https://biodiversity.org.au/afd/taxa/c69e7308-527a-429d-a80d-143bd20b5100" class="external-link"><em>Recurvirostra
-novaehollandiae</em></a>) in a particular protected wetlands, the
-Coorong wetlands in South Australia. We can search the ALA fields for
-wetlands.</p>
+Avocet (<em>Recurvirostra novaehollandiae</em>) in the Coorong wetlands
+in South Australia. We can search the ALA fields for wetlands.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://galah.ala.org.au/R/">galah</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"your_email_here"</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_all.html">search_fields</a></span><span class="op">(</span><span class="st">"wetlands"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 1 × 3</span></span>
-<span><span class="co">##   id    description                     type  </span></span>
-<span><span class="co">##   &lt;chr&gt; &lt;chr&gt;                           &lt;chr&gt; </span></span>
-<span><span class="co">## 1 cl901 Directory of Important Wetlands fields</span></span></code></pre>
+<pre><code><span><span class="co">## # A tibble: 2 × 3</span></span>
+<span><span class="co">##   id      description                       type  </span></span>
+<span><span class="co">##   &lt;chr&gt;   &lt;chr&gt;                             &lt;chr&gt; </span></span>
+<span><span class="co">## 1 cl901   Directory of Important Wetlands   fields</span></span>
+<span><span class="co">## 2 cl11192 Ramsar_Wetlands_of_AustraliaWGS84 fields</span></span></code></pre>
 <p>Our search identifies that layer <code>cl901</code> seems to match
 what we are looking for. We can then either view all possible values in
 the field with <code><a href="../reference/show_values.html">show_values()</a></code>, or search again for our
@@ -175,23 +155,26 @@ follows:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div id="jcszlxbqcj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#jcszlxbqcj table {
+<pre><code><span><span class="co">## Retrying in 1 seconds.</span></span>
+<span><span class="co">## Retrying in 2 seconds.</span></span>
+<span><span class="co">## Retrying in 4 seconds.</span></span></code></pre>
+<div id="rmmelfqsxk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rmmelfqsxk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#jcszlxbqcj thead, #jcszlxbqcj tbody, #jcszlxbqcj tfoot, #jcszlxbqcj tr, #jcszlxbqcj td, #jcszlxbqcj th {
+#rmmelfqsxk thead, #rmmelfqsxk tbody, #rmmelfqsxk tfoot, #rmmelfqsxk tr, #rmmelfqsxk td, #rmmelfqsxk th {
   border-style: none;
 }
 
-#jcszlxbqcj p {
+#rmmelfqsxk p {
   margin: 0;
   padding: 0;
 }
 
-#jcszlxbqcj .gt_table {
+#rmmelfqsxk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -217,12 +200,12 @@ follows:</p>
   border-left-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_caption {
+#rmmelfqsxk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#jcszlxbqcj .gt_title {
+#rmmelfqsxk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -234,7 +217,7 @@ follows:</p>
   border-bottom-width: 0;
 }
 
-#jcszlxbqcj .gt_subtitle {
+#rmmelfqsxk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -246,7 +229,7 @@ follows:</p>
   border-top-width: 0;
 }
 
-#jcszlxbqcj .gt_heading {
+#rmmelfqsxk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -258,13 +241,13 @@ follows:</p>
   border-right-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_bottom_border {
+#rmmelfqsxk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_col_headings {
+#rmmelfqsxk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -279,7 +262,7 @@ follows:</p>
   border-right-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_col_heading {
+#rmmelfqsxk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -299,7 +282,7 @@ follows:</p>
   overflow-x: hidden;
 }
 
-#jcszlxbqcj .gt_column_spanner_outer {
+#rmmelfqsxk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -311,15 +294,15 @@ follows:</p>
   padding-right: 4px;
 }
 
-#jcszlxbqcj .gt_column_spanner_outer:first-child {
+#rmmelfqsxk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#jcszlxbqcj .gt_column_spanner_outer:last-child {
+#rmmelfqsxk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#jcszlxbqcj .gt_column_spanner {
+#rmmelfqsxk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -331,11 +314,11 @@ follows:</p>
   width: 100%;
 }
 
-#jcszlxbqcj .gt_spanner_row {
+#rmmelfqsxk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#jcszlxbqcj .gt_group_heading {
+#rmmelfqsxk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -361,7 +344,7 @@ follows:</p>
   text-align: left;
 }
 
-#jcszlxbqcj .gt_empty_group_heading {
+#rmmelfqsxk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -376,15 +359,15 @@ follows:</p>
   vertical-align: middle;
 }
 
-#jcszlxbqcj .gt_from_md > :first-child {
+#rmmelfqsxk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#jcszlxbqcj .gt_from_md > :last-child {
+#rmmelfqsxk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#jcszlxbqcj .gt_row {
+#rmmelfqsxk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -403,7 +386,7 @@ follows:</p>
   overflow-x: hidden;
 }
 
-#jcszlxbqcj .gt_stub {
+#rmmelfqsxk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -416,7 +399,7 @@ follows:</p>
   padding-right: 5px;
 }
 
-#jcszlxbqcj .gt_stub_row_group {
+#rmmelfqsxk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -430,15 +413,15 @@ follows:</p>
   vertical-align: top;
 }
 
-#jcszlxbqcj .gt_row_group_first td {
+#rmmelfqsxk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#jcszlxbqcj .gt_row_group_first th {
+#rmmelfqsxk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#jcszlxbqcj .gt_summary_row {
+#rmmelfqsxk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -448,16 +431,16 @@ follows:</p>
   padding-right: 5px;
 }
 
-#jcszlxbqcj .gt_first_summary_row {
+#rmmelfqsxk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_first_summary_row.thick {
+#rmmelfqsxk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#jcszlxbqcj .gt_last_summary_row {
+#rmmelfqsxk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -467,7 +450,7 @@ follows:</p>
   border-bottom-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_grand_summary_row {
+#rmmelfqsxk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -477,7 +460,7 @@ follows:</p>
   padding-right: 5px;
 }
 
-#jcszlxbqcj .gt_first_grand_summary_row {
+#rmmelfqsxk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -487,7 +470,7 @@ follows:</p>
   border-top-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_last_grand_summary_row_top {
+#rmmelfqsxk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -497,11 +480,11 @@ follows:</p>
   border-bottom-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_striped {
+#rmmelfqsxk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#jcszlxbqcj .gt_table_body {
+#rmmelfqsxk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -510,7 +493,7 @@ follows:</p>
   border-bottom-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_footnotes {
+#rmmelfqsxk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -524,7 +507,7 @@ follows:</p>
   border-right-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_footnote {
+#rmmelfqsxk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -533,7 +516,7 @@ follows:</p>
   padding-right: 5px;
 }
 
-#jcszlxbqcj .gt_sourcenotes {
+#rmmelfqsxk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -547,7 +530,7 @@ follows:</p>
   border-right-color: #D3D3D3;
 }
 
-#jcszlxbqcj .gt_sourcenote {
+#rmmelfqsxk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -555,64 +538,73 @@ follows:</p>
   padding-right: 5px;
 }
 
-#jcszlxbqcj .gt_left {
+#rmmelfqsxk .gt_left {
   text-align: left;
 }
 
-#jcszlxbqcj .gt_center {
+#rmmelfqsxk .gt_center {
   text-align: center;
 }
 
-#jcszlxbqcj .gt_right {
+#rmmelfqsxk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#jcszlxbqcj .gt_font_normal {
+#rmmelfqsxk .gt_font_normal {
   font-weight: normal;
 }
 
-#jcszlxbqcj .gt_font_bold {
+#rmmelfqsxk .gt_font_bold {
   font-weight: bold;
 }
 
-#jcszlxbqcj .gt_font_italic {
+#rmmelfqsxk .gt_font_italic {
   font-style: italic;
 }
 
-#jcszlxbqcj .gt_super {
+#rmmelfqsxk .gt_super {
   font-size: 65%;
 }
 
-#jcszlxbqcj .gt_footnote_marks {
+#rmmelfqsxk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#jcszlxbqcj .gt_asterisk {
+#rmmelfqsxk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#jcszlxbqcj .gt_indent_1 {
+#rmmelfqsxk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#jcszlxbqcj .gt_indent_2 {
+#rmmelfqsxk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#jcszlxbqcj .gt_indent_3 {
+#rmmelfqsxk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#jcszlxbqcj .gt_indent_4 {
+#rmmelfqsxk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#jcszlxbqcj .gt_indent_5 {
+#rmmelfqsxk .gt_indent_5 {
   text-indent: 25px;
+}
+
+#rmmelfqsxk .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#rmmelfqsxk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
@@ -682,32 +674,32 @@ follows:</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="galah_geolocate">galah_geolocate()<a class="anchor" aria-label="anchor" href="#galah_geolocate"></a>
+<h3 id="filtering-data-to-a-polygon">Filtering data to a polygon<a class="anchor" aria-label="anchor" href="#filtering-data-to-a-polygon"></a>
 </h3>
 <p>While server-side spatial information is useful, there are likely to
 be cases where the shapefile or region you wish to query will not be
 pre-loaded as a contextual layer in the ALA. In this case, shapefiles
 can be introduced to the filtering process using the {sf} package and
-the <code><a href="../reference/galah_geolocate.html">galah_geolocate()</a></code> function. Shapefiles can be provided
-as an <code>sf</code> object, whether that is by importing them with
+the <code><a href="../reference/geolocate.html">geolocate()</a></code> function. Shapefiles can be provided as an
+<code>sf</code> object, whether that is by importing them with
 <code><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">sf::st_read()</a></code> or taking a <code>POLYGON</code> or
 <code>MULTIPOLYGON</code> character string and transforming them with
 <code><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html" class="external-link">sf::st_as_sfc()</a></code>.</p>
 <p>For instance, we might interested in species occurrences in King
 George Square, Brisbane. We can take the <code>MULTIPOLYGON</code>
-object for the square (as sourced from the <a href="https://www.data.brisbane.qld.gov.au/data/dataset/park-locations" class="external-link">Brisbane
-City Council</a>) and transform it into <code>sfc</code> and then
+object for the square (as sourced from the <a href="https://data.brisbane.qld.gov.au/pages/home/" class="external-link">Brisbane City
+Council</a>) and transform it into <code>sfc</code> and then
 <code>sf</code> objects.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">king_george_sq</span> <span class="op">&lt;-</span> <span class="st">"MULTIPOLYGON(((153.0243 -27.46886, 153.0242 -27.46896, 153.0236 -27.46837, 153.0239 -27.46814, 153.0239 -27.46813, 153.0242 -27.46789, 153.0244 -27.46805, 153.0245 -27.46821, 153.0246 -27.46828, 153.0247 -27.46835, 153.0248 -27.46848, 153.0246 -27.4686, 153.0246 -27.46862, 153.0245 -27.46871, 153.0243 -27.46886)))"</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html" class="external-link">st_as_sfc</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>We can provide this <code>MULTIPOLYGON</code> in our filter as the
-argument of <code><a href="../reference/galah_geolocate.html">galah_geolocate()</a></code> to assess which species have
-been recorded in King George Square.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+argument of <code><a href="../reference/geolocate.html">geolocate()</a></code> to assess which species have been
+recorded in King George Square.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_geolocate.html">galah_geolocate</a></span><span class="op">(</span><span class="va">king_george_sq</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/geolocate.html">geolocate</a></span><span class="op">(</span><span class="va">king_george_sq</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">decimalLatitude</span>, </span>
 <span>         <span class="va">decimalLongitude</span>, </span>
 <span>         <span class="va">eventDate</span>, </span>
@@ -716,23 +708,23 @@ been recorded in King George Square.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div id="wkamkmknck" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#wkamkmknck table {
+<div id="koxekvwcgg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#koxekvwcgg table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#wkamkmknck thead, #wkamkmknck tbody, #wkamkmknck tfoot, #wkamkmknck tr, #wkamkmknck td, #wkamkmknck th {
+#koxekvwcgg thead, #koxekvwcgg tbody, #koxekvwcgg tfoot, #koxekvwcgg tr, #koxekvwcgg td, #koxekvwcgg th {
   border-style: none;
 }
 
-#wkamkmknck p {
+#koxekvwcgg p {
   margin: 0;
   padding: 0;
 }
 
-#wkamkmknck .gt_table {
+#koxekvwcgg .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -758,12 +750,12 @@ been recorded in King George Square.</p>
   border-left-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_caption {
+#koxekvwcgg .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#wkamkmknck .gt_title {
+#koxekvwcgg .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -775,7 +767,7 @@ been recorded in King George Square.</p>
   border-bottom-width: 0;
 }
 
-#wkamkmknck .gt_subtitle {
+#koxekvwcgg .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -787,7 +779,7 @@ been recorded in King George Square.</p>
   border-top-width: 0;
 }
 
-#wkamkmknck .gt_heading {
+#koxekvwcgg .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -799,13 +791,13 @@ been recorded in King George Square.</p>
   border-right-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_bottom_border {
+#koxekvwcgg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_col_headings {
+#koxekvwcgg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -820,7 +812,7 @@ been recorded in King George Square.</p>
   border-right-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_col_heading {
+#koxekvwcgg .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -840,7 +832,7 @@ been recorded in King George Square.</p>
   overflow-x: hidden;
 }
 
-#wkamkmknck .gt_column_spanner_outer {
+#koxekvwcgg .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -852,15 +844,15 @@ been recorded in King George Square.</p>
   padding-right: 4px;
 }
 
-#wkamkmknck .gt_column_spanner_outer:first-child {
+#koxekvwcgg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#wkamkmknck .gt_column_spanner_outer:last-child {
+#koxekvwcgg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#wkamkmknck .gt_column_spanner {
+#koxekvwcgg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -872,11 +864,11 @@ been recorded in King George Square.</p>
   width: 100%;
 }
 
-#wkamkmknck .gt_spanner_row {
+#koxekvwcgg .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#wkamkmknck .gt_group_heading {
+#koxekvwcgg .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -902,7 +894,7 @@ been recorded in King George Square.</p>
   text-align: left;
 }
 
-#wkamkmknck .gt_empty_group_heading {
+#koxekvwcgg .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -917,15 +909,15 @@ been recorded in King George Square.</p>
   vertical-align: middle;
 }
 
-#wkamkmknck .gt_from_md > :first-child {
+#koxekvwcgg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#wkamkmknck .gt_from_md > :last-child {
+#koxekvwcgg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#wkamkmknck .gt_row {
+#koxekvwcgg .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -944,7 +936,7 @@ been recorded in King George Square.</p>
   overflow-x: hidden;
 }
 
-#wkamkmknck .gt_stub {
+#koxekvwcgg .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -957,7 +949,7 @@ been recorded in King George Square.</p>
   padding-right: 5px;
 }
 
-#wkamkmknck .gt_stub_row_group {
+#koxekvwcgg .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -971,15 +963,15 @@ been recorded in King George Square.</p>
   vertical-align: top;
 }
 
-#wkamkmknck .gt_row_group_first td {
+#koxekvwcgg .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#wkamkmknck .gt_row_group_first th {
+#koxekvwcgg .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#wkamkmknck .gt_summary_row {
+#koxekvwcgg .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -989,16 +981,16 @@ been recorded in King George Square.</p>
   padding-right: 5px;
 }
 
-#wkamkmknck .gt_first_summary_row {
+#koxekvwcgg .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_first_summary_row.thick {
+#koxekvwcgg .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#wkamkmknck .gt_last_summary_row {
+#koxekvwcgg .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1008,7 +1000,7 @@ been recorded in King George Square.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_grand_summary_row {
+#koxekvwcgg .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1018,7 +1010,7 @@ been recorded in King George Square.</p>
   padding-right: 5px;
 }
 
-#wkamkmknck .gt_first_grand_summary_row {
+#koxekvwcgg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1028,7 +1020,7 @@ been recorded in King George Square.</p>
   border-top-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_last_grand_summary_row_top {
+#koxekvwcgg .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1038,11 +1030,11 @@ been recorded in King George Square.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_striped {
+#koxekvwcgg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#wkamkmknck .gt_table_body {
+#koxekvwcgg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1051,7 +1043,7 @@ been recorded in King George Square.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_footnotes {
+#koxekvwcgg .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1065,7 +1057,7 @@ been recorded in King George Square.</p>
   border-right-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_footnote {
+#koxekvwcgg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1074,7 +1066,7 @@ been recorded in King George Square.</p>
   padding-right: 5px;
 }
 
-#wkamkmknck .gt_sourcenotes {
+#koxekvwcgg .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1088,7 +1080,7 @@ been recorded in King George Square.</p>
   border-right-color: #D3D3D3;
 }
 
-#wkamkmknck .gt_sourcenote {
+#koxekvwcgg .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1096,64 +1088,73 @@ been recorded in King George Square.</p>
   padding-right: 5px;
 }
 
-#wkamkmknck .gt_left {
+#koxekvwcgg .gt_left {
   text-align: left;
 }
 
-#wkamkmknck .gt_center {
+#koxekvwcgg .gt_center {
   text-align: center;
 }
 
-#wkamkmknck .gt_right {
+#koxekvwcgg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#wkamkmknck .gt_font_normal {
+#koxekvwcgg .gt_font_normal {
   font-weight: normal;
 }
 
-#wkamkmknck .gt_font_bold {
+#koxekvwcgg .gt_font_bold {
   font-weight: bold;
 }
 
-#wkamkmknck .gt_font_italic {
+#koxekvwcgg .gt_font_italic {
   font-style: italic;
 }
 
-#wkamkmknck .gt_super {
+#koxekvwcgg .gt_super {
   font-size: 65%;
 }
 
-#wkamkmknck .gt_footnote_marks {
+#koxekvwcgg .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#wkamkmknck .gt_asterisk {
+#koxekvwcgg .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#wkamkmknck .gt_indent_1 {
+#koxekvwcgg .gt_indent_1 {
   text-indent: 5px;
 }
 
-#wkamkmknck .gt_indent_2 {
+#koxekvwcgg .gt_indent_2 {
   text-indent: 10px;
 }
 
-#wkamkmknck .gt_indent_3 {
+#koxekvwcgg .gt_indent_3 {
   text-indent: 15px;
 }
 
-#wkamkmknck .gt_indent_4 {
+#koxekvwcgg .gt_indent_4 {
   text-indent: 20px;
 }
 
-#wkamkmknck .gt_indent_5 {
+#koxekvwcgg .gt_indent_5 {
   text-indent: 25px;
+}
+
+#koxekvwcgg .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#koxekvwcgg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
@@ -1168,37 +1169,44 @@ been recorded in King George Square.</p>
 <tr>
 <td headers="decimalLatitude" class="gt_row gt_right">-27.46862</td>
 <td headers="decimalLongitude" class="gt_row gt_right">153.0243</td>
-<td headers="eventDate" class="gt_row gt_right">2006-03-29 23:32:00</td>
+<td headers="eventDate" class="gt_row gt_right">2006-03-30 09:32:00</td>
 <td headers="scientificName" class="gt_row gt_left">Threskiornis moluccus</td>
 <td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td>
 </tr>
 <tr>
 <td headers="decimalLatitude" class="gt_row gt_right">-27.46861</td>
 <td headers="decimalLongitude" class="gt_row gt_right">153.0244</td>
-<td headers="eventDate" class="gt_row gt_right">2023-12-01 23:12:02</td>
+<td headers="eventDate" class="gt_row gt_right">2023-12-02 09:12:02</td>
 <td headers="scientificName" class="gt_row gt_left">Cosmophasis baehrae</td>
 <td headers="vernacularName" class="gt_row gt_left">NA</td>
 </tr>
 <tr>
 <td headers="decimalLatitude" class="gt_row gt_right">-27.46855</td>
 <td headers="decimalLongitude" class="gt_row gt_right">153.0239</td>
-<td headers="eventDate" class="gt_row gt_right">2024-02-03 10:45:00</td>
+<td headers="eventDate" class="gt_row gt_right">2024-02-03 20:45:00</td>
 <td headers="scientificName" class="gt_row gt_left">Mediastinia</td>
 <td headers="vernacularName" class="gt_row gt_left">NA</td>
 </tr>
 <tr>
 <td headers="decimalLatitude" class="gt_row gt_right">-27.46851</td>
 <td headers="decimalLongitude" class="gt_row gt_right">153.0238</td>
-<td headers="eventDate" class="gt_row gt_right">2023-04-08 07:49:00</td>
+<td headers="eventDate" class="gt_row gt_right">2023-04-08 17:49:00</td>
 <td headers="scientificName" class="gt_row gt_left">Entomyzon cyanotis</td>
 <td headers="vernacularName" class="gt_row gt_left">Blue-faced Honeyeater</td>
 </tr>
 <tr>
 <td headers="decimalLatitude" class="gt_row gt_right">-27.46842</td>
 <td headers="decimalLongitude" class="gt_row gt_right">153.0241</td>
-<td headers="eventDate" class="gt_row gt_right">2022-08-30 01:29:00</td>
+<td headers="eventDate" class="gt_row gt_right">2022-08-30 11:29:00</td>
 <td headers="scientificName" class="gt_row gt_left">Threskiornis moluccus</td>
 <td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td>
+</tr>
+<tr>
+<td headers="decimalLatitude" class="gt_row gt_right">-27.46836</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0241</td>
+<td headers="eventDate" class="gt_row gt_right">2024-08-28 10:31:54</td>
+<td headers="scientificName" class="gt_row gt_left">Vitellus</td>
+<td headers="vernacularName" class="gt_row gt_left">NA</td>
 </tr>
 <tr>
 <td headers="decimalLatitude" class="gt_row gt_right">-27.46833</td>
@@ -1207,19 +1215,40 @@ been recorded in King George Square.</p>
 <td headers="scientificName" class="gt_row gt_left">Threskiornis moluccus</td>
 <td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td>
 </tr>
+<tr>
+<td headers="decimalLatitude" class="gt_row gt_right">-27.46831</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0241</td>
+<td headers="eventDate" class="gt_row gt_right">2024-10-13 14:34:00</td>
+<td headers="scientificName" class="gt_row gt_left">Threskiornis moluccus</td>
+<td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td>
+</tr>
+<tr>
+<td headers="decimalLatitude" class="gt_row gt_right">-27.46830</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0240</td>
+<td headers="eventDate" class="gt_row gt_right">2024-10-13 14:35:00</td>
+<td headers="scientificName" class="gt_row gt_left">Gymnorhina tibicen</td>
+<td headers="vernacularName" class="gt_row gt_left">Australian Magpie</td>
+</tr>
+<tr>
+<td headers="decimalLatitude" class="gt_row gt_right">-27.46817</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0240</td>
+<td headers="eventDate" class="gt_row gt_right">2024-07-23 10:00:53</td>
+<td headers="scientificName" class="gt_row gt_left">Threskiornis moluccus</td>
+<td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td>
+</tr>
 </tbody>
 </table>
 </div>
-<p>There is a second argument of <code><a href="../reference/galah_geolocate.html">galah_geolocate()</a></code> called
+<p>There is a second argument of <code><a href="../reference/geolocate.html">geolocate()</a></code> called
 <code>type</code>, which defaults to value <code>"polygon"</code>. By
 setting the <code>type</code> argument to <code>"bbox"</code>, the
 provided <code>POLYGON</code> or <code>MULTIPOLYGON</code> will be
 converted into the smallest bounding box (rectangle) that contains the
 <code>POLYGON</code>. In this case, records will be included that may
 not exactly lie inside the provided shape.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_geolocate.html">galah_geolocate</a></span><span class="op">(</span><span class="va">king_george_sq</span>, type <span class="op">=</span> <span class="st">"bbox"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/geolocate.html">geolocate</a></span><span class="op">(</span><span class="va">king_george_sq</span>, type <span class="op">=</span> <span class="st">"bbox"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">decimalLatitude</span>, </span>
 <span>         <span class="va">decimalLongitude</span>, </span>
 <span>         <span class="va">eventDate</span>, </span>
@@ -1230,23 +1259,23 @@ not exactly lie inside the provided shape.</p>
 <span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Data returned for bounding box:</span></span>
 <span><span class="co">## xmin = 153.0236 xmax = 153.0248 ymin = -27.46896 ymax = -27.46789</span></span></code></pre>
-<div id="isqsxhfmij" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#isqsxhfmij table {
+<div id="whxugclisi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#whxugclisi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#isqsxhfmij thead, #isqsxhfmij tbody, #isqsxhfmij tfoot, #isqsxhfmij tr, #isqsxhfmij td, #isqsxhfmij th {
+#whxugclisi thead, #whxugclisi tbody, #whxugclisi tfoot, #whxugclisi tr, #whxugclisi td, #whxugclisi th {
   border-style: none;
 }
 
-#isqsxhfmij p {
+#whxugclisi p {
   margin: 0;
   padding: 0;
 }
 
-#isqsxhfmij .gt_table {
+#whxugclisi .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1272,12 +1301,12 @@ not exactly lie inside the provided shape.</p>
   border-left-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_caption {
+#whxugclisi .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#isqsxhfmij .gt_title {
+#whxugclisi .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1289,7 +1318,7 @@ not exactly lie inside the provided shape.</p>
   border-bottom-width: 0;
 }
 
-#isqsxhfmij .gt_subtitle {
+#whxugclisi .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1301,7 +1330,7 @@ not exactly lie inside the provided shape.</p>
   border-top-width: 0;
 }
 
-#isqsxhfmij .gt_heading {
+#whxugclisi .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1313,13 +1342,13 @@ not exactly lie inside the provided shape.</p>
   border-right-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_bottom_border {
+#whxugclisi .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_col_headings {
+#whxugclisi .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1334,7 +1363,7 @@ not exactly lie inside the provided shape.</p>
   border-right-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_col_heading {
+#whxugclisi .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1354,7 +1383,7 @@ not exactly lie inside the provided shape.</p>
   overflow-x: hidden;
 }
 
-#isqsxhfmij .gt_column_spanner_outer {
+#whxugclisi .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1366,15 +1395,15 @@ not exactly lie inside the provided shape.</p>
   padding-right: 4px;
 }
 
-#isqsxhfmij .gt_column_spanner_outer:first-child {
+#whxugclisi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#isqsxhfmij .gt_column_spanner_outer:last-child {
+#whxugclisi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#isqsxhfmij .gt_column_spanner {
+#whxugclisi .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1386,11 +1415,11 @@ not exactly lie inside the provided shape.</p>
   width: 100%;
 }
 
-#isqsxhfmij .gt_spanner_row {
+#whxugclisi .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#isqsxhfmij .gt_group_heading {
+#whxugclisi .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1416,7 +1445,7 @@ not exactly lie inside the provided shape.</p>
   text-align: left;
 }
 
-#isqsxhfmij .gt_empty_group_heading {
+#whxugclisi .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1431,15 +1460,15 @@ not exactly lie inside the provided shape.</p>
   vertical-align: middle;
 }
 
-#isqsxhfmij .gt_from_md > :first-child {
+#whxugclisi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#isqsxhfmij .gt_from_md > :last-child {
+#whxugclisi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#isqsxhfmij .gt_row {
+#whxugclisi .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1458,7 +1487,7 @@ not exactly lie inside the provided shape.</p>
   overflow-x: hidden;
 }
 
-#isqsxhfmij .gt_stub {
+#whxugclisi .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1471,7 +1500,7 @@ not exactly lie inside the provided shape.</p>
   padding-right: 5px;
 }
 
-#isqsxhfmij .gt_stub_row_group {
+#whxugclisi .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1485,15 +1514,15 @@ not exactly lie inside the provided shape.</p>
   vertical-align: top;
 }
 
-#isqsxhfmij .gt_row_group_first td {
+#whxugclisi .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#isqsxhfmij .gt_row_group_first th {
+#whxugclisi .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#isqsxhfmij .gt_summary_row {
+#whxugclisi .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1503,16 +1532,16 @@ not exactly lie inside the provided shape.</p>
   padding-right: 5px;
 }
 
-#isqsxhfmij .gt_first_summary_row {
+#whxugclisi .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_first_summary_row.thick {
+#whxugclisi .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#isqsxhfmij .gt_last_summary_row {
+#whxugclisi .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1522,7 +1551,7 @@ not exactly lie inside the provided shape.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_grand_summary_row {
+#whxugclisi .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1532,7 +1561,7 @@ not exactly lie inside the provided shape.</p>
   padding-right: 5px;
 }
 
-#isqsxhfmij .gt_first_grand_summary_row {
+#whxugclisi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1542,7 +1571,7 @@ not exactly lie inside the provided shape.</p>
   border-top-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_last_grand_summary_row_top {
+#whxugclisi .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1552,11 +1581,11 @@ not exactly lie inside the provided shape.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_striped {
+#whxugclisi .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#isqsxhfmij .gt_table_body {
+#whxugclisi .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1565,7 +1594,7 @@ not exactly lie inside the provided shape.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_footnotes {
+#whxugclisi .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1579,7 +1608,7 @@ not exactly lie inside the provided shape.</p>
   border-right-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_footnote {
+#whxugclisi .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1588,7 +1617,7 @@ not exactly lie inside the provided shape.</p>
   padding-right: 5px;
 }
 
-#isqsxhfmij .gt_sourcenotes {
+#whxugclisi .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1602,7 +1631,7 @@ not exactly lie inside the provided shape.</p>
   border-right-color: #D3D3D3;
 }
 
-#isqsxhfmij .gt_sourcenote {
+#whxugclisi .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1610,64 +1639,73 @@ not exactly lie inside the provided shape.</p>
   padding-right: 5px;
 }
 
-#isqsxhfmij .gt_left {
+#whxugclisi .gt_left {
   text-align: left;
 }
 
-#isqsxhfmij .gt_center {
+#whxugclisi .gt_center {
   text-align: center;
 }
 
-#isqsxhfmij .gt_right {
+#whxugclisi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#isqsxhfmij .gt_font_normal {
+#whxugclisi .gt_font_normal {
   font-weight: normal;
 }
 
-#isqsxhfmij .gt_font_bold {
+#whxugclisi .gt_font_bold {
   font-weight: bold;
 }
 
-#isqsxhfmij .gt_font_italic {
+#whxugclisi .gt_font_italic {
   font-style: italic;
 }
 
-#isqsxhfmij .gt_super {
+#whxugclisi .gt_super {
   font-size: 65%;
 }
 
-#isqsxhfmij .gt_footnote_marks {
+#whxugclisi .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#isqsxhfmij .gt_asterisk {
+#whxugclisi .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#isqsxhfmij .gt_indent_1 {
+#whxugclisi .gt_indent_1 {
   text-indent: 5px;
 }
 
-#isqsxhfmij .gt_indent_2 {
+#whxugclisi .gt_indent_2 {
   text-indent: 10px;
 }
 
-#isqsxhfmij .gt_indent_3 {
+#whxugclisi .gt_indent_3 {
   text-indent: 15px;
 }
 
-#isqsxhfmij .gt_indent_4 {
+#whxugclisi .gt_indent_4 {
   text-indent: 20px;
 }
 
-#isqsxhfmij .gt_indent_5 {
+#whxugclisi .gt_indent_5 {
   text-indent: 25px;
+}
+
+#whxugclisi .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#whxugclisi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
@@ -1689,7 +1727,7 @@ not exactly lie inside the provided shape.</p>
 <tr>
 <td headers="decimalLatitude" class="gt_row gt_right">-27.46882</td>
 <td headers="decimalLongitude" class="gt_row gt_right">153.0236</td>
-<td headers="eventDate" class="gt_row gt_right">2019-04-21 04:40:00</td>
+<td headers="eventDate" class="gt_row gt_right">2019-04-21 14:40:00</td>
 <td headers="scientificName" class="gt_row gt_left">Threskiornis moluccus</td>
 <td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td>
 </tr>
@@ -1701,53 +1739,53 @@ not exactly lie inside the provided shape.</p>
 <td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td>
 </tr>
 <tr>
-<td headers="decimalLatitude" class="gt_row gt_right">-27.46862</td>
-<td headers="decimalLongitude" class="gt_row gt_right">153.0243</td>
-<td headers="eventDate" class="gt_row gt_right">2006-03-29 23:32:00</td>
-<td headers="scientificName" class="gt_row gt_left">Threskiornis moluccus</td>
-<td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td>
-</tr>
-<tr>
-<td headers="decimalLatitude" class="gt_row gt_right">-27.46861</td>
-<td headers="decimalLongitude" class="gt_row gt_right">153.0244</td>
-<td headers="eventDate" class="gt_row gt_right">2023-12-01 23:12:02</td>
-<td headers="scientificName" class="gt_row gt_left">Cosmophasis baehrae</td>
-<td headers="vernacularName" class="gt_row gt_left">NA</td>
-</tr>
-<tr>
-<td headers="decimalLatitude" class="gt_row gt_right">-27.46855</td>
-<td headers="decimalLongitude" class="gt_row gt_right">153.0239</td>
-<td headers="eventDate" class="gt_row gt_right">2024-02-03 10:45:00</td>
-<td headers="scientificName" class="gt_row gt_left">Mediastinia</td>
-<td headers="vernacularName" class="gt_row gt_left">NA</td>
-</tr>
-<tr>
-<td headers="decimalLatitude" class="gt_row gt_right">-27.46851</td>
+<td headers="decimalLatitude" class="gt_row gt_right">-27.46868</td>
 <td headers="decimalLongitude" class="gt_row gt_right">153.0238</td>
-<td headers="eventDate" class="gt_row gt_right">2023-04-08 07:49:00</td>
-<td headers="scientificName" class="gt_row gt_left">Entomyzon cyanotis</td>
-<td headers="vernacularName" class="gt_row gt_left">Blue-faced Honeyeater</td>
+<td headers="eventDate" class="gt_row gt_right">2024-07-15 15:00:18</td>
+<td headers="scientificName" class="gt_row gt_left">Pseudanapaea denotata</td>
+<td headers="vernacularName" class="gt_row gt_left">NA</td>
 </tr>
 <tr>
-<td headers="decimalLatitude" class="gt_row gt_right">-27.46842</td>
-<td headers="decimalLongitude" class="gt_row gt_right">153.0241</td>
-<td headers="eventDate" class="gt_row gt_right">2022-08-30 01:29:00</td>
-<td headers="scientificName" class="gt_row gt_left">Threskiornis moluccus</td>
-<td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td>
+<td headers="decimalLatitude" class="gt_row gt_right">-27.46868</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0238</td>
+<td headers="eventDate" class="gt_row gt_right">2024-01-13 15:07:42</td>
+<td headers="scientificName" class="gt_row gt_left">Tenodera australasiae</td>
+<td headers="vernacularName" class="gt_row gt_left">Purplewinged Mantid</td>
 </tr>
 <tr>
-<td headers="decimalLatitude" class="gt_row gt_right">-27.46833</td>
-<td headers="decimalLongitude" class="gt_row gt_right">153.0241</td>
-<td headers="eventDate" class="gt_row gt_right">2022-07-24 14:43:00</td>
-<td headers="scientificName" class="gt_row gt_left">Threskiornis moluccus</td>
-<td headers="vernacularName" class="gt_row gt_left">Australian White Ibis</td>
+<td headers="decimalLatitude" class="gt_row gt_right">-27.46868</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0238</td>
+<td headers="eventDate" class="gt_row gt_right">2024-01-13 15:04:53</td>
+<td headers="scientificName" class="gt_row gt_left">Pristhesancus plagipennis</td>
+<td headers="vernacularName" class="gt_row gt_left">Bee-killer</td>
 </tr>
 <tr>
-<td headers="decimalLatitude" class="gt_row gt_right">-27.46806</td>
-<td headers="decimalLongitude" class="gt_row gt_right">153.0239</td>
-<td headers="eventDate" class="gt_row gt_right">NA</td>
-<td headers="scientificName" class="gt_row gt_left">Syntrichia laevipila</td>
-<td headers="vernacularName" class="gt_row gt_left">Screw Moss</td>
+<td headers="decimalLatitude" class="gt_row gt_right">-27.46868</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0238</td>
+<td headers="eventDate" class="gt_row gt_right">2024-01-13 15:06:26</td>
+<td headers="scientificName" class="gt_row gt_left">Toxorhynchites (Toxorhynchites) speciosus</td>
+<td headers="vernacularName" class="gt_row gt_left">NA</td>
+</tr>
+<tr>
+<td headers="decimalLatitude" class="gt_row gt_right">-27.46868</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0238</td>
+<td headers="eventDate" class="gt_row gt_right">2024-01-13 12:20:00</td>
+<td headers="scientificName" class="gt_row gt_left">Xixuthrus</td>
+<td headers="vernacularName" class="gt_row gt_left">NA</td>
+</tr>
+<tr>
+<td headers="decimalLatitude" class="gt_row gt_right">-27.46868</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0238</td>
+<td headers="eventDate" class="gt_row gt_right">2024-07-15 12:12:27</td>
+<td headers="scientificName" class="gt_row gt_left">Columba (Columba) livia</td>
+<td headers="vernacularName" class="gt_row gt_left">Rock Dove</td>
+</tr>
+<tr>
+<td headers="decimalLatitude" class="gt_row gt_right">-27.46868</td>
+<td headers="decimalLongitude" class="gt_row gt_right">153.0238</td>
+<td headers="eventDate" class="gt_row gt_right">2024-01-13 15:07:42</td>
+<td headers="scientificName" class="gt_row gt_left">Lyramorpha (Lyramorpha) rosea</td>
+<td headers="vernacularName" class="gt_row gt_left">Litchi Stink Bug</td>
 </tr>
 </tbody>
 </table>
@@ -1762,24 +1800,22 @@ be accepted by the ALA. In the event you have a large shapefile, using
 the data that is downloaded, before finer filtering to the actual
 shapefile will obtain the desired set of occurrences. Alternatively, one
 can also perform the <code>"bbox"</code> reduction before passing the
-shape to <code><a href="../reference/galah_geolocate.html">galah_geolocate()</a></code> by using
+shape to <code><a href="../reference/geolocate.html">geolocate()</a></code> by using
 <code><a href="https://r-spatial.github.io/sf/reference/st_bbox.html" class="external-link">sf::st_bbox()</a></code>.</p>
 <p>A common situation for this to occur is when a shapefile with
 multiple shapes is provided, where we are interested in grouping our
 results by each shape. Here is a mock workflow using a subset of a
-shapefile of <a href="https://www.data.brisbane.qld.gov.au/data/dataset/park-locations" class="external-link">all
-2,184 Brisbane parks</a>.</p>
+shapefile of all 2,184 Brisbane parks.</p>
 <p>Let’s say we are interested in knowing which parks in the Brisbane
-postcode 4075 have the most occurrences of the Scaly-Breasted Lorikeet,
-<a href="https://bie.ala.org.au//species/https://biodiversity.org.au/afd/taxa/ecaca7ec-da2e-4c6b-b190-14e7a1738884" class="external-link"><em>Trichoglossus
-chlorolepidotus</em></a>, since 2020. We can download the entire
-shapefile from the above link, and perform our filtering and summarising
-as follows:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+postcode 4075 have the most occurrences of the Scaly-Breasted Lorikeet
+(<em>Trichoglossus chlorolepidotus</em>) since 2020. We can download the
+entire shapefile from the link above, and perform our filtering and
+summarising as follows:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">brisbane_parks</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">st_read</a></span><span class="op">(</span><span class="st">"path/to/Park___Locations.shp"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html" class="external-link">st_make_valid</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">POST_CODE</span> <span class="op">==</span> <span class="fl">4075</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Convert shapefile to a bounding box</span></span>
 <span><span class="va">brisbane_parks_bbox</span> <span class="op">&lt;-</span> <span class="va">brisbane_parks</span> <span class="op">|&gt;</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_bbox.html" class="external-link">st_bbox</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -1787,17 +1823,18 @@ as follows:</p>
 <span><span class="va">lorikeet_brisbane</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">scientificName</span> <span class="op">==</span> <span class="st">"Trichoglossus chlorolepidotus"</span>, </span>
 <span>         <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_geolocate.html">galah_geolocate</a></span><span class="op">(</span><span class="va">brisbane_parks_bbox</span>, type <span class="op">=</span> <span class="st">"bbox"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/geolocate.html">geolocate</a></span><span class="op">(</span><span class="va">brisbane_parks_bbox</span>, type <span class="op">=</span> <span class="st">"bbox"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Data returned for bounding box:</span></span>
-<span><span class="co">## xmin = 152.96331 xmax = 152.99668 ymin = -27.57737 ymax = -27.51606</span></span></code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<span><span class="co">## xmin = 152.96331 xmax = 152.99668 ymin = -27.57737 ymax = -27.51606</span></span>
+<span><span class="co">## Retrying in 1 seconds.</span></span></code></pre>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Filter records down to only those in the shapefile polygons</span></span>
 <span><span class="va">lorikeet_brisbane</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># Create a point geometry based on the occurrence coordinates</span></span>
 <span>  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span>coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"decimalLongitude"</span>, <span class="st">"decimalLatitude"</span><span class="op">)</span>, crs <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_crs</a></span><span class="op">(</span><span class="va">brisbane_parks</span><span class="op">)</span>, remove <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># identify which park each occurrence sits in with st_intersects()</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>intersection <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_pred.html" class="external-link">st_intersects</a></span><span class="op">(</span><span class="va">geometry</span>, <span class="va">brisbane_parks</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>intersection <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_pred.html" class="external-link">st_intersects</a></span><span class="op">(</span><span class="va">geometry</span>, <span class="va">brisbane_parks</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>         park <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">intersection</span><span class="op">)</span>, <span class="cn">NA</span>, <span class="va">brisbane_parks</span><span class="op">$</span><span class="va">PARK_NAME</span><span class="op">[</span><span class="va">intersection</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># Filter out occurrences that did not occur in a park</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">park</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1805,22 +1842,22 @@ as follows:</p>
 <span>  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_drop_geometry</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># Summarise the top 10 parks for lorikeet sightings in 2022</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">park</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">summarise</span><span class="op">(</span>counts <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>counts <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="../reference/tidyverse_functions.html">desc</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 10 × 2</span></span>
 <span><span class="co">##    park                           counts</span></span>
 <span><span class="co">##    &lt;chr&gt;                           &lt;int&gt;</span></span>
-<span><span class="co">##  1 SHERWOOD ARBORETUM                276</span></span>
-<span><span class="co">##  2 NYUNDARE-BA PARK                  271</span></span>
-<span><span class="co">##  3 FAULKNER PARK                      51</span></span>
-<span><span class="co">##  4 STRICKLAND TERRACE PARK            33</span></span>
-<span><span class="co">##  5 FORT ROAD BUSHLAND                 31</span></span>
-<span><span class="co">##  6 GRACEVILLE RIVERSIDE PARKLANDS     31</span></span>
-<span><span class="co">##  7 BENARRAWA RESERVE                  19</span></span>
-<span><span class="co">##  8 NOSWORTHY PARK                     16</span></span>
-<span><span class="co">##  9 HORACE WINDOW RESERVE               9</span></span>
-<span><span class="co">## 10 GRACEVILLE AVENUE PARK              6</span></span></code></pre>
+<span><span class="co">##  1 NYUNDARE-BA PARK                  552</span></span>
+<span><span class="co">##  2 SHERWOOD ARBORETUM                472</span></span>
+<span><span class="co">##  3 FAULKNER PARK                      64</span></span>
+<span><span class="co">##  4 FORT ROAD BUSHLAND                 46</span></span>
+<span><span class="co">##  5 STRICKLAND TERRACE PARK            44</span></span>
+<span><span class="co">##  6 BENARRAWA RESERVE                  34</span></span>
+<span><span class="co">##  7 GRACEVILLE RIVERSIDE PARKLANDS     32</span></span>
+<span><span class="co">##  8 NOSWORTHY PARK                     17</span></span>
+<span><span class="co">##  9 HORACE WINDOW RESERVE              14</span></span>
+<span><span class="co">## 10 GRACEVILLE AVENUE PARK              7</span></span></code></pre>
 <p>Some shapefiles cover large geographic areas with the caveat that
 even the bounding box doesn’t restrict the number of records to a value
 that can be downloaded easily. In this case, we recommend more nuances
@@ -1830,28 +1867,26 @@ maps for species occurrence data</a>, has been written detailing how to
 approach larger problems such as this.</p>
 </div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p>
-<p>Developed by Martin Westgate, Matilda Stevenson, Dax Kellie, Peggy Newman.</p>
+  <p>Developed by Martin Westgate, Dax Kellie, Matilda Stevenson, Peggy Newman.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.8.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>
