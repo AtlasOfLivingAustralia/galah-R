@@ -46,13 +46,12 @@ with other methods of spatial filtering. These fields are all able to be queried
 with `filter()`and so they are generally easier to use.
 
 Suppose we are interested in querying records of the Red-Necked Avocet 
-([*Recurvirostra novaehollandiae*](https://bie.ala.org.au/species/https://biodiversity.org.au/afd/taxa/c69e7308-527a-429d-a80d-143bd20b5100)) 
-in a particular protected wetlands, the Coorong wetlands in South Australia. We 
-can search the ALA fields for wetlands.
+(*Recurvirostra novaehollandiae*) in the Coorong wetlands in South Australia. 
+We can search the ALA fields for wetlands.
 
 ```{r, output = FALSE, message = FALSE, warning = FALSE}
 library(galah)
-library(tidyverse)
+library(dplyr)
 library(gt)
 library(sf)
 ```
@@ -95,8 +94,8 @@ transforming them with `sf::st_as_sfc()`.
 
 For instance, we might interested in species occurrences in King George Square, 
 Brisbane. We can take the `MULTIPOLYGON` object for the square (as sourced from 
-the [Brisbane City Council](https://data.brisbane.qld.gov.au/data/dataset/park-locations)) 
-and transform it into `sfc` and then `sf` objects.
+the [Brisbane City Council](https://data.brisbane.qld.gov.au/pages/home/
+)) and transform it into `sfc` and then `sf` objects.
 
 ```{r}
 king_george_sq <- "MULTIPOLYGON(((153.0243 -27.46886, 153.0242 -27.46896, 153.0236 -27.46837, 153.0239 -27.46814, 153.0239 -27.46813, 153.0242 -27.46789, 153.0244 -27.46805, 153.0245 -27.46821, 153.0246 -27.46828, 153.0247 -27.46835, 153.0248 -27.46848, 153.0246 -27.4686, 153.0246 -27.46862, 153.0245 -27.46871, 153.0243 -27.46886)))" |>
@@ -152,8 +151,7 @@ obtain the desired set of occurrences. Alternatively, one can also perform the
 
 A common situation for this to occur is when a shapefile with multiple shapes is 
 provided, where we are interested in grouping our results by each shape. Here is 
-a mock workflow using a subset of a shapefile of 
-[all 2,184 Brisbane parks](https://www.data.brisbane.qld.gov.au/data/dataset/park-locations).
+a mock workflow using a subset of a shapefile of all 2,184 Brisbane parks.
 
 Let's say we are interested in knowing which parks in the Brisbane postcode 4075 
 have the most occurrences of the Scaly-Breasted Lorikeet (*Trichoglossus 
