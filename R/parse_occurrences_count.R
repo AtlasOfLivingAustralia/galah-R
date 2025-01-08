@@ -225,7 +225,11 @@ check_facet_count <- function(.query, warn = TRUE, error_call = caller_env()){
   temp_data$url <- url_build(url)
   temp_data$slot_name <- NULL
   result <- query_API(temp_data)
-  lapply(result, function(a){a$count}) |> unlist()
+  if(length(result) < 1){
+    0
+  }else{
+    lapply(result, function(a){a$count}) |> unlist()
+  }
   # if(inherits(result, "data.frame")){ # group_by arg present
   #   n_available <- result$count
   #   if(length(n_available) > 1){ # is this correct? What about multiple fields?

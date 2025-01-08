@@ -51,6 +51,18 @@ test_that("atlas_counts returns all counts if no limit is provided", {
   expect_gte(nrow(counts), 5)
 })
 
+test_that("atlas_counts returns an empty tibble if number of records = 0", {
+  skip_if_offline()
+  counts <- galah_call() |>
+    filter(year < 1900 & year > 2000) |>
+    count() |>
+    group_by(species) |>
+    collect()
+  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(nrow(counts), 0)
+  expect_equal(ncol(counts), 0)
+})
+
 test_that("grouped atlas_counts for species returns expected output", {
   skip_if_offline()
   counts <- galah_call() |>

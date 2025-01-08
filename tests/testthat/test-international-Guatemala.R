@@ -146,6 +146,20 @@ test_that("atlas_counts works with group_by for Guatemala", {
   expect_equal(names(result), c("basis_of_record", "count"))
 })
 
+test_that("atlas_counts works with group_by for Guatemala when count = 0", {
+  skip_if_offline()
+  result <- galah_call() |>
+    identify("Mammalia") |>
+    filter(!is.na(all_image_url)) |>
+    group_by("family") |>
+    count() |>
+    collect() |>
+    try(silent = TRUE)
+  skip_if(inherits(result, "try-error"), message = "API not available")
+  expect_equal(nrow(result), 0)
+  expect_equal(ncol(result), 0)
+})
+
 test_that("atlas_species fails for Guatemala due to unavailable API", {
   skip_if_offline()
   galah_config(
