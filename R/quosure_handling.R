@@ -106,8 +106,12 @@ concatenate_assertions <- function(df, logical){
 #' @noRd
 #' @keywords Internal
 clean_logical_statements <- function(df){
-  or_lookup <- grepl("\\sOR\\s", df$query) # add AND here?
-  if(any(or_lookup)){
+  or_lookup <- 
+    grepl("\\sOR\\s", df$query) & # OR statements
+    !grepl("^-\\(", df$query)    # but not negative statements
+  # browser()
+  if(any(or_lookup) && 
+     length(df$query) > 1){ # multiple OR + AND queries require ORs to have extra brackets
     or_strings <- df$query[which(or_lookup)]
     df$query[which(or_lookup)] <- glue("({or_strings})") |>
       as.character()
