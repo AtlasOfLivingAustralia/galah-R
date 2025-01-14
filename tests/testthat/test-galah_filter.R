@@ -362,6 +362,14 @@ test_that("`galah_filter()` handles multiple values with brackets correctly", {
   expect_match(filter, "\\(scientificName:\\\"Aviceda \\(Aviceda\\) subcristata\\\"\\)")
 })
 
+test_that("galah_filter builds correct query with `!`, `%in%`, `c()` and `identify()`", {    
+  ibra_subset <- c("Brigalow Belt North", "Brigalow Belt South", "Central Mackay Coast")
+  query <- request_data(type = "occurrences-count") |> 
+    identify("Crinia signifera") |>
+    filter(!cl1048 %in% ibra_subset)
+  expect_equal(query$filter$query, c("-(cl1048:\"Brigalow Belt North\") OR -(cl1048:\"Brigalow Belt South\") OR -(cl1048:\"Central Mackay Coast\")"))
+})
+
 test_that("`galah_filter()` accepts {{}} on lhs of formula", {
   skip_if_offline()
   field <- "species"
