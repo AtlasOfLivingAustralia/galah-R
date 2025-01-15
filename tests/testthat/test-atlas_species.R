@@ -93,3 +93,22 @@ test_that("collapse works when no `filter()` is supplied", {
     collapse()})
   expect_s3_class(x, "query")
 })
+
+test_that("atlas_species reformats column names when empty tibble is returned", {
+  skip_if_offline()
+  galah_config(run_checks = TRUE)
+  
+  # No matching species expected, an empty tibble should be returned
+  species <- galah_call() |> 
+    identify("sarcopterygii") |> 
+    filter(cl1048 == "Wet Tropics") |> 
+    atlas_species()
+  expected_cols <- c("taxon_concept_id", "species_name",
+                     "scientific_name_authorship", "taxon_rank",
+                     "kingdom", "phylum", "class", "order", "family",
+                     "genus", "vernacular_name")
+  
+  expect_setequal(names(species), expected_cols)
+  expect_equal(nrow(species), 0)
+  expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
+})
