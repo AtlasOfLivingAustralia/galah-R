@@ -2,8 +2,8 @@ region,institution,acronym,url,supported
 Australia,Atlas of Living Australia,ALA,https://www.ala.org.au,TRUE
 Austria,Biodiversitäts-Atlas Österreich,BAO,https://biodiversityatlas.at,TRUE
 Brazil,Sistemas de Informações sobre a Biodiversidade Brasileira,SiBBr,https://sibbr.gov.br,TRUE
-Estonia,eElurikkus,NA,https://elurikkus.ee,FALSE
-France,Portail fran�ais d'acc�s aux donn�es d'observation sur les esp�ces,OpenObs,https://openobs.mnhn.fr,TRUE
+Flanders,Vlaams Biodiversiteitsportaal,VB,https://natuurdata.dev.inbo.be,TRUE
+France,Portail français d'accès aux données d'observation sur les espèces,OpenObs,https://openobs.mnhn.fr,TRUE
 Global,Global Biodiversity Information Facility,GBIF,https://gbif.org,TRUE
 Guatemala,Sistema Nacional de Información sobre Diversidad Biológica de Guatemala,SNIBgt,https://snib.conap.gob.gt,TRUE
 Portugal,GBIF Portugal,GBIF.pt,https://www.gbif.pt,TRUE
@@ -12,12 +12,13 @@ Sweden,Swedish Biodiversity Data Infrastructure,SBDI,https://biodiversitydata.se
 United Kingdom,National Biodiversity Network,NBN,https://nbn.org.uk,TRUE
 Canada,Candensys,NA,http://www.canadensys.net,FALSE
 Colombia,Sistema de Información sobre Biodiversidad de Colombia,SiB Colombia,https://biodiversidad.co/,FALSE
-United States and Territories,GBIF US,GBIF.us,https://gbif.us/,FALSE
-North America,GBIF North America Region,NA,https://www.gbif-north-america.org,FALSE
+Estonia,eElurikkus,NA,https://elurikkus.ee,FALSE
 Germany,Virtuelles Herbarium Deutschland,VHD,https://herbarium.gbif.de/,FALSE
-Netherlands,Virtual Collection of the Natural History Museum Rotterdam,NA,https://specimens.hetnatuurhistorisch.nl/,FALSE
 Global,Legume Data Portal,LDP,https://www.legumedata.org/,FALSE
+Netherlands,Virtual Collection of the Natural History Museum Rotterdam,NA,https://specimens.hetnatuurhistorisch.nl/,FALSE
+North America,GBIF North America Region,NA,https://www.gbif-north-america.org,FALSE
 Norway,Living Norway,LN,https://data.livingnorway.no/,FALSE
-South Africa,South African National Biodiversity Institute,SANBI-GBIF,https://www.sanbi-gbif.org/,FALSE
 Pacific,Pacific Biodiversity Information Facility,PBIF,https://pbif.sprep.org/,FALSE
+South Africa,South African National Biodiversity Institute,SANBI-GBIF,https://www.sanbi-gbif.org/,FALSE
+United States and Territories,GBIF US,GBIF.us,https://gbif.us/,FALSE
 Vermont,Vermont Atlas of Life,VAL,https://val.vtecostudies.org,FALSE
