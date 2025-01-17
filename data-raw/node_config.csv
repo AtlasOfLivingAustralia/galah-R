@@ -73,7 +73,7 @@ Estonia,metadata/fields-unnest,https://elurikkus.ee/biocache-service/occurrence/
 Estonia,metadata/providers,https://elurikkus.ee/collectory/ws/dataProvider,TRUE
 Estonia,metadata/taxa-single,https://elurikkus.ee/bie-index/search?q={name}&pageSize=5,TRUE
 Estonia,metadata/taxa-unnest,https://elurikkus.ee/bie-index/childConcepts/{id},TRUE
-Flanders,metadata/taxa-unnest,https://natuurdata.dev.inbo.be/bie-index/openapi/childConcepts/{id},TRUE
+Flanders,metadata/taxa-unnest,https://natuurdata.dev.inbo.be/bie-index/childConcepts/{id},TRUE
 Flanders,metadata/assertions,https://natuurdata.dev.inbo.be/biocache-service/assertions/codes,TRUE
 Flanders,metadata/fields,https://natuurdata.dev.inbo.be/biocache-service/index/fields,TRUE
 Flanders,data/occurrences-count-groupby,https://natuurdata.dev.inbo.be/biocache-service/occurrence/facets,TRUE
