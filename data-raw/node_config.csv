@@ -76,6 +76,8 @@ Estonia,metadata/taxa-unnest,https://elurikkus.ee/bie-index/childConcepts/{id},T
 Flanders,metadata/taxa-unnest,https://natuurdata.dev.inbo.be/bie-index/childConcepts/{id},TRUE
 Flanders,metadata/assertions,https://natuurdata.dev.inbo.be/biocache-service/assertions/codes,TRUE
 Flanders,metadata/fields,https://natuurdata.dev.inbo.be/biocache-service/index/fields,TRUE
+Flanders,metadata/profiles,https://natuurdata.dev.inbo.be/dqf-service/api/v1/data-profiles/,TRUE
+Flanders,metadata/profiles-unnest,https://natuurdata.dev.inbo.be/dqf-service/api/v1/quality/activeProfile?profileName={profile},TRUE
 Flanders,data/occurrences-count-groupby,https://natuurdata.dev.inbo.be/biocache-service/occurrence/facets,TRUE
 Flanders,data/species-count-,https://natuurdata.dev.inbo.be/biocache-service/occurrence/facets,TRUE
 Flanders,data/metadata/fields-unnest,https://natuurdata.dev.inbo.be/biocache-service/occurrence/facets,TRUE
