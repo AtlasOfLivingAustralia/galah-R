@@ -170,6 +170,11 @@ collect_fields <- function(.query){
     if(!is.null(.query$url)){ # i.e. there is no cached `tibble`
       result <- query_API(.query) |>
         bind_rows() 
+      # if there is a 'stored' field, use it to filter results
+      if(any(colnames(result) == "stored")){
+        result <- result |> dplyr::filter(stored == TRUE)
+      }
+      # now mutate to required format
       result <- result |>
         mutate(id = result$name) |>
         select(all_of(wanted_columns("fields"))) |>
