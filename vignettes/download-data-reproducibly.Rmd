@@ -17,8 +17,8 @@ editor_options:
 
 Reproducible data downloads are important for a project's long-term use
 and longevity. Below we briefly discuss why galah queries aren't
-reproducible by default, how to make a data download reproducible and
-how to use this method download the same data again.
+reproducible by default, how to make a data download reproducible, and
+how to download the same data again in future.
 
 ## The trade-off of new data
 
@@ -28,19 +28,19 @@ up-to-date data available (yay!).
 
 Living Atlases, however, are constantly ingesting more data. These new
 data may be from within the last week, the last year, or the last
-hundred years, depending on the source. As a result, even if we run the same query, the data we
-download today may return a different result from the data we downloaded 
-yesterday! Frequent data ingestion means that although galah is useful
-because it downloads the latest data, galah won't necessarily return the
-same data every time we run the same query. How can we preserve the
-result returned by a query if the query always changes?
+hundred years, depending on the source. As a result, even if we run the 
+same query, the data we download today may return a different result from 
+the data we downloaded yesterday! Frequent data ingestion means that 
+although galah is useful because it downloads the latest data, galah 
+won't necessarily return the same data every time we run the same query. 
+How can we preserve the result returned by a query if the query always 
+changes?
 
 ## Generate a data DOI
 
 To make data downloads reproducible, galah allows us to mint a unique
 *DOI* (Digital Object Identifier) for a specific query and its
-subsequent result (NOTE: This functionality is currently supported only
-for queries to the Atlas of Living Australia).
+subsequent result.
 
 A DOI works very similarly to a url, in that it holds content that is
 accessed using a specific link. However, a url can "break" if the url is
@@ -53,6 +53,10 @@ In galah, you can also add a DOI to your download query. You just need
 to add `mint_doi = TRUE` to `atlas_occurrences()`. A unique DOI will be
 assigned to the resulting object once the query is run.
 
+Please note that this functionality is currently supported only for 
+queries to the Atlas of Living Australia. GBIF provides a DOI with every 
+download, but at the time of writing, they don't provide an API to use 
+that DOI to download the dataset a second time.
 
 
 ```{r}
