@@ -211,6 +211,28 @@ test_that("`atlas_occurrences()` places DOI in `attr()` correctly", {
   rm(cache_dir)
 })
 
+test_that("group_by works on occurrences", {
+  # compare group_by with atlas_species
+  x <- galah_call() |>
+    filter(year == 2024,
+           genus == "Crinia") |>
+    group_by(speciesID) |>
+    collect()
+  y <- galah_call() |>
+    filter(year == 2024,
+           genus == "Crinia") |>
+    atlas_species()
+  expect_equal(x, y)
+  # try with a different variable
+  z <- galah_call() |>
+    filter(year == 2024,
+           genus == "Crinia") |>
+    group_by(genusID) |>
+    collect()
+  expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
+  expect_equal(colnames(z)[1], "taxon_concept_id")
+})
+
 test_that("atlas_occurrences() doesn't return secret information", {
   skip_if_offline()
   RUN <- FALSE

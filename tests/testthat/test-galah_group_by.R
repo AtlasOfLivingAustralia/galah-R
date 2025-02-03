@@ -17,7 +17,6 @@ test_that("`group_by` fields are checked during `collapse()`", {
   galah_config(run_checks = FALSE)
 })
 
-## FIXME: results of single group_by are not a tibble
 test_that("grouped atlas_counts returns expected output", {
   skip_if_offline()
   counts <- galah_call() |>
@@ -28,7 +27,6 @@ test_that("grouped atlas_counts returns expected output", {
   expect_equal(names(counts), c("basisOfRecord", "count"))
 })
 
-## FIXME: results of single group_by are not a tibble
 test_that("grouped atlas_counts returns expected output when limit != NULL", {
   skip_if_offline()
   counts <- galah_call() |>

@@ -89,7 +89,13 @@ build_query_set_data <- function(x, mint_doi, ...){
   # handle query
   result[[(length(result) + 1)]] <- switch(
     x$type,
-    "occurrences" = collapse_occurrences(x),
+    "occurrences" = {
+      if(is.null(x$group_by)){
+        collapse_occurrences(x)  
+      }else{
+        collapse_species(x)
+      }
+    },
     "occurrences-count" = collapse_occurrences_count(x),
     "occurrences-doi" = collapse_occurrences_doi(x),
     "species" = collapse_species(x),

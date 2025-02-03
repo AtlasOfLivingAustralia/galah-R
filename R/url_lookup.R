@@ -18,7 +18,6 @@
 #' @importFrom utils URLencode
 #' @noRd
 #' @keywords internal
-
 url_lookup <- function(type,
                        ..., 
                        quiet = FALSE, 

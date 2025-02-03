@@ -1,18 +1,34 @@
 #' Group by one or more variables
 #'
 #' Most data operations are done on groups defined by variables. `group_by()`
-#' takes a query and adds a grouping variable that can be used in combination 
-#' with \code{\link[=count.data_request]{count()}} to give information on number 
-#' of occurrences per level of that variable.
+#' takes a field name (unquoted) and performs a grouping operation. The default
+#' behaviour is to use it in combination with 
+#' \code{\link[=count.data_request]{count()}} to give information on number 
+#' of occurrences per level of that field. Alternatively, you can use it 
+#' without count to get a download of occurrences grouped by that variable. This
+#' is particularly useful when used with a taxonomic `ID` field (`speciesID`,
+#' `genusID` etc.) as it allows further information to be appended to the result.
+#' This is how [atlas_species()] works, for example. See 
+#' \code{\link[=select.data_request]{select()}} for details.
 #' @param .data An object of class `data_request`
 #' @param ... Zero or more individual column names to include
 #' @return If any arguments are provided, returns a `data.frame` with
 #' columns `name` and `type`, as per [select.data_request()].
 #' @examples \dontrun{
+#' # default usage is for grouping counts
 #' galah_call() |> 
 #'   group_by(basisOfRecord) |>
 #'   counts() |>
 #'   collect()
+#' 
+#' # Alternatively, we can use this with an occurrence search  
+#' galah_call() |>
+#'   filter(year == 2024,
+#'          genus = "Crinia") |>
+#'   group_by(speciesID) |>
+#'  collect()
+#' # note that this example is equivalent to `atlas_species()`; 
+#' # but using `group_by()` is more flexible.
 #' }
 #' @export
 group_by.data_request <- function(.data, ...){
