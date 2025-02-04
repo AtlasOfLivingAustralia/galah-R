@@ -146,17 +146,25 @@ test_that("search_licenses returns a filtered result", {
 
 test_that("search_lists returns a filtered result", {
   skip_if_offline(); skip_on_ci()
-  all <- show_all_lists()
-  search <- search_lists("threatened")
+  all_lists <- show_all_lists()
+  search1 <- search_lists("threatened")
   search2 <- search_all(lists, "threatened")
-  search_result_check <- all(grepl(pattern = "threatened", search$listName,
-                                   ignore.case = TRUE))
-  
-  expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "lists")
-  expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
+  # check whether search_lists is correctly detecting the target string
+  chr_lookup <- purrr::map(colnames(search1), is.character) |>
+    unlist()
+  chr_cols <- colnames(search1)[chr_lookup]
+  contains_threatened <- purrr::map(chr_cols, \(a){
+    grepl(pattern = "threatened", search1[[a]], ignore.case = TRUE)
+  })
+  search_result_check <- purrr::map(
+    purrr::list_transpose(contains_threatened), any) |>
+    unlist() |>
+    all()
+  expect_lt(nrow(search1), nrow(all_lists))
+  expect_equal(attributes(search1)$call, "lists")
+  expect_s3_class(search1, c("tbl_df", "tbl", "data.frame"))
   expect_true(search_result_check)
-  expect_equal(search, search2)
+  expect_equal(search1, search2)
 })
 
 test_that("search_reasons returns a filtered result", {
