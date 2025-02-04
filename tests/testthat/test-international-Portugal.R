@@ -6,7 +6,7 @@ test_that("swapping to atlas = Portugal works", {
 })
 
 test_that("show_all(fields) works for Portugal", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(fields) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -15,7 +15,7 @@ test_that("show_all(fields) works for Portugal", {
 })
 
 test_that("show_all(collections) works for Portugal", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(collections, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -24,7 +24,7 @@ test_that("show_all(collections) works for Portugal", {
 })
 
 test_that("show_all(datasets) works for Portugal", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(datasets, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -34,7 +34,7 @@ test_that("show_all(datasets) works for Portugal", {
 
 ## FIXME: No data returned
 test_that("show_all(providers) works for Portugal", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(providers, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -43,7 +43,7 @@ test_that("show_all(providers) works for Portugal", {
 })
 
 test_that("show_all(reasons) works for Portugal", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(reasons) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -52,7 +52,7 @@ test_that("show_all(reasons) works for Portugal", {
 })
 
 test_that("show_all(assertions) works for Portugal", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(assertions) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -69,7 +69,7 @@ test_that("show_all(lists) fails for Portugal", {
 })
 
 test_that("search_all(fields) works for Portugal", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_all(fields, "year") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -78,7 +78,7 @@ test_that("search_all(fields) works for Portugal", {
 })
 
 test_that("search_all(taxa) works for Portugal", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_all(taxa, "Mammalia") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -87,7 +87,7 @@ test_that("search_all(taxa) works for Portugal", {
 })
 
 test_that("show_values works for fields for Portugal", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_all(fields, "basis_of_record") |> 
     show_values() |>
     try(silent = TRUE)
@@ -97,7 +97,7 @@ test_that("show_values works for fields for Portugal", {
 })
 
 test_that("atlas_counts works for Portugal", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
     pull(count) |>
     try(silent = TRUE)
@@ -106,7 +106,7 @@ test_that("atlas_counts works for Portugal", {
 })
 
 test_that("atlas_counts works with type = 'species' for Portugal", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
     pull(count) |>
     try(silent = TRUE)
@@ -115,7 +115,7 @@ test_that("atlas_counts works with type = 'species' for Portugal", {
 })
 
 test_that("atlas_counts works with galah_identify for Portugal", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     identify("Mammalia") |>
     count() |>
@@ -135,7 +135,7 @@ test_that("atlas_counts works with galah_identify for Portugal", {
 })
 
 test_that("atlas_counts works with group_by for Portugal", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     filter(year >= 2000) |>
     group_by(basis_of_record) |>
@@ -151,14 +151,14 @@ test_that("atlas_counts works with group_by for Portugal", {
 # so we can't test downloads. This affects `atlas_occurrences()` and 
 # `atlas_species()`
 test_that("atlas_species returns error for Portugal", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   expect_error({galah_call(type = "species") |>
                   identify("Carnivora") |>
                   collect()
     })
 })
 test_that("atlas_occurrences returns error for Portugal", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   expect_error(atlas_occurrences(
     filter = galah_filter(year == 2020)
   ))

@@ -9,7 +9,7 @@ test_that("galah_filter gives an error for single equals sign", {
 })
 
 test_that("galah_filter works with assertions", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   count_all <- atlas_counts() |>
     pull(count)
   count_invalid_spp <- galah_call() |>
@@ -30,7 +30,7 @@ test_that("galah_filter works with assertions", {
 })
 
 test_that("galah_filter handles multiple assertions", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   # OR statements
   all_records <- atlas_counts() |>
     pull(count)
@@ -76,7 +76,7 @@ test_that("galah_filter handles multiple assertions", {
 })
 
 test_that("galah_filter handles assertions and taxa", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   problem_families <- galah_call() |>
     filter(assertions == "INVALID_SCIENTIFIC_NAME") |>
     group_by(family) |>
@@ -220,7 +220,7 @@ test_that("galah_filter returns error when equations are passed as a string", {
 # expect_true(grepl("2010", filters$query))
 
 test_that("galah_filter handles taxonomic queries", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   filters <- galah_filter(taxonConceptID == search_taxa("Animalia")$taxon_concept_id)
   expect_equal(nrow(filters), 1)
   expect_false(grepl("search_taxa", filters$query))
@@ -235,7 +235,7 @@ test_that("galah_filter handles taxonomic queries when passed as a string", {
 })
 
 test_that("galah_filter handles taxonomic exclusions", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   filters <- galah_filter(
     taxonConceptID == search_taxa("Animalia")$taxon_concept_id,
     taxonConceptID != search_taxa("Chordata")$taxon_concept_id)
@@ -244,7 +244,7 @@ test_that("galah_filter handles taxonomic exclusions", {
 })
 
 test_that("galah_filter handles lsid as an input", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   ids <- c("https://biodiversity.org.au/afd/taxa/0df99ece-1982-4605-a2b3-4fcb7660ee2b",
            "https://id.biodiversity.org.au/node/apni/2910467",
            "https://id.biodiversity.org.au/node/apni/291047") # wrong id
@@ -306,7 +306,7 @@ test_that("galah_filter handles %in% even with multiple filters", {
 })
 
 test_that("galah_filter parses fields correctly with is.na()", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   expect_no_error(galah_call() |> 
                     galah_filter(is.na(decimalLongitude)) |> 
                     atlas_counts()
@@ -335,7 +335,7 @@ test_that("galah_filter parses fields correctly with is.na()", {
 })
 
 test_that("`galah_filter()` handles apostrophes (') correctly", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   names <- c("Australia's Virtual Herbarium", 
              "iNaturalist observations",
              "iNaturalist research-grade observations")
@@ -349,7 +349,7 @@ test_that("`galah_filter()` handles apostrophes (') correctly", {
 })
 
 test_that("`galah_filter()` handles multiple values with brackets correctly", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   filter <- galah_filter(
     scientificName == c("Aviceda (Aviceda) subcristata", 
                         "Todiramphus (Todiramphus) sanctus"))$query
@@ -371,7 +371,7 @@ test_that("galah_filter builds correct query with `!`, `%in%`, `c()` and `identi
 })
 
 test_that("`galah_filter()` accepts {{}} on lhs of formula", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   field <- "species"
   result <- galah_call() |>
     galah_filter({{field}} == "Eolophus roseicapilla") |>
@@ -387,7 +387,7 @@ test_that("`galah_filter()` accepts {{}} on lhs of formula", {
 })
 
 test_that("`group_by()` works when > 1 `filter()`", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   chosen_species <- c("Eolophus roseicapilla", "Platycercus elegans")
   x <- request_data() |>
     filter(species == chosen_species) |>

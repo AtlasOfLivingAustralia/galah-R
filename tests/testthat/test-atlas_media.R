@@ -3,7 +3,7 @@ test_that("atlas_media fails when no filters are provided", {
 })
 
 test_that("`atlas_media()` works", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   galah_config(email = "ala4r@ala.org.au")
   media_data <- galah_call() |>
     identify("Microseris lanceolata") |>
@@ -15,7 +15,7 @@ test_that("`atlas_media()` works", {
 })
 
 test_that("collect_media suggests `galah_config(directory =)` when a temp folder is set as the directory", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   atlas_query <- atlas_media(
     identify = galah_identify("Regent Honeyeater"),
     filter = galah_filter(year == 2012))
@@ -31,7 +31,7 @@ test_that("collect_media suggests `galah_config(directory =)` when a temp folder
 })
 
 test_that("`collapse()` and `collect()` work for `type = 'media'`", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   
   get_image_sizes <- function(dir){
     paste0(dir, 
@@ -126,7 +126,7 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
 })
 
 test_that("atlas_media gives a warning when old arguments are used", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   galah_config(email = "ala4r@ala.org.au", atlas = "Australia")
   expect_error({
     media_data <- atlas_media(
@@ -137,7 +137,7 @@ test_that("atlas_media gives a warning when old arguments are used", {
 })
 
 test_that("collect_media handles different file formats", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   
   media_dir <- "test_media"
   galah_config(email = "ala4r@ala.org.au", 
@@ -158,7 +158,7 @@ test_that("collect_media handles different file formats", {
 })
 
 test_that("collect_media handles thumbnails", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   media_dir <- "test_media"
   galah_config(email = "ala4r@ala.org.au", 
                directory = media_dir)

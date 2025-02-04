@@ -1,5 +1,5 @@
 test_that("show_values checks values", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   df <- tibble::tibble(x = c(1:2), y = c("a", "b"))
   wrong_type_search <- search_all(reasons, "sci")
   expect_error(show_values(), 'Missing information for values lookup.')
@@ -8,7 +8,7 @@ test_that("show_values checks values", {
 })
 
 test_that("show_values accepts search & show_all inputs from fields", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   search <- search_all(lists, "EPBC act")
   filtered_show <- show_all(lists) |>
     dplyr::filter(species_list_uid == "dr656")
@@ -21,7 +21,7 @@ test_that("show_values accepts search & show_all inputs from fields", {
 })
 
 test_that("show_values accepts search & show_all inputs from profiles", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   search <- search_all(profiles, "ALA")
   filtered_show <- show_all(profiles) |>
     dplyr::filter(shortName == "ALA")
@@ -34,7 +34,7 @@ test_that("show_values accepts search & show_all inputs from profiles", {
 })
 
 test_that("show_values accepts search & show_all inputs from lists", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   search <- search_all(fields, "cl22")
   filtered_show <- show_all(fields) |>
     dplyr::filter(id == "year")
@@ -47,13 +47,13 @@ test_that("show_values accepts search & show_all inputs from lists", {
 })
 
 test_that("search_values returns helpful error when missing query", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   expect_error(search_values(), "Missing information for values lookup")
   expect_error(search_all(fields, "cl22") |> search_values(), "didn't detect a search query")
 })
 
 test_that("search_values returns filtered results for fields", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   search <- search_all(fields, "cl22")
   values_search <- search |> search_values("new")
   values_show <- search |> show_values()
@@ -67,7 +67,7 @@ test_that("search_values returns filtered results for fields", {
 })
 
 test_that("search_values returns filtered results for profiles", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   search <- search_all(profiles, "ALA")
   values_search <- search |> search_values("kingdom")
   values_show <- search |> show_values()
@@ -81,7 +81,7 @@ test_that("search_values returns filtered results for profiles", {
 })
 
 test_that("search_values returns filtered results for lists", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   search <- search_all(lists, "ALA")
   values_search <- search |> search_values("frog")
   values_show <- search |> show_values()
@@ -95,7 +95,7 @@ test_that("search_values returns filtered results for lists", {
 })
 
 test_that("show_values & search_values return number of matched fields", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   search1 <- search_fields("year")
   search2 <- search_fields("basisOfRecord")
   expect_message(search1 |> show_values(), "Showing values for 'year'")
@@ -103,7 +103,7 @@ test_that("show_values & search_values return number of matched fields", {
 })
 
 test_that("search_values specifies matched field", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   search1 <- search_fields("year")
   search2 <- search_fields("state")
   search3 <- search_profiles("ALA")
@@ -116,7 +116,7 @@ test_that("search_values specifies matched field", {
 })
 
 test_that("show_values returns unformatted names", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   expected <- tibble(basisOfRecord = c("HUMAN_OBSERVATION",
                                        "PRESERVED_SPECIMEN"))
   search <- search_all(fields, "basisOfRecord")
@@ -125,7 +125,7 @@ test_that("show_values returns unformatted names", {
 })
 
 test_that("unnest syntax works", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   # fields
   x <- request_metadata() |>
     filter(field == "cl22") |>

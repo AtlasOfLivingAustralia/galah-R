@@ -1,5 +1,5 @@
 # test_that("show_all_distributions() works", {
-#   skip_if_offline()
+#   skip_if_offline(); skip_on_ci()
 #   x <- show_all_distributions()
 #   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
 #   expect_gte(nrow(x), 1000)
@@ -11,7 +11,7 @@
 # })
 # 
 # test_that("`request_data(type = 'distributions')` works with `identify()`", {
-#   skip_if_offline()
+#   skip_if_offline(); skip_on_ci()
 #   x <- galah_call(type = "distributions") |>
 #     identify("Foa fo") |>
 #     collect()
@@ -29,7 +29,7 @@
 # })
 # 
 # test_that("`request_data(type = 'distributions')` works with `filter()`", {
-#   skip_if_offline()
+#   skip_if_offline(); skip_on_ci()
 #   x <- galah_call(type = "distributions") |>
 #     filter(id == 25239) |>
 #     collect()
@@ -47,7 +47,7 @@
 # })
 # 
 # test_that("request_data(type = 'distributions') works without filters", {
-#   skip_if_offline()
+#   skip_if_offline(); skip_on_ci()
 #   x <- galah_call(type = "distributions") |>
 #     collapse()
 #   expect_s3_class(x, "query")
@@ -59,7 +59,7 @@
 # })
 # 
 # test_that("atlas_distributions() fails when both identify and filter are supplied", {
-#   skip_if_offline()
+#   skip_if_offline(); skip_on_ci()
 #   expect_error({galah_call() |>
 #     identify("Foa fo") |>
 #     filter(id == 25239) |>

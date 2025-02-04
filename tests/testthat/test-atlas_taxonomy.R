@@ -24,7 +24,7 @@ test_that("atlas_taxonomy requires a single taxon", {
 })
 
 test_that("atlas_taxonomy makes a tree when piped", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   tree <- galah_call() |>
     identify("fungi") |>
     filter(rank >= phylum) |>
@@ -35,7 +35,7 @@ test_that("atlas_taxonomy makes a tree when piped", {
 })
 
 test_that("atlas_taxonomy example runs", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   df <- galah_call() |> 
     galah_identify("chordata") |>
     galah_filter(rank == class) |>

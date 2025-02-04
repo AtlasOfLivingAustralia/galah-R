@@ -99,12 +99,12 @@ France,data/occurrences-count-groupby,https://openobs.mnhn.fr/biocache-service/o
 France,data/species,https://openobs.mnhn.fr/biocache-service/occurrences/facets/download,TRUE
 France,data/species-count,https://openobs.mnhn.fr/biocache-service/occurrence/facets,TRUE
 France,metadata/assertions,https://openobs.mnhn.fr/biocache-service/assertions/codes,TRUE
-France,metadata/collections,https://openobs.mnhn.fr/collectory/ws/collection,TRUE
-France,metadata/datasets,https://openobs.mnhn.fr/collectory/ws/dataResource,TRUE
+France,metadata/collections,https://openobs.mnhn.fr/api/datasets/producers,TRUE
+France,metadata/datasets,https://openobs.mnhn.fr/api/datasets,TRUE
 France,metadata/fields,https://openobs.mnhn.fr/biocache-service/index/fields,TRUE
 France,metadata/fields-unnest,https://openobs.mnhn.fr/biocache-service/occurrence/facets,TRUE
 France,metadata/identifiers,https://taxref.mnhn.fr/api/taxa/,TRUE
-France,metadata/providers,https://openobs.mnhn.fr/collectory/ws/dataProvider,TRUE
+France,metadata/providers,https://openobs.mnhn.fr/api/datasets/providers,TRUE
 France,metadata/taxa-single,https://taxref.mnhn.fr/api/taxa/search?scientificNames={name}&page=1&size=5,TRUE
 France,metadata/taxa-unnest,https://taxref.mnhn.fr/api/taxa/{id}/children,TRUE
 Global,data/occurrences,https://api.gbif.org/v1/occurrence/download/request,TRUE

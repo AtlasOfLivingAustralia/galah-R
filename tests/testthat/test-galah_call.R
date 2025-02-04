@@ -18,7 +18,7 @@ test_that("galah_call accepts method arg", {
 # prints properly?
 
 test_that("galah_call works with all `galah_` functions", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- galah_call() |> 
     galah_identify("Litoria") |>
     galah_filter(year == 2021, cl22 == "Tasmania") |>
@@ -31,7 +31,7 @@ test_that("galah_call works with all `galah_` functions", {
 })
 
 test_that("galah_call works irrespective of `galah_` function order", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- galah_call() |> 
     galah_apply_profile(ALA) |>
     galah_group_by(year, basisOfRecord) |>
@@ -44,7 +44,7 @@ test_that("galah_call works irrespective of `galah_` function order", {
 })
   
 test_that("repeated calls to `galah_identify` are added correctly", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- galah_call() |> 
     galah_identify("Litoria") |>
     galah_identify("Aves")
