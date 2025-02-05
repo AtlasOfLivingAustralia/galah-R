@@ -67,8 +67,9 @@ that DOI to download the dataset a second time. Other atlases don't support
 DOIs at all (yet).
 
 
-
-``` r
+```{r}
+#| eval: false
+#| echo: true
 library(galah)
 galah_config(email = "your-email-here",
              directory = "ALA_downloads")
@@ -84,18 +85,21 @@ occs <- galah_call() |>
 occs |> print(n = 5)
 ```
 
-
-```
-## # A tibble: 201 × 8
-##   recordID             scientificName taxonConceptID decimalLatitude decimalLongitude eventDate          
-##   <chr>                <chr>          <chr>                    <dbl>            <dbl> <dttm>             
-## 1 00300a96-e91a-4f46-… Perameles nas… https://biodi…           -33.7             151. 2003-01-07 00:00:00
-## 2 0134472a-2598-4a7a-… Perameles nas… https://biodi…           -34.7             151. 2003-03-05 00:00:00
-## 3 01e7b99e-9c24-44b9-… Perameles gun… https://biodi…           -42.9             147. 2003-08-24 00:00:00
-## 4 029c49f0-ba80-402b-… Perameles nas… https://biodi…           -35.1             151. 2003-09-04 00:00:00
-## 5 0345dbe1-9e61-437a-… Perameles nas… https://biodi…           -35.5             150. 2003-09-01 00:00:00
-## # ℹ 196 more rows
-## # ℹ 2 more variables: occurrenceStatus <chr>, dataResourceName <chr>
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+#| message: false
+library(galah)
+galah_config(email = "dax.kellie@csiro.au", 
+             directory = "ALA_downloads",
+             verbose = FALSE)
+occs <- galah_call() |>
+  identify("perameles") |>
+  filter(year == 2003) |>
+  atlas_occurrences(mint_doi = TRUE,
+                    file = "bandicoots_2003_data.zip")
+occs |> print(n = 5)
 ```
 
 galah preserves lots of information in an object's attributes, many
@@ -103,68 +107,31 @@ which are used to construct the API query sent to the specified Living
 Atlas. We can view new DOI assigned to `occs` by checking its
 attributes.
 
-
-``` r
+```{r}
 attributes(occs)$doi
-```
-
-```
-## [1] "https://doi.org/10.26197/ala.608d7f78-00f8-4f98-b204-5c3c386b3225"
 ```
 
 We can also view information on how to cite this dataset:
 
-
-``` r
+```{r}
 atlas_citation(occs)
-```
-
-```
-## The citation for this dataset is:
-## 
-##    Atlas of Living Australia (5 February 2025) Occurrence download https://doi.org/10.26197/ala.608d7f78-00f8-4f98-b204-5c3c386b3225
-## 
-```
-
-```
-## 
-## Please consider citing R & galah, in addition to your dataset:
-##      
-##        R Core Team (2024). _R: A Language and Environment for Statistical Computing_. R Foundation for Statistical Computing, Vienna, Austria. <https://www.R-project.org/>.
-##        
-##        Westgate M, Stevenson M, Kellie D, Newman P (2025). _galah: Biodiversity Data from the GBIF Node Network_. <https://CRAN.R-project.org/package=galah>.
 ```
 
 If you need to reload this data locally, you can do that by simply calling
 `read_zip()`:
 
-
-``` r
+```{r}
 read_zip("./ALA_downloads/bandicoots_2003_data.zip") |>
   print(n = 5)
-```
-
-```
-## # A tibble: 201 × 8
-##   recordID             scientificName taxonConceptID decimalLatitude decimalLongitude eventDate          
-##   <chr>                <chr>          <chr>                    <dbl>            <dbl> <dttm>             
-## 1 00300a96-e91a-4f46-… Perameles nas… https://biodi…           -33.7             151. 2003-01-07 00:00:00
-## 2 0134472a-2598-4a7a-… Perameles nas… https://biodi…           -34.7             151. 2003-03-05 00:00:00
-## 3 01e7b99e-9c24-44b9-… Perameles gun… https://biodi…           -42.9             147. 2003-08-24 00:00:00
-## 4 029c49f0-ba80-402b-… Perameles nas… https://biodi…           -35.1             151. 2003-09-04 00:00:00
-## 5 0345dbe1-9e61-437a-… Perameles nas… https://biodi…           -35.5             150. 2003-09-01 00:00:00
-## # ℹ 196 more rows
-## # ℹ 2 more variables: occurrenceStatus <chr>, dataResourceName <chr>
 ```
 
 More importantly, though, we now have a persistent link to this data download. 
 If we paste this DOI into your browser, we can see additional information about 
 our query, including a breakdown of data providers and licensing.
 
-<div class="figure">
-<img src="../man/figures/doi-web-example.png" alt="plot of chunk atlas-support" width="100%" />
-<p class="caption">plot of chunk atlas-support</p>
-</div>
+```{r atlas-support, echo = FALSE, out.width = "100%"}
+knitr::include_graphics('../man/figures/doi-web-example.png')
+```
 
 ## Download data using a DOI
 
@@ -172,8 +139,7 @@ To use a DOI to return the results of a query again, we'll use
 `galah_filter()`. We can specify that we would like to filter our
 results to only the records returned by our DOI.
 
-
-``` r
+```{r}
 occs_again <- galah_call() |>
   filter(doi == attributes(occs)$doi) |> # filter by doi
   atlas_occurrences()
@@ -181,22 +147,15 @@ occs_again <- galah_call() |>
 occs_again |> print(n = 5)
 ```
 
-```
-## # A tibble: 201 × 8
-##   recordID             scientificName taxonConceptID decimalLatitude decimalLongitude eventDate          
-##   <chr>                <chr>          <chr>                    <dbl>            <dbl> <dttm>             
-## 1 00300a96-e91a-4f46-… Perameles nas… https://biodi…           -33.7             151. 2003-01-07 00:00:00
-## 2 0134472a-2598-4a7a-… Perameles nas… https://biodi…           -34.7             151. 2003-03-05 00:00:00
-## 3 01e7b99e-9c24-44b9-… Perameles gun… https://biodi…           -42.9             147. 2003-08-24 00:00:00
-## 4 029c49f0-ba80-402b-… Perameles nas… https://biodi…           -35.1             151. 2003-09-04 00:00:00
-## 5 0345dbe1-9e61-437a-… Perameles nas… https://biodi…           -35.5             150. 2003-09-01 00:00:00
-## # ℹ 196 more rows
-## # ℹ 2 more variables: occurrenceStatus <chr>, dataResourceName <chr>
-```
-
 Our query reproduces the the same records as our original query!
 
 If you would like other examples, we use this DOI method to
 reproducibly download data throughout the [*Cleaning Biodiversity Data in R*](https://cleaning-data-r.ala.org.au/data-in-this-book.html) book.
 
-
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+#| message: false
+unlink("ALA_downloads", recursive = TRUE)
+```
