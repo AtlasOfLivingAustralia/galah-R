@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 [![CRAN
 status](https://www.r-pkg.org/badges/version/galah)](https://cran.r-project.org/package=galah)
 [![Codecov test coverage](https://codecov.io/gh/AtlasOfLivingAustralia/galah-R/branch/main/graph/badge.svg)](https://app.codecov.io/gh/AtlasOfLivingAustralia/galah-R?branch=main)
+[![R-CMD-check](https://github.com/AtlasOfLivingAustralia/galah-R/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AtlasOfLivingAustralia/galah-R/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 
