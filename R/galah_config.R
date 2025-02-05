@@ -289,7 +289,7 @@ configure_atlas <- function(query){
   
   comparison <- do.call(c, node_metadata)
   comparison <- comparison[!is.na(comparison)] |> as.character()
-  lookup <- adist(query, comparison, ignore.case = TRUE)[1, ]
+  lookup <- utils::adist(query, comparison, ignore.case = TRUE)[1, ]
   
   if(all(lookup > 2)){
     bullets <- c(

@@ -1,7 +1,6 @@
 #' Internal function to run metadata checks
 #' This is useful for testing, particularly in testing `galah_select()`
 #' called by `collapse()`
-#' @importFrom utils URLdecode
 #' @noRd
 #' @keywords Internal
 parse_checks <- function(.query){
@@ -21,7 +20,7 @@ parse_checks <- function(.query){
         check_profiles()
     }
     if(.query$type == "data/distributions" & !is.null(.query[["metadata/distributions"]])){
-      .query$url <- tibble(url = glue(URLdecode(.query$url), 
+      .query$url <- tibble(url = glue(utils::URLdecode(.query$url), 
                                       id = .query[["metadata/distributions"]]$id))
     }
     .query <- remove_metadata(.query)

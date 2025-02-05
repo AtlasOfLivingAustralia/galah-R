@@ -62,7 +62,6 @@ collapse_profiles_unnest <- function(.query){
 #' Internal function to `collapse()` for 
 #' `request_metadata(type = "taxa") |> unnest()`
 #' @importFrom rlang abort
-#' @importFrom utils URLencode
 #' @noRd
 #' @keywords Internal
 collapse_taxa_unnest <- function(.query){

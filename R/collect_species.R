@@ -7,11 +7,11 @@ collect_species <- function(.query, file = NULL){
   }else{
     .query$file <- check_download_filename(file, ext = "csv")
     query_API(.query)
-    read_csv(.query$file,
-             col_names = get_clean_colnames(.query$file,
-                                            facet = .query$group_by$name),
-             col_types = cols(),
-             skip = 1)
+    readr::read_csv(.query$file,
+                    col_names = get_clean_colnames(.query$file,
+                                                   facet = .query$group_by$name),
+                    col_types = cols(),
+                    skip = 1)
   }
 }
 

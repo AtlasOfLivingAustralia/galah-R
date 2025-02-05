@@ -130,7 +130,6 @@ check_filter_tibbles <- function(x){ # where x is a list of tibbles
 #' @importFrom glue glue_data
 #' @importFrom httr2 url_parse
 #' @importFrom rlang format_error_bullets
-#' @importFrom tidyr drop_na
 #' @noRd
 #' @keywords Internal
 check_fields <- function(.query) {
@@ -151,7 +150,7 @@ check_fields <- function(.query) {
       returned_invalid <- tibble(
         function_name = c("`galah_filter()`", "`galah_group_by()`"),
         fields = check_result) |>
-        drop_na()
+        tidyr::drop_na()
       
       glue_template <- "{returned_invalid$function_name}: {returned_invalid$fields}"
       invalid_fields_message <- glue_data(returned_invalid, glue_template, .na = "")
@@ -435,7 +434,7 @@ check_identifiers_la <- function(.query, error_call = caller_env()){
       metadata_lookup <- grepl("^metadata/taxa", names(.query))
       if(any(metadata_lookup)){ 
         identifiers <- .query[[which(metadata_lookup)[1]]]
-        taxa_id <- URLencode(identifiers$taxon_concept_id[1],
+        taxa_id <- utils::URLencode(identifiers$taxon_concept_id[1],
                              reserved = TRUE)
         .query$url[1] <- sub("%60TAXON_PLACEHOLDER%60", taxa_id, .query$url[1])
       }else{
@@ -711,7 +710,6 @@ check_reason <- function(.query, error_call = caller_env()){
 #' @importFrom httr2 url_parse
 #' @importFrom httr2 url_build
 #' @importFrom rlang is_quosure
-#' @importFrom tidyselect eval_select
 #' @noRd
 #' @keywords Internal
 check_select <- function(.query){
@@ -735,7 +733,7 @@ check_select <- function(.query){
       if(length(group) > 0){
         group_cols <- lapply(group, preset_groups) |> 
           unlist()
-        group_names <- eval_select(all_of(group_cols), data = df) |> 
+        group_names <- tidyselect::eval_select(all_of(group_cols), data = df) |> 
           names()
         # note: technically `group_names` and `group_cols` are identical
         # BUT `eval_select()` will fail if invalid columns are given
@@ -748,7 +746,7 @@ check_select <- function(.query){
         unlist()
       dots <- .query$select[check_quosures]
       dot_names <- lapply(dots, function(a){
-        eval_select(a, data = df) |>
+        tidyselect::eval_select(a, data = df) |>
           names()
       }) |>
         unlist()

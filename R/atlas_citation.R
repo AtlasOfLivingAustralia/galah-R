@@ -15,20 +15,40 @@
 #' @export
 
 atlas_citation <- function(data) {
+  # get basic information from file
+  modified_date <- attributes(data)$modified_date
   doi <- attributes(data)$doi
+  citation <- attributes(data)$citation
+  search_url <- attributes(data)$search_url
+  
+  # get existing citation info
+  r_citation <- citation() |>
+    print(style = 'text') |> 
+    utils::capture.output() |>
+    glue_collapse(sep = " ")
+  galah_citation <- citation(package = "galah") |>
+    print(style = 'text') |> 
+    utils::capture.output() |>
+    glue_collapse(sep = " ")
+  
+  # set case when DOI is missing
   if (is.null(doi)) {
-    bullets <- c(
-      "This data does not have a DOI attached.",
-      i = "Did you set `atlas_occurrences(mint_doi = TRUE)`?",
-      i = "`atlas_citation` extracts this citation info when present."
-    )
-    warn(bullets, call = caller_env())
-    glue("Please consider citing R & galah. To do so, call:
-       citation()
-       citation('galah')")
-  }else{
-    current_date <- format(Sys.Date(), "%e %B %Y") |>
-      trimws()
+    if(!is.null(citation)){
+      glue("
+      The citation for this dataset is:
+      
+           {citation}
+         
+       ") |>
+        cat()
+    }else{
+      bullets <- c(
+        "This dataset does not have any citation information attached.",
+        i = "Please consider checking the atlas in question for their citation guidelines"
+      )
+      warn(bullets, call = caller_env())      
+    }
+  }else{ # i.e. if DOI present
     if(grepl("10.26197/ala.", doi)){
       org_text <- "Atlas of Living Australia"
       description <- "Occurrence download"
@@ -36,12 +56,19 @@ atlas_citation <- function(data) {
       org_text <- "GBIF.org"
       description <- "GBIF Occurrence Download"
     }
+    
     glue("
-       {org_text} ({current_date}) {description} {doi}
-       
-       Please consider citing R & galah, in addition to your dataset. To do so, call:
-       citation()
-       citation('galah')
-       ")    
+      The citation for this dataset is:
+      
+         {org_text} ({modified_date}) {description} {doi}
+         
+       ") |> cat()
   }
+  glue("
+  
+  Please consider citing R & galah, in addition to your dataset:
+       
+         {r_citation}
+         
+         {galah_citation}")
 }

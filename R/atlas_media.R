@@ -11,7 +11,6 @@
 #' @importFrom purrr pluck
 #' @importFrom rlang abort
 #' @importFrom stringr str_remove
-#' @importFrom tidyr unnest_longer
 #' @export
 atlas_media <- function(request = NULL, 
                         identify = NULL, 
@@ -94,7 +93,7 @@ atlas_media <- function(request = NULL,
   # get occurrences
   occ <- query_collapse |> 
     collect(wait = TRUE) |>
-    unnest_longer(col = any_of(present_fields))
+    tidyr::unnest_longer(col = any_of(present_fields))
   
   if(!any(colnames(occ) == "all_image_url")){
     occ$media_id <- build_media_id(occ)

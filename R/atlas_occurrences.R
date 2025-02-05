@@ -1,15 +1,15 @@
 #' Retrieve a database query
 #'
 #' @description
-#' An alternative to using `collect()` at the end of a query pipe is to 
-#' call a function with the `atlas_` prefix. These solutions are basically 
-#' synonymous, but `atlas_` functions differ in two ways:
+#' An alternative to using \code{\link[=collect.data_request]{collect()}} at the 
+#' end of a query pipe is to call a function with the `atlas_` prefix. These
+#' solutions are basically synonymous, but `atlas_` functions differ in two ways:
 #' 
 #'   * They have the ability to accept `filter`, `select` etc as arguments,
-#'     rather than within a pipe, but **only** when using the `galah_` forms of 
-#'     those functions (e.g. `galah_filter()`).
+#'     rather than within a pipe; but **only** when using the `galah_` forms of 
+#'     those functions (e.g. [galah_filter()]).
 #'   * `atlas_` functions do not require you to specify the `method` or `type` 
-#'     arguments to `galah_call()`, as they are more specific in what data are 
+#'     arguments to [galah_call()], as they are more specific in what data are 
 #'     being requested.
 #'
 #' @name atlas_
@@ -76,7 +76,7 @@
 #' # Get a list of species within genus "Heleioporus"
 #' # (every row is a species with associated taxonomic data)
 #' galah_call() |>
-#'   galah_identify("Heleioporus") |>
+#'   identify("Heleioporus") |>
 #'   atlas_species()
 #'
 #' # Download Regent Honeyeater records with multimedia attached
@@ -88,8 +88,8 @@
 #' 
 #' # Get a taxonomic tree of *Chordata* down to the class level
 #' galah_call() |> 
-#'   galah_identify("chordata") |>
-#'   galah_filter(rank == class) |>
+#'   identify("chordata") |>
+#'   filter(rank == class) |>
 #'   atlas_taxonomy()
 #' }
 #' @export
