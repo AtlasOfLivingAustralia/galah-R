@@ -95,5 +95,6 @@ reference:
   contents:
   - taxonomic_searches
   - print_galah_objects
+  - read_zip
   - atlas_citation
 - title: internal

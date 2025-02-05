@@ -13,9 +13,9 @@ read_zip(file)
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Living atlases supply data downloads as zip files. This function read these
+Living atlases supply data downloads as zip files. This function reads these
 data efficiently, i.e. without unzipping them first, using the \code{readr}
-package. Although this has been part of galah for some time, it was
+package. Although this function has been part of galah for some time, it was
 previously internal to \code{\link[=atlas_occurrences]{atlas_occurrences()}}. It has been exported now to
 support easy re-importing of downloaded files, without the need to re-run
 a query.

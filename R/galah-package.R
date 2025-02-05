@@ -52,6 +52,7 @@
 #' **Miscellaneous functions**
 #' 
 #'   * [atlas_citation()] Get a citation for a dataset
+#'   * [read_zip()] To read data from an earlier download
 #'   * \code{\link[=print.data_request]{print()}} Print functions for galah objects
 #'
 #' @section Terminology:
