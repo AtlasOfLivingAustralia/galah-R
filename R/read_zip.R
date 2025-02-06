@@ -48,7 +48,7 @@ read_zip <- function(file){
     available_files <- all_files[grepl(".csv$", all_files)]
     result <- unz(description = file,  # require lapply?
                   filename = available_files) |> 
-      readr::read_tsv(col_types = cols()) |>
+      readr::read_tsv(col_types = readr::cols()) |>
       suppressWarnings()
     # Note: DOIs for GBIF are stored in `compute()` stage, not in the zip file
   }else{
