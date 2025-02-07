@@ -44,7 +44,8 @@ Imports:
     tibble,
     tidyr,
     tidyselect,
-    utils
+    utils,
+    xml2
 Suggests: 
     covr,
     gt,

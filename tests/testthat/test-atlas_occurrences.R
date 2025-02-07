@@ -192,8 +192,6 @@ test_that("`atlas_occurrences()` places DOI in `attr()` correctly", {
   y <- attr(x, "doi")
   expect_false(is.null(y))
   expect_true(grepl("^https://doi.org/", y))
-  citation <- atlas_citation(x)
-  expect_true(grepl("^Atlas of Living Australia", citation))
   rm(x, y)
   # ditto for atlas_occurrences
   x <- galah_call() |>

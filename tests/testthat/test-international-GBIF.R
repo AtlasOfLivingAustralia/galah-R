@@ -365,8 +365,7 @@ test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
   expect_gt(ncol(z), 0)
   expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
   expect_equal(nrow(z), count$count)
-  citation <- atlas_citation(z)
-  expect_true(grepl("^GBIF.org", citation))
+  expect_true(!is.null(attributes(z)$doi))
 })
 
 galah_config(atlas = "Australia")

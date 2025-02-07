@@ -10,7 +10,7 @@ collect_species <- function(.query, file = NULL){
     readr::read_csv(.query$file,
                     col_names = get_clean_colnames(.query$file,
                                                    facet = .query$group_by$name),
-                    col_types = cols(),
+                    col_types = readr::cols(),
                     skip = 1)
   }
 }
