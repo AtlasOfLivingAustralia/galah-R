@@ -1,7 +1,10 @@
 # galah 2.1.1
 
 ### Minor improvements
+* New vignette to demonstrate methods that support reproducibility
+* New function `read_zip()` to reimport downloaded files
 * Support `group_by()` in occurrence queries to allow facet downloads by any variable (#195, #258)
+* Improvements to `atlas_citation()` for improved clarity
 
 ### Bug fixes
 * Improved documentation to use `galah_filter()` to specify a `taxon_concept_id` rather than `galah_identify()` (#245)

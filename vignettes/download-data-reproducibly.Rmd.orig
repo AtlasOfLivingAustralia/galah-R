@@ -106,7 +106,7 @@ occs |> print(n = 5)
 
 galah preserves lots of information in an object's attributes, many
 which are used to construct the API query sent to the specified Living
-Atlas. We can view new DOI assigned to `occs` by checking its
+Atlas. We can view the new DOI assigned to `occs` by checking its
 attributes.
 
 ```{r}
