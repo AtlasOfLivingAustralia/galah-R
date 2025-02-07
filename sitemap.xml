@@ -1,6 +1,7 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://galah.ala.org.au/R/404.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/articles/choosing_an_atlas.html</loc></url>
+<url><loc>https://galah.ala.org.au/R/articles/download-data-reproducibly.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/articles/download_data.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/articles/index.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/articles/look_up_information.html</loc></url>
@@ -31,6 +32,7 @@
 <url><loc>https://galah.ala.org.au/R/reference/identify.data_request.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/index.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/print_galah_objects.html</loc></url>
+<url><loc>https://galah.ala.org.au/R/reference/read_zip.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/reexports.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/search_all.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/select.data_request.html</loc></url>

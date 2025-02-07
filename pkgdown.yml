@@ -4,6 +4,7 @@ pkgdown_sha: ~
 articles:
   choosing_an_atlas: choosing_an_atlas.html
   download_data: download_data.html
+  download-data-reproducibly: download-data-reproducibly.html
   look_up_information: look_up_information.html
   narrow_your_results: narrow_your_results.html
   object_oriented_programming: object_oriented_programming.html
@@ -11,7 +12,7 @@ articles:
   spatial_filtering: spatial_filtering.html
   taxonomic_filtering: taxonomic_filtering.html
   temporal_filtering: temporal_filtering.html
-last_built: 2024-11-28T04:58Z
+last_built: 2025-02-07T04:25Z
 urls:
   reference: https://galah.ala.org.au/R/reference
   article: https://galah.ala.org.au/R/articles

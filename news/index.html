@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,6 +26,7 @@
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
     <li><a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a></li>
+    <li><a class="dropdown-item" href="../articles/download-data-reproducibly.html">Reproduciblility</a></li>
     <li><a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a></li>
     <li><a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a></li>
     <li><a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a></li>
@@ -46,6 +47,27 @@
       <small>Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.1.1" id="galah-211">galah 2.1.1<a class="anchor" aria-label="anchor" href="#galah-211"></a></h2>
+<div class="section level4">
+<h4 id="minor-improvements-2-1-1">Minor improvements<a class="anchor" aria-label="anchor" href="#minor-improvements-2-1-1"></a></h4>
+<ul><li>New vignette to demonstrate methods that support reproducibility</li>
+<li>New function <code><a href="../reference/read_zip.html">read_zip()</a></code> to reimport downloaded files</li>
+<li>Support <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> in occurrence queries to allow facet downloads by any variable (<a href="https://github.com/AtlasOfLivingAustralia/galah-R/issues/195" class="external-link">#195</a>, <a href="https://github.com/AtlasOfLivingAustralia/galah-R/issues/258" class="external-link">#258</a>)</li>
+<li>Improvements to <code><a href="../reference/atlas_citation.html">atlas_citation()</a></code> for improved clarity</li>
+</ul></div>
+<div class="section level4">
+<h4 id="bug-fixes-2-1-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-1-1"></a></h4>
+<ul><li>Improved documentation to use <code><a href="../reference/filter.data_request.html">galah_filter()</a></code> to specify a <code>taxon_concept_id</code> rather than <code><a href="../reference/identify.data_request.html">galah_identify()</a></code> (<a href="https://github.com/AtlasOfLivingAustralia/galah-R/issues/245" class="external-link">#245</a>)</li>
+<li>Adding a <code>field</code> without data breaks occurrence downloads (<a href="https://github.com/AtlasOfLivingAustralia/galah-R/issues/248" class="external-link">#248</a>)</li>
+<li>Queries that filter using both <code>!</code> and <code>%in%</code> parse correctly (<a href="https://github.com/AtlasOfLivingAustralia/galah-R/issues/251" class="external-link">#251</a>)</li>
+<li>
+<code>show_all(lists)</code> no longer truncates results to first 500 rows (<a href="https://github.com/AtlasOfLivingAustralia/galah-R/issues/252" class="external-link">#252</a>)</li>
+<li>
+<code><a href="../reference/atlas_.html">atlas_counts()</a></code> no longer errors when <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> is set but record count = 0 (<a href="https://github.com/AtlasOfLivingAustralia/galah-R/issues/254" class="external-link">#254</a>)</li>
+<li>Empty tibbles returned by <code><a href="../reference/atlas_.html">atlas_species()</a></code> no longer return different column names to queries that return a result (<a href="https://github.com/AtlasOfLivingAustralia/galah-R/issues/255" class="external-link">#255</a>)</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.1.0" id="galah-210">galah 2.1.0<a class="anchor" aria-label="anchor" href="#galah-210"></a></h2><p class="text-muted">CRAN release: 2024-11-19</p>
 <div class="section level4">
