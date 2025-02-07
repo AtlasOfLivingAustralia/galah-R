@@ -1,5 +1,5 @@
 test_that("default is to arrange by decending order of count", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     filter(year >= 2015) |>
     group_by(year) |>
@@ -12,7 +12,7 @@ test_that("default is to arrange by decending order of count", {
 })
 
 test_that("arrange in increasing order of count", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     filter(year >= 2015) |>
     group_by(year) |>
@@ -26,7 +26,7 @@ test_that("arrange in increasing order of count", {
 })
 
 test_that("arrange in decreasing order of count using `desc()`", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     filter(year >= 2015) |>
     group_by(year) |>
@@ -40,7 +40,7 @@ test_that("arrange in decreasing order of count using `desc()`", {
 })
 
 test_that("arrange in increasing order of year", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     filter(year >= 2015) |>
     group_by(year) |>
@@ -54,7 +54,7 @@ test_that("arrange in increasing order of year", {
 })
 
 test_that("arrange in decreasing order of year using `desc()`", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     filter(year >= 2015) |>
     group_by(year) |>
@@ -68,7 +68,7 @@ test_that("arrange in decreasing order of year using `desc()`", {
 })
 
 test_that("`arrange()` by `count` and `slice_head()` work together", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   # get lower values (bottom 5)
   result <- galah_call() |>
     filter(year >= 2015) |>
@@ -98,7 +98,7 @@ test_that("`arrange()` by `count` and `slice_head()` work together", {
 })
 
 test_that("`arrange()` by `year` and `slice_head()` work together", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   # get lower values (bottom 5)
   result <- galah_call() |>
     filter(year >= 2015) |>
@@ -130,7 +130,7 @@ test_that("`arrange()` by `year` and `slice_head()` work together", {
 })
 
 test_that("`group_by()` with multiple fields works with `slice_head()`", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     filter(year >= 2015) |>
     group_by(year, basisOfRecord) |>

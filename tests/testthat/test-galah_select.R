@@ -4,7 +4,7 @@ test_that("`galah_select()` doesn't return error when columns don't exist", {
 })
 
 test_that("`galah_select()` triggers error during `compute()` when columns don't exist", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   expect_error(
     galah_call() |>
       identify("perameles") |>
@@ -20,7 +20,7 @@ test_that("`galah_select()` triggers error during `compute()` when columns don't
 })
 
 test_that("`galah_select()` returns requested columns", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   galah_config(atlas = "Australia",
                email = "ala4r@ala.org.au", 
                run_checks = FALSE)
@@ -34,7 +34,7 @@ test_that("`galah_select()` returns requested columns", {
 })
 
 test_that("`galah_select()` returns requested columns when piped", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   galah_config(email = "ala4r@ala.org.au", run_checks = FALSE)
   query <- galah_call() |>
     identify("oxyopes dingo") |>
@@ -46,7 +46,7 @@ test_that("`galah_select()` returns requested columns when piped", {
 })
 
 test_that("`galah_select()` builds expected columns when group = basic", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(group = "basic") |>
@@ -57,7 +57,7 @@ test_that("`galah_select()` builds expected columns when group = basic", {
 })
 
 test_that("`galah_select()` builds expected columns when group = event", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(group = "event") |>
@@ -69,7 +69,7 @@ test_that("`galah_select()` builds expected columns when group = event", {
 })
 
 test_that("`galah_select()` accepts multiple groups", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(group = c("basic", "assertions")) |>
@@ -81,7 +81,7 @@ test_that("`galah_select()` accepts multiple groups", {
 })
 
 test_that("galah_select defaults to group = 'basic' when there are no args", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     collapse()
@@ -91,7 +91,7 @@ test_that("galah_select defaults to group = 'basic' when there are no args", {
 })
 
 test_that("galah_select works with group = 'taxonomy'", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(group = "taxonomy") |>
@@ -111,7 +111,7 @@ test_that("galah_select works with group = 'taxonomy'", {
 })
 
 test_that("galah_select returns assertions + recordID when group = assertions", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(group = "assertions") |>
@@ -122,7 +122,7 @@ test_that("galah_select returns assertions + recordID when group = assertions", 
 })
 
 test_that("galah_select combines requested columns and group columns", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(year, basisOfRecord, group = "basic") |>
@@ -133,7 +133,7 @@ test_that("galah_select combines requested columns and group columns", {
 })
 
 test_that("galah_select can use tidyselect::contains", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(tidyselect::contains("el")) |>
@@ -146,7 +146,7 @@ test_that("galah_select can use tidyselect::contains", {
 })
 
 test_that("galah_select can use tidyselect::starts_with", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(tidyselect::starts_with("el")) |>
@@ -159,7 +159,7 @@ test_that("galah_select can use tidyselect::starts_with", {
 })
 
 test_that("galah_select can use tidyselect::last_col", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(tidyselect::last_col()) |>
@@ -170,7 +170,7 @@ test_that("galah_select can use tidyselect::last_col", {
 })
 
 test_that("galah_select can use tidyselect::last_col & user-defined queries", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(year, basisOfRecord, tidyselect::last_col()) |>
@@ -181,7 +181,7 @@ test_that("galah_select can use tidyselect::last_col & user-defined queries", {
 })
 
 test_that("galah_select can use tidyselect::last_col & group", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(tidyselect::last_col(), group = "basic") |>
@@ -193,7 +193,7 @@ test_that("galah_select can use tidyselect::last_col & group", {
 })
 
 test_that("galah_select warns for invalid field names when type = 'species'", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   expect_warning({galah_call(type = "species") |>
     identify("Crinia") |>
     select(an_unrecognised_field_name) |>
@@ -201,7 +201,7 @@ test_that("galah_select warns for invalid field names when type = 'species'", {
 })
 
 test_that("galah_select works for type = 'species' with no arguments", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- galah_call(type = "species") |>
     identify("Crinia") |>
     select() |>
@@ -211,7 +211,7 @@ test_that("galah_select works for type = 'species' with no arguments", {
 })
 
 test_that("galah_select works for type = 'species'", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- galah_call(type = "species") |>
       identify("Crinia") |>
       select(counts) |>
@@ -221,7 +221,7 @@ test_that("galah_select works for type = 'species'", {
 })
 
 test_that("galah_select works for type = 'species' with group = 'taxonomy'", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- galah_call(type = "species") |>
     identify("Crinia") |>
     select(counts, lists, group = "taxonomy") |>

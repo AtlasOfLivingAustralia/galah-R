@@ -6,7 +6,7 @@ test_that("swapping to atlas = France works", {
 })
 
 test_that("show_all(fields) works for France", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(fields) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -15,7 +15,7 @@ test_that("show_all(fields) works for France", {
 })
 
 test_that("show_all(collections) works for France", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(collections, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -24,7 +24,7 @@ test_that("show_all(collections) works for France", {
 })
 
 test_that("show_all(datasets) works for France", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(datasets, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -33,7 +33,7 @@ test_that("show_all(datasets) works for France", {
 })
 
 test_that("show_all(providers) works for France", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(providers, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -46,7 +46,7 @@ test_that("show_all(reasons) fails for France", {
 })
 
 test_that("show_all(assertions) works for France", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(assertions) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -63,7 +63,7 @@ test_that("show_all(lists) fails for France", {
 })
 
 test_that("search_all(fields) works for France", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_all(fields, "year") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -72,7 +72,7 @@ test_that("search_all(fields) works for France", {
 })
 
 test_that("search_all(taxa) works for France", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_all(taxa, "Vulpes vulpes") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -81,7 +81,7 @@ test_that("search_all(taxa) works for France", {
 })
 
 test_that("show_values works for France", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_fields("basisOfRecord") |> 
       show_values() |>
     try(silent = TRUE)
@@ -90,7 +90,7 @@ test_that("show_values works for France", {
 })
 
 test_that("atlas_counts works for France", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
     pull(count) |>
     try(silent = TRUE)
@@ -99,7 +99,7 @@ test_that("atlas_counts works for France", {
 })
 
 test_that("atlas_counts works with type = 'species' for France", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
     pull(count) |>
     try(silent = TRUE)
@@ -108,7 +108,7 @@ test_that("atlas_counts works with type = 'species' for France", {
 })
 
 test_that("atlas_counts works with galah_identify for France", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     identify("Mammalia") |>
     count() |>
@@ -127,7 +127,7 @@ test_that("atlas_counts works with galah_identify for France", {
 })
 
 test_that("atlas_counts works with group_by for France", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     filter(year >= 2018) |>
     group_by(year) |>
@@ -140,7 +140,7 @@ test_that("atlas_counts works with group_by for France", {
 })
 
 test_that("atlas_species works for France", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   galah_config(email = "ala4r@ala.org.au")
   x <- galah_call(type = "species") |>
     identify("Lagomorpha") |>
@@ -154,7 +154,7 @@ test_that("atlas_species works for France", {
 })
 
 test_that("atlas_occurrences works for France", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   galah_config(atlas = "France",
                email = "ala4r@ala.org.au")
   base_query <- galah_call() |>

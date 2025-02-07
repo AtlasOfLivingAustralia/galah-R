@@ -6,7 +6,7 @@ test_that("swapping to atlas = Guatemala works", {
 })
 
 test_that("show_all(fields) works for Guatemala", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(fields) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -18,7 +18,7 @@ test_that("show_all(fields) works for Guatemala", {
 })
 
 test_that("show_all(collections) works for Guatemala", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(collections, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -27,7 +27,7 @@ test_that("show_all(collections) works for Guatemala", {
 })
 
 test_that("show_all(datasets) works for Guatemala", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(datasets, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -36,7 +36,7 @@ test_that("show_all(datasets) works for Guatemala", {
 })
 
 test_that("show_all(providers) works for Guatemala", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(providers, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -45,7 +45,7 @@ test_that("show_all(providers) works for Guatemala", {
 })
 
 test_that("show_all(reasons) works for Guatemala", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(reasons) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -54,7 +54,7 @@ test_that("show_all(reasons) works for Guatemala", {
 })
 
 test_that("show_all(assertions) works for Guatemala", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(assertions) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -71,7 +71,7 @@ test_that("show_all(lists) works for Guatemala", {
 })
 
 test_that("search_all(fields) works for Guatemala", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_all(fields, "year") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -80,7 +80,7 @@ test_that("search_all(fields) works for Guatemala", {
 })
 
 test_that("search_all(taxa) works for Guatemala", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_all(taxa, "Mammalia") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -89,7 +89,7 @@ test_that("search_all(taxa) works for Guatemala", {
 })
 
 test_that("show_values works for fields for Guatemala", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_all(fields, "basis_of_record") |> 
     show_values() |>
     try(silent = TRUE)
@@ -99,7 +99,7 @@ test_that("show_values works for fields for Guatemala", {
 })
 
 test_that("atlas_counts works for Guatemala", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
     pull(count) |>
     try(silent = TRUE)
@@ -108,7 +108,7 @@ test_that("atlas_counts works for Guatemala", {
 })
 
 test_that("atlas_counts works with type = 'species' for Guatemala", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
     pull(count) |>
     try(silent = TRUE)
@@ -119,7 +119,7 @@ test_that("atlas_counts works with type = 'species' for Guatemala", {
 ## FIXME: Both queries work, but results are notably different
 ## update 2023-11-03: still happens, but unclear if an API problem or a data problem
 # test_that("atlas_counts works with galah_identify for Guatemala", {
-#   skip_if_offline()
+#   skip_if_offline(); skip_on_ci()
 #   result <- galah_call() |>
 #     identify("Mammalia") |>
 #     count() |>
@@ -134,7 +134,7 @@ test_that("atlas_counts works with type = 'species' for Guatemala", {
 # })
 
 test_that("atlas_counts works with group_by for Guatemala", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     filter(year >= 2000) |>
     group_by(basis_of_record) |>
@@ -146,8 +146,22 @@ test_that("atlas_counts works with group_by for Guatemala", {
   expect_equal(names(result), c("basis_of_record", "count"))
 })
 
+test_that("atlas_counts works with group_by for Guatemala when count = 0", {
+  skip_if_offline(); skip_on_ci()
+  result <- galah_call() |>
+    identify("Mammalia") |>
+    filter(!is.na(all_image_url)) |>
+    group_by("family") |>
+    count() |>
+    collect() |>
+    try(silent = TRUE)
+  skip_if(inherits(result, "try-error"), message = "API not available")
+  expect_equal(nrow(result), 0)
+  expect_equal(ncol(result), 0)
+})
+
 test_that("atlas_species fails for Guatemala due to unavailable API", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Guatemala",
     email = "test@ala.org.au", 
@@ -158,7 +172,7 @@ test_that("atlas_species fails for Guatemala due to unavailable API", {
 })
 
 test_that("atlas_occurrences works for Guatemala", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Guatemala",
     email = "test@ala.org.au", 
@@ -187,7 +201,7 @@ test_that("atlas_occurrences works for Guatemala", {
 })
 
 test_that("atlas_media() works for Guatemala", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Guatemala",
     email = "test@ala.org.au",

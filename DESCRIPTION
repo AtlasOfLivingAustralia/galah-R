@@ -1,7 +1,7 @@
 Package: galah
 Type: Package
 Title: Biodiversity Data from the GBIF Node Network
-Version: 2.1.0
+Version: 2.1.1
 Authors@R: 
     c(person(given = "Martin",
              family = "Westgate",
@@ -44,7 +44,8 @@ Imports:
     tibble,
     tidyr,
     tidyselect,
-    utils
+    utils,
+    xml2
 Suggests: 
     covr,
     gt,

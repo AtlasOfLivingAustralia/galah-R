@@ -24,7 +24,7 @@ test_that("atlas_occurrences gives a nice error for invalid emails", {
 })
 
 test_that("collapse(type = 'occurrences') creates an object", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- galah_call() |> 
     identify("Perameles") |>
     collapse()
@@ -34,7 +34,7 @@ test_that("collapse(type = 'occurrences') creates an object", {
 })
 
 test_that("`compute(type = 'occurrences')` works", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   base_query <- galah_call() |>
     identify("Vulpes vulpes") |>
     filter(year <= 1900, 
@@ -61,7 +61,7 @@ test_that("`compute(type = 'occurrences')` works", {
 
 # test all filters and type of columns in one call
 test_that("atlas_occurrences accepts all narrowing functions inline", { 
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "scientificName", "taxonConceptID", "recordID",
                      "dataResourceName", "occurrenceStatus", "stateProvince", 
@@ -94,7 +94,7 @@ test_that("atlas_occurrences accepts all narrowing functions inline", {
 
 # repeat above using `galah_` functions
 test_that("atlas_occurrences accepts all narrowing functions in pipe", { 
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "scientificName", "taxonConceptID", "recordID",
                      "dataResourceName", "occurrenceStatus", "stateProvince", 
@@ -114,7 +114,7 @@ test_that("atlas_occurrences accepts all narrowing functions in pipe", {
 })
 
 test_that("atlas_occurrences() and friends accept a file name", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   # set up directory for testing purposes
   directory <- "TEMP"
   unlink(directory, recursive = TRUE)
@@ -160,7 +160,7 @@ test_that("atlas_occurrences() errors with an invalid DOI", {
 })
 
 test_that("atlas_occurrences downloads data from a DOI", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   doi <- "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060"
   result1 <- atlas_occurrences(doi = doi)
   expect_s3_class(result1, c("tbl_df", "tbl", "data.frame" ))
@@ -179,7 +179,7 @@ test_that("atlas_occurrences downloads data from a DOI", {
 })
 
 test_that("`atlas_occurrences()` places DOI in `attr()` correctly", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   directory <- "TEMP"
   unlink(directory, recursive = TRUE)
   dir.create(directory)
@@ -192,8 +192,6 @@ test_that("`atlas_occurrences()` places DOI in `attr()` correctly", {
   y <- attr(x, "doi")
   expect_false(is.null(y))
   expect_true(grepl("^https://doi.org/", y))
-  citation <- atlas_citation(x)
-  expect_true(grepl("^Atlas of Living Australia", citation))
   rm(x, y)
   # ditto for atlas_occurrences
   x <- galah_call() |>
@@ -211,8 +209,31 @@ test_that("`atlas_occurrences()` places DOI in `attr()` correctly", {
   rm(cache_dir)
 })
 
+test_that("group_by works on occurrences", {
+  skip_if_offline(); skip_on_ci()
+  # compare group_by with atlas_species
+  x <- galah_call() |>
+    filter(year == 2024,
+           genus == "Crinia") |>
+    group_by(speciesID) |>
+    collect()
+  y <- galah_call() |>
+    filter(year == 2024,
+           genus == "Crinia") |>
+    atlas_species()
+  expect_equal(x, y)
+  # try with a different variable
+  z <- galah_call() |>
+    filter(year == 2024,
+           genus == "Crinia") |>
+    group_by(genusID) |>
+    collect()
+  expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
+  expect_equal(colnames(z)[1], "taxon_concept_id")
+})
+
 test_that("atlas_occurrences() doesn't return secret information", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   RUN <- FALSE
   skip_if((!file.exists("testdata/SECRETS.txt") | !RUN),
           message = "Secret information not provided")

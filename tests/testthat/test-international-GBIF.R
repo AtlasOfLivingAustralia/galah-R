@@ -20,7 +20,7 @@ test_that("show_all(fields) works for GBIF", {
 })
 
 test_that("show_all(collections) works for GBIF", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(collections, limit = 10)
   expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
@@ -36,7 +36,7 @@ test_that("show_all(collections) works for GBIF", {
 })
 
 test_that("show_all(datasets) works for GBIF", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(datasets, limit = 10)
   expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
@@ -47,7 +47,7 @@ test_that("show_all(datasets) works for GBIF", {
 })
 
 test_that("show_all(providers) works for GBIF", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(providers, limit = 10)
   expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
@@ -76,7 +76,7 @@ test_that("show_all(lists) fails for GBIF", {
 })
 
 test_that("search_all(taxa) works for GBIF", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_taxa("Mammalia")
   expect_equal(nrow(x), 1)
   expect_gte(ncol(x), 1)
@@ -87,21 +87,21 @@ test_that("search_all(taxa) works for GBIF", {
 galah_config(verbose = TRUE)
 
 test_that("search_all(datasets) works for GBIF", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_all(datasets, "Mammals")
   expect_lte(nrow(x), 20)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("search_all(collections) works for GBIF", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_all(collections, "Museum")
   expect_lte(nrow(x), 20)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("search_all(providers) works for GBIF", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_all(providers, "Frog")
   expect_lte(nrow(x), 20)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
@@ -110,14 +110,14 @@ test_that("search_all(providers) works for GBIF", {
 galah_config(verbose = FALSE)
 
 test_that("search_all(fields) works for GBIF", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- search_all(fields, "year")
   expect_equal(nrow(result), 2)
   expect_true(inherits(result, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_values works for GBIF fields", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   search_fields("basisOfRecord") |>
     show_values() |>
     nrow() |>
@@ -125,7 +125,7 @@ test_that("show_values works for GBIF fields", {
 })
 
 test_that("atlas_counts works for GBIF", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   expect_gt(atlas_counts()$count, 0)
 })
 
@@ -136,7 +136,7 @@ test_that("atlas_counts fails for GBIF when type = 'species'", {
 galah_config(run_checks = TRUE)
 
 test_that("`count()` works with `filter()` for GBIF", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   # collapse
   x <- request_data() |>
     filter(year == 2010) |>
@@ -158,7 +158,7 @@ test_that("`count()` works with `filter()` for GBIF", {
 })
 
 test_that("`count` works with `identify` for GBIF", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   # collapse
   x <- request_data() |>
     identify("Mammalia") |>
@@ -180,7 +180,7 @@ test_that("`count` works with `identify` for GBIF", {
 })
 
 test_that("`count` works with `group_by` for GBIF", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     identify("Litoria") |>
     filter(year >= 2020) |>
@@ -217,7 +217,7 @@ test_that("`count` works with `group_by` for GBIF", {
 # FIXME: `check_fields()` not tested for GBIF - try sending invalid fields to `filter()`
 
 test_that("`count()` works with `galah_polygon()` for GBIF", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   # errors when points given clockwise
   wkt <- "POLYGON((142.36 -29.01,142.74 -29.01,142.74 -29.39,142.36 -29.39,142.36 -29.01))"
   expect_error({galah_call() |>
@@ -246,7 +246,7 @@ test_that("`count()` works with `galah_polygon()` for GBIF", {
 })
 
 test_that("`count()` works with `galah_radius()` for GBIF", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   # ditto for a point and radius
   result <- galah_call() |>
     identify("Mammalia") |>
@@ -270,7 +270,7 @@ test_that("`count()` works with `galah_radius()` for GBIF", {
 })
 
 test_that("`atlas_occurrences()` works with `galah_polygon()` for GBIF", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   wkt <- "POLYGON((142.36 -29.01,142.36 -29.39,142.74 -29.39,142.74 -29.01,142.36 -29.01))"
   base_query <- galah_call() |>
     identify("Mammalia") |>
@@ -285,7 +285,7 @@ test_that("`atlas_occurrences()` works with `galah_polygon()` for GBIF", {
 })
 
 test_that("`atlas_occurences()` works with `galah_radius()` for GBIF", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   base_query <- galah_call() |>
     identify("Mammalia") |>
     galah_radius(lat = -33.7,
@@ -307,7 +307,7 @@ test_that("`galah_select()` returns message for GBIF", {
 })
 
 test_that("atlas_species works for GBIF", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- request_data(type = "species") |>
     filter(year == 2010) |>
     identify("Litoria") |>
@@ -331,7 +331,7 @@ test_that("atlas_species works for GBIF", {
 })
 
 test_that("atlas_media fails for GBIF", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   expect_error({galah_call() |>
     galah_identify("perameles") |>
     atlas_media()
@@ -339,7 +339,7 @@ test_that("atlas_media fails for GBIF", {
 })
 
 test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   # collapse
   base_query <- request_data() |>
     identify("Vulpes vulpes") |>
@@ -365,8 +365,7 @@ test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
   expect_gt(ncol(z), 0)
   expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
   expect_equal(nrow(z), count$count)
-  citation <- atlas_citation(z)
-  expect_true(grepl("^GBIF.org", citation))
+  expect_true(!is.null(attributes(z)$doi))
 })
 
 galah_config(atlas = "Australia")

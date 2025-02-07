@@ -1,5 +1,5 @@
 test_that("request_metadata() |> unnest() works for type = 'fields'", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   # no filter provided causes an error
   expect_error({request_metadata() |> 
       unnest() |>
@@ -27,7 +27,7 @@ test_that("request_metadata() |> unnest() works for type = 'fields'", {
 })
 
 test_that("request_metadata() |> unnest() works for type = 'lists'", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- request_metadata() |> 
     filter(list == dr947) |> 
     unnest() |>
@@ -44,7 +44,7 @@ test_that("request_metadata() |> unnest() works for type = 'lists'", {
 })
 
 test_that("request_metadata() |> unnest() works for type = 'profiles'", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- request_metadata() |>
     unnest() |>
     filter(profile == "something")
@@ -59,7 +59,7 @@ test_that("request_metadata() |> unnest() works for type = 'profiles'", {
 })
 
 test_that("request_metadata() |> unnest() works for type = 'taxa' using `identify()`", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- request_metadata() |>
     identify("crinia") |>
     unnest() |>
@@ -77,7 +77,7 @@ test_that("request_metadata() |> unnest() works for type = 'taxa' using `identif
 })
 
 test_that("request_metadata() |> unnest() works for type = 'taxa' using `filter()`", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   lookup <- search_taxa("Crinia")$taxon_concept_id
   x <- request_metadata() |>
     filter(taxa == lookup) |>

@@ -128,11 +128,20 @@ build_single_fq <- function(query){
     # ensure all arguments from galah_filter are enclosed in brackets
     # EXCEPT for assertions
     fq <- query$fq
-    missing_brackets <- !grepl("^\\(", fq) & !grepl("assertions", fq)
+    missing_brackets <- 
+      !grepl("^\\(", fq) &       # already has brackets
+      !grepl("assertions", fq) & # assertions don't need additional brackets
+      !grepl("^-\\(", fq)        # negative query already has brackets
     if(any(missing_brackets)){
       fq[missing_brackets] <- paste0("(", fq[missing_brackets], ")")
     }
-    fq_single <- paste(fq, collapse = "AND")
+    # add brackets to non-negative AND statements
+    # (adding additional brackets to negative statements breaks them)
+    if(any(!grepl("^-\\(", fq))) {
+      fq_single <- glue::glue_collapse(glue("{fq}"), "AND")
+    } else {
+      fq_single <- glue::glue_collapse(glue("({fq})"), "AND")
+    }
     c(fq = fq_single, query[names(query) != "fq"])
   }else{
     query

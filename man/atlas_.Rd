@@ -107,15 +107,15 @@ it will have columns specified by
 \code{\link[=group_by.data_request]{group_by()}}.
 }
 \description{
-An alternative to using \code{collect()} at the end of a query pipe is to
-call a function with the \code{atlas_} prefix. These solutions are basically
-synonymous, but \code{atlas_} functions differ in two ways:
+An alternative to using \code{\link[=collect.data_request]{collect()}} at the
+end of a query pipe is to call a function with the \code{atlas_} prefix. These
+solutions are basically synonymous, but \code{atlas_} functions differ in two ways:
 \itemize{
 \item They have the ability to accept \code{filter}, \code{select} etc as arguments,
-rather than within a pipe, but \strong{only} when using the \code{galah_} forms of
-those functions (e.g. \code{galah_filter()}).
+rather than within a pipe; but \strong{only} when using the \code{galah_} forms of
+those functions (e.g. \code{\link[=galah_filter]{galah_filter()}}).
 \item \code{atlas_} functions do not require you to specify the \code{method} or \code{type}
-arguments to \code{galah_call()}, as they are more specific in what data are
+arguments to \code{\link[=galah_call]{galah_call()}}, as they are more specific in what data are
 being requested.
 }
 }
@@ -164,7 +164,7 @@ galah_call() |>
 # Get a list of species within genus "Heleioporus"
 # (every row is a species with associated taxonomic data)
 galah_call() |>
-  galah_identify("Heleioporus") |>
+  identify("Heleioporus") |>
   atlas_species()
 
 # Download Regent Honeyeater records with multimedia attached
@@ -176,8 +176,8 @@ galah_call() |>
 
 # Get a taxonomic tree of *Chordata* down to the class level
 galah_call() |> 
-  galah_identify("chordata") |>
-  galah_filter(rank == class) |>
+  identify("chordata") |>
+  filter(rank == class) |>
   atlas_taxonomy()
 }
 }

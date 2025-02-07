@@ -1,3 +1,19 @@
+# galah 2.1.1
+
+### Minor improvements
+* New vignette to demonstrate methods that support reproducibility
+* New function `read_zip()` to reimport downloaded files
+* Support `group_by()` in occurrence queries to allow facet downloads by any variable (#195, #258)
+* Improvements to `atlas_citation()` for improved clarity
+
+### Bug fixes
+* Improved documentation to use `galah_filter()` to specify a `taxon_concept_id` rather than `galah_identify()` (#245)
+* Adding a `field` without data breaks occurrence downloads (#248)
+* Queries that filter using both `!` and `%in%` parse correctly (#251)
+* `show_all(lists)` no longer truncates results to first 500 rows (#252)
+* `atlas_counts()` no longer errors when `group_by()` is set but record count = 0 (#254)
+* Empty tibbles returned by `atlas_species()` no longer return different column names to queries that return a result (#255)
+
 # galah 2.1.0
 
 ### Image downloads

@@ -60,6 +60,7 @@ For those outside Australia, 'galah' is the common name of
 \strong{Miscellaneous functions}
 \itemize{
 \item \code{\link[=atlas_citation]{atlas_citation()}} Get a citation for a dataset
+\item \code{\link[=read_zip]{read_zip()}} To read data from an earlier download
 \item \code{\link[=print.data_request]{print()}} Print functions for galah objects
 }
 }

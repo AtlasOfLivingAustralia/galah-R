@@ -38,6 +38,8 @@ navbar:
       - text: Advanced
       - text: Object-oriented programming
         href: articles/object_oriented_programming.html
+      - text: Reproduciblility
+        href: articles/download-data-reproducibly.html
       - text: Taxonomic filtering
         href: articles/taxonomic_filtering.html
       - text: Spatial filtering
@@ -93,5 +95,6 @@ reference:
   contents:
   - taxonomic_searches
   - print_galah_objects
+  - read_zip
   - atlas_citation
 - title: internal

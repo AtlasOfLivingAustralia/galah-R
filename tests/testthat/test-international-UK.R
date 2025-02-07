@@ -6,7 +6,7 @@ test_that("swapping to atlas = United Kingdom works", {
 })
 
 test_that("show_all(fields) works for UK", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(fields) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -18,7 +18,7 @@ test_that("show_all(fields) works for UK", {
 })
 
 test_that("show_all(collections) works for UK", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(collections, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -27,7 +27,7 @@ test_that("show_all(collections) works for UK", {
 })
 
 test_that("show_all(datasets) works for UK", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(datasets, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -36,7 +36,7 @@ test_that("show_all(datasets) works for UK", {
 })
 
 test_that("show_all(providers) works for UK", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(providers, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -45,7 +45,7 @@ test_that("show_all(providers) works for UK", {
 })
 
 test_that("show_all(reasons) works for UK", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(reasons) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -54,7 +54,7 @@ test_that("show_all(reasons) works for UK", {
 })
 
 test_that("show_all(assertions) works for UK", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(assertions) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -67,7 +67,7 @@ test_that("show_all(profiles) fails for UK", {
 })
 
 test_that("show_all(lists) works for UK", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(lists) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -76,7 +76,7 @@ test_that("show_all(lists) works for UK", {
 })
 
 test_that("search_all(fields) works for UK", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_all(fields, "year") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -85,7 +85,7 @@ test_that("search_all(fields) works for UK", {
 })
 
 test_that("search_all(taxa) works for UK", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_all(taxa, "Mammalia") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -94,7 +94,7 @@ test_that("search_all(taxa) works for UK", {
 })
 
 test_that("search_taxa works for multiple queries", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   taxa <- search_taxa(c("Vulpes vulpes", "Meles meles")) |>
     try(silent = TRUE)
   skip_if(inherits(taxa, "try-error"), message = "API not available")
@@ -102,12 +102,12 @@ test_that("search_taxa works for multiple queries", {
 })
 
 test_that("search_taxa doesn't break with typos", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   expect_silent(search_taxa("Vlpes"))
 })
 
 test_that("show_values works for UK", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_fields("basis_of_record") |>
     show_values() |>
     try(silent = TRUE)
@@ -116,7 +116,7 @@ test_that("show_values works for UK", {
 })
 
 test_that("show_list_values works for United Kingdom", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_lists("dr556") |> 
     show_values() |>
     try(silent = TRUE)
@@ -125,7 +125,7 @@ test_that("show_list_values works for United Kingdom", {
 })
 
 test_that("atlas_counts works with type = 'occurrences' for United Kingdom", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
     pull(count) |>
     try(silent = TRUE)
@@ -134,7 +134,7 @@ test_that("atlas_counts works with type = 'occurrences' for United Kingdom", {
 })
 
 test_that("atlas_counts works with type = 'species' for United Kingdom", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
     pull(count) |>
     try(silent = TRUE)
@@ -143,7 +143,7 @@ test_that("atlas_counts works with type = 'species' for United Kingdom", {
 })
 
 test_that("atlas_counts works with galah_identify for United Kingdom", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     identify("Vulpes") |>
     count() |>
@@ -165,7 +165,7 @@ test_that("atlas_counts works with galah_identify for United Kingdom", {
 # possibly because name-matching is going wrong somewhere
   
 test_that("atlas_counts works with group_by for United Kingdom", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     galah_filter(year >= 2020) |>
     galah_group_by(year) |>
@@ -176,8 +176,8 @@ test_that("atlas_counts works with group_by for United Kingdom", {
   expect_equal(names(result), c("year", "count"))
 })
 
-test_that("atlas_species works for United Kingdom, but doesn't return data", {
-  skip_if_offline()
+test_that("atlas_species works for United Kingdom", {
+  skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "United Kingdom",
     email = "ala4r@ala.org.au",
@@ -188,12 +188,12 @@ test_that("atlas_species works for United Kingdom, but doesn't return data", {
       identify("Canidae") |>
       atlas_species()
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(nrow(x), 0)
-  expect_equal(ncol(x), 0)
+  expect_gte(nrow(x), 1)
+  expect_gte(ncol(x), 1)
 })
 
 test_that("atlas_occurrences works for United Kingdom", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "United Kingdom",
     email = "ala4r@ala.org.au",
@@ -240,7 +240,7 @@ test_that("atlas_occurrences works for United Kingdom", {
 })
 
 test_that("atlas_media() works for UK", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "United Kingdom",
     email = "ala4r@ala.org.au",

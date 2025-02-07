@@ -105,7 +105,6 @@ collect_taxa_gbif <- function(.query){
 #' Internal function to do cleaning
 #' @param result a list from a taxonomic web service
 #' @importFrom purrr pluck
-#' @importFrom utils adist
 #' @noRd
 #' @keywords Internal
 clean_la_taxa <- function(result, search_terms){
@@ -131,7 +130,7 @@ clean_la_taxa <- function(result, search_terms){
       } else { # e.g. France
         taxon_names <- unlist(lapply(list_of_results, function(b){b$scientificName}))
       }
-        string_distances <- adist(
+        string_distances <- utils::adist(
           tolower(search_terms), 
           tolower(taxon_names))[1, ]
         min_distance <- which(string_distances == min(string_distances))

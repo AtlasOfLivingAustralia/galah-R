@@ -1,5 +1,5 @@
 test_that("`identify` works identically to piped `galah_identify`", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result1 <- galah_call() |> galah_identify("Litoria")
   result2 <- galah_call() |> identify("Litoria")
   expect_equal(result1, result2)
@@ -31,14 +31,14 @@ test_that("`st_crop` works identically to piped `galah_polygon`", {
 })
 
 test_that("`count` works identically to piped `atlas_counts`", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result1 <- galah_call() |> galah_identify("Litoria") |> atlas_counts()
   result2 <- galah_call() |> identify("Litoria") |> count() |> collect()
   expect_equal(result1, result2)
 })
 
 test_that("`slice_head` works for atlas_counts", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- galah_call() |> 
     filter(year >= 2010) |> 
     group_by(year) |> 

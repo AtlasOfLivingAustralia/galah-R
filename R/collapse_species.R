@@ -20,6 +20,13 @@ collapse_species_atlas <- function(.query){
   if(is.null(.query$select)){
     .query$select <- galah_select(group = "taxonomy")
   }
+  
+  # determine whether to use `group_by` or `species_facets()`
+  if(is.null(.query$group_by)){
+    .query$group_by <- tibble(name = species_facets(),
+                              type = "field")
+  }
+  
   # build a query
   query <- c(
     build_query(.query$identify, 
@@ -30,7 +37,7 @@ collapse_species_atlas <- function(.query){
     sourceTypeId = 2004,
     reasonTypeId = pour("user", "download_reason_id"),
     email = pour("user", "email"), 
-    facets = species_facets(),
+    facets = .query$group_by$name,
     parse_select_species(.query$select)
   )
   # build url
@@ -43,6 +50,7 @@ collapse_species_atlas <- function(.query){
     url = url_build(url),
     headers = build_headers(),
     filter = .query$filter,
+    group_by = .query$group_by,
     download = TRUE)
   class(result) <- "query"
   result

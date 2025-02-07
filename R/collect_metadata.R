@@ -63,6 +63,11 @@ collect_collections <- function(.query){
     }
     result <- flat_lists_only(result) |>
       bind_rows()
+  }else if(pour("atlas", "region", .pkg = "galah") == "France"){
+    result <- query_API(.query) |>
+      pluck("_embedded", "producers") |>
+      unlist()
+    result <- tibble(name = result)
   }else{
     result <- query_API(.query) |> 
       bind_rows() 
@@ -98,8 +103,8 @@ flat_lists_only <- function(x){
 #' @noRd
 #' @keywords Internal
 collect_datasets <- function(.query){
+  result <- query_API(.query)
   if(is_gbif()){
-    result <- query_API(.query)
     if(any(names(result) == "results")){ # happens when `filter()` not specified
       # Note: This assumes only one API call; will need more potentially
       result <- pluck(result, "results")
@@ -107,10 +112,13 @@ collect_datasets <- function(.query){
     result <- result |>
       flat_lists_only() |>
       bind_rows()
-  }else{
-    result <- query_API(.query)
+  }else if(pour("atlas", "region", .pkg = "galah") == "France"){
     result <- result |> 
-      bind_rows() |> 
+      pluck("_embedded", "datasets") |>
+      bind_rows()
+  }else{
+    result <- result |> 
+      bind_rows() |>
       relocate("uid") |>
       rename("id" = "uid")
   }
@@ -170,6 +178,11 @@ collect_fields <- function(.query){
     if(!is.null(.query$url)){ # i.e. there is no cached `tibble`
       result <- query_API(.query) |>
         bind_rows() 
+      # if there is a 'stored' field, use it to filter results
+      if(any(colnames(result) == "stored")){
+        result <- result |> dplyr::filter(.data$stored == TRUE)
+      }
+      # now mutate to required format
       result <- result |>
         mutate(id = result$name) |>
         select(all_of(wanted_columns("fields"))) |>
@@ -268,8 +281,8 @@ collect_profiles <- function(.query){
 #' @noRd
 #' @keywords Internal
 collect_providers <- function(.query){
+  result <- query_API(.query)
   if(is_gbif()){
-    result <- query_API(.query)
     if(any(names(result) == "results")){ # happens when `filter()` not specified
       # Note: This assumes only one API call; will need more potentially
       result <- pluck(result, "results")
@@ -277,8 +290,12 @@ collect_providers <- function(.query){
     result <- result |>
       flat_lists_only() |>
       bind_rows()
+  }else if(pour("atlas", "region", .pkg = "galah") == "France"){
+    result <- tibble(name = {
+      pluck(result, "_embedded", "providers") |> 
+        unlist()
+      })
   }else{
-    result <- query_API(.query)
     result <- result |> 
       bind_rows()
     if(nrow(result) > 0){ # exception added because this API isn't always populated (e.g. France)
@@ -291,7 +308,6 @@ collect_providers <- function(.query){
   attr(result, "region") <- pour("atlas", "region")
   result
 }
-
 
 #' Internal function to `collect()` APIs
 #' @noRd

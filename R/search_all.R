@@ -86,7 +86,6 @@
 #'  collect() |>
 #'  dplyr::filter(grepl("date", id))
 #' }
-#' @importFrom utils adist
 #' @importFrom rlang as_name
 #' @importFrom rlang .data
 #' @export
@@ -162,7 +161,7 @@ search_text_cols <- function(df, query){
   
   # order search_all() results
   if ("id" %in% colnames(result)) {
-    similarity <- adist(result$id, query)[, 1] # similarity of results to query
+    similarity <- utils::adist(result$id, query)[, 1] # similarity of results to query
     result <- result[order(similarity), ] # reorder results
   }
   

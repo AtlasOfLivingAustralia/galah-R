@@ -6,7 +6,7 @@ test_that("swapping to atlas = Brazil works", {
 })
 
 test_that("show_all(fields) works for Brazil", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(fields) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -15,7 +15,7 @@ test_that("show_all(fields) works for Brazil", {
 })
 
 test_that("show_all(collections) works for Brazil", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(collections, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -24,7 +24,7 @@ test_that("show_all(collections) works for Brazil", {
 })
 
 test_that("show_all(datasets) works for Brazil", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(datasets, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -33,7 +33,7 @@ test_that("show_all(datasets) works for Brazil", {
 })
 
 test_that("show_all(providers) works for Brazil", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(providers, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -46,7 +46,7 @@ test_that("show_all(reasons) fails for Brazil", {
 })
 
 test_that("show_all(assertions) works for Brazil", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(assertions) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -59,7 +59,7 @@ test_that("show_all(profiles) fails for Brazil", {
 })
 
 test_that("show_all(lists) works for Brazil", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- show_all(lists, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -68,7 +68,7 @@ test_that("show_all(lists) works for Brazil", {
 })
 
 test_that("search_all(fields) works for Brazil", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_all(fields, "year") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -77,7 +77,7 @@ test_that("search_all(fields) works for Brazil", {
 })
 
 test_that("search_all(taxa) works for Brazil", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_all(taxa, "Mammalia") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -86,7 +86,7 @@ test_that("search_all(taxa) works for Brazil", {
 })
 
 test_that("show_values works for Brazil", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- search_fields("basis_of_record") |>
     show_values() |>
     try(silent = TRUE)
@@ -103,7 +103,7 @@ test_that("show_values works for Brazil", {
 })
 
 test_that("atlas_counts works for Brazil", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
     pull(count) |>
     try(silent = TRUE)
@@ -112,7 +112,7 @@ test_that("atlas_counts works for Brazil", {
 })
 
 test_that("atlas_counts works with type = 'species' for Brazil", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
     pull(count) |>
     try(silent = TRUE)
@@ -121,7 +121,7 @@ test_that("atlas_counts works with type = 'species' for Brazil", {
 })
 
 test_that("atlas_counts works with galah_identify for Brazil", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   query1 <- galah_call() |>
     galah_identify("Mammalia") |> 
     count() |>
@@ -145,7 +145,7 @@ test_that("atlas_counts works with galah_identify for Brazil", {
 })
 
 test_that("atlas_counts works with group_by for Brazil", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     galah_filter(year >= 2020) |>
     galah_group_by(year) |>
@@ -157,7 +157,7 @@ test_that("atlas_counts works with group_by for Brazil", {
 })
 
 test_that("atlas_species works for Brazil", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Brazil",
     email = "ala4r@ala.org.au", 
@@ -175,7 +175,7 @@ test_that("atlas_species works for Brazil", {
 
 ## FIXME: Caused by taxonomic search issue
 test_that("atlas_occurrences works for Brazil", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Brazil",
     email = "ala4r@ala.org.au", 
@@ -209,7 +209,7 @@ test_that("atlas_occurrences works for Brazil", {
   # "Myrmecophaga tridactyla" # anteater
 
 test_that("atlas_media() works for Brazil", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Brazil",
     email = "ala4r@ala.org.au",

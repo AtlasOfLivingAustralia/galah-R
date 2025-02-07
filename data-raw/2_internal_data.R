@@ -23,10 +23,6 @@ node_metadata <- read_csv("./data-raw/node_metadata.csv") |>
   filter(supported == TRUE) |>
   select(-supported)
 
-node_metadata$institution[
-  which(node_metadata$acronym == "OpenObs")
-  ] <- "Portail français d'accès aux données d'observation sur les espèces"
-
 # configuration for web services of all atlases
 # NOTE:
   # Australia, Brazil & UK use their own taxonomy
@@ -109,7 +105,7 @@ galah_internal_cached <- lapply(
   function(a){
     result <- request_metadata(type = a) |> collect()
     attr(result, "ARCHIVED") <- TRUE
-    attr(result, "atlas_name") <- "Australia"
+    attr(result, "region") <- "Australia"
     result
   })
 # lapply(galah_internal_cached, attributes) # check

@@ -1,5 +1,5 @@
 test_that("galah_apply_profile filters counts", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   without_profile <- galah_call() |>
     count() |>
     collect()
@@ -18,7 +18,7 @@ test_that("galah_apply_profile filters counts", {
 })
 
 test_that("galah_apply_profile filters species", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   galah_config(email = "ala4r@ala.org.au", 
                atlas = "Australia", 
                run_checks = FALSE)
@@ -37,7 +37,7 @@ test_that("galah_apply_profile filters species", {
 })
 
 test_that("galah_apply_profile filters occurrences", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   galah_config(email = "ala4r@ala.org.au", 
                atlas = "Australia", 
                run_checks = FALSE)
@@ -55,7 +55,7 @@ test_that("galah_apply_profile filters occurrences", {
 })
 
 test_that("galah_apply_profile matches profile", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   profile_1 <- galah_apply_profile("ALA")
   profile_2 <- galah_apply_profile(AVH)
   expect_equal(profile_1[[1]],  "ALA")
@@ -63,7 +63,7 @@ test_that("galah_apply_profile matches profile", {
 })
 
 test_that("`galah_apply_profile()` errors at `collapse()`", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   galah_config(run_checks = TRUE)
   expect_error(request_data() |>
     apply_profile(whatever) |>
@@ -74,7 +74,7 @@ test_that("`galah_apply_profile()` errors at `collapse()`", {
 })
 
 test_that("galah_apply_profile allows only one profile at a time", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   expect_error(galah_apply_profile(ALA, CSDM), 
                "Too many data profiles supplied.")
 })
