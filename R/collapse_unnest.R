@@ -34,14 +34,21 @@ collapse_lists_unnest <- function(.query){
                     list_id = .query$filter$value[1]) |>
     url_parse()
   
-  url$query <- list(
-    max = -1 # remove max limit
-  )
+  # Request additional raw fields if `show_fields(all_fields = TRUE)`
+  if(isTRUE(attributes(.query)$all_fields)) {
+    url$query <- list(
+      max = -1,         # remove max limit
+      includeKVP = TRUE # add name & status columns
+    )
+  } else {
+    url$query <- list(
+      max = -1          # remove max limit
+    )
+  }
   
   result <- list(
     type = "metadata/lists-unnest",
     url = url_build(url))
-  
   class(result) <- "query"
   return(result)
 }

@@ -143,3 +143,5 @@ test_that("unnest syntax works", {
   expect_gte(ncol(y), 4)
   expect_gte(nrow(y), 1)
 })
+
+# test that `show_fields(all_fields = TRUE)` works correctly
