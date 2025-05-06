@@ -13,7 +13,8 @@ search_values(df, query)
 \item{df}{A search result from \code{\link[=search_fields]{search_fields()}}, \code{\link[=search_profiles]{search_profiles()}} or
 \code{\link[=search_lists]{search_lists()}}.}
 
-\item{all_fields}{If \code{TRUE}, \code{show_values()} also returns all raw data columns
+\item{all_fields}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} If \code{TRUE},
+\code{show_values()} also returns all raw data columns
 (columns included prior to the dataset's ingestion into the ALA).
 For many lists, this will include raw scientific names and vernacular
 names.

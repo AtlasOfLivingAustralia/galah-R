@@ -144,4 +144,17 @@ test_that("unnest syntax works", {
   expect_gte(nrow(y), 1)
 })
 
-# test that `show_fields(all_fields = TRUE)` works correctly
+test_that("show_values all_fields = TRUE works for lists", {
+  skip_if_offline(); skip_on_ci()
+  search <- search_all(lists, "dr650") |>
+    show_values(all_fields = TRUE)
+  extra_cols <- c("raw_scientificName", "status", "sourceStatus", "IUCN_equivalent_status")
+  
+  expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
+  expect_gt(nrow(search), 0)
+  expect_true(any(colnames(search) %in% extra_cols))
+  expect_gt(ncol(search), 6) # adds additional columns
+  expect_warning(search_all(fields, "cl22") |> 
+                   show_values(all_fields = TRUE))
+})
+

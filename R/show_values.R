@@ -28,7 +28,8 @@
 #' 
 #' @param df A search result from [search_fields()], [search_profiles()] or 
 #' [search_lists()].
-#' @param all_fields If `TRUE`, `show_values()` also returns all raw data columns 
+#' @param all_fields `r lifecycle::badge("experimental")` If `TRUE`, 
+#'   `show_values()` also returns all raw data columns 
 #'   (columns included prior to the dataset's ingestion into the ALA). 
 #'   For many lists, this will include raw scientific names and vernacular 
 #'   names. 
