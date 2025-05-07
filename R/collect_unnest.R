@@ -68,8 +68,8 @@ collect_lists_unnest <- function(.query){
     result <- result |>
       slice(1:10) |>
       tidyr::unnest_wider("kvpValues") |>
-      tidyr::pivot_wider(names_from = key,
-                         values_from = value)
+      tidyr::pivot_wider(names_from = "key",
+                         values_from = "value")
   }
 
   return(result)
