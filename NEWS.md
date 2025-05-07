@@ -1,3 +1,13 @@
+# galah 2.1.2
+
+### Minor improvements
+* Support `group_by()` for `atlas_occurrences()` queries (#258)
+* Allow users to download additional information like conservation status from lists using `show_values(all_fields = TRUE)` (#266)
+
+### Bug fixes
+* Queries with multiple filter arguments no longer ignore some filters (#265)
+
+
 # galah 2.1.1
 
 ### Minor improvements
