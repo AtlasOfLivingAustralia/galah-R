@@ -1,9 +1,13 @@
 #' Retrieve a database query
 #'
 #' @description
-#' An alternative to using \code{\link[=collect.data_request]{collect()}} at the 
-#' end of a query pipe is to call a function with the `atlas_` prefix. These
-#' solutions are basically synonymous, but `atlas_` functions differ in two ways:
+#' `atlas_` functions retrieve data specified by the suffix of each function 
+#' name (e.g. `atlas_counts()`, `atlas_occurrences()`). 
+#' They are an alternative option to 
+#' using \code{\link[=collect.data_request]{collect()}} at the 
+#' end of a query pipe. Using an `atlas_` function or `collect()` at the end 
+#' of a query are basically synonymous, 
+#' but `atlas_` functions differ in two ways:
 #' 
 #'   * They have the ability to accept `filter`, `select` etc as arguments,
 #'     rather than within a pipe; but **only** when using the `galah_` forms of 
@@ -38,6 +42,8 @@
 #' number of records to show a progress bar by setting `verbose = TRUE` in
 #' [galah_config()], or to use `compute()` to run the call before collecting
 #' it later with `collect()`.
+#' 
+#' See `?collect_media()` for more information on how to download media files.
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble). For
 #' `atlas_occurrences()` and `atlas_species()`, this will have columns specified 
 #' by \code{\link[=select.data_request]{select()}}. For `atlas_counts()`, 
@@ -81,6 +87,7 @@
 #'
 #' # Download Regent Honeyeater records with multimedia attached
 #' # Note this returns one row per multimedia file, NOT one per occurrence
+#' # See `?collect_media()` for information on how to download media
 #' galah_call() |>
 #'   identify("Regent Honeyeater") |>
 #'   filter(year == 2011) |>

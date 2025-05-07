@@ -72,15 +72,16 @@ collect_media_files <- function(.query){
 }
 
 #' Collect media files
-#'
-#' This function downloads full-sized or thumbnail images and media files using 
-#' information from `atlas_media` to a local directory. 
-#'
-#' @param df `tibble`: returned by `atlas_media()` or a pipe starting with 
+#' 
+#' @description
+#' This function downloads full-sized or thumbnail images and media files 
+#' to a local directory using information from [atlas_media()] 
+#' 
+#' @param df A `tibble` returned by `atlas_media()` or a pipe starting with 
 #' `request_data(type = "media")`.
-#' @param thumbnail `logical`: If `TRUE` will download small thumbnail-sized 
-#' images, rather than full size images (default).
-#' @param path `string`: 
+#' @param thumbnail Default is `FALSE`. If `TRUE` will download small 
+#' thumbnail-sized images, rather than full size images (default).
+#' @param path  
 #'    `r lifecycle::badge("deprecated")` 
 #'    Use `galah_config(directory = "path-to-directory)"` instead. Supply a path 
 #'    to a local folder/directory where downloaded media will be saved to.
@@ -99,7 +100,7 @@ collect_media_files <- function(.query){
 #' galah_config(directory = "media_files")
 #' collect_media(x)
 #' 
-#' #' # post version 2.0, it is possible to run all steps in sequence
+#' # Since version 2.0, it is possible to run all steps in sequence
 #' # first, get occurrences, making sure to include media fields:
 #' occurrences_df <- request_data() |>
 #'   identify("Regent Honeyeater") |>
@@ -112,10 +113,10 @@ collect_media_files <- function(.query){
 #'   filter(media == occurrences_df) |>
 #'   collect()
 #'   
-#' # the two steps above + `right_join()` are synonmous with `atlas_media()`
+#' # the two steps above + `right_join()` are synonymous with `atlas_media()`
 #' # third, get images
 #' request_files() |>
-#'   filter(media == media_df) |>
+#'   filter(media == media_info) |>
 #'   collect(thumbnail = TRUE)
 #' # step three is synonymous with `collect_media()`
 #' }
