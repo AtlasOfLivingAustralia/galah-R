@@ -66,7 +66,6 @@ collect_lists_unnest <- function(.query){
   # extract additional raw fields columns
   if (any(colnames(result) %in% "kvpValues")) {
     result <- result |>
-      slice(1:10) |>
       tidyr::unnest_wider("kvpValues") |>
       tidyr::pivot_wider(names_from = "key",
                          values_from = "value")
