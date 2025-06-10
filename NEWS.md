@@ -6,6 +6,8 @@
 
 ### Bug fixes
 * Queries with multiple filter arguments no longer ignore some filters (#265)
+* Support for Flanders Atlas temporarily deactivated (#256)
+* Fix GBIF downloads to append DOI to attributes of downloaded object
 
 
 # galah 2.1.1

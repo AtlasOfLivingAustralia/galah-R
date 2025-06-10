@@ -68,8 +68,11 @@ collect_occurrences_default <- function(.query, wait, file){
       check_field_identities(.query) |>
       check_media_cols()  # check for, and then clean, media info
     # exception for GBIF to ensure DOIs are preserved
-    if(!is.null(.query$doi)){
-      attr(result, "doi") <- paste0("https://doi.org/", .query$doi)
+    if(!is.null(download_response$doi)){
+      # NOTE: GBIF documents DOIs in download response status url (it used to be automatically appended)
+      #       We extract and preserve this info for the user, as of 2025-06-10
+      doi <- download_response$doi
+      attr(result, "doi") <- paste0("https://doi.org/", doi)
     }
     if(!is.null(.query$search_url)){
       attr(result, "search_url") <- .query$search_url

@@ -144,13 +144,17 @@ test_that("collect_media handles different file formats", {
                directory = media_dir)
   media_data <- galah_call() |>
     galah_identify("Regent Honeyeater") |>
-    galah_filter(year == 2012) |>
+    galah_filter(year == 2024) |>
     atlas_media() 
+  # sample one of each multimedia type to shorten testing time
+  media_data <- media_data |>
+    dplyr::group_by(multimedia) |>
+    dplyr::sample_n(size = 1)
   expect_equal(sort(unique(media_data$multimedia)),
-               c("Image", "Sound"))
-  collect_media(media_data)
+               c("Image", "Image | Sound", "Sound"))
+  collect_media(media_data, thumbnail = TRUE)
   downloads <- list.files(path = media_dir)
-  expect_true(any(grepl(".mpg$", downloads))) # sound
+  expect_true(any(grepl(".mpg$", downloads))) # sounds
   expect_true(any(grepl(".jpg$", downloads))) # images
   file_count <- length(list.files(media_dir)) 
   # expect_equal(file_count, nrow(media_data)) # FIXME correct n
