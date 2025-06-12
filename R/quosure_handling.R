@@ -109,11 +109,14 @@ clean_logical_statements <- function(df){
   or_lookup <- 
     grepl("\\sOR\\s", df$query) & # OR statements
     !grepl("^-\\(", df$query)    # but not negative statements
-  # browser()
-  if(any(or_lookup) && 
-     length(df$query) > 1){ # multiple OR + AND queries require ORs to have extra brackets
+  if(any(or_lookup)){
+     # length(df$query) > 1){ # multiple OR + AND queries require ORs to have extra brackets
+     # line above disabled as shown to cause issue #265
+     # Problem here is that this test is strictly true; but `identify()` 
+     # sometimes adds extra lines _after_ this is parsed, so the test can't be 
+     # meaningfully applied within this function
     or_strings <- df$query[which(or_lookup)]
-    df$query[which(or_lookup)] <- glue("({or_strings})") |>
+    df$query[which(or_lookup)] <- glue::glue("({or_strings})") |>
       as.character()
   }
   df

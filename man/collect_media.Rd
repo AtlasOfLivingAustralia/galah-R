@@ -7,14 +7,13 @@
 collect_media(df, thumbnail = FALSE, path)
 }
 \arguments{
-\item{df}{\code{tibble}: returned by \code{atlas_media()} or a pipe starting with
+\item{df}{A \code{tibble} returned by \code{atlas_media()} or a pipe starting with
 \code{request_data(type = "media")}.}
 
-\item{thumbnail}{\code{logical}: If \code{TRUE} will download small thumbnail-sized
-images, rather than full size images (default).}
+\item{thumbnail}{Default is \code{FALSE}. If \code{TRUE} will download small
+thumbnail-sized images, rather than full size images (default).}
 
-\item{path}{\code{string}:
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\item{path}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 Use \verb{galah_config(directory = "path-to-directory)"} instead. Supply a path
 to a local folder/directory where downloaded media will be saved to.}
 }
@@ -24,8 +23,8 @@ grouped by their HTML status codes. Primarily called for the side effect of
 downloading available image & media files to a user local directory.
 }
 \description{
-This function downloads full-sized or thumbnail images and media files using
-information from \code{atlas_media} to a local directory.
+This function downloads full-sized or thumbnail images and media files
+to a local directory using information from \code{\link[=atlas_media]{atlas_media()}}
 }
 \examples{
 \dontrun{
@@ -39,7 +38,7 @@ x <- galah_call() |>
 galah_config(directory = "media_files")
 collect_media(x)
 
-#' # post version 2.0, it is possible to run all steps in sequence
+# Since version 2.0, it is possible to run all steps in sequence
 # first, get occurrences, making sure to include media fields:
 occurrences_df <- request_data() |>
   identify("Regent Honeyeater") |>
@@ -52,10 +51,10 @@ media_info <- request_metadata() |>
   filter(media == occurrences_df) |>
   collect()
   
-# the two steps above + `right_join()` are synonmous with `atlas_media()`
+# the two steps above + `right_join()` are synonymous with `atlas_media()`
 # third, get images
 request_files() |>
-  filter(media == media_df) |>
+  filter(media == media_info) |>
   collect(thumbnail = TRUE)
 # step three is synonymous with `collect_media()`
 }

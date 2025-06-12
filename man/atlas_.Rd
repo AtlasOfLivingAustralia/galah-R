@@ -107,9 +107,13 @@ it will have columns specified by
 \code{\link[=group_by.data_request]{group_by()}}.
 }
 \description{
-An alternative to using \code{\link[=collect.data_request]{collect()}} at the
-end of a query pipe is to call a function with the \code{atlas_} prefix. These
-solutions are basically synonymous, but \code{atlas_} functions differ in two ways:
+\code{atlas_} functions retrieve data specified by the suffix of each function
+name (e.g. \code{atlas_counts()}, \code{atlas_occurrences()}).
+They are an alternative option to
+using \code{\link[=collect.data_request]{collect()}} at the
+end of a query pipe. Using an \code{atlas_} function or \code{collect()} at the end
+of a query are basically synonymous,
+but \code{atlas_} functions differ in two ways:
 \itemize{
 \item They have the ability to accept \code{filter}, \code{select} etc as arguments,
 rather than within a pipe; but \strong{only} when using the \code{galah_} forms of
@@ -129,6 +133,8 @@ can test whether this threshold will be reached by first calling
 number of records to show a progress bar by setting \code{verbose = TRUE} in
 \code{\link[=galah_config]{galah_config()}}, or to use \code{compute()} to run the call before collecting
 it later with \code{collect()}.
+
+See \code{?collect_media()} for more information on how to download media files.
 }
 \examples{
 \dontrun{
@@ -169,6 +175,7 @@ galah_call() |>
 
 # Download Regent Honeyeater records with multimedia attached
 # Note this returns one row per multimedia file, NOT one per occurrence
+# See `?collect_media()` for information on how to download media
 galah_call() |>
   identify("Regent Honeyeater") |>
   filter(year == 2011) |>

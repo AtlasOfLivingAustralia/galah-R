@@ -103,6 +103,22 @@ test_that("atlas_counts handles 'taxonConceptID' as a 'group by' variable", {
   expect_true(all(counts$year >= 2015))
 })
 
+# test added to address Issue #265
+test_that("atlas_counts handles `identify()` in combination with `OR` statements in `filter()`", {
+  skip_if_offline(); skip_on_ci()
+  regions <- c("Dampierland","Wet Tropics")
+  counts <- galah_call() |>
+    identify("Squamata") |>
+    filter(cl1048 %in% regions) |>
+    group_by(cl1048) |>
+    count() |>
+    collect()
+  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(nrow(counts), 2)
+  expect_true(all(regions %in% counts$cl1048))
+  expect_true(all(counts$count > 0))
+})
+
 test_that("atlas_counts returns same result with filter using `,` and `&`", {
   skip_if_offline(); skip_on_ci()
   count_comma <- galah_call() |>

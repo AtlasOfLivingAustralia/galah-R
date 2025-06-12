@@ -158,8 +158,8 @@ test_that("atlas_occurrences works for France", {
   galah_config(atlas = "France",
                email = "ala4r@ala.org.au")
   base_query <- galah_call() |>
-    filter(year <= 1950) |>
-    identify("Vulpes vulpes")
+    filter(year <= 1950,
+           genus == "Vulpes")
   counts <- base_query |>
     count() |>
     collect()

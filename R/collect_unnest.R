@@ -60,8 +60,19 @@ collect_fields_unnest <- function(.query, error_call = caller_env()){
 #' @noRd
 #' @keywords Internal
 collect_lists_unnest <- function(.query){
-  query_API(.query) |> 
+  result <- query_API(.query) |> 
     bind_rows()
+  
+  # extract additional raw fields columns
+  if (any(colnames(result) %in% "kvpValues")) {
+    result <- result |>
+      tidyr::unnest_wider("kvpValues") |>
+      tidyr::pivot_wider(names_from = "key",
+                         values_from = "value")
+  }
+
+  return(result)
+  
 }
 
 #' Internal function to run `compute()` for 

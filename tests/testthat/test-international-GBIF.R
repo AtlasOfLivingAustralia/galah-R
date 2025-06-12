@@ -349,7 +349,7 @@ test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
     collect()
   x <- base_query |>
     collapse()
-  # NOTE: the above query should return 147 records (tested 2023-10-12)
+  # NOTE: the above query should return 72 records (tested 2025-06-10)
   expect_s3_class(x, "query")
   expect_equal(names(x), 
                c("type", "url", "headers", "options", "body"))

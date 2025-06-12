@@ -28,6 +28,15 @@
 #' 
 #' @param df A search result from [search_fields()], [search_profiles()] or 
 #' [search_lists()].
+#' @param all_fields `r lifecycle::badge("experimental")` If `TRUE`, 
+#'   `show_values()` also returns all raw data columns 
+#'   (columns included prior to the dataset's ingestion into the ALA). 
+#'   For many lists, this will include raw scientific names and vernacular 
+#'   names. 
+#'   For conservation lists like the EPBC list, this also includes columns 
+#'   containing each species' conservation status information. 
+#'   Default is set to `FALSE`. 
+#'   Currently only implemented for metadata type `lists`.
 #' @return A `tibble` of values for a specified field, profile or list.
 #' @importFrom tibble tibble
 #' @importFrom cli col_yellow
@@ -52,7 +61,8 @@
 #'   show_values()
 #' }
 #' @export
-show_values <- function(df){
+show_values <- function(df,
+                        all_fields = FALSE){
   
   check_values_input(df)
   
@@ -65,7 +75,13 @@ show_values <- function(df){
                          "uid" # last option selected if above are exhausted
   )
   match_name <- df[[match_column]][1]
-
+  
+  # add_fields for lists only
+  if(isTRUE(all_fields) && type != "lists") {
+    cli::cli_warn("`all_fields` only applies to type `lists`. Ignoring `all_fields = TRUE`.")
+    all_fields <- FALSE
+  }
+  
   # specify the number matched fields
   # specify for which field the values are displayed
   if(nrow(df) > 1) {
@@ -89,10 +105,10 @@ show_values <- function(df){
     )
     }
   }
-  
   request_metadata() |>
     filter({{type}} == {{match_name}}) |>
     unnest() |>
+    `attr<-`("all_fields", all_fields) |>
     collect()
 }
 
