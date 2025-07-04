@@ -25,8 +25,9 @@ atlas_media <- function(request = NULL,
                          "Austria", # not currently working
                          "Brazil",
                          "Guatemala",
-                         "Sweden", 
-                         "Spain", 
+                         "Kew",
+                         "Sweden",
+                         "Spain",
                          "United Kingdom")
   if(!(atlas %in% supported_atlases)){
     abort(glue("`atlas_media` is not supported for atlas = {atlas}"))
@@ -127,6 +128,7 @@ parse_regional_media_filters <- function(present_fields){
          "Australia" = glue("({present_fields}:*)"),
          "Brazil" = "(all_image_url:*)",
          "Guatemala" = "(all_image_url:*)",
+         "Kew" =  "(all_image_url:*)",
          "Portugal" = "(all_image_url:*)",
          "Spain" = {filter_fields <- present_fields |>
                        str_remove("s$") |>

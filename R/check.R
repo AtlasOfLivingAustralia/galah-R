@@ -173,7 +173,14 @@ check_fields <- function(.query) {
 #' @noRd
 #' @keywords Internal
 check_field_identities <- function(df, .query){
-  if(!is.null(.query$fields) & pour("package", "run_checks")){
+  if(!is.null(.query$fields) & 
+     pour("package", "run_checks", .pkg = "galah") & 
+     pour("atlas", "region", .pkg = "galah") %in% c("Australia", "Spain", "Sweden")
+     # NOTE: last line included because the remaining atlases use different 
+     # architecture which tends to mean queries are sent with non-DwC terms,
+     # but return DwC terms. This triggers warnings that are technically
+     # correct, but practically misleading.
+  ){
     # get basic info
     n_fields <- length(.query$fields)
     field_names <- colnames(df)

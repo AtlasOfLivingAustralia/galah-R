@@ -196,6 +196,14 @@ default_columns <- function() {
                           "occurrence_date",
                           "occurrence_status",
                           "data_resource_uid"),
+          "Kew" = c("id",
+                    "taxon_name",
+                    "taxon_concept_lsid",
+                    "latitude",
+                    "longitude",
+                    "occurrence_date",
+                    "occurrence_status",
+                    "data_resource_uid"),
           "Portugal" = c("id",
                          "taxon_name",
                          "taxon_concept_lsid",
@@ -240,11 +248,11 @@ image_fields <- function() {
           "Australia" = c("multimedia", "images", "sounds", "videos"),
           "Brazil" = "all_image_url",
           "Guatemala" = "all_image_url",
+          "Kew" = "all_image_url",
           "Portugal" = "all_image_url",
           "Spain" = c("multimedia", "images", "sounds", "videos"),
           "Sweden" = c("multimedia", "images", "videos", "sounds"),
           "United Kingdom" = "all_image_url"
-          # Guatemala ?
   )
 }
 

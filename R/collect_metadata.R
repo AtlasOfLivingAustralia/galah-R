@@ -243,8 +243,10 @@ collect_lists <- function(.query){
       pluck("lists") |>
       bind_rows()
   }
-  result <- result |>
-    rename("species_list_uid" = "dataResourceUid")
+  if(any(colnames(result) == "dataResourceUid")){
+    result <- result |>
+      rename("species_list_uid" = "dataResourceUid")    
+  }
   attr(result, "call") <- "lists"
   attr(result, "region") <- pour("atlas", "region") 
   result

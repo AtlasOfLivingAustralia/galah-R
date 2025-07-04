@@ -42,16 +42,20 @@ collect_fields_unnest <- function(.query, error_call = caller_env()){
       bind_rows()
     
     # extract unformatted facet values
-    result <- result |>
-      mutate(
-        field_value = stringr::str_extract(
-          result$i18nCode, 
-          "(?<=\\.).*" # everything after .
+    if(nrow(result) > 0){
+      result <- result |>
+        mutate(
+          field_value = stringr::str_extract(
+            result$i18nCode, 
+            "(?<=\\.).*" # everything after .
           )
         )
-    
-    colnames(result)[which(colnames(result) == "field_value")[1]] <- facet
-    select(result, {{facet}})
+      
+      colnames(result)[which(colnames(result) == "field_value")[1]] <- facet
+      select(result, {{facet}})      
+    }else{ # i.e. catch empty results
+      result
+    }
   }
 }
 
