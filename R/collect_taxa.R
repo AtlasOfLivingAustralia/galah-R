@@ -169,10 +169,19 @@ collect_identifiers <- function(.query){
   result <- query_API(.query) |>
     flat_lists_only() |>
     bind_rows()
+  
   if(any(colnames(result) == "taxonConceptID")){
     result <- result |>
       filter(!duplicated(result$taxonConceptID))
   }
+  
+  if(is_gbif()){
+    result$success <- TRUE
+    result <- result |>
+      relocate(success, .before = 1) |>
+      rename("taxonConceptID" = "key")
+  }
+  
   result <- result |>
     mutate("search_term" = search_terms, .before = "success")
 
@@ -182,7 +191,8 @@ collect_identifiers <- function(.query){
   }
   
   names(result) <- rename_columns(names(result), type = "taxa") # old code
-  result |> select(any_of(wanted_columns("taxa")))
+  result <- result |> 
+    select(any_of(wanted_columns("taxa")))
   attr(result, "call") <- "identifiers"
   attr(result, "region") <- pour("atlas", "region") 
   result

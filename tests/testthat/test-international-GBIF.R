@@ -84,6 +84,26 @@ test_that("search_all(taxa) works for GBIF", {
   expect_true(x$class == "Mammalia")
 })
 
+test_that("search_all(taxa) works using data.frames for GBIF", {
+  skip_if_offline(); skip_on_ci()
+  x <- search_all(taxa, 
+                  data.frame(kingdom = "Animalia", 
+                             phylum = "Chordata")) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("search_all(identifiers) works for GBIF", {
+  skip_if_offline(); skip_on_ci()
+  x <- search_all(identifiers, "359") |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
 galah_config(verbose = TRUE)
 
 test_that("search_all(datasets) works for GBIF", {

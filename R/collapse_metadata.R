@@ -126,19 +126,26 @@ collapse_identifiers <- function(.query){
     url_list <- url_lookup("metadata/identifiers")
     names(url_list) <- "no-name-supplied"
   }else{
-    base_url <- url_lookup("metadata/identifiers") |>
-      url_parse()
     search_terms <- .query$filter$value
     query <- as.list(search_terms)
     # create query urls
-    urls <- lapply(query,
-                   function(a, base_url){
-                     names(a) <- "taxonID"
-                     base_url$query <- as.list(a)
-                     url_build(base_url)
-                   },
-                   base_url = base_url) |>
-      unlist()
+    if(is_gbif()){
+      base_url <- url_lookup("metadata/identifiers") |>
+        utils::URLdecode()
+      urls <- glue::glue(base_url, id = query) |>
+        unlist()
+    }else{
+      base_url <- url_lookup("metadata/identifiers") |>
+        url_parse()
+      urls <- lapply(query,
+                     function(a, base_url){
+                       names(a) <- "taxonID"
+                       base_url$query <- as.list(a)
+                       url_build(base_url)
+                     },
+                     base_url = base_url) |>
+        unlist()      
+    }
   }
   # build object and return
   result <- list(type = "metadata/identifiers",

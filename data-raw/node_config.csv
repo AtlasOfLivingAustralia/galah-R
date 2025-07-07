@@ -109,12 +109,15 @@ France,metadata/providers,https://openobs.mnhn.fr/api/datasets/providers,TRUE
 France,metadata/taxa-single,https://taxref.mnhn.fr/api/taxa/search?scientificNames={name}&page=1&size=5,TRUE
 France,metadata/taxa-unnest,https://taxref.mnhn.fr/api/taxa/{id}/children,TRUE
 Global,data/occurrences,https://api.gbif.org/v1/occurrence/download/request,TRUE
-Global,data/occurrences-count,https://api.gbif.org/v1/occurrence/search,TRUE
+Global,data/occurrences-count,https://api.gbif.org/v1/occurrence/search/predicate,TRUE
+Global,data/occurrences-count-groupby,https://api.gbif.org/v1/occurrence/search/predicate,TRUE
 Global,metadata/collections,https://api.gbif.org/v1/grscicoll/collection,TRUE
 Global,metadata/datasets,https://api.gbif.org/v1/dataset,TRUE
 Global,metadata/fields-unnest,https://api.gbif.org/v1/occurrence/search,TRUE
+Global,metadata/identifiers,https://api.gbif.org/v1/species/{id},TRUE
 Global,metadata/providers,https://api.gbif.org/v1/organization,TRUE
 Global,metadata/taxa-single,https://api.gbif.org/v1/species/match?verbose=FALSE&name={name},TRUE
+Global,metadata/taxa-multiple,https://api.gbif.org/v1/species/match,TRUE
 Global,metadata/taxa-unnest,https://api.gbif.org/v1/species/{id}/children,TRUE
 Global,,https://api.gbif.org/v1/grscicoll/search,TRUE
 Global,,https://api.gbif.org/v1/dataset/search,TRUE

@@ -124,7 +124,7 @@ search_all <- function(type, query){
   if(type == "taxa"){
     check_if_in_pipe(query)
     request_metadata(type = "taxa") |>
-      identify(query[[1]]) |>
+      identify(query) |>
       collect()
   }else if(type == "identifiers"){
     request_metadata() |>
