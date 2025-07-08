@@ -1,3 +1,37 @@
+#' This should parse out a request object and return quosures thereafter
+#' @importFrom rlang eval_tidy
+#' @importFrom rlang get_expr
+#' @importFrom rlang quo_get_expr
+#' @importFrom stringr str_detect
+#' @noRd
+#' @keywords Internal
+detect_request_object <- function(dots){
+  if (length(dots) > 0) {
+    call_string <- get_expr(dots)[[1]] |> 
+      quo_get_expr() |>
+      deparse() |>
+      paste(collapse = " ") # captures multi-lines
+    # note: no leading "^" below, 
+    # because pipes can parse to e.g. `galah_identify(galah_call(...`
+    types <- c(
+      "galah_call\\(",
+      "request_data\\(",
+      "request_metadata\\(",
+      "request_files\\(",
+      "^~.$",
+      "^.$") |>
+      paste(collapse = "|")
+    if (str_detect(call_string, types)) { # note: "~." or "." indicate presence of the magrittr pipe (%>%)
+      eval_request <- eval_tidy(dots[[1]])
+      c(list(eval_request), dots[-1])
+    }else{
+      dots
+    }
+  }else{
+    NULL
+  }
+}
+
 #' Internal function to update a `data_request`
 #' @noRd
 #' @keywords Internal

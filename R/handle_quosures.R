@@ -2,39 +2,8 @@
 # related functions. Note that the approach used below is taken from advanced R:
 # https://adv-r.hadley.nz/expressions.html
 
-#' This should parse out a request object and return quosures thereafter
-#' @importFrom rlang eval_tidy
-#' @importFrom rlang get_expr
-#' @importFrom rlang quo_get_expr
-#' @importFrom stringr str_detect
-#' @noRd
-#' @keywords Internal
-detect_request_object <- function(dots){
-  if (length(dots) > 0) {
-    call_string <- get_expr(dots)[[1]] |> 
-      quo_get_expr() |>
-      deparse() |>
-      paste(collapse = " ") # captures multi-lines
-    # note: no leading "^" below, 
-    # because pipes can parse to e.g. `galah_identify(galah_call(...`
-    types <- c(
-      "galah_call\\(",
-      "request_data\\(",
-      "request_metadata\\(",
-      "request_files\\(",
-      "^~.$",
-      "^.$") |>
-      paste(collapse = "|")
-    if (str_detect(call_string, types)) { # note: "~." or "." indicate presence of the magrittr pipe (%>%)
-      eval_request <- eval_tidy(dots[[1]])
-      c(list(eval_request), dots[-1])
-    }else{
-      dots
-    }
-  }else{
-    NULL
-  }
-}
+## -- Top-level parsers -- ## 
+# These are called 'first' by `galah_` functions
 
 #' parse quosures for objects of class `data_request`
 #' @importFrom dplyr bind_rows
@@ -60,6 +29,80 @@ parse_quosures_data <- function(dots){
   }
   result
 }
+
+#' parse quosures, but for `select` and related functions
+#' 
+#' Major difference here is there is no need for parsing; simply return
+#' stuff that is a named object
+#' @importFrom rlang abort
+#' @importFrom rlang eval_tidy
+#' @importFrom rlang quo_get_expr
+#' @noRd
+#' @keywords internal
+parse_quosures_basic <- function(dots){
+  if(length(dots) > 0){
+    parsed_dots <- lapply(dots, function(a){
+      switch(expr_type(a),
+             "symbol" = {parse_symbol(a)},
+             "call" = {eval_tidy(a)},
+             "literal" = {quo_get_expr(a)},
+             abort("Quosure type not recognised."))
+    })
+    unlist(parsed_dots)
+  }else{
+    NULL
+  } 
+}
+
+#' parse quosures, but for `filter.files_request()` where we expect large amounts
+#' of data to be supplied
+#' @importFrom rlang as_label
+#' @importFrom rlang as_string
+#' @importFrom rlang is_quosure
+#' @importFrom rlang f_lhs
+#' @importFrom rlang f_rhs
+#' @importFrom rlang quo_get_env
+#' @importFrom rlang quo_get_expr
+#' @importFrom tibble tibble
+#' @noRd
+#' @keywords internal
+parse_quosures_files <- function(dots){
+  if(length(dots) > 0){
+    check_named_input(dots)
+    dot_expr <- quo_get_expr(dots[[1]]) # i.e. only first entry is available
+    # get formula lhs
+    lhs <- f_lhs(dot_expr)
+    if(is_quosure(lhs)){
+      lhs <- quo_get_expr(lhs)
+    }
+    lhs <- as_string(lhs) |> dequote()
+    # get rhs
+    x <- new_quosure(f_rhs(dot_expr), env = quo_get_env(dots[[1]]))
+    rhs <- switch(expr_type(x),
+                  "call" = {eval_tidy(x)},
+                  "symbol" = {if(exists(quo_get_expr(x), 
+                                        where = quo_get_env(x))){
+                    eval_tidy(x)
+                  }else{
+                    as_label(x)
+                  }},
+                  "literal" = {quo_get_expr(x)},
+                  abort("Quosure type not recognised."))
+    if(inherits(rhs, "data.frame")){
+      list(variable = dequote(lhs), data = rhs)
+    }else{
+      tibble(
+        variable = dequote(lhs),
+        logical = "==",
+        value = rhs)
+    }
+  }else{
+    NULL
+  }
+}
+
+## -- `data.frame` cleaning -- ##
+# This is for cleaning the 'default' output from parsers
 
 #' Function to ensure assertions are placed first in a query
 #' This is important so that they are parsed correctly
@@ -122,77 +165,6 @@ clean_logical_statements <- function(df){
   df
 }
 
-#' parse quosures, but for `select` and related functions
-#' 
-#' Major difference here is there is no need for parsing; simply return
-#' stuff that is a named object
-#' @importFrom rlang abort
-#' @importFrom rlang eval_tidy
-#' @importFrom rlang quo_get_expr
-#' @noRd
-#' @keywords internal
-parse_quosures_basic <- function(dots){
-  if(length(dots) > 0){
-    parsed_dots <- lapply(dots, function(a){
-      switch(expr_type(a),
-            "symbol" = {parse_symbol(a)},
-            "call" = {eval_tidy(a)},
-            "literal" = {quo_get_expr(a)},
-            abort("Quosure type not recognised."))
-      })
-    unlist(parsed_dots)
-  }else{
-    NULL
-  } 
-}
-
-#' parse quosures, but for `filter.files_request()` where we expect large amounts
-#' of data to be supplied
-#' @importFrom rlang as_label
-#' @importFrom rlang as_string
-#' @importFrom rlang is_quosure
-#' @importFrom rlang f_lhs
-#' @importFrom rlang f_rhs
-#' @importFrom rlang quo_get_env
-#' @importFrom rlang quo_get_expr
-#' @importFrom tibble tibble
-#' @noRd
-#' @keywords internal
-parse_quosures_files <- function(dots){
-  if(length(dots) > 0){
-    check_named_input(dots)
-    dot_expr <- quo_get_expr(dots[[1]]) # i.e. only first entry is available
-    # get formula lhs
-    lhs <- f_lhs(dot_expr)
-    if(is_quosure(lhs)){
-      lhs <- quo_get_expr(lhs)
-    }
-    lhs <- as_string(lhs) |> dequote()
-    # get rhs
-    x <- new_quosure(f_rhs(dot_expr), env = quo_get_env(dots[[1]]))
-    rhs <- switch(expr_type(x),
-           "call" = {eval_tidy(x)},
-           "symbol" = {if(exists(quo_get_expr(x), 
-                                 where = quo_get_env(x))){
-             eval_tidy(x)
-           }else{
-             as_label(x)
-           }},
-           "literal" = {quo_get_expr(x)},
-           abort("Quosure type not recognised."))
-    if(inherits(rhs, "data.frame")){
-      list(variable = dequote(lhs), data = rhs)
-    }else{
-      tibble(
-        variable = dequote(lhs),
-        logical = "==",
-        value = rhs)
-    }
-  }else{
-    NULL
-  }
-}
-
 #' Internal function to remove quoting of variable names
 #' Used as quotes are added when lhs is set using {{}}
 #' @noRd
@@ -200,6 +172,9 @@ parse_quosures_files <- function(dots){
 dequote <- function(x){
   gsub("^\"|\"$", "", x)
 }
+
+
+## -- Quosure parsing -- ##
 
 #' Switch functions for quosures
 #' @param x A (single) quosure
