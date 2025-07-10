@@ -67,11 +67,13 @@ build_query <- function(identify = NULL,
     query$wkt <- location
     }
   }
-  # add profiles information (ALA only)  
-  if(!is.null(data_profile)) {
-    query$qualityProfile <- data_profile
-  } else {
-    query$disableAllQualityFilters <- "true"
+  # add profiles information (ALA only) 
+  if(profiles_supported()){
+    if(!is.null(data_profile)) {
+      query$qualityProfile <- data_profile
+    } else {
+      query$disableAllQualityFilters <- "true"
+    }    
   }
   build_single_fq(query)
 }

@@ -163,104 +163,76 @@ preset_groups <- function(group_name) {
 #' @keywords Internal
 default_columns <- function() {
   atlas <- pour("atlas", "region")
-  switch (atlas,
-          "Austria" = c("id",
-                        "taxon_name",
-                        "taxon_concept_lsid",
-                        "latitude",
-                        "longitude",
-                        "occurrence_date",
-                        "occurrence_status",
-                        "data_resource_uid"),
-          "Brazil" = c("id",
-                       "taxon_name",
-                       "taxon_concept_lsid",
-                       "latitude",
-                       "longitude",
-                       "occurrence_date",
-                       "occurrence_status",
-                       "data_resource_uid"),
-          "France" = c("id",
-                       "scientificName",
-                       "taxonConceptID",
-                       "decimalLatitude",
-                       "decimalLongitude",
-                       "eventDate",
-                       "occurrenceStatus",
-                       "dataResourceUid"),
-          "Guatemala" = c("id",
-                          "taxon_name",
-                          "taxon_concept_lsid",
-                          "latitude",
-                          "longitude",
-                          "occurrence_date",
-                          "occurrence_status",
-                          "data_resource_uid"),
-          "Kew" = c("id",
-                    "taxon_name",
-                    "taxon_concept_lsid",
-                    "latitude",
-                    "longitude",
-                    "occurrence_date",
-                    "occurrence_status",
-                    "data_resource_uid"),
-          "Portugal" = c("id",
-                         "taxon_name",
-                         "taxon_concept_lsid",
-                         "latitude",
-                         "longitude",
-                         "occurrence_date",
-                         "occurrence_status",
-                         "data_resource_uid"),
-          "Spain" = c("recordID",
-                      "scientificName",
-                      "taxonConceptID",
-                      "decimalLatitude",
-                      "decimalLongitude",
-                      "eventDate",
-                      "occurrenceStatus",
-                      "dataResourceUid"),
-          "United Kingdom" = c("id",
-                               "taxon_name",
-                               "taxon_concept_lsid",
-                               "latitude",
-                               "longitude",
-                               "occurrence_date",
-                               "occurrence_status",
-                               "data_resource_uid"),
-          c("recordID", # note this requires that the ALA name (`id`) be corrected
-            "scientificName",
-            "taxonConceptID",
-            "decimalLatitude",
-            "decimalLongitude",
-            "eventDate",
-            "occurrenceStatus",
-            "dataResourceName")
-  )
+  if(atlas %in% c("Austria", 
+                  "Brazil", 
+                  "Guatemala", 
+                  "Kew",
+                  "Portugal",
+                  "United Kingdom")){
+    c("id",
+      "taxon_name",
+      "taxon_concept_lsid",
+      "latitude",
+      "longitude",
+      "occurrence_date",
+      "occurrence_status",
+      "data_resource_uid")
+  }else if(atlas %in% c("France")){
+    c("id", # only difference from ALA
+      "scientificName",
+      "taxonConceptID",
+      "decimalLatitude",
+      "decimalLongitude",
+      "eventDate",
+      "occurrenceStatus",
+      "dataResourceName")
+  }else if(atlas %in% c("Australia",
+                        "Flanders",
+                        "Spain",
+                        "Sweden")){
+    c("recordID", # note this requires that the ALA name (`id`) be corrected
+      "scientificName",
+      "taxonConceptID",
+      "decimalLatitude",
+      "decimalLongitude",
+      "eventDate",
+      "occurrenceStatus",
+      "dataResourceName")
+  }else{
+    rlang::abort("Unknown `atlas`")
+  }
 }
 
 #' @noRd
 #' @keywords Internal
 image_fields <- function() {
   atlas <- pour("atlas", "region")
-  switch (atlas,
-          "Austria" = "all_image_url",
-          "Australia" = c("multimedia", "images", "sounds", "videos"),
-          "Brazil" = "all_image_url",
-          "Guatemala" = "all_image_url",
-          "Kew" = "all_image_url",
-          "Portugal" = "all_image_url",
-          "Spain" = c("multimedia", "images", "sounds", "videos"),
-          "Sweden" = c("multimedia", "images", "videos", "sounds"),
-          "United Kingdom" = "all_image_url"
-  )
+  if(atlas %in% c("Austria", 
+                  "Brazil", 
+                  "Guatemala", 
+                  "Kew",
+                  "Portugal",
+                  "United Kingdom")){
+    "all_image_url"
+  }else if(atlas %in% c("Australia",
+                        "Flanders",
+                        "Spain",
+                        "Sweden")){
+    c("multimedia", "images", "sounds", "videos")
+  }else{
+    rlang::abort("Unknown `atlas`")
+  }
 }
 
 #' @noRd
 #' @keywords Internal
 species_facets <- function(){
   atlas <- pour("atlas", "region")
-  if(atlas %in% c("Australia", "France", "Spain", "Sweden")) {
+  if(atlas %in% c("Australia",
+                  "Flanders",
+                  "France",
+                  "Spain",
+                  "Sweden")) {
     "speciesID"
   }else{
     "species_guid"
@@ -274,4 +246,15 @@ source_type_id_lookup <- function(region){
          "Austria" = 1,
          "United Kingdom" = 2001,
          "2004") # ALA default for galah
+}
+
+#' @noRd
+#' @keywords Internal
+profiles_supported <- function(){
+  atlas <- pour("atlas", "region")
+  if(atlas %in% c("Australia")) {
+    TRUE
+  }else{
+    FALSE
+  }
 }

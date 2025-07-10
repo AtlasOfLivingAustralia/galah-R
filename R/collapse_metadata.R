@@ -128,15 +128,14 @@ collapse_identifiers <- function(.query){
   }else{
     search_terms <- .query$filter$value
     query <- as.list(search_terms)
+    base_url <- url_lookup("metadata/identifiers")
     # create query urls
-    if(is_gbif()){
-      base_url <- url_lookup("metadata/identifiers") |>
-        utils::URLdecode()
+    if(grepl("api.gbif.org", base_url)){
+      base_url <- utils::URLdecode(base_url)
       urls <- glue::glue(base_url, id = query) |>
         unlist()
     }else{
-      base_url <- url_lookup("metadata/identifiers") |>
-        url_parse()
+      base_url <- url_parse(base_url)
       urls <- lapply(query,
                      function(a, base_url){
                        names(a) <- "taxonID"

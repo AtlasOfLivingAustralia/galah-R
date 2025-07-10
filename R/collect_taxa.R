@@ -175,7 +175,8 @@ collect_identifiers <- function(.query){
       filter(!duplicated(result$taxonConceptID))
   }
   
-  if(is_gbif()){
+  if(!any(colnames(result) == "success")){ # GBIF doesn't indicate success
+    # we avoid `is_gbif()` here because other atlases use GBIF APIs
     result$success <- TRUE
     result <- result |>
       relocate(success, .before = 1) |>
