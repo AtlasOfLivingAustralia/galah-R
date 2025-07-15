@@ -95,7 +95,3 @@ parse_predicates <- function(df){
 # test object:
 # df <- galah_filter(year == 1850)
 # df <- galah_filter(catalogNumber == 217880)
-
-gbif_upper_case <- function(string){
-  gsub("(?=[[:upper:]])", "_", string, perl = TRUE) |> toupper()
-}

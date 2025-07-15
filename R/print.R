@@ -98,17 +98,21 @@ switch_slot_text <- function(x, a){
       }
     },
     "filter" = {
-      if(ncol(x[[a]]) > 2){
-        df <- x[[a]][, 1:3]
+      if(inherits(x[[a]], "galah_filter_predicate")){
+        glue::glue_collapse(unlist(x[[a]]), sep = " ") # messy but functional
       }else{
-        df <- x[[a]]
+        if(ncol(x[[a]]) > 2){
+          df <- x[[a]][, 1:3]
+        }else{
+          df <- x[[a]]
+        }
+        if(nrow(df) > 1){
+          df <- df[1, ]  
+        }
+        glue_collapse(
+          apply(df, 1, function(b){paste(b, collapse = " ")}),
+          sep = " | ")        
       }
-      if(nrow(df) > 1){
-        df <- df[1, ]  
-      }
-      glue_collapse(
-        apply(df, 1, function(b){paste(b, collapse = " ")}),
-        sep = " | ")
     },
     "select" = x[[a]]$summary,
     "group_by" =  glue_collapse(x[[a]]$name, sep = " | "),

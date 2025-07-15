@@ -529,6 +529,9 @@ parse_c <- function(x, excl){
   parse_logical(enquo(in_as_or_statements), quo_get_env(x)) # pass this to parse_logical
 }
 
+
+## -- SOLR conversion -- ##
+
 #' Convert information in a `tibble` to a `solr` query
 #' Previously `galah_filter.R/parse_logical`, but altered to support multi-row tibbles
 #' @noRd

@@ -116,8 +116,12 @@
 filter.data_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
   check_named_input(dots)
-  update_data_request(.data, 
-                      filter = parse_quosures_data(dots)) # see `quosure_handling.R`
+  if(is_gbif()){
+    filters <- parse_quosures_data_gbif(dots)  # `handle_quosures_GBIF.R`
+  }else{
+    filters <- parse_quosures_data(dots) # `handle_quosures.R`
+  }
+  update_data_request(.data, filter = filters)
 }
 # usually filters as previously for ALA, but some exceptions:
 # doi == "x" in `atlas_occurrences()`
@@ -187,8 +191,12 @@ galah_filter <- function(..., profile = NULL){
   check_named_input(dots)
   switch(class(dots[[1]])[1],
          "data_request" = {
-           update_data_request(dots[[1]], 
-                               filter = parse_quosures_data(dots[-1]))
+           if(is_gbif()){
+             filters <- parse_quosures_data_gbif(dots[-1])  # `handle_quosures_GBIF.R`
+           }else{
+             filters <- parse_quosures_data(dots[-1]) # `handle_quosures.R`
+           }
+           update_data_request(dots[[1]], filter = filters)
          },
          "metadata_request" = {
            parse_quosures_metadata(dots[[1]], dots[-1])
@@ -200,6 +208,10 @@ galah_filter <- function(..., profile = NULL){
            input$type <- parsed_dots$variable
            input
          },
-         parse_quosures_data(dots)
+         if(is_gbif()){
+           parse_quosures_data_gbif(dots)
+         }else{
+           parse_quosures_data(dots)  
+         }
   )
 }
