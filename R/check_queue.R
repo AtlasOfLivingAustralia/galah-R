@@ -21,8 +21,6 @@ check_queue <- function(.query, wait = FALSE){
 }
 
 #' Internal function to check queue status, with rate limiting
-#' @importFrom purrr rate_delay
-#' @importFrom purrr rate_sleep
 #' @noRd
 #' @keywords Internal
 check_queue_loop <- function(.query){
@@ -30,9 +28,9 @@ check_queue_loop <- function(.query){
   current_queue <- .query$queue_size
   continue <- TRUE
   iter <- 1
-  verbose <- pour("package", "verbose", .pkg = "galah")
+  verbose <- potions::pour("package", "verbose", .pkg = "galah")
   if(verbose){
-    inform(glue("Current queue length: {current_queue}"))
+    cli::cli_inform("Current queue length: {current_queue}")
   }
   while(continue == TRUE){
     .query <- check_occurrence_status(.query)
@@ -46,7 +44,7 @@ check_queue_loop <- function(.query){
         return(.query)     
       }else{
         current_queue <- check_queue_size(.query, current_queue)
-        rate_sleep(rate_object, quiet = verbose)
+        purrr::rate_sleep(rate_object, quiet = verbose)
       }
     }else{
       return(.query)
@@ -55,21 +53,20 @@ check_queue_loop <- function(.query){
 }
 
 #' Internal function for rate limiting
-#' @importFrom purrr rate_backoff
 #' @noRd
 #' @keywords Internal
 set_rate <- function(){
-  rate_backoff(pause_base = 0.5, 
-               pause_cap = 60, 
-               max_times = 100,
-               jitter = FALSE)
+  purrr::rate_backoff(pause_base = 0.5, 
+                      pause_cap = 60, 
+                      max_times = 100,
+                      jitter = FALSE)
 }
 
 #' Internal function to check queue size
 #' @noRd
 #' @keywords Internal
 check_queue_size <- function(.query, current_queue){
-  verbose <- pour("package", "verbose", .pkg = "galah")
+  verbose <- potions::pour("package", "verbose", .pkg = "galah")
   if(.query$queue_size < current_queue & .query$queue_size > 0){
     current_queue <- .query$queue_size
     if(verbose){

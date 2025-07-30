@@ -12,17 +12,32 @@ parse_checks <- function(.query){
     .query <- .query |>
       check_identifiers() |> 
       check_select()
-    if(pour("package", "run_checks")) {
+    if(potions::pour("package", "run_checks")) {
       .query <- .query |>
         check_login() |>
         check_reason() |>
         check_fields() |>
         check_profiles()
     }
-    if(.query$type == "data/distributions" & !is.null(.query[["metadata/distributions"]])){
+    # special cases:
+    # distributions
+    if(.query$type == "data/distributions" & 
+       !is.null(.query[["metadata/distributions"]])){
       .query$url <- tibble(url = glue(utils::URLdecode(.query$url), 
                                       id = .query[["metadata/distributions"]]$id))
     }
+    # GBIF predicates:
+    if(any(names(.query) == "predicates")){
+      result <- .query |>
+        purrr::pluck("predicates") |>
+        build_predicates()
+      .query$predicates <- result
+    }
+    # TODO: might need to promote this up a bit
+    # the problem is that we need to add function-specific content
+    # but that content isn't available here
+    
+    # clean up
     .query <- remove_metadata(.query)
   }
   .query

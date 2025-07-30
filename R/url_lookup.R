@@ -9,32 +9,26 @@
 #' calling `verbose` via `pour`. This is so the developer can suppress messages
 #' independently of user preferences, since this function is often called 
 #' internally.
-#' @importFrom dplyr filter
-#' @importFrom dplyr pull
-#' @importFrom glue glue_data
-#' @importFrom glue glue
-#' @importFrom potions pour
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords internal
 url_lookup <- function(type,
                        ..., 
                        quiet = FALSE, 
-                       error_call = caller_env()){
+                       error_call = rlang::caller_env()){
   dots <- list(...)
-  current_atlas <- pour("atlas", "region")
+  current_atlas <- potions::pour("atlas", "region")
   # get requested url
   if(missing(type)){
     type <- dots$type
   }
   url_string <- node_config |>
-    filter(node_config$type == {{type}},
-           node_config$atlas == {{current_atlas}}) |>
-    pull(url)
+    dplyr::filter(node_config$type == {{type}},
+                  node_config$atlas == {{current_atlas}}) |>
+    dplyr::pull(url)
   # parse as needed
   if(length(url_string) > 0){
     if(length(dots) > 0){
-      glue_data(dots, url_string) |> 
+      glue::glue_data(dots, url_string) |> 
         as.character() |>
         utils::URLencode()
     }else{
@@ -44,11 +38,11 @@ url_lookup <- function(type,
     if(quiet){
       return(NULL)
     }else{
-      bullets <- c(
-        glue("No API is available for type `{type}`"),
+      c(
+        glue::glue("No API is available for type `{type}`"),
         i = glue("Selected atlas: {current_atlas}"),
-        i = "Use `show_all_apis()` to list valid API calls")
-      abort(bullets, call = error_call)
+        i = "Use `show_all_apis()` to list valid API calls") |>
+      cli::cli_abort(call = error_call)
     }
   }
 }

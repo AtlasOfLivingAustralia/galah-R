@@ -15,7 +15,8 @@ wanted_columns <- function(type) {
                       "guid", # species search
                       "canonical_name", "status", 
                       "rank",
-                      "match_type", "kingdom", "phylum", "class", "order",
+                      "match_type", "confidence", "time_taken",
+                      "kingdom", "phylum", "class", "order",
                       "family", "genus", "species", "vernacular_name",
                       "issues","subkingdom", "superclass", "infraclass",
                       "subclass", "subinfraclass", "suborder", "superorder",
@@ -54,7 +55,7 @@ rename_columns <- function(varnames, type) {
     },
     "taxa" = {
       varnames[varnames == "classs"] <- "class"
-      varnames[varnames %in% c("usage_key", "usageKey", "guid", "reference_id", "referenceId")] <- "taxon_concept_id"
+      varnames[varnames %in% c("usage_key", "usageKey", "guid", "reference_id", "referenceId", "key")] <- "taxon_concept_id"
       varnames[varnames %in% c("genus_name", "genusName")] <- "genus"
       varnames[varnames %in% c("family_name", "familyName")] <- "family"
       varnames[varnames %in% c("order_name", "orderName")] <- "order"

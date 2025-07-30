@@ -14,14 +14,14 @@ check_atlas_inputs <- function(args){
 #' Internal function to check for `data_request`s
 #' @noRd
 #' @keywords Internal
-check_data_request <- function(request, error_call = caller_env()){
+check_data_request <- function(request, 
+                               error_call = caller_env()){
   if(!inherits(request, "data_request")){
-    bullets <- c(
+    cli::cli_abort(c(
       "Argument `.query` requires an object of type `data_request`.",
       i = "You can create this object using `galah_call()`.",
-      i = "Did you specify the incorrect argument?"
-    )
-    abort(bullets, call = caller_env())      
+      i = "Did you specify the incorrect argument?"), 
+      call = error_call)      
   }     
 }
 
@@ -51,37 +51,39 @@ check_directory <- function(x){
 #' Internal function to ensure a download file is given
 #' @noRd
 #' @keywords Internal
-check_download_filename <- function(file, ext = "zip"){
+check_download_filename <- function(file, 
+                                    ext = "zip"){
   if(!is.null(file)){ # is `file` present
-    expected_suffix <- paste0(".", ext, "$")
+    expected_suffix <- glue::glue(".{ext}$")
     if(!grepl(expected_suffix, file)){ # expected suffix is missing
       if(grepl("\\.[[:alpha:]]{2,4}$", file)){ # does it have a different suffix?
         file <- gsub("\\.[[:alpha:]]{2,4}$", 
                      sub("\\$$", "", expected_suffix), 
                      file) # replace
       }else{
-        file <- paste0(file, ".zip")  # append
+        file <- glue::glue("{file}.zip")
       }
     } # no else{}, as all good here
   }else{
-    current_time <- Sys.time() |> format("%Y-%m-%d_%H-%M-%S")
-    file <- paste0('data_', current_time, ".", ext)
+    current_time <- Sys.time() |> 
+      format("%Y-%m-%d_%H-%M-%S")
+    file <- glue::glue("data_{current_time}.{ext}")
   }
-  cache_directory <- pour("package", "directory", .pkg = "galah")
-    glue("{cache_directory}/{file}") |>
+  cache_directory <- potions::pour("package", "directory", 
+                                   .pkg = "galah")
+    glue::glue("{cache_directory}/{file}") |>
       as.character()
     # check_path()? # currently commented out in check.R
 }
 
 #' Subfunction to `check_login()`
-#' @importFrom jsonlite fromJSON
 #' @noRd
 #' @keywords Internal
 check_email <- function(.query){
   if(is_gbif()){
-    email_text <- fromJSON(.query$body)$notificationAddresses
+    email_text <- jsonlite::fromJSON(.query$body)$notificationAddresses
   }else{
-    email_text <- url_parse(.query$url)$query$email
+    email_text <- httr2::url_parse(.query$url)$query$email
   }
   if(is.null(email_text)) {
     abort_email_missing()
@@ -92,20 +94,18 @@ check_email <- function(.query){
 }
 
 #' Check files are filtered properly
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
 check_files_filter <- function(x){
   if(!(x$variable %in% c("media"))){
-    abort("Variable name must be a valid `type` accepted by `request_files()`.")
+    cli::cli_abort("Variable name must be a valid `type` accepted by `request_files()`.")
   }
   if(!inherits(x$data, "data.frame")){
-    abort("rhs must be a `tibble` containing media information")
+    cli::cli_abort("rhs must be a `tibble` containing media information")
   }
 }
 
 #' check that objects passed within `galah_filter` have correct structure
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
 check_filter_tibbles <- function(x){ # where x is a list of tibbles
@@ -119,7 +119,7 @@ check_filter_tibbles <- function(x){ # where x is a list of tibbles
     unlist() |>
     all()
   if(!syntax_valid){
-    abort("There was a problem with `filter`, did you use correct syntax?")
+    cli::cli_abort("There was a problem with `filter`, did you use correct syntax?")
   }
 }
 
@@ -147,21 +147,21 @@ check_fields <- function(.query) {
 
     # error message
     if(any(!is.na(check_result))) {
-      returned_invalid <- tibble(
+      returned_invalid <- tibble::tibble(
         function_name = c("`galah_filter()`", "`galah_group_by()`"),
         fields = check_result) |>
         tidyr::drop_na()
       
       glue_template <- "{returned_invalid$function_name}: {returned_invalid$fields}"
-      invalid_fields_message <- glue_data(returned_invalid, glue_template, .na = "")
+      invalid_fields_message <- glue::glue_data(returned_invalid, glue_template, .na = "")
       
       bullets <- c(
         "Can't use fields that don't exist.",
         i = "Use `search_all(fields)` to find a valid field ID.",
         x = glue("Can't find field(s) in"),
-        glue("  ", format_error_bullets(invalid_fields_message))
+        glue::glue("  ", format_error_bullets(invalid_fields_message))
       )
-      abort(bullets)
+      rlang::abort(bullets)
     }
   }
   .query
@@ -172,10 +172,11 @@ check_fields <- function(.query) {
 #' @importFrom rlang caller_env
 #' @noRd
 #' @keywords Internal
-check_field_identities <- function(df, .query){
+check_field_identities <- function(df, 
+                                   .query){
   if(!is.null(.query$fields) & 
-     pour("package", "run_checks", .pkg = "galah") & 
-     pour("atlas", "region", .pkg = "galah") %in% c("Australia", "Spain", "Sweden")
+     potions::pour("package", "run_checks", .pkg = "galah") & 
+     potions::pour("atlas", "region", .pkg = "galah") %in% c("Australia", "Spain", "Sweden")
      # NOTE: last line included because the remaining atlases use different 
      # architecture which tends to mean queries are sent with non-DwC terms,
      # but return DwC terms. This triggers warnings that are technically
@@ -191,26 +192,24 @@ check_field_identities <- function(df, .query){
     if(any(missing_check)){
       missing_fields <- .query$fields[missing_check]
       names(missing_fields) <- rep("*", length(missing_fields))
-      bullets <- c("The following fields, requested in your query, were not downloaded:",
-                   missing_fields)
-      warn(bullets)
+      c("The following fields, requested in your query, were not downloaded:",
+        missing_fields) |>
+      cli::cli_warn(bullets)
     }
     # check for additions
     added_check <- !(field_names %in% .query$fields)
     if(any(added_check)){
       added_fields <- field_names[added_check]
       names(added_fields) <- rep("*", length(added_fields))
-      bullets <- c("The following fields were downloaded, but weren't requested in your query:",
-                   added_fields)
-      warn(bullets)
+      c("The following fields were downloaded, but weren't requested in your query:",
+        added_fields) |>
+      cli::cli_warn()
     }
   }
   df
 }
 
 #' sub-function to `check_fields()` for GBIF
-#' @importFrom jsonlite fromJSON
-#' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
 check_fields_gbif_counts <- function(.query){
@@ -218,7 +217,7 @@ check_fields_gbif_counts <- function(.query){
   valid_fields <- .query[["metadata/fields"]]$id
   valid_assertions <- .query[["metadata/assertions"]]$id
   valid_any <- c(valid_fields, valid_assertions)
-  url <- url_parse(.query$url[1])
+  url <- httr2::url_parse(.query$url[1])
 
   # get fields from url
   skip_fields <- c("limit", "facet", "facetLimit",
@@ -230,7 +229,7 @@ check_fields_gbif_counts <- function(.query){
   if (length(fields) > 0) {
     if (!all(fields %in% valid_any)) {
       invalid_fields <- fields[!(fields %in% valid_any)]
-      filter_invalid <- glue_collapse(invalid_fields, sep = ", ")
+      filter_invalid <- glue::glue_collapse(invalid_fields, sep = ", ")
     }
   }
   
@@ -240,7 +239,7 @@ check_fields_gbif_counts <- function(.query){
     fields <- unlist(url$query[which(query_names == "facet")])
     if (!all(fields %in% valid_any)) {
       invalid_fields <- fields[!(fields %in% valid_any)]
-      group_by_invalid <- glue_collapse(invalid_fields, sep = ", ")
+      group_by_invalid <- glue::glue_collapse(invalid_fields, sep = ", ")
     }
   }
   
@@ -248,8 +247,6 @@ check_fields_gbif_counts <- function(.query){
 }
 
 #' sub-function to `check_fields()` for GBIF
-#' @importFrom jsonlite fromJSON
-#' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
 check_fields_gbif_predicates <- function(.query){
@@ -261,14 +258,14 @@ check_fields_gbif_predicates <- function(.query){
     toupper()
   # extract fields
   fields <- .query$body |> 
-    fromJSON() |>
-    pluck("predicate", "predicates", "key")
+    jsonlite::fromJSON() |>
+    purrr::pluck("predicate", "predicates", "key")
   # check invalid
   filter_invalid <- NA
   if (length(fields) > 0) {
     if (!all(fields %in% valid_any)) {
       invalid_fields <- fields[!(fields %in% valid_any)]
-      filter_invalid <- glue_collapse(invalid_fields, sep = ", ")
+      filter_invalid <- glue::glue_collapse(invalid_fields, sep = ", ")
     }
   }
   c(filter_invalid, NA)
@@ -302,7 +299,7 @@ check_fields_la <- function(.query){
     if (length(filters) > 0) {
       if (!all(filters %in% valid_any)) {
         invalid_fields <- filters[!(filters %in% valid_any)]
-        filter_invalid <- glue_collapse(invalid_fields, sep = ", ")
+        filter_invalid <- glue::glue_collapse(invalid_fields, sep = ", ")
       }
     }
   }
@@ -310,9 +307,9 @@ check_fields_la <- function(.query){
   # galah_group_by fields check
   group_by_invalid <- NA
   if(inherits(.query$url, "data.frame")){
-    url <- url_parse(.query$url$url[1])
+    url <- httr2::url_parse(.query$url$url[1])
   }else{
-    url <- url_parse(.query$url[1])
+    url <- httr2::url_parse(.query$url[1])
   }
   queries <- url$query
   if (!is.null(queries$facets)) {
@@ -320,7 +317,7 @@ check_fields_la <- function(.query){
     if (length(facets) > 0) {
       if (!all(facets %in% valid_any)) {
         invalid_fields <- facets[!(facets %in% valid_any)]
-        group_by_invalid <- glue_collapse(invalid_fields, sep = ", ")
+        group_by_invalid <- glue::glue_collapse(invalid_fields, sep = ", ")
       }
     }
   }
@@ -330,6 +327,8 @@ check_fields_la <- function(.query){
 
 
 # If no args are supplied, set default columns returned as group = "basic"
+#' @noRd
+#' @keywords Internal
 check_groups <- function(group, n){
   if(missing(group)){
     if(n < 1){
@@ -352,65 +351,26 @@ check_groups <- function(group, n){
 #' @noRd
 #' @keywords Internal
 check_identifiers <- function(.query){
+  # For GBIF, which uses predicates, we 'promote' taxonomic queries to 'predicates'
   if(is_gbif()){
-    if(.query$type %in% c("data/occurrences", "data/species")){
-      check_identifiers_gbif_predicates(.query)
-    }else{
-      check_identifiers_gbif(.query) # mainly for `data/occurrences-count` 
-    }
+    .query$predicates$identify <- .query$`metadata/taxa-single`
+    .query
+  # otherwise we replace "(`TAXON_PLACEHOLDER`)"
   }else{
     check_identifiers_la(.query)
   }
 }
-
-#' `check_identifiers()` for gbif
-#' @noRd
-#' @keywords Internal
-check_identifiers_gbif <- function(.query){
-  url <- url_parse(.query$url[1]) # FIXME: test if every >1 urls here
-  if(!is.null(url$query)){
-    metadata_lookup <-grepl("metadata/taxa", names(.query))
-    if(any(metadata_lookup)){
-      identifiers <- .query[[which(metadata_lookup)[1]]]
-      taxon_query <- as.list(identifiers$taxon_concept_id)
-      names(taxon_query) <- rep("taxonKey", length(taxon_query))
-      url$query <- c(taxon_query,  
-                     url$query[names(url$query) != "taxonKey"])
-      .query$url[1] <- url_build(url)
-    }
-  }
-  .query
-}
-
-#' `check_identifiers()` for gbif occurrences
-#' @noRd
-#' @keywords Internal
-check_identifiers_gbif_predicates <- function(.query){
-  if(!is.null(.query$body)){
-    metadata_lookup <-grepl("metadata/taxa", names(.query))
-    if(any(metadata_lookup)){
-      identifiers <- .query[[which(metadata_lookup)[1]]]
-      .query$body <- sub("`TAXON_PLACEHOLDER`", 
-                        identifiers$taxon_concept_id[1], 
-                        .query$body)
-    }
-  }
-  .query
-}
   
 #' `check_identifiers()` for living atlases 
-#' @importFrom httr2 url_build
-#' @importFrom httr2 url_parse
-#' @importFrom rlang abort
-#' @importFrom stringr str_replace_all
 #' @noRd
 #' @keywords Internal
-check_identifiers_la <- function(.query, error_call = caller_env()){
+check_identifiers_la <- function(.query, 
+                                 error_call = caller_env()){
   # FIXME: test if every >1 urls here
   if(inherits(.query$url, "data.frame")){
-    url <- url_parse(.query$url$url[1])
+    url <- httr2::url_parse(.query$url$url[1])
   }else{
-    url <- url_parse(.query$url[1]) 
+    url <- httr2::url_parse(.query$url[1]) 
   }
   queries <- url$query
   if(!is.null(queries$fq)){
@@ -425,11 +385,11 @@ check_identifiers_la <- function(.query, error_call = caller_env()){
         }
         
         taxa_ids <- build_taxa_query(identifiers$taxon_concept_id)
-        queries$fq <- str_replace_all(queries$fq, 
-                                      "\\(`TAXON_PLACEHOLDER`\\)", 
-                                      taxa_ids)
+        queries$fq <- stringr::str_replace_all(queries$fq, 
+                                               "\\(`TAXON_PLACEHOLDER`\\)", 
+                                               taxa_ids)
         url$query <- queries
-        .query$url[1] <- url_build(url)
+        .query$url[1] <- httr2::url_build(url)
       }else{
         # this only happens if there is a bug earlier in the code
         abort("The query has a taxonomic placeholder, but no taxon search has been run.")
@@ -442,10 +402,10 @@ check_identifiers_la <- function(.query, error_call = caller_env()){
       if(any(metadata_lookup)){ 
         identifiers <- .query[[which(metadata_lookup)[1]]]
         taxa_id <- utils::URLencode(identifiers$taxon_concept_id[1],
-                             reserved = TRUE)
+                                    reserved = TRUE)
         .query$url[1] <- sub("%60TAXON_PLACEHOLDER%60", taxa_id, .query$url[1])
       }else{
-        abort("The query has a taxonomic placeholder, but no taxon search has been run.")
+        rlang::abort("The query has a taxonomic placeholder, but no taxon search has been run.")
       }
     }
   }
@@ -457,10 +417,11 @@ check_identifiers_la <- function(.query, error_call = caller_env()){
 #' @noRd
 #' @keywords Internal
 #' @importFrom rlang caller_env
-check_login <- function(.query, error_call = caller_env()) {
+check_login <- function(.query, 
+                        error_call = caller_env()) {
   # Check for valid email for occurrences or species queries for all providers
   if(.query$type == "data/occurrences" | .query$type == "data/species"){
-    switch(pour("atlas", "region"), 
+    switch(potions::pour("atlas", "region"), 
            "United Kingdom" = {},
            "Global" = {check_email(.query); check_password(.query)},
            check_email(.query))
@@ -498,19 +459,20 @@ check_media_cols <- function(.query){
 #' @param .query a `query` object
 #' @noRd
 #' @keywords Internal
-check_media_cols_present <- function(.query, error_call = caller_env()){
+check_media_cols_present <- function(.query, 
+                                     error_call = rlang::caller_env()){
   fields <- .query |>
-    pluck("url") |>
-    url_parse() |> 
-    pluck("query", "fields") |>
+    purrr::pluck("url") |>
+    httr2::url_parse() |> 
+    purrr::pluck("query", "fields") |>
     strsplit(",") |>
-    pluck(1)
+    purrr::pluck(1)
   fields_check <- image_fields() %in% fields
   if(!any(fields_check)){
-    abort(c("No media fields requested.",
-            i = "Use `select()` to specify which media fields are required.",
-            i = "Valid fields are 'images', 'videos' and 'sounds'."),
-          call = error_call)
+    cli::cli_abort(c("No media fields requested.",
+                     i = "Use `select()` to specify which media fields are required.",
+                     i = "Valid fields are 'images', 'videos' and 'sounds'."),
+                   call = error_call)
   }else{
     image_fields()[fields_check]
   }
@@ -525,7 +487,7 @@ check_named_input <- function(dots){
     bullets <- c(
       "We detected a named input.",
       i = "This usually means that you've used `=` instead of `==`.")
-    abort(bullets)
+    cli::cli_abort(bullets)
   }
 }
 
@@ -533,14 +495,15 @@ check_named_input <- function(dots){
 #' @importFrom rlang warn
 #' @noRd
 #' @keywords Internal
-check_n_inputs <- function(dots, error_call = caller_env()) {
+check_n_inputs <- function(dots, 
+                           error_call = rlang::caller_env()) {
   if(length(dots) > 1){
     n_geolocations <- length(dots)
-    bullets <- c(
+     c(
       "More than 1 spatial area provided.",
       "*" = glue("Using first location, ignoring additional {n_geolocations - 1} location(s).")
-    )
-    warn(bullets, call = error_call)
+    ) |>
+    cli::cli_warn(call = error_call)
   }
 }
 
@@ -549,7 +512,8 @@ check_n_inputs <- function(dots, error_call = caller_env()) {
 #' @importFrom stringr str_trim
 #' @noRd
 #' @keywords Internal
-check_occurrence_response <- function(.query){
+check_occurrence_response <- function(.query,
+                                      error_call = rlang::caller_env()){
   names(.query) <- camel_to_snake_case(names(.query))
   
   if (!is.null(.query$status_code)) {
@@ -559,23 +523,23 @@ check_occurrence_response <- function(.query){
     
     bullets <- c(
       "There was a problem with your query.",
-      "*" = glue("message: {.query$message}"))
+      "*" = glue::glue("message: {.query$message}"))
     
     switch(as.character(error_type),
-           "500" = {abort(bullets,
-                          call = caller_env())},
-           "403" = {abort(c(bullets,
-                          i = "Is the email you provided to `galah_config()` registered with the selected atlas?"),
-                          call = caller_env())},
-           "404" = {abort(c(bullets,
-                          i = "Is the email you provided to `galah_config()` registered with the selected atlas?"),
-                          call = caller_env())},
-           "504" = {abort(c(bullets,
-                          i = "This usually means that the selected API is down.",
-                          i = "If you continue to receive this error, please email support@ala.org.au"),
-                          call = caller_env())},
-           abort("Aborting for unknown reasons.", # FIXME
-                 call = caller_env()))
+           "500" = {cli::cli_abort(bullets,
+                                   call = error_call)},
+           "403" = {cli::cli_abort(c(bullets,
+                                     i = "Is the email you provided to `galah_config()` registered with the selected atlas?"),
+                                   call = error_call)},
+           "404" = {cli::cli_abort(c(bullets,
+                                     i = "Is the email you provided to `galah_config()` registered with the selected atlas?"),
+                                   call = error_call)},
+           "504" = {cli::cli_abort(c(bullets,
+                                     i = "This usually means that the selected API is down.",
+                                     i = "If you continue to receive this error, please email support@ala.org.au"),
+                                   call = error_call)},
+           cli::cli_abort("Aborting for unknown reasons.", # FIXME
+                          call = error_call))
   } else {
     if (.query$status %in% c("finished", # ALA
                             "SUCCEEDED") # GBIF
@@ -593,8 +557,7 @@ check_occurrence_response <- function(.query){
   }
   # convert `key` to `status_url`
   if(is.null(.query$status_url) & !is.null(.query$key)){
-    .query$status_url <- paste0("https://api.gbif.org/v1/occurrence/download/",
-                               .query$key)
+    .query$status_url <- glue::glue("https://api.gbif.org/v1/occurrence/download/{.query$key}")
   }
   # add `queue_size`
   if(is.null(.query$queue_size)){
@@ -626,9 +589,9 @@ check_occurrence_status <- function(.query){
 #' @noRd
 #' @keywords Internal
 check_password <- function(.query, 
-                           error_call = caller_env()){
+                           error_call = rlang::caller_env()){
   if (.query$options$userpwd == ":") {
-    abort("GBIF requires a username and password to download occurrences or species.",
+    cli::cli_abort("GBIF requires a username and password to download occurrences or species.",
           call = error_call)
   }
 }
@@ -654,21 +617,20 @@ check_password <- function(.query,
 # }
 
 #' Internal function to check a supplied profile is valid
-#' @importFrom glue glue
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-check_profiles <- function(.query, error_call = caller_env()){
+check_profiles <- function(.query, 
+                           error_call = rlang::caller_env()){
   if(!inherits(.query$url, "data.frame")){
     query <- url_parse(.query$url[1])$query
     if(!is.null(query$qualityProfile)){
       profile <- query$qualityProfile
       if(!profile %in% .query[["metadata/profiles"]]$shortName){
-        bullets <- c(
+        c(
           "Unrecognised profile requested.",
           i = "See `?show_all(profiles)` for valid profiles.",
-          x = glue("Can't find profile `{profile}` for specified atlas."))
-        abort(bullets, call = error_call)
+          x = "Can't find profile `{profile}` for specified atlas.") |>
+        cli::cli_abort(call = error_call)
       }else{
         .query
       }
@@ -681,28 +643,27 @@ check_profiles <- function(.query, error_call = caller_env()){
 }
 
 #' Internal function to check that a reason code is valid
-#' @importFrom glue glue
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-check_reason <- function(.query, error_call = caller_env()){
+check_reason <- function(.query, 
+                         error_call = rlang::caller_env()){
   if(atlas_supports_reasons_api()) {
     if(.query$type %in% c("data/occurrences", "data/species")){
       query <- url_parse(.query$url)$query
       if(is.null(query$reasonTypeId)){
-        bullets <- c("Missing a valid download reason.",
-                     i = "See `show_all(reasons)`.",
-                     i = "Use `galah_config(download_reason_id = ...)` to set a download reason.")
-        abort(bullets, call = error_call) 
+        c("Missing a valid download reason.",
+          i = "See `show_all(reasons)`.",
+          i = "Use `galah_config(download_reason_id = ...)` to set a download reason.") |>
+        cli::cli_abort(call = error_call) 
       }else{
         user_reason <- query$reasonTypeId
         valid_reasons <- .query[["metadata/reasons"]]$id
         if(!(user_reason %in% valid_reasons)){
-          bullets <- c(
+           c(
             "Invalid download reason ID.",
             i = "Use `show_all(reasons)` to see all valid reasons.",
-            x = glue("\"{user_reason}\" does not match an existing reason ID."))
-          abort(bullets, call = error_call)    
+            x = "\"{user_reason}\" does not match an existing reason ID.") |>
+          cli::cli_abort(call = error_call)    
         }
       }
     }
@@ -712,17 +673,13 @@ check_reason <- function(.query, error_call = caller_env()){
 
 #' Check that `select()` quosures can be parsed correctly
 #' NOTE: much of this content was previously in `parse_select()` (defunct)
-#' @importFrom dplyr all_of
-#' @importFrom dplyr filter
-#' @importFrom httr2 url_parse
-#' @importFrom httr2 url_build
-#' @importFrom rlang is_quosure
 #' @noRd
 #' @keywords Internal
-check_select <- function(.query){
+check_select <- function(.query,
+                         error_call = rlang::caller_env()){
   if(any(names(.query) == "select")){
     if(is_gbif()){
-      inform(c("skipping `select()`:",
+      cli::cli_inform(c("skipping `select()`:",
                i = "This function is not supported by the GBIF API v1"))
     }else{
       # 1. build df to `select` from
@@ -738,9 +695,10 @@ check_select <- function(.query){
       # new step to avoid calling `show_all_assertions()` internally
       group <- group_initial[group_initial != "assertions"]
       if(length(group) > 0){
-        group_cols <- lapply(group, preset_groups) |> 
+        group_cols <- purrr::map(group, preset_groups) |> 
           unlist()
-        group_names <- tidyselect::eval_select(all_of(group_cols), data = df) |> 
+        group_names <- tidyselect::eval_select(dplyr::all_of(group_cols), 
+                                               data = df) |> 
           names()
         # note: technically `group_names` and `group_cols` are identical
         # BUT `eval_select()` will fail if invalid columns are given
@@ -749,10 +707,10 @@ check_select <- function(.query){
       }
       
       # 3. parse quosures to get list of field names
-      check_quosures <- lapply(.query$select, is_quosure) |>
+      check_quosures <- purrr::map(.query$select, rlang::is_quosure) |>
         unlist()
       dots <- .query$select[check_quosures]
-      dot_names <- lapply(dots, function(a){
+      dot_names <- purrr::map(dots, function(a){
         tidyselect::eval_select(a, data = df) |>
           names()
       }) |>
@@ -792,10 +750,10 @@ check_select <- function(.query){
       # having e.g. media columns _before_ `recordID` causes the download to fail 
       field_values <- unique(c(group_names, individual_cols))
       if(is.null(field_values)){
-        bullets <- c("No fields selected",
-                     i = "Please specify a valid set of fields in `select()`",
-                     i = "You can look up valid fields using `show_all(fields)`")
-        abort(bullets)
+        c("No fields selected",
+          i = "Please specify a valid set of fields in `select()`",
+          i = "You can look up valid fields using `show_all(fields)`") |>
+          cli::cli_abort(call = error_call)
       }
       if(any(field_values == id_col)){
         field_values <- c(id_col, field_values[field_values != id_col]) # recordID needs to be first
@@ -807,20 +765,21 @@ check_select <- function(.query){
         assertion_text <- "includeall"
       }else{
         if(any(is_assertion)){
-          assertion_text <- paste(field_values[is_assertion], collapse = ",")
+          assertion_text <- glue::glue_collapse(field_values[is_assertion], 
+                                                sep = ",")
         }else{
           assertion_text <- "none"
         }
       }
-      field_text <- paste(field_values[!is_assertion],
-                          collapse = ",")
+      field_text <- glue::glue_collapse(field_values[!is_assertion],
+                                        sep = ",")
       
       # 7. replace `SELECT_PLACEHOLDER` with valid query
       # located in .query$url in query/fields
-      url <- url_parse(.query$url) # note: this assumes a single url every time
+      url <- httr2::url_parse(.query$url) # note: this assumes a single url every time
       url$query$fields <- field_text
       url$query$qa <- assertion_text
-      .query$url <- url_build(url)
+      .query$url <- httr2::url_build(url)
       .query$select <- NULL
     }
   }
@@ -830,13 +789,15 @@ check_select <- function(.query){
 #' Check for valid `type`
 #' @noRd
 #' @keywords Internal
-check_type_valid <- function(type, valid, error_call = caller_env()) {
+check_type_valid <- function(type, 
+                             valid,
+                             error_call = rlang::caller_env()) {
   if(!any(valid == type)){
-    bullets <- c(
+     c(
       glue("Unrecognised metadata requested."),
       i = "See `?show_all()` for a list of valid metadata types.",
       x = glue("Can't find metadata type `{type}`.")
-    )
-    abort(bullets, call = error_call)   
+    ) |>
+    cli::cli_abort(call = error_call)   
   }
 }

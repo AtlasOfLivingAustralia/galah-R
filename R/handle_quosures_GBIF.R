@@ -14,11 +14,10 @@ parse_quosures_data_gbif <- function(dots){
   if(length(dots) > 0){
     result <- purrr::map(dots, 
                          switch_expr_type_pred)
-    names(result) <- rep("predicate", length(result))
-    
+
     if(length(result) > 1L){
       result <- list(type = jsonlite::unbox("and"),
-           predicates = result)
+                     predicates = result)
     }
     class(result) <- c("galah_filter_predicate", "list")
     result
@@ -116,7 +115,7 @@ parse_relational_pred <- function(x){
                      value = rhs)
       list(
         type = "not",
-        predicate = purrr::map(result, jsonlite::unbox))
+        purrr::map(result, jsonlite::unbox))
     # everything else is flat
     }else{
       operator_text <- switch(operator,
@@ -164,7 +163,6 @@ parse_logical_pred <- function(x){
                                                   env = rlang::quo_get_env(x)) |>
                                   switch_expr_type_pred()
                               })
-  names(subpredicates) <- rep("predicate", length(subpredicates))
   list(type = jsonlite::unbox(logical_string),
        predicates = subpredicates)
 }
@@ -192,14 +190,10 @@ parse_exclamation_pred <- function(x){
       next_section$type <- "isNotNull"
       next_section
     }else{
-      list(
-        type = "not",
-        predicate = {next_section})      
+      list(type = "not", next_section)      
     }
   }else{
-    list(
-      type = "not",
-      predicate = {next_section})     
+    list(type = "not", next_section)     
   }
 }
 
@@ -258,9 +252,7 @@ parse_between_pred <- function(x){
     purrr::map(.f = jsonlite::unbox)
   
   list(type = jsonlite::unbox("and"),
-       predicates = list(
-         predicate = lower_bound,
-         predicate = upper_bound))
+       predicates = list(lower_bound, upper_bound))
 }
 
 #' Parse `call`s that contain `%in%`
