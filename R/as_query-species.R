@@ -1,14 +1,14 @@
-#' Internal function to `collapse()` for `type = "species"`
+#' Internal function to convert `data_request` with `type = "species"` to a `query`
 #' @noRd
 #' @keywords Internal
-collapse_species <- function(.query){
+as_query_species <- function(.query){
   if(is_gbif()){
-    result <- collapse_occurrences_gbif(.query, 
+    result <- as_query_occurrences_gbif(.query, 
                                         format = "SPECIES_LIST")
     result$type <- "data/species"
     result
   }else{
-    collapse_species_atlas(.query)
+    as_query_species_atlas(.query)
   }
 }
 
@@ -23,8 +23,8 @@ collapse_species_atlas <- function(.query){
   
   # determine whether to use `group_by` or `species_facets()`
   if(is.null(.query$group_by)){
-    .query$group_by <- tibble(name = species_facets(),
-                              type = "field")
+    .query$group_by <- tibble::tibble(name = species_facets(),
+                                      type = "field")
   }
   
   # build a query
@@ -36,18 +36,18 @@ collapse_species_atlas <- function(.query){
     emailNotify = email_notify(),
     sourceTypeId = 2004,
     reasonTypeId = pour("user", "download_reason_id"),
-    email = pour("user", "email"), 
+    email = potions::pour("user", "email"), 
     facets = .query$group_by$name,
     parse_select_species(.query$select)
   )
   # build url
   url <- url_lookup("data/species") |> 
-    url_parse()
+    httr2::url_parse()
   url$query <- query
   # build output
   result <- list(
     type = "data/species",
-    url = url_build(url),
+    url = httr2::url_build(url),
     headers = build_headers(),
     filter = .query$filter,
     group_by = .query$group_by,
@@ -57,16 +57,15 @@ collapse_species_atlas <- function(.query){
 }
 
 #' parse `select()` for `atlas_species()`
-#' @importFrom rlang warn
-#' @importFrom glue glue
-#' @importFrom glue glue_collapse
 #' @noRd
 #' @keywords Internal
 parse_select_species <- function(.select){
   # parse labels for supplied field names
-  quosure_check <- lapply(.select, is_quosure) |> unlist()
+  quosure_check <- purrr::map(.select, is_quosure) |> 
+    unlist()
   if(any(quosure_check)){
-    named_fields <- lapply(.select[quosure_check], as_label) |> unlist()
+    named_fields <- purrr::map(.select[quosure_check], as_label) |> 
+      unlist()
   }else{
     named_fields <- NULL
   }
@@ -86,10 +85,10 @@ parse_select_species <- function(.select){
     # check for unexpected names
     name_check <- !(named_fields %in% c("counts", "synonyms", "lists"))
     if(any(name_check)){
-      unexpected_names <- glue_collapse(named_fields[name_check], last = " and ")
-      bullets <- c("When type = 'species', `select()` only accepts 'counts', 'synonyms' or 'lists' as valid fields.",
-                   i = glue("Unexpected fields: {unexpected_names}"))
-      warn(bullets)
+      unexpected_names <- glue::glue_collapse(named_fields[name_check], last = " and ")
+      c("When type = 'species', `select()` only accepts 'counts', 'synonyms' or 'lists' as valid fields.",
+        i = glue("Unexpected fields: {unexpected_names}")) |>
+      cli::cli_warn(bullets)
     }
     # parse 'correct' names
     if(any(named_fields == "counts")){result$count <- "true"}

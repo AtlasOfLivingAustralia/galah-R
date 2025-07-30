@@ -1,24 +1,23 @@
-#' Internal function to `collapse()` for `type = "occurrences"`
-#' @importFrom rlang abort
+#' Internal function to convert `data_request` with `type = "occurrences"` to a `query`
 #' @noRd
 #' @keywords Internal
-collapse_occurrences <- function(.query){
+as_query_occurrences <- function(.query){
   if(is.null(.query$filter) & 
      is.null(.query$identify) & 
      is.null(.query$geolocate)){
-    abort("No filters supplied to `collapse()` with `type = \"occurrences\"`")
+    cli::cli_abort("No filters supplied to `collapse()` with `type = \"occurrences\"`")
   }
-  switch(pour("atlas", "region"),
-         "United Kingdom" = collapse_occurrences_uk(.query),
-         "Global" = collapse_occurrences_gbif(.query),
-         collapse_occurrences_la(.query))
+  switch(potions::pour("atlas", "region"),
+         "United Kingdom" = as_query_occurrences_uk(.query),
+         "Global" = as_query_occurrences_gbif(.query),
+         as_query_occurrences_la(.query))
 }
 
 #' calculate the query to be returned for the UK atlas
 #' @param .query An object of class `data_request()`
 #' @noRd
 #' @keywords Internal
-collapse_occurrences_uk <- function(.query){
+as_query_occurrences_uk <- function(.query){
   # set default columns
   if(is.null(.query$select)){
     .query$select <- galah_select(group = "basic")
@@ -26,7 +25,7 @@ collapse_occurrences_uk <- function(.query){
   # build a url
   # NOTE: providing an email blocks this from executing (2023-08-30)
   url <-  url_lookup("data/occurrences") |> 
-    url_parse()
+    httr2::url_parse()
   url$query <- c(build_query(identify = .query$identify,
                              filter = .query$filter, 
                              location = .query$geolocate, 
@@ -35,12 +34,12 @@ collapse_occurrences_uk <- function(.query){
                  qa = "`ASSERTIONS_PLACEHOLDER`",
                  sourceTypeId = source_type_id_lookup("United Kingdom"),
                  fileType = "csv",
-                 reasonTypeId = pour("user", "download_reason_id"),
+                 reasonTypeId = potions::pour("user", "download_reason_id"),
                  dwcHeaders = "true")
   # build output
   result <- list(
     type = "data/occurrences",
-    url = url_build(url),
+    url = httr2::url_build(url),
     headers = build_headers(),
     filter = .query$filter,
     select = .query$select)
@@ -49,23 +48,29 @@ collapse_occurrences_uk <- function(.query){
 }
 
 #' calculate the query to be returned for GBIF
-#' @importFrom glue glue
 #' @noRd
 #' @keywords Internal
-collapse_occurrences_gbif <- function(.query, format = "SIMPLE_CSV"){
+as_query_occurrences_gbif <- function(.query, format = "SIMPLE_CSV"){
+  
+  body <- build_predicates(
+    .query$filter,
+    .query$identify,
+    .query$geolocate,
+    format = "SIMPLE_CSV")
+  
   # deal with user-specified taxonomic names
   if(!is.null(identify)){
     .query$filter <- rbind(
       .query$filter,
-      data.frame(variable = "taxonKey",
-                 logical = "==",
-                 value = "`TAXON_PLACEHOLDER`",
-                 query = ""))
+      tibble::tibble(variable = "taxonKey",
+                     logical = "==",
+                     value = "`TAXON_PLACEHOLDER`",
+                     query = ""))
   }
   # get user string
-  username <- pour("user", "username", .pkg = "galah")
-  password <- pour("user", "password", .pkg = "galah")
-  user_string <- glue("{username}:{password}")
+  username <- potions::pour("user", "username", .pkg = "galah")
+  password <- potions::pour("user", "password", .pkg = "galah")
+  user_string <- glue::glue("{username}:{password}")
   # build object
   result <- list(
     type = "data/occurrences",
@@ -89,7 +94,7 @@ collapse_occurrences_gbif <- function(.query, format = "SIMPLE_CSV"){
 #' @param .query An object of class `data_request()`
 #' @noRd
 #' @keywords Internal
-collapse_occurrences_la <- function(.query){
+as_query_occurrences_la <- function(.query){
   # set default columns
   if(is.null(.query$select)){
     .query$select <- galah_select(group = "basic")
@@ -105,8 +110,8 @@ collapse_occurrences_la <- function(.query){
              emailNotify = email_notify(),
              sourceTypeId = {pour("atlas", "region") |>
                              source_type_id_lookup()},
-             reasonTypeId = pour("user", "download_reason_id"),
-             email = pour("user", "email"),
+             reasonTypeId = potions::pour("user", "download_reason_id"),
+             email = potions::pour("user", "email"),
              dwcHeaders = "true")
   # DOI conditional on this service being offered
   if (!is.null(.query$mint_doi) & 
@@ -115,12 +120,12 @@ collapse_occurrences_la <- function(.query){
   }
   # build url
   url <- url_lookup("data/occurrences") |> 
-    url_parse()
+    httr2::url_parse()
   url$query <- query
   # build output
   result <- list(
     type = "data/occurrences",
-    url = url_build(url),
+    url = httr2::url_build(url),
     headers = build_headers(),
     filter = .query$filter,
     select = .query$select)

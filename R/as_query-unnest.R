@@ -1,12 +1,10 @@
-#' Internal function to run `collapse()` for 
+#' Internal function to run `as_query()` for 
 #' `request_metadata(type = "fields") |> unnest()`
-#' @importFrom httr2 url_build
-#' @importFrom httr2 url_parse
 #' @noRd
 #' @keywords Internal
-collapse_fields_unnest <- function(.query){
+as_query_fields_unnest <- function(.query){
   url <- url_lookup("metadata/fields-unnest") |> 
-    url_parse()
+    httr2::url_parse()
   if(is_gbif()){
     url$query <- list(
       limit = 0,
@@ -19,20 +17,20 @@ collapse_fields_unnest <- function(.query){
   }
   result <- list(
     type = "metadata/fields-unnest",
-    url = url_build(url))
+    url = httr2::url_build(url))
   class(result) <- "query"
   return(result)
 }
 
-#' Internal function to run `collapse()` for 
+#' Internal function to run `as_query()` for 
 #' `request_metadata(type = "lists") |> unnest()`
 #' @noRd
 #' @keywords Internal
-collapse_lists_unnest <- function(.query){
+as_query_lists_unnest <- function(.query){
   
   url <- url_lookup("metadata/lists-unnest",
                     list_id = .query$filter$value[1]) |>
-    url_parse()
+    httr2::url_parse()
   
   # Request additional raw fields if `show_fields(all_fields = TRUE)`
   if(isTRUE(attributes(.query)$all_fields)) {
@@ -48,16 +46,16 @@ collapse_lists_unnest <- function(.query){
   
   result <- list(
     type = "metadata/lists-unnest",
-    url = url_build(url))
+    url = httr2::url_build(url))
   class(result) <- "query"
   return(result)
 }
 
-#' Internal function to run `collapse()` for 
+#' Internal function to run `as_query()` for 
 #' `request_metadata(type = "profiles") |> unnest()`
 #' @noRd
 #' @keywords Internal
-collapse_profiles_unnest <- function(.query){
+as_query_profiles_unnest <- function(.query){
   result <- list(
     type = "metadata/profiles-unnest",
     url = url_lookup("metadata/profiles-unnest", 
@@ -66,12 +64,12 @@ collapse_profiles_unnest <- function(.query){
   return(result)
 }
 
-#' Internal function to `collapse()` for 
+#' Internal function to `as_query()` for 
 #' `request_metadata(type = "taxa") |> unnest()`
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-collapse_taxa_unnest <- function(.query){
+as_query_taxa_unnest <- function(.query){
   if(!is.null(.query$filter)){
     id <- .query$filter$value[1]
   }else if(!is.null(.query$identify)){

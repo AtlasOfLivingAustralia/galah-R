@@ -4,11 +4,10 @@
 #' @noRd
 collapse_species_count <- function(.query){
   if(is_gbif()){
-    abort("`count()` is not supported for GBIF with type = 'species'") 
-    ## TRUE?
+    cli::cli_abort("`count()` is not supported for GBIF with type = 'species'") 
   }else{
-    function_name <- "collapse_species_count_atlas"
-    arg_names <- names(formals(collapse_species_count_atlas))
+    function_name <- "as_query_species_count_atlas"
+    arg_names <- names(formals(as_query_species_count_atlas))
   }
   custom_call <- .query[names(.query) %in% arg_names]
   class(custom_call) <- "data_request"
@@ -16,8 +15,6 @@ collapse_species_count <- function(.query){
 }
 
 #' collapse for counts on LAs
-#' @importFrom httr2 url_build
-#' @importFrom httr2 url_parse
 #' @keywords Internal
 #' @noRd
 collapse_species_count_atlas <- function(identify = NULL, 
@@ -29,7 +26,7 @@ collapse_species_count_atlas <- function(identify = NULL,
                                          arrange = NULL
 ){
   url <- url_lookup("data/species-count") |> 
-    url_parse()
+    httr2::url_parse()
   query <- build_query(identify, 
                        filter, 
                        geolocate, 
@@ -48,16 +45,16 @@ collapse_species_count_atlas <- function(identify = NULL,
     facets <- c(as.list(group_by$name), species_facets())
     names(facets) <- rep("facets", length(facets))
     if(is.null(slice)){
-      slice <- tibble(slice_n = 30, slice_called = FALSE)
+      slice <- tibble::tibble(slice_n = 30, slice_called = FALSE)
     }
     if(is.null(arrange)){
-      arrange <- tibble(variable = "count", direction = "descending")
+      arrange <- tibble::tibble(variable = "count", direction = "descending")
     }
-    slice_arrange <- bind_cols(slice, arrange) 
+    slice_arrange <- dplyr::bind_cols(slice, arrange) 
     arrange_list <- check_slice_arrange(slice_arrange)
     url$query <- c(query, facets, arrange_list)
     result <- list(type = "data/species-count",
-                   url = url_build(url),
+                   url = httr2::url_build(url),
                    headers = build_headers(),
                    filter = filter,
                    expand = TRUE,

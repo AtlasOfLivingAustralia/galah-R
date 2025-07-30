@@ -1,18 +1,20 @@
-#' Internal function to `collapse()` apis
+# These functions are called by `as_query.metadata_request()`
+
+#' Internal function get a tibble of APIs
 #' @noRd
 #' @keywords Internal
-collapse_apis <- function(){
+as_query_apis <- function(){
   result <- list(type = "metadata/apis",
                  data = "galah:::node_config")
   class(result) <- "query"
   return(result)
 }
 
-#' Internal function to `collapse()` assertions
+#' Internal function to create an assertions query
 #' NOTE: API doesn't accept any arguments - could post-filter for search
 #' @noRd
 #' @keywords Internal
-collapse_assertions <- function(){
+as_query_assertions <- function(){
   if(is_gbif()){
     result <- list(type = "metadata/assertions",
                    data = "galah:::gbif_internal_archived$assertions")
@@ -31,27 +33,26 @@ collapse_assertions <- function(){
   return(result)
 }
 
-#' Internal function to `collapse()` atlases
+#' Internal function to create an atlases query
 #' @noRd
 #' @keywords Internal
-collapse_atlases <- function(){
+as_query_atlases <- function(){
   result <- list(type = "metadata/atlases",
                  data = "galah:::node_metadata")
   class(result) <- "query"
   return(result)
 }
 
-#' Internal function to `collapse()` collections
-#' @importFrom httr2 url_parse
+#' Internal function to create a collections query
 #' @noRd
 #' @keywords Internal
-collapse_collections <- function(.query){
+as_query_collections <- function(.query){
   url <- url_lookup("metadata/collections") 
   if(is_gbif() & !missing(.query)){
     if(!is.null(.query$filter)){
-      url <- url_parse(url)
+      url <- httr2::url_parse(url)
       url$query <- list(q = .query$filter$value[1])
-      url <- url_build(url)
+      url <- httr2::url_build(url)
     }
   }
   result <- list(type = "metadata/collections",
@@ -63,16 +64,16 @@ collapse_collections <- function(.query){
 # NOTE: LA collectory functions do not accept `max` or `offset`
 # Therefore they cannot be paginated. GBIF collectory funs can.
 
-#' Internal function to `collapse()` datasets
+#' Internal function to create a datasets query
 #' @noRd
 #' @keywords Internal
-collapse_datasets <- function(.query){
+as_query_datasets <- function(.query){
   url <- url_lookup("metadata/datasets") 
   if(is_gbif() & !missing(.query)){
     if(!is.null(.query$filter)){
-      url <- url_parse(url)
+      url <- httr2::url_parse(url)
       url$query <- list(q = .query$filter$value[1])
-      url <- url_build(url)
+      url <- httr2::url_build(url)
     }
   }
   result <- list(type = "metadata/datasets",
@@ -82,24 +83,12 @@ collapse_datasets <- function(.query){
   return(result)
 }
 
-#' Internal function to `collapse()` distributions
-#' @noRd
-#' @keywords Internal
-collapse_distributions_metadata <- function(.query){
-  url <- url_lookup("metadata/distributions")
-  result <- list(type = "metadata/distributions",
-                 url = url,
-                 headers = build_headers()) 
-  class(result) <- "query"
-  return(result)
-}
-
-#' Internal function to `collapse()` fields
+#' Internal function to create a fields query
 #' Note that this is inconsistent with `show_all_fields()` which returns data
 #' from multiple APIs
 #' @noRd
 #' @keywords Internal
-collapse_fields <- function(){
+as_query_fields <- function(){
   if(is_gbif()){
     result <- list(type = "metadata/fields",
                    data = "galah:::gbif_internal_archived$fields")
@@ -118,47 +107,10 @@ collapse_fields <- function(){
   return(result) 
 }
 
-#' Internal function to `collapse()` identifiers
+#' Internal function to create a licences query
 #' @noRd
 #' @keywords Internal
-collapse_identifiers <- function(.query){
-  if(is.null(.query$filter)){
-    url_list <- url_lookup("metadata/identifiers")
-    names(url_list) <- "no-name-supplied"
-  }else{
-    search_terms <- .query$filter$value
-    query <- as.list(search_terms)
-    base_url <- url_lookup("metadata/identifiers")
-    # create query urls
-    if(grepl("api.gbif.org", base_url)){
-      base_url <- utils::URLdecode(base_url)
-      urls <- glue::glue(base_url, id = query) |>
-        unlist()
-    }else{
-      base_url <- url_parse(base_url)
-      urls <- lapply(query,
-                     function(a, base_url){
-                       names(a) <- "taxonID"
-                       base_url$query <- as.list(a)
-                       url_build(base_url)
-                     },
-                     base_url = base_url) |>
-        unlist()      
-    }
-  }
-  # build object and return
-  result <- list(type = "metadata/identifiers",
-                 url = tibble(url = urls, 
-                              search_term = search_terms),
-                 headers = build_headers())
-  class(result) <- "query"
-  return(result)
-}
-
-#' Internal function to `collapse()` licences
-#' @noRd
-#' @keywords Internal
-collapse_licences <- function(){
+as_query_licences <- function(){
   result <- list(type = "metadata/licences",
                  url = url_lookup("metadata/licences"),
                  headers = build_headers())
@@ -166,12 +118,12 @@ collapse_licences <- function(){
   return(result)
 }
 
-#' Internal function to `collapse()` lists
+#' Internal function to create a lists query
 #' @noRd
 #' @keywords Internal
-collapse_lists <- function(.query){
+as_query_lists <- function(.query){
   url <- url_lookup("metadata/lists") |>
-    url_parse()
+    httr2::url_parse()
   url$query <- list(max = 10000)
   if(!missing(.query)){
     if(!is.null(.query$slice)){
@@ -179,17 +131,17 @@ collapse_lists <- function(.query){
     }    
   }
   result <- list(type = "metadata/lists",
-                 url = url_build(url),
+                 url = httr2::url_build(url),
                  headers = build_headers(),
                  slot_name = "lists")
   class(result) <- "query"
   return(result) 
 }
 
-#' Internal function to `collapse()` profiles
+#' Internal function to create a profiles query
 #' @noRd
 #' @keywords Internal
-collapse_profiles <- function(){
+as_query_profiles <- function(){
   update_needed <- internal_cache_update_needed("profiles")
   if(update_needed){
     result <- list(type = "metadata/profiles",
@@ -203,16 +155,16 @@ collapse_profiles <- function(){
   return(result)
 }
 
-#' Internal function to `collapse()` providers
+#' Internal function to create a providers query
 #' @noRd
 #' @keywords Internal
-collapse_providers <- function(.query){
+as_query_providers <- function(.query){
   url <- url_lookup("metadata/providers") 
   if(is_gbif() & !missing(.query)){
     if(!is.null(.query$filter)){
-      url <- url_parse(url)
+      url <- httr2::url_parse(url)
       url$query <- list(q = .query$filter$value[1])
-      url <- url_build(url)
+      url <- httr2::url_build(url)
     }
   }
   result <- list(type = "metadata/providers",
@@ -222,10 +174,10 @@ collapse_providers <- function(.query){
   return(result)
 }
 
-#' Internal function to `collapse()` reasons
+#' Internal function to create a reasons query
 #' @noRd
 #' @keywords Internal
-collapse_reasons <- function(){
+as_query_reasons <- function(){
   update_needed <- internal_cache_update_needed("reasons")
   if(update_needed){
     result <- list(type = "metadata/reasons",
@@ -239,10 +191,10 @@ collapse_reasons <- function(){
   return(result)
 }
 
-#' Internal function to `collapse()` ranks
+#' Internal function to create a ranks query
 #' @noRd
 #' @keywords Internal
-collapse_ranks <- function(){
+as_query_ranks <- function(){
   if(is_gbif()){
     result <- list(type = "metadata/ranks",
                    data = "galah:::gbif_internal_archived$ranks")

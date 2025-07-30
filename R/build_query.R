@@ -78,50 +78,6 @@ build_query <- function(identify = NULL,
   build_single_fq(query)
 }
 
-#' Build query list from constituent arguments for GBIF only
-#' @importFrom glue glue_data
-#' @importFrom potions pour
-#' @noRd
-#' @keywords Internal
-build_query_gbif <- function(identify = NULL, 
-                             filter = NULL,
-                             location = NULL){
-  if(is.null(identify)) {
-    taxa_query <- list(taxonKey = 1)
-  }else{
-    taxa_query <- list(taxonKey = "`TAXON_PLACEHOLDER`")
-  }
-  # filter
-  if(is.null(filter)) {
-    filter_query <- NULL
-  }else{
-    if(!inherits(filter, "data.frame")){
-      abort("`filter` must be a `data.frame` or `tibble`")
-    }
-    if(nrow(filter) == 0) {
-      filter_query <- NULL
-    }else{
-      filter_query <- build_filter_query(filter)
-    }
-  }
-  # merge
-  query <- c(taxa_query, filter_query)
-  # geographic stuff
-  if (!is.null(location)) {
-    # if location is for a point radius vs polygon/bbox
-    if(!is.null(names(location))){
-      if(all(!is.null(location$radius))) { # `galah_radius()` will always pass radius argument
-        query$geoDistance <- glue_data(location,
-                                       "{lat},{lon},{radius}km")
-      }else
-        query$geometry <- location
-    } else {
-      query$geometry <- location
-    }
-  }
-  query
-}
-
 #' collapse multiple fq args into one
 #' @keywords Internal
 #' @noRd

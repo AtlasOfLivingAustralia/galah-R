@@ -96,19 +96,41 @@ collect_taxa_la <- function(.query){
 collect_taxa_gbif <- function(.query){
   search_terms <- .query$url$search_term
   result <- query_API(.query) |>
-    bind_rows() |>
+    clean_gbif_taxa() |>
+    dplyr::bind_rows() |>
     mutate("search_term" = search_terms, .before = 1)
   names(result) <- rename_columns(names(result), type = "taxa") # old code
-  result |> select(any_of(wanted_columns("taxa")))
+  result |> 
+    dplyr::select(dplyr::any_of(wanted_columns("taxa")))
+}
+
+#' Internal function to do cleaning for GBIF
+#' @param result a list from a taxonomic web service
+#' @noRd
+#' @keywords Internal
+clean_gbif_taxa <- function(result){
+  purrr::map(result,
+             \(a){
+               c(
+                 purrr::pluck(a$usage),
+                 {
+                   x <- purrr::map(a$classification,
+                                   .f = \(b){b$name})
+                   names(x) <- purrr::map(a$classification,
+                                          .f = \(b){tolower(b$rank)})
+                   x
+                 },
+                 a$diagnostics[lengths(a$diagnostics) < 2]
+               )
+             })
 }
 
 #' Internal function to do cleaning
 #' @param result a list from a taxonomic web service
-#' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
 clean_la_taxa <- function(result, search_terms){
-  lapply(result, function(a){
+  purrr::map(result, function(a){
 
     # capture results
     if("_embedded" %in% names(a)) { # e.g. France
@@ -117,7 +139,7 @@ clean_la_taxa <- function(result, search_terms){
     } else {
       if("searchResults" %in% names(a)) {
       list_of_results <- a |>
-        pluck("searchResults", "results")
+        purrr::pluck("searchResults", "results")
       } else { # e.g. Portugal (single result)
         list_of_results <- list(a)
       }
@@ -126,9 +148,13 @@ clean_la_taxa <- function(result, search_terms){
     # find best string match to search term
     if (length(list_of_results) > 1) { # i.e. more than one match
       if ("name" %in% list_of_results[[1]]) {
-        taxon_names <- unlist(lapply(list_of_results, function(b){b$name}))
+        taxon_names <- purrr::map(list_of_results, 
+                                  function(b){b$name}) |>
+          unlist()
       } else { # e.g. France
-        taxon_names <- unlist(lapply(list_of_results, function(b){b$scientificName}))
+        taxon_names <- purrr::map(list_of_results, 
+                                  function(b){b$scientificName}) |>
+          unlist()
       }
         string_distances <- utils::adist(
           tolower(search_terms), 
@@ -149,7 +175,7 @@ clean_la_taxa <- function(result, search_terms){
     }
     
     # unlist if necessary
-    atlas <- pour("atlas", "region")
+    atlas <- potions::pour("atlas", "region")
     if (any(atlas %in% c("France", "Portugal"))) {
       list_of_results <- list_of_results |> unlist()
     }
@@ -158,42 +184,39 @@ clean_la_taxa <- function(result, search_terms){
 }
 
 #' Internal function to `collect()` identifiers
-#' @importFrom dplyr any_of
-#' @importFrom dplyr bind_rows
-#' @importFrom dplyr mutate
-#' @importFrom dplyr select
 #' @noRd
 #' @keywords Internal
 collect_identifiers <- function(.query){
   search_terms <- .query$url$search_term
   result <- query_API(.query) |>
     flat_lists_only() |>
-    bind_rows()
+    dplyr::bind_rows()
   
   if(any(colnames(result) == "taxonConceptID")){
     result <- result |>
-      filter(!duplicated(result$taxonConceptID))
+      dplyr::filter(!duplicated(result$taxonConceptID))
   }
   
   if(!any(colnames(result) == "success")){ # GBIF doesn't indicate success
     # we avoid `is_gbif()` here because other atlases use GBIF APIs
     result$success <- TRUE
     result <- result |>
-      relocate(success, .before = 1) |>
-      rename("taxonConceptID" = "key")
+      dplyr::relocate(success, .before = 1) |>
+      dplyr::rename("taxonConceptID" = "key")
   }
   
   result <- result |>
-    mutate("search_term" = search_terms, .before = "success")
+    dplyr::mutate("search_term" = search_terms, .before = "success")
 
   # Check for invalid search terms
   if (galah_config()$package$verbose) {
     check_search_terms(result)
   }
   
-  names(result) <- rename_columns(names(result), type = "taxa") # old code
+  names(result) <- rename_columns(names(result), 
+                                  type = "taxa") # old code
   result <- result |> 
-    select(any_of(wanted_columns("taxa")))
+    dplyr::select(dplyr::any_of(wanted_columns("taxa")))
   attr(result, "call") <- "identifiers"
   attr(result, "region") <- pour("atlas", "region") 
   result
@@ -247,7 +270,6 @@ check_search_terms <- function(result, atlas) {
 
 #' Internal function to check for homonyms in search term provided to 
 #' `search_taxa()`
-#' @importFrom glue glue_collapse
 #' @noRd
 #' @keywords Internal
 check_homonyms <- function(result) {
@@ -261,6 +283,6 @@ check_homonyms <- function(result) {
     i = "Use a `tibble` to clarify taxa, see `?search_taxa`.", 
     x = glue("Homonym issue with \"{list_homonym_taxa}\".")
   )
-  warn(bullets)
+  rlang::warn(bullets)
   }
 }

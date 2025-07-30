@@ -12,43 +12,23 @@
 #' @param x An object of class `data_request`, `metadata_request` or 
 #' `files_request`
 #' @param ... Arguments passed on to other methods
-#' @param .expand Logical: should the `query_set` be returned? This object
-#' shows all the requisite data needed to process the supplied query. Defaults
-#' to `FALSE`; if `TRUE` will append the `query_set` to an extra slot in the
-#' `query` object.
 #' @param mint_doi Logical: should a DOI be minted for this download? Only 
 #' applies to `type = "occurrences"` when atlas chosen is "ALA".
 #' @return An object of class `query`, which is a list-like object containing at 
 #' least the slots `type` and `url`.
 #' @export
-collapse.data_request <- function(x, ..., mint_doi, .expand = FALSE){
-  query_set <- build_query_set(x, 
-                               mint_doi = mint_doi, 
-                               ...)
-  result <- query_set |>
-    build_checks() |>
-    parse_checks() |>
-    parse_query()
-  if(.expand){
-    result$call <- query_set
-  }
-  result
+collapse.data_request <- function(x, ..., mint_doi){
+  coalesce(x, mint_doi, ...) |>
+    collapse()
 }
 
 # if calling `collapse()` after `request_metadata()`
 #' @rdname collapse.data_request
 #' @order 2
 #' @export
-collapse.metadata_request <- function(x, .expand = FALSE, ...){
-  query_set <- build_query_set(x, ...)
-  result <- query_set |>
-    build_checks() |>
-    parse_checks() |>
-    parse_query()
-  if(.expand){
-    result$call <- query_set
-  }
-  result
+collapse.metadata_request <- function(x, ...){
+  coalesce(x, ...) |>
+    collapse()
 }
 
 # if calling `collapse()` after `request_files()`
@@ -63,9 +43,33 @@ collapse.files_request <- function(x,
                                    thumbnail = FALSE,
                                    ...
                                    ){
-  build_query_set(x, 
-                  thumbnail = thumbnail, 
-                  ...) |>
-    # note: files requests do not need to call build_checks()
-    pluck(!!!list(1))
+  coalesce(x, 
+           thumbnail = thumbnail, 
+           ...) |>
+    collapse()
+}
+
+# if calling `collapse()` after `coalesce()`
+#' @rdname collapse.data_request
+#' @order 4
+#' @export
+collapse.query_set <- function(x, ...){
+  # note: files requests do not need to call build_checks()
+  if(grepl("^files", x[[1]]$type)){
+    x |>
+      purrr::pluck(!!!list(1))
+  }else{
+    x |>
+      build_checks() |>
+      parse_checks() |>
+      parse_query()
+  }
+}
+
+# if calling `collapse()` after `as_query()`
+#' @rdname collapse.data_request
+#' @order 4
+#' @export
+collapse.query <- function(x, ...){
+  x
 }

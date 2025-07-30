@@ -4,13 +4,19 @@
 \alias{collapse.data_request}
 \alias{collapse.metadata_request}
 \alias{collapse.files_request}
+\alias{collapse.query_set}
+\alias{collapse.query}
 \title{Generate a query}
 \usage{
-\method{collapse}{data_request}(x, ..., mint_doi, .expand = FALSE)
+\method{collapse}{data_request}(x, ..., mint_doi)
 
-\method{collapse}{metadata_request}(x, .expand = FALSE, ...)
+\method{collapse}{metadata_request}(x, ...)
 
 \method{collapse}{files_request}(x, thumbnail = FALSE, ...)
+
+\method{collapse}{query_set}(x, ...)
+
+\method{collapse}{query}(x, ...)
 }
 \arguments{
 \item{x}{An object of class \code{data_request}, \code{metadata_request} or
@@ -20,11 +26,6 @@
 
 \item{mint_doi}{Logical: should a DOI be minted for this download? Only
 applies to \code{type = "occurrences"} when atlas chosen is "ALA".}
-
-\item{.expand}{Logical: should the \code{query_set} be returned? This object
-shows all the requisite data needed to process the supplied query. Defaults
-to \code{FALSE}; if \code{TRUE} will append the \code{query_set} to an extra slot in the
-\code{query} object.}
 
 \item{thumbnail}{Logical: should thumbnail-size images be returned? Defaults
 to \code{FALSE}, indicating full-size images are required.}
