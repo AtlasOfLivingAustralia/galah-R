@@ -5,17 +5,17 @@
 collapse_build_checks <- function(.query){
   # get basic description of `query_set` object
   n <- length(.query)
-  names_vec <- unlist(lapply(.query, function(a){a$type}))
+  names_vec <- unlist(purrr::map(.query, function(a){a$type}))
   # look for any `data`
   data_lookup <- grepl("^data", names_vec)
   if(any(data_lookup)){
     data_names <- names_vec[data_lookup]
     # parse any `metadata`
-    metadata_results <- collapse_parse_metadata(names_vec, .query)
+    metadata_results <- collapse_run_metadata(names_vec, .query)
     # parse `data`, including supplied metadata
     # this assumes only one `data` field is available per `query_set`
     .query[[which(data_lookup)]] |>
-      add_metadata(metadata_results)
+      collapse_add_metadata(metadata_results)
   }else if(any(names_vec %in% c("metadata/fields-unnest", 
                                 "metadata/profiles-unnest",
                                 "metadata/taxa-unnest"))){
@@ -23,7 +23,7 @@ collapse_build_checks <- function(.query){
     # metadata/fields-unnest calls check_fields(), requiring fields and assertions
     # metadata/profiles-unnest calls profile_short_name(), which requires profiles
     if(length(.query) > 1){
-      metadata_results <- collapse_parse_metadata(names_vec, .query)
+      metadata_results <- collapse_run_metadata(names_vec, .query)
       .query[[2]] |>
         collapse_add_metadata(metadata_results)
     }else{
@@ -83,7 +83,7 @@ collapse_run_checks <- function(.query){
 #' Internal function to collapse metadata
 #' @noRd
 #' @keywords Internal
-collapse_metadata <- function(names_vec, .query){
+collapse_run_metadata <- function(names_vec, .query){
   metadata_lookup <- grepl("^metadata", names_vec) &
     !grepl("-unnest$", names_vec) # unnest functions only parse in collect()
   if(any(metadata_lookup)){

@@ -2,7 +2,7 @@
 #' @keywords Internal
 #' @param .query an object of class `data_request`
 #' @noRd
-collapse_species_count <- function(.query){
+as_query_species_count <- function(.query){
   if(is_gbif()){
     cli::cli_abort("`count()` is not supported for GBIF with type = 'species'") 
   }else{
@@ -17,7 +17,7 @@ collapse_species_count <- function(.query){
 #' collapse for counts on LAs
 #' @keywords Internal
 #' @noRd
-collapse_species_count_atlas <- function(identify = NULL, 
+as_query_species_count_atlas <- function(identify = NULL, 
                                          filter = NULL, 
                                          geolocate = NULL,
                                          data_profile = NULL,

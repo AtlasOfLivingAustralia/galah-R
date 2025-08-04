@@ -20,7 +20,13 @@
 #' to generate irresolvable API calls, because e.g. taxonomic queries are not
 #' parsed before the URL is built. It should therefore be used with care.
 #' @name as_query.data_request
+#' @param x An object to convert to a `query`. Supported classes are the same
+#' as those produced by [galah_call()], namely `data_request`, 
+#' `metadata_request` or `files_request`.
+#' @param ... Other arguments, currently ignored
 #' @order 1
+#' @return An object of class `query`, which is a list-like object containing at 
+#' least the slots `type` and `url`.
 #' @export
 as_query <- function(x, ...){
   UseMethod("as_query")
@@ -78,8 +84,21 @@ as_query.metadata_request <- function(x, ...){
 }
 
 #' @rdname as_query.data_request
+#' @param thumbnail Logical: should thumbnail-size images be returned? Defaults 
+#' to `FALSE`, indicating full-size images are required.
 #' @order 4
 #' @export
-as_query.files_request <- function(x, ...){
-  browser()
+as_query.files_request <- function(x, 
+                                   thumbnail,
+                                   ...){
+  # NOTE: switch is technically superfluous right now, but could be useful
+  # for future file types
+  
+  # This code is identical to `collapse.files_request()`
+  result <- list(switch(x$type,
+                        "media" = as_query_media_files(x, 
+                                                       thumbnail = thumbnail)
+  ))
+  class(result) <- "query_set"
+  result
 }

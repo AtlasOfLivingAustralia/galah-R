@@ -137,9 +137,9 @@ build_query_set_data <- function(x, mint_doi, ...){
   # handle `identify()`
   if(!is.null(x$identify) & 
      x$type != "occurrences-doi"){
-    result[[(length(result) + 1)]] <- list(type = "taxa", 
-                                           identify = x$identify) |>
-      as_query() # this syntax seems messy
+    result[[(length(result) + 1)]] <- request_metadata() |>
+      identify(x$identify) |>
+      as_query()
   }
   # handle `apply_profile()`
   if(!is.null(x$data_profile)){

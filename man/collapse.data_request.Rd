@@ -19,8 +19,10 @@
 \method{collapse}{query}(x, ...)
 }
 \arguments{
-\item{x}{An object of class \code{data_request}, \code{metadata_request} or
-\code{files_request}}
+\item{x}{An object to run \code{collapse()} on. Classes supported by \code{galah}
+include \code{data_request}, \code{metadata_request} and \code{files_request} for building
+queries; and \code{query} or \code{query_set} once constructed (via \code{\link[=as_query]{as_query()}} or
+\code{\link[=coalesce]{coalesce()}}).}
 
 \item{...}{Arguments passed on to other methods}
 

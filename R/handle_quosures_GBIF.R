@@ -82,7 +82,9 @@ parse_relational_pred <- function(x){
 
   # get expression
   expr <- rlang::quo_get_expr(x)
-  if(length(expr) != 3L){filter_error()}
+  if(length(expr) != 3L){
+    filter_error()
+  }
   
   # parse out separate parts
   operator <- as.character(expr[[1]])
@@ -268,7 +270,7 @@ parse_in_pred <- function(x){
     gbif_upper_case() # galah function
   
   rhs <- rlang::as_quosure(rlang::quo_get_expr(x)[[3]], 
-                             env = quo_get_env(x)) |>
+                             env = rlang::quo_get_env(x)) |>
     switch_expr_type()
   ## NOTE: Not clear that this is correct. 
   ## Should parse to: `"values": ["cat1", "cat2", "cat3"]`

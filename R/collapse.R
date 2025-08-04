@@ -9,8 +9,10 @@
 #' argument.
 #' @name collapse.data_request
 #' @order 1
-#' @param x An object of class `data_request`, `metadata_request` or 
-#' `files_request`
+#' @param x An object to run `collapse()` on. Classes supported by `galah` 
+#' include `data_request`, `metadata_request` and `files_request` for building
+#' queries; and `query` or `query_set` once constructed (via [as_query()] or
+#' [coalesce()]).
 #' @param ... Arguments passed on to other methods
 #' @param mint_doi Logical: should a DOI be minted for this download? Only 
 #' applies to `type = "occurrences"` when atlas chosen is "ALA".

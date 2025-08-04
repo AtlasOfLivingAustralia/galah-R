@@ -13,7 +13,21 @@ as_query(x, ...)
 
 \method{as_query}{metadata_request}(x, ...)
 
-\method{as_query}{files_request}(x, ...)
+\method{as_query}{files_request}(x, thumbnail, ...)
+}
+\arguments{
+\item{x}{An object to convert to a \code{query}. Supported classes are the same
+as those produced by \code{\link[=galah_call]{galah_call()}}, namely \code{data_request},
+\code{metadata_request} or \code{files_request}.}
+
+\item{...}{Other arguments, currently ignored}
+
+\item{thumbnail}{Logical: should thumbnail-size images be returned? Defaults
+to \code{FALSE}, indicating full-size images are required.}
+}
+\value{
+An object of class \code{query}, which is a list-like object containing at
+least the slots \code{type} and \code{url}.
 }
 \description{
 Functionally similar to \code{\link[=collapse]{collapse()}}, but without passing through

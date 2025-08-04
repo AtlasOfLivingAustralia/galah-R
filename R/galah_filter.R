@@ -104,17 +104,9 @@
 #'   count() |>
 #'   collect()
 #' }
-#' @importFrom rlang caller_env         
-#' @importFrom rlang enquos
-#' @importFrom rlang eval_tidy
-#' @importFrom rlang get_env
-#' @importFrom rlang new_quosure
-#' @importFrom rlang parse_expr
-#' @importFrom rlang quo_get_expr
-#' @importFrom rlang quo_squash
 #' @export
 filter.data_request <- function(.data, ...){
-  dots <- enquos(..., .ignore_empty = "all")
+  dots <- rlang::enquos(..., .ignore_empty = "all")
   check_named_input(dots)
   if(is_gbif()){
     filters <- parse_quosures_data_gbif(dots)  # `handle_quosures_GBIF.R`
@@ -131,7 +123,7 @@ filter.data_request <- function(.data, ...){
 #' @order 2
 #' @export
 filter.metadata_request <- function(.data, ...){
-  dots <- enquos(..., .ignore_empty = "all")
+  dots <- rlang::enquos(..., .ignore_empty = "all")
   check_named_input(dots)
   parse_quosures_metadata(.data, dots)
 }
@@ -156,12 +148,12 @@ parse_quosures_metadata <- function(request, dots){
   supplied_type <- dots_parsed$variable[1]
   if(!(supplied_type %in% c("taxa", "media")) &
      !grepl("s$", supplied_type)){
-    filter_type <- paste0(supplied_type, "s")
+    filter_type <- glue::glue("{supplied_type}s")
   }else{
     filter_type <- supplied_type
   }
   if(grepl("-unnest$", initial_type)){
-    request$type <- paste0(filter_type, "-unnest")
+    request$type <- glue::glue("{filter_type}-unnest")
   }else{
     request$type <- filter_type
   }
@@ -173,7 +165,7 @@ parse_quosures_metadata <- function(request, dots){
 #' @importFrom rlang .data
 #' @export
 filter.files_request <- function(.data, ...){
-  dots <- enquos(..., .ignore_empty = "all")
+  dots <- rlang::enquos(..., .ignore_empty = "all")
   check_named_input(dots)
   dots_parsed <- parse_quosures_files(dots)
   check_files_filter(dots_parsed)
@@ -186,7 +178,7 @@ filter.files_request <- function(.data, ...){
 #' @order 4
 #' @export
 galah_filter <- function(..., profile = NULL){
-  dots <- enquos(..., .ignore_empty = "all") |>
+  dots <- rlang::enquos(..., .ignore_empty = "all") |>
     detect_request_object()
   check_named_input(dots)
   switch(class(dots[[1]])[1],

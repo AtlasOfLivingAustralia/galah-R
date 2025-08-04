@@ -15,7 +15,7 @@ as_query_species <- function(.query){
 #' calculate the query to be returned for a given living atlas
 #' @noRd
 #' @keywords Internal
-collapse_species_atlas <- function(.query){
+as_query_species_atlas <- function(.query){
   # set default columns
   if(is.null(.query$select)){
     .query$select <- galah_select(group = "taxonomy")
@@ -88,7 +88,7 @@ parse_select_species <- function(.select){
       unexpected_names <- glue::glue_collapse(named_fields[name_check], last = " and ")
       c("When type = 'species', `select()` only accepts 'counts', 'synonyms' or 'lists' as valid fields.",
         i = glue("Unexpected fields: {unexpected_names}")) |>
-      cli::cli_warn(bullets)
+      cli::cli_warn()
     }
     # parse 'correct' names
     if(any(named_fields == "counts")){result$count <- "true"}

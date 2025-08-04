@@ -19,14 +19,17 @@ test_that("atlas_species returns correct results when piped", {
     galah_identify("perameles") |>
     galah_filter(year > 2000) |>
     atlas_species()
-  expected_species <- c("Perameles nasuta", "Perameles gunnii", 
-                        "Perameles pallescens", "Perameles bougainville")
+  expected_species <- c("Perameles nasuta",
+                        "Perameles gunnii", 
+                        "Perameles fasciata",
+                        "Perameles pallescens",
+                        "Perameles bougainville")
   expected_cols <- c("taxon_concept_id", "species_name",
                      "scientific_name_authorship", "taxon_rank",
                      "kingdom", "phylum", "class", "order", "family",
                      "genus", "vernacular_name")
   expect_setequal(names(species), expected_cols)
-  expect_equal(species$species_name[1:4], expected_species)
+  expect_equal(species$species_name[1:5], expected_species)
   expect_gt(nrow(species), 1)
   expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
 })
@@ -111,4 +114,27 @@ test_that("atlas_species reformats column names when empty tibble is returned", 
   expect_setequal(names(species), expected_cols)
   expect_equal(nrow(species), 0)
   expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
+})
+
+test_that("group_by works on occurrences", {
+  skip_if_offline(); skip_on_ci()
+  # compare group_by with atlas_species
+  x <- galah_call() |>
+    filter(year == 2024,
+           genus == "Crinia") |>
+    group_by(speciesID) |>
+    collect()
+  y <- galah_call() |>
+    filter(year == 2024,
+           genus == "Crinia") |>
+    atlas_species()
+  expect_equal(x, y)
+  # try with a different variable
+  z <- galah_call() |>
+    filter(year == 2024,
+           genus == "Crinia") |>
+    group_by(genusID) |>
+    collect()
+  expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
+  expect_equal(colnames(z)[1], "taxon_concept_id")
 })

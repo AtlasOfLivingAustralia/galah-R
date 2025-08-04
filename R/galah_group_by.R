@@ -62,20 +62,21 @@ galah_group_by <- function(...){
 parse_group_by <- function(dot_names){
   if(length(dot_names) > 0){
     if(length(dot_names) > 3){
-      bullets <- c(
+      c(
         "Too many fields supplied.",
-        i = "`group_by.data_request` accepts a maximum of 3 fields."
-        )
-      abort(bullets, call = caller_env())
+        i = "`group_by.data_request` accepts a maximum of 3 fields.") |>
+      cli::cli_abort(call = caller_env())
     }
     if(length(dot_names) > 0){
-      df <- tibble(name = dot_names)
-      df$type <- ifelse(str_detect(df$name, "[[:lower:]]"), "field", "assertions")
+      df <- tibble::tibble(name = dot_names)
+      df$type <- ifelse(stringr::str_detect(df$name, "[[:lower:]]"), 
+                        "field", 
+                        "assertions")
     }else{
-      df <- tibble(name = "name", type = "type", .rows = 0)
+      df <- tibble::tibble(name = "name", type = "type", .rows = 0)
     }
   }else{
-    df <- tibble(name = "name", type = "type", .rows = 0)
+    df <- tibble::tibble(name = "name", type = "type", .rows = 0)
   }
   
   return(df)

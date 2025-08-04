@@ -6,14 +6,12 @@
 # These are called 'first' by `galah_` functions
 
 #' parse quosures for objects of class `data_request`
-#' @importFrom dplyr bind_rows
-#' @importFrom tibble tibble
 #' @noRd
 #' @keywords internal
 parse_quosures_data <- function(dots){
   if(length(dots) > 0){
-    result <- lapply(dots, switch_expr_type) |>
-      bind_rows() |>
+    result <- purrr::map(dots, switch_expr_type) |>
+      dplyr::bind_rows() |>
       clean_assertions() |>
       clean_logical_statements()
     result$query <- as.character(result$query)
@@ -21,7 +19,7 @@ parse_quosures_data <- function(dots){
     result <- NULL
   }
   if(is.null(result)){
-    result <- tibble(
+    result <- tibble::tibble(
       variable = character(),
       logical = character(),
       value = character(),
@@ -34,19 +32,16 @@ parse_quosures_data <- function(dots){
 #' 
 #' Major difference here is there is no need for parsing; simply return
 #' stuff that is a named object
-#' @importFrom rlang abort
-#' @importFrom rlang eval_tidy
-#' @importFrom rlang quo_get_expr
 #' @noRd
 #' @keywords internal
 parse_quosures_basic <- function(dots){
   if(length(dots) > 0){
-    parsed_dots <- lapply(dots, function(a){
+    parsed_dots <- purrr::map(dots, \(a){
       switch(expr_type(a),
              "symbol" = {parse_symbol(a)},
-             "call" = {eval_tidy(a)},
-             "literal" = {quo_get_expr(a)},
-             abort("Quosure type not recognised."))
+             "call" = {rlang::eval_tidy(a)},
+             "literal" = {rlang::quo_get_expr(a)},
+             cli::cli_abort("Quosure type not recognised."))
     })
     unlist(parsed_dots)
   }else{
@@ -56,42 +51,37 @@ parse_quosures_basic <- function(dots){
 
 #' parse quosures, but for `filter.files_request()` where we expect large amounts
 #' of data to be supplied
-#' @importFrom rlang as_label
-#' @importFrom rlang as_string
-#' @importFrom rlang is_quosure
-#' @importFrom rlang f_lhs
-#' @importFrom rlang f_rhs
-#' @importFrom rlang quo_get_env
-#' @importFrom rlang quo_get_expr
-#' @importFrom tibble tibble
 #' @noRd
 #' @keywords internal
 parse_quosures_files <- function(dots){
   if(length(dots) > 0){
     check_named_input(dots)
-    dot_expr <- quo_get_expr(dots[[1]]) # i.e. only first entry is available
+    dot_expr <- rlang::quo_get_expr(dots[[1]]) # i.e. only first entry is available
     # get formula lhs
-    lhs <- f_lhs(dot_expr)
-    if(is_quosure(lhs)){
-      lhs <- quo_get_expr(lhs)
+    lhs <- rlang::f_lhs(dot_expr)
+    if(rlang::is_quosure(lhs)){
+      lhs <- rlang::quo_get_expr(lhs)
     }
-    lhs <- as_string(lhs) |> dequote()
+    lhs <- rlang::as_string(lhs) |> 
+      dequote()
     # get rhs
-    x <- new_quosure(f_rhs(dot_expr), env = quo_get_env(dots[[1]]))
+    x <- rlang::f_rhs(dot_expr) |>
+      rlang::new_quosure(env = rlang::quo_get_env(dots[[1]]))
     rhs <- switch(expr_type(x),
-                  "call" = {eval_tidy(x)},
-                  "symbol" = {if(exists(quo_get_expr(x), 
-                                        where = quo_get_env(x))){
-                    eval_tidy(x)
+                  "call" = {rlang::eval_tidy(x)},
+                  "symbol" = {if(exists(rlang::quo_get_expr(x), 
+                                        where = rlang::quo_get_env(x))){
+                    rlang::eval_tidy(x)
                   }else{
-                    as_label(x)
+                    rlang::as_label(x)
                   }},
-                  "literal" = {quo_get_expr(x)},
+                  "literal" = {rlang::quo_get_expr(x)},
                   abort("Quosure type not recognised."))
     if(inherits(rhs, "data.frame")){
-      list(variable = dequote(lhs), data = rhs)
+      list(variable = dequote(lhs), 
+           data = rhs)
     }else{
-      tibble(
+      tibble::tibble(
         variable = dequote(lhs),
         logical = "==",
         value = rhs)
@@ -115,12 +105,12 @@ clean_assertions <- function(df){
     check_1 <- concatenate_assertions(df[assertions_check, ], logical = "!=")
     check_2 <- concatenate_assertions(df[assertions_check, ], logical = "==")
     if(all(is.null(c(check_1, check_2)))){
-      bind_rows(
+      dplyr::bind_rows(
         df[assertions_check, ],
         df[!assertions_check, ]
       )
     }else{
-      bind_rows(
+      dplyr::bind_rows(
         check_1,
         check_2,
         df[!assertions_check, ]
@@ -178,33 +168,27 @@ dequote <- function(x){
 
 #' Switch functions for quosures
 #' @param x A (single) quosure
-#' @importFrom rlang abort
-#' @importFrom rlang quo_get_expr
 #' @noRd
 #' @keywords internal
 switch_expr_type <- function(x, ...){
   switch(expr_type(x),
          "symbol" = {parse_symbol(x)},
          "call" = {parse_call(x, ...)},
-         "literal" = {quo_get_expr(x)},
-         abort("Quosure type not recognised.")
+         "literal" = {rlang::quo_get_expr(x)},
+         cli::cli_abort("Quosure type not recognised.")
   )
 }
 
 #' Get type from quosures
 #' @param x A (single) quosure
-#' @importFrom rlang quo_is_symbol
-#' @importFrom rlang quo_is_call
-#' @importFrom rlang quo_get_expr
-#' @importFrom rlang is_syntactic_literal
 #' @noRd
 #' @keywords internal
 expr_type <- function(x){
-  if(quo_is_symbol(x)){
+  if(rlang::quo_is_symbol(x)){
     "symbol"
-  }else if(quo_is_call(x)){
+  }else if(rlang::quo_is_call(x)){
     "call"
-  }else if(is_syntactic_literal(quo_get_expr(x))){
+  }else if(rlang::quo_get_expr(x) |> rlang::is_syntactic_literal()){
     "literal"
   }else{
     typeof(x)
@@ -213,22 +197,18 @@ expr_type <- function(x){
 
 #' Check whether symbols exist before they are parsed
 #' @param x A (single) quosure
-#' @importFrom rlang quo_get_expr
-#' @importFrom rlang quo_get_env
-#' @importFrom rlang eval_tidy
-#' @importFrom rlang as_label
 #' @noRd
 #' @keywords internal
 parse_symbol <- function(x){
-  if(exists(quo_get_expr(x), where = quo_get_env(x))){
-    result <- eval_tidy(x)
+  if(exists(rlang::quo_get_expr(x), where = rlang::quo_get_env(x))){
+    result <- rlang::eval_tidy(x)
     if(inherits(result, "function")){ # special case for functions like 'data'
-      as_label(x)                     # which exist in Global
+      rlang::as_label(x)              # which exist in Global
     }else{
       result
     }
   }else{
-    as_label(x)
+    rlang::as_label(x)
   }
 }
 
@@ -243,20 +223,14 @@ parse_symbol <- function(x){
 #' galah behavior. So  `x <- 1; y <- 10; filter(y == x)` will parse to 
 #' `list(y = 1)` not  `list(10 = 1)`. Advanced R suggests using `:=` for these 
 #' cases, which could be added to `switch` below
-#' @importFrom rlang abort
-#' @importFrom rlang as_quosure
-#' @importFrom rlang as_string
-#' @importFrom rlang eval_tidy
-#' @importFrom rlang quo_get_expr
-#' @importFrom rlang quo_get_env
 #' @noRd
 #' @keywords internal
 parse_call <- function(x, ...){
-  y <- quo_get_expr(x)
-  env_tr <- quo_get_env(x)
+  y <- rlang::quo_get_expr(x)
+  env_tr <- rlang::quo_get_env(x)
   switch_lookup <- y[[1]] |>
     deparse() |>
-    as_string() |>
+    rlang::as_string() |>
     function_type()
   switch(switch_lookup, # i.e. switch depending on what function is called
          "relational_operator" = parse_relational(x, ...),
@@ -266,7 +240,7 @@ parse_call <- function(x, ...){
          "is.na" = parse_is_na(x, ...),
          "between" = parse_between(x, ...),
          "%in%" = parse_in(x, ...),
-         eval_tidy(x) # if unknown, parse
+         rlang::eval_tidy(x) # if unknown, parse
          # {filter_error()} # if unknown, error
   )
 }
@@ -296,33 +270,21 @@ function_type <- function(x){ # assumes x is a string
 
 #' Take standard filter-style queries and parse to `galah_filter()`-style `tibble`
 #' Called by `parse_call`
-#' @importFrom dplyr all_of
-#' @importFrom dplyr rename
-#' @importFrom dplyr select
-#' @importFrom rlang as_label
-#' @importFrom rlang as_quosure
-#' @importFrom rlang as_string
-#' @importFrom rlang f_lhs
-#' @importFrom rlang is_empty
-#' @importFrom rlang is_bare_environment
-#' @importFrom rlang parse_expr
-#' @importFrom rlang f_rhs
-#' @importFrom tibble tibble
 #' @noRd
 #' @keywords internal
 parse_relational <- function(x, ...){
   
-  expr <- quo_get_expr(x)
+  expr <- rlang::quo_get_expr(x)
   if(length(expr) != 3L){filter_error()}
   
-  lhs <- f_lhs(expr) |> 
-    as_label() |> 
+  lhs <- rlang::f_lhs(expr) |> 
+    rlang::as_label() |> 
     dequote()
-  rhs <- as_quosure(f_rhs(expr), 
-                    env = quo_get_env(x)) |>
+  rhs <- rlang::as_quosure(rlang::f_rhs(expr), 
+                           env = rlang::quo_get_env(x)) |>
     switch_expr_type() |>
     as.character()
-  result <- tibble(
+  result <- tibble::tibble(
     variable = lhs,
     logical = as.character(expr[[1]]), # should probably be `relational`
     value = rhs)
@@ -346,33 +308,29 @@ parse_relational <- function(x, ...){
 }
 
 #' Handle & and | statements
-#' @importFrom rlang as_quosure
-#' @importFrom rlang as_string
-#' @importFrom rlang quo_get_env
 #' @noRd
 #' @keywords internal
 parse_logical <- function(x, ...){
-  provided_string <- quo_get_expr(x)[[1]] |> as_string()
+  provided_string <- rlang::quo_get_expr(x)[[1]] |> 
+    rlang::as_string()
   if(grepl("\\|{1,2}", provided_string)){
     logical_string <- " OR "
   }else{
     logical_string <- " AND "
   }
-  linked_statements <- lapply(quo_get_expr(x)[-1], 
-                              function(a){
-                                switch_expr_type(
-                                  as_quosure(a, env = quo_get_env(x)), ...)
-                                }) |> 
-    bind_rows()
+  linked_statements <- purrr::map(rlang::quo_get_expr(x)[-1], 
+                                  \(a){
+                                    a |>
+                                      rlang::as_quosure(env = rlang::quo_get_env(x)) |>
+                                      switch_expr_type(...)
+                                  }) |> 
+    dplyr::bind_rows()
   concatenate_logical_tibbles(linked_statements,
                               provided_string = provided_string,
                               logical_string = logical_string)
 }
 
 #' Internal function to handle concatenation of logicals
-#' @importFrom glue glue
-#' @importFrom glue glue_collapse
-#' @importFrom tibble tibble
 #' @noRd
 #' @keywords Internal
 concatenate_logical_tibbles <- function(df,
@@ -381,65 +339,60 @@ concatenate_logical_tibbles <- function(df,
   if(all(df$variable == "assertions")){
     query_text <- df$query |>
       gsub("^-", "", x = _) |>
-      glue_collapse(sep = logical_string) 
+      glue::glue_collapse(sep = logical_string) 
     if(all(df$logical == "!=")){
-      query_text <- glue("-({query_text})")
+      query_text <- glue::glue("-({query_text})")
     }
   }else{
     query_text <- df$query |>
-      glue_collapse(sep = logical_string)
+      glue::glue_collapse(sep = logical_string)
   }
   tibble(
-    variable = glue_collapse(df$variable, sep = provided_string),
-    logical  = glue_collapse(df$logical,  sep = provided_string),
-    value    = glue_collapse(df$value,  sep = provided_string),
-    query    = as.character(glue("{query_text}")))
+    variable = glue::glue_collapse(df$variable, sep = provided_string),
+    logical  = glue::glue_collapse(df$logical,  sep = provided_string),
+    value    = glue::glue_collapse(df$value,  sep = provided_string),
+    query    = as.character(glue::glue("{query_text}")))
 }
 
 #' Parse `call`s that contain brackets 
 #' Where this happens, they are always length-2, with "(" as the first entry.
-#' @importFrom rlang as_quosure
-#' @importFrom rlang quo_get_expr
-#' @importFrom rlang quo_get_env
 #' @noRd
 #' @keywords internal
 parse_brackets <- function(x, ...){
-  if(length(quo_get_expr(x)) != 2L){filter_error()}
-  switch_expr_type(as_quosure(quo_get_expr(x)[[-1]], 
-                              env = quo_get_env(x)), 
-                   ...) # pass this down the chain
+  if(length(rlang::quo_get_expr(x)) != 2L){
+    filter_error()
+  }
+  rlang::quo_get_expr(x)[[-1]] |>
+    rlang::as_quosure(env = rlang::quo_get_env(x)) |>
+    switch_expr_type(...) # pass this down the chain
 }
 
 #' Parse `call`s that contain exclamations 
 #' Where this happens, they are always length-2, with "(" as the first entry.
-#' @importFrom rlang as_quosure
-#' @importFrom rlang quo_get_expr
-#' @importFrom rlang quo_get_env
 #' @noRd
 #' @keywords internal
 parse_exclamation <- function(x){
   # extract call after `!`, preserves that `!` = TRUE
-  switch_expr_type(as_quosure(quo_get_expr(x)[[-1]], 
-                              env = quo_get_env(x)), 
-                   excl = TRUE) # pass this down the chain
+  rlang::quo_get_expr(x)[[-1]] |>
+    rlang::as_quosure(env = rlang::quo_get_env(x)) |>
+    switch_expr_type(excl = TRUE) # pass this down the chain
 }
 
 #' Parse `call`s that contain `is.na()`
 #' Where this happens, they are always length-2, with "(" as the first entry.
-#' @importFrom rlang as_quosure
-#' @importFrom rlang is_empty
-#' @importFrom rlang quo_get_expr
-#' @importFrom rlang quo_get_env
 #' @noRd
 #' @keywords internal
 parse_is_na <- function(x, ...){
-  if(length(quo_get_expr(x)) != 2L){filter_error()}
+  if(length(rlang::quo_get_expr(x)) != 2L){
+    filter_error()
+  }
   dots <- list(...)
-  logical <- ifelse(is_empty(dots), "==", "!=")
+  logical <- ifelse(rlang::is_empty(dots), "==", "!=")
   # for LA cases
-  result <- tibble(
-    variable = switch_expr_type(as_quosure(quo_get_expr(x)[[2]], 
-                                           env = quo_get_env(x))),
+  result <- tibble::tibble(
+    variable = rlang::quo_get_expr(x)[[2]] |>
+      rlang::as_quosure(env = rlang::quo_get_env(x)) |>
+      switch_expr_type(),
     logical = logical,
     value = as.character(""))
   result$query <- parse_solr(result)
@@ -448,85 +401,81 @@ parse_is_na <- function(x, ...){
 
 #' Parse `call`s that contain `dplyr::between()`
 #' Where this happens, they are always length-4, with "between" as the first entry.
-#' @importFrom rlang as_quosure
 #' @noRd
 #' @keywords internal
 parse_between <- function(x, excl){ 
-  if(length(quo_get_expr(x)) < 4L){filter_error()}
+  if(length(rlang::quo_get_expr(x)) < 4L){
+    filter_error()
+  }
   # for LA cases
   if(isTRUE(excl)) {
     logical <- c(as.character(">"), c(as.character("<")))
   } else{
     logical <- c(as.character("<"), c(as.character(">")))
   }
-  result <- tibble(
-    variable = c(rep(as_label(quo_get_expr(x)[[2]]))),
+  result <- tibble::tibble(
+    variable = c(rep(rlang::as_label(rlang::quo_get_expr(x)[[2]]))),
     logical = logical,
     value = as.character(
-      c(switch_expr_type(as_quosure(quo_get_expr(x)[[3]], 
-                                    env = quo_get_env(x))),
-        switch_expr_type(as_quosure(quo_get_expr(x)[[4]], 
-                                    env = quo_get_env(x))))))
-  result$query <- c(parse_solr(result[1,]), parse_solr(result[2,]))
+      c(switch_expr_type(rlang::as_quosure(rlang::quo_get_expr(x)[[3]], 
+                                           env = rlang::quo_get_env(x))),
+        switch_expr_type(rlang::as_quosure(rlang::quo_get_expr(x)[[4]], 
+                                           env = rlang::quo_get_env(x))))))
+  result$query <- c(parse_solr(result[1,]), 
+                    parse_solr(result[2,]))
   return(result)
 }
 
 #' Parse `call`s that contain `%in%`
 #' 
 #' Where this happens, they are always length-3, with "%in%" as the first entry.
-#' @importFrom glue glue
-#' @importFrom glue glue_collapse
-#' @importFrom rlang as_quosure
-#' @importFrom rlang enquo 
-#' @importFrom rlang parse_expr 
 #' @noRd
 #' @keywords internal
 parse_in <- function(x, excl){ 
   # convert to logical format using OR statements
-  variable <- as_label(quo_get_expr(x)[[2]])
+  variable <- rlang::quo_get_expr(x)[[2]] |>
+    rlang::as_label()
   logical <- ifelse(missing(excl), "==", "!=")
-  value <- switch_expr_type(as_quosure(quo_get_expr(x)[[3]], 
-                                       env = quo_get_env(x)))
+  value <- rlang::quo_get_expr(x)[[3]] |>
+    rlang::as_quosure(env = rlang::quo_get_env(x)) |>
+    switch_expr_type()
   # handle apostrophes (')
-  if(any(str_detect(value, "\\'"))) {
+  if(any(stringr::str_detect(value, "\\'"))) {
     value <- gsub("'", "\\\\'", value)
   }
   # convert to formula
-  in_as_or_statements <- rlang::parse_expr(
-    glue::glue_collapse(
-      glue("{variable} {logical} '{value}'"), 
-      sep = " | "
-    ))
+  in_as_or_statements <- glue::glue_collapse(
+    glue::glue("{variable} {logical} '{value}'"), 
+    sep = " | "
+  ) |>
+    rlang::parse_expr()
   # convert to quosure and pass to `parse_logical()`
-  as_quosure(in_as_or_statements, quo_get_env(x)) |>
+  rlang::as_quosure(in_as_or_statements, 
+                    rlang::quo_get_env(x)) |>
     parse_logical()
 }
 
 #' Parse `call`s that contain `c()`
 #' Where this happens, they are always length-2, with "c()" as the first entry.
-#' @importFrom glue glue
-#' @importFrom glue glue_collapse
-#' @importFrom rlang as_quosure
-#' @importFrom rlang enquo
-#' @importFrom rlang parse_expr
-#' @importFrom rlang quo_get_env
-#' @importFrom rlang quo_get_expr
 #' @noRd
 #' @keywords internal
 parse_c <- function(x, excl){ 
-  if(length(quo_get_expr(x)) < 2L){filter_error()}
+  if(length(quo_get_expr(x)) < 2L){
+    filter_error()
+  }
   # convert to logical format using OR statements
-  variable <- quo_get_expr(x)[[1]] |>
-    as_label()
+  variable <- rlang::quo_get_expr(x)[[1]] |>
+    rlang::as_label()
   logical <- ifelse(missing(excl), "==", "!=")
-  value <- as_quosure(quo_get_expr(x)[[3]], 
-                      env = quo_get_env(x)) |>
+  value <- rlang::quo_get_expr(x)[[3]] |>
+    rlang::as_quosure(env = rlang::quo_get_env(x)) |>
     switch_expr_type()
-  in_as_or_statements <- glue_collapse(
-    glue("{variable} {logical} '{value}'"), 
+  in_as_or_statements <- glue::glue_collapse(
+    glue::glue("{variable} {logical} '{value}'"), 
     sep = " | ") |>
     parse_expr()
-  parse_logical(enquo(in_as_or_statements), quo_get_env(x)) # pass this to parse_logical
+  parse_logical(rlang::enquo(in_as_or_statements), 
+                rlang::quo_get_env(x)) # pass this to parse_logical
 }
 
 
@@ -538,7 +487,7 @@ parse_c <- function(x, excl){
 #' @keywords internal
 parse_solr <- function(df){
   if(nrow(df) > 1){
-    lapply(
+    purrr::map(
       split(df, seq_len(nrow(df))),
       switch_solr) |>
     unlist()
@@ -555,47 +504,47 @@ switch_solr <- function(df){
   switch(df$logical,
          "==" = query_term(df$variable, df$value, TRUE),
          "!=" = query_term(df$variable, df$value, FALSE),
-         ">=" = glue_data(df, "{variable}:[{value} TO *]"),
+         ">=" = glue::glue_data(df, "{variable}:[{value} TO *]"),
          ">"  = {
            lowest_value <- query_term(df$variable, df$value, TRUE)
-           glue_data(df, "{variable}:[{value} TO *] AND -{lowest_value}")},
-         "<=" = glue_data(df, "{variable}:[* TO {value}]"),
+           glue::glue_data(df, "{variable}:[{value} TO *] AND -{lowest_value}")},
+         "<=" = glue::glue_data(df, "{variable}:[* TO {value}]"),
          "<"  = {
            highest_value <- query_term(df$variable, df$value, TRUE)
-           glue_data(df, "{variable}:[* TO {value}] AND -{highest_value}")}
+           glue::glue_data(df, "{variable}:[* TO {value}] AND -{highest_value}")}
   )
 }
 
 #' Generic error for unknown cases
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords internal
-filter_error <- function(){abort("Invalid argument passed to `filter()`.")}
+filter_error <- function(){
+  cli::cli_abort("Invalid argument passed to `filter()`.",
+                 call = caller_env())
+}
 
 #' Subfunction called by `parse_solr()`
-#' @importFrom glue glue
-#' @importFrom rlang expr_text
 #' @noRd
 #' @keywords internal
 query_term <- function(name, value, include) {
   # add quotes around value
-  value <- lapply(value, expr_text) # format query value as solr-readable text
+  value <- purrr::map(value, rlang::expr_text) # format query value as solr-readable text
   if(value %in% c("", "\"\"")) {
     if(include){
-      value_str <- glue("(*:* AND -{name}:*)")  # queries with "=="
+      value_str <- glue::glue("(*:* AND -{name}:*)")  # queries with "=="
     }else{
-      value_str <- glue("({name}:*)") # queries with "!="
+      value_str <- glue::glue("({name}:*)") # queries with "!="
     }
   } else {
     # assertions do not require brackets
     if(name == "assertions"){
-      value_str <- glue("{name}:{value}")
+      value_str <- glue::glue("{name}:{value}")
     }else{
-      value_str <- glue("({name}:{value})")
+      value_str <- glue::glue("({name}:{value})")
     }
     # negations have a leading `-`
     if(!include){
-      value_str <- glue("-{value_str}")
+      value_str <- glue::glue("-{value_str}")
     }
   }
   value_str
