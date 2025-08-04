@@ -1,16 +1,12 @@
 #' This should parse out a request object and return quosures thereafter
-#' @importFrom rlang eval_tidy
-#' @importFrom rlang get_expr
-#' @importFrom rlang quo_get_expr
-#' @importFrom stringr str_detect
 #' @noRd
 #' @keywords Internal
 detect_request_object <- function(dots){
   if (length(dots) > 0) {
-    call_string <- get_expr(dots)[[1]] |> 
-      quo_get_expr() |>
+    call_string <- rlang::get_expr(dots)[[1]] |> 
+      rlang::quo_get_expr() |>
       deparse() |>
-      paste(collapse = " ") # captures multi-lines
+      glue::glue_collapse(sep = " ") # captures multi-lines
     # note: no leading "^" below, 
     # because pipes can parse to e.g. `galah_identify(galah_call(...`
     types <- c(
@@ -21,8 +17,8 @@ detect_request_object <- function(dots){
       "^~.$",
       "^.$") |>
       paste(collapse = "|")
-    if (str_detect(call_string, types)) { # note: "~." or "." indicate presence of the magrittr pipe (%>%)
-      eval_request <- eval_tidy(dots[[1]])
+    if (stringr::str_detect(call_string, types)) { # note: "~." or "." indicate presence of the magrittr pipe (%>%)
+      eval_request <- rlang::eval_tidy(dots[[1]])
       c(list(eval_request), dots[-1])
     }else{
       dots
@@ -42,7 +38,7 @@ update_data_request <- function(data_request, ...){
       dots <- dots[[1]]
     }
   }
-  result <- lapply(
+  result <- purrr::map(
     names(data_request), # i.e. for all slots in object of class `data_request`
     function(a){
       if(any(names(dots) == a)){ # object is present in `data_request`
@@ -88,8 +84,8 @@ update_data_request <- function(data_request, ...){
 #' @noRd
 #' @keywords Internal
 update_select <- function(x, y){
-  quosure_check_x <- lapply(x, is_quosure) |> unlist()
-  quosure_check_y <- lapply(y, is_quosure) |> unlist()
+  quosure_check_x <- purrr::map(x, rlang::is_quosure) |> unlist()
+  quosure_check_y <- purrr::map(y, rlang::is_quosure) |> unlist()
   if(any(quosure_check_y)){
     result <- append(x[quosure_check_x], y[quosure_check_y])
   }else if(any(quosure_check_x)){
@@ -114,7 +110,7 @@ update_select <- function(x, y){
 #' @keywords Internal
 bind_unique_rows <- function(x, y, column){
   result <- list(x, y) |> 
-    bind_rows() |>
-    tibble() 
-  filter(result, !duplicated(result[[column]]))
+    dplyr::bind_rows() |>
+    tibble::tibble() 
+  dplyr::filter(result, !duplicated(result[[column]]))
 }

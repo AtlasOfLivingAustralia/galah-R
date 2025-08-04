@@ -9,7 +9,7 @@
 #' @param .query An object of class `data_query`
 #' @keywords Internal
 #' @noRd
-parse_occurrences_count <- function(.query){
+collapse_occurrences_count <- function(.query){
   if(is_gbif()){
     if(.query$expand){    
       abort("Grouped counts haven't been (re)implemented for GBIF yet")
@@ -19,9 +19,9 @@ parse_occurrences_count <- function(.query){
     }
   }else{
     if(.query$expand){
-      parse_occurrences_count_groupby(.query)
+      collapse_occurrences_count_groupby(.query)
     }else{
-      parse_occurrences_count_nogroupby(.query)
+      collapse_occurrences_count_nogroupby(.query)
     }
   }
 }
@@ -31,8 +31,8 @@ parse_occurrences_count <- function(.query){
 #' Internal function to handle facet counting, adjustment etc.
 #' @noRd
 #' @keywords Internal
-parse_occurrences_count_nogroupby <- function(.query){
-  url <- url_parse(.query$url)
+collapse_occurrences_count_nogroupby <- function(.query){
+  url <- httr2::url_parse(.query$url)
   
   # check if a limit has been set
   if(!is.null(url$query$flimit)){
@@ -46,7 +46,7 @@ parse_occurrences_count_nogroupby <- function(.query){
       if(.query$arrange$slice_n < n_facets){
         url$query$foffset <- n_facets - .query$arrange$slice_n
       }
-      .query$url <- url_build(url) 
+      .query$url <- httr2::url_build(url) 
       .query
     
     # message when limit is hit
@@ -55,11 +55,11 @@ parse_occurrences_count_nogroupby <- function(.query){
         limit <- url$query$flimit |> prettyNum(big.mark=",", preserve.width="none")
         n_total_facets <- n_facets |> prettyNum(big.mark=",", preserve.width="none")
         
-        bullets <- c(
+        c(
           cli::cli_text(cli::col_yellow(glue("Limiting to first {limit} of {n_total_facets} rows."))),
           cli::cli_text(cli::col_magenta("Use `atlas_counts(limit = )` to return more rows."))
-        )
-        inform(bullets)
+        ) |>
+        cli::cli_inform()
       }
       # .query$url <- url_build(url) 
       .query
@@ -70,21 +70,13 @@ parse_occurrences_count_nogroupby <- function(.query){
 }
 
 #' Determine set of queries when expand = TRUE
-#' @importFrom dplyr bind_rows
-#' @importFrom dplyr c_across
-#' @importFrom dplyr full_join 
-#' @importFrom dplyr rowwise
-#' @importFrom dplyr starts_with
-#' @importFrom dplyr ungroup
-#' @importFrom glue glue_collapse
-#' @importFrom httr2 url_build
-#' @importFrom httr2 url_parse
 #' @noRd
 #' @keywords Internal
-parse_occurrences_count_groupby <- function(.query, error_call = caller_env()){
+collapse_occurrences_count_groupby <- function(.query, 
+                                               error_call = caller_env()){
   data_cached <- .query
   # get url
-  url <- url_parse(.query$url)
+  url <- httr2::url_parse(.query$url)
 
   # remove last-provided facet
   facet_list <- url$query[names(url$query) == "facets"]
@@ -96,11 +88,10 @@ parse_occurrences_count_groupby <- function(.query, error_call = caller_env()){
       length(facet_list) > 1) {
     atlas <- pour("atlas", "region")
     n_fields <- length(facet_list)
-    bullets <- c(
+    c(
       "Too many fields passed to `group_by()`.",
-      x = glue("Selected atlas ({atlas}) accepts a maximum of 1 field, not {n_fields}.")
-    )
-    abort(bullets, call = error_call)
+      x = "Selected atlas ({atlas}) accepts a maximum of 1 field, not {n_fields}.") |>
+    cli::cli_abort(call = error_call)
   }
 
   # save out facet limits to add back later
@@ -114,15 +105,15 @@ parse_occurrences_count_groupby <- function(.query, error_call = caller_env()){
   url$query <- c(
     url$query[names(url$query) != "facets"],
     facet_list[-length(facet_list)])
-  .query$url <- url_build(url)
+  .query$url <- httr2::url_build(url)
   
   # check number of facets
   n_facets <- check_facet_count(.query, warn = FALSE)
   
   # incorporate this into the query
-  url <- url_parse(.query$url)
+  url <- httr2::url_parse(.query$url)
   url$query$flimit <- max(n_facets)
-  .query$url <- url_build(url)
+  .query$url <- httr2::url_build(url)
     
   # run query to get list of count tibbles
   result <- query_API(.query)
@@ -145,40 +136,40 @@ parse_occurrences_count_groupby <- function(.query, error_call = caller_env()){
     names(levels_list) <- names(result)
     levels_list <- c(levels_list, list(stringsAsFactors = FALSE))
     result_df <- do.call(expand.grid, levels_list) |>
-      tibble()
+      tibble::tibble()
     for(i in seq_along(result_list)){
-      result_df <- full_join(result_df, result_list[[i]], by = kept_facets[i])
+      result_df <- dplyr::full_join(result_df, result_list[[i]], by = kept_facets[i])
     }
   }else{
     result_df <- result_list[[1]]
   }
  
   # # extract existing fq statements
-  query <- url_parse(.query$url)$query
+  query <- httr2::url_parse(.query$url)$query
   if(is.null(query$fq)){
     fqs <- NULL
   }else{
     fqs <- strsplit(query$fq, "AND")[[1]]
-    fqs <- fqs[!grepl(paste(kept_facets, collapse = "|"), fqs)] # remove fqs that relate to parsed facets
+    fqs <- fqs[!grepl(glue::glue_collapse(kept_facets, sep = "|"), fqs)] # remove fqs that relate to parsed facets
     if(length(fqs) < 1){
       fqs <- NULL
     }else{
-      fqs <- paste(fqs, collapse = " AND ")
+      fqs <- glue::glue_collapse(fqs, sep = " AND ")
     }
   }
   
   # glue `fq` statements together 
   result_df <- result_df |>
-    rowwise() |>
-    mutate(query = glue_collapse(c_across(starts_with("fq")), sep = " AND ")) |>
-    select(-starts_with("fq")) |>
-    ungroup()
+    dplyr::rowwise() |>
+    dplyr::mutate(query = glue::glue_collapse(dplyr::c_across(dplyr::starts_with("fq")), sep = " AND ")) |>
+    dplyr::select(-dplyr::starts_with("fq")) |>
+    dplyr::ungroup()
   if(!is.null(fqs)){
-    result_df$query <- glue("{fqs} AND {result_df$query}")
+    result_df$query <- glue::glue("{fqs} AND {result_df$query}")
   }
   
   # recombine into urls
-  url_final <- url_parse(.query$url)
+  url_final <- httr2::url_parse(.query$url)
   query_without_fq <- c(
     url_final$query[!(names(url_final$query) %in% 
                       c("fq", "facets", "flimit", "foffset"))],
@@ -187,11 +178,11 @@ parse_occurrences_count_groupby <- function(.query, error_call = caller_env()){
   
   url_list <- lapply(result_df$query, function(a, url){
     url$query <- c(list(fq = a), query_without_fq)
-    url_build(url)
+    httr2::url_build(url)
   }, url = url_final)
   
   result_df$url <- unlist(url_list)
-  result_df <- select(result_df, -query)
+  result_df <- dplyr::select(result_df, -query)
 
   # join and export
   result <- c(list(
@@ -207,7 +198,7 @@ parse_occurrences_count_groupby <- function(.query, error_call = caller_env()){
 #' @noRd 
 #' @keywords Internal
 check_facet_count <- function(.query, warn = TRUE, error_call = caller_env()){
-  url <- url_parse(.query$url)
+  url <- httr2::url_parse(.query$url)
   current_limit <- url$query$flimit
   
   if(is.null(current_limit)){
@@ -222,13 +213,13 @@ check_facet_count <- function(.query, warn = TRUE, error_call = caller_env()){
   }
   url$query$flimit <- 0
   temp_data <- .query
-  temp_data$url <- url_build(url)
+  temp_data$url <- httr2::url_build(url)
   temp_data$slot_name <- NULL
   result <- query_API(temp_data)
   if(length(result) < 1){
     0
   }else{
-    lapply(result, function(a){a$count}) |> unlist()
+    purrr::map(result, function(a){a$count}) |> unlist()
   }
   # if(inherits(result, "data.frame")){ # group_by arg present
   #   n_available <- result$count

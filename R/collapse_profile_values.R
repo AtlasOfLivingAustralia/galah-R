@@ -1,27 +1,27 @@
-#' Internal function to call `compute` for `request_metadata(type = "profiles-unnest")`
+#' Internal function to call `collapse` for `request_metadata(type = "profiles-unnest")`
 #' @noRd
 #' @keywords Internal
-parse_profile_values <- function(.query){
+collapse_profile_values <- function(.query){
   url <- .query |>
-    pluck("url") |>
-    url_parse()
+    purrr::pluck("url") |>
+    httr2::url_parse()
   profile_name <- extract_profile_name(url)
   short_name <- profile_short_name(profile_name)
   if (!pour("atlas", "region") == "Spain") {
     path_name <- url |>
-      pluck("path") |>
+      httr2::pluck("path") |>
       dirname()
-    url$path <- glue("{path_name}/{short_name}")
+    url$path <- glue::glue("{path_name}/{short_name}")
   }
   result <- list(type = .query$type,
-                 url = url_build(url))
+                 url = httr2::url_build(url))
   class(result) <- "query"
   return(result)
 }
 # this doesn't print for some reason
 
 #' Internal function to convert between long and short names
-#' for data profiles. Only used by `compute_profile_values()`
+#' for data profiles. Only used by `collapse_profile_values()`
 #' @noRd
 #' @keywords Internal
 profile_short_name <- function(profile) {
@@ -43,11 +43,10 @@ profile_short_name <- function(profile) {
     }
   }
   if (is.na(short_name)) {
-    bullets <- c(
+    c(
       "Unknown profile detected.",
-      i = "See a listing of valid data quality profiles with `show_all_profiles()`."
-    )
-    abort(bullets, call = caller_env())
+      i = "See a listing of valid data quality profiles with `show_all_profiles()`.") |>
+    cli::cli_abort(call = caller_env())
   }else{
     short_name
   }
@@ -58,13 +57,13 @@ profile_short_name <- function(profile) {
 #' @noRd
 #' @keywords Internal
 extract_profile_name <- function(url) {
-  atlas <- pour("atlas", "region")
+  atlas <- potions::pour("atlas", "region")
   if (atlas == "Spain") {
     profile_name <- url |>
-      pluck("query", "profileName")
+      purrr::pluck("query", "profileName")
   } else {
     profile_name <- url |>
-      pluck("path") |>
+      purrr::pluck("path") |>
       basename()
   }
   return(profile_name)

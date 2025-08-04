@@ -60,9 +60,9 @@ collapse.query_set <- function(x, ...){
       purrr::pluck(!!!list(1))
   }else{
     x |>
-      build_checks() |>
-      parse_checks() |>
-      parse_query()
+      collapse_build_checks() |>
+      collapse_run_checks() |>
+      collapse_query()
   }
 }
 
