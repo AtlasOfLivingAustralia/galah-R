@@ -81,14 +81,18 @@ check_download_filename <- function(file,
 #' @keywords Internal
 check_email <- function(.query){
   if(is_gbif()){
-    email_text <- jsonlite::fromJSON(.query$body)$notificationAddresses
+    # actually we check the userpwd entry here
+    email_text <- .query$options$userpwd
+    if(email_text == ":"){
+      abort_email_missing()
+    }
   }else{
     email_text <- httr2::url_parse(.query$url)$query$email
-  }
-  if(is.null(email_text)) {
-    abort_email_missing()
-  }else if(email_text == ""){
-    abort_email_missing()
+    if(is.null(email_text)) {
+      abort_email_missing()
+    }else if(email_text == ""){
+      abort_email_missing()
+    }
   }
   .query
 }
@@ -124,17 +128,11 @@ check_filter_tibbles <- function(x){ # where x is a list of tibbles
 }
 
 #' Internal function to check whether fields are valid
-#' @importFrom dplyr bind_rows
-#' @importFrom dplyr pull
-#' @importFrom glue glue_collapse
-#' @importFrom glue glue_data
-#' @importFrom httr2 url_parse
-#' @importFrom rlang format_error_bullets
 #' @noRd
 #' @keywords Internal
 check_fields <- function(.query) {
   
-  if(pour("package", "run_checks")){
+  if(potions::pour("package", "run_checks")){
     if(is_gbif()){
       if(.query$type == "data/occurrences"){
         check_result <- check_fields_gbif_predicates(.query)  
@@ -161,7 +159,7 @@ check_fields <- function(.query) {
         x = glue("Can't find field(s) in"),
         glue::glue("  ", format_error_bullets(invalid_fields_message))
       )
-      rlang::abort(bullets)
+      cli::cli_abort(bullets)
     }
   }
   .query
@@ -210,6 +208,7 @@ check_field_identities <- function(df,
 }
 
 #' sub-function to `check_fields()` for GBIF
+#' NOTE: This is probably obsolete once we start using predicates for counts
 #' @noRd
 #' @keywords Internal
 check_fields_gbif_counts <- function(.query){
@@ -250,16 +249,21 @@ check_fields_gbif_counts <- function(.query){
 #' @noRd
 #' @keywords Internal
 check_fields_gbif_predicates <- function(.query){
+  
   # set fields to check against
   valid_fields <- .query[["metadata/fields"]]$id
   valid_assertions <- .query[["metadata/assertions"]]$id
   valid_any <- c(valid_fields, valid_assertions) |>
     camel_to_snake_case() |>
     toupper()
+
   # extract fields
-  fields <- .query$body |> 
-    jsonlite::fromJSON() |>
-    purrr::pluck("predicate", "predicates", "key")
+  predicates <- .query |>
+    purrr::pluck("body", "filter") |>
+    unlist()
+  keys <- grepl(".key$", names(predicates))
+  fields <- predicates[keys]
+
   # check invalid
   filter_invalid <- NA
   if (length(fields) > 0) {
@@ -353,7 +357,7 @@ check_groups <- function(group, n){
 check_identifiers <- function(.query){
   # For GBIF, which uses predicates, we 'promote' taxonomic queries to 'predicates'
   if(is_gbif()){
-    .query$predicates$identify <- .query$`metadata/taxa-single`
+    .query$body$identify <- .query$`metadata/taxa-single`
     .query
   # otherwise we replace "(`TAXON_PLACEHOLDER`)"
   }else{

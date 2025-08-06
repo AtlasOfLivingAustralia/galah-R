@@ -82,8 +82,9 @@ as_query_occurrences_count_gbif <- function(identify = NULL,
                                             slice = NULL
                                             ){
   # compile supplied arguments into a list
-  # honestly this is a little messy, but hard to call build_predicates()
-  # at this stage, as taxonomic info hasn't yet been parsed
+  # honestly this is a little messy, but the alternative is to call 
+  # [build_predicates()], which is messier as taxonomic info hasn't yet been 
+  # parsed. Instead we call [build_predicates()] during [collapse_query()].
   predicates_info <- list(identify = identify, 
                           filter = filter, 
                           geolocate = geolocate,
@@ -93,20 +94,34 @@ as_query_occurrences_count_gbif <- function(identify = NULL,
                                          slice), 
                           limit = 0)
   
+  # get user string
+  username <- potions::pour("user", "username", .pkg = "galah")
+  password <- potions::pour("user", "password", .pkg = "galah")
+  user_string <- glue::glue("{username}:{password}")
+  
   # get relevant information
   if(is.null(group_by)){
     result <- list(
       type = "data/occurrences-count",
       url = url_lookup("data/occurrences-count"),
-      predicates = predicates_info,
+      headers =  list(
+        `User-Agent` = galah_version_string(), 
+        `X-USER-AGENT` = galah_version_string(),
+        `Content-Type` = "application/json",
+        Accept = "application/json"),
+      options = list(
+        httpauth = 1,
+        userpwd = user_string),
+      body = predicates_info,
       slot_name = "count",
       expand = FALSE)
   # add facets
   }else{
+    # NOT FUNCTIONAL
     result <- list(
       type = "data/occurrences-count",
       url = url_lookup("data/occurrences-count-groupby"),
-      predicates = predicates_info,
+      body = predicates_info,
       slot_name = "count",
       expand = FALSE)
     # result <- list(type = "data/occurrences-count-groupby")
@@ -125,7 +140,6 @@ as_query_occurrences_count_gbif <- function(identify = NULL,
     # result$expand <- ifelse(length(facets) > 1, TRUE, FALSE)
   }
   # aggregate and return
-  result$headers <- build_headers()
   class(result) <- "query"
   result
 }

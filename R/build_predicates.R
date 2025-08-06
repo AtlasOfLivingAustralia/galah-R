@@ -1,31 +1,8 @@
-#' Build predicates
-#' 
-#' predicates are JSON scripts for passing to GBIF offline downloads API.
-#' https://www.gbif.org/developer/occurrence
-#' params x A list with slots relevant to building predicates
-#' @noRd
-#' @keywords Internal
-build_predicates <- function(
-  x
-  # format = "SIMPLE_CSV" # i.e. default is to return occurrences
-){
-  list(
-    creator = jsonlite::unbox(
-      potions::pour("user", "username", .pkg = "galah")),
-    notificationAddresses = jsonlite::unbox(
-      potions::pour("user", "email", .pkg = "galah")),
-    sendNotification = jsonlite::unbox(
-      potions::pour("package", "send_email", .pkg = "galah")),
-    format = jsonlite::unbox(format),
-    predicate = concatenate_predicates(x))
-    # jsonlite::toJSON()
-}
-
 #' join all queries
 #' NOTE: There is a maximum of 101k entries in total. Should be possible to enforce that here
 #' @noRd
 #' @keywords Internal
-concatenate_predicates <- function(x){
+build_predicates <- function(x){
 
   # check for taxonomic queries
   if(!is.null(x$identify)){
@@ -41,39 +18,32 @@ concatenate_predicates <- function(x){
     location <- NULL
   }
   
-  # parse correctly given provided information
+  # filter is last
   if(!is.null(x$filter)){
-    result <- x$filter
-    if(is_and_query(x)){
-      result$predicates <- c(result$predicates,
-                             identify,
-                             location) |>
-        remove_nulls_from_list()
-    }else{ # filter exists, but no type (e.g. it's length-1)
-      # NOTE: This code looks similar to when filter is missing
-      # consolidate?
-      result <- c(result, 
-                  identify,
-                  location) |>
-        remove_nulls_from_list()
-      if(length(result) > 1){
-        result <- list(type = jsonlite::unbox("and"), 
-                       predicates = result)
-      }
-    }
-  # i.e. if filter is missing
+    filters <- x$filter
   }else{
-    result <- list(identify, location) |>
-      remove_nulls_from_list()
-    if(length(result) > 1){
-      result <- list(type = jsonlite::unbox("and"), 
-                     predicates = result)
-    }
+    filters <- NULL
   }
   
-  # add class and return
-  class(result) <- c("galah_filter_predicate", "list")
-  result
+  # parse correctly given provided information
+  if(is_and_query(x)){
+    combined_list <- c(filters$predicates,
+                       identify,
+                       location)
+  }else{ # filter exists, but no type (e.g. it's length-1)
+    combined_list <- c(filters, 
+                       identify,
+                       location)
+  }
+  if(length(combined_list) < 1){
+    NULL
+  }else{
+    combined_list <- remove_nulls_from_list(combined_list)
+    names(combined_list) <- NULL
+    list(type = "and", 
+         predicates = combined_list)
+    # NOTE: This is messy for length-1, but does work
+  }
 }
 
 #' simple check for whether predicates begin with `and`

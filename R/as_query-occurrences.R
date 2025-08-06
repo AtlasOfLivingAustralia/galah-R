@@ -51,22 +51,6 @@ as_query_occurrences_uk <- function(.query){
 #' @noRd
 #' @keywords Internal
 as_query_occurrences_gbif <- function(.query, format = "SIMPLE_CSV"){
-  
-  body <- build_predicates(
-    .query$filter,
-    .query$identify,
-    .query$geolocate,
-    format = "SIMPLE_CSV")
-  
-  # deal with user-specified taxonomic names
-  if(!is.null(identify)){
-    .query$filter <- rbind(
-      .query$filter,
-      tibble::tibble(variable = "taxonKey",
-                     logical = "==",
-                     value = "`TAXON_PLACEHOLDER`",
-                     query = ""))
-  }
   # get user string
   username <- potions::pour("user", "username", .pkg = "galah")
   password <- potions::pour("user", "password", .pkg = "galah")
@@ -83,9 +67,10 @@ as_query_occurrences_gbif <- function(.query, format = "SIMPLE_CSV"){
     options = list(
       httpauth = 1,
       userpwd = user_string),
-    body = build_predicates(.query$filter, 
-                            .query$geolocate,
-                            format = format))
+    body = list(filter = .query$filter, 
+                identify = .query$identify,
+                geolocate = .query$geolocate,
+                format = "SIMPLE_CSV"))
   class(result) <- "query"
   return(result)
 }

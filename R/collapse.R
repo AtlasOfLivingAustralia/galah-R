@@ -45,6 +45,7 @@ collapse.files_request <- function(x,
                                    thumbnail = FALSE,
                                    ...
                                    ){
+  # convert to `query_set` then parse
   coalesce(x, 
            thumbnail = thumbnail, 
            ...) |>

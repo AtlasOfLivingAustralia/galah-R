@@ -14,13 +14,15 @@ parse_quosures_data_gbif <- function(dots){
   if(length(dots) > 0){
     result <- purrr::map(dots, 
                          switch_expr_type_pred)
-
+    names(result) <- NULL # NOTE: This step is *crucial*
+      # without it, jsonlite::toJSON() wraps predicates in `{}` instead of `[]`
+      # which is then rejected by GBIF
     if(length(result) > 1L){
-      result <- list(type = jsonlite::unbox("and"),
-                     predicates = result)
+      list(type = "and",
+           predicates = result)
+    }else{
+      result
     }
-    class(result) <- c("galah_filter_predicate", "list")
-    result
   }else{
     NULL
   }
@@ -103,8 +105,8 @@ parse_relational_pred <- function(x){
   # these can be parse as 'in'
   if(length(rhs) > 1){
     list(
-      type = jsonlite::unbox("in"),
-      key = jsonlite::unbox(lhs),
+      type = "in",
+      key = lhs,
       values = rhs)
     
   # otherwise we assume they are length-1 and continue
@@ -112,12 +114,12 @@ parse_relational_pred <- function(x){
     
     # 'does not equal' is handled hierarchically
     if(operator == "!="){
-      result <- list(type = "equals",
-                     key = lhs,
-                     value = rhs)
       list(
         type = "not",
-        purrr::map(result, jsonlite::unbox))
+        list(type = "equals",
+             key = lhs,
+             value = rhs))
+
     # everything else is flat
     }else{
       operator_text <- switch(operator,
@@ -126,11 +128,9 @@ parse_relational_pred <- function(x){
                               "<=" = "lessThanOrEquals",
                               ">" = "greaterThan",
                               ">=" = "greaterThanOrEquals")
-      purrr::map(
-        list(type = operator_text,
-             key = lhs,
-             value = rhs),
-        jsonlite::unbox)
+      list(type = operator_text,
+           key = lhs,
+           value = rhs)
     }
   }
 }
@@ -165,7 +165,8 @@ parse_logical_pred <- function(x){
                                                   env = rlang::quo_get_env(x)) |>
                                   switch_expr_type_pred()
                               })
-  list(type = jsonlite::unbox(logical_string),
+  names(subpredicates) <- NULL
+  list(type = logical_string,
        predicates = subpredicates)
 }
 
@@ -192,10 +193,12 @@ parse_exclamation_pred <- function(x){
       next_section$type <- "isNotNull"
       next_section
     }else{
-      list(type = "not", next_section)      
+      list(type = "not", 
+           next_section)      
     }
   }else{
-    list(type = "not", next_section)     
+    list(type = "not", 
+         next_section)     
   }
 }
 
@@ -245,15 +248,13 @@ parse_between_pred <- function(x){
     
   lower_bound <- list(type = "greaterThanOrEquals",
                       key = lhs,
-                      value = rlang::as_label(x_expr[[3]])) |>
-    purrr::map(.f = jsonlite::unbox)
+                      value = rlang::as_label(x_expr[[3]]))
     
   upper_bound <- list(type = "lessThanOrEquals",
                       key = lhs,
-                      value = rlang::as_label(x_expr[[4]])) |>
-    purrr::map(.f = jsonlite::unbox)
+                      value = rlang::as_label(x_expr[[4]]))
   
-  list(type = jsonlite::unbox("and"),
+  list(type = "and",
        predicates = list(lower_bound, upper_bound))
 }
 
@@ -282,7 +283,7 @@ parse_in_pred <- function(x){
   
   # format as list
   list(
-    type = jsonlite::unbox("in"),
-    key = jsonlite::unbox(lhs),
+    type = "in",
+    key = lhs,
     values = rhs)
 }

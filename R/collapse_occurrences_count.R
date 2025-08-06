@@ -15,7 +15,7 @@ collapse_occurrences_count <- function(.query){
       abort("Grouped counts haven't been (re)implemented for GBIF yet")
       # compute_grouped_counts_GBIF(.query)
     }else{
-      .query
+      collapse_occurreces_count_gbif(.query)
     }
   }else{
     if(.query$expand){
@@ -27,6 +27,47 @@ collapse_occurrences_count <- function(.query){
 }
 # Note: the above handles types `data/occurrences-count-groupby` 
 # and `data/occurrences-count`. This is probably inefficient.
+
+
+#' Function to construct `body` arg for GBIF
+#' predicates are JSON scripts for passing to GBIF offline downloads API.
+#' https://www.gbif.org/developer/occurrence
+#' @param x A list with slots relevant to building predicates
+#' @noRd
+#' @keywords Internal
+collapse_occurreces_count_gbif <- function(x){
+  # GBIF predicates:
+  if(any(names(x) == "body")){
+    result <- switch(x$type,
+                     "data/occurrences" = {
+                       list(
+                         creator = potions::pour("user", "username", .pkg = "galah"),
+                         notificationAddresses = potions::pour("user", "email", .pkg = "galah"),
+                         sendNotification = potions::pour("package", "send_email", .pkg = "galah"),
+                         format = x$format,
+                         predicate = build_predicates(x$body))
+                     },
+                     "data/occurrences-count" = {
+                       predicates_list <- build_predicates(x$body)
+                       if(is.null(predicates_list)){
+                         list(limit = 0)
+                       }else{
+                         list(
+                           predicate = predicates_list,
+                           limit = 0)                         
+                       }
+                     },
+                     "data/occurrences-count-groupby" = {
+                       browser()
+                       # note there is a `facet` arg suggested in the API docs, may work here
+                     }
+    ) |>
+      jsonlite::toJSON(auto_unbox = TRUE,
+                       pretty = TRUE)
+    x$body <- result
+  }
+  x
+}
 
 #' Internal function to handle facet counting, adjustment etc.
 #' @noRd
@@ -118,8 +159,9 @@ collapse_occurrences_count_groupby <- function(.query,
   # run query to get list of count tibbles
   result <- query_API(.query)
   if(is.null(result)){system_down_message("count")}
-  result <- lapply(result, 
-                   function(a){a$fieldResult |> bind_rows()})
+  result <- purrr::map(result, 
+                       \(a){a$fieldResult |> 
+                             dplyr::bind_rows()})
   names(result) <- facet_names[-length(facet_names)]
   
   # expand to a tibble that gives all combinations
@@ -132,13 +174,15 @@ collapse_occurrences_count_groupby <- function(.query,
   
   # convert to all combinations of levels
   if(length(result_list) > 1){
-    levels_list <- lapply(result_list, function(a){a[[1]]})
+    levels_list <- purrr::map(result_list, \(a){a[[1]]})
     names(levels_list) <- names(result)
     levels_list <- c(levels_list, list(stringsAsFactors = FALSE))
     result_df <- do.call(expand.grid, levels_list) |>
       tibble::tibble()
     for(i in seq_along(result_list)){
-      result_df <- dplyr::full_join(result_df, result_list[[i]], by = kept_facets[i])
+      result_df <- dplyr::full_join(result_df, 
+                                    result_list[[i]], 
+                                    by = kept_facets[i])
     }
   }else{
     result_df <- result_list[[1]]

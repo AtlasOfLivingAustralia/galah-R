@@ -63,17 +63,6 @@ collapse_run_checks <- function(.query){
       .query$url <- tibble(url = glue(utils::URLdecode(.query$url), 
                                       id = .query[["metadata/distributions"]]$id))
     }
-    # GBIF predicates:
-    if(any(names(.query) == "predicates")){
-      result <- .query |>
-        purrr::pluck("predicates") |>
-        build_predicates()
-      .query$predicates <- result
-    }
-    # TODO: might need to promote this up a bit
-    # the problem is that we need to add function-specific content
-    # but that content isn't available here
-    
     # clean up
     .query <- collapse_remove_metadata(.query)
   }

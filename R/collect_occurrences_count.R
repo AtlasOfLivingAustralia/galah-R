@@ -16,22 +16,23 @@ collect_occurrences_count <- function(.query){
 #' @noRd
 #' @keywords Internal
 collect_occurrences_count_gbif <- function(.query){
+
   result <- query_API(.query)
-  if(length(result$facets) < 1 & !is.null(result$count)){ # first handle single values
+  # if(length(result$facets) < 1 & !is.null(result$count)){ # first handle single values
     tibble(count = result$count)
-  }else{
-    # note: this only works for length(facets) == 1
-    result_df <- result |>
-      pluck(!!!list("facets", 1, "counts")) |>
-      bind_rows()
-    names(result_df)[1] <- .query$url |> 
-      url_parse() |> 
-      pluck("query", "facet")
-    # names(result_df)[1] <- result |>
-    #   pluck(!!!list("facets", 1, "field")) |>
-    #   tolower()
-    result_df
-  }
+  # }else{
+  #   # note: this only works for length(facets) == 1
+  #   result_df <- result |>
+  #     pluck(!!!list("facets", 1, "counts")) |>
+  #     bind_rows()
+  #   names(result_df)[1] <- .query$url |> 
+  #     url_parse() |> 
+  #     pluck("query", "facet")
+  #   # names(result_df)[1] <- result |>
+  #   #   pluck(!!!list("facets", 1, "field")) |>
+  #   #   tolower()
+  #   result_df
+  # }
 }
   
 #'  `collect()` for `type = "data/occurrences-count"` for living atlases

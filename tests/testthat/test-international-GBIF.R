@@ -146,7 +146,11 @@ test_that("show_values works for GBIF fields", {
 
 test_that("atlas_counts works for GBIF", {
   skip_if_offline(); skip_on_ci()
-  expect_gt(atlas_counts()$count, 0)
+  galah_call() |>
+    count() |>
+    collect() |>
+    pull("count") |>
+    expect_gt(0)
 })
 
 test_that("atlas_counts fails for GBIF when type = 'species'", {
@@ -163,9 +167,10 @@ test_that("`count()` works with `filter()` for GBIF", {
     count() |>
     collapse()
   expect_s3_class(x, "query")
-  expect_equal(length(x), 5)
+  expect_equal(length(x), 7)
   expect_equal(names(x), 
-               c("type", "url", "slot_name", "expand", "headers"))
+               c("type", "url", "headers", "options", 
+                 "body", "slot_name", "expand"))
   expect_equal(x$type, "data/occurrences-count")
   # compute
   y <- compute(x)
@@ -181,13 +186,15 @@ test_that("`count` works with `identify` for GBIF", {
   skip_if_offline(); skip_on_ci()
   # collapse
   x <- request_data() |>
-    identify("Mammalia") |>
+    identify("Mammalia", "Aves") |>
+    filter(year >= 2020, basisOfRecord == "HUMAN_OBSERVATION") |>
     count() |>
     collapse()
   expect_s3_class(x, "query")
-  expect_equal(length(x), 5)
+  expect_equal(length(x), 7)
   expect_equal(names(x), 
-               c("type", "url", "slot_name", "expand", "headers"))
+               c("type", "url", "headers", "options", 
+                 "body", "slot_name", "expand"))
   expect_equal(x$type, "data/occurrences-count")
   # compute
   y <- compute(x)
@@ -287,6 +294,29 @@ test_that("`count()` works with `galah_radius()` for GBIF", {
     collect()
   expect_lt(result$count, result_taxa$count)
   expect_lt(result$count, result_space$count)
+})
+
+test_that("`count` works with `identify` for GBIF when `run_checks` = TRUE", {
+  skip_if_offline(); skip_on_ci()
+  galah_config(run_checks = TRUE)
+  # collapse
+  x <- request_data() |>
+    identify("Litoria peronii") |>
+    filter(year >= 2020, basisOfRecord == "HUMAN_OBSERVATION") |>
+    collapse() # ERRORS HERE
+  expect_s3_class(x, "query")
+  expect_equal(length(x), 5)
+  expect_equal(names(x), 
+               c("type", "url", "slot_name", "expand", "headers"))
+  expect_equal(x$type, "data/occurrences-count")
+  # compute
+  y <- compute(x)
+  expect_s3_class(y, "computed_query")
+  # collect
+  z <- collect(y)
+  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
+  expect_gt(z$count, 1)
+  expect_equal(nrow(z), 1)
 })
 
 test_that("`atlas_occurrences()` works with `galah_polygon()` for GBIF", {
