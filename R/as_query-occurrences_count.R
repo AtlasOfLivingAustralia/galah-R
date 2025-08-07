@@ -100,7 +100,7 @@ as_query_occurrences_count_gbif <- function(identify = NULL,
   user_string <- glue::glue("{username}:{password}")
   
   # get relevant information
-  if(is.null(group_by)){
+  # if(is.null(group_by)){
     result <- list(
       type = "data/occurrences-count",
       url = url_lookup("data/occurrences-count"),
@@ -116,14 +116,14 @@ as_query_occurrences_count_gbif <- function(identify = NULL,
       slot_name = "count",
       expand = FALSE)
   # add facets
-  }else{
-    # NOT FUNCTIONAL
-    result <- list(
-      type = "data/occurrences-count",
-      url = url_lookup("data/occurrences-count-groupby"),
-      body = predicates_info,
-      slot_name = "count",
-      expand = FALSE)
+  # }else{
+  #   # NOT FUNCTIONAL
+  #   result <- list(
+  #     type = "data/occurrences-count",
+  #     url = url_lookup("data/occurrences-count-groupby"),
+  #     body = predicates_info,
+  #     slot_name = "count",
+  #     expand = FALSE)
     # result <- list(type = "data/occurrences-count-groupby")
     # url <- url_lookup("data/occurrences-count") |> 
     #   url_parse()
@@ -138,7 +138,7 @@ as_query_occurrences_count_gbif <- function(identify = NULL,
     #                facetLimit = slice$slice_n)
     # result$url <- url_build(url)
     # result$expand <- ifelse(length(facets) > 1, TRUE, FALSE)
-  }
+  # }
   # aggregate and return
   class(result) <- "query"
   result

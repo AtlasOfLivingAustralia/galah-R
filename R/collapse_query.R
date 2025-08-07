@@ -4,6 +4,8 @@
 #' @keywords Internal
 collapse_query <- function(x){
   switch(x$type,
+         "data/occurrences" = collapse_occurrences(x),
+         "data/species" = collapse_occurrences(x), # again, optimised for GBIF
          "data/occurrences-count-groupby" = collapse_occurrences_count(x),
          "data/occurrences-count" = collapse_occurrences_count(x),
          "data/species-count" = collapse_species_count(x),

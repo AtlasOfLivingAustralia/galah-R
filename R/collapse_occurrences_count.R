@@ -15,7 +15,7 @@ collapse_occurrences_count <- function(.query){
       abort("Grouped counts haven't been (re)implemented for GBIF yet")
       # compute_grouped_counts_GBIF(.query)
     }else{
-      collapse_occurreces_count_gbif(.query)
+      collapse_occurrences_count_gbif(.query)
     }
   }else{
     if(.query$expand){
@@ -35,31 +35,20 @@ collapse_occurrences_count <- function(.query){
 #' @param x A list with slots relevant to building predicates
 #' @noRd
 #' @keywords Internal
-collapse_occurreces_count_gbif <- function(x){
+collapse_occurrences_count_gbif <- function(x){
   # GBIF predicates:
   if(any(names(x) == "body")){
     result <- switch(x$type,
-                     "data/occurrences" = {
-                       list(
-                         creator = potions::pour("user", "username", .pkg = "galah"),
-                         notificationAddresses = potions::pour("user", "email", .pkg = "galah"),
-                         sendNotification = potions::pour("package", "send_email", .pkg = "galah"),
-                         format = x$format,
-                         predicate = build_predicates(x$body))
-                     },
                      "data/occurrences-count" = {
-                       predicates_list <- build_predicates(x$body)
-                       if(is.null(predicates_list)){
-                         list(limit = 0)
-                       }else{
-                         list(
-                           predicate = predicates_list,
-                           limit = 0)                         
-                       }
+                       list(
+                         predicate = build_predicates(x$body),
+                         limit = 0,
+                         facets = parse_predicates_groupby(x$body$group_by)) |>
+                         remove_nulls_from_list()
                      },
                      "data/occurrences-count-groupby" = {
                        browser()
-                       # note there is a `facet` arg suggested in the API docs, may work here
+                       # note that facets currently handled above, but could be split here if needed
                      }
     ) |>
       jsonlite::toJSON(auto_unbox = TRUE,
@@ -67,6 +56,19 @@ collapse_occurreces_count_gbif <- function(x){
     x$body <- result
   }
   x
+}
+
+#' handle `group_by` in predicates
+#' @noRd
+#' @keywords Internal
+parse_predicates_groupby <- function(groupby){
+  if(!is.null(groupby)){
+    array(data = gbif_upper_case(groupby$name),
+          dim = 1,
+          dimnames = NULL)
+  }else{
+    NULL
+  }
 }
 
 #' Internal function to handle facet counting, adjustment etc.
@@ -93,11 +95,15 @@ collapse_occurrences_count_nogroupby <- function(.query){
     # message when limit is hit
     }else{
       if(as.integer(url$query$flimit) < n_facets){
-        limit <- url$query$flimit |> prettyNum(big.mark=",", preserve.width="none")
-        n_total_facets <- n_facets |> prettyNum(big.mark=",", preserve.width="none")
+        limit <- url$query$flimit |> 
+          prettyNum(big.mark = ",",
+                    preserve.width = "none")
+        n_total_facets <- n_facets |> 
+          prettyNum(big.mark = ",",
+                    preserve.width = "none")
         
         c(
-          cli::cli_text(cli::col_yellow(glue("Limiting to first {limit} of {n_total_facets} rows."))),
+          cli::cli_text(cli::col_yellow("Limiting to first {limit} of {n_total_facets} rows.")),
           cli::cli_text(cli::col_magenta("Use `atlas_counts(limit = )` to return more rows."))
         ) |>
         cli::cli_inform()

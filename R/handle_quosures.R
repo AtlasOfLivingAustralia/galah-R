@@ -318,7 +318,7 @@ parse_logical <- function(x, ...){
   }else{
     logical_string <- " AND "
   }
-  linked_statements <- purrr::map(rlang::quo_get_expr(x)[-1], 
+  linked_statements <- purrr::map(as.list(rlang::quo_get_expr(x)[-1]), 
                                   \(a){
                                     a |>
                                       rlang::as_quosure(env = rlang::quo_get_env(x)) |>
@@ -450,8 +450,8 @@ parse_in <- function(x, excl){
   ) |>
     rlang::parse_expr()
   # convert to quosure and pass to `parse_logical()`
-  rlang::as_quosure(in_as_or_statements, 
-                    rlang::quo_get_env(x)) |>
+  rlang::as_quosure(x = in_as_or_statements, 
+                    env = rlang::quo_get_env(x)) |>
     parse_logical()
 }
 
