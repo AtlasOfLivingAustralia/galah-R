@@ -86,8 +86,6 @@
 #'  collect() |>
 #'  dplyr::filter(grepl("date", id))
 #' }
-#' @importFrom rlang as_name
-#' @importFrom rlang .data
 #' @export
 search_all <- function(type, query){
   
@@ -114,7 +112,7 @@ search_all <- function(type, query){
   }else{
     type <- parse_quosures_basic(enquos(type))
     if(!inherits(type, "character") | length(type) > 1){
-      abort("`type` must be a length-1 vector of class 'character'")
+      cli::cli_abort("`type` must be a length-1 vector of class 'character'")
     }
     check_type_valid(type, valid_types)   
   }
@@ -145,8 +143,6 @@ search_all <- function(type, query){
 }
 
 #' Internal function to run a query over a tibble
-#' @importFrom dplyr filter
-#' @importFrom purrr list_transpose
 #' @noRd
 #' @keywords Internal
 search_text_cols <- function(df, query){
@@ -154,10 +150,12 @@ search_text_cols <- function(df, query){
   query <- tolower(query)
   keep_cols <- unlist(lapply(df, is.character)) & 
     colnames(df) != "type"
-  check_list <- lapply(df[, keep_cols], 
-                       function(a){grepl(query, tolower(a))})
-  check_vector <- lapply(list_transpose(check_list), any) |> unlist()
-  result <- df |> filter({{check_vector}})
+  check_list <- purrr::map(df[, keep_cols], 
+                           \(a){grepl(query, tolower(a))})
+  check_vector <- purrr::list_transpose(check_list) |>
+    purrr::map(any) |> 
+    unlist()
+  result <- df |> dplyr::filter({{check_vector}})
   
   # order search_all() results
   if ("id" %in% colnames(result)) {
@@ -172,16 +170,14 @@ search_text_cols <- function(df, query){
 #' Internal function to check for missingness
 #' @noRd
 #' @keywords Internal
-#' @importFrom rlang abort
 check_if_missing <- function(query,
                              parent_function,
-                             error_call = caller_env()) {
+                             error_call = rlang::caller_env()) {
   if (missing(query)) {
-    bullets <- c(
+    c(
       "We didn't detect a search query.",
-      i = "Try entering a string to search for matching values."
-    )
-    abort(bullets, call = error_call)
+      i = "Try entering a string to search for matching values.") |>
+    cli::cli_abort(call = error_call)
   }
 }
 
@@ -193,11 +189,10 @@ check_if_in_pipe <- function(..., error_call = caller_env()) {
   dots <- list(...)
   col_type_present <- grepl("type", names(unlist(dots)))
   if (any(col_type_present)) {
-    bullets <- c(
+    c(
       "Can't pipe `search_taxa()` in a `galah_call()`.",
-      i = "Did you mean to use `galah_identify()`?"
-    )
-    abort(bullets, call = error_call)
+      i = "Did you mean to use `galah_identify()`?") |>
+    cli::cli_abort(bullets, call = error_call)
   }
 }
 

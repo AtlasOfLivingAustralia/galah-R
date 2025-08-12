@@ -44,7 +44,6 @@
 #'   count() |>
 #'   collect()
 #' }
-#' @importFrom dplyr bind_cols
 #' @name arrange.data_request
 #' @export
 arrange.data_request <- function(.data, ...){
@@ -54,10 +53,10 @@ arrange.data_request <- function(.data, ...){
      all(names(parsed_dots) %in% c("variable", "direction"))){
     .data$arrange <- as.list(parsed_dots) |> 
       as.data.frame() |>
-      tibble()
+      tibble::tibble()
   }else{
-    .data$arrange <- tibble(variable = parsed_dots, 
-                            direction = "ascending")    
+    .data$arrange <- tibble::tibble(variable = parsed_dots, 
+                                    direction = "ascending")    
   }
   return(.data)
 }

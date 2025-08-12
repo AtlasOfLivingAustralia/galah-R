@@ -65,7 +65,7 @@ parse_group_by <- function(dot_names){
       c(
         "Too many fields supplied.",
         i = "`group_by.data_request` accepts a maximum of 3 fields.") |>
-      cli::cli_abort(call = caller_env())
+      cli::cli_abort(call = rlang::caller_env())
     }
     if(length(dot_names) > 0){
       names(dot_names) <- NULL # needed to avoid empty strings added as names

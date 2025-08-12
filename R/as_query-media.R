@@ -106,11 +106,11 @@ build_media_id <- function(df){
 build_file_path <- function(ids, types){
   path <- potions::pour("package", "directory", .pkg = "galah")
   ext <- build_file_extension(types)
-  glue::glue("{path}/{ids}.{ext}") |> as.character()
+  glue::glue("{path}/{ids}.{ext}") |> 
+    as.character()
 }
 
 #' get extensions for media files
-#' @importFrom dplyr case_match
 #' @noRd
 #' @keywords Internal
 build_file_extension <- function(x){

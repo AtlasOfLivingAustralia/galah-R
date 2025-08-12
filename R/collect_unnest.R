@@ -1,50 +1,44 @@
 #' Internal function to run `compute()` for 
 #' `request_metadata(type = "fields") |> unnest()`
-#' @importFrom httr2 url_parse
-#' @importFrom dplyr bind_rows
-#' @importFrom dplyr mutate
-#' @importFrom dplyr select
-#' @importFrom purrr pluck
-#' @importFrom stringr str_extract
 #' @noRd
 #' @keywords Internal
 collect_fields_unnest <- function(.query, error_call = caller_env()){
   if(is_gbif()){
     facet <- .query |>
-      pluck("url") |>
-      url_parse() |>
-      pluck("query", "facet")
+      purrr::pluck("url") |>
+      httr2::url_parse() |>
+      purrr::pluck("query", "facet")
     
     if (facet == "NA") {
-      abort("No `field` passed to `show_values()`/`search_values()`.")
+      cli::cli_abort("No `field` passed to `show_values()`/`search_values()`.")
     }
     
     result <- .query |>
       query_API() |>
-      pluck(!!!list("facets", 1, "counts")) |>
-      bind_rows()
+      purrr::pluck(!!!list("facets", 1, "counts")) |>
+      dplyr::bind_rows()
     colnames(result)[which(colnames(result) == "name")[1]] <- facet
     select(result, {{facet}})
     
   }else{ 
     facet <- .query |>
-      pluck("url") |>
-      url_parse() |>
-      pluck("query", "facets")
+      purrr::pluck("url") |>
+      httr2::url_parse() |>
+      purrr::pluck("query", "facets")
     
     if (facet == "NA") {
-      abort("No `field` passed to `show_values()`/`search_values()`.")
+      cli::cli_abort("No `field` passed to `show_values()`/`search_values()`.")
     }
 
     result <- .query |>
       query_API() |>
-      pluck(!!!list(1, "fieldResult")) |>
-      bind_rows()
+      purrr::pluck(!!!list(1, "fieldResult")) |>
+      dplyr::bind_rows()
     
     # extract unformatted facet values
     if(nrow(result) > 0){
       result <- result |>
-        mutate(
+        dplyr::mutate(
           field_value = stringr::str_extract(
             result$i18nCode, 
             "(?<=\\.).*" # everything after .
@@ -52,7 +46,7 @@ collect_fields_unnest <- function(.query, error_call = caller_env()){
         )
       
       colnames(result)[which(colnames(result) == "field_value")[1]] <- facet
-      select(result, {{facet}})      
+      dplyr::select(result, {{facet}})      
     }else{ # i.e. catch empty results
       result
     }
@@ -65,7 +59,7 @@ collect_fields_unnest <- function(.query, error_call = caller_env()){
 #' @keywords Internal
 collect_lists_unnest <- function(.query){
   result <- query_API(.query) |> 
-    bind_rows()
+    dplyr::bind_rows()
   
   # extract additional raw fields columns
   if (any(colnames(result) %in% "kvpValues")) {
@@ -85,11 +79,11 @@ collect_lists_unnest <- function(.query){
 #' @keywords Internal
 collect_profiles_unnest <- function(.query){
   result <- query_API(.query) |> 
-    pluck("categories") |>
-    bind_rows()
+    purrr::pluck("categories") |>
+    dplyr::bind_rows()
   result <- result |>
-    pull("qualityFilters") |>
-    bind_rows()
+    dplyr::pull("qualityFilters") |>
+    dplyr::bind_rows()
   result
 }
 
@@ -99,5 +93,5 @@ collect_profiles_unnest <- function(.query){
 #' @keywords Internal
 collect_taxa_unnest <- function(.query){
   query_API(.query) |>
-    bind_rows()
+    dplyr::bind_rows()
 }

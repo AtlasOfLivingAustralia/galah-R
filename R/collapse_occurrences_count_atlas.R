@@ -1,7 +1,7 @@
 #' Internal function to handle facet counting, adjustment etc.
 #' @noRd
 #' @keywords Internal
-collapse_occurrences_count_atlas <- function(.query){
+collapse_occurrences_count_atlas_basic <- function(.query){
   url <- httr2::url_parse(.query$url)
   
   # check if a limit has been set
@@ -22,7 +22,7 @@ collapse_occurrences_count_atlas <- function(.query){
     # message when limit is hit
     }else{
       if(as.integer(url$query$flimit) < n_facets){
-        limit <- url$query$flimit |> 
+        limit <- url$query$flimit |>
           prettyNum(big.mark = ",",
                     preserve.width = "none")
         n_total_facets <- n_facets |> 
@@ -46,8 +46,8 @@ collapse_occurrences_count_atlas <- function(.query){
 #' Determine set of queries when group_by() is set
 #' @noRd
 #' @keywords Internal
-collapse_occurrences_count_atlas_groupby <- function(.query, 
-                                                     error_call = caller_env()){
+collapse_occurrences_count_atlas_groupby_crossed <- function(.query, 
+                                                             error_call = caller_env()){
   data_cached <- .query
   # get url
   url <- httr2::url_parse(.query$url)
@@ -91,10 +91,11 @@ collapse_occurrences_count_atlas_groupby <- function(.query,
   # expand to a tibble that gives all combinations
   kept_facets <- facet_names[-length(facet_names)]
   result_list <- purrr::map(names(result), 
-         function(a){
+         \(a){
            x <- result[[a]][c(1, 4)]
            names(x)[1] <- a
-           x}) 
+           x})
+  # browser()
   
   # convert to all combinations of levels
   if(length(result_list) > 1){
@@ -109,6 +110,7 @@ collapse_occurrences_count_atlas_groupby <- function(.query,
                                     by = kept_facets[i])
     }
   }else{
+    # FIXME: This fails if `result_list` is empty
     result_df <- result_list[[1]]
   }
  

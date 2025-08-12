@@ -59,16 +59,18 @@
 #' request_metadata(type = "fields") |>
 #'   collect()
 #' }
-#' @importFrom rlang as_label
 #' @export
 show_all <- function(..., limit = NULL){
   dots <- enquos(..., .ignore_empty = "all")
   if(length(dots) < 1){
     type_text <- "fields"
   }else{
-    type_text <- gsub("\"", "", as_label(dots[[1]])) # handle case where type is quoted
+    type_text <- gsub("\"", 
+                      "", 
+                      rlang::as_label(dots[[1]])) # handle case where type is quoted
   }
-  show_all_generic(type = type_text, limit = limit)
+  show_all_generic(type = type_text, 
+                   limit = limit)
 }
 
 #' Internal function to handle `show_all` calls

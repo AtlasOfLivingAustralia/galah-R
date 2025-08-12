@@ -103,9 +103,6 @@ update_select <- function(x, y){
 }
 
 #' Internal function to join tibbles by row
-#' @importFrom dplyr bind_rows
-#' @importFrom dplyr filter
-#' @importFrom tibble tibble
 #' @noRd
 #' @keywords Internal
 bind_unique_rows <- function(x, y, column){

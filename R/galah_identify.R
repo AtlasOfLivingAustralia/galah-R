@@ -23,8 +23,6 @@
 #' other ways to filter a query. You can also use [search_taxa()] to check that 
 #' supplied names are being matched correctly on the server-side; see 
 #' [taxonomic_searches] for a detailed overview.
-#' @importFrom dplyr rename
-#' @importFrom dplyr select
 #' @examples \dontrun{
 #' # Use `galah_identify()` to narrow your queries
 #' galah_call() |> 
@@ -47,14 +45,14 @@
 identify.data_request <- function(x, ...){
   dots_initial <- list(...)
   if (length(dots_initial) < 1) {
-    warn("No query passed to `identify()`.")
+    cli::cli_warn("No query passed to `identify()`.")
     result <- NULL
   }else{
     if(inherits(dots_initial[[1]], "data.frame") & length(dots_initial) == 1){
       result <- dots_initial[[1]]
       
     }else{
-      result <- tibble("search_term" = unlist(dots_initial))
+      result <- tibble::tibble("search_term" = unlist(dots_initial))
     }
   }
   update_data_request(x, identify = result)
@@ -81,8 +79,8 @@ identify.metadata_request <- function(x, ...){
 galah_identify <- function(..., search = NULL) {
   dots_initial <- list(...)
   if (length(dots_initial) < 1) {
-    warn("No query passed to `identify()`.")
-    tibble("search_term" = character())
+    cli::cli_warn("No query passed to `identify()`.")
+    tibble::tibble("search_term" = character())
   }else{
     dots_initial <- check_search_arg(dots_initial, search)
     if(inherits(dots_initial[[1]], "data_request")){

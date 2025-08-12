@@ -9,7 +9,7 @@ collapse_query <- function(x){
            if(is_gbif()){
              collapse_occurrences_count_gbif(x)
            }else{
-             collapse_occurrences_count_atlas(x)   
+             collapse_occurrences_count_atlas_basic(x)   
            }
          },
          "data/occurrences-count-groupby" = {
@@ -20,7 +20,14 @@ collapse_query <- function(x){
                collapse_occurrences_count_gbif_groupby_basic(x)
              }
            }else{
-             collapse_occurrences_count_atlas_groupby(x)   
+             query_names <- httr2::url_parse(x$url) |>
+               purrr::pluck("query") |>
+               names()
+             if(length(which(query_names == "facets")) > 1){
+               collapse_occurrences_count_atlas_groupby_crossed(x)  
+             }else{
+               collapse_occurrences_count_atlas_basic(x)
+             }
            }
          },
          "data/species" = collapse_occurrences(x), # optimised for GBIF

@@ -117,7 +117,7 @@ Global,data/occurrences-count-groupby,https://api.gbif.org/v1/occurrence/search/
 Global,metadata/collections,https://api.gbif.org/v1/grscicoll/collection,TRUE
 Global,metadata/datasets,https://api.gbif.org/v1/dataset,TRUE
 Global,metadata/fields,https://api.gbif.org/v1/occurrence/term,TRUE
-Global,metadata/fields-unnest,https://api.gbif.org/v1/occurrence/download/request,TRUE
+Global,metadata/fields-unnest,https://api.gbif.org/v1/occurrence/search,TRUE
 Global,metadata/identifiers,https://api.gbif.org/v1/species/{id},TRUE
 Global,metadata/providers,https://api.gbif.org/v1/organization,TRUE
 Global,metadata/taxa-single,https://api.gbif.org/v2/species/match?verbose=FALSE&scientificName={name},TRUE

@@ -53,7 +53,8 @@ as_query_occurrences_count_atlas <- function(identify = NULL,
       slice <- tibble::tibble(slice_n = 1e4, slice_called = FALSE) 
     }
     if(is.null(arrange)){
-      arrange <- tibble::tibble(variable = "count", direction = "descending")
+      arrange <- tibble::tibble(variable = "count", 
+                                direction = "descending")
     }
     slice_arrange <- dplyr::bind_cols(slice, arrange) 
     arrange_list <- check_slice_arrange(slice_arrange)
