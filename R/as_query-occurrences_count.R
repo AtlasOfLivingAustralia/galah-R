@@ -40,8 +40,7 @@ as_query_occurrences_count_atlas <- function(identify = NULL,
                    url = httr2::url_build(url),
                    headers = build_headers(),
                    filter = filter,
-                   slot_name = "totalRecords",
-                   expand = FALSE)
+                   slot_name = "totalRecords")
   }else{
     url <- url_lookup("data/occurrences-count-groupby") |> 
       httr2::url_parse()
@@ -63,7 +62,6 @@ as_query_occurrences_count_atlas <- function(identify = NULL,
                    url = httr2::url_build(url),
                    headers = build_headers(),
                    filter = filter,
-                   expand = ifelse(length(facets) > 1, TRUE, FALSE),
                    arrange = slice_arrange)
   }
   class(result) <- "query"
@@ -94,52 +92,36 @@ as_query_occurrences_count_gbif <- function(identify = NULL,
                                          slice), 
                           limit = 0)
   
-  # get user string
+  # get strings
   username <- potions::pour("user", "username", .pkg = "galah")
   password <- potions::pour("user", "password", .pkg = "galah")
   user_string <- glue::glue("{username}:{password}")
   
-  # get relevant information
-  # if(is.null(group_by)){
-    result <- list(
-      type = "data/occurrences-count",
-      url = url_lookup("data/occurrences-count"),
-      headers =  list(
-        `User-Agent` = galah_version_string(), 
-        `X-USER-AGENT` = galah_version_string(),
-        `Content-Type` = "application/json",
-        Accept = "application/json"),
-      options = list(
-        httpauth = 1,
-        userpwd = user_string),
-      body = predicates_info,
-      slot_name = "count",
-      expand = FALSE)
-  # add facets
-  # }else{
-  #   # NOT FUNCTIONAL
-  #   result <- list(
-  #     type = "data/occurrences-count",
-  #     url = url_lookup("data/occurrences-count-groupby"),
-  #     body = predicates_info,
-  #     slot_name = "count",
-  #     expand = FALSE)
-    # result <- list(type = "data/occurrences-count-groupby")
-    # url <- url_lookup("data/occurrences-count") |> 
-    #   url_parse()
-    # facets <- as.list(group_by$name)
-    # names(facets) <- rep("facet", length(facets))
-    # if(is.null(slice)){
-    #   slice <- tibble(slice_n = 30, slice_called = FALSE)
-    # }
-    # url$query <- c(build_query_gbif(identify, filter, geolocate),
-    #                limit = 0,
-    #                facets,
-    #                facetLimit = slice$slice_n)
-    # result$url <- url_build(url)
-    # result$expand <- ifelse(length(facets) > 1, TRUE, FALSE)
-  # }
-  # aggregate and return
+  # handle type
+  if(is.null(group_by)){
+    data_type <- "data/occurrences-count"
+  }else{
+    data_type <- "data/occurrences-count-groupby"
+  }
+  
+  # build object
+  ## Note that unlike with other atlases, parsing of `group_by` is handled
+  ## by `collapse()` rather than here.
+  result <- list(
+    type = data_type,
+    url = url_lookup("data/occurrences-count"),
+    headers =  list(
+      `User-Agent` = galah_version_string(), 
+      `X-USER-AGENT` = galah_version_string(),
+      `Content-Type` = "application/json",
+      Accept = "application/json"),
+    options = list(
+      httpauth = 1,
+      userpwd = user_string),
+    body = predicates_info,
+    slot_name = "count")
+ 
+  # classify and return
   class(result) <- "query"
   result
 }

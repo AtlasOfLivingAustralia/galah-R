@@ -167,10 +167,10 @@ test_that("`count()` works with `filter()` for GBIF", {
     count() |>
     collapse()
   expect_s3_class(x, "query")
-  expect_equal(length(x), 7)
+  expect_equal(length(x), 6)
   expect_equal(names(x), 
                c("type", "url", "headers", "options", 
-                 "body", "slot_name", "expand"))
+                 "body", "slot_name"))
   expect_equal(x$type, "data/occurrences-count")
   # compute
   y <- compute(x)
@@ -191,10 +191,10 @@ test_that("`count` works with `identify` for GBIF", {
     count() |>
     collapse()
   expect_s3_class(x, "query")
-  expect_equal(length(x), 7)
+  expect_equal(length(x), 6)
   expect_equal(names(x), 
                c("type", "url", "headers", "options", 
-                 "body", "slot_name", "expand"))
+                 "body", "slot_name"))
   expect_equal(x$type, "data/occurrences-count")
   # compute
   y <- compute(x)
@@ -209,17 +209,19 @@ test_that("`count` works with `identify` for GBIF", {
 test_that("`count` works with `group_by` for GBIF", {
   skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
-    identify("Litoria") |>
+    # identify("Litoria") |>
     filter(year >= 2020) |>
     group_by(year) |>
     count() |>
     collapse()
   expect_s3_class(x, "query")
-  expect_equal(length(x), 4)
+  expect_equal(length(x), 6)
   expect_equal(names(x), c("type",
                            "url",
-                           "expand",
-                           "headers"))
+                           "headers",
+                           "options",
+                           "body",
+                           "slot_name"))
   expect_equal(x$type, "data/occurrences-count-groupby")
   # compute
   y <- compute(x)
@@ -230,6 +232,7 @@ test_that("`count` works with `group_by` for GBIF", {
   expect_gt(nrow(z), 1)
   expect_equal(names(z), c("year", "count"))
   # group_by fails when an invalid field is given
+  # NOTE: fails: no checks run at present
   expect_error({
     galah_call() |>
       identify("Crinia") |>
@@ -238,6 +241,42 @@ test_that("`count` works with `group_by` for GBIF", {
       collect()
   })
 })
+
+test_that("`count` works with 2 `group_by` args for GBIF", {
+  skip_if_offline(); skip_on_ci()
+  x <- galah_call() |>
+    filter(year >= 2020) |>
+    group_by(year, basisOfRecord) |>
+    count() |>
+    collapse()
+  expect_s3_class(x, "query")
+  expect_equal(length(x), 6)
+  expect_equal(names(x), c("type",
+                           "url",
+                           "headers",
+                           "options",
+                           "body",
+                           "slot_name"))
+  expect_equal(x$type, "data/occurrences-count-groupby")
+  # compute
+  y <- compute(x)
+  expect_s3_class(y, "computed_query")
+  # collect
+  z <- collect(y)
+  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
+  expect_gt(nrow(z), 1)
+  expect_equal(names(z), c("year", "count"))
+})
+
+## group_by fails when an invalid field is given
+## NOTE: fails: no checks run at present
+# expect_error({
+#   galah_call() |>
+#     identify("Crinia") |>
+#     group_by(species) |>
+#     count() |>
+#     collect()
+# })
 
 # FIXME: GBIF grouped counts only work for n = 1 - expand this or add warning
 # FIXME: `slice_head()` not tested for GBIF
@@ -302,12 +341,15 @@ test_that("`count` works with `identify` for GBIF when `run_checks` = TRUE", {
   # collapse
   x <- request_data() |>
     identify("Litoria peronii") |>
-    filter(year >= 2020, basisOfRecord == "HUMAN_OBSERVATION") |>
-    collapse() # ERRORS HERE
+    filter(year >= 2020, 
+           basisOfRecord == "HUMAN_OBSERVATION") |>
+    count() |>
+    collapse()
   expect_s3_class(x, "query")
-  expect_equal(length(x), 5)
+  expect_equal(length(x), 6)
   expect_equal(names(x), 
-               c("type", "url", "slot_name", "expand", "headers"))
+               c("type", "url", "headers",
+                 "options", "body", "slot_name"))
   expect_equal(x$type, "data/occurrences-count")
   # compute
   y <- compute(x)

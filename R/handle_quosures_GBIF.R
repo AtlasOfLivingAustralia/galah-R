@@ -135,14 +135,6 @@ parse_relational_pred <- function(x){
   }
 }
 
-#' Internal function to handle variable naming
-#' @noRd
-#' @keywords internal
-gbif_upper_case <- function(string){
-  gsub("(?=[[:upper:]])", "_", string, perl = TRUE) |> 
-    toupper()
-}
-
 #' Handle & and | statements
 #' @noRd
 #' @keywords internal

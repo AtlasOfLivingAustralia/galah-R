@@ -76,15 +76,49 @@ rename_columns <- function(varnames, type) {
   varnames
 }
 
+##---------------------------------------------------------------
+##                          Cases                              --
+##---------------------------------------------------------------
+
 #' Internal function to make text to snake case
 #' @noRd
 #' @keywords Internal
-camel_to_snake_case <- function(x){
-  x |>
+camel_to_snake_case <- function(string){
+  string |>
     gsub("([a-z])([A-Z])", "\\1_\\L\\2", x = _, perl = TRUE) |>
     trimws(which = "both") |> # end spaces
     gsub("\\.+|\\s+", "_", x = _) |> # internal dots or spaces
     tolower()
+}
+
+#' Internal function to handle conversion from camelCase to upper snake case
+#' @noRd
+#' @keywords internal
+gbif_upper_case <- function(string){
+  gsub("(?=[[:upper:]])", "_", string, perl = TRUE) |> 
+    toupper()
+}
+
+#' Internal function to handle conversion from upper snake case to camelCase
+#' Primarily for reversing the action of [gbif_upper_case()] above
+#' @noRd
+#' @keywords internal
+snake_to_camel_case <- function(string){
+  # first split into words
+  split_string <- string |>
+    tolower() |>
+    strsplit("_") |>
+    purrr::pluck(!!!list(1))
+    
+  # then amend only multi-word strings
+  word_count <- length(split_string)
+  if(word_count > 1){
+    c(split_string[1],
+      stringr::str_to_title(split_string[seq(2, word_count)])) |>
+      glue::glue_collapse()
+  }else{
+    split_string
+  }
 }
 
 ##---------------------------------------------------------------

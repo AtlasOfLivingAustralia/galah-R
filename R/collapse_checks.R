@@ -47,11 +47,11 @@ collapse_run_checks <- function(.query){
      grepl("-unnest$", .query$type)){
     # some checks should happen regardless of `run_checks`
     .query <- .query |>
+      check_login() |>
       check_identifiers() |> 
       check_select()
     if(potions::pour("package", "run_checks")) {
       .query <- .query |>
-        check_login() |>
         check_reason() |>
         check_fields() |>
         check_profiles()

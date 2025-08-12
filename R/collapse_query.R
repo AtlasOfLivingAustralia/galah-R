@@ -5,9 +5,25 @@
 collapse_query <- function(x){
   switch(x$type,
          "data/occurrences" = collapse_occurrences(x),
-         "data/species" = collapse_occurrences(x), # again, optimised for GBIF
-         "data/occurrences-count-groupby" = collapse_occurrences_count(x),
-         "data/occurrences-count" = collapse_occurrences_count(x),
+         "data/occurrences-count" = {
+           if(is_gbif()){
+             collapse_occurrences_count_gbif(x)
+           }else{
+             collapse_occurrences_count_atlas(x)   
+           }
+         },
+         "data/occurrences-count-groupby" = {
+           if(is_gbif()){
+             if(nrow(x$body$group_by) > 1){
+               collapse_occurrences_count_gbif_groupby_crossed(x)
+             }else{
+               collapse_occurrences_count_gbif_groupby_basic(x)
+             }
+           }else{
+             collapse_occurrences_count_atlas_groupby(x)   
+           }
+         },
+         "data/species" = collapse_occurrences(x), # optimised for GBIF
          "data/species-count" = collapse_species_count(x),
          # "-unnest" functions require some checks
          "metadata/profiles-unnest" = collapse_profile_values(x),  # check this

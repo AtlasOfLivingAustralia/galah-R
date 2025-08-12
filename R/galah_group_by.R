@@ -68,34 +68,21 @@ parse_group_by <- function(dot_names){
       cli::cli_abort(call = caller_env())
     }
     if(length(dot_names) > 0){
-      df <- tibble::tibble(name = dot_names)
+      names(dot_names) <- NULL # needed to avoid empty strings added as names
+      df <- tibble::tibble(name = dot_names) 
       df$type <- ifelse(stringr::str_detect(df$name, "[[:lower:]]"), 
                         "field", 
                         "assertions")
     }else{
-      df <- tibble::tibble(name = "name", type = "type", .rows = 0)
+      df <- tibble::tibble(name = "name", 
+                           type = "type", 
+                           .rows = 0)
     }
   }else{
-    df <- tibble::tibble(name = "name", type = "type", .rows = 0)
+    df <- tibble::tibble(name = "name", 
+                         type = "type", 
+                         .rows = 0)
   }
   
   return(df)
 }
-
-# for passing to atlas_counts, see rgbif::count_facet
-# in practice, the only fields allowable by `path <- /occurrence/counts` 
-# are `year` (with optional year range);
-# https://api.gbif.org/v1/occurrence/counts/year?year=1981,2012 
-# NOTE: range query is optional
-
-# galah_call() |> 
-#   galah_group_by(year) |> 
-#   galah_filter(year >= 1981 & year <= 2012) |>
-#   atlas_counts() 
-
-# ...and `basisOfRecord` (no filters)
-# https://api.gbif.org/v1/occurrence/counts/basisOfRecord
-
-# galah_call() |> 
-#   galah_group_by(basisOfRecord) |> 
-#   atlas_counts()

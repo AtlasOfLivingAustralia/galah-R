@@ -1,80 +1,7 @@
-#' Compute counts
-#' 
-#' This is a little different from other `compute` functions; it converts a 
-#' `data_query` object (from `collapse(type = "occurrences-count")`) into one or more urls
-#' that can be passed verbatim to `query_API()`. This is important when `group_by`
-#' has `expand = TRUE`, because it requires an initial call to the atlas to 
-#' calculate the requisite URLs. It makes very little difference under other
-#' circumstances
-#' @param .query An object of class `data_query`
-#' @keywords Internal
-#' @noRd
-collapse_occurrences_count <- function(.query){
-  if(is_gbif()){
-    if(.query$expand){    
-      abort("Grouped counts haven't been (re)implemented for GBIF yet")
-      # compute_grouped_counts_GBIF(.query)
-    }else{
-      collapse_occurrences_count_gbif(.query)
-    }
-  }else{
-    if(.query$expand){
-      collapse_occurrences_count_groupby(.query)
-    }else{
-      collapse_occurrences_count_nogroupby(.query)
-    }
-  }
-}
-# Note: the above handles types `data/occurrences-count-groupby` 
-# and `data/occurrences-count`. This is probably inefficient.
-
-
-#' Function to construct `body` arg for GBIF
-#' predicates are JSON scripts for passing to GBIF offline downloads API.
-#' https://www.gbif.org/developer/occurrence
-#' @param x A list with slots relevant to building predicates
-#' @noRd
-#' @keywords Internal
-collapse_occurrences_count_gbif <- function(x){
-  # GBIF predicates:
-  if(any(names(x) == "body")){
-    result <- switch(x$type,
-                     "data/occurrences-count" = {
-                       list(
-                         predicate = build_predicates(x$body),
-                         limit = 0,
-                         facets = parse_predicates_groupby(x$body$group_by)) |>
-                         remove_nulls_from_list()
-                     },
-                     "data/occurrences-count-groupby" = {
-                       browser()
-                       # note that facets currently handled above, but could be split here if needed
-                     }
-    ) |>
-      jsonlite::toJSON(auto_unbox = TRUE,
-                       pretty = TRUE)
-    x$body <- result
-  }
-  x
-}
-
-#' handle `group_by` in predicates
-#' @noRd
-#' @keywords Internal
-parse_predicates_groupby <- function(groupby){
-  if(!is.null(groupby)){
-    array(data = gbif_upper_case(groupby$name),
-          dim = 1,
-          dimnames = NULL)
-  }else{
-    NULL
-  }
-}
-
 #' Internal function to handle facet counting, adjustment etc.
 #' @noRd
 #' @keywords Internal
-collapse_occurrences_count_nogroupby <- function(.query){
+collapse_occurrences_count_atlas <- function(.query){
   url <- httr2::url_parse(.query$url)
   
   # check if a limit has been set
@@ -116,11 +43,11 @@ collapse_occurrences_count_nogroupby <- function(.query){
   }
 }
 
-#' Determine set of queries when expand = TRUE
+#' Determine set of queries when group_by() is set
 #' @noRd
 #' @keywords Internal
-collapse_occurrences_count_groupby <- function(.query, 
-                                               error_call = caller_env()){
+collapse_occurrences_count_atlas_groupby <- function(.query, 
+                                                     error_call = caller_env()){
   data_cached <- .query
   # get url
   url <- httr2::url_parse(.query$url)
@@ -129,24 +56,15 @@ collapse_occurrences_count_groupby <- function(.query,
   facet_list <- url$query[names(url$query) == "facets"]
   facet_names <- unlist(facet_list)
   names(facet_names) <- NULL
-  
-  # Error when Atlas facet max is reached
-  if (pour("atlas", "region") == "Estonia" & 
-      length(facet_list) > 1) {
-    atlas <- pour("atlas", "region")
-    n_fields <- length(facet_list)
-    c(
-      "Too many fields passed to `group_by()`.",
-      x = "Selected atlas ({atlas}) accepts a maximum of 1 field, not {n_fields}.") |>
-    cli::cli_abort(call = error_call)
-  }
 
   # save out facet limits to add back later
   saved_facet_queries <- list( 
     flimit = url$query$flimit,
     foffset = url$query$foffset)
   saved_facet_queries <- saved_facet_queries[
-    unlist(lapply(saved_facet_queries, function(a){!is.null(a)}))]
+    purrr::map(saved_facet_queries, 
+               \(a){!is.null(a)}) |>
+      unlist()]
   
   # rebuild url with only first facet argument
   url$query <- c(
@@ -172,7 +90,7 @@ collapse_occurrences_count_groupby <- function(.query,
   
   # expand to a tibble that gives all combinations
   kept_facets <- facet_names[-length(facet_names)]
-  result_list <- lapply(names(result), 
+  result_list <- purrr::map(names(result), 
          function(a){
            x <- result[[a]][c(1, 4)]
            names(x)[1] <- a
@@ -211,7 +129,9 @@ collapse_occurrences_count_groupby <- function(.query,
   # glue `fq` statements together 
   result_df <- result_df |>
     dplyr::rowwise() |>
-    dplyr::mutate(query = glue::glue_collapse(dplyr::c_across(dplyr::starts_with("fq")), sep = " AND ")) |>
+    dplyr::mutate(query = dplyr::starts_with("fq") |>
+                    dplyr::c_across() |>
+                    glue_collapse( sep = " AND ")) |>
     dplyr::select(-dplyr::starts_with("fq")) |>
     dplyr::ungroup()
   if(!is.null(fqs)){
@@ -247,7 +167,9 @@ collapse_occurrences_count_groupby <- function(.query,
 #' It is called exclusively by `compute_counts()`
 #' @noRd 
 #' @keywords Internal
-check_facet_count <- function(.query, warn = TRUE, error_call = caller_env()){
+check_facet_count <- function(.query,
+                              warn = TRUE,
+                              error_call = caller_env()){
   url <- httr2::url_parse(.query$url)
   current_limit <- url$query$flimit
   

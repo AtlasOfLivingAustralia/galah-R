@@ -424,19 +424,19 @@ check_identifiers_la <- function(.query,
 check_login <- function(.query, 
                         error_call = caller_env()) {
   # Check for valid email for occurrences or species queries for all providers
-  if(.query$type == "data/occurrences" | .query$type == "data/species"){
-    switch(potions::pour("atlas", "region"), 
-           "United Kingdom" = {},
-           "Global" = {check_email(.query); check_password(.query)},
-           check_email(.query))
+  if(is_gbif()){
+    if(grepl("^data", .query$type)){
+      check_email(.query)
+      check_password(.query)
+    }
+  }else{
+    if(.query$type %in% c("data/occurrences", "data/species")){
+      switch(potions::pour("atlas", "region"), 
+             "United Kingdom" = {},
+             check_email(.query))
+    } 
   }
   .query
-  # ALA requires an API key
-  # } else if (pour("atlas", "acronym") == "ALA") {
-  #   if (is.null(.query$headers$`x-api-key`) | .query$headers$`x-api-key` == "") {
-  #     abort_api_key_missing()
-  #   }
-  # }  
 }
 
 #' Internal function to convert multi-value media fields to list-columns

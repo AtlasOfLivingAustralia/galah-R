@@ -2,6 +2,8 @@
 #' @noRd
 #' @keywords Internal
 collapse_species_count <- function(.query){
+  browser()
+  # `expand` argument has been removed from query objects; need to refactor this
   if(.query$expand){
     .query <- collapse_species_query_list(.query)
   }else{
@@ -29,15 +31,14 @@ collapse_species_query_list <- function(.query){
   data_temp <- .query
   data_temp$type <- "data/occurrences-count"
   data_temp$url <- httr2::url_build(url)
-  data_temp$expand <- ifelse(n_facet_terms > 1, TRUE, FALSE)
   
   # collect using `occurrences-count` code (to parse expand correctly)
   df <- collect(data_temp)
   
   # create new set of fq args 
-  fq_args <- lapply(
+  fq_args <- purrr::map(
     split(df, seq_len(nrow(df))),
-    function(a){
+    \(a){
       x <- a[, - ncol(a)]
       glue::glue_collapse(
         glue::glue("{names(x)}:{x}"),
@@ -58,7 +59,8 @@ collapse_species_query_list <- function(.query){
   urls <- purrr::map(new_fqs, function(a, x){
     x$query$fq <- a
     httr2::url_build(x)
-  }, x = url) |> unlist()
+  }, x = url) |> 
+    unlist()
   
   # convert to a tibble to pass back to .query
   .query$url <- dplyr::bind_cols(

@@ -101,6 +101,19 @@ parse_predicates_location <- function(location){
   }
 }
 
+#' handle `group_by` in predicates
+#' @noRd
+#' @keywords Internal
+parse_predicates_groupby <- function(groupby){
+  if(!is.null(groupby)){
+    array(data = gbif_upper_case(groupby$name),
+          dim = length(groupby$name),
+          dimnames = NULL)
+  }else{
+    NULL
+  }
+}
+
 #' clean up a list
 #' @noRd
 #' @keywords Internal

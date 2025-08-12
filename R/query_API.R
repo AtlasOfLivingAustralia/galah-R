@@ -5,16 +5,12 @@
 #' column named `url`.
 #' @noRd
 #' @keywords Internal
-query_API <- function(.query, error_call = caller_env()) {
+query_API <- function(.query, 
+                      error_call = caller_env()) {
+  # first try situation when many urls are supplied
+  # this is common for living atlases, where many urls are generated for
+  # e.g. paginated queries, grouped counts etc
   if(inherits(.query$url, "data.frame")){
-    verbose <- potions::pour("package", "verbose", .pkg = "galah") &
-               nrow(.query$url) > 1
-    if(verbose){
-      progress_bar <- list(name = "Querying API",
-                           clear = TRUE)
-    }else{
-      progress_bar <- FALSE
-    }
     purrr::map(.x = seq_len(nrow(.query$url)), 
         .f = function(a){
           data_tr <- .query
@@ -25,9 +21,39 @@ query_API <- function(.query, error_call = caller_env()) {
           }
           query_API_internal(data_tr)
         },
-        .progress = progress_bar)
+        .progress = set_progress_bar_behaviour(nrow(.query$url) > 1))
+  # next handle multiple `body` arguments
+  # this is currently limited to GBIF count requests with > 1 `group_by` args
+  }else if(inherits(.query$body, "data.frame")){ 
+    purrr::map(.x = split(.query$body, 
+                          seq_len(nrow(.query$body))),
+               .f = function(a){
+                 data_tr <- .query
+                 data_tr$body <- a$predicate[[1]]
+                 a$result <- list(query_API_internal(data_tr))
+                 a
+               },
+               .progress = set_progress_bar_behaviour(length(.query$body) > 1)) |>
+      dplyr::bind_rows()
+  # finally, some queries are 'simple'; one `url`, one or no `body` args
+  # these we just run without any looping.
   }else{
     query_API_internal(.query)
+  }
+}
+
+#' Internal function to run an API call using httr2
+#' @param criteria length-1 logical statement as to whether to proceed or not
+#' @noRd
+#' @keywords Internal
+set_progress_bar_behaviour <- function(criteria){
+  verbose <- potions::pour("package", "verbose", .pkg = "galah") &
+    criteria
+  if(verbose){
+    progress_bar <- list(name = "Querying API",
+                         clear = TRUE)
+  }else{
+    progress_bar <- FALSE
   }
 }
 

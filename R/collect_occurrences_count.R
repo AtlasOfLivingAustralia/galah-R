@@ -17,23 +17,52 @@ collect_occurrences_count_gbif <- function(.query,
   # get response from GBIF
   result <- query_API(.query)
   
+  # first handle case when there are multiple queries in a tibble
+  if(inherits(result, "data.frame")){
+    split(result, seq_len(nrow(result))) |>
+      purrr::map(.f = \(a){
+        tibble::tibble(
+          dplyr::select(a, -"predicate", -"result"),
+          collect_occurrences_count_gbif_single(a$result[[1]], 
+                                                error_on_null = FALSE))
+      }) |>
+      dplyr::bind_rows()
+  # then handle 'simple' queries
+  }else{
+    collect_occurrences_count_gbif_single(result,
+                                          error_on_null = TRUE)
+  }
+}
+
+#' collect a single count query
+#' @noRd
+#' @keywords Internal
+collect_occurrences_count_gbif_single <- function(result,
+                                                  error_on_null = TRUE,
+                                                  error_call = rlang::caller_env()){
   # handle obvious errors
-  if(is.null(result$count)){
-    cli::cli_abort("API returned a NULL result", call = error_call)
+  if(is.null(result$count) & error_on_null){
+    cli::cli_abort("API returned a NULL result", 
+                   call = error_call)
   }
   
   # parse results
   if(length(result$facets) < 1){ # first handle single values
     tibble::tibble(count = result$count)
   }else{
-    # note: this only works for length(facets) == 1
-    result_df <- result |>
-      purrr::pluck(!!!list("facets", 1, "counts")) |>
-      dplyr::bind_rows()
-    names(result_df)[1] <- result |>
-      purrr::pluck(!!!list("facets", 1, "field")) |>
-      tolower()
-    result_df
+    purrr::map(
+      purrr::pluck(result, "facets"),
+      \(a){
+        df <- a |>
+          purrr::pluck("counts") |>
+          dplyr::bind_rows()
+        names(df)[1] <- purrr::pluck(a, "field") |>
+          snake_to_camel_case()
+        df
+      }) |>
+      dplyr::bind_rows() |>
+      dplyr::relocate("count", 
+                      .after = dplyr::last_col())
   }
 }
   
