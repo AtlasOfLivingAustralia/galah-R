@@ -28,7 +28,18 @@ An object of class \code{computed_query}, which is identical to class
 status of the request.
 }
 \description{
-\code{compute()} is useful for several purposes. It's original
-purpose is to send a request for data, which can then be processed by the
-server and retrieved at a later time (via \code{collect()}).
+This function sends a request for information to a server. This is only
+useful for processes that run a server-side process, as it separates the
+submission of the request from its' retrieval. Within galah, this is used
+exclusively for generating occurrence queries, where calling
+\code{\link[=compute.data_request]{compute()}} and then passing
+the resulting \code{query} object to \code{\link[=collect.data_request]{collect()}}
+at a later time can be preferable to calling \code{\link[=atlas_occurrences]{atlas_occurrences()}}, which
+prevents execution of new code until the server-side process is complete.
+}
+\seealso{
+To open a piped query, see \code{\link[=galah_call]{galah_call()}}. For alternative
+operations on \verb{_request} objects, see \code{\link[=as_query]{as_query()}}, \code{\link[=coalesce]{coalesce()}},
+\code{\link[=collapse.data_request]{collapse()}},
+\code{\link[=collect.data_request]{collect()}}.
 }

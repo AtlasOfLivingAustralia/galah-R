@@ -26,28 +26,51 @@ as those produced by \code{\link[=galah_call]{galah_call()}}, namely \code{data_
 to \code{FALSE}, indicating full-size images are required.}
 }
 \value{
-An object of class \code{query}, which is a list-like object containing at
-least the slots \code{type} and \code{url}.
+An object of class \code{query}, which is a list-like object containing
+two or more of the following slots:
+\itemize{
+\item \code{type}: The type of query, serves as a lookup to the corresponding field in \code{show_all(apis)}
+\item \code{url}: Either:
+\itemize{
+\item a length-1 character giving the API to be queried; or
+\item a \code{tibble()} containing at least the field \code{url} and optionally others
+}
+\item \code{headers}: headers to be sent with the API call
+\item \code{body}: body section of the API call
+\item \code{options}: options section of the API call
+\item Any other information retained from the preceeding \verb{_request} object (see \code{\link[=galah_call]{galah_call()}})
+}
 }
 \description{
-Functionally similar to \code{\link[=collapse]{collapse()}}, but without passing through
-\code{\link[=coalesce]{coalesce()}} first. Primarily an internal function, but exported for
-clarity and debugging purposes.
+Functionally similar to \code{\link[=collapse.data_request]{collapse()}}, but
+without passing through \code{\link[=coalesce]{coalesce()}} first. Primarily an internal function,
+but exported for clarity and debugging purposes.
 }
 \details{
-Typically, queries in galah are piped using \code{galah_call()}, which builds
-an object of class \code{"data_request"}, \code{"metadata_request"} or \code{"files_request"}.
-This parses to an object of class \code{"query"} via \code{\link[=collapse]{collapse()}}. However,
-\code{\link[=collapse]{collapse()}} first calls \code{\link[=coalesce]{coalesce()}}, which expands to a \code{query_set}
-\emph{before} evaluating \code{\link[=collapse]{collapse()}}. In this context, \code{as_query()} serves two
-functions: externally, it can be called to convert directly to a \code{query}
-without running checks; and internally it allows a query to be appended
-to a \code{query_set} without calling \code{\link[=collapse]{collapse()}}, which would begin an
-infinite loop (because \code{collapse()} calls \code{coalesce()}).
+Typically, queries in galah are piped using \code{\link[=galah_call]{galah_call()}}, which builds
+an object of class \code{"data_request"}, \code{"metadata_request"} or
+\code{"files_request"}. All these objects can be converted to class \code{"query"}
+using \code{\link[=collapse.data_request]{collapse()}}. However,
+\code{\link[=collapse.data_request]{collapse()}} first calls
+\code{\link[=coalesce.data_request]{coalesce()}}, which expands to an
+object of class \code{"query_set"} \emph{before} evaluating
+\code{\link[=collapse.data_request]{collapse()}}. In this context,
+\code{\link[=as_query]{as_query()}} serves two purposes: externally, it can be called to convert
+directly to class \code{"query"} without running checks; and internally it allows
+a query to be appended to a \code{"query_set"} without calling causing an
+infinite loop.
 
 For simple cases, this gives the same result as running
-\code{\link[=collapse]{collapse()}} while the \code{run_checks} argument of \code{\link[=galah_config]{galah_config()}} is set to
-\code{FALSE}, but is slightly faster. For complex cases, however, it is likely
-to generate irresolvable API calls, because e.g. taxonomic queries are not
-parsed before the URL is built. It should therefore be used with care.
+\code{\link[=collapse.data_request]{collapse()}} while the \code{run_checks}
+argument of \code{\link[=galah_config]{galah_config()}} is set to \code{FALSE}, but is slightly faster. For
+complex cases, however, it is likely to generate irresolvable API calls,
+because e.g. taxonomic queries are not parsed before the URL is built. It
+should therefore be used with care.
+}
+\seealso{
+To open a piped query, see \code{\link[=galah_call]{galah_call()}}. For alternative
+operations on \verb{_request} objects, see \code{\link[=coalesce]{coalesce()}},
+\code{\link[=collapse.data_request]{collapse()}},
+\code{\link[=compute.data_request]{compute()}} or
+\code{\link[=collect.data_request]{collect()}}.
 }

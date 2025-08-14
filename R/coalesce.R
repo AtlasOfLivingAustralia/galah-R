@@ -1,17 +1,27 @@
 #' Force evaluation of a database query
 #' 
-#' `coalesce` is an S3 generic function intended to be called before 
+#' [coalesce()] is an S3 generic function intended to be called before 
 #' [collapse()]. It is important as it shows the full set of queries 
 #' required to properly evaluate the user's request. This is often broader 
-#' than the single query returned by [collapse()]. It returns a `query_set`
-#' object
+#' than the single query returned by [collapse()]. If, for example,
+#' the user's query includes a call to 
+#' \code{\link[=identify.data_request]{identify()}}, then a taxonomic query
+#' is required to run _before_ the 'final' query is attempted. In relation to
+#' other functions that manipulate `_request` objects, [coalesce()] is called
+#' within \code{\link[=collapse.data_request]{collapse()}}, and itself 
+#' calls [as_query()] internally.
 #' @rdname coalesce
 #' @param x An object to be coalesced. Works for `data_request`, 
 #' `metadata_request` and `file_request`.
-#' @param ... Other arguments
+#' @param ... Other arguments; not currently used.
 #' @order 1
-#' @return An object of class `query_set`, which is a list of all `query` 
+#' @return An object of class `query_set`, which is simply a list of all `query` 
 #' objects required to properly evaluate the specified request.
+#' @seealso To open a piped query, see [galah_call()]. For alternative 
+#' operations on `_request` objects, see [as_query()], 
+#' \code{\link[=collapse.data_request]{collapse()}}, 
+#' \code{\link[=compute.data_request]{compute()}} or 
+#' \code{\link[=collect.data_request]{collect()}}.
 #' @export
 coalesce <- function(x, ...){
   UseMethod("coalesce")
@@ -49,7 +59,7 @@ coalesce.metadata_request <- function(x, ...){
         result[[(length(result) + 1)]] <- as_query_taxa(x) # best syntax for this??
       }
       if(is.null(x$identify) & is.null(x$filter)){
-        abort("Requests of type `taxa-unnest` must also supply one of `filter()` or `identify()`.")
+        cli::cli_abort("Requests of type `taxa-unnest` must also supply one of `filter()` or `identify()`.")
       }
     }else if(is.null(x$filter)){
       current_type <- x$type

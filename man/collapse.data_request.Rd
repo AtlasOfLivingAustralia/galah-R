@@ -33,16 +33,32 @@ applies to \code{type = "occurrences"} when atlas chosen is "ALA".}
 to \code{FALSE}, indicating full-size images are required.}
 }
 \value{
-An object of class \code{query}, which is a list-like object containing at
-least the slots \code{type} and \code{url}.
+An object of class \code{query}, which is a list-like object containing
+two or more of the following slots:
+\itemize{
+\item \code{type}: The type of query, serves as a lookup to the corresponding field in \code{show_all(apis)}
+\item \code{url}: Either:
+\itemize{
+\item a length-1 character giving the API to be queried; or
+\item a \code{tibble} containing at least the field \code{url} and optionally others
+}
+\item \code{headers}: headers to be sent with the API call
+\item \code{body}: body section of the API call
+\item \code{options}: options section of the API call
+\item Any other information retained from the preceeding \verb{_request} object (see \code{\link[=galah_call]{galah_call()}})
+}
 }
 \description{
-\code{collapse()} constructs a valid query so it can be
-inspected before being sent. It typically occurs at the end of a pipe,
-traditionally begun with \code{galah_call()}, that is used to define a query.
-As of version 2.0, objects of class \code{data_request} (created using
-\code{request_data()}), \code{metadata_request} (from \code{request_metadata()}) or
-\code{files_request} (from \code{request_files()}) are all supported by \code{collapse()}.
-Any of these objects can be created using \code{galah_call()} via the \code{method}
-argument.
+This function constructs a query so it can be inspected before being sent. It
+is typically called at the end of a pipe begun with \code{\link[=galah_call]{galah_call()}}. Objects
+of class \code{data_request} (created using \code{\link[=request_data]{request_data()}}), \code{metadata_request}
+(from \code{\link[=request_metadata]{request_metadata()}}) or \code{files_request} (from \code{\link[=request_files]{request_files()}}) are
+all supported. Any of these objects can be created using \code{\link[=galah_call]{galah_call()}} via
+the \code{method} argument.
+}
+\seealso{
+To open a piped query, see \code{\link[=galah_call]{galah_call()}}. For alternative
+operations on \verb{_request} objects, see \code{\link[=as_query]{as_query()}}, \code{\link[=coalesce]{coalesce()}},
+\code{\link[=compute.data_request]{compute()}} or
+\code{\link[=collect.data_request]{collect()}}.
 }

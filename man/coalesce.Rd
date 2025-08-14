@@ -19,7 +19,7 @@ coalesce(x, ...)
 \item{x}{An object to be coalesced. Works for \code{data_request},
 \code{metadata_request} and \code{file_request}.}
 
-\item{...}{Other arguments}
+\item{...}{Other arguments; not currently used.}
 
 \item{mint_doi}{Logical: should a DOI be minted for this download? Only
 applies to \code{type = "occurrences"} when atlas chosen is "ALA".}
@@ -28,13 +28,25 @@ applies to \code{type = "occurrences"} when atlas chosen is "ALA".}
 to \code{FALSE}, indicating full-size images are required.}
 }
 \value{
-An object of class \code{query_set}, which is a list of all \code{query}
+An object of class \code{query_set}, which is simply a list of all \code{query}
 objects required to properly evaluate the specified request.
 }
 \description{
-\code{coalesce} is an S3 generic function intended to be called before
+\code{\link[=coalesce]{coalesce()}} is an S3 generic function intended to be called before
 \code{\link[=collapse]{collapse()}}. It is important as it shows the full set of queries
 required to properly evaluate the user's request. This is often broader
-than the single query returned by \code{\link[=collapse]{collapse()}}. It returns a \code{query_set}
-object
+than the single query returned by \code{\link[=collapse]{collapse()}}. If, for example,
+the user's query includes a call to
+\code{\link[=identify.data_request]{identify()}}, then a taxonomic query
+is required to run \emph{before} the 'final' query is attempted. In relation to
+other functions that manipulate \verb{_request} objects, \code{\link[=coalesce]{coalesce()}} is called
+within \code{\link[=collapse.data_request]{collapse()}}, and itself
+calls \code{\link[=as_query]{as_query()}} internally.
+}
+\seealso{
+To open a piped query, see \code{\link[=galah_call]{galah_call()}}. For alternative
+operations on \verb{_request} objects, see \code{\link[=as_query]{as_query()}},
+\code{\link[=collapse.data_request]{collapse()}},
+\code{\link[=compute.data_request]{compute()}} or
+\code{\link[=collect.data_request]{collect()}}.
 }

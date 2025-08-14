@@ -1,7 +1,13 @@
-#' @title Compute a query
-#' @description `compute()` is useful for several purposes. It's original 
-#' purpose is to send a request for data, which can then be processed by the 
-#' server and retrieved at a later time (via `collect()`).
+#' Compute a query
+#' 
+#' This function sends a request for information to a server. This is only 
+#' useful for processes that run a server-side process, as it separates the 
+#' submission of the request from its' retrieval. Within galah, this is used
+#' exclusively for generating occurrence queries, where calling 
+#' \code{\link[=compute.data_request]{compute()}} and then passing 
+#' the resulting `query` object to \code{\link[=collect.data_request]{collect()}}
+#' at a later time can be preferable to calling [atlas_occurrences()], which 
+#' prevents execution of new code until the server-side process is complete.
 #' @name compute.data_request
 #' @order 1
 #' @param x An object of class `data_request`, `metadata_request` or 
@@ -11,6 +17,10 @@
 #' @return An object of class `computed_query`, which is identical to class
 #' `query` except for occurrence data, where it also contains information on the 
 #' status of the request.
+#' @seealso To open a piped query, see [galah_call()]. For alternative 
+#' operations on `_request` objects, see [as_query()], [coalesce()], 
+#' \code{\link[=collapse.data_request]{collapse()}}, 
+#' \code{\link[=collect.data_request]{collect()}}.
 #' @export
 compute.data_request <- function(x, ...){
   # x$type <- check_type(x$type) # possibly still needed; unclear

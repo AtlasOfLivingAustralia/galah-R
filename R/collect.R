@@ -1,7 +1,7 @@
-#' @title Retrieve a database query
+#' Retrieve a database query
 #'
-#' @description `collect()` attempts to retrieve the result of a query from the 
-#' selected API. 
+#' This function retrieves the specified query from the server. It is the 
+#' default way to end a piped query begun with [galah_call()].
 #' @name collect.data_request
 #' @order 1
 #' @param x An object of class `data_request`, `metadata_request` or 
@@ -17,6 +17,10 @@
 #' data. Where the requested data are not yet ready (i.e. for occurrences when
 #' `wait` is set to `FALSE`), this function returns an object of class `query`
 #' that can be used to recheck the download at a later time.
+#' @seealso To open a piped query, see [galah_call()]. For alternative 
+#' operations on `_request` objects, see [as_query()], [coalesce()], 
+#' \code{\link[=collapse.data_request]{collapse()}} or 
+#' \code{\link[=compute.data_request]{compute()}}.
 #' @export
 collect.data_request <- function(x, ..., wait = TRUE, file = NULL){
   collapse(x, ...) |>

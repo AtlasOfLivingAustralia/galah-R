@@ -39,6 +39,12 @@ data. Where the requested data are not yet ready (i.e. for occurrences when
 that can be used to recheck the download at a later time.
 }
 \description{
-\code{collect()} attempts to retrieve the result of a query from the
-selected API.
+This function retrieves the specified query from the server. It is the
+default way to end a piped query begun with \code{\link[=galah_call]{galah_call()}}.
+}
+\seealso{
+To open a piped query, see \code{\link[=galah_call]{galah_call()}}. For alternative
+operations on \verb{_request} objects, see \code{\link[=as_query]{as_query()}}, \code{\link[=coalesce]{coalesce()}},
+\code{\link[=collapse.data_request]{collapse()}} or
+\code{\link[=compute.data_request]{compute()}}.
 }

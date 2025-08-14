@@ -3,23 +3,20 @@
 #' @description
 #' To download data from the selected atlas, one must construct a query. This 
 #' query tells the atlas API what data to download and return, as well as how it 
-#' should be filtered. Using `galah_call()` allows you to build a piped query to 
+#' should be filtered. Using [galah_call()] allows you to build a piped query to 
 #' download data, in the same way that you would wrangle data with `dplyr` and 
 #' the `tidyverse`.
 #' @param method string: what `request` function should be called. Should be one
 #' of `"data"` (default), `"metadata"` or `"files"`
 #' @param type string: what form of data should be returned? Acceptable values
 #' are specified by the corresponding `request` function
-#' @param ... Zero or more arguments passed to  
-#' \code{\link[=collapse.data_request]{collapse()}} to alter a query. Currently
-#' only `mint.doi` (for occurrences) and `thumbnail` (for media downloads) are 
-#' supported. Both are logical.
 #' @details
-#' In practice, `galah_call()` is a wrapper to a group of underlying 
+#' In practice, [galah_call()] is a wrapper to a group of underlying 
 #' `request_` functions, selected using the `method` argument. 
-#' Each of these functions can begin a piped query and end with `collapse()`, 
-#' `compute()` or `collect()`, or optionally one of the `atlas_` family of
-#' functions. For more details see the object-oriented programming vignette:  
+#' Each of these functions can begin a piped query, which is then actioned using
+#' \code{\link[=collect.data_request]{collect()}}, or optionally one of the 
+#' \code{\link[=atlas_occurrences]{atlas_}} family of functions. For more 
+#' details see the object-oriented programming vignette:  
 #' \code{vignette("object_oriented_programming", package = "galah")}
 #' 
 #' Accepted values of the `type` argument are set by the underlying `request_`
@@ -31,12 +28,18 @@
 #' 
 #' The underlying `request_` functions are useful because they allow `galah` 
 #' to separate different types of requests to perform better. For example, 
-#' `filter.data_request` translates filters in R to `solr`, whereas 
-#' `filter.metadata_request` searches using a search term.
-#' @return Each sub-function returns a different object class: `request_data()` 
-#' returns `data_request`. `request_metadata` returns `metadata_request`,
-#' `request_files()` returns `files_request`. These objects are list-like and
-#' contain the following slots:
+#' \code{\link[=filter.data_request]{filter.data_request()}} translates filters 
+#' to `solr` syntax for the living atlases, or to predicates for GBIF, whereas 
+#' \code{\link[=filter.metadata_request]{filter.metadata_request()}} adds a 
+#' search term to your query.
+#' @return Each sub-function returns a different object class: 
+#' 
+#' - [request_data()]  returns class `"data_request"`
+#' - [request_metadata()] returns class `"metadata_request"`
+#' - [request_files()] returns class `"files_request"` 
+#' 
+#' 
+#' These objects are list-like and contain the following slots:
 #' 
 #'  - `filter`: edit by piping \code{\link[=filter.data_request]{filter()}} or [galah_filter()].
 #'  - `select`: edit by piping \code{\link[=filter.data_request]{select}} or [galah_select()].
@@ -47,7 +50,12 @@
 #'  - `limit`: edit by piping \code{\link[=slice_head.data_request]{slice_head()}}.
 #'  - `doi`: edit by piping \code{\link[=filter.data_request]{filter(doi == "my-doi-here")}}.
 #'  
-#' @seealso [collapse.data_request()], [compute.data_request()], [collect.data_request()]
+#' @seealso For operations on `_request` objects, see 
+#' \code{\link[=as_query.data_request]{as_query()}}, 
+#' [coalesce()], 
+#' \code{\link[=collapse.data_request]{collapse()}}, 
+#' \code{\link[=compute.data_request]{compute()}} or 
+#' \code{\link[=collect.data_request]{collect()}}.
 #' @rdname galah_call
 #' @examples \dontrun{ 
 #' # Begin your query with `galah_call()`, then pipe using `%>%` or `|>`
@@ -98,8 +106,7 @@
 galah_call <- function(method = c("data", 
                                   "metadata", 
                                   "files"),
-                       type,
-                       ...){
+                       type){
   method <- match.arg(method)
   if(missing(type)){
     type <- switch(method,
@@ -108,7 +115,7 @@ galah_call <- function(method = c("data",
                    "files" = "media")
   }
   switch(method, 
-         "data" = request_data(type = type, ...),
+         "data" = request_data(type = type),
          "metadata" = request_metadata(type = type),
          "files" = request_files(type = type))
 }
@@ -121,8 +128,7 @@ request_data <- function(type = c("occurrences",
                                   # "distributions",
                                   "species",
                                   "species-count"
-                                  ),
-                         ...){
+                                  )){
   if(!missing(type)){
     type <- match.arg(type)
   }else{
@@ -145,12 +151,7 @@ request_data <- function(type = c("occurrences",
   # set default for limit?
   # default_call$limit <- 100 ?
   class(default_call) <- "data_request"
-  # update
-  if(length(list(...)) > 0){
-    update_data_request(default_call, ...)
-  }else{
-    default_call
-  }
+  default_call
 }
 
 #' @rdname galah_call
@@ -176,12 +177,11 @@ request_metadata <- function(type = c("fields",
   type_checked <- try(match.arg(type),
                       silent = TRUE)
   if(inherits(type_checked, "try-error")){
-    bullets <- c(
-      glue("Unrecognised metadata requested."),
+    c(
+      "Unrecognised metadata requested.",
       i = "See `?show_all()` for a list of valid metadata types.",
-      x = glue("Can't find metadata type `{type}`.")
-    )
-    abort(bullets)   
+      x = "Can't find metadata type `{type}`.") |>
+    cli::cli_abort()   
   }
   x <- list(type = type_checked)
   class(x) <- "metadata_request"

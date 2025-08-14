@@ -1,12 +1,11 @@
-#' @title Generate a query
-#' @description `collapse()` constructs a valid query so it can be 
-#' inspected before being sent. It typically occurs at the end of a pipe,
-#' traditionally begun with `galah_call()`, that is used to define a query.
-#' As of version 2.0, objects of class `data_request` (created using 
-#' `request_data()`), `metadata_request` (from `request_metadata()`) or 
-#' `files_request` (from `request_files()`) are all supported by `collapse()`. 
-#' Any of these objects can be created using `galah_call()` via the `method`
-#' argument.
+#' Generate a query
+#' 
+#' This function constructs a query so it can be inspected before being sent. It 
+#' is typically called at the end of a pipe begun with [galah_call()]. Objects 
+#' of class `data_request` (created using [request_data()]), `metadata_request` 
+#' (from [request_metadata()]) or `files_request` (from [request_files()]) are 
+#' all supported. Any of these objects can be created using [galah_call()] via 
+#' the `method` argument.
 #' @name collapse.data_request
 #' @order 1
 #' @param x An object to run `collapse()` on. Classes supported by `galah` 
@@ -16,8 +15,22 @@
 #' @param ... Arguments passed on to other methods
 #' @param mint_doi Logical: should a DOI be minted for this download? Only 
 #' applies to `type = "occurrences"` when atlas chosen is "ALA".
-#' @return An object of class `query`, which is a list-like object containing at 
-#' least the slots `type` and `url`.
+#' @return An object of class `query`, which is a list-like object containing 
+#' two or more of the following slots:
+#' 
+#'  - `type`: The type of query, serves as a lookup to the corresponding field in `show_all(apis)`
+#'  - `url`: Either:
+#'    - a length-1 character giving the API to be queried; or 
+#'    - a `tibble` containing at least the field `url` and optionally others
+#'  - `headers`: headers to be sent with the API call
+#'  - `body`: body section of the API call
+#'  - `options`: options section of the API call
+#'  - Any other information retained from the preceeding `_request` object (see [galah_call()])
+#'  
+#' @seealso To open a piped query, see [galah_call()]. For alternative 
+#' operations on `_request` objects, see [as_query()], [coalesce()], 
+#' \code{\link[=compute.data_request]{compute()}} or 
+#' \code{\link[=collect.data_request]{collect()}}.
 #' @export
 collapse.data_request <- function(x, ..., mint_doi){
   coalesce(x, mint_doi, ...) |>

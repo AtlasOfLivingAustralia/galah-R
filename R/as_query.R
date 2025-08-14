@@ -1,32 +1,51 @@
 #' Convert an object to class `query`
 #'
-#' Functionally similar to [collapse()], but without passing through 
-#' [coalesce()] first. Primarily an internal function, but exported for 
-#' clarity and debugging purposes.
+#' Functionally similar to \code{\link[=collapse.data_request]{collapse()}}, but 
+#' without passing through [coalesce()] first. Primarily an internal function, 
+#' but exported for clarity and debugging purposes.
 #' @details
-#' Typically, queries in galah are piped using `galah_call()`, which builds
-#' an object of class `"data_request"`, `"metadata_request"` or `"files_request"`. 
-#' This parses to an object of class `"query"` via [collapse()]. However,
-#' [collapse()] first calls [coalesce()], which expands to a `query_set` 
-#' _before_ evaluating [collapse()]. In this context, `as_query()` serves two
-#' functions: externally, it can be called to convert directly to a `query` 
-#' without running checks; and internally it allows a query to be appended 
-#' to a `query_set` without calling [collapse()], which would begin an 
-#' infinite loop (because `collapse()` calls `coalesce()`).
+#' Typically, queries in galah are piped using [galah_call()], which builds
+#' an object of class `"data_request"`, `"metadata_request"` or 
+#' `"files_request"`. All these objects can be converted to class `"query"` 
+#' using \code{\link[=collapse.data_request]{collapse()}}. However,
+#' \code{\link[=collapse.data_request]{collapse()}} first calls
+#' \code{\link[=coalesce.data_request]{coalesce()}}, which expands to an
+#' object of class `"query_set"` _before_ evaluating 
+#' \code{\link[=collapse.data_request]{collapse()}}. In this context, 
+#' [as_query()] serves two purposes: externally, it can be called to convert 
+#' directly to class `"query"` without running checks; and internally it allows 
+#' a query to be appended to a `"query_set"` without calling causing an 
+#' infinite loop.
 #' 
 #' For simple cases, this gives the same result as running 
-#' [collapse()] while the `run_checks` argument of [galah_config()] is set to 
-#' `FALSE`, but is slightly faster. For complex cases, however, it is likely
-#' to generate irresolvable API calls, because e.g. taxonomic queries are not
-#' parsed before the URL is built. It should therefore be used with care.
+#' \code{\link[=collapse.data_request]{collapse()}} while the `run_checks` 
+#' argument of [galah_config()] is set to `FALSE`, but is slightly faster. For 
+#' complex cases, however, it is likely to generate irresolvable API calls, 
+#' because e.g. taxonomic queries are not parsed before the URL is built. It 
+#' should therefore be used with care.
 #' @name as_query.data_request
 #' @param x An object to convert to a `query`. Supported classes are the same
 #' as those produced by [galah_call()], namely `data_request`, 
 #' `metadata_request` or `files_request`.
 #' @param ... Other arguments, currently ignored
 #' @order 1
-#' @return An object of class `query`, which is a list-like object containing at 
-#' least the slots `type` and `url`.
+#' @return An object of class `query`, which is a list-like object containing 
+#' two or more of the following slots:
+#' 
+#'  - `type`: The type of query, serves as a lookup to the corresponding field in `show_all(apis)`
+#'  - `url`: Either:
+#'    - a length-1 character giving the API to be queried; or 
+#'    - a `tibble()` containing at least the field `url` and optionally others
+#'  - `headers`: headers to be sent with the API call
+#'  - `body`: body section of the API call
+#'  - `options`: options section of the API call
+#'  - Any other information retained from the preceeding `_request` object (see [galah_call()])
+#'
+#' @seealso To open a piped query, see [galah_call()]. For alternative 
+#' operations on `_request` objects, see [coalesce()], 
+#' \code{\link[=collapse.data_request]{collapse()}}, 
+#' \code{\link[=compute.data_request]{compute()}} or 
+#' \code{\link[=collect.data_request]{collect()}}.
 #' @export
 as_query <- function(x, ...){
   UseMethod("as_query")

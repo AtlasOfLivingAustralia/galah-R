@@ -7,12 +7,11 @@
 \alias{request_files}
 \title{Start building a query}
 \usage{
-galah_call(method = c("data", "metadata", "files"), type, ...)
+galah_call(method = c("data", "metadata", "files"), type)
 
 request_data(
   type = c("occurrences", "occurrences-count", "occurrences-doi", "species",
-    "species-count"),
-  ...
+    "species-count")
 )
 
 request_metadata(
@@ -29,17 +28,16 @@ of \code{"data"} (default), \code{"metadata"} or \code{"files"}}
 
 \item{type}{string: what form of data should be returned? Acceptable values
 are specified by the corresponding \code{request} function}
-
-\item{...}{Zero or more arguments passed to
-\code{\link[=collapse.data_request]{collapse()}} to alter a query. Currently
-only \code{mint.doi} (for occurrences) and \code{thumbnail} (for media downloads) are
-supported. Both are logical.}
 }
 \value{
-Each sub-function returns a different object class: \code{request_data()}
-returns \code{data_request}. \code{request_metadata} returns \code{metadata_request},
-\code{request_files()} returns \code{files_request}. These objects are list-like and
-contain the following slots:
+Each sub-function returns a different object class:
+\itemize{
+\item \code{\link[=request_data]{request_data()}}  returns class \code{"data_request"}
+\item \code{\link[=request_metadata]{request_metadata()}} returns class \code{"metadata_request"}
+\item \code{\link[=request_files]{request_files()}} returns class \code{"files_request"}
+}
+
+These objects are list-like and contain the following slots:
 \itemize{
 \item \code{filter}: edit by piping \code{\link[=filter.data_request]{filter()}} or \code{\link[=galah_filter]{galah_filter()}}.
 \item \code{select}: edit by piping \code{\link[=filter.data_request]{select}} or \code{\link[=galah_select]{galah_select()}}.
@@ -54,16 +52,17 @@ contain the following slots:
 \description{
 To download data from the selected atlas, one must construct a query. This
 query tells the atlas API what data to download and return, as well as how it
-should be filtered. Using \code{galah_call()} allows you to build a piped query to
+should be filtered. Using \code{\link[=galah_call]{galah_call()}} allows you to build a piped query to
 download data, in the same way that you would wrangle data with \code{dplyr} and
 the \code{tidyverse}.
 }
 \details{
-In practice, \code{galah_call()} is a wrapper to a group of underlying
+In practice, \code{\link[=galah_call]{galah_call()}} is a wrapper to a group of underlying
 \code{request_} functions, selected using the \code{method} argument.
-Each of these functions can begin a piped query and end with \code{collapse()},
-\code{compute()} or \code{collect()}, or optionally one of the \code{atlas_} family of
-functions. For more details see the object-oriented programming vignette:
+Each of these functions can begin a piped query, which is then actioned using
+\code{\link[=collect.data_request]{collect()}}, or optionally one of the
+\code{\link[=atlas_occurrences]{atlas_}} family of functions. For more
+details see the object-oriented programming vignette:
 \code{vignette("object_oriented_programming", package = "galah")}
 
 Accepted values of the \code{type} argument are set by the underlying \code{request_}
@@ -75,8 +74,10 @@ for \code{type = "species"}).
 
 The underlying \code{request_} functions are useful because they allow \code{galah}
 to separate different types of requests to perform better. For example,
-\code{filter.data_request} translates filters in R to \code{solr}, whereas
-\code{filter.metadata_request} searches using a search term.
+\code{\link[=filter.data_request]{filter.data_request()}} translates filters
+to \code{solr} syntax for the living atlases, or to predicates for GBIF, whereas
+\code{\link[=filter.metadata_request]{filter.metadata_request()}} adds a
+search term to your query.
 }
 \examples{
 \dontrun{ 
@@ -126,5 +127,10 @@ request_metadata(type = "atlases") |>
 }
 }
 \seealso{
-\code{\link[=collapse.data_request]{collapse.data_request()}}, \code{\link[=compute.data_request]{compute.data_request()}}, \code{\link[=collect.data_request]{collect.data_request()}}
+For operations on \verb{_request} objects, see
+\code{\link[=as_query.data_request]{as_query()}},
+\code{\link[=coalesce]{coalesce()}},
+\code{\link[=collapse.data_request]{collapse()}},
+\code{\link[=compute.data_request]{compute()}} or
+\code{\link[=collect.data_request]{collect()}}.
 }
