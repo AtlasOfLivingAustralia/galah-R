@@ -16,9 +16,10 @@ test_that("`atlas_media()` works", {
 
 test_that("collect_media suggests `galah_config(directory =)` when a temp folder is set as the directory", {
   skip_if_offline(); skip_on_ci()
-  atlas_query <- atlas_media(
-    identify = galah_identify("Regent Honeyeater"),
-    filter = galah_filter(year == 2012))
+  atlas_query <- galah_call() |>
+    identify("Anthochaera (Xanthomyza) phrygia") |> # Regent Honeyeater
+    filter(year == 2012) |>
+    atlas_media()
   media_dir <- "Temp"
   unlink(media_dir, recursive = TRUE)
   dir.create(media_dir)
@@ -143,8 +144,8 @@ test_that("collect_media handles different file formats", {
   galah_config(email = "ala4r@ala.org.au", 
                directory = media_dir)
   media_data <- galah_call() |>
-    galah_identify("Regent Honeyeater") |>
-    galah_filter(year == 2024) |>
+    identify("Regent Honeyeater") |>
+    filter(year == 2024) |>
     atlas_media() 
   # sample one of each multimedia type to shorten testing time
   media_data <- media_data |>
@@ -167,8 +168,8 @@ test_that("collect_media handles thumbnails", {
   galah_config(email = "ala4r@ala.org.au", 
                directory = media_dir)
   z <- galah_call() |> 
-    galah_identify("Candovia aberrata") |>
-    galah_filter(year == 2023) |>
+    identify("Candovia aberrata") |>
+    filter(year == 2023) |>
     atlas_media()
   # successfully downloads, messages number of failed downloads
   expect_message(collect_media(z, thumbnail = TRUE),

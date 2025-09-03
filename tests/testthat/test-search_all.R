@@ -29,7 +29,7 @@ test_that("search_all returns correct output for type", {
 
 test_that("search_all returns error when missing query", {
   skip_if_offline(); skip_on_ci()
-  expect_error(search_all(profiles), "We didn't detect a search query")
+  expect_error(search_all(profiles), "We didn't detect a search")
   expect_error(search_all(fields, blah))
 })
 
@@ -126,7 +126,7 @@ test_that("search_fields returns a filtered result", {
 
 test_that("search_fields helpful warning with blank argument", {
   skip_if_offline(); skip_on_ci()
-  expect_error(search_fields(), "We didn't detect a search query.")
+  expect_error(search_fields(), "We didn't detect a search")
 })
 
 test_that("search_licenses returns a filtered result", {

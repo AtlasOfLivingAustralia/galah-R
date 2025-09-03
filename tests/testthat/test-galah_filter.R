@@ -11,17 +11,17 @@ test_that("galah_filter gives an error for single equals sign", {
 test_that("galah_filter works with assertions", {
   skip_if_offline(); skip_on_ci()
   count_all <- atlas_counts() |>
-    pull(count)
+    dplyr::pull(count)
   count_invalid_spp <- galah_call() |>
     filter(assertions == "INVALID_SCIENTIFIC_NAME") |>
     count() |>
     collect() |>
-    pull(count)
+    dplyr::pull(count)
   count_valid_spp <- galah_call() |>
     filter(assertions != "INVALID_SCIENTIFIC_NAME") |>
     count() |>
     collect() |>
-    pull(count)
+    dplyr::pull(count)
   expect_lt(count_invalid_spp, count_all)
   expect_lt(count_valid_spp, count_all)
   expect_lt(count_invalid_spp, count_valid_spp)
@@ -33,17 +33,17 @@ test_that("galah_filter handles multiple assertions", {
   skip_if_offline(); skip_on_ci()
   # OR statements
   all_records <- atlas_counts() |>
-    pull(count)
+    dplyr::pull(count)
   either_valid <- galah_call() |>
     galah_filter(assertions != c("INVALID_SCIENTIFIC_NAME", "COORDINATE_INVALID")) |>
     count() |>
     collect() |>
-    pull(count)
+    dplyr::pull(count)
   either_invalid <- galah_call() |>
     filter(assertions == c("INVALID_SCIENTIFIC_NAME", "COORDINATE_INVALID")) |>
     count() |>
     collect() |>
-    pull(count)
+    dplyr::pull(count)
   expect_lt(either_valid, all_records)
   expect_lt(either_invalid, all_records)
   expect_lt(either_invalid, either_valid)
@@ -55,13 +55,13 @@ test_that("galah_filter handles multiple assertions", {
            assertions ==  "COORDINATE_INVALID") |>
     count() |>
     collect() |>
-    pull(count)
+    dplyr::pull(count)
   both_valid <- galah_call() |>
     filter(assertions != "INVALID_SCIENTIFIC_NAME",
            assertions !=  "COORDINATE_INVALID") |>
     count() |>
     collect() |>
-    pull(count)
+    dplyr::pull(count)
   expect_lt(both_valid, all_records)
   expect_lt(both_invalid, all_records)
   expect_lt(both_invalid, both_valid)

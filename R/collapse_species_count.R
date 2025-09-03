@@ -2,9 +2,7 @@
 #' @noRd
 #' @keywords Internal
 collapse_species_count <- function(.query){
-  browser()
-  # `expand` argument has been removed from query objects; need to refactor this
-  if(.query$expand){
+  if(!is.null(.query$arrange)){
     .query <- collapse_species_query_list(.query)
   }else{
     .query$url <- tibble::tibble(url = .query$url)

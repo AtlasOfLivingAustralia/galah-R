@@ -7,7 +7,8 @@ check_atlas_inputs <- function(args){
     check_data_request(args$request)
     update_data_request(args$request, args[-1])
   }else{
-    do.call(galah_call, args)
+    galah_call() |>
+      update_data_request(args[-1])
   }
 }
 
@@ -15,7 +16,7 @@ check_atlas_inputs <- function(args){
 #' @noRd
 #' @keywords Internal
 check_data_request <- function(request, 
-                               error_call = caller_env()){
+                               error_call = rlang::caller_env()){
   if(!inherits(request, "data_request")){
     cli::cli_abort(c(
       "Argument `.query` requires an object of type `data_request`.",

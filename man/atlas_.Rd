@@ -90,8 +90,7 @@ take a while.}
 \item{type}{\code{string}: one of \code{"occurrences"} or \code{"species"}.
 Defaults to \code{"occurrences"}, which returns the number of records
 that match the selected criteria; alternatively returns the number of
-species. Formerly accepted arguments (\code{"records"} or \code{"species"}) are
-deprecated but remain functional.}
+species.}
 
 \item{constrain_ids}{\code{string}: Optional string to limit which \code{taxon_concept_id}'s
 are returned. This is useful for restricting taxonomy to particular

@@ -30,9 +30,10 @@ collect_media_metadata <- function(.query){
 #' @keywords Internal
 collect_media_files <- function(.query){
   result <- query_API(.query)
-  result_summary <- tibble::tibble(
-    status_code = purrr::map(result,\(a){a$status_code})) |>
-    unlist() |>
+  status_values <- purrr::map(result,
+                              \(a){a$status_code}) |>
+    unlist()
+  result_summary <- tibble::tibble(status_code = status_values) |>
     dplyr::group_by(.data$status_code) |>
     dplyr::count()
   

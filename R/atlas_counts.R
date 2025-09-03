@@ -7,8 +7,7 @@
 #' @param type `string`: one of `"occurrences"` or `"species"`. 
 #' Defaults to `"occurrences"`, which returns the number of records
 #' that match the selected criteria; alternatively returns the number of 
-#' species. Formerly accepted arguments (`"records"` or `"species"`) are
-#' deprecated but remain functional.
+#' species.
 #' @export
 atlas_counts <- function(request = NULL, 
                          identify = NULL, 
@@ -22,11 +21,8 @@ atlas_counts <- function(request = NULL,
   # capture supplied arguments
   args <- as.list(environment())
   args$type <- match.arg(type)
-  dr <- check_atlas_inputs(args) # convert to `data_request` object
-  # check for outdated naming conventions
-  if(dr$type == "record"){dr$type <- "occurrences"}
-  # pass to collect etc
-  dr |> 
+  # convert to `data_request` object, collect
+  check_atlas_inputs(args) |>
     count() |>
     slice_head(n = limit) |>
     collect()

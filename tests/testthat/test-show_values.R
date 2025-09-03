@@ -49,7 +49,7 @@ test_that("show_values accepts search & show_all inputs from lists", {
 test_that("search_values returns helpful error when missing query", {
   skip_if_offline(); skip_on_ci()
   expect_error(search_values(), "Missing information for values lookup")
-  expect_error(search_all(fields, "cl22") |> search_values(), "didn't detect a search query")
+  expect_error(search_all(fields, "cl22") |> search_values(), "didn't detect a search")
 })
 
 test_that("search_values returns filtered results for fields", {

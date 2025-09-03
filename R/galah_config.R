@@ -63,42 +63,35 @@
 #' # Make debugging in your session easier by setting `verbose = TRUE`
 #' galah_config(verbose = TRUE)
 #' }
-#' @importFrom lifecycle deprecate_warn
-#' @importFrom glue glue
-#' @importFrom rlang abort
-#' @importFrom potions brew
-#' @importFrom potions pour
-#' @export galah_config
-
+#' @export
 galah_config <- function(...) {
   
   # make sure dots are captured properly
   dots <- list(...)
 
   # set defaults, if this has not happened already
-  if(length(pour()) == 0) {
-    brew(default_config())
+  if(length(potions::pour()) == 0) {
+    potions::brew(default_config())
   }
   
   # add user-provided information
   if(length(dots) > 0){
-    
     # check for deprecated `cache_directory`
     if(any(names(dots) == "cache_directory")){
       dots_location <- which(names(dots) == "cache_directory")
       value <- dots$cache_directory
-      deprecate_warn(when = "2.0.0",
-                     what = "galah_config(cache_directory)",
-                     details = glue("Use `galah_config(directory = \"{value}\")` instead.")
+      lifecycle::deprecate_warn(when = "2.0.0",
+                                what = "galah_config(cache_directory)",
+                                details = glue::glue("Use `galah_config(directory = \"{value}\")` instead.")
       )
       names(dots)[dots_location] <- "directory"
     }
     
     # check all values in dots to ensure they are named
     if(length(dots) != length(names(dots))){
-      bullets <- c("All arguments to `galah_config() must be named.",
-                   i = "Did you use `==` instead of `=`?")
-      abort(bullets)
+      c("All arguments to `galah_config() must be named.",
+        i = "Did you use `==` instead of `=`?") |>
+      cli::cli_abort()
     }
     
     # check all values in dots to ensure they are valid
@@ -106,17 +99,17 @@ galah_config <- function(...) {
 
     # add to `potions` object
     if(any(names(result) == "atlas")){
-      brew(atlas = list(atlas = result$atlas))
+      potions::brew(atlas = list(atlas = result$atlas))
       result <- result[names(result) != "atlas"]
       result$atlas_config_called_by_user <- TRUE
     }
     
     if(length(result) > 0){
-      brew(result, method = "leaves")
+      potions::brew(result, method = "leaves")
     }
   
   }else{
-    x <- pour()
+    x <- potions::pour()
     class(x) <- c("galah_config", "list")
     return(x)
   }
@@ -151,25 +144,24 @@ default_config <- function(){
 #' @noRd
 #' @keywords Internal
 restructure_config <- function(dots){
-  result <- lapply(names(dots),
-         function(a){validate_config(a, dots[[a]])})
+  result <- purrr::map(names(dots),
+                       \(a){validate_config(a, dots[[a]])})
   names(result) <- names(dots)
   result
 }
 
 #' Catch errors in user-provided config
-#' @importFrom rlang abort
-#' @importFrom glue glue
-#' @importFrom potions pour
 #' @noRd
 #' @keywords Internal
-validate_config <- function(name, value, error_call = caller_env()) {
+validate_config <- function(name, 
+                            value, 
+                            error_call = rlang::caller_env()) {
   result <- switch(name, 
-         "api_key"         = enforce_character(value),
+         "api_key" = enforce_character(value),
          "atlas" = {
            value <- configure_atlas(value)
            # see whether atlases have changed, and if so, give a message
-           check_atlas(pour("atlas"), value)
+           check_atlas(potions::pour("atlas"), value)
          },
          "caching"         = enforce_logical(value),
          "directory"       = check_directory(value),
@@ -185,52 +177,51 @@ validate_config <- function(name, value, error_call = caller_env()) {
 }
 
 #' Ensure some arguments are logical
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-enforce_logical <- function(value, error_call = caller_env()){
+enforce_logical <- function(value, 
+                            error_call = rlang::caller_env()){
   if (!is.logical(value)) {
-    abort("Supplied value must be TRUE or FALSE.", call = error_call)
+    cli::cli_abort("Supplied value must be TRUE or FALSE.", 
+                   call = error_call)
   }else{
     value
   }
 }
 
 #' Ensure a file exists
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-enforce_exists <- function(value, error_call = caller_env()){
+enforce_exists <- function(value, 
+                           error_call = rlang::caller_env()){
   if (!dir.exists(value)) {
-    bullets <- c("Cache directory does not exist.",
-                 i = "Does the directory entered exist?")
-    abort(bullets, call = error_call)
+    c("Cache directory does not exist.",
+      i = "Does the directory entered exist?") |>
+    cli::cli_abort(call = error_call)
   }else{
     value
   }
 }
 
 #' Ensure provided value is a string
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-enforce_character <- function(value, error_call = caller_env()){
+enforce_character <- function(value,
+                              error_call = rlang::caller_env()){
   if (!is.character(value)) {
-    bullets <- c(
-      glue("Invalid type"),
-      i = "Value must be entered as a string."
-    )
-    abort(bullets, call = error_call)
+    c("Invalid type",
+      i = "Value must be entered as a string.") |>
+    cli::cli_abort(call = error_call)
   }else{
     value
   }
 }
 
 #' Ensure download reason is valid
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-enforce_download_reason <- function(value, error_call = caller_env()){
+enforce_download_reason <- function(value, 
+                                    error_call = rlang::caller_env()){
   # first ensure API is available. Currently missing for Brazil, for example.
   
   reasons_api_available <- url_lookup("metadata/reasons") |> 
@@ -239,27 +230,25 @@ enforce_download_reason <- function(value, error_call = caller_env()){
     return(1)
   }else{
     if (is.numeric(value) & !(value %in% show_all_reasons()$id)) {
-      bullets <- c(
-        "Invalid download reason ID.",
+      c("Invalid download reason ID.",
         i = "Use `show_all(reasons)` to see all valid reasons.",
-        x = glue("{value} does not match an existing reason ID.")
-      )
-      abort(bullets, call = error_call)
+        x = "{value} does not match an existing reason ID.") |>
+      cli::cli_abort(call = error_call)
     } else if(is.character(value) & !(value %in% show_all_reasons()$name)) {
       bullets <- c(
         "Invalid download reason name.",
         i = "Use `show_all(reasons)` to see all valid reasons.",
-        x = glue("\"{value}\" does not match an existing reason name.")
-      )
-      abort(bullets, call = error_call)
+        x = "\"{value}\" does not match an existing reason name.") |>
+      cli::cli_abort(call = error_call)
     }
     if (is.character(value) & (value %in% show_all_reasons()$name)) {
       valid_reasons <- show_all_reasons()
       value_id <- valid_reasons |>
-        filter(valid_reasons$name == value) |>
-        select("id") |>
-        pull("id")
-      inform(c("v" = glue("Matched \"{value}\" to valid download reason ID {value_id}.")))
+        dplyr::filter(valid_reasons$name == value) |>
+        dplyr::select("id") |>
+        dplyr::pull("id")
+      c("v" = "Matched \"{value}\" to valid download reason ID {value_id}.") |>
+        cli::cli_inform(call = error_call)
       value_id
     }else{
       value
@@ -268,36 +257,34 @@ enforce_download_reason <- function(value, error_call = caller_env()){
 }
 
 #' catch all failure for unknown names
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-enforce_invalid_name <- function(name, error_call = caller_env()){
-  bullets <- c(
-    "Invalid option name.",
+enforce_invalid_name <- function(name,
+                                 error_call = rlang::caller_env()){
+  c("Invalid option name.",
     i = "See `?galah_config()` for valid options.",
-    x = glue("\"{name}\" is not a valid option name.")
-  )
-  abort(bullets, call = error_call)
+    x = "\"{name}\" is not a valid option name.") |>
+  cli::cli_abort(call = error_call)
 }
 
 #' Set behaviour for deriving correct atlas information
-#' @importFrom rlang abort
-#' @importFrom glue glue
 #' @noRd
 #' @keywords Internal
-configure_atlas <- function(query){
+configure_atlas <- function(query,
+                            error_call = rlang::caller_env()){
   
   comparison <- do.call(c, node_metadata)
-  comparison <- comparison[!is.na(comparison)] |> as.character()
-  lookup <- utils::adist(query, comparison, ignore.case = TRUE)[1, ]
+  comparison <- comparison[!is.na(comparison)] |> 
+    as.character()
+  lookup <- utils::adist(query,
+                         comparison,
+                         ignore.case = TRUE)[1, ]
   
   if(all(lookup > 2)){
-    bullets <- c(
-      "Unsupported atlas provided.",
-      i = glue("Use `show_all(atlases)` to see supported atlases."),
-      x = glue("\"{query}\" is not a valid atlas.")
-    )
-    abort(bullets, call = caller_env())
+    c("Unsupported atlas provided.",
+      i = "Use `show_all(atlases)` to see supported atlases.",
+      x = "\"{query}\" is not a valid atlas.") |>
+    cli::cli_abort(call = error_call)
   }else{
     selected_entry <- comparison[which(lookup == min(lookup))][[1]]
     
@@ -315,14 +302,12 @@ configure_atlas <- function(query){
 }
 
 #' Provide a message if atlas is changed
-#' @importFrom glue glue
-#' @importFrom rlang inform
 #' @noRd
 #' @keywords Internal
 check_atlas <- function(current_data, new_data){
   if(new_data$region != current_data$region){
-    inform(glue(
-      "Atlas selected: {new_data$organisation} ({new_data$acronym}) [{new_data$region}]"))
+    cli::cli_inform(
+      "Atlas selected: {new_data$organisation} ({new_data$acronym}) [{new_data$region}]")
   }
   new_data
 }

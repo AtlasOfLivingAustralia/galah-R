@@ -219,7 +219,7 @@ collect_licences <- function(.query){
 #' @keywords Internal
 collect_lists <- function(.query){
   if(inherits(.query$url, "data.frame")){
-    result <- purrr:map(query_API(.query), 
+    result <- purrr::map(query_API(.query), 
                         \(a){a$lists}) |>
       dplyr::bind_rows()    
   }else{

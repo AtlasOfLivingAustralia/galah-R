@@ -185,14 +185,14 @@ check_if_missing <- function(query,
 #' `galah_call()` instead of `galah_identify()`
 #' @noRd
 #' @keywords Internal
-check_if_in_pipe <- function(..., error_call = caller_env()) {
+check_if_in_pipe <- function(..., 
+                             error_call = rlang::caller_env()){
   dots <- list(...)
   col_type_present <- grepl("type", names(unlist(dots)))
-  if (any(col_type_present)) {
-    c(
-      "Can't pipe `search_taxa()` in a `galah_call()`.",
+  if(any(col_type_present)){
+    c("Can't pipe `search_taxa()` in a `galah_call()`.",
       i = "Did you mean to use `galah_identify()`?") |>
-    cli::cli_abort(bullets, call = error_call)
+      cli::cli_abort(call = error_call)
   }
 }
 
@@ -250,4 +250,15 @@ search_reasons <- function(query){search_all("reasons", query)}
  
 #' @rdname search_all
 #' @export
-search_taxa <- function(...){search_all("taxa", list(...))}
+search_taxa <- function(...){
+  dots <- list(...)
+  if(length(dots) == 1L){
+    if(inherits(dots[[1]], "data.frame")){
+      search_all("taxa", dots[[1]])
+    }else{
+      search_all("taxa", dots)
+    }
+  }else{
+    search_all("taxa", dots)
+  }
+}

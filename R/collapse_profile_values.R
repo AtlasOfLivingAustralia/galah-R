@@ -7,9 +7,9 @@ collapse_profile_values <- function(.query){
     httr2::url_parse()
   profile_name <- extract_profile_name(url)
   short_name <- profile_short_name(profile_name)
-  if (!pour("atlas", "region") == "Spain") {
+  if (!potions::pour("atlas", "region") == "Spain") {
     path_name <- url |>
-      httr2::pluck("path") |>
+      purrr::pluck("path") |>
       dirname()
     url$path <- glue::glue("{path_name}/{short_name}")
   }
@@ -46,7 +46,7 @@ profile_short_name <- function(profile) {
     c(
       "Unknown profile detected.",
       i = "See a listing of valid data quality profiles with `show_all_profiles()`.") |>
-    cli::cli_abort(call = caller_env())
+    cli::cli_abort(call = rlang::caller_env())
   }else{
     short_name
   }

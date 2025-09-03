@@ -16,8 +16,13 @@ test_that("search_taxa works for multiple queries", {
 
 test_that("search_taxa handles data.frame input", {
   skip_if_offline(); skip_on_ci()
-  taxa <- search_taxa(
-    data.frame(genus = c("Banksia", "Microseris"), kingdom = "Plantae"))
+  test_df <- data.frame(genus = c("Banksia", "Microseris"),
+                        kingdom = "Plantae")
+  x <- request_metadata() |>
+    identify(test_df) |>
+    collect()
+  taxa <- search_taxa(test_df)
+  expect_true(identical(taxa, x))
   expect_equal(nrow(taxa), 2)
 })
 
@@ -95,15 +100,9 @@ test_that("search_taxa handles name issues", {
   expect_warning(search_taxa("Microseris"))
 })
 
-test_that("search_taxa handles multiple issues", {
+test_that("search_taxa give an error when homonym is returned with other issues", {
   skip_if_offline(); skip_on_ci()
-  expected <- c("homonym, parentChildSynonym")
-  result <- search_taxa("Gallinago sp.")
-  
-  expect_no_error(search_taxa("Gallinago sp."))
-  expect_equal(length(result$issues), 1)
-  expect_equal(result$issues, expected) # NOTE: This test might be too rigid
-  
+  expect_warning(search_taxa("Gallinago sp."))
 })
 
 test_that("search_taxa errors nicely when piped in galah_call", {

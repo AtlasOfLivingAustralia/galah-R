@@ -16,7 +16,8 @@ collect_taxa <- function(.query){
 #' Internal function to `collect()` taxa for Atlas of Living Australia
 #' @noRd
 #' @keywords Internal
-collect_taxa_namematching <- function(.query){
+collect_taxa_namematching <- function(.query,
+                                      error_call = rlang::caller_env()){
   search_terms <- .query$url$search_term
   result <- purrr::map(query_API(.query), 
                        build_tibble_from_nested_list) |> 
@@ -27,27 +28,30 @@ collect_taxa_namematching <- function(.query){
     #       Might be worth returning to if this functionality is needed
     # result <- filter(result, !duplicated(taxonConceptID))
   # }
-  
+
   # handle one or more returned issues values
-  issues <- unlist(result$issues)
-  
-  if(length(issues) > 1) {
-    issues_c <- glue::glue_collapse(issues, sep = ", ")
-  } else {
-    issues_c <- issues
-  }
+  issues_vec <- purrr::map(result$issues,
+                           \(a){
+                             b <- a[[1]]
+                             if(length(b) <= 1){
+                               b
+                             }else{
+                               glue::glue_collapse(b, sep = ", ")
+                             }
+                           }) |>
+    unlist()
   
   # add issues to result
-  result <- result |>   
+  result <- result |>
+    dplyr::select(-"issues") |>
     dplyr::mutate("search_term" = search_terms, 
                   .before = "success",
-                  issues = issues_c)
+                  issues = issues_vec)
   
   # Check for homonyms
-  if(any(colnames(result) == "issues")){
-    check_homonyms(result)
-  }
-  
+  check_homonyms(result,
+                 error_call = error_call)
+
   # Check for invalid search terms
   if (galah_config()$package$verbose) {
     check_search_terms(result)
@@ -74,7 +78,8 @@ collect_taxa_la <- function(.query){
       dplyr::filter(!duplicated({{name}})) |>
       dplyr::mutate("search_term" = search_terms)
   }
-  names(result) <- rename_columns(names(result), type = "taxa") # old code
+  names(result) <- rename_columns(names(result), 
+                                  type = "taxa") # old code
   result |> dplyr::select(dplyr::any_of(wanted_columns("taxa")))
 }
 
@@ -166,7 +171,8 @@ clean_la_taxa <- function(result, search_terms){
     # unlist if necessary
     atlas <- potions::pour("atlas", "region")
     if (any(atlas %in% c("France", "Portugal"))) {
-      list_of_results <- list_of_results |> unlist()
+      list_of_results <- list_of_results |> 
+        unlist()
     }
     list_of_results
   })
@@ -255,19 +261,22 @@ check_search_terms <- function(result, atlas) {
 
 #' Internal function to check for homonyms in search term provided to 
 #' `search_taxa()`
+#' @importFrom rlang .data
 #' @noRd
 #' @keywords Internal
-check_homonyms <- function(result) {
-  if ("homonym" %in% result$issues) {
-  homonym_taxa <- result[result$issues %in% "homonym",]$search_term
-  list_homonym_taxa <- glue::glue_collapse(homonym_taxa, 
-                                           sep = ", ")
-  bullets <- c(
-    "Search returned multiple taxa due to a homonym issue.",
-    i = "Please provide another rank in your search to clarify taxa.",
-    i = "Use a `tibble` to clarify taxa, see `?search_taxa`.", 
-    x = glue("Homonym issue with \"{list_homonym_taxa}\".")
-  )
-  cli::cli_warn(bullets)
+check_homonyms <- function(result,
+                           error_call = rlang::caller_env()) {
+  homonym_check <- grepl("homonym", result$issues)
+  if(any(homonym_check)){
+    homonym_taxa <- result |>
+      dplyr::filter(homonym_check == TRUE) |>
+      dplyr::pull("search_term")
+    list_homonym_taxa <- glue::glue_collapse(homonym_taxa, 
+                                             sep = ", ")
+    c("Search returned multiple taxa due to a homonym issue.",
+      i = "Please provide another rank in your search to clarify taxa.",
+      i = "Use a `tibble` to clarify taxa, see `?search_taxa`.", 
+      x = "Homonym issue with \"{list_homonym_taxa}\".") |>
+      cli::cli_warn(call = error_call)
   }
 }

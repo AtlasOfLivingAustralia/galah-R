@@ -56,11 +56,6 @@ collect.query <- function(x, ..., wait = TRUE, file = NULL){
 
 #' @rdname collect.data_request
 #' @order 5
-#' @importFrom glue glue
-#' @importFrom potions pour
-#' @importFrom rlang abort
-#' @importFrom rlang inform
-#' @importFrom tibble tibble
 #' @export
 collect.computed_query <- function(x, 
                           ...,
@@ -72,7 +67,7 @@ collect.computed_query <- function(x,
      is.null(x$data) & # some cached metadata queries have `data` instead
      is.null(x$status) # finally, after `compute()`, occurrences have `status`
      ){
-    tibble()
+    tibble::tibble()
   }else{
     switch(x$type,
            "data/distributions" = collect_distributions(x),
@@ -105,6 +100,6 @@ collect.computed_query <- function(x,
            "metadata/taxa-multiple" = collect_taxa(x),
            "metadata/taxa-unnest" = collect_taxa_unnest(x),
            "metadata/identifiers" = collect_identifiers(x),
-           abort("unrecognised `type`"))
+           cli::cli_abort("unrecognised `type`"))
   }
 }

@@ -211,7 +211,7 @@ test_that("species counts work with group_by()", {
   expect_type(count_species$count, "integer")
   expect_gte(nrow(count_species), 4)
   expect_true(all(count_species$count > 0))
-  expect_true(all(count_species$count < 100))
+  expect_true(all(count_species$count < 50))
   expect_true(all(count_records$year == count_species$year))
   expect_true(all(count_records$count >= count_species$count))
 })
