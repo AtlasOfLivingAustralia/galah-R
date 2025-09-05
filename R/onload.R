@@ -1,30 +1,39 @@
 #' Set-up for galah during loading
 #' @noRd
 #' @keywords Internal
-#' @importFrom cli col_magenta
-#' @importFrom glue glue
-#' @importFrom potions brew
 .onLoad <- function(libname, pkgname) {
     if (pkgname == "galah") {
-      brew(.pkg = "galah")
+      
+      # set up storage of standard information via {potions}
+      potions::brew(.pkg = "galah")
       galah_config() # to cache defaults
-      options(list(
-       "check_internal_cache" = galah_internal_cached))
-      # add a note to the user
+      options(list("check_internal_cache" = galah_internal_cached))
+      
+      # get information to display to the user
       galah_version <-  "version unknown"
       suppressWarnings(
         try(galah_version <- utils::packageDescription("galah")[["Version"]],
             silent = TRUE)) ## get the galah version, if we can
-      bullets <- c(
-        glue("galah: version {galah_version}"),
-        i = col_magenta('Default node set to ALA (ala.org.au).'),
-        i = col_magenta('See all supported GBIF nodes with `show_all(atlases)`.'),
-        i = col_magenta('To change nodes, use e.g. `galah_config(atlas = \"GBIF\")`.')
-      )
-      inform(bullets,
-             class = c("packageStartupMessage",  # see ?packageStartupMessage (required by `check()`)
-                       "simpleMessage", 
-                       "message", 
-                       "condition"))
+      current_node <- potions::pour("atlas", .pkg = "galah") |>
+        purrr::pluck("acronym")
+      current_url <- show_all_atlases() |>
+        dplyr::filter(.data$acronym == current_node) |>
+        dplyr::pull("url") |>
+        stringr::str_replace("^https://", "")
+
+      # display a message
+      # NOTE: This message *must* have the following classes to enable them
+      # to be controlled programmatically.
+      # see ?packageStartupMessage (required by `check()`)
+      c(
+        glue::glue("galah version {galah_version}"),
+        i = cli::col_magenta('galah is currently configured to query {current_node} ({current_url}).'),
+        i = cli::col_magenta('You can see all supported organisations with `show_all(atlases)`.'),
+        i = cli::col_magenta('To change organisations, use e.g. `galah_config(atlas = \"GBIF\")`.')
+      ) |>
+      cli::cli_inform(class = c("packageStartupMessage",  
+                                "simpleMessage", 
+                                "message", 
+                                "condition"))
     }
 }
