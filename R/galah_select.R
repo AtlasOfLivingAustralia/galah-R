@@ -53,14 +53,15 @@
 #' 
 #' Calling the argument `group = "basic"` returns the following columns:
 #'
+#'   * `recordID`
+#'   * `scientificName`
+#'   * `taxonConceptID`
 #'   * `decimalLatitude`
 #'   * `decimalLongitude`
 #'   * `eventDate`
-#'   * `scientificName`
-#'   * `taxonConceptID`
-#'   * `recordID`
-#'   * `dataResourceName`
+#'   * `basisOfRecord`
 #'   * `occurrenceStatus`
+#'   * `dataResourceName`
 #' 
 #' Using `group = "event"` returns the following columns:
 #' 
@@ -120,14 +121,13 @@
 #'   galah_select(basisOfRecord, group = "basic") |>
 #'   collect()
 #' }
-#' @importFrom rlang inform
 #' @export
 select.data_request <- function(.data, ..., group){
   if(is_gbif()){
-    inform("`select()` is not supported for GBIF: skipping")
+    cli::cli_inform("`select()` is not supported for GBIF: skipping")
     .data
   }else{
-    dots <- enquos(..., .ignore_empty = "all") |>
+    dots <- rlang::enquos(..., .ignore_empty = "all") |>
       as.list() |>
       add_summary() |>
       add_group(group)
@@ -138,11 +138,11 @@ select.data_request <- function(.data, ..., group){
 #' @rdname select.data_request
 #' @export
 galah_select <- function(..., group){
-  dots <- enquos(..., .ignore_empty = "all") |>
+  dots <- rlang::enquos(..., .ignore_empty = "all") |>
     detect_request_object() |>
     as.list()
   if(is_gbif()){
-    inform("`select()` is not supported for GBIF: skipping")
+    cli::cli_inform("`select()` is not supported for GBIF: skipping")
     if(inherits(dots[[1]], "data_request")){
       dots[[1]]
     }else{
@@ -161,11 +161,10 @@ galah_select <- function(..., group){
 }
 
 #' internal function to summarise select function (to support `print()`)
-#' @importFrom rlang as_label
 #' @noRd
 #' @keywords Internal
 add_summary <- function(dots){
-  labels <- lapply(dots, as_label) |>
+  labels <- purrr::map(dots, rlang::as_label) |>
     unlist() 
   labels <- labels[labels != "<dat_rqst>"]
   last_entry <- length(dots) + 1

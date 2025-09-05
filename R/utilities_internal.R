@@ -136,21 +136,19 @@ galah_version_string <- function() {
 }
 
 #' Internal function for determining if we should call GBIF or not
-#' @importFrom potions pour
 #' @noRd
 #' @keywords Internal
 is_gbif <- function(){
-  pour("atlas", "region") == "Global"
+  potions::pour("atlas", "region") == "Global"
 }
 
 #' Internal function for determining whether a Living Atlas supports reasons API.
 #' This affects whether a reason is appended to a query in `collapse()` (and 
 #' checked in `compute()`)
-#' @importFrom potions pour
 #' @noRd
 #' @keywords Internal
 atlas_supports_reasons_api <- function(){
-  atlas <- pour("atlas", "region")
+  atlas <- potions::pour("atlas", "region")
   supports_reasons <- c("Australia", "Austria", "Guatemala", "Portugal", 
                         "Spain", "Sweden", "United Kingdom")
   atlas %in% supports_reasons
@@ -197,7 +195,7 @@ preset_groups <- function(group_name) {
 #' @noRd
 #' @keywords Internal
 default_columns <- function() {
-  atlas <- pour("atlas", "region")
+  atlas <- potions::pour("atlas", "region")
   if(atlas %in% c("Austria", 
                   "Brazil", 
                   "Guatemala", 
@@ -210,6 +208,7 @@ default_columns <- function() {
       "latitude",
       "longitude",
       "occurrence_date",
+      "basis_of_record",
       "occurrence_status",
       "data_resource_uid")
   }else if(atlas %in% c("France")){
@@ -219,6 +218,7 @@ default_columns <- function() {
       "decimalLatitude",
       "decimalLongitude",
       "eventDate",
+      "basisOfRecord",
       "occurrenceStatus",
       "dataResourceName")
   }else if(atlas %in% c("Australia",
@@ -231,6 +231,7 @@ default_columns <- function() {
       "decimalLatitude",
       "decimalLongitude",
       "eventDate",
+      "basisOfRecord",
       "occurrenceStatus",
       "dataResourceName")
   }else{
@@ -241,7 +242,7 @@ default_columns <- function() {
 #' @noRd
 #' @keywords Internal
 image_fields <- function() {
-  atlas <- pour("atlas", "region")
+  atlas <- potions::pour("atlas", "region")
   if(atlas %in% c("Austria", 
                   "Brazil", 
                   "Guatemala", 
@@ -262,7 +263,7 @@ image_fields <- function() {
 #' @noRd
 #' @keywords Internal
 species_facets <- function(){
-  atlas <- pour("atlas", "region")
+  atlas <- potions::pour("atlas", "region")
   if(atlas %in% c("Australia",
                   "Flanders",
                   "France",
@@ -286,7 +287,7 @@ source_type_id_lookup <- function(region){
 #' @noRd
 #' @keywords Internal
 profiles_supported <- function(){
-  atlas <- pour("atlas", "region")
+  atlas <- potions::pour("atlas", "region")
   if(atlas %in% c("Australia")) {
     TRUE
   }else{
