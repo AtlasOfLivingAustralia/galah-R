@@ -51,7 +51,7 @@ test_that("`galah_select()` builds expected columns when group = basic", {
     identify("oxyopes dingo") |>
     select(group = "basic") |>
     collapse()
-  y <- url_parse(x$url)$query
+  y <- httr2::url_parse(x$url)$query
   expect_equal(strsplit(y$fields, ",")[[1]], preset_groups("basic"))
   expect_equal(y$qa, "none")
 })
@@ -62,7 +62,7 @@ test_that("`galah_select()` builds expected columns when group = event", {
     identify("oxyopes dingo") |>
     select(group = "event") |>
     collapse()
-  y <- url_parse(x$url)$query
+  y <- httr2::url_parse(x$url)$query
   expect_equal(strsplit(y$fields, ",")[[1]], 
                c("recordID", preset_groups("event")))
   expect_equal(y$qa, "none")
@@ -74,7 +74,7 @@ test_that("`galah_select()` accepts multiple groups", {
     identify("oxyopes dingo") |>
     select(group = c("basic", "assertions")) |>
     collapse()
-  y <- url_parse(x$url)$query
+  y <- httr2::url_parse(x$url)$query
   expect_equal(strsplit(y$fields, ",")[[1]], 
                preset_groups("basic"))
   expect_equal(y$qa, "includeall")
@@ -85,7 +85,7 @@ test_that("galah_select defaults to group = 'basic' when there are no args", {
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     collapse()
-  y <- url_parse(x$url)$query
+  y <- httr2::url_parse(x$url)$query
   expect_equal(strsplit(y$fields, ",")[[1]], preset_groups("basic"))
   expect_equal(y$qa, "none")
 })
@@ -96,7 +96,7 @@ test_that("galah_select works with group = 'taxonomy'", {
     identify("oxyopes dingo") |>
     select(group = "taxonomy") |>
     collapse()
-  y <- url_parse(x$url)$query
+  y <- httr2::url_parse(x$url)$query
   fields <- strsplit(tolower(y$fields), ",")[[1]]
   expect_equal(fields,
                c("recordid",
@@ -116,7 +116,7 @@ test_that("galah_select returns assertions + recordID when group = assertions", 
     identify("oxyopes dingo") |>
     select(group = "assertions") |>
     collapse()
-  y <- url_parse(x$url)$query
+  y <- httr2::url_parse(x$url)$query
   expect_equal(y$fields, "recordID")
   expect_equal(y$qa, "includeall")
 })
@@ -127,7 +127,7 @@ test_that("galah_select combines requested columns and group columns", {
     identify("oxyopes dingo") |>
     select(year, basisOfRecord, group = "basic") |>
     collapse()
-  y <- url_parse(x$url)$query
+  y <- httr2::url_parse(x$url)$query
   expect_equal(strsplit(y$fields, ",")[[1]], 
                c(preset_groups("basic"), "year", "basisOfRecord"))
 })
@@ -138,7 +138,7 @@ test_that("galah_select can use tidyselect::contains", {
     identify("oxyopes dingo") |>
     select(tidyselect::contains("el")) |>
     collapse()
-  y <- url_parse(x$url)$query
+  y <- httr2::url_parse(x$url)$query
   fields <- strsplit(tolower(y$fields), ",")[[1]]
   assertions <- strsplit(tolower(y$qa), ",")[[1]]
   expect_true(all(grepl("el", fields)))
@@ -151,7 +151,7 @@ test_that("galah_select can use tidyselect::starts_with", {
     identify("oxyopes dingo") |>
     select(tidyselect::starts_with("el")) |>
     collapse()
-  y <- url_parse(x$url)$query
+  y <- httr2::url_parse(x$url)$query
   fields <- strsplit(tolower(y$fields), ",")[[1]]
   assertions <- strsplit(tolower(y$qa), ",")[[1]]
   expect_true(all(grepl("^el", fields)))
@@ -164,7 +164,7 @@ test_that("galah_select can use tidyselect::last_col", {
     identify("oxyopes dingo") |>
     select(tidyselect::last_col()) |>
     collapse()
-  y <- url_parse(x$url)$query
+  y <- httr2::url_parse(x$url)$query
   expect_equal(y$fields, "recordID")
   expect_equal(y$qa, "ZERO_COORDINATE")
 })
@@ -175,7 +175,7 @@ test_that("galah_select can use tidyselect::last_col & user-defined queries", {
     identify("oxyopes dingo") |>
     select(year, basisOfRecord, tidyselect::last_col()) |>
     collapse()
-  y <- url_parse(x$url)$query
+  y <- httr2::url_parse(x$url)$query
   expect_equal(y$fields, "year,basisOfRecord")
   expect_equal(y$qa, "ZERO_COORDINATE")
 })
@@ -186,7 +186,7 @@ test_that("galah_select can use tidyselect::last_col & group", {
     identify("oxyopes dingo") |>
     select(tidyselect::last_col(), group = "basic") |>
     collapse()
-  y <- url_parse(x$url)$query
+  y <- httr2::url_parse(x$url)$query
   expect_equal(strsplit(y$fields, ",")[[1]], 
                preset_groups("basic"))
   expect_equal(y$qa, "ZERO_COORDINATE")

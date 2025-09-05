@@ -8,9 +8,11 @@
 #' parse quosures for objects of class `data_request`
 #' @noRd
 #' @keywords internal
-parse_quosures_data <- function(dots){
+parse_quosures_data <- function(dots){ 
   if(length(dots) > 0){
-    result <- purrr::map(dots, switch_expr_type) |>
+    result <- purrr::map(dots, \(a){
+      switch_expr_type(a)
+      }) |>
       dplyr::bind_rows() |>
       clean_assertions() |>
       clean_logical_statements()
@@ -27,6 +29,7 @@ parse_quosures_data <- function(dots){
   }
   result
 }
+# FIXME: work out how to propagate `rlang::caller_env()` through the below functions
 
 #' parse quosures, but for `select` and related functions
 #' 
@@ -34,14 +37,16 @@ parse_quosures_data <- function(dots){
 #' stuff that is a named object
 #' @noRd
 #' @keywords internal
-parse_quosures_basic <- function(dots){
+parse_quosures_basic <- function(dots,
+                                 error_call = rlang::caller_env()){
   if(length(dots) > 0){
     parsed_dots <- purrr::map(dots, \(a){
       switch(expr_type(a),
              "symbol" = {parse_symbol(a)},
              "call" = {rlang::eval_tidy(a)},
              "literal" = {rlang::quo_get_expr(a)},
-             cli::cli_abort("Quosure type not recognised."))
+             cli::cli_abort("Quosure type not recognised.",
+                            call = error_call))
     })
     unlist(parsed_dots)
   }else{
@@ -53,7 +58,8 @@ parse_quosures_basic <- function(dots){
 #' of data to be supplied
 #' @noRd
 #' @keywords internal
-parse_quosures_files <- function(dots){
+parse_quosures_files <- function(dots,
+                                 error_call = rlang::caller_env()){
   if(length(dots) > 0){
     check_named_input(dots)
     dot_expr <- rlang::quo_get_expr(dots[[1]]) # i.e. only first entry is available
@@ -76,7 +82,8 @@ parse_quosures_files <- function(dots){
                     rlang::as_label(x)
                   }},
                   "literal" = {rlang::quo_get_expr(x)},
-                  abort("Quosure type not recognised."))
+                  cli::cli_abort("Quosure type not recognised.", 
+                                 call = error_call))
     if(inherits(rhs, "data.frame")){
       list(variable = dequote(lhs), 
            data = rhs)
@@ -347,7 +354,7 @@ concatenate_logical_tibbles <- function(df,
     query_text <- df$query |>
       glue::glue_collapse(sep = logical_string)
   }
-  tibble(
+  tibble::tibble(
     variable = glue::glue_collapse(df$variable, sep = provided_string),
     logical  = glue::glue_collapse(df$logical,  sep = provided_string),
     value    = glue::glue_collapse(df$value,  sep = provided_string),
@@ -497,7 +504,6 @@ parse_solr <- function(df){
 }
 
 #' Internal function to `parse_solr()`
-#' @importFrom glue glue_data
 #' @noRd
 #' @keywords internal
 switch_solr <- function(df){

@@ -63,8 +63,8 @@ as_query_taxa_multiple <- function(.query){
   
   # build object and return
   result <- list(type = "metadata/taxa-multiple",
-                 url = tibble(url = urls, 
-                              search_term = search_terms),
+                 url = tibble::tibble(url = urls, 
+                                      search_term = search_terms),
                  headers = build_headers())
   class(result) <- "query"
   return(result)
@@ -100,8 +100,8 @@ as_query_identifiers <- function(.query){
   }
   # build object and return
   result <- list(type = "metadata/identifiers",
-                 url = tibble(url = urls, 
-                              search_term = search_terms),
+                 url = tibble::tibble(url = urls, 
+                                      search_term = search_terms),
                  headers = build_headers())
   class(result) <- "query"
   return(result)

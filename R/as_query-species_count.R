@@ -2,9 +2,11 @@
 #' @keywords Internal
 #' @param .query an object of class `data_request`
 #' @noRd
-as_query_species_count <- function(.query){
+as_query_species_count <- function(.query,
+                                   error_call = rlang::caller_env()){
   if(is_gbif()){
-    cli::cli_abort("`count()` is not supported for GBIF with type = 'species'") 
+    cli::cli_abort("`count()` is not supported for GBIF with type = 'species'",
+                   call = error_call) 
   }else{
     function_name <- "as_query_species_count_atlas"
     arg_names <- names(formals(as_query_species_count_atlas))

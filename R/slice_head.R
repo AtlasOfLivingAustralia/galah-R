@@ -31,16 +31,15 @@
 #'   slice_head(n = 3) |>
 #'   collect()
 #' }
-#' @importFrom tibble tibble
 #' @export
 slice_head.data_request <- function(.data, ..., n, prop, by = NULL){
   # handle inputs
   if(!missing(n)){
-     result <- tibble(slice_n = n)
+     result <- tibble::tibble(slice_n = n)
   }else if(!missing(prop)){
-    result <- tibble(slice_prop = prop)
+    result <- tibble::tibble(slice_prop = prop)
   } else {
-    result <- tibble()
+    result <- tibble::tibble()
   }
   
   # if no data - or NULL - is provided, make no updates

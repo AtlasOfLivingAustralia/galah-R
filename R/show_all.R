@@ -61,7 +61,7 @@
 #' }
 #' @export
 show_all <- function(..., limit = NULL){
-  dots <- enquos(..., .ignore_empty = "all")
+  dots <- rlang::enquos(..., .ignore_empty = "all")
   if(length(dots) < 1){
     type_text <- "fields"
   }else{
@@ -76,20 +76,19 @@ show_all <- function(..., limit = NULL){
 #' Internal function to handle `show_all` calls
 #' This is needed to handle slight differences between syntax of 
 #' `show_all()` and `collect()`
-#' @importFrom dplyr slice_head
 #' @noRd
 #' @keywords Internal
 show_all_generic <- function(type, limit){
   x <- request_metadata(type = type)
   if(!is.null(limit)){
-    x <- x |> slice_head(n = limit)
+    x <- x |> dplyr::slice_head(n = limit)
   }
   result <- collect(x)
   # `show_all()` always returns requested number of records
   # this differs from `collect()` which always returns what the API gives you
   if(!is.null(limit)){
     if(nrow(result) > limit){
-      result <- slice_head(result, n = limit)
+      result <- dplyr::slice_head(result, n = limit)
     }
   }
   result

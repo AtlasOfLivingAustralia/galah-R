@@ -133,7 +133,7 @@ collapse_occurrences_count_atlas_groupby_crossed <- function(.query,
     dplyr::rowwise() |>
     dplyr::mutate(query = dplyr::starts_with("fq") |>
                     dplyr::c_across() |>
-                    glue_collapse( sep = " AND ")) |>
+                    glue::glue_collapse( sep = " AND ")) |>
     dplyr::select(-dplyr::starts_with("fq")) |>
     dplyr::ungroup()
   if(!is.null(fqs)){
@@ -148,7 +148,7 @@ collapse_occurrences_count_atlas_groupby_crossed <- function(.query,
     list(facets = facet_names[length(facet_names)]),
     saved_facet_queries)
   
-  url_list <- lapply(result_df$query, function(a, url){
+  url_list <- purrr::map(result_df$query, function(a, url){
     url$query <- c(list(fq = a), query_without_fq)
     httr2::url_build(url)
   }, url = url_final)

@@ -1,6 +1,4 @@
 #' Internal function to `collect` for type `data/distributions`
-#' @importFrom sf st_as_sf
-#' @importFrom sf st_as_sfc
 #' @noRd
 #' @keywords Internal
 collect_distributions <- function(.query){
@@ -26,6 +24,6 @@ collect_distributions <- function(.query){
       "label" = "area_name",
       "common_name" = "common_nam")  |>
     mutate("common_name" = trimws(.data$common_name))
-  result$geometry <- st_as_sfc(result$geometry, crs=4326)
-  return(st_as_sf(result))
+  result$geometry <- sf::st_as_sfc(result$geometry, crs=4326)
+  return(sf::st_as_sf(result))
 }

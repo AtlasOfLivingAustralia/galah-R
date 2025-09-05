@@ -1,11 +1,13 @@
 #' Internal function to run `as_query()` for type `data/distributions`
 #' @noRd
 #' @keywords Internal
-as_query_distributions_data <- function(.query){
+as_query_distributions_data <- function(.query,
+                                        error_call = rlang::caller_env()){
   identify_supplied <- !is.null(.query$identify)
   filter_supplied <- !is.null(.query$filter)
   if(identify_supplied & filter_supplied){
-    cli::cli_abort("`collapse(type = 'distributions')` only accepts one of `filter()` or `identify()`, not both")
+    cli::cli_abort("`collapse(type = 'distributions')` only accepts one of `filter()` or `identify()`, not both",
+                   call = error_call)
   }
   if(identify_supplied){
     url <- url_lookup("data/distributions-taxa", 

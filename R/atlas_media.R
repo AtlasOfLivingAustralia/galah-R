@@ -31,7 +31,7 @@ atlas_media <- function(request = NULL,
   
   # ensure a filter is present (somewhat redundant with `collapse`)
   if(is.null(.query$filter)){
-    abort("You must specify a valid `filter()` to use `atlas_media()`")
+    cli::cli_abort("You must specify a valid `filter()` to use `atlas_media()`")
   }
 
   # ensure media columns are present in `select`
@@ -108,7 +108,8 @@ atlas_media <- function(request = NULL,
 #' Set filters that work for media in each atlas
 #' @noRd
 #' @keywords Internal
-parse_regional_media_filters <- function(present_fields){
+parse_regional_media_filters <- function(present_fields,
+                                         error_call = rlang::caller_env()){
   
   atlas <- potions::pour("atlas", "region")
   switch(atlas,
@@ -127,6 +128,7 @@ parse_regional_media_filters <- function(present_fields){
                        paste0("IDsCount")
                      glue::glue("{filter_fields}:[1 TO *]")},
          "United Kingdom" = "(all_image_url:*)", # !is.na(all_image_url),
-         cli::cli_abort("`atlas_media` is not supported for atlas = {atlas}")
+         cli::cli_abort("`atlas_media` is not supported for atlas = {atlas}",
+                        call = error_call)
   )
 }

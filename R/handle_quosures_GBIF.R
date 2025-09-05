@@ -39,7 +39,8 @@ switch_expr_type_pred <- function(x, ...){
          "symbol" = {parse_symbol(x)}, # identical to `switch_expr_type()`
          "call" = {parse_call_pred(x, ...)}, # only 'new' line
          "literal" = {rlang::quo_get_expr(x)},
-         cli::cli_abort("Quosure type not recognised.")
+         cli::cli_abort("Quosure type not recognised.",
+                        call = rlang::caller_env())
   )
 }
 

@@ -155,8 +155,6 @@ request_data <- function(type = c("occurrences",
 }
 
 #' @rdname galah_call
-#' @importFrom glue glue
-#' @importFrom rlang abort
 #' @export
 request_metadata <- function(type = c("fields",
                                       "apis",

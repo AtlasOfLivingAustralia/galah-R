@@ -38,8 +38,6 @@
 #'   Default is set to `FALSE`. 
 #'   Currently only implemented for metadata type `lists`.
 #' @return A `tibble` of values for a specified field, profile or list.
-#' @importFrom tibble tibble
-#' @importFrom cli col_yellow
 #' @examples \dontrun{
 #' # Show values in field 'cl22'
 #' search_fields("cl22") |> 
@@ -87,22 +85,17 @@ show_values <- function(df,
   if(nrow(df) > 1) {
     n_matches <- nrow(df)
     df <- df[1, ]
-    inform(
-      bullets <- c(
-        "!" = glue("Search returned {n_matches} matched {type}."),
-        "*" = glue("Showing values for '{match_name}'.")
-      ))
+    c("!" = "Search returned {n_matches} matched {type}.",
+      "*" = "Showing values for '{match_name}'.") |>
+        cli::cli_inform()
   } else {
     if (is.na(match_name)) {
-      inform(cli::col_yellow(glue("`search_all()` returned no matched `{type}`.")))
-      tibble()
+      cli::col_yellow("`search_all()` returned no matched `{type}`.") |>
+        cli::cli_inform()
+      tibble::tibble()
     } else {
-    inform(
-      bullets <- c(
-        # glue("Search returned 1 matched {type}."),
-        "*" = glue("Showing values for '{match_name}'.")
-      )
-    )
+      c("*" = "Showing values for '{match_name}'.") |>
+        cli::cli_inform()
     }
   }
   request_metadata() |>
@@ -130,32 +123,26 @@ search_values <- function(df, query) {
 check_values_input <- function(df, error_call = caller_env()) {
   # Check if missing input
   if(missing(df) || is.null(df)) {
-    bullets <- c(
-      "Missing information for values lookup.",
+    c("Missing information for values lookup.",
       i = "Field, profile or list must be provided as a tibble created by `search_all()`.",
-      i = "e.g. `search_all(fields, \"year\") |> show_values()`."
-    )
-    abort(bullets, call = error_call)
+      i = "e.g. `search_all(fields, \"year\") |> show_values()`.") |>
+    cli::cli_abort(call = error_call)
   }
   
   # Check that original data.frame is from a `show_all` or `search_all`
   if(is.null(attr(df, "call"))) {
-    bullets <- c(
-      "Wrong input provided.",
+    c("Wrong input provided.",
       i = "Must supply a tibble created by `search_all()` or `show_all()`.",
-      i = "e.g. `search_all(fields, \"year\") |> show_values()`."
-    )
-    abort(bullets, call = error_call)
+      i = "e.g. `search_all(fields, \"year\") |> show_values()`.") |>
+    cli::cli_abort(call = error_call)
   }
   
   # Input must be from valid `show_all` or `search_all` tibble
   valid_calls <- c("fields", "lists", "profiles", "taxa")
   if(!any(valid_calls == attr(df, "call"))){
     type <- attr(df, "call")
-    bullets <- c(
-      glue("Can't lookup values for metadata type `{type}`."),
-      x = "Values lookup accepts `fields`, `lists`, `profiles` or `taxa`."
-    )
-    abort(bullets, call = error_call)
+    c("Can't lookup values for metadata type `{type}`.",
+      x = "Values lookup accepts `fields`, `lists`, `profiles` or `taxa`.") |>
+    cli::cli_abort(call = error_call)
   }
 }

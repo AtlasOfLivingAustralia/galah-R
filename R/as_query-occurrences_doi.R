@@ -2,7 +2,7 @@
 #' @noRd
 #' @keywords Internal
 as_query_occurrences_doi <- function(.query, 
-                                     error_call = caller_env()){
+                                     error_call = rlang::caller_env()){
   if(is.null(.query$filter)){
     cli::cli_abort("A DOI must be specified using `filter(doi == \"my-doi-here\")`.", 
                    call = error_call)

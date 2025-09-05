@@ -93,6 +93,8 @@
 #' data quality profiles is returned by `show_all(profiles)`. Note this service 
 #' is currently only available for the Australian atlas (ALA).
 #'
+#' @importFrom rlang caller_env
+#' @importFrom rlang .data
 #' @keywords internal
 "_PACKAGE"
 

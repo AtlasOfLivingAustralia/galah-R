@@ -110,7 +110,8 @@ search_all <- function(type, query){
   if(missing(type)){
     type <- "fields"
   }else{
-    type <- parse_quosures_basic(enquos(type))
+    type <- rlang::enquos(type) |>
+      parse_quosures_basic()
     if(!inherits(type, "character") | length(type) > 1){
       cli::cli_abort("`type` must be a length-1 vector of class 'character'")
     }

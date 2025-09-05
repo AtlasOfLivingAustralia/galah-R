@@ -1,6 +1,5 @@
 #' @rdname atlas_
 #' @order 3
-#' @importFrom potions pour
 #' @export
 atlas_species <- function(request = NULL,
                           identify = NULL,

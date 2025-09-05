@@ -442,7 +442,7 @@ test_that("galah_filter handles `type = 'metadata'` correctly", {
 })
 
 test_that("galah_filter handles `type = 'files'` correctly", {
-  x <- tibble(
+  x <- tibble::tibble(
     id = c(1, 2),
     images = c("1234", "5678"))
   y <- galah_call(method = "files") |>

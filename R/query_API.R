@@ -97,7 +97,6 @@ query_API_internal <- function(.query, error_call = caller_env()) {
 #' If supplied, add `headers` arg to a `request()`
 #' @noRd
 #' @keywords Internal
-#' @importFrom potions pour
 add_headers <- function(req, headers){
   if(!is.null(headers)){
     req$headers <- headers

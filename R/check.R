@@ -80,19 +80,20 @@ check_download_filename <- function(file,
 #' Subfunction to `check_login()`
 #' @noRd
 #' @keywords Internal
-check_email <- function(.query){
+check_email <- function(.query, 
+                        call = rlang::caller_env()){
   if(is_gbif()){
     # actually we check the userpwd entry here
     email_text <- .query$options$userpwd
     if(email_text == ":"){
-      abort_email_missing()
+      abort_email_missing(call = call)
     }
   }else{
     email_text <- httr2::url_parse(.query$url)$query$email
     if(is.null(email_text)) {
-      abort_email_missing()
+      abort_email_missing(call = call)
     }else if(email_text == ""){
-      abort_email_missing()
+      abort_email_missing(call = call)
     }
   }
   .query
@@ -113,7 +114,9 @@ check_files_filter <- function(x){
 #' check that objects passed within `galah_filter` have correct structure
 #' @noRd
 #' @keywords Internal
-check_filter_tibbles <- function(x){ # where x is a list of tibbles
+check_filter_tibbles <- function(x, # where x is a list of tibbles
+                                 error_call = rlang::caller_env()
+                                 ){ 
   syntax_valid <- lapply(x, function(a){
     if(length(colnames(a)) == 4){
       all(colnames(a) %in% c("variable", "logical", "value", "query"))
@@ -124,14 +127,16 @@ check_filter_tibbles <- function(x){ # where x is a list of tibbles
     unlist() |>
     all()
   if(!syntax_valid){
-    cli::cli_abort("There was a problem with `filter`, did you use correct syntax?")
+    cli::cli_abort("There was a problem with `filter`, did you use correct syntax?",
+                   call = error_call)
   }
 }
 
 #' Internal function to check whether fields are valid
 #' @noRd
 #' @keywords Internal
-check_fields <- function(.query) {
+check_fields <- function(.query,
+                         error_call = rlang::caller_env()) {
   
   if(potions::pour("package", "run_checks")){
     if(is_gbif()){
@@ -158,7 +163,9 @@ check_fields <- function(.query) {
         "Can't use fields that don't exist.",
         i = "Use `search_all(fields)` to find a valid field ID.",
         x = glue("Can't find field(s) in"),
-        glue::glue("  ", format_error_bullets(invalid_fields_message))
+        glue::glue("  ", 
+                   format_error_bullets(invalid_fields_message),
+                   call = error_call)
       )
       cli::cli_abort(bullets)
     }
@@ -167,12 +174,11 @@ check_fields <- function(.query) {
 }
 
 #' Check whether fields match those requested, and if not, inform the user
-#' @importFrom rlang warn
-#' @importFrom rlang caller_env
 #' @noRd
 #' @keywords Internal
 check_field_identities <- function(df, 
-                                   .query){
+                                   .query,
+                                   error_call = rlang::caller_env()){
   if(!is.null(.query$fields) & 
      potions::pour("package", "run_checks", .pkg = "galah") & 
      potions::pour("atlas", "region", .pkg = "galah") %in% c("Australia", "Spain", "Sweden")
@@ -193,7 +199,8 @@ check_field_identities <- function(df,
       names(missing_fields) <- rep("*", length(missing_fields))
       c("The following fields, requested in your query, were not downloaded:",
         missing_fields) |>
-      cli::cli_warn(bullets)
+      cli::cli_warn(bullets,
+                    call = error_call)
     }
     # check for additions
     added_check <- !(field_names %in% .query$fields)
@@ -202,7 +209,7 @@ check_field_identities <- function(df,
       names(added_fields) <- rep("*", length(added_fields))
       c("The following fields were downloaded, but weren't requested in your query:",
         added_fields) |>
-      cli::cli_warn()
+      cli::cli_warn(call = error_call)
     }
   }
   df
@@ -370,7 +377,7 @@ check_identifiers <- function(.query){
 #' @noRd
 #' @keywords Internal
 check_identifiers_la <- function(.query, 
-                                 error_call = caller_env()){
+                                 error_call = rlang::caller_env()){
   # FIXME: test if every >1 urls here
   if(inherits(.query$url, "data.frame")){
     url <- httr2::url_parse(.query$url$url[1])
@@ -397,7 +404,8 @@ check_identifiers_la <- function(.query,
         .query$url[1] <- httr2::url_build(url)
       }else{
         # this only happens if there is a bug earlier in the code
-        abort("The query has a taxonomic placeholder, but no taxon search has been run.")
+        cli::cli_abort("The query has a taxonomic placeholder, but no taxon search has been run.",
+                       call = error_call)
       }
     }
   }else{
@@ -410,7 +418,8 @@ check_identifiers_la <- function(.query,
                                     reserved = TRUE)
         .query$url[1] <- sub("%60TAXON_PLACEHOLDER%60", taxa_id, .query$url[1])
       }else{
-        rlang::abort("The query has a taxonomic placeholder, but no taxon search has been run.")
+        cli::cli_abort("The query has a taxonomic placeholder, but no taxon search has been run.",
+                       call = error_call)
       }
     }
   }
@@ -421,21 +430,20 @@ check_identifiers_la <- function(.query,
 #' Called by `compute()`
 #' @noRd
 #' @keywords Internal
-#' @importFrom rlang caller_env
 check_login <- function(.query, 
-                        error_call = caller_env()) {
+                        error_call = rlang::caller_env()) {
   # Check for valid email for occurrences or species queries for all providers
   if(is_gbif()){
     if(grepl("^data", .query$type)){
-      check_email(.query)
-      check_password(.query)
+      check_email(.query, call = error_call)
+      check_password(.query, call = error_call)
     }
   }else{
     if(.query$type %in% c("data/occurrences", "data/species")){
       switch(potions::pour("atlas", "region"), 
              "United Kingdom" = {},
-             check_email(.query))
-    } 
+             check_email(.query, call = error_call))
+    }
   }
   .query
 }
@@ -486,35 +494,31 @@ check_media_cols_present <- function(.query,
 #' Internal function called by `filter()` et al
 #' @noRd
 #' @keywords Internal
-check_named_input <- function(dots){
+check_named_input <- function(dots,
+                              error_call = rlang::caller_env()){
   name_length <- any(length(names(dots) > 0)) & any(names(dots) != "")
   if(name_length){
-    bullets <- c(
-      "We detected a named input.",
-      i = "This usually means that you've used `=` instead of `==`.")
-    cli::cli_abort(bullets)
+    c("We detected a named input.",
+      i = "This usually means that you've used `=` instead of `==`.") |>
+    cli::cli_abort(call = error_call)
   }
 }
 
 #' Check whether geolocate functions have >1 argument
-#' @importFrom rlang warn
 #' @noRd
 #' @keywords Internal
 check_n_inputs <- function(dots, 
                            error_call = rlang::caller_env()) {
   if(length(dots) > 1){
     n_geolocations <- length(dots)
-     c(
-      "More than 1 spatial area provided.",
-      "*" = glue("Using first location, ignoring additional {n_geolocations - 1} location(s).")
-    ) |>
+     c("More than 1 spatial area provided.",
+       "*" = "Using first location, ignoring additional {n_geolocations - 1} location(s).") |>
     cli::cli_warn(call = error_call)
   }
 }
 
 #' Internal function to ensure correct data extracted from API for LA/GBIF
 #' It makes all calls consistent so we only need one queue checking function
-#' @importFrom stringr str_trim
 #' @noRd
 #' @keywords Internal
 check_occurrence_response <- function(.query,
@@ -524,7 +528,7 @@ check_occurrence_response <- function(.query,
   if (!is.null(.query$status_code)) {
     
     error_type <- sub("\\:.*", "", .query$message) |> 
-      str_trim()
+      stringr::str_trim()
     
     bullets <- c(
       "There was a problem with your query.",
@@ -627,12 +631,11 @@ check_password <- function(.query,
 check_profiles <- function(.query, 
                            error_call = rlang::caller_env()){
   if(!inherits(.query$url, "data.frame")){
-    query <- url_parse(.query$url[1])$query
+    query <- httr2::url_parse(.query$url[1])$query
     if(!is.null(query$qualityProfile)){
       profile <- query$qualityProfile
       if(!profile %in% .query[["metadata/profiles"]]$shortName){
-        c(
-          "Unrecognised profile requested.",
+        c("Unrecognised profile requested.",
           i = "See `?show_all(profiles)` for valid profiles.",
           x = "Can't find profile `{profile}` for specified atlas.") |>
         cli::cli_abort(call = error_call)
@@ -798,11 +801,9 @@ check_type_valid <- function(type,
                              valid,
                              error_call = rlang::caller_env()) {
   if(!any(valid == type)){
-     c(
-      glue("Unrecognised metadata requested."),
+    c("Unrecognised metadata requested.",
       i = "See `?show_all()` for a list of valid metadata types.",
-      x = glue("Can't find metadata type `{type}`.")
-    ) |>
-    cli::cli_abort(call = error_call)   
+      x = "Can't find metadata type `{type}`.") |>
+      cli::cli_abort(call = error_call)   
   }
 }

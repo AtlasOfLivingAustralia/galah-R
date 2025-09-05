@@ -66,7 +66,6 @@ as_query_profiles_unnest <- function(.query){
 
 #' Internal function to `as_query()` for 
 #' `request_metadata(type = "taxa") |> unnest()`
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
 as_query_taxa_unnest <- function(.query){

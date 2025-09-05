@@ -11,7 +11,7 @@ test_that("galah_polygon uses first argument", {
 test_that("galah_polygon checks inputs", {
   poly_path <- test_path("testdata", "act_state_polygon_shp", "ACT_STATE_POLYGON_shp.shp")
   wkt_path <- test_path("testdata", "long_act_wkt.txt")
-  expect_error(galah_polygon(st_read(poly_path, quiet = TRUE)))
+  expect_error(galah_polygon(sf::st_read(poly_path, quiet = TRUE)))
   expect_error(galah_polygon(readLines(wkt_path)))
 })
 
@@ -37,18 +37,19 @@ test_that("galah_polygon converts WKT strings to multipolygon", {
 
 test_that("galah_polygon converts WKT strings with spaces", {
   wkt_with_spaces <- "POLYGON ((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))"
-  converted_wkt_with_spaces <- build_wkt(st_as_sfc(wkt_with_spaces))
+  converted_wkt_with_spaces <- build_wkt(sf::st_as_sfc(wkt_with_spaces))
   expect_match(converted_wkt_with_spaces, "MULTIPOLYGON \\(\\(\\(143\\.32")
 })
 
 test_that("galah_polygon converts sf object to multipolygon", {
-  sf_wkt <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |> st_as_sfc()
+  sf_wkt <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |> 
+    sf::st_as_sfc()
   expect_match(galah_polygon(sf_wkt), "MULTIPOLYGON")
 })
 
 test_that("galah_polygon counts vertices correctly", {
   wkt <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))"
-  expect_equal(n_points(st_as_sfc(wkt)), 4)
+  expect_equal(n_points(sf::st_as_sfc(wkt)), 4)
 })
 
 test_that("galah_polygon checks for simple polygons only", {
@@ -60,7 +61,8 @@ test_that("galah_polygon checks for simple polygons only", {
 })
 
 test_that("galah_polygon counts n vertices correctly", {
-  sf_wkt <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |> st_as_sfc()
+  sf_wkt <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |> 
+    sf::st_as_sfc()
   poly_path <- test_path("testdata", "act_state_polygon_shp", "ACT_STATE_POLYGON_shp.shp")
   shapefile_complex <- sf::st_read(poly_path, quiet = TRUE)
   expect_equal(n_points(shapefile_complex), 2787)

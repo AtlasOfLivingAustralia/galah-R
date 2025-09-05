@@ -1,7 +1,7 @@
 #' Internal function called by `check_login()`
 #' @noRd
 #' @keywords Internal
-abort_email_missing <- function(error_call = caller_env()){
+abort_email_missing <- function(error_call = rlang::caller_env()){
   c(
     "No user email was found.",
     i = "To download occurrence records, species lists, or (for GBIF) occurrence
@@ -25,11 +25,12 @@ abort_email_missing <- function(error_call = caller_env()){
 #' System-wide, generic failure message
 #' @noRd
 #' @keywords Internal
-system_down_message <- function(function_name){
+system_down_message <- function(function_name, 
+                                error_call = rlang::caller_env()){
   c(
     "Calling the API failed for `{function_name}`.",
     i = "This might mean that the API is down, or that you are not connected to the internet.",
     i = "Double check that your query is correct, or try again later."
   ) |>
-  cli::cli_inform(bullets)
+  cli::cli_inform(call = error_call)
 }

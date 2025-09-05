@@ -48,7 +48,7 @@ NULL
 #' @param ... column to order by
 #' @export
 desc <- function(...){
-  dots <- enquos(..., .ignore_empty = "all")
+  dots <- rlang::enquos(..., .ignore_empty = "all")
   parsed_dots <- parse_quosures_basic(dots)
   tibble(variable = parsed_dots,
          direction = "descending")

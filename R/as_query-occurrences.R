@@ -1,11 +1,13 @@
 #' Internal function to convert `data_request` with `type = "occurrences"` to a `query`
 #' @noRd
 #' @keywords Internal
-as_query_occurrences <- function(.query){
+as_query_occurrences <- function(.query,
+                                 error_call = rlang::caller_env()){
   if(is.null(.query$filter) & 
      is.null(.query$identify) & 
      is.null(.query$geolocate)){
-    cli::cli_abort("No filters supplied to `collapse()` with `type = \"occurrences\"`")
+    cli::cli_abort("No filters supplied to `collapse()` with `type = \"occurrences\"`",
+                   call = error_call)
   }
   switch(potions::pour("atlas", "region"),
          "United Kingdom" = as_query_occurrences_uk(.query),
@@ -93,14 +95,15 @@ as_query_occurrences_la <- function(.query){
              qa = "`ASSERTIONS_PLACEHOLDER`",
              facet = "false", # not tested
              emailNotify = email_notify(),
-             sourceTypeId = {pour("atlas", "region") |>
+             sourceTypeId = {potions::pour("atlas", "region") |>
                              source_type_id_lookup()},
              reasonTypeId = potions::pour("user", "download_reason_id"),
              email = potions::pour("user", "email"),
              dwcHeaders = "true")
   # DOI conditional on this service being offered
   if (!is.null(.query$mint_doi) & 
-      pour("atlas", "region") == "Australia") {
+      potions::pour("atlas", "region") == "Australia"
+  ) {
     query$mintDoi <- .query$mint_doi
   }
   # build url

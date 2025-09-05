@@ -32,17 +32,16 @@
 #' }
 #' @export
 group_by.data_request <- function(.data, ...){
-parsed_dots <- enquos(..., .ignore_empty = "all") |>
+parsed_dots <- rlang::enquos(..., .ignore_empty = "all") |>
   parse_quosures_basic()
 df <- parse_group_by(parsed_dots)
 update_data_request(.data, group_by = df)
 }
 
 #' @rdname group_by.data_request
-#' @importFrom stringr str_detect
 #' @export
 galah_group_by <- function(...){
-  dots <- enquos(..., .ignore_empty = "all") |>
+  dots <- rlang::enquos(..., .ignore_empty = "all") |>
     detect_request_object()
   switch(class(dots[[1]])[1],
          "data_request" = {
@@ -59,13 +58,14 @@ galah_group_by <- function(...){
 #' Internal parsing of `group_by` args
 #' @noRd
 #' @keywords Internal
-parse_group_by <- function(dot_names){
+parse_group_by <- function(dot_names, 
+                           error_call = rlang::caller_env()){
   if(length(dot_names) > 0){
     if(length(dot_names) > 3){
       c(
         "Too many fields supplied.",
         i = "`group_by.data_request` accepts a maximum of 3 fields.") |>
-      cli::cli_abort(call = rlang::caller_env())
+      cli::cli_abort(call = error_call)
     }
     if(length(dot_names) > 0){
       names(dot_names) <- NULL # needed to avoid empty strings added as names

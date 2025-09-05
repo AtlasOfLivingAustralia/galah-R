@@ -29,21 +29,19 @@
 #'   apply_profile(ALA) |>
 #'   atlas_counts()
 #' }
-#' @importFrom rlang enquos
 #' @export
 apply_profile <- function(.data, ...){
-  dots <- enquos(..., .ignore_empty = "all")
+  dots <- rlang::enquos(..., .ignore_empty = "all")
   result <- parse_quosures_basic(dots) |>
-    pluck(!!!list(1)) |>
+    purrr::pluck(!!!list(1)) |>
     parse_profile()
   update_data_request(.data, data_profile = result)
 }
 
 #' @rdname apply_profile
-#' @importFrom rlang enquos
 #' @export
 galah_apply_profile <- function(...){
-  dots <- enquos(..., .ignore_empty = "all") |>
+  dots <- rlang::enquos(..., .ignore_empty = "all") |>
     detect_request_object()
   switch(class(dots[[1]])[1],
          "data_request" = {
@@ -58,19 +56,16 @@ galah_apply_profile <- function(...){
 }
 
 #' Internal parsing of `profile` args
-#' @importFrom glue glue
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-parse_profile <- function(dot_names, error_call = caller_env()) {
+parse_profile <- function(dot_names,
+                          error_call = rlang::caller_env()) {
   n_args <- length(dot_names)
   if (n_args > 0) {
     if (n_args > 1) {
-      bullets <- c(
-        "Too many data profiles supplied.",
-        x = glue("`galah_apply_profile()` accepts one profile argument, not {n_args}.")
-      )
-      abort(bullets, call = error_call)
+      c("Too many data profiles supplied.",
+        x = "`galah_apply_profile()` accepts one profile argument, not {n_args}.") |>
+      cli::cli_abort(call = error_call)
     }else{
       as.character(dot_names)
     }

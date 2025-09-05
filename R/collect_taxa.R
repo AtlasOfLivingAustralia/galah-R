@@ -237,22 +237,19 @@ check_search_terms <- function(result, atlas) {
       "!" = cli::cli_text("{.yellow {n_invalid} unmatched search term{?s}:}")
     )
     if (n_invalid > 3) {
-      invalid_taxa_truncated <- c(invalid_taxa[1:3], glue("+ {n_invalid - 3} more"))
+      invalid_taxa_truncated <- c(invalid_taxa[1:3], glue::glue("+ {n_invalid - 3} more"))
       list_invalid_taxa <- glue::glue_collapse(invalid_taxa_truncated, 
                                                sep = "\", \"", 
                                                last = "\" ")
-      bullets <- c(
-        bullets, 
-        cli::cli_text(format_error_bullets(c("{.yellow \"{list_invalid_taxa}}")))
-        )
     } else {
       list_invalid_taxa <- glue::glue_collapse(invalid_taxa, 
                                                sep = "\", \"")
-      bullets <- c(
-        bullets, 
-        cli::cli_text(format_error_bullets(c("{.yellow \"{list_invalid_taxa}\"}")))
-      )
     }
+    bullets <- c(
+      bullets,
+      c("{.yellow \"{list_invalid_taxa}\"}") |>
+        rlang::format_error_bullets() |>
+        cli::cli_text())
     
     cli::cli_inform(bullets)
     cli::cli_end(d)
@@ -261,7 +258,6 @@ check_search_terms <- function(result, atlas) {
 
 #' Internal function to check for homonyms in search term provided to 
 #' `search_taxa()`
-#' @importFrom rlang .data
 #' @noRd
 #' @keywords Internal
 check_homonyms <- function(result,

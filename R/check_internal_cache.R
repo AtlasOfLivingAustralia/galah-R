@@ -5,13 +5,12 @@
 #' When a named field is given, it stores that field in options("galah_internal")
 #' @noRd
 #' @keywords Internal
-#' @importFrom potions pour
 check_internal_cache <- function(...){
 
   # set all options
   ala_option_name <- "check_internal_cache"
   current_options <- getOption(ala_option_name)
-  atlas <- pour("atlas", "region")
+  atlas <- potions::pour("atlas", "region")
   user_options <- list(...)
   
   # load an archived version as the default
@@ -48,7 +47,7 @@ check_internal_cache <- function(...){
 internal_cache_update_needed <- function(function_name){
   df <- check_internal_cache()[[function_name]]
   is_local <- !is.null(attr(df, "ARCHIVED"))
-  is_wrong_atlas <- attr(df, "region") != pour("atlas", "region")
+  is_wrong_atlas <- attr(df, "region") != potions::pour("atlas", "region")
   is_too_short <- nrow(df) < 10
   result <- is_local | is_wrong_atlas | is_too_short # if any, update is needed
   if(length(result) < 1){result <- TRUE} # bug catcher

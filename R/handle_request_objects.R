@@ -80,7 +80,6 @@ update_data_request <- function(data_request, ...){
 }
 
 #' Internal function to join together two `select` objects
-#' @importFrom rlang is_quosure
 #' @noRd
 #' @keywords Internal
 update_select <- function(x, y){

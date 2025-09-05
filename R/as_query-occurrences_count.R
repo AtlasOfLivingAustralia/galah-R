@@ -70,8 +70,6 @@ as_query_occurrences_count_atlas <- function(identify = NULL,
 }
 
 #' collapse for counts on GBIF
-#' @importFrom httr2 url_build
-#' @importFrom httr2 url_parse
 #' @keywords Internal
 #' @noRd
 as_query_occurrences_count_gbif <- function(identify = NULL, 

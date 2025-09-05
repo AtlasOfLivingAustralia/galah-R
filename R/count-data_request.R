@@ -8,7 +8,6 @@
 #' @param ... currently ignored
 #' @param sort currently ignored
 #' @param name currently ignored
-#' @importFrom dplyr count
 #' @export
 count.data_request <- function(x, 
                                ..., 
@@ -18,7 +17,7 @@ count.data_request <- function(x,
   x$type <- switch(x$type, 
                    "occurrences" = "occurrences-count",
                    "species" = "species-count",
-                   "media" = abort("type = 'media' is not supported by `count()`"),
-                   abort("`count()` only supports `type = 'occurrences' or` `'species'`"))
+                   "media" = cli::cli_abort("type = 'media' is not supported by `count()`"),
+                   cli::cli_abort("`count()` only supports `type = 'occurrences' or` `'species'`"))
   x
 }

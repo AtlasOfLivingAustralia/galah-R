@@ -2,34 +2,25 @@
 #' `request_metadata(type = "fields") |> unnest()`
 #' @noRd
 #' @keywords Internal
-collect_fields_unnest <- function(.query, error_call = caller_env()){
+collect_fields_unnest <- function(.query,
+                                  error_call = rlang::caller_env()){
+  facet <- .query |>
+    purrr::pluck("url") |>
+    httr2::url_parse()
+  
   if(is_gbif()){
-    facet <- .query |>
-      purrr::pluck("url") |>
-      httr2::url_parse() |>
-      purrr::pluck("query", "facet")
-    
-    if (facet == "NA") {
-      cli::cli_abort("No `field` passed to `show_values()`/`search_values()`.")
-    }
-    
+    facet <-  purrr::pluck(facet, "query", "facet") # NOTE: "facet" (singular)
+    check_missing_fields(facet, call = error_call)
     result <- .query |>
       query_API() |>
       purrr::pluck(!!!list("facets", 1, "counts")) |>
       dplyr::bind_rows()
     colnames(result)[which(colnames(result) == "name")[1]] <- facet
-    select(result, {{facet}})
+    dplyr::select(result, {{facet}})
     
   }else{ 
-    facet <- .query |>
-      purrr::pluck("url") |>
-      httr2::url_parse() |>
-      purrr::pluck("query", "facets")
-    
-    if (facet == "NA") {
-      cli::cli_abort("No `field` passed to `show_values()`/`search_values()`.")
-    }
-
+    facet <-  purrr::pluck(facet, "query", "facets") # NOTE: "facets" (plural)
+    check_missing_fields(facet, call = error_call)
     result <- .query |>
       query_API() |>
       purrr::pluck(!!!list(1, "fieldResult")) |>
@@ -39,17 +30,23 @@ collect_fields_unnest <- function(.query, error_call = caller_env()){
     if(nrow(result) > 0){
       result <- result |>
         dplyr::mutate(
-          field_value = stringr::str_extract(
-            result$i18nCode, 
-            "(?<=\\.).*" # everything after .
-          )
-        )
-      
+          field_value = stringr::str_extract(result$i18nCode, 
+                                             "(?<=\\.).*")) # everything after .
       colnames(result)[which(colnames(result) == "field_value")[1]] <- facet
-      dplyr::select(result, {{facet}})      
+      dplyr::select(result, {{facet}}) 
     }else{ # i.e. catch empty results
       result
     }
+  }
+}
+
+#' Microfunction to prevent later failures due to missing field names
+#' @noRd
+#' @keywords Internal
+check_missing_fields <- function(x, call){
+  if (x == "NA") {
+    cli::cli_abort("No `field` passed to `show_values()`/`search_values()`.",
+                   call = call)
   }
 }
 

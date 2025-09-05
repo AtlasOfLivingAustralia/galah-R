@@ -81,7 +81,7 @@ test_that("galah_identify truncates unmatched list of taxa at 3 ", {
     c(
       cli::cli_text("Matched {.bold 1 of 5} taxonomic search terms in selected atlas (Australia)."),
       "!" = cli::cli_text("{.yellow 4 unmatched search term:}"),
-      cli::cli_text(format_error_bullets(c("{.yellow \"blarghy\", \"blorp\", \"florp\" + 1 more}")))
+      cli::cli_text(rlang::format_error_bullets(c("{.yellow \"blarghy\", \"blorp\", \"florp\" + 1 more}")))
     )
   )
 })
@@ -97,18 +97,6 @@ test_that("galah_identify errors for deprecated `search = FALSE` argument", {
   expect_error(
     galah_call() |>
       galah_identify(ids, search = FALSE) |>
-      galah_filter(year == 2020) |>
-      count() |>
-      collapse())
-})
-
-test_that("galah_identify warns for deprecated `search = TRUE` argument", {
-  skip_if_offline(); skip_on_ci()
-  galah_config(run_checks = TRUE)
-  ids <- c("Litoria", "Crinia")
-  expect_warning(
-    galah_call() |>
-      galah_identify(ids, search = TRUE) |>
       galah_filter(year == 2020) |>
       count() |>
       collapse())

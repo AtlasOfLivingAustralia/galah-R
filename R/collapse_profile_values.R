@@ -24,7 +24,8 @@ collapse_profile_values <- function(.query){
 #' for data profiles. Only used by `collapse_profile_values()`
 #' @noRd
 #' @keywords Internal
-profile_short_name <- function(profile) {
+profile_short_name <- function(profile,
+                               error_call = rlang::caller_env()) {
   valid_profiles <- show_all_profiles()
   short_name <- NA
   if (suppressWarnings(!is.na(as.numeric(profile)))) {
@@ -46,7 +47,7 @@ profile_short_name <- function(profile) {
     c(
       "Unknown profile detected.",
       i = "See a listing of valid data quality profiles with `show_all_profiles()`.") |>
-    cli::cli_abort(call = rlang::caller_env())
+    cli::cli_abort(call = error_call)
   }else{
     short_name
   }

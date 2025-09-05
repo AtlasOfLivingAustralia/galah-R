@@ -100,6 +100,6 @@ collect.computed_query <- function(x,
            "metadata/taxa-multiple" = collect_taxa(x),
            "metadata/taxa-unnest" = collect_taxa_unnest(x),
            "metadata/identifiers" = collect_identifiers(x),
-           cli::cli_abort("unrecognised `type`"))
+           cli::cli_abort("Unrecognised `type`"))
   }
 }

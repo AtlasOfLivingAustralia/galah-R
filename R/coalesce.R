@@ -63,8 +63,7 @@ coalesce.metadata_request <- function(x, ...){
       }
     }else if(is.null(x$filter)){
       current_type <- x$type
-      bullets <- glue::glue("Requests of type `{current_type}` containing `unnest` must supply `filter()`.")
-      cli::cli_abort(bullets)
+      cli::cli_abort("Requests of type `{current_type}` containing `unnest` must supply `filter()`.")
     }
   }
   result[[(length(result) + 1)]] <- as_query(x)

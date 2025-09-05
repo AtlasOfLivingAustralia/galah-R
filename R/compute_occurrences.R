@@ -2,7 +2,7 @@
 #' @noRd
 #' @keywords Internal
 compute_occurrences <- function(.query){
-  switch(pour("atlas", "region"),
+  switch(potions::pour("atlas", "region"),
          "Austria" = compute_occurrences_la_direct(.query),
          "United Kingdom" = compute_occurrences_la_direct(.query),
          "Global" = compute_occurrences_gbif(.query),
@@ -28,8 +28,7 @@ compute_occurrences_gbif <- function(.query){
   post_result <- query_API(.query) # returns an id
   status_code <- list(
     type = "data/occurrences",
-    url = paste0("https://api.gbif.org/v1/occurrence/download/", 
-                 post_result)) |>
+    url = glue::glue("https://api.gbif.org/v1/occurrence/download/{post_result}")) |>
     query_API() |>
     check_occurrence_response()
   result <- c(
@@ -47,9 +46,9 @@ compute_occurrences_la <- function(.query){
   status_code <- query_API(.query) |>
     as.list() |>
     check_occurrence_response()
-  if(pour("package", "verbose")){
+  if(potions::pour("package", "verbose")){
     n_records <- status_code$total_records
-    inform(glue("Request for {n_records} occurrences placed in queue"))
+    cli::cli_inform("Request for {n_records} occurrences placed in queue")
   }
   # return a useful object
   result <- c(
@@ -61,15 +60,13 @@ compute_occurrences_la <- function(.query){
 }
 
 #' Internal function to get the `fields` vector from a url
-#' @importFrom httr2 url_parse
-#' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
 extract_fields <- function(.query){
   .query |>
-    pluck("url") |>
-    url_parse() |>
-    pluck("query", "fields") |>
+    purrr::pluck("url") |>
+    httr2::url_parse() |>
+    purrr::pluck("query", "fields") |>
     strsplit(split = ",") |>
-    pluck(!!!list(1))
+    purrr::pluck(!!!list(1))
 }

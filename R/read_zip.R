@@ -54,18 +54,18 @@ read_zip <- function(file){
   }else{
     available_files <- all_files[grepl(".csv$", all_files) &
                                    grepl("^data|records", all_files)]
-    result <- lapply(available_files, 
-                     function(a, x){
-                       # create connection to a specific file within zip
-                       conn <- unz(description = x, 
-                                   filename = a, 
-                                   open = "rb")
-                       out <- readr::read_csv(conn, 
-                                              col_types = readr::cols()) |>
-                         suppressWarnings()
-                       close(conn)
-                       return(out)
-                     }, x = file) |>
+    result <- purrr::map(available_files, 
+                         function(a, x){
+                           # create connection to a specific file within zip
+                           conn <- unz(description = x, 
+                                       filename = a, 
+                                       open = "rb")
+                           out <- readr::read_csv(conn, 
+                                                  col_types = readr::cols()) |>
+                             suppressWarnings()
+                           close(conn)
+                           return(out)
+                         }, x = file) |>
       dplyr::bind_rows()
     # # add doi when mint_doi = TRUE
     if(any(all_files == "doi.txt")){
@@ -89,7 +89,7 @@ read_zip <- function(file){
       cite_check <- grepl("cite", names(readme))
       if(any(cite_check)){
         attr(result, "citation") <- readme[cite_check] |>
-          glue_collapse(sep = "")
+          glue::glue_collapse(sep = "")
       }
     }
   }

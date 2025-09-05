@@ -162,7 +162,6 @@ parse_quosures_metadata <- function(request, dots){
 
 #' @rdname filter.data_request
 #' @order 3
-#' @importFrom rlang .data
 #' @export
 filter.files_request <- function(.data, ...){
   dots <- rlang::enquos(..., .ignore_empty = "all")

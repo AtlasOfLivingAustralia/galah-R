@@ -6,7 +6,7 @@ collect_apis <- function(.query){
     parse(text = _) |> 
     eval()
   attr(result, "call") <- "apis"
-  attr(result, "region") <- pour("atlas", "region")
+  attr(result, "region") <- potions::pour("atlas", "region")
   result
 }
 
@@ -28,7 +28,7 @@ collect_assertions <- function(.query){
     result <- result[wanted_columns("assertions")]
     result$type <- "assertions"
     attr(result, "call") <- "assertions" # needed for `show_values()` to work
-    attr(result, "region") <- pour("atlas", "region") # needed for caching to work    
+    attr(result, "region") <- potions::pour("atlas", "region") # needed for caching to work    
     check_internal_cache(assertions = result)
   }
   result
@@ -58,7 +58,7 @@ collect_collections <- function(.query){
     }
     result <- flat_lists_only(result) |>
       dplyr::bind_rows()
-  }else if(pour("atlas", "region", .pkg = "galah") == "France"){
+  }else if(potions::pour("atlas", "region", .pkg = "galah") == "France"){
     result <- query_API(.query) |>
       purrr::pluck("_embedded", "producers") |>
       unlist()
@@ -93,9 +93,6 @@ flat_lists_only <- function(x){
 }
 
 #' Internal function to `collect()` datasets
-#' @importFrom dplyr bind_rows
-#' @importFrom dplyr relocate
-#' @importFrom dplyr rename
 #' @noRd
 #' @keywords Internal
 collect_datasets <- function(.query){
@@ -257,8 +254,6 @@ collect_profiles <- function(.query){
 }
 
 #' Internal function to `collect()` providers
-#' @importFrom dplyr bind_rows
-#' @importFrom dplyr rename
 #' @noRd
 #' @keywords Internal
 collect_providers <- function(.query){

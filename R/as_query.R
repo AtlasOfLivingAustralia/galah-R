@@ -68,7 +68,7 @@ as_query.data_request <- function(x, ...){
          "species" = as_query_species(x),
          "species-count" = as_query_species_count(x),
          "distributions" = as_query_distributions_data(x),
-         cli::cli_abort("unrecognised 'type'")) |>
+         cli::cli_abort("Unrecognised 'type'")) |>
     structure(class = c("query", "list"))
 }
 
@@ -97,7 +97,7 @@ as_query.metadata_request <- function(x, ...){
          "taxa" = as_query_taxa(x),
          "taxa-unnest" = as_query_taxa_unnest(x),
          "identifiers" = as_query_identifiers(x),
-         cli::cli_abort("unrecognised 'type'")
+         cli::cli_abort("Unrecognised 'type'")
          ) |>
     structure(class = c("query", "list"))
 }

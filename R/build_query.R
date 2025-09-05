@@ -22,7 +22,6 @@ build_headers <- function(){
 #' Build query list from constituent arguments
 #' @noRd
 #' @keywords Internal
-#' @importFrom potions pour
 build_query <- function(identify = NULL, 
                         filter = NULL, 
                         location = NULL, 
@@ -41,7 +40,7 @@ build_query <- function(identify = NULL,
     filter_query <- NULL
   } else {
     if(!inherits(filter, "data.frame")){
-      abort("`filter` must be a `data.frame` or `tibble`")
+      cli::cli_abort("`filter` must be a `data.frame` or `tibble`")
     }
     if (nrow(filter) == 0) {
       filter_query <- NULL
@@ -91,14 +90,14 @@ build_single_fq <- function(query){
       !grepl("assertions", fq) & # assertions don't need additional brackets
       !grepl("^-\\(", fq)        # negative query already has brackets
     if(any(missing_brackets)){
-      fq[missing_brackets] <- paste0("(", fq[missing_brackets], ")")
+      fq[missing_brackets] <- glue::glue("({fq[missing_brackets]})")
     }
     # add brackets to non-negative AND statements
     # (adding additional brackets to negative statements breaks them)
     if(any(!grepl("^-\\(", fq))) {
-      fq_single <- glue::glue_collapse(glue("{fq}"), "AND")
+      fq_single <- glue::glue_collapse(glue::glue("{fq}"), "AND")
     } else {
-      fq_single <- glue::glue_collapse(glue("({fq})"), "AND")
+      fq_single <- glue::glue_collapse(glue::glue("({fq})"), "AND")
     }
     c(fq = fq_single, query[names(query) != "fq"])
   }else{
@@ -128,8 +127,6 @@ build_filter_query <- function(filters) {
 }
 
 #' Sub-function to `build_query()` for taxa
-#' @importFrom glue glue
-#' @importFrom glue glue_collapse
 #' @noRd
 #' @keywords Internal
 build_taxa_query <- function(ids) {
@@ -139,10 +136,10 @@ build_taxa_query <- function(ids) {
   }else{
     wrapped_ids <- paste0("\"", ids, "\"")
     id_tag <- "lsid"
-    glue(
+    glue::glue(
       "({id_tag}:",
-      glue_collapse(wrapped_ids,
-                    sep = glue(" OR {id_tag}:")),
+      glue::glue_collapse(wrapped_ids,
+                          sep = glue::glue(" OR {id_tag}:")),
       ")")
   }
 }
@@ -152,12 +149,11 @@ build_taxa_query <- function(ids) {
 #' It is pretty messy, as:
 #'  1. ALA returns empty lists and NULL values in some fields, and 
 #'  2. tibble() and friends don't handle list-columns well
-#' @importFrom tibble as_tibble
 #' @noRd
 #' @keywords Internal
 build_tibble_from_nested_list <- function(result){
   # handle normal columns
-  source_tibble <- lapply(result, function(a){
+  source_tibble <- purrr::map(result, function(a){
     if(is.null(a)){
       as.character(NA)
     }else if(length(a) > 1){
@@ -168,10 +164,10 @@ build_tibble_from_nested_list <- function(result){
       a
     }
   }) |>
-    as_tibble()
+    tibble::as_tibble()
   # handle nested columns
-  list_cols <- lapply(result, 
-                      function(a){is.list(a) & length(a) > 0}) |>
+  list_cols <- purrr::map(result, 
+                          function(a){is.list(a) & length(a) > 0}) |>
     unlist()
   if(any(list_cols)){
     list_data <- result[list_cols]
@@ -190,24 +186,18 @@ build_tibble_from_nested_list <- function(result){
 
 #' Build a valid wkt string from a spatial polygon
 #' Internal function to `galah_bbox` and `galah_polygon()`
-#' @importFrom sf st_as_text
-#' @importFrom sf st_cast
-#' @importFrom sf st_geometry
-#' @importFrom sf st_geometry_type
-#' @importFrom sf st_is_simple
 #' @noRd
 #' @keywords Internal
-build_wkt <- function(polygon, error_call = caller_env()) {
-  if (st_geometry_type(polygon) == "POLYGON") {
-    polygon <- st_cast(polygon, "MULTIPOLYGON")
+build_wkt <- function(polygon,
+                      error_call = caller_env()) {
+  if (sf::st_geometry_type(polygon) == "POLYGON") {
+    polygon <- sf::st_cast(polygon, "MULTIPOLYGON")
   }
-  if (!st_is_simple(polygon)) {
-    bullets <- c(
-      "The area provided to `galah_bbox` is too complex. ",
-      i = "See `?sf::st_simplify` for how to simplify geospatial objects."
-    )
-    abort(bullets, call = caller_env())
+  if (!sf::st_is_simple(polygon)) {
+    c("The area provided to `galah_bbox` is too complex. ",
+      i = "See `?sf::st_simplify` for how to simplify geospatial objects.") |>
+    cli::cli_abort(call = error_call)
   }
-  wkt <- st_as_text(st_geometry(polygon))
+  wkt <- sf::st_as_text(sf::st_geometry(polygon))
   wkt
 }

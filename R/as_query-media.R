@@ -2,7 +2,8 @@
 #' @param .query An object of class `metadata_request` (from `request_metadata()`)
 #' @noRd
 #' @keywords Internal
-as_query_media_metadata <- function(.query){
+as_query_media_metadata <- function(.query,
+                                    error_call = rlang::caller_env()){
   # NOTE:
   # this function currently assumes that the user has passed an occurrence 
   # tibble verbatim to filter, i.e.
@@ -24,7 +25,8 @@ as_query_media_metadata <- function(.query){
     media_ids <- media_ids[!is.na(media_ids)]
     names(media_ids) <- NULL
   }else{
-    cli::cli_abort("Media metadata not found in supplied tibble")
+    cli::cli_abort("Media metadata not found in supplied tibble",
+                   call = error_call)
   }
   
   result <- list(
@@ -42,11 +44,13 @@ as_query_media_metadata <- function(.query){
 #' @noRd
 #' @keywords Internal
 as_query_media_files <- function(.query, 
-                                 thumbnail = FALSE
+                                 thumbnail = FALSE,
+                                 error_call = rlang::caller_env()
                                  ){
   # handle filters
   if(is.null(.query$filter)){
-    cli::cli_abort("`collapse()` requires a `filter()` argument to function.")
+    cli::cli_abort("`collapse()` requires a `filter()` argument to function.",
+                   call = error_call)
   }
   df <- .query$filter
   if(any(colnames(df) == "media_id")){
@@ -54,7 +58,8 @@ as_query_media_files <- function(.query,
   }else if(any(colnames(df) == "image_id")){
     identifiers <- df$image_id
   }else{
-    cli::cli_abort("No valid identifiers found in supplied data.")
+    cli::cli_abort("No valid identifiers found in supplied data.",
+                   call = error_call)
   }
   path <- build_file_path(ids = identifiers, types = df$mimetype)
   if(any(colnames(df) == "image_url")){

@@ -6,30 +6,36 @@
 #' @param file character; optional name for the downloaded file. Defaults to 
 #' `data` followed by the system time in `%Y-%m-%d_%H-%M-%S` format, with a 
 #' `.zip` suffix.
-#' @importFrom potions pour
-#' @importFrom rlang abort
-#' @importFrom rlang inform
-#' @importFrom tibble tibble
 #' @noRd
 #' @keywords Internal
-collect_occurrences <- function(.query, wait, file = NULL){
-  switch(pour("atlas", "region"),
-         "Austria" = collect_occurrences_direct(.query, file = file),
-         "United Kingdom" = collect_occurrences_direct(.query, file = file),
-         collect_occurrences_default(.query, wait = wait, file = file))
+collect_occurrences <- function(.query, 
+                                wait, 
+                                file = NULL,
+                                error_call = rlang::caller_env()){
+  switch(potions::pour("atlas", "region"),
+         "Austria" = collect_occurrences_direct(.query,
+                                                file = file,
+                                                call = error_call),
+         "United Kingdom" = collect_occurrences_direct(.query,
+                                                       file = file,
+                                                       call = error_call),
+         collect_occurrences_default(.query,
+                                     wait = wait,
+                                     file = file,
+                                     call = error_call))
 }
 
 #' Internal function to `collect_occurrences()` for UK
 #' @noRd
 #' @keywords Internal
-collect_occurrences_direct <- function(.query, file){
+collect_occurrences_direct <- function(.query, file, call){
   .query$download <- TRUE
   .query$file <- check_download_filename(file)
   query_API(.query)
   result <- read_zip(.query$file)
   if(is.null(result)){
-    inform("Download failed")
-    return(tibble())
+    cli::cli_inform("Download failed", call = call)
+    return(tibble::tibble())
   }else{
     result
   }
@@ -38,16 +44,17 @@ collect_occurrences_direct <- function(.query, file){
 #' Internal function to `collect_occurrences()` for living atlases
 #' @noRd
 #' @keywords Internal
-collect_occurrences_default <- function(.query, wait, file){
+collect_occurrences_default <- function(.query, wait, file, call){
   # check queue
   download_response <- check_queue(.query, wait = wait)
   if(is.null(download_response)){
-    abort("No response from selected atlas")
+    cli::cli_abort("No response from selected atlas",
+                   call = call)
   }
   # get data
-  if(pour("package", "verbose", .pkg = "galah") &
+  if(potions::pour("package", "verbose", .pkg = "galah") &
      download_response$status == "complete") {
-    inform("Downloading")
+    cli::cli_inform("Downloading")
   }
   # sometimes lookup info critical, but not others - unclear when/why!
   if(any(names(download_response) == "download_url")){
@@ -61,8 +68,8 @@ collect_occurrences_default <- function(.query, wait, file){
   }
   # handle result
   if(is.null(result)){
-    inform("Download failed")
-    return(tibble())
+    cli::cli_inform("Download failed", call = call)
+    return(tibble::tibble())
   }else{
     result <- result |>
       check_field_identities(.query) |>
@@ -72,7 +79,7 @@ collect_occurrences_default <- function(.query, wait, file){
       # NOTE: GBIF documents DOIs in download response status url (it used to be automatically appended)
       #       We extract and preserve this info for the user, as of 2025-06-10
       doi <- download_response$doi
-      attr(result, "doi") <- paste0("https://doi.org/", doi)
+      attr(result, "doi") <- glue::glue("https://doi.org/{doi}")
     }
     if(!is.null(.query$search_url)){
       attr(result, "search_url") <- .query$search_url
@@ -85,19 +92,15 @@ collect_occurrences_default <- function(.query, wait, file){
 #' @param .query An object of class `data_request`
 #' @noRd
 #' @keywords Internal
-#' @importFrom potions pour
-#' @importFrom rlang abort
-#' @importFrom rlang inform
-#' @importFrom tibble tibble
 collect_occurrences_doi <- function(.query, 
                                     file = NULL, 
-                                    error_call = caller_env()) {
+                                    call) {
   .query$file <- check_download_filename(file)
   query_API(.query)
   result <- read_zip(.query$file)
   if(is.null(result)){
-    inform("Download failed.")
-    tibble()
+    cli::cli_inform("Download failed.", call = call)
+    tibble::tibble()
   }else{
     result
   }

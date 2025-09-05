@@ -26,7 +26,7 @@
 
 
 email_notify <- function() {
-  notify <- as.logical(pour("package", "send_email"))
+  notify <- as.logical(potions::pour("package", "send_email"))
   if (is.na(notify)) {
     notify <- FALSE
   }

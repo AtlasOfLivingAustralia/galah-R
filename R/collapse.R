@@ -51,7 +51,6 @@ collapse.metadata_request <- function(x, ...){
 #' @order 3
 #' @param thumbnail Logical: should thumbnail-size images be returned? Defaults 
 #' to `FALSE`, indicating full-size images are required.
-#' @importFrom purrr pluck
 #' @export
 collapse.files_request <- function(x,
                                    # prefix? could be useful for file names

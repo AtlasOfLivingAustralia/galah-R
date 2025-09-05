@@ -35,7 +35,7 @@ as_query_species_atlas <- function(.query){
                 .query$data_profile),
     emailNotify = email_notify(),
     sourceTypeId = 2004,
-    reasonTypeId = pour("user", "download_reason_id"),
+    reasonTypeId = potions::pour("user", "download_reason_id"),
     email = potions::pour("user", "email"), 
     facets = .query$group_by$name,
     parse_select_species(.query$select)
@@ -61,10 +61,11 @@ as_query_species_atlas <- function(.query){
 #' @keywords Internal
 parse_select_species <- function(.select){
   # parse labels for supplied field names
-  quosure_check <- purrr::map(.select, is_quosure) |> 
+  quosure_check <- purrr::map(.select, rlang::is_quosure) |> 
     unlist()
   if(any(quosure_check)){
-    named_fields <- purrr::map(.select[quosure_check], as_label) |> 
+    named_fields <- purrr::map(.select[quosure_check], 
+                               rlang::as_label) |> 
       unlist()
   }else{
     named_fields <- NULL
@@ -87,7 +88,7 @@ parse_select_species <- function(.select){
     if(any(name_check)){
       unexpected_names <- glue::glue_collapse(named_fields[name_check], last = " and ")
       c("When type = 'species', `select()` only accepts 'counts', 'synonyms' or 'lists' as valid fields.",
-        i = glue("Unexpected fields: {unexpected_names}")) |>
+        i = glue::glue("Unexpected fields: {unexpected_names}")) |>
       cli::cli_warn()
     }
     # parse 'correct' names

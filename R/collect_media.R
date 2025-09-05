@@ -25,7 +25,6 @@ collect_media_metadata <- function(.query){
 
 #' Internal version of `collect()` for `request_files(type = "media")`
 #' @param object of class `files_response`, from `compute()`
-#' @importFrom rlang .data
 #' @noRd
 #' @keywords Internal
 collect_media_files <- function(.query){

@@ -73,14 +73,15 @@ the exception of GBIF, for which all columns are returned.
 
 Calling the argument \code{group = "basic"} returns the following columns:
 \itemize{
+\item \code{recordID}
+\item \code{scientificName}
+\item \code{taxonConceptID}
 \item \code{decimalLatitude}
 \item \code{decimalLongitude}
 \item \code{eventDate}
-\item \code{scientificName}
-\item \code{taxonConceptID}
-\item \code{recordID}
-\item \code{dataResourceName}
+\item \code{basisOfRecord}
 \item \code{occurrenceStatus}
+\item \code{dataResourceName}
 }
 
 Using \code{group = "event"} returns the following columns:

@@ -10,19 +10,15 @@
 
 \method{identify}{metadata_request}(x, ...)
 
-galah_identify(..., search = NULL)
+galah_identify(...)
 }
 \arguments{
 \item{x}{An object of class \code{metadata_request}, created using \code{\link[=request_metadata]{request_metadata()}}}
 
 \item{...}{One or more scientific names.}
-
-\item{search}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-\code{galah_identify()} now always does a search to verify search terms; ergo
-this argument is ignored.}
 }
 \value{
-A tibble containing identified taxa.
+A \code{tibble} containing identified taxa.
 }
 \description{
 When conducting a search or creating a data query, it is common to identify
