@@ -29,13 +29,20 @@
 #' 
 #' # Return values of field `basisOfRecord`
 #' request_metadata() |> 
-#'   galah::unnest() |> 
+#'   unnest() |> 
 #'   filter(field == basisOfRecord) |> 
 #'   collect()
 #'   
 #' # Using `galah::unnest()` in this way is equivalent to:
 #' show_all(fields, "basisOfRecord") |> 
 #'   show_values()
+#'   
+#' # to add information to a species list:
+#' request_metadata() |>
+#'   filter(list == "dr650") |>
+#'   select(everything()) |>
+#'   unnest() |>
+#'   collect()
 #' }
 #' @name tidyverse_functions
 NULL
@@ -50,35 +57,44 @@ NULL
 desc <- function(...){
   dots <- rlang::enquos(..., .ignore_empty = "all")
   parsed_dots <- parse_quosures_basic(dots)
-  tibble(variable = parsed_dots,
-         direction = "descending")
+  tibble::tibble(variable = parsed_dots,
+                 direction = "descending")
 } 
+
+#' @rdname tidyverse_functions
+#' @export
+everything <- function(){
+  # still need to test this for 
+  #  - getting all fields in atlas_species()
+  #  - erroring in atlas_occurrences()
+  # browser()
+}
 
 #' @rdname tidyverse_functions
 #' @param .query An object of class `metadata_request`
 #' @export
 unnest <- function(.query){
   if(!inherits(.query, "metadata_request")){
-    abort("`galah::unnest()` can only be used with objects of class `metadata_request`.")
+    cli::cli_abort("`galah::unnest()` can only be used with objects of class `metadata_request`.")
   }
   if(!is.null(.query$filter)){
+    # check whether `type` is supplied as singular (i.e. `field` not `fields`)
     supplied_type <- .query$filter$variable[1]
-    if(supplied_type != "taxa" &
-       !grepl("s$", supplied_type)){
-      supplied_type <- paste0(supplied_type, "s")
+    if(supplied_type != "taxa" & !grepl("s$", supplied_type)){
+      supplied_type <- glue::glue("{supplied_type}s")
     }
   }else if(!is.null(.query$identify)){
     supplied_type <- "taxa"
   }else{
     supplied_type <- .query$type
   }
+  # ensure only used with certain query types
   valid_types <- c("fields", "lists", "profiles", "taxa")
   if(!(supplied_type %in% valid_types)){
-    bullets <- c(
-      "Invalid `type` supplied to `unnest()`",
-      i = "Valid types are `fields`, `lists`, `profiles` or `taxa`")
-    abort(bullets, call = caller_env())
+    c("Invalid `type` supplied to `unnest()`",
+      i = "Valid types are `fields`, `lists`, `profiles` or `taxa`") |>
+    cli::cli_abort(call = caller_env())
   }
-  .query$type <- paste0(supplied_type, "-unnest")
+  .query$type <- glue::glue("{supplied_type}-unnest")
   .query
 }

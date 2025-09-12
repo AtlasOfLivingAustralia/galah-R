@@ -3,10 +3,13 @@
 \name{tidyverse_functions}
 \alias{tidyverse_functions}
 \alias{desc}
+\alias{everything}
 \alias{unnest}
 \title{Non-generic tidyverse functions}
 \usage{
 desc(...)
+
+everything()
 
 unnest(.query)
 }
@@ -52,13 +55,20 @@ galah_call() |>
 
 # Return values of field `basisOfRecord`
 request_metadata() |> 
-  galah::unnest() |> 
+  unnest() |> 
   filter(field == basisOfRecord) |> 
   collect()
   
 # Using `galah::unnest()` in this way is equivalent to:
 show_all(fields, "basisOfRecord") |> 
   show_values()
+  
+# to add information to a species list:
+request_metadata() |>
+  filter(list == "dr650") |>
+  select(everything()) |>
+  unnest() |>
+  collect()
 }
 }
 \seealso{

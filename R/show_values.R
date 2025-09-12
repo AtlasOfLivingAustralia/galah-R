@@ -98,11 +98,19 @@ show_values <- function(df,
         cli::cli_inform()
     }
   }
-  request_metadata() |>
-    filter({{type}} == {{match_name}}) |>
-    unnest() |>
-    `attr<-`("all_fields", all_fields) |>
-    collect()
+  
+  if(type == "lists" & isTRUE(all_fields)){
+    request_metadata() |>
+      filter({{type}} == {{match_name}}) |>
+      select(everything()) |>
+      unnest() |>
+      collect()
+  }else{
+    request_metadata() |>
+      filter({{type}} == {{match_name}}) |>
+      unnest() |>
+      collect()
+  }
 }
 
 #' @param query A string specifying a search term. Not case sensitive.
@@ -120,7 +128,8 @@ search_values <- function(df, query) {
 #' Internal function to check inputs to `show_values()` & `search_values()` 
 #' @noRd
 #' @keywords Internal
-check_values_input <- function(df, error_call = caller_env()) {
+check_values_input <- function(df,
+                               error_call = rlang::caller_env()) {
   # Check if missing input
   if(missing(df) || is.null(df)) {
     c("Missing information for values lookup.",

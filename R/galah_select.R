@@ -9,7 +9,8 @@
 #' 
 #' `select()` supports `dplyr` **selection helpers**, including:
 #' 
-#'   * \code{\link[dplyr]{everything}}: Matches all variables.
+#'   * \code{\link[dplyr]{everything}}: Matches all variables. This is treated
+#'     unusually in `galah`; see `details`.
 #'   * \code{\link[dplyr]{last_col}}: Select last variable, possibly with an 
 #'     offset.
 #'
@@ -95,6 +96,17 @@
 #'   * `synonyms` to include any synonymous names.
 #'   * `lists` to include authoritative lists that each species is included on.
 #'
+#' The [everything()] function is recoded in galah to support three changed
+#' behaviours:
+#' 
+#'    * When called with [unnest()] for type `"lists"`, it adds user-provided 
+#'      columns, for example on conservation status or species traits.
+#'    * For occurrence downloads with type `"species`, it adds `counts`,
+#'     `synonyms` and `lists` to the download.
+#'    * For 'normal' occurrence downloads, it returns an error. Returning all
+#'      fields is computationally expensive and probably not what you want
+#'      anyway.
+#'      
 #' @seealso \code{\link[=filter.data_request]{filter()}}, 
 #' \code{\link[=st_crop.data_request]{st_crop()}} and
 #' \code{\link[=identify.data_request]{identify()}} for other ways to restrict 
@@ -137,6 +149,22 @@ select.data_request <- function(.data, ..., group){
 
 #' @rdname select.data_request
 #' @export
+select.metadata_request <- function(.data, ...){
+  if(.data$type != "lists"){
+    cli::cli_abort("`select()` is only supported for type `lists`")
+  }
+  select_entries <- rlang::enquos(..., .ignore_empty = "all") |>
+    as.list() |>
+    purrr::map(rlang::as_label) |>
+    unlist()
+  names(select_entries) <- NULL
+  .data$select <- list(value = select_entries,
+                       summary = select_entries)
+  .data
+}
+
+#' @rdname select.data_request
+#' @export
 galah_select <- function(..., group){
   dots <- rlang::enquos(..., .ignore_empty = "all") |>
     detect_request_object() |>
@@ -168,7 +196,7 @@ add_summary <- function(dots){
     unlist() 
   labels <- labels[labels != "<dat_rqst>"]
   last_entry <- length(dots) + 1
-  dots[[last_entry]] <- paste(labels, collapse = " | ")
+  dots[[last_entry]] <- glue::glue_collapse(labels, sep = " | ")
   names(dots)[last_entry] <- "summary"
   dots
 }

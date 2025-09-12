@@ -2,10 +2,13 @@
 % Please edit documentation in R/galah_select.R
 \name{select.data_request}
 \alias{select.data_request}
+\alias{select.metadata_request}
 \alias{galah_select}
 \title{Keep or drop columns using their names}
 \usage{
 \method{select}{data_request}(.data, ..., group)
+
+\method{select}{metadata_request}(.data, ...)
 
 galah_select(..., group)
 }
@@ -33,7 +36,8 @@ or messages will be triggered at the end of the pipe.
 
 \code{select()} supports \code{dplyr} \strong{selection helpers}, including:
 \itemize{
-\item \code{\link[dplyr]{everything}}: Matches all variables.
+\item \code{\link[dplyr]{everything}}: Matches all variables. This is treated
+unusually in \code{galah}; see \code{details}.
 \item \code{\link[dplyr]{last_col}}: Select last variable, possibly with an
 offset.
 }
@@ -117,6 +121,18 @@ it should be one or more of:
 \item \code{counts} to include counts of occurrences per species.
 \item \code{synonyms} to include any synonymous names.
 \item \code{lists} to include authoritative lists that each species is included on.
+}
+
+The \code{\link[=everything]{everything()}} function is recoded in galah to support three changed
+behaviours:
+\itemize{
+\item When called with \code{\link[=unnest]{unnest()}} for type \code{"lists"}, it adds user-provided
+columns, for example on conservation status or species traits.
+\item For occurrence downloads with type \verb{"species}, it adds \code{counts},
+\code{synonyms} and \code{lists} to the download.
+\item For 'normal' occurrence downloads, it returns an error. Returning all
+fields is computationally expensive and probably not what you want
+anyway.
 }
 }
 \examples{

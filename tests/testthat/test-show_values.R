@@ -9,39 +9,48 @@ test_that("show_values checks values", {
 
 test_that("show_values accepts search & show_all inputs from fields", {
   skip_if_offline(); skip_on_ci()
-  search <- search_all(lists, "EPBC act")
-  filtered_show <- show_all(lists) |>
-    dplyr::filter(species_list_uid == "dr656")
-  values_search <- search |> show_values()
-  values_show <- filtered_show |> show_values()
+  # traditional syntax
+  values_search <- search_all(lists, "EPBC act") |>
+    show_values()
   expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(values_search), 0)
+  # newer syntax (doesn't require `show_all_lists()`)
+  values_show <- request_metadata() |>
+    filter(lists == "dr656") |>
+    unnest() |>
+    collect()
   expect_s3_class(values_show, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(values_show), 0)
 })
 
 test_that("show_values accepts search & show_all inputs from profiles", {
   skip_if_offline(); skip_on_ci()
-  search <- search_all(profiles, "ALA")
-  filtered_show <- show_all(profiles) |>
-    dplyr::filter(shortName == "ALA")
-  values_search <- search |> show_values()
-  values_show <- filtered_show |> show_values()
+  # traditional syntax
+  values_search <- search_all(profiles, "ALA") |>
+    show_values()
   expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(values_search), 0)
+  # newer syntax
+  values_show <- request_metadata() |>
+    filter(profiles == "ALA") |>
+    unnest() |>
+    collect()
   expect_s3_class(values_show, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(values_show), 0)
 })
 
 test_that("show_values accepts search & show_all inputs from lists", {
   skip_if_offline(); skip_on_ci()
-  search <- search_all(fields, "cl22")
-  filtered_show <- show_all(fields) |>
-    dplyr::filter(id == "year")
-  values_search <- search |> show_values()
-  values_show <- filtered_show |> show_values()
+  # old syntax
+  values_search <- search_all(fields, "cl22") |>
+    show_values()
   expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(values_search), 0)
+  # new syntax
+  values_show <- request_metadata() |>
+    filter(fields == "basisOfRecord") |>
+    unnest() |>
+    collect()
   expect_s3_class(values_show, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(values_show), 0)
 })
@@ -61,7 +70,7 @@ test_that("search_values returns filtered results for fields", {
                                    paste(values_search[,1]),
                                    ignore.case = TRUE))
   expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
-  expect_equivalent(names(values_search), names(values_show))
+  expect_equal(names(values_search), names(values_show))
   expect_lt(nrow(values_search), nrow(values_show))
   expect_true(search_result_check)
 })
@@ -75,7 +84,7 @@ test_that("search_values returns filtered results for profiles", {
                                    paste(values_search$description),
                                    ignore.case = TRUE))
   expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
-  expect_equivalent(names(values_search), names(values_show))
+  expect_equal(names(values_search), names(values_show))
   expect_lt(nrow(values_search), nrow(values_show))
   expect_true(search_result_check)
 })
@@ -117,8 +126,8 @@ test_that("search_values specifies matched field", {
 
 test_that("show_values returns unformatted names", {
   skip_if_offline(); skip_on_ci()
-  expected <- tibble(basisOfRecord = c("HUMAN_OBSERVATION",
-                                       "PRESERVED_SPECIMEN"))
+  expected <- tibble::tibble(basisOfRecord = c("HUMAN_OBSERVATION",
+                                               "PRESERVED_SPECIMEN"))
   search <- search_all(fields, "basisOfRecord")
   expect_equal(search |> show_values() |> head(2L), 
                expected)
@@ -146,15 +155,40 @@ test_that("unnest syntax works", {
 
 test_that("show_values all_fields = TRUE works for lists", {
   skip_if_offline(); skip_on_ci()
-  search <- search_all(lists, "dr650") |>
-    show_values(all_fields = TRUE)
+  # simple, fake version for testing `show_values()`
+  df <- tibble::tibble(species_list_uid = "dr650")
+  attr(df, "call") <- "lists"
+  show_values_query <- show_values(df, all_fields = TRUE)
+  expect_equal(all_fields_query, show_values_query)
+  # NOTE: above is same as following code, but much faster  
+  # search <- search_all(lists, "dr650") |>
+  #   show_values(all_fields = TRUE)
   extra_cols <- c("raw_scientificName", "status", "sourceStatus", "IUCN_equivalent_status")
-  
-  expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
-  expect_gt(nrow(search), 0)
-  expect_true(any(colnames(search) %in% extra_cols))
-  expect_gt(ncol(search), 6) # adds additional columns
+  expect_s3_class(show_values_query, c("tbl_df", "tbl", "data.frame"))
+  expect_gt(nrow(show_values_query), 0)
+  expect_true(any(colnames(show_values_query) %in% extra_cols))
+  expect_gt(ncol(show_values_query), 6) # adds additional columns
+  # doesn't work for fields
   expect_warning(search_all(fields, "cl22") |> 
                    show_values(all_fields = TRUE))
 })
 
+test_that("unnest() |> `select(everything()) works as alternative to all_fields",{
+  x <- request_metadata() |>
+    filter(list == "dr650") |>
+    select(everything()) |>
+    unnest() |>
+    collect()
+  extra_cols <- c("raw_scientificName", "status", "sourceStatus", "IUCN_equivalent_status")
+  expect_s3_class(show_values_query, c("tbl_df", "tbl", "data.frame"))
+  expect_gt(nrow(show_values_query), 0)
+  expect_true(any(colnames(show_values_query) %in% extra_cols))
+  expect_gt(ncol(show_values_query), 6) # adds additional columns
+  
+  # explicitly errors for other metadata types
+  request_metadata() |>
+    filter(field == "basisOfRecord") |>
+    select(everything()) |>
+    unnest() |>
+    expect_error()
+})
