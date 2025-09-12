@@ -13,7 +13,7 @@
 #' @rdname coalesce
 #' @param x An object to be coalesced. Works for `data_request`, 
 #' `metadata_request` and `file_request`.
-#' @param ... Other arguments; not currently used.
+#' @param ... Other arguments passed to [as_query()].
 #' @order 1
 #' @return An object of class `query_set`, which is simply a list of all `query` 
 #' objects required to properly evaluate the specified request.
@@ -66,24 +66,25 @@ coalesce.metadata_request <- function(x, ...){
       cli::cli_abort("Requests of type `{current_type}` containing `unnest` must supply `filter()`.")
     }
   }
-  result[[(length(result) + 1)]] <- as_query(x)
+  if(x$type == "lists-unnest"){
+    query_obj <- as_query_lists_unnest(x, ...)
+  }else{
+    query_obj <- as_query(x)
+  }
+  result[[(length(result) + 1)]] <- query_obj
   class(result) <- "query_set"
   result
 }
 
 #' @rdname coalesce
-#' @param thumbnail Logical: should thumbnail-size images be returned? Defaults 
-#' to `FALSE`, indicating full-size images are required.
 #' @order 4
 #' @export
 coalesce.files_request <- function(x, 
-                                   thumbnail,
                                    ...){
   # NOTE: switch is technically superfluous right now, but could be useful
   # for future file types
   result <- list(switch(x$type,
-                        "media" = as_query_media_files(x, 
-                                                       thumbnail = thumbnail)
+                        "media" = as_query_media_files(x, ...)
   ))
   class(result) <- "query_set"
   result
@@ -130,7 +131,7 @@ build_query_set_data <- function(x, mint_doi, ...){
       }
     }
     if (x$type %in% c("occurrences", "media", "species") &
-        atlas_supports_reasons_api()) {
+        reasons_supported()) {
       result[[(length(result) + 1)]] <- request_metadata("reasons") |> 
         as_query()
     }

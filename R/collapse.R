@@ -12,9 +12,7 @@
 #' include `data_request`, `metadata_request` and `files_request` for building
 #' queries; and `query` or `query_set` once constructed (via [as_query()] or
 #' [coalesce()]).
-#' @param ... Arguments passed on to other methods
-#' @param mint_doi Logical: should a DOI be minted for this download? Only 
-#' applies to `type = "occurrences"` when atlas chosen is "ALA".
+#' @param ... Arguments passed on to [as_query()].
 #' @return An object of class `query`, which is a list-like object containing 
 #' two or more of the following slots:
 #' 
@@ -32,8 +30,8 @@
 #' \code{\link[=compute.data_request]{compute()}} or 
 #' \code{\link[=collect.data_request]{collect()}}.
 #' @export
-collapse.data_request <- function(x, ..., mint_doi){
-  coalesce(x, mint_doi, ...) |>
+collapse.data_request <- function(x, ...){
+  coalesce(x, ...) |>
     collapse()
 }
 
@@ -41,7 +39,8 @@ collapse.data_request <- function(x, ..., mint_doi){
 #' @rdname collapse.data_request
 #' @order 2
 #' @export
-collapse.metadata_request <- function(x, ...){
+collapse.metadata_request <- function(x,
+                                      ...){
   coalesce(x, ...) |>
     collapse()
 }
@@ -49,18 +48,12 @@ collapse.metadata_request <- function(x, ...){
 # if calling `collapse()` after `request_files()`
 #' @rdname collapse.data_request
 #' @order 3
-#' @param thumbnail Logical: should thumbnail-size images be returned? Defaults 
-#' to `FALSE`, indicating full-size images are required.
 #' @export
 collapse.files_request <- function(x,
-                                   # prefix? could be useful for file names
-                                   thumbnail = FALSE,
                                    ...
                                    ){
   # convert to `query_set` then parse
-  coalesce(x, 
-           thumbnail = thumbnail, 
-           ...) |>
+  coalesce(x, ...) |>
     collapse()
 }
 

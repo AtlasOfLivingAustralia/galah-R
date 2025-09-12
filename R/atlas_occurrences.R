@@ -117,7 +117,8 @@ atlas_occurrences <- function(request = NULL,
   }else{
     args <- as.list(environment()) # capture supplied arguments
     check_atlas_inputs(args) |> # convert to `data_request` object
-      collect(wait = TRUE,
+      collect(mint_doi = mint_doi,
+              wait = TRUE,
               file = file)
   }
 }

@@ -13,19 +13,16 @@ coalesce(x, ...)
 
 \method{coalesce}{metadata_request}(x, ...)
 
-\method{coalesce}{files_request}(x, thumbnail, ...)
+\method{coalesce}{files_request}(x, ...)
 }
 \arguments{
 \item{x}{An object to be coalesced. Works for \code{data_request},
 \code{metadata_request} and \code{file_request}.}
 
-\item{...}{Other arguments; not currently used.}
+\item{...}{Other arguments passed to \code{\link[=as_query]{as_query()}}.}
 
 \item{mint_doi}{Logical: should a DOI be minted for this download? Only
 applies to \code{type = "occurrences"} when atlas chosen is "ALA".}
-
-\item{thumbnail}{Logical: should thumbnail-size images be returned? Defaults
-to \code{FALSE}, indicating full-size images are required.}
 }
 \value{
 An object of class \code{query_set}, which is simply a list of all \code{query}

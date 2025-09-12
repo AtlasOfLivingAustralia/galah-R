@@ -9,7 +9,7 @@
 \usage{
 as_query(x, ...)
 
-\method{as_query}{data_request}(x, ...)
+\method{as_query}{data_request}(x, mint_doi = FALSE, ...)
 
 \method{as_query}{metadata_request}(x, ...)
 
@@ -21,6 +21,9 @@ as those produced by \code{\link[=galah_call]{galah_call()}}, namely \code{data_
 \code{metadata_request} or \code{files_request}.}
 
 \item{...}{Other arguments, currently ignored}
+
+\item{mint_doi}{Logical: should a DOI be minted for this download? Only
+applies to \code{type = "occurrences"} when atlas chosen is "ALA".}
 
 \item{thumbnail}{Logical: should thumbnail-size images be returned? Defaults
 to \code{FALSE}, indicating full-size images are required.}

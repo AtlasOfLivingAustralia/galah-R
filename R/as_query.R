@@ -52,13 +52,17 @@ as_query <- function(x, ...){
 }
 
 #' @rdname as_query.data_request
+#' @param mint_doi Logical: should a DOI be minted for this download? Only 
+#' applies to `type = "occurrences"` when atlas chosen is "ALA".
 #' @order 2
 #' @export
-as_query.data_request <- function(x, ...){
+as_query.data_request <- function(x,
+                                  mint_doi = FALSE,
+                                  ...){
   switch(x$type,
          "occurrences" = {
            if(is.null(x$group_by)){
-             as_query_occurrences(x)  
+             as_query_occurrences(x, mint_doi = mint_doi)  
            }else{
              as_query_species(x)
            }

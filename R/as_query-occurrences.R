@@ -2,6 +2,7 @@
 #' @noRd
 #' @keywords Internal
 as_query_occurrences <- function(.query,
+                                 ...,
                                  error_call = rlang::caller_env()){
   if(is.null(.query$filter) & 
      is.null(.query$identify) & 
@@ -10,16 +11,16 @@ as_query_occurrences <- function(.query,
                    call = error_call)
   }
   switch(potions::pour("atlas", "region"),
-         "United Kingdom" = as_query_occurrences_uk(.query),
-         "Global" = as_query_occurrences_gbif(.query),
-         as_query_occurrences_la(.query))
+         "United Kingdom" = as_query_occurrences_uk(.query, ...),
+         "Global" = as_query_occurrences_gbif(.query, ...),
+         as_query_occurrences_la(.query, ...))
 }
 
 #' calculate the query to be returned for the UK atlas
 #' @param .query An object of class `data_request()`
 #' @noRd
 #' @keywords Internal
-as_query_occurrences_uk <- function(.query){
+as_query_occurrences_uk <- function(.query, ...){
   # set default columns
   if(is.null(.query$select)){
     .query$select <- galah_select(group = "basic")
@@ -52,7 +53,9 @@ as_query_occurrences_uk <- function(.query){
 #' calculate the query to be returned for GBIF
 #' @noRd
 #' @keywords Internal
-as_query_occurrences_gbif <- function(.query, format = "SIMPLE_CSV"){
+as_query_occurrences_gbif <- function(.query, 
+                                      format = "SIMPLE_CSV", 
+                                      ...){
   # get user string
   username <- potions::pour("user", "username", .pkg = "galah")
   password <- potions::pour("user", "password", .pkg = "galah")
@@ -81,7 +84,8 @@ as_query_occurrences_gbif <- function(.query, format = "SIMPLE_CSV"){
 #' @param .query An object of class `data_request()`
 #' @noRd
 #' @keywords Internal
-as_query_occurrences_la <- function(.query){
+as_query_occurrences_la <- function(.query,
+                                    mint_doi = FALSE){
   # set default columns
   if(is.null(.query$select)){
     .query$select <- galah_select(group = "basic")
@@ -101,10 +105,9 @@ as_query_occurrences_la <- function(.query){
              email = potions::pour("user", "email"),
              dwcHeaders = "true")
   # DOI conditional on this service being offered
-  if (!is.null(.query$mint_doi) & 
-      potions::pour("atlas", "region") == "Australia"
-  ) {
-    query$mintDoi <- .query$mint_doi
+  if(isTRUE(.query$mint_doi) & 
+     potions::pour("atlas", "region") == "Australia"){
+    query$mintDoi <- TRUE 
   }
   # build url
   url <- url_lookup("data/occurrences") |> 

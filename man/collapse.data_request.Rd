@@ -8,11 +8,11 @@
 \alias{collapse.query}
 \title{Generate a query}
 \usage{
-\method{collapse}{data_request}(x, ..., mint_doi)
+\method{collapse}{data_request}(x, ...)
 
 \method{collapse}{metadata_request}(x, ...)
 
-\method{collapse}{files_request}(x, thumbnail = FALSE, ...)
+\method{collapse}{files_request}(x, ...)
 
 \method{collapse}{query_set}(x, ...)
 
@@ -24,13 +24,7 @@ include \code{data_request}, \code{metadata_request} and \code{files_request} fo
 queries; and \code{query} or \code{query_set} once constructed (via \code{\link[=as_query]{as_query()}} or
 \code{\link[=coalesce]{coalesce()}}).}
 
-\item{...}{Arguments passed on to other methods}
-
-\item{mint_doi}{Logical: should a DOI be minted for this download? Only
-applies to \code{type = "occurrences"} when atlas chosen is "ALA".}
-
-\item{thumbnail}{Logical: should thumbnail-size images be returned? Defaults
-to \code{FALSE}, indicating full-size images are required.}
+\item{...}{Arguments passed on to \code{\link[=as_query]{as_query()}}.}
 }
 \value{
 An object of class \code{query}, which is a list-like object containing
