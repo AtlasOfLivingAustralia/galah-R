@@ -27,23 +27,25 @@ as_query_fields_unnest <- function(.query){
 #' @noRd
 #' @keywords Internal
 as_query_lists_unnest <- function(.query){
-  
+  # get list lookup url
   url <- url_lookup("metadata/lists-unnest",
                     list_id = .query$filter$value[1]) |>
     httr2::url_parse()
   
-  # Request additional raw fields if `show_fields(all_fields = TRUE)`
-  if(isTRUE(attributes(.query)$all_fields)) {
-    url$query <- list(
-      max = -1,         # remove max limit
-      includeKVP = TRUE # add name & status columns
-    )
-  } else {
-    url$query <- list(
-      max = -1          # remove max limit
-    )
+  # set a default query
+  query <-  list(max = -1)  # remove max limit
+  # Request additional raw fields if `select(everything())`
+  if(!is.null(.query$select)){
+    if(any(.query$select == "everything()")){
+      query <- list(
+        max = -1,         # remove max limit
+        includeKVP = TRUE # add name & status columns
+      )
+    }
   }
+  url$query <- query
   
+  # create object
   result <- list(
     type = "metadata/lists-unnest",
     url = httr2::url_build(url))
