@@ -154,17 +154,19 @@ collect_distributions_metadata <- function(.query){
 #' @noRd
 #' @keywords Internal
 collect_fields <- function(.query){
-  if(is_gbif()){
-    result <- .query$data |>
-      parse(text = _) |> 
-      eval()
-    attr(result, "call") <- "fields"
-    attr(result, "region") <- potions::pour("atlas", "region")
-    result
-  }else{
-    if(!is.null(.query$url)){ # i.e. there is no cached `tibble`
-      result <- query_API(.query) |>
-        dplyr::bind_rows() 
+  if(!is.null(.query$url)){ # i.e. there is no cached `tibble`
+    result <- query_API(.query) |>
+      dplyr::bind_rows() 
+    
+    if(is_gbif()){
+      result <- result |>
+        dplyr::mutate(id = .data$simpleName,
+                      description = .data$qualifiedName,
+                      type = "fields") |>
+        dplyr::select("id", "description", "type")
+      
+    }else{
+      
       # if there is a 'stored' field, use it to filter results
       if(any(colnames(result) == "stored")){
         result <- result |> 
@@ -176,14 +178,15 @@ collect_fields <- function(.query){
         dplyr::select(dplyr::all_of(wanted_columns("fields"))) |>
         dplyr::mutate(type = "fields") |>
         dplyr::bind_rows(galah_internal_archived$media,
-                         galah_internal_archived$other)
-      attr(result, "call") <- "fields"
-      attr(result, "region") <- potions::pour("atlas", "region")
-      check_internal_cache(fields = result)
-      result
-    }else{ # this should only happen when `data` slot is present in place of `url`
-      check_internal_cache()[["fields"]]
+                         galah_internal_archived$other)       
     }
+    
+    attr(result, "call") <- "fields"
+    attr(result, "region") <- potions::pour("atlas", "region")
+    check_internal_cache(fields = result)
+    result
+  }else{ # this should only happen when `data` slot is present in place of `url`
+    check_internal_cache()[["fields"]]
   }
 }
 

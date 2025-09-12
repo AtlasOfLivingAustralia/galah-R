@@ -100,7 +100,7 @@ galah_internal_archived <- list(
 # cached versions of some show_all functions
 # NOTE: may be necessary to expand this given changes to `show_all()`
 stored_types <- c("assertions", "fields", "profiles", "reasons")
-galah_internal_cached <- lapply(
+galah_internal_cached <- purrr::map(
   stored_types,
   function(a){
     result <- request_metadata(type = a) |> collect()
@@ -114,7 +114,7 @@ names(galah_internal_cached) <- stored_types
 # Import web-scraped gbif data as csv
 gbif_internal_archived <- list(
   assertions = read_csv("./data-raw/gbif_assertions.csv"),
-  fields = read_csv("./data-raw/gbif_fields.csv"),
+  # fields = read_csv("./data-raw/gbif_fields.csv"),
   ranks =  tibble(
     id = seq_len(9),
     name = c("kingdom", "phylum", "class", 

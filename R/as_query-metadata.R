@@ -89,19 +89,14 @@ as_query_datasets <- function(.query){
 #' @noRd
 #' @keywords Internal
 as_query_fields <- function(){
-  if(is_gbif()){
+  update_needed <- internal_cache_update_needed("fields")
+  if(update_needed){
     result <- list(type = "metadata/fields",
-                   data = "galah:::gbif_internal_archived$fields")
+                   url = url_lookup("metadata/fields"),
+                   headers = build_headers())
   }else{
-    update_needed <- internal_cache_update_needed("fields")
-    if(update_needed){
-      result <- list(type = "metadata/fields",
-                     url = url_lookup("metadata/fields"),
-                     headers = build_headers())
-    }else{
-      result <- list(type = "metadata/fields",
-                     data = "galah:::check_internal_cache()$fields")      
-    }
+    result <- list(type = "metadata/fields",
+                   data = "galah:::check_internal_cache()$fields")      
   }
   class(result) <- "query"
   return(result) 

@@ -86,14 +86,14 @@ check_email <- function(.query,
     # actually we check the userpwd entry here
     email_text <- .query$options$userpwd
     if(email_text == ":"){
-      abort_email_missing(call = call)
+      abort_email_missing(error_call = call)
     }
   }else{
     email_text <- httr2::url_parse(.query$url)$query$email
     if(is.null(email_text)) {
-      abort_email_missing(call = call)
+      abort_email_missing(error_call = call)
     }else if(email_text == ""){
-      abort_email_missing(call = call)
+      abort_email_missing(error_call = call)
     }
   }
   .query
@@ -598,10 +598,10 @@ check_occurrence_status <- function(.query){
 #' @noRd
 #' @keywords Internal
 check_password <- function(.query, 
-                           error_call = rlang::caller_env()){
+                           call = rlang::caller_env()){
   if (.query$options$userpwd == ":") {
     cli::cli_abort("GBIF requires a username and password to download occurrences or species.",
-          call = error_call)
+          call = call)
   }
 }
 
@@ -655,9 +655,9 @@ check_profiles <- function(.query,
 #' @keywords Internal
 check_reason <- function(.query, 
                          error_call = rlang::caller_env()){
-  if(atlas_supports_reasons_api()) {
+  if(reasons_supported()) {
     if(.query$type %in% c("data/occurrences", "data/species")){
-      query <- url_parse(.query$url)$query
+      query <- httr2::url_parse(.query$url)$query
       if(is.null(query$reasonTypeId)){
         c("Missing a valid download reason.",
           i = "See `show_all(reasons)`.",

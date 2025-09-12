@@ -122,7 +122,7 @@ snake_to_camel_case <- function(string){
 }
 
 ##---------------------------------------------------------------
-##                   Other helpful functions                   --
+##                   Set API header arguments                  --
 ##---------------------------------------------------------------
 
 # Construct the user agent string, consisting of the galah version
@@ -132,8 +132,21 @@ galah_version_string <- function() {
   suppressWarnings(
     try(version_string <- utils::packageDescription("galah")[["Version"]],
         silent = TRUE)) ## get the galah version, if we can
-  paste0("galah-R ", version_string)
+  glue::glue("galah-R {version_string}")
 }
+
+#' @noRd
+#' @keywords Internal
+source_type_id_lookup <- function(region){
+  switch(region,
+         "Austria" = 1,
+         "United Kingdom" = 2001,
+         "2004") # ALA default for galah
+}
+
+##----------------------------------------------------------------
+##  Functions to change behaviour depending on selected `atlas` --
+##----------------------------------------------------------------
 
 #' Internal function for determining if we should call GBIF or not
 #' @noRd
@@ -141,30 +154,6 @@ galah_version_string <- function() {
 is_gbif <- function(){
   potions::pour("atlas", "region") == "Global"
 }
-
-#' Internal function for determining whether a Living Atlas supports reasons API.
-#' This affects whether a reason is appended to a query in `collapse()` (and 
-#' checked in `compute()`)
-#' @noRd
-#' @keywords Internal
-atlas_supports_reasons_api <- function(){
-  atlas <- potions::pour("atlas", "region")
-  supports_reasons <- c("Australia", "Austria", "Guatemala", "Portugal", 
-                        "Spain", "Sweden", "United Kingdom")
-  atlas %in% supports_reasons
-  
-  ## List of atlases that support reasons can be checked by running:
-  # show_all(apis) |>
-  #   dplyr::filter(type == "metadata/reasons") |>
-  #   dplyr::pull(atlas)
-}
-
-##---------------------------------------------------------------
-##                Data request helper functions                --
-##---------------------------------------------------------------
-
-
-## show_all_atlases / search_atlases --------------------------#
 
 #' Internal function to populate `groups` arg in `select()`
 #' @noRd
@@ -235,7 +224,7 @@ default_columns <- function() {
       "occurrenceStatus",
       "dataResourceName")
   }else{
-    rlang::abort("Unknown `atlas`")
+    cli::cli_abort("Unknown `atlas`")
   }
 }
 
@@ -256,7 +245,7 @@ image_fields <- function() {
                         "Sweden")){
     c("multimedia", "images", "sounds", "videos")
   }else{
-    rlang::abort("Unknown `atlas`")
+    cli::cli_abort("Unknown `atlas`")
   }
 }
 
@@ -277,20 +266,38 @@ species_facets <- function(){
 
 #' @noRd
 #' @keywords Internal
-source_type_id_lookup <- function(region){
-  switch(region,
-         "Austria" = 1,
-         "United Kingdom" = 2001,
-         "2004") # ALA default for galah
+profiles_supported <- function(){
+  atlas <- potions::pour("atlas", "region")
+  if(atlas %in% c("Australia",
+                  "Flanders",
+                  "Sweden",
+                  "Spain")) {
+    TRUE
+  }else{
+    FALSE
+  }
+}
+
+#' Internal function for determining whether a Living Atlas supports reasons API.
+#' This affects whether a reason is appended to a query in `collapse()` (and 
+#' checked in `compute()`)
+#' @noRd
+#' @keywords Internal
+reasons_supported <- function(){
+  atlas <- potions::pour("atlas", "region")
+  supported_atlases <- show_all(apis) |>
+    dplyr::filter(type == "metadata/reasons") |>
+    dplyr::pull(atlas)
+  atlas %in% supported_atlases
 }
 
 #' @noRd
 #' @keywords Internal
-profiles_supported <- function(){
-  atlas <- potions::pour("atlas", "region")
-  if(atlas %in% c("Australia")) {
-    TRUE
-  }else{
-    FALSE
+media_supported <- function(){
+  atlas <- potions::pour("atlas", "region",
+                         .pkg = "galah")
+  unsupported_atlases <- c("France", "Global")
+  if(atlas %in% unsupported_atlases){
+    cli::cli_abort("`atlas_media` is not supported for atlas = {atlas}")
   }
 }

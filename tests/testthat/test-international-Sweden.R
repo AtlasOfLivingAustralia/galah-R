@@ -60,12 +60,12 @@ test_that("show_all(providers) works for Sweden", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("show_all(reasons) fails for Sweden", {
+test_that("show_all(reasons) works for Sweden", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(reasons) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
-  expect_gte(nrow(x), 0) # no data at present
+  expect_gt(nrow(x), 0)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
@@ -85,6 +85,26 @@ test_that("show_all(profiles) works for Sweden", {
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  
+  # and values
+  y <- request_metadata() |>
+    filter(profiles == x$shortName[1]) |>
+    unnest() |>
+    collect() |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gt(nrow(y), 1)
+  expect_true(inherits(y, c("tbl_df", "tbl", "data.frame")))
+  
+  # and actually reduces record count
+  records_all <- galah_call() |>
+    count() |>
+    collect()
+  records_clean <- galah_call() |>
+    apply_profile(x$shortName[1]) |>
+    count() |>
+    collect()
+  expect_lt(records_clean$count, records_all$count)
 })
 
 test_that("search_all(fields) works for Sweden", {
@@ -150,16 +170,6 @@ test_that("show_values works fields in Sweden", {
 test_that("show_values works for lists in Sweden", {
   skip_if_offline(); skip_on_ci()
   x <- try({search_all(lists, "dr156") |> 
-      show_values()},
-      silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
-  expect_gte(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-})
-
-test_that("show_values works for profiles in Sweden", {
-  skip_if_offline(); skip_on_ci()
-  x <- try({search_all(profiles, "SBDI") |> 
       show_values()},
       silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")

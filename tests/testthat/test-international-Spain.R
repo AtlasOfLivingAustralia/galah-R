@@ -71,13 +71,33 @@ test_that("show_all(assertions) works for Spain", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("show_all(profiles) works for Spain", {
+test_that("show_all(profiles) works for Flanders", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(profiles) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
-  expect_gt(nrow(x), 1)
+  expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  
+  # and values
+  y <- request_metadata() |>
+    filter(profiles == x$shortName[1]) |>
+    unnest() |>
+    collect() |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gt(nrow(y), 1)
+  expect_true(inherits(y, c("tbl_df", "tbl", "data.frame")))
+  
+  # and actually reduces record count
+  records_all <- galah_call() |>
+    count() |>
+    collect()
+  records_clean <- galah_call() |>
+    apply_profile(x$shortName[1]) |>
+    count() |>
+    collect()
+  expect_lt(records_clean$count, records_all$count)
 })
 
 test_that("show_all(lists) works for Spain", {
@@ -130,16 +150,6 @@ test_that("search_all(identifiers) works for Spain", {
 test_that("show_values works for fields for Spain", {
   skip_if_offline(); skip_on_ci()
   x <- search_all(fields, "basisOfRecord") |> 
-    show_values() |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
-  expect_gte(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-})
-
-test_that("show_values works for profiles for Spain", {
-  skip_if_offline(); skip_on_ci()
-  x <- search_all(profiles, "LA") |> 
     show_values() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")

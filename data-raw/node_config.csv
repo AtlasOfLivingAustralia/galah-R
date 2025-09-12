@@ -93,8 +93,8 @@ Flanders,metadata/profiles,https://natuurdata.inbo.be/data-quality-filter-servic
 Flanders,metadata/profiles-unnest,https://natuurdata.inbo.be/data-quality-filter-service/api/v1/data-profiles/{profile},TRUE
 Flanders,metadata/providers,https://natuurdata.inbo.be/collectory/ws/dataProvider,TRUE
 Flanders,metadata/reasons,https://natuurdata.inbo.be/logger/service/logger/reasons,TRUE
-Flanders,metadata/taxa-single,https://api.gbif.org/v1/species/match?verbose=FALSE&name={name},TRUE
-Flanders,metadata/taxa-multiple,https://api.gbif.org/v1/species/match,TRUE
+Flanders,metadata/taxa-single,https://api.gbif.org/v2/species/match?verbose=FALSE&scientificName={name},TRUE
+Flanders,metadata/taxa-multiple,https://api.gbif.org/v2/species/match,TRUE
 Flanders,metadata/taxa-unnest,https://api.gbif.org/v1/species/{id}/children,TRUE
 France,data/occurrences,https://openobs.mnhn.fr/biocache-service/occurrences/offline/download,TRUE
 France,data/occurrences-count,https://openobs.mnhn.fr/biocache-service/occurrences/search,TRUE
@@ -170,7 +170,6 @@ Portugal,metadata/collections,https://metadados.gbif.pt/ws/collection,TRUE
 Portugal,metadata/datasets,https://metadados.gbif.pt/ws/dataResource,TRUE
 Portugal,metadata/fields,https://registos-ws.gbif.pt/index/fields,TRUE
 Portugal,metadata/fields-unnest,https://registos-ws.gbif.pt/occurrence/facets,TRUE
-Portugal,metadata/fields-unnest,https://api.gbif.org/v1/occurrence/search/predicate,TRUE
 Portugal,metadata/licences,https://imagens.gbif.pt/ws/licence,TRUE
 Portugal,metadata/media,https://imagens.gbif.pt/ws/imageInfoForList,TRUE
 Portugal,metadata/providers,https://metadados.gbif.pt/ws/dataProvider,TRUE

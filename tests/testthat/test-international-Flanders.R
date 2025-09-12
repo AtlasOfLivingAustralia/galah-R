@@ -73,15 +73,34 @@ test_that("show_all(assertions) works for Flanders", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-## profiles integration planned, but not currently working
-# test_that("show_all(profiles) works for Flanders", {
-#   skip_if_offline(); skip_on_ci()
-#   x <- show_all(profiles) |>
-#     try(silent = TRUE)
-#   skip_if(inherits(x, "try-error"), message = "API not available")
-#   expect_gt(nrow(x), 1)
-#   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-# })
+test_that("show_all(profiles) works for Flanders", {
+  skip_if_offline(); skip_on_ci()
+  x <- show_all(profiles) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  
+  # and values
+  y <- request_metadata() |>
+    filter(profiles == x$shortName[1]) |>
+    unnest() |>
+    collect() |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gt(nrow(y), 1)
+  expect_true(inherits(y, c("tbl_df", "tbl", "data.frame")))
+  
+  # and actually reduces record count
+  records_all <- galah_call() |>
+    count() |>
+    collect()
+  records_clean <- galah_call() |>
+    apply_profile(x$shortName[1]) |>
+    count() |>
+    collect()
+  expect_lt(records_clean$count, records_all$count)
+})
 
 test_that("show_all(lists) works for Flanders", {
   skip_if_offline(); skip_on_ci()
@@ -141,16 +160,6 @@ test_that("show_values works for fields for Flanders", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# test_that("show_values works for profiles for Flanders", {
-#   skip_if_offline(); skip_on_ci()
-#   x <- search_all(profiles, "LA") |>
-#     show_values() |>
-#     try(silent = TRUE)
-#   skip_if(inherits(x, "try-error"), message = "API not available")
-#   expect_gte(nrow(x), 1)
-#   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-# })
-
 test_that("atlas_counts works for Flanders", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
@@ -189,20 +198,6 @@ test_that("atlas_counts works with galah_identify for Flanders", {
     0.1) # i.e. <1% margin of error
 })
 
-# test_that("atlas_counts works with apply_profile for Flanders", {
-#   skip_if_offline(); skip_on_ci()
-#   without_profile <- galah_call() |>
-#     count() |>
-#     collect()
-#   with_profile <- galah_call() |>
-#     apply_profile(LA) |>
-#     count() |>
-#     collect()
-#   expect_gt(with_profile$count, 0)
-#   expect_equal(class(without_profile), class(with_profile))
-#   expect_lt(with_profile$count, without_profile$count)
-# })
-
 test_that("atlas_counts works with group_by for Flanders", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
@@ -236,7 +231,7 @@ test_that("atlas_occurrences works for Flanders", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Flanders",
-    email = "galah@natuurdata@inbo.be",
+    email = "galah.natuurdata@inbo.be",
     download_reason_id = 10,
     send_email = FALSE)
   query <- galah_call() |>

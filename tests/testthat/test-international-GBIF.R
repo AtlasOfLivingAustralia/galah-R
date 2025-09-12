@@ -9,13 +9,50 @@ test_that("swapping to atlas = GBIF works", {
 })
 
 test_that("show_all(fields) works for GBIF", {
-  x <- request_metadata() |> collapse()
+  skip_if_offline(); skip_on_ci()
+  # first ensure underlying syntax is valid
+  x <- request_metadata() |> 
+    collapse()
   expect_true(inherits(x, "query"))
   expect_true(x$type == "metadata/fields")
   x <- collect(x)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  # then test 'traditional' syntax
   y <- show_all(fields)
+  expect_equal(x, y)
+})
+
+test_that("search_all(fields) works for GBIF", {
+  skip_if_offline(); skip_on_ci()
+  result <- search_all(fields, "year")
+  expect_gte(nrow(result), 2)
+  result |> 
+    inherits(c("tbl_df", "tbl", "data.frame")) |>
+    expect_true()
+  grepl("year", tolower(result$id)) |>
+    all() |>
+    expect_true()
+})
+
+test_that("show_values works for GBIF fields", {
+  skip_if_offline(); skip_on_ci()
+  # query syntax
+  x <- request_metadata() |>
+    filter(fields == "gbifRegion") |>
+    unnest() |>
+    collapse()
+  collect(x)
+  # traditional syntax
+  y <- search_fields("gbifRegion") |>
+    show_values()
+  # tests
+  x |>
+    inherits(c("tbl_df", "tbl", "data.frame")) |>
+    expect_true()
+  x |>
+    nrow() |>
+    expect_gt(1)
   expect_equal(x, y)
 })
 
@@ -84,14 +121,14 @@ test_that("search_all(taxa) works for GBIF", {
   expect_true(x$class == "Mammalia")
 })
 
-test_that("search_all(taxa) works using data.frames for GBIF", {
+test_that("search_all(taxa) works using a tibble for GBIF", {
   skip_if_offline(); skip_on_ci()
   x <- search_all(taxa, 
                   data.frame(kingdom = "Animalia", 
                              phylum = "Chordata")) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
-  expect_gte(nrow(x), 1)
+  expect_equal(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
@@ -100,7 +137,7 @@ test_that("search_all(identifiers) works for GBIF", {
   x <- search_all(identifiers, "359") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
-  expect_gte(nrow(x), 1)
+  expect_equal(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
@@ -129,27 +166,12 @@ test_that("search_all(providers) works for GBIF", {
 
 galah_config(verbose = FALSE)
 
-test_that("search_all(fields) works for GBIF", {
-  skip_if_offline(); skip_on_ci()
-  result <- search_all(fields, "year")
-  expect_equal(nrow(result), 2)
-  expect_true(inherits(result, c("tbl_df", "tbl", "data.frame")))
-})
-
-test_that("show_values works for GBIF fields", {
-  skip_if_offline(); skip_on_ci()
-  search_fields("basisOfRecord") |>
-    show_values() |>
-    nrow() |>
-    expect_gt(1)
-})
-
 test_that("atlas_counts works for GBIF", {
   skip_if_offline(); skip_on_ci()
   galah_call() |>
     count() |>
     collect() |>
-    pull("count") |>
+    dplyr::pull("count") |>
     expect_gt(0)
 })
 
@@ -278,9 +300,7 @@ test_that("`count` works with 2 `group_by` args for GBIF", {
 #     collect()
 # })
 
-# FIXME: GBIF grouped counts only work for n = 1 - expand this or add warning
 # FIXME: `slice_head()` not tested for GBIF
-# FIXME: `check_fields()` not tested for GBIF - try sending invalid fields to `filter()`
 
 test_that("`count()` works with `galah_polygon()` for GBIF", {
   skip_if_offline(); skip_on_ci()
