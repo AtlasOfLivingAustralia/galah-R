@@ -16,8 +16,9 @@ The GBIF network consists of a series of a series of 'node' organisations who
 collate biodiversity data from their own countries, with GBIF acting as an 
 umbrella organisation to store data from all nodes. Several nodes have their 
 own APIs, often built from the 'living atlas' codebase developed by the ALA.
-`galah` enables you to download data either from GBIF (see also `rgbif`) or 
-from one of 9 GBIF nodes:
+`galah` enables you to download data either from GBIF itself as an alternative
+to [rgbif](https://docs.ropensci.org/rgbif/); or from one of 11 living atlases, 
+as listed below.
 
 
 ```{r, echo = FALSE}

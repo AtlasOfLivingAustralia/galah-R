@@ -148,10 +148,6 @@ request_data() |>
   collapse()
 ```
 
-The `collapse()` stage includes an additional argument (`.expand`) that, 
-when set to `TRUE`, shows all the APIs called to construct the user-requested
-query. This is especially useful for debugging.
-
 ## Object classes
 
 Under the hood, the different query-building verbs each amend the supplied 
