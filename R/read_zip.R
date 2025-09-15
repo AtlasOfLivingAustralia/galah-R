@@ -29,16 +29,16 @@
 read_zip <- function(file){
   # basic checks
   if(missing(file)){
-    rlang::abort("`file` is missing, with no default")
+    cli::cli_abort("`file` is missing, with no default")
   }
   if(!is.character(file) | length(file) > 1){
-    rlang::abort("Argument `file` should be a length-1 character")
+    cli::cli_abort("Argument `file` should be a length-1 character")
   }
   if(!file.exists(file)){
-    rlang::abort("`.zip` file not found")
+    cli::cli_abort("`.zip` file not found")
   }
   if(!grepl(".zip$", file)){
-    rlang::abort("`file` should end in `.zip`")
+    cli::cli_abort("`file` should end in `.zip`")
   }
   # get names of files stored in .zip
   all_files <- utils::unzip(file, list = TRUE)$Name
@@ -99,7 +99,7 @@ read_zip <- function(file){
     trimws()
   # exit safely
   if(is.null(result)){
-    rlang::abort("No data loaded")
+    cli::cli_abort("No data loaded")
   }else{
     result
   }

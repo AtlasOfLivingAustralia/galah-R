@@ -93,12 +93,13 @@ switch_slot_text <- function(x, a){
       first_entry <- x[[a]][[1]][1]
       n_entries <- nrow(x[[a]])
       if(n_entries > 1){
-        glue("{first_col}s: {first_entry} + {n_entries - 1} more")  
+        glue::glue("{first_col}s: {first_entry} + {n_entries - 1} more")  
       }else{
-        glue("{first_col}: {first_entry}")
+        glue::glue("{first_col}: {first_entry}")
       }
     },
     "filter" = {
+      # FIXME: predicates no longer have a class, so this won't work
       if(inherits(x[[a]], "galah_filter_predicate")){
         glue::glue_collapse(unlist(x[[a]]), sep = " ") # messy but functional
       }else{
@@ -126,10 +127,10 @@ switch_slot_text <- function(x, a){
 #' @export
 print.query <- function(x, ...){
   if(!is.null(x$arrange)){
-    arrange <- galah_pale_green(glue("\n
+    arrange <- galah_pale_green(glue::glue("\n
                               arrange: {x$arrange$variable} ({x$arrange$direction})"))
     if(x$arrange$slice_called == TRUE){
-      slice <- galah_pale_green(glue("\n
+      slice <- galah_pale_green(glue::glue("\n
                               slice: {x$arrange$slice_n}"))
     }else{
       slice <- ""
@@ -145,10 +146,10 @@ print.query <- function(x, ...){
         url_temp <- paste0(substr(url_temp, 1, 70), "...")
       }
       if(nrow(x$url) > 1){
-        url_text <- glue("\n
+        url_text <- glue::glue("\n
            url: {url_temp} + {nrow(x$url) - 1} more") 
       }else{
-        url_text <-glue("\n
+        url_text <- glue::glue("\n
            url: {url_temp}")
       }
     }else{
@@ -156,15 +157,15 @@ print.query <- function(x, ...){
       if(nchar(url_temp) > 70){
         url_temp <- paste0(substr(url_temp, 1, 70), "...")
       }
-      url_text <-glue("\n
+      url_text <- glue::glue("\n
            url: {url_temp}")
     }
     subtext <- galah_grey(url_text)
   }else if(!is.null(x$data)){
-    subtext <- galah_grey(glue("\n
+    subtext <- galah_grey(glue::glue("\n
                                data: {x$data[1]}"))
   }else if(!is.null(x$status)){
-    subtext <- galah_grey(glue("\n
+    subtext <- galah_grey(glue::glue("\n
                                status: {x$status[1]}"))
   }else{
     subtext <- ""
@@ -202,10 +203,10 @@ print.computed_query <- function(x, ...){
         url_temp <- paste0(substr(url_temp, 1, 70), "...")
       }
       if(nrow(x$url) > 1){
-        url_text <- glue("\n
+        url_text <- glue::glue("\n
            url: {url_temp} + {nrow(x$url) - 1} more") 
       }else{
-        url_text <-glue("\n
+        url_text <- glue::glue("\n
            url: {url_temp}")
       }
     }else{
@@ -213,15 +214,15 @@ print.computed_query <- function(x, ...){
       if(nchar(url_temp) > 70){
         url_temp <- paste0(substr(url_temp, 1, 70), "...")
       }
-      url_text <-glue("\n
+      url_text <- glue::glue("\n
            url: {url_temp}")
     }
     subtext <- galah_grey(url_text)
   }else if(!is.null(x$data)){
-    subtext <- galah_grey(glue("\n
+    subtext <- galah_grey(glue::glue("\n
                                data: {x$data[1]}"))
   }else if(!is.null(x$status)){
-    subtext <- galah_grey(glue("\n
+    subtext <- galah_grey(glue::glue("\n
                                status: {x$status[1]}"))
   }else{
     subtext <- ""
@@ -244,7 +245,7 @@ print.query_set <- function(x, ...){
         galah_pink("`query_set` "),
         crayon::silver(glue("containing ")),
         ifelse(n_queries > 1, 
-               crayon::silver(glue("{n_queries} queries:")),
+               crayon::silver(glue::glue("{n_queries} queries:")),
                crayon::silver("1 query:"))))
   purrr::map(x, function(a){
     type_text <- galah_green(a$type)
@@ -254,13 +255,13 @@ print.query_set <- function(x, ...){
       if(sum(c(pretext_length, nchar(url_temp))) > 80){
         url_temp <- paste0(substr(url_temp, 1, (80 - pretext_length - 3)), "...")
       }
-      subtext <- galah_grey(glue("url: {url_temp}"))
+      subtext <- galah_grey(glue::glue("url: {url_temp}"))
     }else if(!is.null(a$data)){
-      subtext <- galah_grey(glue("data: {a$data[1]}"))
+      subtext <- galah_grey(glue::glue("data: {a$data[1]}"))
     }else{
       subtext <- ""
     } 
-    glue("{type_text} {subtext}")
+    glue::glue("{type_text} {subtext}")
   }) |>
     unlist() |>
     rlang::format_error_bullets() |>
@@ -296,7 +297,7 @@ print.galah_config <- function(x, ...){
   cat("\n")
   cli::cli_inform(galah_pink("Atlas"))
   atlas_text <- galah_green(x$atlas$organisation)
-  atlas_subtext <- galah_grey(glue("({x$atlas$acronym}), {x$atlas$region}"))
+  atlas_subtext <- galah_grey(glue::glue("({x$atlas$acronym}), {x$atlas$region}"))
   atlas_settings <- glue::glue("{atlas_text} {atlas_subtext}") |>
     rlang::format_error_bullets() |>
     cat()

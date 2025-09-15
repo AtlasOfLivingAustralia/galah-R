@@ -144,6 +144,17 @@ source_type_id_lookup <- function(region){
          "2004") # ALA default for galah
 }
 
+#' @noRd
+#' @keywords Internal
+email_notify <- function() {
+  notify <- as.logical(potions::pour("package", "send_email"))
+  if (is.na(notify)) {
+    notify <- FALSE
+  }
+  # ala api requires lowercase
+  ifelse(notify, "true", "false")
+}
+
 ##----------------------------------------------------------------
 ##  Functions to change behaviour depending on selected `atlas` --
 ##----------------------------------------------------------------
