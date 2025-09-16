@@ -52,9 +52,16 @@ as_query <- function(x, ...){
 }
 
 #' @rdname as_query.data_request
+#' @order 2
+as_query.list <- function(x){
+  # TODO add some checks here?
+  structure(x, class = c("query", "list"))
+}
+
+#' @rdname as_query.data_request
 #' @param mint_doi Logical: should a DOI be minted for this download? Only 
 #' applies to `type = "occurrences"` when atlas chosen is "ALA".
-#' @order 2
+#' @order 3
 #' @export
 as_query.data_request <- function(x,
                                   mint_doi = FALSE,
@@ -77,7 +84,7 @@ as_query.data_request <- function(x,
 }
 
 #' @rdname as_query.data_request
-#' @order 3
+#' @order 4
 #' @export
 as_query.metadata_request <- function(x, ...){
   switch(x$type,
@@ -109,7 +116,7 @@ as_query.metadata_request <- function(x, ...){
 #' @rdname as_query.data_request
 #' @param thumbnail Logical: should thumbnail-size images be returned? Defaults 
 #' to `FALSE`, indicating full-size images are required.
-#' @order 4
+#' @order 5
 #' @export
 as_query.files_request <- function(x, 
                                    thumbnail,

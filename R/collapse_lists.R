@@ -5,30 +5,34 @@
 #' @noRd
 #' @keywords Internal
 collapse_lists <- function(.query){
-  url <- httr2::url_parse(.query$url)
-  n_requested <- as.integer(url$query$max)
-  # make decisions about how much pagination is needed
-  if(n_requested <= 500){ # we haven't hit pagination limit
+  if(is.null(.query$url)){
     .query
-  }else{ # more lists are requested
-    n <- get_max_n(.query)
-    n_pages <- ceiling(n$max_requested / n$paginate)
-    offsets <- (seq_len(n_pages) - 1) * n$paginate
-    result <- tibble::tibble(
-      offset = offsets,
-      max = c(
-        rep(n$paginate, n_pages - 1),
-        n$max_requested - offsets[n_pages]))
-    result$url <- purrr::map(
-      split(result, seq_len(nrow(result))),
-      function(a){
-        url$query <- list(offset = a$offset, max = a$max)
-        httr2::url_build(url)
-      }) |>
-      unlist()
-    .query$url <- dplyr::select(result, "url")
+  }else{
+    url <- httr2::url_parse(.query$url)
+    n_requested <- as.integer(url$query$max)
+    # make decisions about how much pagination is needed
+    if(n_requested <= 500){ # we haven't hit pagination limit
+      .query
+    }else{ # more lists are requested
+      n <- get_max_n(.query)
+      n_pages <- ceiling(n$max_requested / n$paginate)
+      offsets <- (seq_len(n_pages) - 1) * n$paginate
+      result <- tibble::tibble(
+        offset = offsets,
+        max = c(
+          rep(n$paginate, n_pages - 1),
+          n$max_requested - offsets[n_pages]))
+      result$url <- purrr::map(
+        split(result, seq_len(nrow(result))),
+        function(a){
+          url$query <- list(offset = a$offset, max = a$max)
+          httr2::url_build(url)
+        }) |>
+        unlist()
+      .query$url <- dplyr::select(result, "url")
+    }
+    .query
   }
-  .query
 }
 
 #' Internal function to retrieve max number of entries for an API

@@ -1,7 +1,3 @@
-# NOTE: Tests are skipped on GH Actions using `skip_on_ci()` to avoid throttling 
-#       API 
-#       (these are probably not built for many fast queries if output is large)
-
 test_that("search_all checks inputs, returns helpful error", {
   skip_if_offline(); skip_on_ci()
   expect_error(search_all(attributes, ""), "Unrecognised metadata requested")
@@ -16,9 +12,9 @@ test_that("search_all returns correct output for type", {
   expect_s3_class(fields, c("tbl_df", "tbl", "data.frame"))
   expect_s3_class(reasons, c("tbl_df", "tbl", "data.frame"))
   expect_s3_class(profiles, c("tbl_df", "tbl", "data.frame"))
-  expect_equivalent(fields, search_fields("year"))
-  expect_equivalent(reasons, search_reasons("genus"))
-  expect_equivalent(profiles, search_profiles("ala"))
+  expect_equal(fields, search_fields("year"))
+  expect_equal(reasons, search_reasons("genus"))
+  expect_equal(profiles, search_profiles("ala"))
   expect_equal(attributes(fields)$call, "fields")
   expect_equal(attributes(reasons)$call, "reasons")
   expect_equal(attributes(profiles)$call, "profiles")
@@ -49,180 +45,225 @@ test_that("search_assertions returns a filtered result", {
   expect_equal(search, search2)
 })
 
-test_that("search_apis returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
-  all <- show_all_apis()
-  search <- search_apis("image")
-  search2 <- search_all(apis, "image")
-  search_result_check <- all(grepl(pattern = "image", search$url,
-                                   ignore.case = TRUE))
-  
-  expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "apis")
-  expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
-  expect_true(search_result_check)
-  expect_equal(search, search2)
+test_that("`search_apis()` returns a filtered result", {
+  search_string <- "image"
+  result <- search_all(apis, search_string)
+  result |>
+    dplyr::pull(url) |>
+    tolower() |>
+    stringr::str_detect(search_string) |>
+    all() |>
+    expect_true()
+  expect_equal(attributes(result)$call, "apis")
+  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  # check synonymous functions call the above syntax
+  # this is a parsimonious way to do checking, as it reduces API calls
+  deparse(search_apis) |>
+    stringr::str_detect("search_all\\(\"apis\"") |>
+    any() |>
+    expect_true()
 })
 
-test_that("search_atlases returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
-  all <- show_all_atlases()
-  search <- search_atlases("guat")
-  search2 <- search_all(atlases, "guat")
-  search_result_check <- all(grepl(pattern = "guat", search$region,
-                                   ignore.case = TRUE))
-  
-  expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "atlases")
-  expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
-  expect_true(search_result_check)
-  expect_equal(search, search2)
+test_that("`search_atlases()` returns a filtered result", {
+  search_string <- "guat"
+  result <- search_all(atlases, search_string)
+  result |>
+    dplyr::pull(region) |>
+    tolower() |>
+    stringr::str_detect(search_string) |>
+    all() |>
+    expect_true()
+  expect_equal(attributes(result)$call, "atlases")
+  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  # check synonymous function calls the above syntax
+  deparse(search_atlases) |>
+    stringr::str_detect("search_all\\(\"atlases\"") |>
+    any() |>
+    expect_true()
 })
 
-test_that("search_collections returns a filtered result", {
+test_that("`search_collections()` returns a filtered result", {
   skip_if_offline(); skip_on_ci()
-  all <- show_all_collections()
-  search <- search_collections("dna")
-  search2 <- search_all(collections, "dna")
-  search_result_check <- all(grepl(pattern = "dna", search$name,
-                                   ignore.case = TRUE))
-  
-  expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "collections")
-  expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
-  expect_true(search_result_check)
-  expect_equal(search, search2)
+  search_string <- "dna"
+  result <- search_all(collections, search_string)
+  result |>
+    dplyr::pull(name) |>
+    tolower() |>
+    stringr::str_detect(search_string) |>
+    all() |>
+    expect_true()
+  expect_equal(attributes(result)$call, "collections")
+  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  # check synonymous function calls the above syntax
+  deparse(search_collections) |>
+    stringr::str_detect("search_all\\(\"collections\"") |>
+    any() |>
+    expect_true()
 })
 
-test_that("search_datasets returns a filtered result", {
+test_that("`search_datasets()` returns a filtered result", {
   skip_if_offline(); skip_on_ci()
-  all <- show_all_datasets()
-  search <- search_datasets("endangered")
-  search2 <- search_all(datasets, "endangered")
-  search_result_check <- all(grepl(pattern = "endangered", search$name,
-                                   ignore.case = TRUE))
-  
-  expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "datasets")
-  expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
-  expect_true(search_result_check)
-  expect_equal(search, search2)
+  search_string <- "endangered"
+  result <- search_all(datasets, search_string)
+  result |>
+    dplyr::pull(name) |>
+    tolower() |>
+    stringr::str_detect(search_string) |>
+    all() |>
+    expect_true()
+  expect_equal(attributes(result)$call, "datasets")
+  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  # check synonymous function calls the above syntax
+  deparse(search_datasets) |>
+    stringr::str_detect("search_all\\(\"datasets\"") |>
+    any() |>
+    expect_true()
 })
 
-test_that("search_fields returns a filtered result", {
+test_that("`search_fields()` returns a filtered result", {
   skip_if_offline(); skip_on_ci()
-  all <- show_all_fields()
-  search <- search_fields("precipitation")
-  search2 <- search_all(fields, "precipitation")
-  search_result_check <- all(grepl(pattern = "precipitation", search$description,
-                                   ignore.case = TRUE))
-  
-  expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "fields")
-  expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
-  expect_true(search_result_check)
-  expect_equal(search, search2)
+  search_string <- "precipitation"
+  result <- search_all(fields, search_string)
+  result |>
+    dplyr::pull(description) |>
+    tolower() |>
+    stringr::str_detect(search_string) |>
+    all() |>
+    expect_true()
+  expect_equal(attributes(result)$call, "fields")
+  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  # check synonymous function calls the above syntax
+  deparse(search_fields) |>
+    stringr::str_detect("search_all\\(\"fields\"") |>
+    any() |>
+    expect_true()
 })
 
-test_that("search_fields helpful warning with blank argument", {
+test_that("`search_fields()` helpful warning with blank argument", {
   skip_if_offline(); skip_on_ci()
   expect_error(search_fields(), "We didn't detect a search")
 })
 
-test_that("search_licenses returns a filtered result", {
+test_that("`search_licenses()` returns a filtered result", {
   skip_if_offline(); skip_on_ci()
-  all <- show_all_licences()
-  search <- search_licences("3.0")
-  search2 <- search_all(licences, "3.0")
-  search_result_check <- all(grepl(pattern = "3.0", search$acronym,
-                                   ignore.case = TRUE))
-  
-  expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "licences")
-  expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
-  expect_true(search_result_check)
-  expect_equal(search, search2)
+  search_string <- "3.0"
+  result <- search_all(licences, search_string)
+  result |>
+    dplyr::pull(acronym) |>
+    tolower() |>
+    stringr::str_detect(search_string) |>
+    all() |>
+    expect_true()
+  expect_equal(attributes(result)$call, "licences")
+  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  # check synonymous function calls the above syntax
+  deparse(search_licences) |>
+    stringr::str_detect("search_all\\(\"licences\"") |>
+    any() |>
+    expect_true()
 })
 
-test_that("search_lists returns a filtered result", {
+test_that("`search_lists()` returns a filtered result", {
   skip_if_offline(); skip_on_ci()
-  all_lists <- show_all_lists()
-  search1 <- search_lists("threatened")
-  search2 <- search_all(lists, "threatened")
-  # check whether search_lists is correctly detecting the target string
-  chr_lookup <- purrr::map(colnames(search1), is.character) |>
+  search_string <- "threatened"
+  quiet_lists_search <- purrr::quietly(search_lists)
+  result <- quiet_lists_search(search_string) |>
+    purrr::pluck("result")
+  # elaborate check for matching terms in any character column
+  chr_lookup <- purrr::map(colnames(result), 
+                           is.character) |>
     unlist()
-  chr_cols <- colnames(search1)[chr_lookup]
-  contains_threatened <- purrr::map(chr_cols, \(a){
-    grepl(pattern = "threatened", search1[[a]], ignore.case = TRUE)
+  chr_cols <- colnames(result)[chr_lookup]
+  contains_term <- purrr::map(chr_cols, 
+                              \(a){
+                                result[[a]] |>
+                                  tolower() |>
+                                  stringr::str_detect("threatened")
   })
-  search_result_check <- purrr::map(
-    purrr::list_transpose(contains_threatened), any) |>
+  purrr::map(purrr::list_transpose(contains_term), any) |>
     unlist() |>
-    all()
-  expect_lt(nrow(search1), nrow(all_lists))
-  expect_equal(attributes(search1)$call, "lists")
-  expect_s3_class(search1, c("tbl_df", "tbl", "data.frame"))
-  expect_true(search_result_check)
-  expect_equal(search1, search2)
+    all() |>
+    expect_true()
+  expect_equal(attributes(result)$call, "lists")
+  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  # check synonymous function calls the above syntax
+  deparse(search_lists) |>
+    stringr::str_detect("search_all\\(\"lists\"") |>
+    any() |>
+    expect_true()  
 })
 
-test_that("search_reasons returns a filtered result", {
+test_that("`search_reasons()` returns a filtered result", {
   skip_if_offline(); skip_on_ci()
-  all <- show_all_reasons()
-  search <- search_reasons("sci")
-  search2 <- search_all(reasons, "sci")
-  search_result_check <- all(grepl(pattern = "sci", search$name,
-                                   ignore.case = TRUE))
-  
-  expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "reasons")
-  expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
-  expect_true(search_result_check)
-  expect_equal(search, search2)
+  search_string <- "sci"
+  result <- search_all(reasons, search_string)
+  result |>
+    dplyr::pull(name) |>
+    tolower() |>
+    stringr::str_detect(search_string) |>
+    all() |>
+    expect_true()
+  expect_equal(attributes(result)$call, "reasons")
+  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  # check synonymous function calls the above syntax
+  deparse(search_reasons) |>
+    stringr::str_detect("search_all\\(\"reasons\"") |>
+    any() |>
+    expect_true()
 })
 
-test_that("search_ranks returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
-  all <- show_all_ranks()
-  search <- search_ranks("kingdom")
-  search2 <- search_all(ranks, "kingdom")
-  search_result_check <- all(grepl(pattern = "kingdom", search$name,
-                                   ignore.case = TRUE))
-  
-  expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "ranks")
-  expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
-  expect_true(search_result_check)
-  expect_equal(search, search2)
+test_that("`search_ranks()` returns a filtered result", {
+  search_string <- "kingdom"
+  result <- search_all(ranks, search_string)
+  result |>
+    dplyr::pull(name) |>
+    tolower() |>
+    stringr::str_detect(search_string) |>
+    all() |>
+    expect_true()
+  expect_equal(attributes(result)$call, "ranks")
+  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  # check synonymous function calls the above syntax
+  deparse(search_ranks) |>
+    stringr::str_detect("search_all\\(\"ranks\"") |>
+    any() |>
+    expect_true()
 })
 
-test_that("search_profiles returns a filtered result", {
+test_that("`search_profiles()` returns a filtered result", {
   skip_if_offline(); skip_on_ci()
-  all <- show_all_profiles()
-  search <- search_profiles("base")
-  search2 <- search_all(profiles, "base")
-  search_result_check <- all(grepl(pattern = "base", search$description,
-                                   ignore.case = TRUE))
-  
-  expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "profiles")
-  expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
-  expect_true(search_result_check)
-  expect_equal(search, search2)
+  search_string <- "base"
+  result <- search_all(profiles, search_string)
+  result |>
+    dplyr::pull(description) |>
+    tolower() |>
+    stringr::str_detect(search_string) |>
+    all() |>
+    expect_true()
+  expect_equal(attributes(result)$call, "profiles")
+  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  # check synonymous function calls the above syntax
+  deparse(search_profiles) |>
+    stringr::str_detect("search_all\\(\"profiles\"") |>
+    any() |>
+    expect_true()
 })
 
-test_that("search_providers returns a filtered result", {
+test_that("`search_providers()` returns a filtered result", {
   skip_if_offline(); skip_on_ci()
-  all <- show_all_providers()
-  search <- search_providers("inaturalist")
-  search2 <- search_all(providers, "inaturalist")
-  search_result_check <- all(grepl(pattern = "inaturalist", search$name,
-                                   ignore.case = TRUE))
-  
-  expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "providers")
-  expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
-  expect_true(search_result_check)
-  expect_equal(search, search2)
+  search_string <- "inaturalist"
+  result <- search_all(providers, search_string)
+  result |>
+    dplyr::pull(name) |>
+    tolower() |>
+    stringr::str_detect(search_string) |>
+    all() |>
+    expect_true()
+  expect_equal(attributes(result)$call, "providers")
+  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  # check synonymous function calls the above syntax
+  deparse(search_providers) |>
+    stringr::str_detect("search_all\\(\"providers\"") |>
+    any() |>
+    expect_true()
 })

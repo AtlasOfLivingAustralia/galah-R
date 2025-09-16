@@ -11,7 +11,7 @@ test_that("show_all parses ... correctly", {
   skip_if_offline(); skip_on_ci()
   fields1 <- show_all(fields)
   fields2 <- show_all("fields")
-  expect_equivalent(fields1, fields2)
+  expect_equal(fields1, fields2)
 })
 
 test_that("all show_all() functions return correctly with all syntax", {

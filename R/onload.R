@@ -7,13 +7,15 @@
       # set up storage of standard information via {potions}
       potions::brew(.pkg = "galah")
       galah_config() # to cache defaults
-      options(list("check_internal_cache" = galah_internal_cached))
-      
+      reset_cache()
+
       # get information to display to the user
+      ## get the galah version, if we can
       galah_version <-  "version unknown"
       suppressWarnings(
         try(galah_version <- utils::packageDescription("galah")[["Version"]],
-            silent = TRUE)) ## get the galah version, if we can
+            silent = TRUE))
+      # show currently-selected atlas
       current_node <- potions::pour("atlas", .pkg = "galah") |>
         purrr::pluck("acronym")
       current_url <- show_all_atlases() |>

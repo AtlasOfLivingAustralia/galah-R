@@ -3,11 +3,14 @@
 \name{as_query.data_request}
 \alias{as_query.data_request}
 \alias{as_query}
+\alias{as_query.list}
 \alias{as_query.metadata_request}
 \alias{as_query.files_request}
 \title{Convert an object to class \code{query}}
 \usage{
 as_query(x, ...)
+
+\method{as_query}{list}(x)
 
 \method{as_query}{data_request}(x, mint_doi = FALSE, ...)
 

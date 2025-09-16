@@ -36,6 +36,7 @@ collapse_query <- function(x){
          "metadata/profiles-unnest" = collapse_profile_values(x),  # check this
          # some "metadata/" functions require pagination under some circumstances
          "metadata/lists" = collapse_lists(x), # always paginates
-         x # remaining "metadata/" functions are passed as-is # fixme to make a new object type
+         x # remaining "metadata/" functions are passed as-is 
+         # fixme to make a new object type
   )
 }
