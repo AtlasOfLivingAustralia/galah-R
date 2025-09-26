@@ -2,8 +2,39 @@
 ##                 Output formatting functions                 --
 ##---------------------------------------------------------------
 
+#' Internal function to check whether a query contains `select(everything())`
+#' @noRd
+#' @keywords Internal
+everything_requested <- function(x){
+  result <- FALSE
+  value <- purrr::pluck(x, "select", "value")
+  if(!is.null(value)){
+    if(any(value == "everything()")){
+      result <- TRUE
+    }
+  }
+  result
+}
+
+#' Internal function to apply `select(everything())` when request4ed
+#' @noRd
+#' @keywords Internal
+select_wanted_columns <- function(df, .query){
+  if(isFALSE(.query$all_fields)){
+    specific_type <- .query |>
+      purrr::pluck("type") |>
+      stringr::str_remove("^metadata/")
+    dplyr::select(df, 
+                  tidyselect::any_of(wanted_columns(specific_type)))
+  }else{
+    df
+  }
+}
+
 # Select column names to return
 # Subsets data returned by webservices to useful columns
+#' @noRd
+#' @keywords Internal
 wanted_columns <- function(type) {
     switch(type,
            "taxa" = c("search_term", "scientific_name",
@@ -41,6 +72,15 @@ wanted_columns <- function(type) {
            "assertions" = c("id", "description", "category"),
            "quality_filter" = c("description", "filter"),
            "reasons" = c("id", "name"))
+}
+
+#' Internal function to rename specific columns, and convert to snake_case
+#' @noRd
+#' @keywords Internal
+colname_lookup <- function(type){
+  switch(type,
+         "assertions" = c("id" = "name")
+  )
 }
 
 #' Internal function to rename specific columns, and convert to snake_case

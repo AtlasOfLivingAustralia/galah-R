@@ -13,6 +13,7 @@
 \alias{group_by}
 \alias{slice_head}
 \alias{count}
+\alias{everything}
 \alias{st_crop}
 \title{Objects exported from other packages}
 \keyword{internal}
@@ -26,5 +27,7 @@ below to see their documentation.
   \item{graphics}{\code{\link[graphics]{identify}}}
 
   \item{sf}{\code{\link[sf]{st_crop}}}
+
+  \item{tidyselect}{\code{\link[tidyselect]{everything}}}
 }}
 

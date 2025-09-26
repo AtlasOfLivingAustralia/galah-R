@@ -49,19 +49,20 @@ as_query_apis <- function(){
 #' NOTE: API doesn't accept any arguments - could post-filter for search
 #' @noRd
 #' @keywords Internal
-as_query_assertions <- function(){
+as_query_assertions <- function(x){
   query_type <- "metadata/assertions"
   if(is_gbif()){
     result <- list(type = query_type,
                    data = "galah:::gbif_internal_archived$assertions")
   }else{
-    if(check_if_cache_update_needed("assertions")){
+    if(check_if_cache_update_needed("assertions") | 
+       everything_requested(x)){
       result <- default_query(query_type)
-        
     }else{
       result <- default_cache(query_type)
     }
   }
+  result$all_fields <- everything_requested(x)
   as_query(result)
 }
 

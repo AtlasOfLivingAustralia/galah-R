@@ -89,7 +89,7 @@ as_query.data_request <- function(x,
 as_query.metadata_request <- function(x, ...){
   switch(x$type,
          "apis" = as_query_apis(),
-         "assertions" = as_query_assertions(),
+         "assertions" = as_query_assertions(x),
          "atlases" = as_query_atlases(),
          "collections" = as_query_collections(x),
          "datasets" = as_query_datasets(x),

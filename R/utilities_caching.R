@@ -60,6 +60,6 @@ check_if_cache_update_needed <- function(function_name){
   result <- is_local | is_wrong_atlas | is_too_short # if any, update is needed
   if(length(result) < 1){ # bug catcher
     result <- TRUE
-  } 
+  }
   result
 }

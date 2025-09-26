@@ -59,15 +59,6 @@ desc <- function(...){
   parsed_dots <- parse_quosures_basic(dots)
   tibble::tibble(variable = parsed_dots,
                  direction = "descending")
-} 
-
-#' @rdname tidyverse_functions
-#' @export
-everything <- function(){
-  # still need to test this for 
-  #  - getting all fields in atlas_species()
-  #  - erroring in atlas_occurrences()
-  # browser()
 }
 
 #' @rdname tidyverse_functions

@@ -3,13 +3,10 @@
 \name{tidyverse_functions}
 \alias{tidyverse_functions}
 \alias{desc}
-\alias{everything}
 \alias{unnest}
 \title{Non-generic tidyverse functions}
 \usage{
 desc(...)
-
-everything()
 
 unnest(.query)
 }

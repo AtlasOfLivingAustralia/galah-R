@@ -150,9 +150,11 @@ select.data_request <- function(.data, ..., group){
 #' @rdname select.data_request
 #' @export
 select.metadata_request <- function(.data, ...){
-  if(.data$type != "lists"){
-    cli::cli_abort("`select()` is only supported for type `lists`")
-  }
+  # if(.data$type != "lists"){
+  #   cli::cli_abort("`select()` is only supported for type `lists`")
+  # }
+  ## TODO: decide whether warnings are needed. 
+  ## Probably inform("Skipping") would be fine
   select_entries <- rlang::enquos(..., .ignore_empty = "all") |>
     as.list() |>
     purrr::map(rlang::as_label) |>

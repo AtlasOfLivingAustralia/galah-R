@@ -22,7 +22,8 @@ retrieve_internal_data <- function(.query){
   }
   .query$data |>
     parse(text = _) |> 
-    eval()
+    eval() |>
+    select_wanted_columns(.query)
 }
 
 #' Internal function to remove `list()` entries inside lists
@@ -57,18 +58,22 @@ collect_apis <- function(.query){
 #' @keywords Internal
 collect_assertions <- function(.query){
   if(!is.null(.query$data)){
-    result <- retrieve_internal_data(.query)
+    result_df <- retrieve_internal_data(.query)
   }else{
-    result <- purrr::map(query_API(.query), 
-                         \(a){a[names(a) != "termsRequiredToTest"]}) |>
-      dplyr::bind_rows()
-    names(result) <- rename_columns(names(result), type = "assertions")
-    result <- result[wanted_columns("assertions")]
-    result$type <- "assertions"
-    result <- update_attributes(result, type = "assertions")
-    update_cache(assertions = result)
+    # get data from API
+    result_api <- purrr::map(query_API(.query), 
+                         \(a){a[names(a) != "termsRequiredToTest"]})
+    # set up a pipe to transform results from the API
+    result_df <- result_api |>
+      dplyr::bind_rows() |>
+      dplyr::rename_with(camel_to_snake_case) |>
+      dplyr::rename(!!!colname_lookup("assertions"))
+      select_wanted_columns(.query) |>
+      dplyr::mutate(type = "assertions") |> # for consistency with `collect_fields()`
+      update_attributes(type = "assertions")
+    update_cache(assertions = result_df)
   }
-  result
+  result_df
 }
 
 #' Internal function to `collect()` atlases
