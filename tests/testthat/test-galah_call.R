@@ -15,8 +15,6 @@ test_that("galah_call accepts method arg", {
   expect_error(galah_call(method = "nothing"))
 })
 
-# prints properly?
-
 test_that("galah_call works with all `galah_` functions", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |> 

@@ -51,6 +51,7 @@ by \code{collect()} or one of the \code{atlas_} family of functions (such as
 \item \code{<} or \code{<=} (e.g. \code{year <= 2020})
 \item \code{OR} statements (e.g. \code{year == 2018 | year == 2020})
 \item \code{AND} statements (e.g. \code{year >= 2000 & year <= 2020})
+\item Field names can be parsed from objects using \code{{{}}} syntax, e.g. \verb{field <- "year"; value <- "2025"; galah_filter(\{\{field\}\} == value)}
 }
 
 Some general tips:

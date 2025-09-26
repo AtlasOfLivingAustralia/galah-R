@@ -2,10 +2,15 @@ test_that("galah_polygon uses first argument", {
   wkt_1 <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
   wkt_2 <- "POLYGON((145.6765 -42.13203, 145.9652 -42.63203, 146.5425 -42.63203, 146.8312 -42.13203, 146.5425 -41.63203, 145.9652 -41.63203, 145.6765 -42.13203))"
   expected_polygon <- "MULTIPOLYGON (((142.3623 -29.00703, 142.7413 -29.00703, 142.7413 -29.39064, 142.3623 -29.39064, 142.3623 -29.00703)))"
-  polygon_1 <- expect_warning(galah_polygon(wkt_1, wkt_2))
-  expect_equal(as.character(polygon_1), 
-               galah_polygon(wkt_1)[1], 
-               expected_polygon)
+  warning_text <- expect_warning(galah_polygon(wkt_1, wkt_2))
+  grepl("More than 1 spatial area provided", warning_text) |>
+    any() |>
+    expect_true()
+  quiet_polygons <- purrr::quietly(galah_polygon)
+  calculated_polygon <- quiet_polygons(wkt_1, wkt_2)$result
+  expect_identical(calculated_polygon, 
+                   galah_polygon(wkt_1)[1],
+                   expected_polygon)
 })
 
 test_that("galah_polygon checks inputs", {

@@ -128,9 +128,7 @@ collect_media <- function(df,
   # suggest option to set directory in galah_config()
   user_directory <- potions::pour("package", "directory")
   if (stringr::str_detect(user_directory, "Temp")) {
-    inform(
-      cli::cli_text("{cli::col_magenta('To change which file directory media files are saved to, use `galah_config(directory = )`.')}")
-      )
+    cli::cli_inform("{cli::col_magenta('To change which file directory media files are saved to, use `galah_config(directory = )`.')}")
   }
   
   request_files() |>

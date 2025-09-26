@@ -87,7 +87,7 @@ drill_down_taxonomy <- function(df,
     return(df)
   }else{
     result <- children |> 
-      dplyr::mutate(name = str_to_title(children$name),
+      dplyr::mutate(name = stringr::str_to_title(children$name),
                     taxon_concept_id = children$guid,
                     parent_taxon_concept_id = children$parentGuid) |>
       dplyr::select("name",
@@ -101,7 +101,7 @@ drill_down_taxonomy <- function(df,
     if(nrow(result) < 1){
       return(df)
     }else{
-      result_list <- lapply(
+      result_list <- purrr::map(
         split(result, seq_len(nrow(result))), 
         function(a){drill_down_taxonomy(a, 
                                         down_to, 

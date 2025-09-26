@@ -37,6 +37,7 @@
 #'   * `<` or `<=` (e.g. `year <= 2020`)
 #'   * `OR` statements (e.g. `year == 2018 | year == 2020`)
 #'   * `AND` statements (e.g. `year >= 2000 & year <= 2020`)
+#'   * Field names can be parsed from objects using `{{}}` syntax, e.g. `field <- "year"; value <- "2025"; galah_filter({{field}} == value)`
 #' 
 #' Some general tips:
 #'  * Separating statements with a comma is equivalent to an `AND` statement; 

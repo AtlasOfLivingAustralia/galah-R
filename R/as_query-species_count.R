@@ -39,7 +39,7 @@ as_query_species_count_atlas <- function(identify = NULL,
                    list(flimit = 1, 
                         facets = species_facets()))
     result <- list(type = "data/species-count",
-                   url = url_build(url),
+                   url = httr2::url_build(url),
                    headers = build_headers(),
                    filter = filter)
   }else{

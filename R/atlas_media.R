@@ -23,37 +23,6 @@ atlas_media <- function(request = NULL,
     cli::cli_abort("You must specify a valid `filter()` to use `atlas_media()`")
   }
 
-  # ensure media filters are present
-  query_collapse <- update_media_filters(.query)
-
-  # get occurrences
-  occ <- query_collapse |> 
-    collect(wait = TRUE) |>
-    tidyr::unnest_longer(col = any_of(present_fields))
-  
-  if(!any(colnames(occ) == "all_image_url")){
-    occ$media_id <- build_media_id(occ)
-  }
-
-  # collect media metadata
-  media <- request_metadata() |>
-    filter(media == occ) |>
-    collect()
-  
-  # join and return
-  if(any(colnames(occ) == "all_image_url")){
-    occ <- dplyr::rename(occ, "media_id" = "all_image_url")
-  }
-  occ_media <- dplyr::right_join(occ,
-                                 media, 
-                                 by = dplyr::join_by("media_id" == "image_id"))
-  dplyr::relocate(occ_media, "media_id", 1)
-}
-
-#' Ensure media filters are present in the query, and add them if not
-#' @noRd
-#' @keywords Internal
-update_media_filters <- function(.query){
   # ensure media columns are present in `select`
   if(is.null(.query$select)){
     .query <- update_data_request(.query, 
@@ -100,7 +69,29 @@ update_media_filters <- function(.query){
     url$query$fq <- glue::glue("{url$query$fq} AND {media_fq}")
     query_collapse$url <- httr2::url_build(url)
   }
-  query_collapse
+
+  # get occurrences
+  occ <- query_collapse |> 
+    collect(wait = TRUE) |>
+    tidyr::unnest_longer(col = tidyselect::any_of(present_fields))
+  
+  if(!any(colnames(occ) == "all_image_url")){
+    occ$media_id <- build_media_id(occ)
+  }
+
+  # collect media metadata
+  media <- request_metadata() |>
+    filter(media == occ) |>
+    collect()
+  
+  # join and return
+  if(any(colnames(occ) == "all_image_url")){
+    occ <- dplyr::rename(occ, "media_id" = "all_image_url")
+  }
+  occ_media <- dplyr::right_join(occ,
+                                 media, 
+                                 by = dplyr::join_by("media_id" == "image_id"))
+  dplyr::relocate(occ_media, "media_id", 1)
 }
 
 #' Set filters that work for media in each atlas

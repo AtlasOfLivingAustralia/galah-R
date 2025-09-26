@@ -1,9 +1,13 @@
+purrr_radius <- purrr::quietly(galah_radius) 
+quiet_radius <- function(...){
+  purrr_radius(...) |>
+    purrr::pluck("result")}
 
 test_that("galah_radius returns list from lon/lat/radius arguments", {
   lon <- 151.3174
   lat <- -33.66741
   radius = 3
-  radius_object <- galah_radius(lon = lon, 
+  radius_object <- quiet_radius(lon = lon, 
                                 lat = lat, 
                                 radius = radius)
   expected_object <- list(lat = -33.66741,
@@ -15,12 +19,13 @@ test_that("galah_radius returns list from lon/lat/radius arguments", {
 test_that("galah_radius assigns default radius when missing argument", {
   lon <- 151.3174
   lat <- -33.66741
-  radius_object <- expect_warning(galah_radius(lon = lon, lat = lat),
-                                  "No radius value specified.")
+  radius_object <- purrr_radius(lon = lon, lat = lat)
+  grepl("No radius value specified.", radius_object$warning) |>
+    expect_true() 
   expected_object <- list(lat = -33.66741,
                           lon = 151.3174,
                           radius = 10) # default is 10 km
-  expect_equal(radius_object, expected_object)
+  expect_equal(radius_object$result, expected_object)
 })
 
 test_that("galah_radius returns radius for sf_POINT object", {
@@ -29,7 +34,8 @@ test_that("galah_radius returns radius for sf_POINT object", {
   expected_object <- list(lat = -33.66741,
                           lon = 151.3174,
                           radius = 3)
-  expect_equal(galah_radius(point, radius = 3), expected_object)
+  quiet_radius(point, radius = 3) |>
+    expect_equal(expected_object)
 })
 
 test_that("galah_radius errors when more complex sf objects are passed", {
@@ -109,21 +115,16 @@ test_that("galah_radius only uses first arguments supplied to lon/lat/radius", {
                               radius = multiple_radius),
                  "More than 1 radius")
   
-  expect_equal(
-    suppressWarnings(
-      galah_radius(lon = multiple_lon, lat = -31, radius = radius)$lon),
-      expected_object$lon
-      )
-  expect_equal(
-    suppressWarnings(
-      galah_radius(lon = 151, lat = multiple_lat, radius = radius)$lat),
-      expected_object$lat
-      )
-  expect_equal(
-    suppressWarnings(
-      galah_radius(lon = 151, lat = -31, radius = multiple_radius)$radius),
-      expected_object$radius
-      )
+  quiet_radius(lon = multiple_lon, lat = -31, radius = radius) |>
+    purrr::pluck("lon") |>
+    expect_equal(expected_object$lon)
+  quiet_radius(lon = 151, lat = multiple_lat, radius = radius) |>
+    purrr::pluck("lat") |>
+    expect_equal(expected_object$lat)
+  quiet_radius(lon = 151, lat = -31, radius = multiple_radius) |>
+    purrr::pluck("radius") |>
+    expect_equal(expected_object$radius)
 })
 
 # TODO: (after implementing) galah_radius uses only first coordinates of tibble with many coordinates
+rm(purrr_radius, quiet_radius)

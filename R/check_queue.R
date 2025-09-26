@@ -38,9 +38,9 @@ check_queue_loop <- function(.query){
     if(continue){    
       iter <- iter + 1
       if(iter > 99){
-        inform(c("No data were returned after 100 tries.", 
-                 i = "If you have saved this output using e.g. `x <- collect(.query)`,", 
-                 i = "you can try again later using `collect(x)`"))
+        cli::cli_inform(c("No data were returned after 100 tries.", 
+                          i = "If you have saved this output using e.g. `x <- collect(.query)`,", 
+                          i = "you can try again later using `collect(x)`"))
         return(.query)     
       }else{
         current_queue <- check_queue_size(.query, current_queue)
@@ -70,7 +70,7 @@ check_queue_size <- function(.query, current_queue){
   if(.query$queue_size < current_queue & .query$queue_size > 0){
     current_queue <- .query$queue_size
     if(verbose){
-      inform(glue("Queue length: {current_queue}"))
+      cli::cli_inform("Queue length: {current_queue}")
     }
   }else{
     if(verbose){cat("-")}
