@@ -15,11 +15,10 @@ as_query_fields_unnest <- function(.query){
       facets = .query$filter$value[1],
       flimit = 10^4)   
   }
-  result <- list(
-    type = "metadata/fields-unnest",
-    url = httr2::url_build(url))
-  class(result) <- "query"
-  return(result)
+  list(type = "metadata/fields-unnest",
+       url = httr2::url_build(url))  |>
+    enforce_select_query(.query) |>
+    as_query()
 }
 
 #' Internal function to run `as_query()` for 

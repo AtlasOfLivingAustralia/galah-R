@@ -3,7 +3,7 @@
 #' @title Look up taxon information
 #' 
 #' @description
-#' `search_taxa()` allows users to look up taxonomic names, and ensure they are
+#' [search_taxa()] allows users to look up taxonomic names, and ensure they are
 #' being matched correctly, before downloading data from the specified 
 #' organisation.
 #' 
@@ -16,7 +16,7 @@
 #' A more common use-case is to distinguish between homonyms by listing higher
 #' taxonomic units, by supplying columns like `kingdom`, `phylum` or `class`.
 #'
-#' `search_identifiers()` allows users to look up matching taxonomic names using 
+#' [search_identifiers()] allows users to look up matching taxonomic names using 
 #' their unique `taxonConceptID`. In the ALA, all records are associated with 
 #' an identifier that uniquely identifies the taxon to which that record belongs. 
 #' Once those identifiers are known, this function allows you to use them to 
@@ -25,7 +25,7 @@
 #' identifiers.
 #' 
 #' Note that when taxonomic look-up is required within a pipe, the equivalent
-#' to `search_taxa()` is \code{\link[=identify.data_request]{identify()}} (or
+#' to [search_taxa()] is \code{\link[=identify.data_request]{identify()}} (or
 #' [galah_identify()]). The equivalent to `search_identifiers()` is to use 
 #' \code{\link[=filter.data_request]{filter()}} to filter by `taxonConceptId`.
 #' 
@@ -78,7 +78,26 @@
 #'   family = c("pardalotidae", "maluridae"), 
 #'   scientificName = c("Pardalotus striatus striatus", "malurus cyaneus")))
 #'
+#' # Use OOP for the same effect
+#' # `identify()` tells the code that we want to search for _taxonomic_ metadata.
+#' request_metadata() |>
+#'   identify("crinia") |>
+#'   collect()
+#' 
+#' # This approach has the advantage that we can call `select()`
+#' request_metadata() |>
+#'   identify("crinia") |>
+#'   select(everything()) |>
+#'   collect()
+#' 
 #' # Look up a unique taxon identifier
 #' search_identifiers(query = "https://id.biodiversity.org.au/node/apni/2914510")
+#' 
+#' # OOP process for identifiers uses `filter()`, not `identify()`
+#' # In these cases the `field` argument is used to specify `type`
+#' request_metadata() |>
+#'   filter(identifier = "https://id.biodiversity.org.au/node/apni/2914510") |>
+#'   select(everything()) |>
+#'   collect()
 #' }
 NULL

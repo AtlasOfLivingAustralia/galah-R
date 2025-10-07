@@ -103,7 +103,8 @@ stored_types <- c("assertions", "fields", "profiles", "reasons")
 galah_internal_cached <- purrr::map(
   stored_types,
   function(a){
-    result <- request_metadata(type = a) |> collect()
+    result <- tibble::tibble() # i.e. ship blank tibbles to save space
+    # request_metadata(type = a) |> collect() # old code to actually populate the cache
     attr(result, "ARCHIVED") <- TRUE
     attr(result, "region") <- "Australia"
     result

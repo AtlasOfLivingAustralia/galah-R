@@ -2,119 +2,129 @@
 ##                 Output formatting functions                 --
 ##---------------------------------------------------------------
 
-#' Internal function to check whether a query contains `select(everything())`
+#' Choose column names to pass to `select()`. 
+#' NOTE: this isn't especially subtle wrt different atlases
+#' NOTE: this assumes `dplyr::rename_with(camel_to_snake_case)` has been run
 #' @noRd
 #' @keywords Internal
-everything_requested <- function(x){
-  result <- FALSE
-  value <- purrr::pluck(x, "select", "value")
-  if(!is.null(value)){
-    if(any(value == "everything()")){
-      result <- TRUE
-    }
-  }
-  result
+wanted_columns <- function(type) {
+    switch(type,
+           "assertions" = c("id",
+                            "description",
+                            "category",
+                            "type"),
+           "fields" = c("id",
+                        "description",
+                        "type"),
+           "identifiers" = wanted_columns_taxa(),
+           "licences" = c("id",
+                          "name",
+                          "acronym",
+                          "url"),
+           "lists" = c("species_list_uid",
+                       "list_name",
+                       "description",
+                       "list_type",
+                       "item_count"),
+           "media" = c("image_id",
+                       "creator", 
+                       "license",
+                       "data_resource_uid",
+                       "date_taken",
+                       "date_uploaded",
+                       "mime_type",
+                       "mimetype",
+                       "width",
+                       "height",
+                       "size_in_bytes",
+                       "image_url"),
+           "profiles" = c("id",
+                         "short_name",
+                         "name",
+                         "description"),
+           "reasons" = c("id",
+                         "name"),
+           "taxa" = wanted_columns_taxa(),
+           NULL # When no defaults are set, sending NULL tells the code to call `everything()`
+           )
 }
 
-#' Internal function to apply `select(everything())` when request4ed
+#' `wanted_columns()` but for taxa *and* identifier queries
 #' @noRd
 #' @keywords Internal
-select_wanted_columns <- function(df, .query){
-  if(isFALSE(.query$all_fields)){
-    specific_type <- .query |>
-      purrr::pluck("type") |>
-      stringr::str_remove("^metadata/")
-    dplyr::select(df, 
-                  tidyselect::any_of(wanted_columns(specific_type)))
+wanted_columns_taxa <- function(){
+  c("search_term",
+    "scientific_name",
+    "scientific_name_authorship", 
+    "taxon_concept_id", # ALA
+    "taxon_concept_lsid", # Austria, Guatemala
+    "authority", # OpenObs
+    "usage_key", # GBIF
+    "guid", # species search
+    "canonical_name", "status", 
+    "rank",
+    "match_type",
+    "confidence",
+    "time_taken",
+    "vernacular_name",
+    "issues",
+    {show_all_ranks() |> dplyr::pull("name")})
+}
+
+#' Internal function to run `eval_tidy()` on captured `select()` requests
+#' @noRd
+#' @keywords Internal
+parse_select <- function(df, .query){
+  select_list <- .query |>
+    purrr::pluck("select") |>
+    purrr::map(rlang::is_quosure) |>
+    unlist() |>
+    which()
+  select_query <- .query |>
+    purrr::pluck("select", !!!select_list) 
+  pos <- tidyselect::eval_select(expr = select_query,
+                                 data = df)
+  rlang::set_names(df[pos], names(pos)) # note: this line taken from 
+  # `tidyselect` documentation; it could be argued that `df[pos]` is sufficient
+}
+  
+#' Internal function to rename specific columns
+#' In-progress, tidyverse-compliant replacement for `rename_columns()`
+#' Note that actual renaming is now handled in-pipe by `dplyr::rename()`
+#' @noRd
+#' @keywords Internal
+parse_rename <- function(df, type){
+  if(type == "taxa"){
+    taxa_vec <- c("class" = "classs",
+                  "taxon_concept_id" = "usage_key",
+                  "taxon_concept_id" = "guid",
+                  "taxon_concept_id" = "reference_id",
+                  "taxon_concept_id" = "key",
+                  "genus" = "genus_name",
+                  "family" = "family_name",
+                  "order" = "order_name",
+                  "phylum" = "phylum_name",
+                  "kingdom" = "kingdom_name",
+                  "rank" = "rank_name",
+                  "vernacular_name" = "french_vernacular_name")
+    cols <- colnames(df)
+    col_lookup <- taxa_vec %in% cols
+    rename_cols <- as.list(taxa_vec[col_lookup])
+    if(any(col_lookup)){
+      dplyr::rename(df, !!!rename_cols)
+    }else{
+      df
+    }
+  }else if(type == "assertions"){
+    dplyr::rename(df, !!!c("id" = "name"))
+  }else if(type == "media"){
+    dplyr::rename(df, !!!c("image_id" = "image_identifier",
+                           "mimetype" = "mime_type"))
   }else{
     df
   }
 }
 
-# Select column names to return
-# Subsets data returned by webservices to useful columns
-#' @noRd
-#' @keywords Internal
-wanted_columns <- function(type) {
-    switch(type,
-           "taxa" = c("search_term", "scientific_name",
-                      "scientific_name_authorship", 
-                      "taxon_concept_id", # ALA
-                      "taxon_concept_lsid", # Austria, Guatemala
-                      "authority", # OpenObs
-                      "usage_key", # GBIF
-                      "guid", # species search
-                      "canonical_name", "status", 
-                      "rank",
-                      "match_type", "confidence", "time_taken",
-                      "kingdom", "phylum", "class", "order",
-                      "family", "genus", "species", "vernacular_name",
-                      "issues","subkingdom", "superclass", "infraclass",
-                      "subclass", "subinfraclass", "suborder", "superorder",
-                      "infraorder", "infrafamily", "superfamily", "subfamily",
-                      "subtribe", "subgenus", "subspecies"),
-           "extended_taxa" = c("subkingdom", "superclass", "infraclass",
-                               "subclass", "subinfraclass", "suborder",
-                               "superorder", "infraorder", "infrafamily",
-                               "superfamily", "subfamily", "subtribe",
-                               "subgenus"),
-           "profile" = c("id", "shortName", "name", "description"),
-           "media" = c("image_id",
-                       "creator", "license",
-                       "data_resource_uid",
-                       "date_taken", "date_uploaded",
-                       "mime_type", "mimetype",
-                       "width", "height", "size_in_bytes",
-                       "image_url"
-                     ),
-           "layer" = c("id", "description", "source_link"),
-           "fields" = c("id", "description"),
-           "assertions" = c("id", "description", "category"),
-           "quality_filter" = c("description", "filter"),
-           "reasons" = c("id", "name"))
-}
-
-#' Internal function to rename specific columns, and convert to snake_case
-#' @noRd
-#' @keywords Internal
-colname_lookup <- function(type){
-  switch(type,
-         "assertions" = c("id" = "name")
-  )
-}
-
-#' Internal function to rename specific columns, and convert to snake_case
-#' @noRd
-#' @keywords Internal
-rename_columns <- function(varnames, type) {
-  varnames <- camel_to_snake_case(varnames)
-  switch(type,
-    "media" = {
-      varnames[varnames %in% c("image_identifier")] <- "image_id"
-      varnames[varnames == "mime_type"] <- "mimetype"
-    },
-    "taxa" = {
-      varnames[varnames == "classs"] <- "class"
-      varnames[varnames %in% c("usage_key", "usageKey", "guid", "reference_id", "referenceId", "key")] <- "taxon_concept_id"
-      varnames[varnames %in% c("genus_name", "genusName")] <- "genus"
-      varnames[varnames %in% c("family_name", "familyName")] <- "family"
-      varnames[varnames %in% c("order_name", "orderName")] <- "order"
-      varnames[varnames %in% c("class_name", "className")] <- "class"
-      varnames[varnames %in% c("phylum_name", "phylumName")] <- "phylum"
-      varnames[varnames %in% c("kingdom_name", "kingdomName")] <- "kingdom"
-      varnames[varnames %in% c("rank_name", "rankName")] <- "rank"
-      varnames[varnames %in% c("french_vernacular_name", "frenchVernacularName")] <- "vernacular_name"
-    },
-    "assertions" = {
-      varnames[varnames == "name"] <- "id"
-    },
-    "checklist" = {
-      varnames[1] <- "taxon_concept_id"
-      varnames[varnames %in% c("counts", "number_of_records")] <- "count"
-    }
-  )
-  varnames
-}
 
 ##---------------------------------------------------------------
 ##                          Cases                              --

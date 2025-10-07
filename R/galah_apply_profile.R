@@ -35,7 +35,8 @@ apply_profile <- function(.data, ...){
   result <- parse_quosures_basic(dots) |>
     purrr::pluck(!!!list(1)) |>
     parse_profile()
-  update_data_request(.data, data_profile = result)
+  update_request_object(.data,
+                        data_profile = result)
 }
 
 #' @rdname apply_profile
@@ -47,7 +48,8 @@ galah_apply_profile <- function(...){
          "data_request" = {
            result <- parse_quosures_basic(dots[-1]) |>
              parse_profile()
-           update_data_request(dots[[1]], data_profile = result)
+           update_request_object(dots[[1]],
+                                 data_profile = result)
          },
          {
            parse_quosures_basic(dots) |>

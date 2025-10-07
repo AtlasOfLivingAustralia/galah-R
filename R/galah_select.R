@@ -139,11 +139,11 @@ select.data_request <- function(.data, ..., group){
     cli::cli_inform("`select()` is not supported for GBIF: skipping")
     .data
   }else{
-    dots <- rlang::enquos(..., .ignore_empty = "all") |>
+    rlang::enquos(..., .ignore_empty = "all") |>
       as.list() |>
       add_summary() |>
-      add_group(group)
-    update_data_request(.data, select = dots)  
+      add_group(group) |>
+      update_request_object(.data, select = _)  
   }
 }
 
@@ -155,14 +155,10 @@ select.metadata_request <- function(.data, ...){
   # }
   ## TODO: decide whether warnings are needed. 
   ## Probably inform("Skipping") would be fine
-  select_entries <- rlang::enquos(..., .ignore_empty = "all") |>
+  rlang::enquos(..., .ignore_empty = "all") |>
     as.list() |>
-    purrr::map(rlang::as_label) |>
-    unlist()
-  names(select_entries) <- NULL
-  .data$select <- list(value = select_entries,
-                       summary = select_entries)
-  .data
+    add_summary() |>
+    update_request_object(.data, select = _)
 }
 
 #' @rdname select.data_request
@@ -183,7 +179,8 @@ galah_select <- function(..., group){
       add_summary() |>
       add_group(group)
     if(inherits(dots[[1]], "data_request")){
-      update_data_request(dots[[1]], select = dots[-1]) 
+      update_request_object(dots[[1]],
+                            select = dots[-1]) 
     }else{
       dots
     } 

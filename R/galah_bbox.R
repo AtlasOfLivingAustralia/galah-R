@@ -111,7 +111,8 @@ galah_bbox <- function(...) {
   if(is.null(dr)){
     out_query
   }else{
-    update_data_request(dr, geolocate = out_query)
+    update_request_object(dr,
+                          geolocate = out_query)
   }
 }
 

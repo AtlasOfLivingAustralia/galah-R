@@ -35,7 +35,8 @@ group_by.data_request <- function(.data, ...){
 parsed_dots <- rlang::enquos(..., .ignore_empty = "all") |>
   parse_quosures_basic()
 df <- parse_group_by(parsed_dots)
-update_data_request(.data, group_by = df)
+update_request_object(.data,
+                      group_by = df)
 }
 
 #' @rdname group_by.data_request
@@ -47,7 +48,8 @@ galah_group_by <- function(...){
          "data_request" = {
            df <- parse_quosures_basic(dots[-1]) |>
              parse_group_by()
-           update_data_request(dots[[1]], group_by = df)
+           update_request_object(dots[[1]],
+                                 group_by = df)
          },
          {
            parse_quosures_basic(dots) |>

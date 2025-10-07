@@ -16,7 +16,8 @@ galah_polygon <- function(...){
   out_query <- parse_polygon(query)
   # if a data request was supplied, return one
   if(!is.null(dr)){
-    update_data_request(dr, geolocate = out_query)
+    update_request_object(dr,
+                          geolocate = out_query)
   }else{
     out_query
   }   

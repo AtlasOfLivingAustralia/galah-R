@@ -42,10 +42,6 @@ dplyr::slice_head
 #' @export
 dplyr::count
 
-#' @importFrom tidyselect everything
-#' @export
-tidyselect::everything
-
 #' @importFrom sf st_crop
 #' @export
 sf::st_crop

@@ -114,7 +114,8 @@ filter.data_request <- function(.data, ...){
   }else{
     filters <- parse_quosures_data(dots) # `handle_quosures.R`
   }
-  update_data_request(.data, filter = filters)
+  update_request_object(.data,
+                        filter = filters)
 }
 # usually filters as previously for ALA, but some exceptions:
 # doi == "x" in `atlas_occurrences()`
@@ -188,7 +189,8 @@ galah_filter <- function(..., profile = NULL){
            }else{
              filters <- parse_quosures_data(dots[-1]) # `handle_quosures.R`
            }
-           update_data_request(dots[[1]], filter = filters)
+           update_request_object(dots[[1]],
+                                 filter = filters)
          },
          "metadata_request" = {
            parse_quosures_metadata(dots[[1]], dots[-1])

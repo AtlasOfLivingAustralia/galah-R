@@ -26,6 +26,20 @@ test_that("request_metadata() |> unnest() works for type = 'fields'", {
   expect_true(any(x[[1]] == "HUMAN_OBSERVATION"))
 })
 
+test_that("request_metadata() |> select() |> unnest() works for type = 'fields'", {
+  skip_if_offline(); skip_on_ci()
+  x <- request_metadata() |> 
+    filter(field == basisOfRecord) |>
+    unnest() |>
+    select(everything()) |>
+    collect()
+  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_gte(nrow(x), 4)
+  expect_equal(ncol(x), 1)
+  expect_equal(colnames(x), "basisOfRecord")
+  expect_true(any(x[[1]] == "HUMAN_OBSERVATION"))
+})
+
 test_that("request_metadata() |> unnest() works for type = 'lists'", {
   skip_if_offline(); skip_on_ci()
   x <- request_metadata() |> 

@@ -10,7 +10,8 @@
 #' search term within the valid options for the information specified by the 
 #' suffix.
 #' 
-#' **For more information about taxonomic searches using `search_taxa()`, see `?taxonomic_searches`**.
+#' **For more information about taxonomic searches using `search_taxa()`, see**
+#' \code{\link[=taxonomic_searches]{?taxonomic_searches}}.
 #' 
 #' `r lifecycle::badge("stable")`
 #' `search_all()` is a helper function that can do searches for multiple 

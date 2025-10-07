@@ -31,7 +31,8 @@ detect_request_object <- function(dots){
 #' Internal function to update a `data_request`
 #' @noRd
 #' @keywords Internal
-update_data_request <- function(data_request, ...){
+update_request_object <- function(x, ...){
+  class_tr <- class(x)
   dots <- list(...)
   if(length(dots)[[1]] == 1){
     if(inherits(dots[[1]], "list") & is.null(names(dots))){
@@ -39,24 +40,24 @@ update_data_request <- function(data_request, ...){
     }
   }
   result <- purrr::map(
-    names(data_request), # i.e. for all slots in object of class `data_request`
+    names(x), # i.e. for all slots in object of class `data_request` or `metadata_request`
     function(a){
-      if(any(names(dots) == a)){ # object is present in `data_request`
-        if(is.null(data_request[[a]])){ # slot in `data_request` is empty
+      if(any(names(dots) == a)){ # object is present in `x`
+        if(is.null(x[[a]])){ # slot in `x` is empty
           dots[[a]]
         }else{ # slot is filled
           if(is.null(dots[[a]])){ # if nothing has been supplied, retain source
-            data_request[[a]]
+            x[[a]]
           }else{ # both supplied and source contain data
             switch(a,
                    "identify" = {
-                     bind_unique_rows(data_request[[a]], dots[[a]], "search_term")
+                     bind_unique_rows(x[[a]], dots[[a]], "search_term")
                    },
                    "filter" = {
-                     bind_unique_rows(data_request[[a]], dots[[a]], "query")
+                     bind_unique_rows(x[[a]], dots[[a]], "query")
                    },
                    "select" = {
-                     update_select(data_request[[a]], dots[[a]])
+                     update_select(x[[a]], dots[[a]])
                    }, 
                    # for below, we assume that in all other circumstances we 
                    # simply pass the most recent result (i.e. overwrite)
@@ -65,17 +66,17 @@ update_data_request <- function(data_request, ...){
           }      
         }
       }else{ # if supplied object is not named in `data_request`
-        data_request[[a]]
+        x[[a]]
       }
     })
-  names(result) <- names(data_request)
+  names(result) <- names(x)
   
   # check if any names in `dots` have been missed from `results`
   missing_names <- !(names(dots) %in% names(result))
   if(any(missing_names)){
     result <- append(result, dots[missing_names])
   }
-  class(result) <- "data_request"
+  class(result) <- class_tr
   result
 }
 

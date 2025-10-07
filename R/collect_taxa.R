@@ -2,7 +2,7 @@
 #' @noRd
 #' @keywords Internal
 collect_taxa <- function(.query){
-  if(grepl("namematching|name-matching", .query$url$url[1])){
+  if(stringr::str_detect(.query$url$url[1], "namematching|name-matching")){
     collect_taxa_namematching(.query) # Australia, Spain, Sweden
   }else{
     if(is_gbif()){
@@ -28,7 +28,6 @@ collect_taxa_namematching <- function(.query,
     #       Might be worth returning to if this functionality is needed
     # result <- filter(result, !duplicated(taxonConceptID))
   # }
-
   # handle one or more returned issues values
   issues_vec <- purrr::map(result$issues,
                            \(a){
@@ -40,25 +39,22 @@ collect_taxa_namematching <- function(.query,
                              }
                            }) |>
     unlist()
-  
   # add issues to result
   result <- result |>
     dplyr::select(-"issues") |>
     dplyr::mutate("search_term" = search_terms, 
                   .before = "success",
                   issues = issues_vec)
-  
   # Check for homonyms
-  check_homonyms(result,
-                 error_call = error_call)
-
+  check_homonyms(result, error_call = error_call)
   # Check for invalid search terms
   if (galah_config()$package$verbose) {
     check_search_terms(result)
   }
-  
-  names(result) <- rename_columns(names(result), type = "taxa") # old code
-  result |> dplyr::select(dplyr::any_of(wanted_columns("taxa")))
+  result |>
+    dplyr::rename_with(camel_to_snake_case) |>
+    parse_rename(type = "taxa") |>
+    parse_select(.query)
 }
 
 #' Internal function to `collect()` taxa for other living atlases
@@ -78,9 +74,10 @@ collect_taxa_la <- function(.query){
       dplyr::filter(!duplicated({{name}})) |>
       dplyr::mutate("search_term" = search_terms)
   }
-  names(result) <- rename_columns(names(result), 
-                                  type = "taxa") # old code
-  result |> dplyr::select(dplyr::any_of(wanted_columns("taxa")))
+  result |>
+    dplyr::rename_with(camel_to_snake_case) |>
+    parse_rename(type = "taxa") |>
+    parse_select(.query)
 }
 
 #' Internal function to `collect()` taxa for GBIF
@@ -88,14 +85,14 @@ collect_taxa_la <- function(.query){
 #' @keywords Internal
 collect_taxa_gbif <- function(.query){
   search_terms <- .query$url$search_term
-  result <- query_API(.query) |>
+  query_API(.query) |>
     clean_gbif_taxa() |>
     dplyr::bind_rows() |>
     dplyr::mutate("search_term" = search_terms, 
-                  .before = 1)
-  names(result) <- rename_columns(names(result), type = "taxa") # old code
-  result |> 
-    dplyr::select(dplyr::any_of(wanted_columns("taxa")))
+                  .before = 1) |>
+    dplyr::rename_with(camel_to_snake_case) |>
+    parse_rename(type = "taxa") |>
+    parse_select(.query)
 }
 
 #' Internal function to do cleaning for GBIF
@@ -208,13 +205,10 @@ collect_identifiers <- function(.query){
     check_search_terms(result)
   }
   
-  names(result) <- rename_columns(names(result), 
-                                  type = "taxa") # old code
-  result <- result |> 
-    dplyr::select(dplyr::any_of(wanted_columns("taxa")))
-  attr(result, "call") <- "identifiers"
-  attr(result, "region") <- potions::pour("atlas", "region") 
-  result
+  result |>
+    dplyr::rename_with(camel_to_snake_case) |>
+    parse_rename(type = "taxa") |>
+    parse_select(.query)
 }
 
 #' Internal function to check search terms provided to `search_taxa()`

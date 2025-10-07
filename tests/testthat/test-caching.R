@@ -10,7 +10,7 @@ test_that("`retrieve_cache()` works without any arugments", {
 test_that("`retrieve_cache()` works with a valid arugment", {
   x <- retrieve_cache("fields")
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-  expect_gt(nrow(x), 10)
+  expect_equal(nrow(x), 0)
 })
 
 test_that("`retrieve_cache()` returns `NULL` with an invalid arugment", {

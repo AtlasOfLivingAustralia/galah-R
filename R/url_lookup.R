@@ -32,7 +32,8 @@ url_lookup <- function(type,
         as.character() |>
         utils::URLencode()
     }else{
-      url_string |> utils::URLencode()
+      url_string |> 
+        utils::URLencode()
     }
   }else{
     if(quiet){
@@ -40,7 +41,7 @@ url_lookup <- function(type,
     }else{
       c(
         glue::glue("No API is available for type `{type}`"),
-        i = glue("Selected atlas: {current_atlas}"),
+        i = glue::glue("Selected atlas: {current_atlas}"),
         i = "Use `show_all_apis()` to list valid API calls") |>
       cli::cli_abort(call = error_call)
     }

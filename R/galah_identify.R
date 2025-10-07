@@ -47,7 +47,8 @@ identify.data_request <- function(x, ...){
       result <- tibble::tibble("search_term" = unlist(dots_initial))
     }
   }
-  update_data_request(x, identify = result)
+  update_request_object(x,
+                        identify = result)
 }
 
 #' @rdname identify.data_request

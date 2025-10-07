@@ -25,8 +25,8 @@ atlas_media <- function(request = NULL,
 
   # ensure media columns are present in `select`
   if(is.null(.query$select)){
-    .query <- update_data_request(.query, 
-                                  select = galah_select(group = c("basic", "media")))
+    .query <- update_request_object(.query, 
+                                    select = galah_select(group = c("basic", "media")))
     present_fields <- image_fields()
     present_fields <- present_fields[present_fields != "multimedia"] # check these fields for Spain
     query_collapse <- collapse(.query)
@@ -121,4 +121,26 @@ parse_regional_media_filters <- function(present_fields,
          cli::cli_abort("`atlas_media` is not supported for atlas = {atlas}",
                         call = error_call)
   )
+}
+
+#' Internal function to get media metadata, and create a valid file name
+#' @noRd
+#' @keywords Internal
+build_media_id <- function(df){
+  # create a column that includes media identifiers, regardless of which column they are in
+  ## NOTE: I haven't found good tidyverse syntax for this yet
+  x <- rep(NA, nrow(df))
+  if(any(colnames(df) == "videos")){
+    videos <- !is.na(df$videos)
+    if(any(videos)){x[videos] <- df$videos[videos]}    
+  }
+  if(any(colnames(df) == "sounds")){
+    sounds <- !is.na(df$sounds)
+    if(any(sounds)){x[sounds] <- df$sounds[sounds]}
+  }
+  if(any(colnames(df) == "images")){
+    images <- !is.na(df$images)
+    if(any(images)){x[images] <- df$images[images]}
+  }
+  x
 }

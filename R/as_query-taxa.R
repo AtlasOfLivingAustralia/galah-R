@@ -4,34 +4,29 @@
 as_query_taxa <- function(.query){
   if(is.null(.query$identify)){
     result <- list(type = "metadata/taxa")
-    class(result) <- "query"
-    result
   }else{
     if(ncol(.query$identify) > 1 | 
        colnames(.query$identify)[1] != "search_term"){
-      as_query_taxa_multiple(.query)
+      result <- as_query_taxa_multiple(.query)
     }else{
-      as_query_taxa_single(.query)
+      result <- as_query_taxa_single(.query)
     }
   }
+  result |>
+    enforce_select_query(supplied_query = .query) |>
+    as_query()
 }
 
 #' Internal function to `as_query()` for a single taxonomic name 
 #' @noRd
 #' @keywords Internal
 as_query_taxa_single <- function(.query){
-  urls <- lapply(.query$identify$search_term,
-                 function(a){url_lookup("metadata/taxa-single",
-                                        name = a)}) |>
-    unlist()
-  search_terms <- .query$identify$search_term
-  # build object and return
-  result <- list(type = "metadata/taxa-single",
-                 url = tibble::tibble(url = urls, 
-                                      search_term = search_terms),
-                 headers = build_headers())
-  class(result) <- "query"
-  return(result)
+  terms <- .query$identify$search_term
+  list(type = "metadata/taxa-single",
+       url = tibble::tibble(url = url_lookup("metadata/taxa-single",
+                                             name = terms), 
+                            search_term = terms),
+       headers = build_headers())
 }
 
 #' Internal function to `collapse()` where multiple taxonomic levels are given 
@@ -62,12 +57,10 @@ as_query_taxa_multiple <- function(.query){
     unlist()
   
   # build object and return
-  result <- list(type = "metadata/taxa-multiple",
-                 url = tibble::tibble(url = urls, 
-                                      search_term = search_terms),
-                 headers = build_headers())
-  class(result) <- "query"
-  return(result)
+  list(type = "metadata/taxa-multiple",
+       url = tibble::tibble(url = urls, 
+                            search_term = search_terms),
+       headers = build_headers())
 }
 
 #' Internal function to create an identifiers query
@@ -99,12 +92,12 @@ as_query_identifiers <- function(.query){
     }
   }
   # build object and return
-  result <- list(type = "metadata/identifiers",
-                 url = tibble::tibble(url = urls, 
-                                      search_term = search_terms),
-                 headers = build_headers())
-  class(result) <- "query"
-  return(result)
+  list(type = "metadata/identifiers",
+       url = tibble::tibble(url = urls, 
+                            search_term = search_terms),
+       headers = build_headers()) |>
+    enforce_select_query(supplied_query = .query) |>
+    as_query()
 }
 
 #' Internal function to accept only specific taxon ranks for searching
