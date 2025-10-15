@@ -121,7 +121,6 @@ search_all(lists, "endangered") # equivalent
 
 # Search for a valid taxonomic rank, "subphylum"
 search_all(ranks, "subphylum")
-}
 
 # An alternative is to download the data and then `filter` it. This is 
 # largely synonymous, and allows greater control over which fields are searched.
