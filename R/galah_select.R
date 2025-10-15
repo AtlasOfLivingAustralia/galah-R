@@ -1,32 +1,68 @@
-#' Specify fields for occurrence download
+#' @title Keep or drop columns using their names
 #'
-#' The living atlases store content in hundreds of different fields, and users
-#' often require thousands or millions of records at a time. To reduce time taken
-#' to download data, and limit complexity of the resulting `data.frame`, it is
-#' sensible to restrict the fields returned by [atlas_occurrences()].
-#' This function allows easy selection of fields, or commonly-requested groups 
-#' of columns, following syntax shared with `dplyr::select()`.
+#' @description Select (and optionally rename) variables in a data frame, using 
+#' a concise mini-language that makes it easy to refer to variables based on 
+#' their name. Note that unlike calling `select()` on a local tibble, this 
+#' implementation is only evaluated at the 
+#' \code{\link[=collapse.data_request]{collapse()}} stage, meaning any errors 
+#' or messages will be triggered at the end of the pipe.
 #' 
-#' The full list of available fields can be viewed with `show_all(fields)`.
+#' `select()` supports `dplyr` **selection helpers**, including:
+#' 
+#'   * \code{\link[dplyr]{everything}}: Matches all variables. This is treated
+#'     unusually in `galah`; see `details`.
+#'   * \code{\link[dplyr]{last_col}}: Select last variable, possibly with an 
+#'     offset.
 #'
-#' @param ... zero or more individual column names to include
+#' Other helpers select variables by matching patterns in their names:
+#'  
+#'   * \code{\link[dplyr]{starts_with}}: Starts with a prefix.
+#'   * \code{\link[dplyr]{ends_with}}: Ends with a suffix.
+#'   * \code{\link[dplyr]{contains}}: Contains a literal string.
+#'   * \code{\link[dplyr]{matches}}: Matches a regular expression.
+#'   * \code{\link[dplyr]{num_range}}: Matches a numerical range like x01, 
+#'     x02, x03.
+#'
+#' Or from variables stored in a character vector:
+#'  
+#'   * \code{\link[dplyr]{all_of}}: Matches variable names in a character 
+#'     vector. All names must be present, otherwise an out-of-bounds error is 
+#'     thrown.
+#'   * \code{\link[dplyr]{any_of}}: Same as `all_of()`, except that no error 
+#'     is thrown for names that don't exist.
+#'
+#' Or using a predicate function:
+#'
+#'   * \code{\link[dplyr]{where}}: Applies a function to all variables and selects those for which the function returns `TRUE`.
+#' @name select.data_request
+#' @param .data An object of class `data_request`, created using [galah_call()].
+#' @param ... Zero or more individual column names to include.
 #' @param group `string`: (optional) name of one or more column groups to
-#' include. Valid options are `"basic"`, `"event"` and
-#' `"assertions"`
+#' include. Valid options are `"basic"`, `"event"` `"taxonomy"`, `"media"` and
+#' `"assertions"`.
 #' @return A tibble
 #' specifying the name and type of each column to include in the 
 #' call to `atlas_counts()` or `atlas_occurrences()`.
 #' @details
+#' GBIF nodes store content in hundreds of different fields, and users often 
+#' require thousands or millions of records at a time. To reduce time taken to 
+#' download data, and limit complexity of the resulting `tibble`, it is sensible 
+#' to restrict the fields returned by occurrence queries. The full list of 
+#' available fields can be viewed with `show_all(fields)`. Note that `select()` 
+#' and `galah_select()` are supported for all atlases that allow downloads, with 
+#' the exception of GBIF, for which all columns are returned.
+#' 
 #' Calling the argument `group = "basic"` returns the following columns:
 #'
+#'   * `recordID`
+#'   * `scientificName`
+#'   * `taxonConceptID`
 #'   * `decimalLatitude`
 #'   * `decimalLongitude`
 #'   * `eventDate`
-#'   * `scientificName`
-#'   * `taxonConceptID`
-#'   * `recordID`
-#'   * `dataResourceName`
+#'   * `basisOfRecord`
 #'   * `occurrenceStatus`
+#'   * `dataResourceName`
 #' 
 #' Using `group = "event"` returns the following columns:
 #' 
@@ -45,144 +81,151 @@
 #'   * `videos`
 #'   * `sounds`
 #' 
+#' Using `group = "taxonomy"` returns higher taxonomic information for a given
+#' query. It is the only `group` that is accepted by `atlas_species()` as well 
+#' as `atlas_occurrences()`.
+#' 
 #' Using `group = "assertions"` returns all quality assertion-related
 #' columns. The list of assertions is shown by `show_all_assertions()`.
-#'
-#' @seealso [search_taxa()], [galah_filter()] and
-#' [galah_geolocate()] for other ways to restrict the information returned
-#' by [atlas_occurrences()] and related functions; [atlas_counts()]
-#' for how to get counts by levels of variables returned by `galah_select`;
-#' `show_all(fields)` to list available fields.
 #' 
-#' @examples 
-#' \dontrun{
+#' For `atlas_occurrences()`, arguments passed to `...` should be valid field
+#' names, which you can check using `show_all(fields)`. For `atlas_species()`,
+#' it should be one or more of:
+#' 
+#'   * `counts` to include counts of occurrences per species.
+#'   * `synonyms` to include any synonymous names.
+#'   * `lists` to include authoritative lists that each species is included on.
+#'
+#' The [everything()] function is recoded in galah to support three changed
+#' behaviours:
+#' 
+#'    * When called with [unnest()] for type `"lists"`, it adds user-provided 
+#'      columns, for example on conservation status or species traits.
+#'    * For occurrence downloads with type `"species`, it adds `counts`,
+#'     `synonyms` and `lists` to the download.
+#'    * For 'normal' occurrence downloads, it returns an error. Returning all
+#'      fields is computationally expensive and probably not what you want
+#'      anyway.
+#'      
+#' @seealso \code{\link[=filter.data_request]{filter()}}, 
+#' \code{\link[=st_crop.data_request]{st_crop()}} and
+#' \code{\link[=identify.data_request]{identify()}} for other ways to restrict 
+#' the information returned; `show_all(fields)` to list available fields.
+#' @examples \dontrun{
 #' # Download occurrence records of *Perameles*, 
 #' # Only return scientificName and eventDate columns
 #' galah_config(email = "your-email@email.com")
 #' galah_call() |>
-#'   galah_identify("perameles")|>
-#'   galah_select(scientificName, eventDate) |>
-#'   atlas_occurrences()
+#'   identify("perameles")|>
+#'   select(scientificName, eventDate) |>
+#'   collect()
 #' 
 #' # Only return the "basic" group of columns and the basisOfRecord column
 #' galah_call() |>
+#'   identify("perameles") |>
+#'   select(basisOfRecord, group = "basic") |>
+#'   collect()
+#'   
+#' # When used in a pipe, `galah_select()` and `select()` are synonymous.
+#' # Hence the previous example can be rewritten as:
+#' galah_call() |>
 #'   galah_identify("perameles") |>
 #'   galah_select(basisOfRecord, group = "basic") |>
-#'   atlas_occurrences()
+#'   collect()
 #' }
-#' 
-#' @importFrom tidyselect eval_select
-#' @importFrom tidyselect all_of
-#' @importFrom tibble as_tibble
 #' @export
-galah_select <- function(...,
-                         group = c("basic", "event", "media", "assertions")
-                         ) {  
-
-  dots <- enquos(..., .ignore_empty = "all")
-  
-  # Check to see if any of the inputs are a data request
-  if(length(dots) > 0){
-    checked_dots <- detect_data_request(dots)
-    if(!inherits(checked_dots, "quosures")){
-      is_data_request <- TRUE
-      data_request <- checked_dots[[1]]
-      dots <- checked_dots[[2]]
-    }else{
-      is_data_request <- FALSE
-    }
+select.data_request <- function(.data, ..., group){
+  if(is_gbif()){
+    cli::cli_inform("`select()` is not supported for GBIF: skipping")
+    .data
   }else{
-    is_data_request <- FALSE
-  }
-  
-  if(getOption("galah_config")$atlas$region == "Global"){
-    message("GBIF does not support `select` queries")
-    if(is_data_request){
-      return(data_request)
-    }else{
-      return(NULL)
-    }
-  }
-  
-  # If no args are supplied, set default columns returned as group = "basic"  
-  if(missing(group)){
-    if(length(dots) < 1){
-      group_chosen <- "basic"
-    }else{
-      group_chosen <- NULL
-    }
-  }else{
-    group_chosen <- match.arg(group, several.ok = TRUE)
-  }
-  
-  result <- parse_select(dots, group_chosen)
-  
-  # if a data request was supplied, return one
-  if(is_data_request){
-    update_galah_call(data_request, select = result)
-  }else{
-    result
+    rlang::enquos(..., .ignore_empty = "all") |>
+      as.list() |>
+      add_summary() |>
+      add_group(group) |>
+      update_request_object(.data, select = _)  
   }
 }
 
-
-# Build a data.frame with a standardised set of names
-parse_select <- function(dots, group){
-  current_assertions <- show_all_assertions()
-  field_names <- unique(c(show_all_fields()$id, current_assertions$id))
-  df <- matrix(data = NA, nrow = 0, ncol = length(field_names),
-               dimnames = list(NULL, field_names)) |>
-    as.data.frame()
-  
-  if(length(group) > 0){
-    group_cols <- lapply(group, preset_cols) |>
-                  unlist()
-    select_groups <- eval_select(all_of(group_cols), data = df) |> 
-                     names()
-  }else{
-    select_groups <- NULL
-    group <- ""
-  }
-  
-  if(length(dots) > 0){
-    select_individuals <- unlist(lapply(dots, function(a){
-      eval_select(a, data = df) |> 
-      names()
-    }))
-  }else{ # i.e. no fields selected
-    # code an exception here:
-    ## because assertions aren't fields, leaving `fields` empty means default fields are returned
-    ## but only when `group = assertions` and no other requests are made
-    ## this adds a single field (recordID) to the query to avoid this problem
-    if(length(group) == 1 && all(group == "assertions")){
-      select_individuals <- "recordID"
-    }else{
-      select_individuals <- NULL 
-    }
-  }
-  
-  # create output object
-  result <- tibble(name = unique(c(select_groups, select_individuals)))
-  result$type <- "field"
-  result$type[result$name %in% current_assertions$id] <- "assertion"
-  attr(result, "call") <- "galah_select" 
-  attr(result, "group") <- group
-  
-  return(result)
+#' @rdname select.data_request
+#' @export
+select.metadata_request <- function(.data, ...){
+  # if(.data$type != "lists"){
+  #   cli::cli_abort("`select()` is only supported for type `lists`")
+  # }
+  ## TODO: decide whether warnings are needed. 
+  ## Probably inform("Skipping") would be fine
+  rlang::enquos(..., .ignore_empty = "all") |>
+    as.list() |>
+    add_summary() |>
+    update_request_object(.data, select = _)
 }
 
+#' @rdname select.data_request
+#' @export
+galah_select <- function(..., group){
+  dots <- rlang::enquos(..., .ignore_empty = "all") |>
+    detect_request_object() |>
+    as.list()
+  if(is_gbif()){
+    cli::cli_inform("`select()` is not supported for GBIF: skipping")
+    if(inherits(dots[[1]], "data_request")){
+      dots[[1]]
+    }else{
+      NULL
+    }
+  }else{
+    dots <- dots |>
+      add_summary() |>
+      add_group(group)
+    if(inherits(dots[[1]], "data_request")){
+      update_request_object(dots[[1]],
+                            select = dots[-1]) 
+    }else{
+      dots
+    } 
+  }
+}
 
-# NOTE: gbif doesn't appear to support column specification in downloads
+#' internal function to summarise select function (to support `print()`)
+#' @noRd
+#' @keywords Internal
+add_summary <- function(dots){
+  labels <- purrr::map(dots, rlang::as_label) |>
+    unlist() 
+  labels <- labels[labels != "<dat_rqst>"]
+  last_entry <- length(dots) + 1
+  dots[[last_entry]] <- glue::glue_collapse(labels, sep = " | ")
+  names(dots)[last_entry] <- "summary"
+  dots
+}
 
-preset_cols <- function(type) {
-  cols <- switch(type,
-                 "basic" = default_columns(),
-                 "event" = c("eventRemarks", "eventTime", "eventID",
-                             "eventDate", "samplingEffort",
-                             "samplingProtocol"),
-                 "media" = c("multimedia", "multimediaLicence", 
-                             "images", "videos", "sounds"),
-                 "assertions" = show_all_assertions()$id
-               )
-  return(cols)
+#' internal function to add `group` arg to the end of a list
+#' @noRd
+#' @keywords Internal
+add_group <- function(dots, group){
+  group <- check_groups(group, n = length(dots))
+  summary_length <- nchar(dots$summary)
+  if(is.null(group)){
+    if(summary_length < 1){
+      group <- "basic"
+      dots$group <- group
+    }else{
+      dots$group <- vector(mode = "character", length = 0L) 
+    }
+  }else{
+    dots$group <- group
+  }
+  if(length(dots$group) > 0){
+    if(summary_length < 1){
+      separator <- ""
+    }else{
+      separator <- " | "
+    }
+    dots$summary <- paste0(dots$summary,
+                           separator,
+                           "group = ", 
+                           paste(group, collapse = ", ")) 
+  }
+  dots
 }

@@ -2,51 +2,49 @@
 % Please edit documentation in R/show_all.R
 \name{show_all}
 \alias{show_all}
+\alias{show_all_apis}
 \alias{show_all_assertions}
 \alias{show_all_atlases}
-\alias{show_all_cached_files}
 \alias{show_all_collections}
 \alias{show_all_datasets}
-\alias{show_all_providers}
 \alias{show_all_fields}
-\alias{show_all_reasons}
-\alias{show_all_ranks}
-\alias{show_all_profiles}
 \alias{show_all_licences}
-\alias{show_all_apis}
 \alias{show_all_lists}
+\alias{show_all_profiles}
+\alias{show_all_providers}
+\alias{show_all_ranks}
+\alias{show_all_reasons}
 \title{Show valid record information}
 \usage{
-show_all(type, limit = NULL)
+show_all(..., limit = NULL)
+
+show_all_apis(limit = NULL)
 
 show_all_assertions(limit = NULL)
 
 show_all_atlases(limit = NULL)
 
-show_all_cached_files(limit = NULL)
-
-show_all_apis(limit = NULL)
-
 show_all_collections(limit = NULL)
 
 show_all_datasets(limit = NULL)
-
-show_all_providers(limit = NULL)
 
 show_all_fields(limit = NULL)
 
 show_all_licences(limit = NULL)
 
-show_all_reasons(limit = NULL)
-
-show_all_ranks(limit = NULL)
+show_all_lists(limit = NULL)
 
 show_all_profiles(limit = NULL)
 
-show_all_lists(limit = NULL)
+show_all_providers(limit = NULL)
+
+show_all_ranks(limit = NULL)
+
+show_all_reasons(limit = NULL)
 }
 \arguments{
-\item{type}{A string to specify what type of parameters should be shown.}
+\item{...}{String showing what type of information is to be requested. See
+\code{Details} (below) for accepted values.}
 
 \item{limit}{Optional number of values to return. Defaults to NULL, i.e. all records}
 }
@@ -62,28 +60,27 @@ options or categories for the type of information they are interested in.
 Functions prefixed with \code{show_all_} do this, displaying all valid options
 for the information specified by the suffix.
 
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 \code{show_all()} is a helper function that can display multiple types of
 information from \code{show_all_} sub-functions.
-See \code{Details} (below) for accepted values.
 }
 \details{
 There are five categories of information, each with their own
 specific sub-functions to look-up each type of information.
 The available types of information for \code{show_all_} are:\tabular{llll}{
    \strong{Category} \tab \strong{Type} \tab \strong{Description} \tab \strong{Sub-functions} \cr
-   configuration \tab \code{atlases} \tab Show what atlases are available \tab \code{show_all_atlases()} \cr
+   Configuration \tab \code{atlases} \tab Show what atlases are available \tab \code{show_all_atlases()} \cr
     \tab \code{apis} \tab Show what APIs & functions are available for each atlas \tab \code{show_all_apis()} \cr
     \tab \code{reasons} \tab Show what values are acceptable as 'download reasons' for a specified atlas \tab \code{show_all_reasons()} \cr
-   taxonomy \tab \code{ranks} \tab Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) \tab \code{show_all_ranks()} \cr
-   filters \tab \code{fields} \tab Show fields that are stored in an atlas \tab \code{show_all_fields()} \cr
-    \tab \code{assertions} \tab Show results of data quality checks run by each atlas \tab \code{show_all_assertions()} \cr
-    \tab \code{licenses} \tab Show what copyright licenses are applied to media \tab \code{show_all_licenses()} \cr
-   group filters \tab \code{profiles} \tab Show what data profiles are available \tab \code{show_all_profiles()} \cr
-    \tab \code{lists} \tab Show what species lists are available \tab \code{show_all_lists()} \cr
-   data providers \tab \code{providers} \tab Show which institutions have provided data \tab \code{show_all_providers()} \cr
+   Data providers \tab \code{providers} \tab Show which institutions have provided data \tab \code{show_all_providers()} \cr
     \tab \code{collections} \tab Show the specific collections within those institutions \tab \code{show_all_collections()} \cr
     \tab \code{datasets} \tab Shows all the data groupings within those collections \tab \code{show_all_datasets()} \cr
+   Filters \tab \code{assertions} \tab Show results of data quality checks run by each atlas \tab \code{show_all_assertions()} \cr
+    \tab \code{fields} \tab Show fields that are stored in an atlas \tab \code{show_all_fields()} \cr
+    \tab \code{licenses} \tab Show what copyright licenses are applied to media \tab \code{show_all_licenses()} \cr
+    \tab \code{profiles} \tab Show what data profiles are available \tab \code{show_all_profiles()} \cr
+   Taxonomy \tab \code{lists} \tab Show what species lists are available \tab \code{show_all_lists()} \cr
+    \tab \code{ranks} \tab Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) \tab \code{show_all_ranks()} \cr
 }
 }
 \examples{
@@ -99,8 +96,11 @@ show_all(reasons)
 
 # Show a listing of all taxonomic ranks
 show_all(ranks)
-}
 
+# `show_all()` is synonymous with `request_metadata() |> collect()`
+request_metadata(type = "fields") |>
+  collect()
+}
 }
 \references{
 \itemize{
@@ -110,5 +110,6 @@ show_all(ranks)
 \seealso{
 Use the \code{\link[=search_all]{search_all()}} function and \code{search_()} sub-functions to
 search for information. These functions are used to pass valid arguments to
-\code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}}, and related functions.
+\code{\link[=filter.data_request]{filter()}},
+\code{\link[=select.data_request]{select()}}, and related functions.
 }

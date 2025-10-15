@@ -1,0 +1,203 @@
+#' Internal function to build headers at the `collapse()` stage
+#' @noRd
+#' @keywords Internal
+build_headers <- function(){
+  list("User-Agent" = galah_version_string())
+  ## Below code adds API keys (not yet implemented)
+  ## Add these as optional
+  # if(pour("atlas", "acronym") == "ALA"){
+  #  list(
+  #     "User-Agent" = galah_version_string(),
+  #     "x-api-key" = pour("user", "api_key")
+  ## if(){ # something about if we're using JWT tokens
+  ##  list(
+  ##    "User-Agent" = galah_version_string(),
+  ##.   "Authorization" = paste("Bearer", access_token))
+  ## }
+  # }else{
+  #   list("User-Agent" = galah_version_string())
+  # }
+}
+
+#' Build query list from constituent arguments
+#' @noRd
+#' @keywords Internal
+build_query <- function(identify = NULL, 
+                        filter = NULL, 
+                        location = NULL, 
+                        data_profile = NULL) {
+  if(is.null(identify)) {
+    taxa_query <- NULL
+  } else { # assumes a tibble or data.frame has been given
+    if(nrow(identify) < 1){
+      taxa_query <- NULL
+    } else {
+      taxa_query <- "`TAXON_PLACEHOLDER`"
+    }
+  }
+  # validate filters
+  if (is.null(filter)) {
+    filter_query <- NULL
+  } else {
+    if(!inherits(filter, "data.frame")){
+      cli::cli_abort("`filter` must be a `data.frame` or `tibble`")
+    }
+    if (nrow(filter) == 0) {
+      filter_query <- NULL
+    } else {
+      queries <- unique(filter$query)
+      filter_query <- paste0(queries, collapse = " AND ")
+    }
+  }
+  # merge
+  query <- list(fq = c(filter_query, taxa_query)) 
+  # geographic stuff
+  if (!is.null(location)) {
+    # if location is for a point radius vs polygon/bbox
+    if(!is.null(names(location))){
+      if(all(!is.null(location$radius))) { # `galah_radius()` will always pass radius argument
+        query$q <- paste0("*:*")
+        query$lon <- location$lon
+        query$lat <- location$lat
+        query$radius <- location$radius      
+    }else
+      query$wkt <- location
+    } else {
+    query$wkt <- location
+    }
+  }
+  # add profiles information (ALA only) 
+  if(profiles_supported()){
+    if(!is.null(data_profile)) {
+      query$qualityProfile <- data_profile
+    } else {
+      query$disableAllQualityFilters <- "true"
+    }    
+  }
+  build_single_fq(query)
+}
+
+#' collapse multiple fq args into one
+#' @keywords Internal
+#' @noRd
+build_single_fq <- function(query){
+  if(any(names(query) == "fq")){
+    # ensure all arguments from galah_filter are enclosed in brackets
+    # EXCEPT for assertions
+    fq <- query$fq
+    missing_brackets <- 
+      !grepl("^\\(", fq) &       # already has brackets
+      !grepl("assertions", fq) & # assertions don't need additional brackets
+      !grepl("^-\\(", fq)        # negative query already has brackets
+    if(any(missing_brackets)){
+      fq[missing_brackets] <- glue::glue("({fq[missing_brackets]})")
+    }
+    # add brackets to non-negative AND statements
+    # (adding additional brackets to negative statements breaks them)
+    if(any(!grepl("^-\\(", fq))) {
+      fq_single <- glue::glue_collapse(glue::glue("{fq}"), "AND")
+    } else {
+      fq_single <- glue::glue_collapse(glue::glue("({fq})"), "AND")
+    }
+    c(fq = fq_single, query[names(query) != "fq"])
+  }else{
+    query
+  }
+}
+
+#' Sub-function to `build_query()` for filters
+#' only called by GBIF
+#' @noRd
+#' @keywords Internal
+build_filter_query <- function(filters) {
+  is_equals <- filters$logical == "=="
+  if(any(is_equals)){
+    filters$query[is_equals] <- filters$value[is_equals]
+  }
+  if(any(!is_equals)){
+    filters$query[!is_equals] <- sub("^[[:graph:]]+\\[", 
+                                     "", 
+                                     x = filters$query[!is_equals]) |>
+      sub("\\]$", "", x = _) |>
+      sub(" TO ", ",", x = _)
+  }
+  queries <- as.list(filters$query)
+  names(queries) <- filters$variable
+  queries
+}
+
+#' Sub-function to `build_query()` for taxa
+#' @noRd
+#' @keywords Internal
+build_taxa_query <- function(ids) {
+  ids <- ids[order(ids)]
+  if(is_gbif()){
+    list(taxonKey = ids)
+  }else{
+    wrapped_ids <- paste0("\"", ids, "\"")
+    id_tag <- "lsid"
+    glue::glue(
+      "({id_tag}:",
+      glue::glue_collapse(wrapped_ids,
+                          sep = glue::glue(" OR {id_tag}:")),
+      ")")
+  }
+}
+
+#' Internal function to handle APIs that return complex outputs
+#' Currently only used by `collect_collection_values()`
+#' It is pretty messy, as:
+#'  1. ALA returns empty lists and NULL values in some fields, and 
+#'  2. tibble() and friends don't handle list-columns well
+#' @noRd
+#' @keywords Internal
+build_tibble_from_nested_list <- function(result){
+  # handle normal columns
+  source_tibble <- purrr::map(result, function(a){
+    if(is.null(a)){
+      as.character(NA)
+    }else if(length(a) > 1){
+      as.character(NA)
+    }else if(length(a) < 1){
+      as.character(NA)
+    }else{
+      a
+    }
+  }) |>
+    tibble::as_tibble()
+  # handle nested columns
+  list_cols <- purrr::map(result, 
+                          function(a){is.list(a) & length(a) > 0}) |>
+    unlist()
+  if(any(list_cols)){
+    list_data <- result[list_cols]
+  }else{
+    list_data <- NULL
+  }
+  # stick together
+  if(length(list_data) > 0){
+    for(i in seq_along(list_data)){
+      col <- names(list_data)[i]
+      source_tibble[col][[1]] <- list(list_data[col][[1]])
+    }
+  }
+  return(source_tibble)
+}
+
+#' Build a valid wkt string from a spatial polygon
+#' Internal function to `galah_bbox` and `galah_polygon()`
+#' @noRd
+#' @keywords Internal
+build_wkt <- function(polygon,
+                      error_call = caller_env()) {
+  if (sf::st_geometry_type(polygon) == "POLYGON") {
+    polygon <- sf::st_cast(polygon, "MULTIPOLYGON")
+  }
+  if (!sf::st_is_simple(polygon)) {
+    c("The area provided to `galah_bbox` is too complex. ",
+      i = "See `?sf::st_simplify` for how to simplify geospatial objects.") |>
+    cli::cli_abort(call = error_call)
+  }
+  wkt <- sf::st_as_text(sf::st_geometry(polygon))
+  wkt
+}

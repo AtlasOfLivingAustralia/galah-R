@@ -1,5 +1,6 @@
 #' Apply a data quality profile
 #'
+#' @description
 #' A 'profile' is a group of filters that are pre-applied by the ALA. Using a 
 #' data profile allows a query to be filtered quickly to the most relevant or 
 #' quality-assured data that is fit-for-purpose. For example, the "ALA" profile
@@ -9,82 +10,68 @@
 #' Note that only one profile can be loaded at a time; if multiple profiles are 
 #' given, the first valid profile is used.
 #' 
-#' For more bespoke editing of filters within a profile, use [galah_filter()]
-#'
+#' For more bespoke editing of filters within a profile, use 
+#' [filter.data_request()].
+#' @param .data An object of class `data_request`
 #' @param ... a profile name. Should be a `string` - the name or abbreviation 
 #'    of a data quality profile to apply to the query. Valid values can be seen 
 #'    using `show_all(profiles)`
-#' @return A tibble containing a valid data profile value.
+#' @return An updated `data_request` with a completed `data_profile` slot.
 #' @seealso [show_all()] and [search_all()] to look up available data profiles. 
-#' [galah_filter()] can be used for more bespoke editing of individual data 
+#' [filter.data_request()] can be used for more bespoke editing of individual data 
 #' profile filters.
-#' 
-#' @examples
-#' \dontrun{
+#' @name apply_profile
+#' @examples \dontrun{
 #' # Apply a data quality profile to a query
 #' galah_call() |> 
-#'   galah_identify("reptilia") |>
-#'   galah_filter(year == 2021) |>
-#'   galah_apply_profile(ALA) |>
+#'   identify("reptilia") |>
+#'   filter(year == 2021) |>
+#'   apply_profile(ALA) |>
 #'   atlas_counts()
 #' }
-#' 
 #' @export
-
-galah_apply_profile <- function(...){
-  
-  dots <- enquos(..., .ignore_empty = "all")
-  check_filter(dots)
-  
-  # check to see if any of the inputs are a data request
-  checked_dots <- detect_data_request(dots)
-  if(!inherits(checked_dots, "quosures")){
-    is_data_request <- TRUE
-    data_request <- checked_dots[[1]]
-    dots <- checked_dots[[2]]
-  }else{
-    is_data_request <- FALSE
-  }
-
-  # this code is basically taken from galah_identify()
-  if (length(dots) > 0) {
-
-    # basic checking
-    check_queries(dots) # capture named inputs
-    input_profile <- parse_basic_quosures(dots) # convert dots to query
-    
-    # check which inputs are valid
-    # note that in galah_filter, this is dependent on getOption("galah_config")$package$run_checks
-    # not required here as show_all_profiles is pretty fast
-    valid_profile <- check_profile(input_profile)
-    
-    result <- tibble(data_profile = valid_profile)
-    
-  
-  }else{
-    result <- tibble()
-  }
-  
-  # if a data request was supplied, return one
-  attr(result, "call") <- "galah_data_profile"
-  if (is_data_request) {
-    update_galah_call(data_request, data_profile = result)
-  } else {
-    result
-  }
+apply_profile <- function(.data, ...){
+  dots <- rlang::enquos(..., .ignore_empty = "all")
+  result <- parse_quosures_basic(dots) |>
+    purrr::pluck(!!!list(1)) |>
+    parse_profile()
+  update_request_object(.data,
+                        data_profile = result)
 }
 
+#' @rdname apply_profile
+#' @export
+galah_apply_profile <- function(...){
+  dots <- rlang::enquos(..., .ignore_empty = "all") |>
+    detect_request_object()
+  switch(class(dots[[1]])[1],
+         "data_request" = {
+           result <- parse_quosures_basic(dots[-1]) |>
+             parse_profile()
+           update_request_object(dots[[1]],
+                                 data_profile = result)
+         },
+         {
+           parse_quosures_basic(dots) |>
+             parse_profile()
+         })
+}
 
-
-check_profile <- function(query, error_call = caller_env()){
-  valid_check <- query %in% show_all_profiles()$shortName
-  if(!any(valid_check)){    
-    bullets <- c(
-      "Invalid profile name.",
-      i = "Use `show_all(profiles)` to lookup valid profiles."
-    )
-    abort(bullets, call = error_call)
+#' Internal parsing of `profile` args
+#' @noRd
+#' @keywords Internal
+parse_profile <- function(dot_names,
+                          error_call = rlang::caller_env()) {
+  n_args <- length(dot_names)
+  if (n_args > 0) {
+    if (n_args > 1) {
+      c("Too many data profiles supplied.",
+        x = "`galah_apply_profile()` accepts one profile argument, not {n_args}.") |>
+      cli::cli_abort(call = error_call)
+    }else{
+      as.character(dot_names)
+    }
   }else{
-    return(query[which(valid_check)[1]])
+    NULL
   }
 }

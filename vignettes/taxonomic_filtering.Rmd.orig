@@ -1,0 +1,188 @@
+---
+title: "Taxonomic filtering"
+author: "Callum Waite & Shandiya Balasubramaniam"
+date: '2023-10-13'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Taxonomic filtering}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Taxonomic complexity can confound the process of searching, filtering, and downloading records using `galah`, but there are a few ways to ensure records are not missed.
+
+```{r, output = FALSE}
+library(galah)
+library(dplyr)
+```
+
+```{r, include = FALSE}
+# set up galah session
+galah_config(email = "ala4r@ala.org.au", verbose = FALSE)
+```
+
+```{r, eval = FALSE}
+galah_config(email = "your_email_here", verbose = FALSE)
+```
+
+### search_taxa()
+
+`search_taxa()` enables users to look up taxonomic names before downloading data, which allows for disambiguating homonyms and checking that the search term matches the taxon name in the ALA . `search_taxa()` returns the scientific name, authorship, rank, and full classification for the taxon matched to the provided search term.
+
+```{r}
+search_taxa("Petroica boodang") |> gt::gt()
+```
+
+```{r}
+# Muscicapa chrysoptera is a synonym for the Flame Robin, Petroica phoenicea
+# Guniibuu is the Yuwaalaraay Indigenous name for the Red-Capped Robin, Petroica goodenovii
+search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
+```
+<br>
+Where homonyms exist, `search_taxa()` will prompt users to clarify the search term by providing one or more taxonomic ranks in a `tibble`. This example differentiates among the genus Morganella in three kingdoms:
+
+```{r}
+search_taxa("Morganella") |> gt::gt()
+```
+
+```{r}
+search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
+```
+<br>
+
+### identify()
+
+`identify()` is similar to `search_taxa()`, except that it can be used within a piped workflow to retrieve counts, species, or records e.g.
+
+```{r}
+galah_call() |>
+  identify("Petroica boodang") |>
+  count() |>
+  collect()
+```
+
+```{r}
+galah_call(type = "species") |>
+  identify("Muscicapa chrysoptera", "Guniibuu") |>
+  collect() |> 
+  gt::gt()
+
+```
+
+```{r}
+galah_call() |>
+  identify(tibble(kingdom = "Fungi", genus = "Morganella")) |>
+  collect() |>
+  head() |> 
+  gt::gt()
+```
+
+
+### filter()
+
+`filter()` subsets records by searching for exact matches to an expression, and 
+may also be used for taxonomic filtering e.g.
+
+```{r}
+galah_call() |>
+  filter(species == "Petroica boodang") |>
+  count() |>
+  collect()
+```
+
+Alternatively, we could use `filter()` after first checking taxonomy with 
+`search_taxa()`, in place of `identify()`:
+
+```{r}
+
+robins <- search_taxa("Muscicapa chrysoptera", "Guniibuu") 
+
+galah_call() |>
+  filter(taxonConceptID == robins$taxon_concept_id) |>
+  count() |>
+  collect()
+
+```
+
+It is also possible to specify several species at once using `filter()`:
+
+```{r}
+aus_petroica <- c("Petroica boodang", "Petroica goodenovii", 
+                  "Petroica phoenicea", "Petroica rosea",
+                  "Petroica rodinogaster", "Petroica multicolor")
+
+galah_call() |>
+  filter(species %in% aus_petroica) |>
+  group_by(species, vernacularName) |>
+  count() |> 
+  collect() |>
+  gt::gt()
+```
+
+This can be useful in searching for paraphyletic or polyphyletic groups, which 
+cannot be done using `identify()`. For example, to get counts of non-chordates:
+
+```{r}
+galah_call() |>
+  filter(kingdom == "Animalia", phylum != "Chordata") |>
+  group_by(phylum) |>
+  count() |>
+  collect() |>
+  head() |> 
+  gt::gt()
+```
+
+### filter(), identify(), and taxonomic ranks
+
+Deciding between using `filter()` and `identify()` in a query comes down to how 
+a record has been classified, and whether or not you have the correct *unique* 
+name and classification of the taxa of interest.
+
+The ALA has fields for the primary taxonomic ranks (`kingdom`, `phylum`, `class`, 
+`order`, `family`, `genus`, `species`) and some secondary ranks (e.g. `subfamily`, 
+`subgenus`), all of which may be used with `galah_filter()` and `galah_identify()`. 
+Additionally, there is a field named `scientificName`, which refers to the lowest 
+taxonomic rank to which a record has been identified e.g.
+
+```{r}
+galah_call() |>
+  identify(tibble(genus = "Pitta")) |>
+  group_by(scientificName, taxonRank) |>
+  count() |>
+  collect() |>
+  filter(!is.na(scientificName)) |>
+  gt::gt()
+```
+
+If, for instance, you have the correct species or subspecies name, then searching 
+for matches against the `species` and `subspecies` fields, respectively, will 
+provide more precise results. This is because the field `scientificName` may 
+include subgenera. If you've used `search_taxa()` to get the ALA-matched name of 
+a taxon and only want records identified to a particular level of classification, 
+searching for matches against `scientificName` is recommended.
+
+Paraphyletic or polyphyletic groups may contain taxa identified to different 
+taxonomic levels. In this case, it is simpler to use `search_taxa()` and 
+`identify()` rather than `filter()`. In the example below, `search_taxa()` 
+matches terms to one genus, three species, and two subspecies. This can then be 
+used in a piped workflow with `identify()`.
+
+```{r}
+tas_endemic <- c("Sarcophilus", # Tasmanian Devil
+                 "Bettongia gaimardi", # Tasmanian Bettong
+                 "Melanodryas vittata", # Dusky Robin
+                 "Platycercus caledonicus",# Green Rosella
+                 "Aquila audax fleayi", # Tasmanian Wedge-Tailed Eagle
+                 "Tyto novaehollandiae castanops") # Tasmanian Masked Owl
+
+search_taxa(tas_endemic) |> gt::gt()
+
+galah_call() |>
+  identify(tas_endemic) |>
+  group_by(scientificName) |>
+  count() |>
+  collect() |>
+  arrange(scientificName) |>
+  gt::gt()
+```

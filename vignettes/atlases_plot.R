@@ -1,7 +1,11 @@
 # packages
 library(ggplot2)
+library(ggfun)
+library(ggtext)
 library(dplyr)
 library(readr)
+library(glue)
+library(ggh4x)
 
 # get new copies of raw atlas data
 data_dir <- getwd()
@@ -14,157 +18,207 @@ df <- paste0(data_dir, "/data-raw/node_config.csv") |>
   read_csv(show_col_types = FALSE) |> 
   filter(atlas %in% node_metadata$region,
          functional == TRUE,
-         api_name != "records_query")
+         !is.na(type) # this happens rn because of GBIF collectory search not being properly integrated
+         ) |> 
+  select(-functional, -url) |>
+  bind_rows( 
+    # add cached gbif data
+    tibble(
+      atlas = "Global",
+      type = c("data/species", "metadata/fields", "metadata/assertions")),
+    # some atlases link directly to media rather than support an API; add those here
+    tibble(
+      atlas = c("Austria", "Brazil", "Guatemala", "Portugal", "Spain", "United Kingdom"),
+      type = "files/media"
+    )
+  ) |>
+  arrange(atlas, type) |>
+  left_join(
+    select(node_metadata, region, url),
+    by = c("atlas" = "region")
+  ) |>
+  mutate(atlas_label = glue::glue("<span style='font-size:9pt'>{atlas}</span><br>
+                                  <span style='font-size:6pt'>{gsub('^https://', '', url)}</span>"),
+         api_group = case_when(
+           grepl("^data/occurrences", type) ~ "occurrences",
+           grepl("^data/species|lists", type) ~ "species",
+           grepl("collections|datasets|providers", type) ~ "sources",
+           grepl("assertions|profiles|fields|licences", type) ~ "filters",
+           grepl("taxa|identifiers", type) ~ "taxa",
+           # grepl("media", type) ~ "media",
+           # grepl("reasons", type) ~ "other",
+           .default = "other"
+         )) 
 
-# split into one row per function
-df_functions <- lapply(split(df, df$atlas), 
-                       function(a){
-                         x <- do.call(c, strsplit(a$called_by, ", "))
-                         tibble(atlas = a$atlas[1], functions = x)
-                       }) |>
-  bind_rows()
+# order groups
+df$group <- factor(
+  case_when(grepl("^metadata/", df$type) ~ 1,
+            grepl("^data/", df$type) ~ 2,
+            grepl("^files/", df$type) ~ 3),
+  levels = seq_len(3),
+  labels = c("Metadata", 
+             "Data", 
+             "Files"))
 
-# add gbif species and fields - these use different apis and so are not shown
-df_functions <- df_functions |>
-  filter(!(functions %in% c("search_all-collections", "search_all-datasets", "doi_download"))) |>
-  bind_rows(
-    tibble(atlas = "Global", functions = c("atlas_species", 
-                                           "show_all-fields")))
+df$subgroup <- factor(
+  case_match(df$api_group, 
+             "sources" ~ 1, 
+             "taxa" ~ 2, 
+             "filters" ~ 3,
+             "occurrences" ~ 4,
+             "species" ~ 5,
+             "other" ~ 6
+             ),
+  levels = seq_len(6),
+  labels = c("Sources",
+             "Taxa",
+             "Filters",
+             "Occurrences",
+             "Species",
+             "Other"))
 
-df_functions$functions[df_functions$functions == "media_metadata"] <- "atlas_media"
+df$atlas_label <- factor(
+  case_match(df$atlas,
+             "Global" ~ 1,
+             "Australia" ~ 2,
+             "Spain" ~ 3,
+             "Sweden" ~ 4,
+             "Flanders" ~ 5,
+             "United Kingdom" ~ 6,
+             "Kew" ~ 7,
+             "Austria" ~ 8,
+             "Brazil" ~ 9,
+             "Guatemala" ~ 10,
+             "Portugal" ~ 11,
+             "France" ~ 12
+  ),
+  levels = seq_len(12),
+  labels = c(
+    "<span style='font-size:9pt'>Global</span><br>\n<span style='font-size:6pt'>gbif.org</span>",
+    "<span style='font-size:9pt'>Australia</span><br>\n<span style='font-size:6pt'>www.ala.org.au</span>",
+    "<span style='font-size:9pt'>Spain</span><br>\n<span style='font-size:6pt'>gbif.es</span>",
+    "<span style='font-size:9pt'>Sweden</span><br>\n<span style='font-size:6pt'>biodiversitydata.se</span>" ,
+    "<span style='font-size:9pt'>Flanders</span><br>\n<span style='font-size:6pt'>natuurdata.inbo.be</span>",
+    "<span style='font-size:9pt'>United Kingdom</span><br>\n<span style='font-size:6pt'>nbn.org.uk</span>",
+    "<span style='font-size:9pt'>Kew</span><br>\n<span style='font-size:6pt'>data.kew.org</span>",
+    "<span style='font-size:9pt'>Austria</span><br>\n<span style='font-size:6pt'>biodiversityatlas.at</span>",
+    "<span style='font-size:9pt'>Brazil</span><br>\n<span style='font-size:6pt'>sibbr.gov.br</span>",
+    "<span style='font-size:9pt'>Guatemala</span><br>\n<span style='font-size:6pt'>snib.conap.gob.gt</span>",
+    "<span style='font-size:9pt'>Portugal</span><br>\n<span style='font-size:6pt'>www.gbif.pt</span>",
+    "<span style='font-size:9pt'>France</span><br>\n<span style='font-size:6pt'>openobs.mnhn.fr</span>"
+  )
+)
 
-# create group headings
-df_functions$group <- 1 # "show_all | search_all"
-df_functions$group[grepl("^show_values", df_functions$functions)] <- 2 # "show_values"
-df_functions$group[grepl("^atlas|doi_download", df_functions$functions)] <- 3 # "atlas"
-df_functions$group <- factor(df_functions$group, 
-                             levels = seq_len(3),
-                             labels = c("show_all | search_all", "show_values", "atlas"))
-
-# create function substrings
-df_functions$subfunction <- gsub("^atlas_|^show_all-|^search_all-|^search_|^show_values-", "", 
-                                 df_functions$functions)
-
-# set up row order (atlases)
-# count number of supported functions
-number_supported <- df_functions %>% 
-  group_by(atlas) %>%
-  count()
-
-# merge
-df_functions <- df_functions %>% 
-  left_join(number_supported, by = c("atlas" = "atlas")) %>%
-  mutate(n = ifelse(atlas == "Australia", n + 1, n)) # make sure AU is first
-
-df_functions$atlas_numeric <- as.numeric(reorder(df_functions$atlas, df_functions$n))
-
-# set up column order (functions)
-col_lookup <- lapply(
-  split(df_functions, df_functions$group), 
-  function(a){
-    a |> 
-      group_by(subfunction) |> 
-      count() |> 
-      arrange(desc(n)) |>
-      mutate(group = a$group[1])
-  }) |>
-  bind_rows()
-
-col_lookup$order <- seq_len(nrow(col_lookup))
-col_lookup$x <- col_lookup$order + as.numeric(col_lookup$group) - 1
-
-df_functions <- df_functions |>
-  left_join(col_lookup, by = c("group", "subfunction"))
-
-df_functions$function_numeric <- df_functions$x + 1
-
-# # add font
-# font_add_google("Roboto", "roboto")
-# showtext_auto(enable = TRUE)
-
-# create plot objects
-# horizontal lines
-df_lines <- tibble(
-  x = rep(c(-4, 22), 6),
-  y = rep((seq_len(6) * 2) - 1, each = 2))
-
-# atlas text
-df_atlases <- df_functions |> 
-  group_by(atlas) |> 
-  summarize(y = atlas_numeric[1]) |>
-  left_join(node_metadata, by = c("atlas" = "region"))
-
-# function text
-df_function_names <- df_functions |>
-  group_by(functions) |>
-  summarize(x = function_numeric[1],
-            label = subfunction[1],
-            group = group[1])
-
-# group headers
-df_groups <- df_functions |>
-  group_by(group) |>
-  summarize(
-    x0 = min(function_numeric),
-    x1 = max(function_numeric),
-    y = 12,
-    x = mean(c(x0, x1)))
-
-df_groups$x0[2] <- 13.5
-df_groups$x1[2] <- 16.5
+df$type_label <- factor(
+  case_match(df$type, 
+             "metadata/providers" ~ 1,
+             "metadata/collections" ~ 2,
+             "metadata/datasets" ~ 3,
+             "metadata/taxa-single" ~ 4,
+             "metadata/taxa-unnest" ~ 5,
+             "metadata/taxa-multiple" ~ 6,
+             "metadata/identifiers" ~ 7,
+             "metadata/fields" ~ 8,
+             "metadata/fields-unnest" ~ 9,
+             "metadata/assertions" ~ 10,
+             "metadata/licences" ~ 11,
+             "metadata/profiles" ~ 12,
+             "metadata/profiles-unnest" ~ 13,
+             "metadata/lists" ~ 14,
+             "metadata/lists-unnest" ~ 15,
+             "metadata/media" ~ 16,
+             "metadata/reasons" ~ 17,
+             "data/occurrences" ~ 18,
+             "data/occurrences-doi" ~ 19,
+             "data/occurrences-count" ~ 20,
+             "data/occurrences-count-groupby" ~ 21,
+             "data/species" ~ 22,
+             "data/species-count" ~ 23,
+             "files/media" ~ 24
+),
+  levels = seq_len(24),
+  labels = c("providers", 
+             "collections",
+             "datasets",
+             "taxa-single",
+             "taxa-unnest",
+             "taxa-multiple",
+             "identifiers",
+             "fields",
+             "fields-unnest",
+             "assertions",
+             "licences",
+             "profiles",
+             "profiles-unnest",
+             "lists",
+             "lists-unnest",
+             "media",
+             "reasons",
+             "occurrences",
+             "occurrences-doi",
+             "occurrences-count",
+             "occurrences-count-groupby",
+             "species",
+             "species-count",
+             "media"
+             ))
 
 # plot
-p <- ggplot() + 
-  # background (grey) lines
-  geom_line(data = df_lines,
-            mapping = aes(x = x, y = y, group = y),
-            linewidth = 22, 
-            lineend = "round", 
-            color = "grey90")+
-  # group header bars
-  geom_segment(data = df_groups,
-               mapping = aes(x = x0, xend = x1, y = y, yend = y, color = group),
-               lineend = "round",
-               linewidth = 10) +
-  # group header text
-  geom_text(data = df_groups,
-            mapping = aes(x = x, y = y, label = group),
-            color = "white",
-            size = 5,
-            fontface = "bold") +
-  # points
-  geom_point(data = df_functions, 
-             mapping = aes(x = function_numeric, 
-                           y = atlas_numeric,
-                           color = group),
-             size = 4, 
-             shape = 19) +
-  # atlas regions
-  geom_text(data = df_atlases,
-            mapping = aes(y = y + 0.15, label = atlas),
-            x = -4,
-            size = 5,
-            hjust = 0,
-            fontface = "bold") +
-  # atlas urls
-  geom_text(data = df_atlases,
-            mapping = aes(y = y - 0.15, label = url),
-            x = -4,
-            size = 4,
-            hjust = 0) +
-  # function names
-  geom_text(data = df_function_names,
-            mapping = aes(x = x, label = label, color = group),
-            y = 12.5,
-            size = 5,
-            hjust = 0,
-            angle = 45) +
-  # "Atlas" label
-  annotate("text", x = -4, y = 12, label = "Atlas", size = 5, hjust = 0, fontface = "bold") +
+p <- ggplot(df, 
+       aes(x = type_label, y = atlas_label, color = group)) + 
+  geom_point() +
+  scale_x_discrete(position = "bottom") +
+  scale_y_discrete(limits = rev(levels(df$atlas_label))) +
+  ggh4x::facet_nested(~ group + subgroup,
+                      scales = "free_x",
+                      space = "free_x") +
   scale_color_manual(
     values = c("#eb2d83", "grey40", "#279c9c")) +
-  lims(x = c(-4, 22), y = c(0.5, 13.5)) +
-  theme_void() +
-  theme(legend.position = "none")
+  theme(
+    axis.title = element_blank(),
+    axis.text.y = element_markdown(hjust = 0,
+                                   vjust = 0.6),
+    axis.text.x.bottom = element_text(angle = 45, 
+                                      hjust = 1,
+                                      size = 8),
+    axis.ticks = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.y = element_blank(),
+    panel.grid.major.y = element_line(color = "grey90",
+                                      lineend = "round",
+                                      linewidth = 7),
+    # panel.grid.major.y = element_blank(),
+    panel.background = element_blank(),
+    strip.background = element_roundrect(color = "white",
+                                         fill = "#fce7f0",
+                                         r = grid::unit(2, "mm")),
+    strip.text = element_text(hjust = 0,
+                              size = 8),
+    plot.margin = margin(2, 8, 0, 2, unit = "mm"),
+    legend.position = "none")
 
-ggsave("./vignettes/atlases_plot.png", width = 12, height = 10, units = "in")
+
+# recolor the strip elements
+## code modified from https://github.com/tidyverse/ggplot2/issues/2096
+# g <- ggplot_build(p) |>
+#   ggplot_gtable()
+# 
+# strip_elements <- which(grepl('strip-t', g$layout$name))
+# fills <- c("#fce7f0", "#d9dbdb", "#defafa",
+#   "#eb2d83", "#eb2d83", "#eb2d83", "#eb2d83", "#eb2d83",
+#   "grey40", "grey40",
+#   "#279c9c")
+# ## length(fills) == length(strip_elements)
+# for (i in strip_elements) {
+#   j <- which(grepl('rect', g$grobs[[i]]$grobs[[1]]$children))
+#   g$grobs[[i]]$grobs[[1]]$children[[j]]$gp$fill <- fills[i]
+# }
+# grid::grid.draw(g)
+#
+## fails
+
+ggsave("./man/figures/atlases_plot.png",
+       width = 8,
+       height = 6.0,
+       units = "in")

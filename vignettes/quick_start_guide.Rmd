@@ -1,7 +1,7 @@
 ---
 title: "Quick start guide"
 author: "Martin Westgate & Dax Kellie"
-date: '2023-01-18'
+date: '2024-11-19'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -9,200 +9,217 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-# About
-`galah` is an R interface to biodiversity data hosted by the 'living atlases'; 
-a set of organisations that share a common codebase, and act as nodes of the
-Global Biodiversity Information Facility ([GBIF](https://www.gbif.org)). These 
-organisations collate and store observations of individual life forms, using the 
-['Darwin Core'](https://dwc.tdwg.org) data standard.
-
-`galah` enables users to locate and download species observations, taxonomic
-information, record counts, or associated media such as images or sounds. Users 
-can restrict their queries to particular taxa or locations by specifying which 
-columns and rows are returned by a query, or by restricting their results to 
-observations that meet particular quality-control criteria. With a few minor
-exceptions, all functions return a `tibble` as their standard format.
-
+galah is an R interface to biodiversity data hosted by the Global Biodiversity 
+Information Facility ([GBIF](https://www.gbif.org)) and its subsidiary node
+organisations. GBIF and its partner nodes collate and store observations of 
+individual life forms using the ['Darwin Core'](https://dwc.tdwg.org) data 
+standard.
 
 # Installation
+
 To install from CRAN:
 
-```r
+``` r
 install.packages("galah")
 ```
 
 Or install the development version from GitHub:
 
-```r
+``` r
 install.packages("remotes")
 remotes::install_github("AtlasOfLivingAustralia/galah")
 ```
 
 Load the package
 
-```r
+``` r
 library(galah)
 ```
 
-# Choosing an atlas
-By default, `galah` downloads information from the Atlas of Living Australia (ALA).
-To show the full list of Atlases currently supported by `galah`, use 
-`show_all(atlases)`.
+# Configuration
+By default, galah downloads information from the Atlas of Living Australia 
+(ALA). To show the full list of organisations currently supported by galah, 
+use  `show_all(atlases)`.
 
 
-```r
+``` r
 show_all(atlases)
 ```
 
 ```
-## # A tibble: 11 × 4
-##    region         institution                                                             acronym url                         
-##    <chr>          <chr>                                                                   <chr>   <chr>                       
-##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au      
-##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas.at
-##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br        
-##  4 Estonia        eElurikkus                                                              <NA>    https://elurikkus.ee        
-##  5 France         Portail français d'accès aux données d'observation sur les espèces      OpenObs https://openobs.mnhn.fr/    
-##  6 Global         Global Biodiversity Information Facility                                GBIF    https://gbif.org            
-##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt   
-##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt         
-##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es         
-## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.se 
-## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
+## # A tibble: 10 × 4
+##    region         institution                                                             acronym url                    
+##    <chr>          <chr>                                                                   <chr>   <chr>                  
+##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au 
+##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityat…
+##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br   
+##  4 France         Portail français d'accès aux données d'observation sur les espèces      OpenObs https://openobs.mnhn.fr
+##  5 Global         Global Biodiversity Information Facility                                GBIF    https://gbif.org       
+##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob…
+##  7 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt    
+##  8 Spain          GBIF Spain                                                              GBIF.es https://gbif.es        
+##  9 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversityda…
+## 10 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
 ```
 
-Use `galah_config()` to set the Atlas to use. This will automatically populate the 
-server configuration for your selected Atlas. By default, the atlas is Australia.
+Use `galah_config()` to set the node organisation using its region, name, or 
+acronym. Once set, `galah` will automatically populate the server configuration for your 
+selected GBIF node. To download occurrence records from your chosen 
+GBIF node, you will need to register an account with them (using their website), 
+then provide your registration email to galah. 
+To download from GBIF, you will need to provide the email, username, and 
+password.
 
 
-```r
-galah_config(atlas = "United Kingdom")
+``` r
+galah_config(atlas = "GBIF",
+             username = "user1",
+             email = "email@email.com",
+             password = "my_password")
 ```
+You can find a full list of configuration options by running `?galah_config`.
 
-# Building queries
-Functions that return data from the chosen atlas have the prefix `atlas_`; e.g.
-to find the total number of records in the atlas, use:
+# Basic syntax
+The standard method to construct queries in `{galah}` is via piped functions. 
+Pipes in `galah` start with the `galah_call()` function, and typically end with 
+`collect()`, though `collapse()` and `compute()` are also supported. The 
+development team use the base pipe by default (`|>`), but the `{magrittr}` pipe 
+(`%>%`) should work too.
   
 
-```r
-galah_config(atlas = "ALA")
-atlas_counts()
+``` r
+galah_config(atlas = "ALA",
+             verbose = FALSE)
+galah_call() |>
+  count() |>
+  collect()
 ```
 
 ```
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 113038010
+## 1 146185520
 ```
 
-To pass more complex queries, start with the `galah_call()` function and pipe
-additional arguments to modify the query. modifying functions have a `galah_`
-prefix and support non-standard evaluation (NSE).
+To pass more complex queries, you can use additional `{dplyr}` functions such as
+`filter()`, `select()`, and `group_by()`.
 
 
-```r
+``` r
 galah_call() |> 
-  galah_filter(year >= 2020) |> 
-  atlas_counts()
+  filter(year >= 2020) |> 
+  count() |>
+  collect()
 ```
 
 ```
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 15150011
+## 1 40200358
 ```
 
-Alternatively, you can use a subset of `dplyr` verbs to pipe your queries, 
-assuming you start with `galah_call()`.
+Each GBIF node allows you to query using their own set of in-built fields. You 
+can investigate which fields are available using `show_all()` and `search_all()`:
 
 
-```r
-galah_call() |>
-  filter(year >= 2020) |> 
-  group_by(year) |>
-  count()
+``` r
+search_all(fields, "australian states")
 ```
 
 ```
-## # A tibble: 4 × 2
-##   year    count
-##   <chr>   <int>
-## 1 2021  7155750
-## 2 2020  6419193
-## 3 2022  1547173
-## 4 2023    27895
+## # A tibble: 2 × 3
+##   id     description                            type  
+##   <chr>  <chr>                                  <chr> 
+## 1 cl2013 ASGS Australian States and Territories fields
+## 2 cl22   Australian States and Territories      fields
 ```
 
-To narrow the search to a particular taxonomic group, use `galah_identify()` or 
-`identify`. Note that this function only accepts scientific names and is not case 
-sensitive. It's good practice to first use `search_taxa()` to check that the taxa 
-you provide returns the correct taxonomic results.
+# Taxonomic searches
+To narrow your search to a particular taxonomic group, use `identify()`. Note 
+that this function only accepts scientific names and is not case sensitive. 
+It's good practice to first use `search_taxa()` to check that the taxa you 
+provide returns the correct taxonomic results.
 
 
-```r
+``` r
 search_taxa("reptilia") # Check whether taxonomic info is correct
 ```
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                                    rank  match…¹ kingdom phylum class issues
-##   <chr>       <chr>           <chr>                                                               <chr> <chr>   <chr>   <chr>  <chr> <chr> 
-## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550ef… class exactM… Animal… Chord… Rept… noIss…
-## # … with abbreviated variable name ¹​match_type
+##   search_term scientific_name taxon_concept_id                               rank  match_type kingdom phylum class issues
+##   <chr>       <chr>           <chr>                                          <chr> <chr>      <chr>   <chr>  <chr> <chr> 
+## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228… class exactMatch Animal… Chord… Rept… noIss…
 ```
 
-```r
+``` r
 galah_call() |>
-  galah_filter(year >= 2020) |> 
-  galah_identify("reptilia") |> 
-  atlas_counts()
+  identify("reptilia") |> 
+  filter(year >= 2020) |> 
+  count() |>
+  collect()
 ```
 
 ```
 ## # A tibble: 1 × 1
 ##    count
 ##    <int>
-## 1 101979
+## 1 338434
 ```
 
-# Downloading records
-The most common use case for `galah` is to download 'occurrence' records; 
-observations of plants or animals made by contributors to the atlas. To download,
-first register with the relevant atlas, then provide your registration email. 
-For GBIF queries, you will need to provide the email, username, and password that
-you have registered with GBIF.
+If you want to query something other than the number of records, modify the 
+`type` argument in `galah_call()`. Here we'll query the number of species:
 
 
-```r
-galah_config(email = "email@email.com")
+``` r
+galah_call(type = "species") |>
+  identify("reptilia") |> 
+  filter(year >= 2020) |> 
+  count() |>
+  collect()
 ```
 
+```
+## # A tibble: 1 × 1
+##   count
+##   <int>
+## 1   883
+```
 
-Then you can customise records you require and query the atlas in question:
+# Download
+To download records---rather than find how many records are available---simply
+remove the `count()` function from your pipe.
 
-```r
+
+``` r
 result <- galah_call() |>
-  galah_identify("Litoria") |>
-  galah_filter(year >= 2020, cl22 == "Tasmania") |>
-  galah_select(basisOfRecord, group = "basic") |>
-  atlas_occurrences()
+  identify("Litoria") |>
+  filter(year >= 2020, cl22 == "Tasmania") |>
+  select(basisOfRecord, group = "basic") |>
+  collect()
+```
 
+```
+## Retrying in 1 seconds.
+```
+
+``` r
 result |> head()
 ```
 
 ```
 ## # A tibble: 6 × 9
-##   decimalLatitude decimalLongitude eventDate           scientificName    taxonConceptID                     recor…¹ dataR…² occur…³ basis…⁴
-##             <dbl>            <dbl> <dttm>              <chr>             <chr>                              <chr>   <chr>   <chr>   <chr>  
-## 1           -43.4             147. 2020-09-04 14:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… e8045b… FrogID  PRESENT HUMAN_…
-## 2           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… 44187a… FrogID  PRESENT HUMAN_…
-## 3           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… bc34a7… FrogID  PRESENT HUMAN_…
-## 4           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… ca4707… FrogID  PRESENT HUMAN_…
-## 5           -43.4             146. 2020-01-01 13:00:00 Litoria burrowsae https://biodiversity.org.au/afd/t… 9c71f5… FrogID  PRESENT HUMAN_…
-## 6           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… 4bbaad… FrogID  PRESENT HUMAN_…
-## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​occurrenceStatus, ⁴​basisOfRecord
+##   recordID            scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           occurrenceStatus
+##   <chr>               <chr>          <chr>                    <dbl>            <dbl> <dttm>              <chr>           
+## 1 00052544-d943-42e9… Litoria ewing… https://biodi…           -42.9             147. 2022-09-19 00:00:00 PRESENT         
+## 2 00168ca6-84d0-4af1… Litoria ranif… https://biodi…           -41.2             146. 2023-12-21 10:20:19 PRESENT         
+## 3 001a43fe-8586-4064… Litoria ewing… https://biodi…           -43.0             147. 2021-08-07 00:00:00 PRESENT         
+## 4 00250163-ec50-4eda… Litoria ranif… https://biodi…           -41.2             147. 2023-08-23 11:49:28 PRESENT         
+## 5 003e0f63-9f95-4af9… Litoria ewing… https://biodi…           -42.9             148. 2022-12-24 06:27:00 PRESENT         
+## 6 0070521f-bb45-46fb… Litoria ewing… https://biodi…           -43.1             147. 2023-12-20 14:29:23 PRESENT         
+## # ℹ 2 more variables: dataResourceName <chr>, basisOfRecord <chr>
 ```
 
 Check out our other vignettes for more detail on how to use these functions.

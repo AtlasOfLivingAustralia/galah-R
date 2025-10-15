@@ -2,445 +2,177 @@
 ##                 Output formatting functions                 --
 ##---------------------------------------------------------------
 
-# Select column names to return
-# Subsets data returned by webservices to useful columns
+#' Choose column names to pass to `select()`. 
+#' NOTE: this isn't especially subtle wrt different atlases
+#' NOTE: this assumes `dplyr::rename_with(camel_to_snake_case)` has been run
+#' @noRd
+#' @keywords Internal
 wanted_columns <- function(type) {
     switch(type,
-           "taxa" = c("search_term", "scientific_name",
-                      "scientific_name_authorship", 
-                      "taxon_concept_id", # ALA
-                      "authority", # OpenObs
-                      "usage_key", # GBIF
-                      "guid", # species search
-                      "canonical_name", "status", 
-                      "rank",
-                      "match_type", "kingdom", "phylum", "class", "order",
-                      "family", "genus", "species", "vernacular_name",
-                      "issues","subkingdom", "superclass", "infraclass",
-                      "subclass", "subinfraclass", "suborder", "superorder",
-                      "infraorder", "infrafamily", "superfamily", "subfamily",
-                      "subtribe", "subgenus", "subspecies"),
-           "extended_taxa" = c("subkingdom", "superclass", "infraclass",
-                               "subclass", "subinfraclass", "suborder",
-                               "superorder", "infraorder", "infrafamily",
-                               "superfamily", "subfamily", "subtribe",
-                               "subgenus"),
-           "checklist" = c("kingdom", "phylum", "class", "order", "family",
-                           "genus", "species", "author", "species_guid",
-                           "vernacular_name"),
-           "profile" = c("id", "name", "shortName", "description"),
-           "media" = c("media_id", "occurrence_id",
-                       "creator", "license",
+           "assertions" = c("id",
+                            "description",
+                            "category",
+                            "type"),
+           "fields" = c("id",
+                        "description",
+                        "type"),
+           "identifiers" = wanted_columns_taxa(),
+           "licences" = c("id",
+                          "name",
+                          "acronym",
+                          "url"),
+           "lists" = c("species_list_uid",
+                       "list_name",
+                       "description",
+                       "list_type",
+                       "item_count"),
+           "media" = c("image_id",
+                       "creator", 
+                       "license",
                        "data_resource_uid",
-                       "date_taken", "date_uploaded",
-                       "mime_type", "width", "height", "size_in_bytes"
-                       # "image_url"
-                     ),
-           "layer" = c("layer_id", "description", "link"),
-           "fields" = c("id", "description"),
-           "assertions" = c("id", "description", "category"),
-           "quality_filter" = c("description", "filter"),
-           "reasons" = c("id", "name"))
+                       "date_taken",
+                       "date_uploaded",
+                       "mime_type",
+                       "mimetype",
+                       "width",
+                       "height",
+                       "size_in_bytes",
+                       "image_url"),
+           "profiles" = c("id",
+                         "short_name",
+                         "name",
+                         "description"),
+           "reasons" = c("id",
+                         "name"),
+           "taxa" = wanted_columns_taxa(),
+           NULL # When no defaults are set, sending NULL tells the code to call `everything()`
+           )
 }
 
-# Rename specific columns, and convert to snake_case
-rename_columns <- function(varnames, type) {
-    if (type == "media") {
-        varnames[varnames == "imageIdentifier"] <- "media_id"
-    }
-    else if (type == "taxa") {
-        varnames[varnames == "classs"] <- "class"
-        varnames[varnames %in% c("usage_key", "usageKey", "guid", "reference_id", "referenceId")] <- "taxon_concept_id"
-        varnames[varnames %in% c("genus_name", "genusName")] <- "genus"
-        varnames[varnames %in% c("family_name", "familyName")] <- "family"
-        varnames[varnames %in% c("order_name", "orderName")] <- "order"
-        varnames[varnames %in% c("class_name", "className")] <- "class"
-        varnames[varnames %in% c("phylum_name", "phylumName")] <- "phylum"
-        varnames[varnames %in% c("kingdom_name", "kingdomName")] <- "kingdom"
-        varnames[varnames %in% c("rank_name", "rankName")] <- "rank"
-        varnames[varnames %in% c("french_vernacular_name", "frenchVernacularName")] <- "vernacular_name"
-    } else if (type == "layer") {
-        varnames[varnames == "displayname"] <- "name"
-        varnames[varnames == "source_link"] <- "link"
-    } else if (type == "fields") {
-      varnames[varnames == "name"] <- "id"
-      varnames[varnames == "info"] <- "description"
-    } else if (type == "assertions") {
-      varnames[varnames == "name"] <- "id"
-    } else if (type == "checklist") {
-      varnames[varnames == "Scientific Name Authorship"] <- "author"
-      varnames[varnames == "Species"] <- "species_guid"
-      varnames[varnames == "Species Name"] <- "species"
-    }
-    # change all to snake case?
-    if (type %in% c("taxa", "media")) {
-        varnames <- tolower(gsub("([a-z])([A-Z])", "\\1_\\L\\2", varnames,
-                         perl = TRUE))
-        varnames <- tolower(gsub("\\.", "_", varnames))
-    } else if (type == "checklist") {
-      varnames <- tolower(gsub("\\.|\\s", "_", varnames))
-    } else if (type == "occurrence") {
-      # change dots to camel case
-      varnames <- gsub("\\.(\\w?)", "\\U\\1", varnames, perl = TRUE)
-      # replace first letters with lowercase, but only if it is not an
-      # all-uppercase field name (which assertions are)
-      not_all_uppercase <- str_detect(varnames, "[[:lower:]]")
-      substr(varnames[not_all_uppercase], 1, 1) <-
-        tolower(substr(varnames[not_all_uppercase], 1, 1))
-    }
-    varnames
-}
-
-# Convert true/false to logical values
-# Used in ala_occurrences output
-fix_assertion_cols <- function(df, assertion_cols) {
-  for (col in assertion_cols) {
-    df[[col]] <- as.logical(df[[col]])
-  }
-  df
-}
-
-
-##----------------------------------------------------------------
-##                   Parsing functions                          --
-##----------------------------------------------------------------
-
-
-# function to identify objects or functions in quosures, and eval them
-# this is used by `search_taxa` and `galah_geolocate`
-# It differs from functions in `galah_filter` by being more straightforward
-parse_basic_quosures <- function(dots){
-  is_either <- is_function_check(dots) | is_object_check(dots)
-  result <- vector("list", length(dots))
-  # If yes, evaluate them correctly as functions
-  if(any(is_either)){
-    result[is_either] <- lapply(dots[is_either], eval_tidy)
-  }
-  
-  if(any(!is_either)){
-    result[!is_either] <- lapply(dots[!is_either], 
-      function(a){dequote(deparse(quo_squash(a)))})
-  }
-
-  if(check_character(result)){
-    return(do.call(c, result))
-  } else if(check_df(result)){
-    return(do.call(rbind, result))
-  } else {
-    return(result)
-  }
-}
-
-check_character <- function(x){
-  all(unlist(lapply(x, is.character)))
-}
-
-check_df <- function(x){
-  all(unlist(lapply(x, is.data.frame)))
-}
-
-is_function_check <- function(dots){ # where x is a list of strings
-  x <- unlist(lapply(dots, function(a){deparse(quo_squash(a))}))
-  
-  # detect whether function-like text is present
-  functionish_text <- grepl("^(([[:alnum:]]|\\.|_)+\\()", x) & grepl("\\)", x)
-  dollar_sign_square_bracket <- grepl("\\$|\\[", x)
-  functions_present <- functionish_text | dollar_sign_square_bracket
-  
-  # if there are equations, that's only ok if they are quoted
-  contains_equations <- grepl( "!=|>=|<=|==|>|<", x)
-  quoted_equations <- grepl("(\"|\')\\s*(!=|>=|<=|==|>|<)\\s*(\"|\')", x) 
-  equations_ok <- (contains_equations & quoted_equations) | !contains_equations
-  # ...except where they start with the name `galah_`
-  is_galah <- grepl("^galah_", x)
-  
-  # parse only if both conditions are met
-  functions_present & (equations_ok | is_galah)
-}
-
-
-#' Check whether a quosure contains an object
-#' @keywords Internal
+#' `wanted_columns()` but for taxa *and* identifier queries
 #' @noRd
-#' @importFrom rlang as_label
-is_object_check <- function(dots){
-  # get list of options from ?typeof & ?mode
-  available_types <- c("logical", "numeric", 
-    "complex", "character", "raw", "list", "NULL", "function",
-    "name", "call", "any", "bbox")
-  # attempt to check multiple types
-  unlist(lapply(dots, function(a){
-    modes_df <- data.frame(
-      name = available_types,
-      exists = unlist(lapply(available_types, function(b){
-        exists(x = as_label(a), envir = get_env(a), mode = b)
-      }))
-    )
-    if(any(modes_df$exists)){
-      if(all(modes_df$name[modes_df$exists] %in% c("any", "function"))){
-        FALSE  # only functions exist here
-      }else{
-        TRUE # this avoids issues when a function and object are both valid
-      }
-    }else{
-      FALSE # i.e. no objects
-    }
-  })) |>
-  any()
+#' @keywords Internal
+wanted_columns_taxa <- function(){
+  c("search_term",
+    "scientific_name",
+    "scientific_name_authorship", 
+    "taxon_concept_id", # ALA
+    "taxon_concept_lsid", # Austria, Guatemala
+    "authority", # OpenObs
+    "usage_key", # GBIF
+    "guid", # species search
+    "canonical_name", "status", 
+    "rank",
+    "match_type",
+    "confidence",
+    "time_taken",
+    "vernacular_name",
+    "issues",
+    {show_all_ranks() |> dplyr::pull("name")})
 }
 
-check_n_inputs <- function(dots, error_call = caller_env()) {
-  if(length(dots) > 1){
-    n_geolocations <- length(dots)
-    bullets <- c(
-      "More than 1 spatial area provided.",
-      "*" = glue("Using first location, ignoring additional {n_geolocations - 1} location(s).")
-    )
-    warn(bullets, call = caller_env())
-  }
+#' Internal function to run `eval_tidy()` on captured `select()` requests
+#' @noRd
+#' @keywords Internal
+parse_select <- function(df, .query){
+  select_list <- .query |>
+    purrr::pluck("select") |>
+    purrr::map(rlang::is_quosure) |>
+    unlist() |>
+    which()
+  select_query <- .query |>
+    purrr::pluck("select", !!!select_list) 
+  pos <- tidyselect::eval_select(expr = select_query,
+                                 data = df)
+  rlang::set_names(df[pos], names(pos)) # note: this line taken from 
+  # `tidyselect` documentation; it could be argued that `df[pos]` is sufficient
 }
-
-##----------------------------------------------------------------
-##                   Query-building functions                   --
-##----------------------------------------------------------------
-
-# Build query list from constituent arguments
-build_query <- function(identify, 
-                        filter, 
-                        location, 
-                        profile = NULL) {
-                          
-  if (is.null(identify)) {
-    if(galah_config()$atlas$region == "Global"){
-      taxa_query <- list(taxonKey = 1)
-    }else{
-      taxa_query <- NULL
-    }
-  } else { # assumes a tibble or data.frame has been given
-    if(nrow(identify) < 1){
-      taxa_query <- NULL
-    } else {
-      check_taxa_arg(identify)
-      if (inherits(identify, "data.frame") &&
-          "identifier" %in% colnames(identify)) {
-        identify <- identify$identifier
-      }
-      #TODO: Implement a useful check here- i.e. string or integer
-      # assert_that(is.character(taxa))
-      taxa_query <- build_taxa_query(identify)
-    }
-  }
   
-  # validate filters
-  if (is.null(filter)) {
-    filter_query <- NULL
-  } else {
-    assert_that(is.data.frame(filter))
-    if (nrow(filter) == 0) {
-      filter_query <- NULL
-    } else {
-      filter_query <- build_filter_query(filter)
-    }
-  }
-  
-  if(galah_config()$atlas$region == "Global"){
-    query <- c(taxa_query, filter_query)
-  }else{
-    query <- list(fq = c(taxa_query, filter_query)) 
-  } 
-  
-  # geographic stuff
-  if (!is.null(location)) {
-    query$wkt <- location
-  }
-
-  # add profiles information (ALA only)  
-  atlas <- getOption("galah_config")$atlas$region
-  if(atlas == "Australia"){
-    if(!is.null(profile)) {
-      query$qualityProfile <- profile
-    } else {
-      query$disableAllQualityFilters <- "true"
-    }
-  }
-
-  query
-}
-
-# Build query from vector of taxonomic ids
-build_taxa_query <- function(ids) {
-  ids <- ids[order(ids)]
-  if(is_gbif()){
-    list(taxonKey = ids)
-  }else{
-    glue(
-      "(lsid:",
-      glue_collapse(ids, sep = glue(" OR lsid:")),
-      ")")
-  }
-}
-
-# Takes a dataframe produced by galah_filter and return query as a list
-# Construct individual query term
-# Add required brackets, quotes to make valid SOLR query syntax
-query_term <- function(name, value, include) {
-  # add quotes around value
-  value <- lapply(value, function(x) {
-    # don't add quotes if there are square brackets in the term
-    if (grepl("\\[", x)) {
-      x
-    } else {
-      paste0("\"", x, "\"")
-    }
-  })
-  # add quotes around value
-  if (include) {
-    value_str <- paste0("(", paste(name, value, collapse = " OR ", sep = ":"),
-                        ")")
-  } else {
-    value_str <- paste0("-(", paste(name, value,
-                                   collapse = " OR ", sep = ":"), ")")
-  }
-  value_str
-}
-
-old_query_term <- function(name, value, include) {
-  # add quotes around value
-  value <- lapply(value, function(x) {
-    # don't add quotes if there are square brackets in the term
-    if (grepl("\\[", x)) {
-      x
-    } else {
-      paste0("\"", x, "\"")
-    }
-  })
-  # add quotes around value
-  if (include) {
-    value_str <- paste0("(", paste(name, value, collapse = " OR ", sep = ":"),
-                        ")")
-  } else {
-    value_str <- paste0("(", paste(paste0("-", name), value,
-                                   collapse = " AND ", sep = ":"), ")")
-  }
-  value_str
-}
-
-build_filter_query <- function(filters) {
-  if(is_gbif()){
-    is_equals <- filters$logical == "=="
-    if(any(is_equals)){
-      filters$query[is_equals] <- filters$value[is_equals]
-    }
-    if(any(!is_equals)){
-      cleaned_filters <- sub("^[[:graph:]]+\\[", "", 
-                             x = filters$query[!is_equals])
-      cleaned_filters <- sub("\\]$", "", x = cleaned_filters)
-      cleaned_filters <- sub(" TO ", ",", x = cleaned_filters)
-      filters$query[!is_equals] <- cleaned_filters
-    }
-    queries <- as.list(filters$query)
-    names(queries) <- filters$variable
-    queries
-  }else{
-    queries <- unique(filters$query)
-    paste0(queries, collapse = " AND ")
-  }
-}
-
-new_build_filter_query <- function(filters) {
-  if(nrow(filters) > 1){
-    query <- paste(
-      apply(
-        filters[, c("query", "join")], 
-        1, 
-        function(a){paste0(a, collapse = "")
-      }),
-     collapse = "")
-    query <- sub("NA$", "", query)
-  }else{
-    query <- filters$query
-  }
-  return(query)
-}
-
-# Extract profile row from filters dataframe created by galah_filter
-extract_profile <- function(filters) {
-  profile <- NULL
-  if (!is.null(filters)){
-    profile <- attr(filters, "dq_profile")
-  }
-  profile
-}
-
-# Replace logical R values with strings
-filter_value <- function(val) {
-  if (is.logical(val)) {
-    return(ifelse(val, "true", "false"))
-  }
-  val
-}
-
-# Construct string of column
-build_columns <- function(col_df) {
-  if (nrow(col_df) == 0) {
-    return("")
-  }
-  paste0(col_df$name, collapse = ",")
-}
-
-build_assertion_columns <- function(col_df) {
-  assertion_group <- any(attr(col_df, "group") == "assertions")
-  assertion_rows <- which(col_df$type == "assertion")
-  if(assertion_group){ # assertions have been selected as a group
-    if(length(assertion_rows) > 50){ # only if a certain number present
-      return("includeall")
+#' Internal function to rename specific columns
+#' In-progress, tidyverse-compliant replacement for `rename_columns()`
+#' Note that actual renaming is now handled in-pipe by `dplyr::rename()`
+#' @noRd
+#' @keywords Internal
+parse_rename <- function(df, type){
+  if(type == "taxa"){
+    taxa_vec <- c("class" = "classs",
+                  "taxon_concept_id" = "usage_key",
+                  "taxon_concept_id" = "guid",
+                  "taxon_concept_id" = "reference_id",
+                  "taxon_concept_id" = "key",
+                  "genus" = "genus_name",
+                  "family" = "family_name",
+                  "order" = "order_name",
+                  "phylum" = "phylum_name",
+                  "kingdom" = "kingdom_name",
+                  "rank" = "rank_name",
+                  "vernacular_name" = "french_vernacular_name")
+    cols <- colnames(df)
+    col_lookup <- taxa_vec %in% cols
+    rename_cols <- as.list(taxa_vec[col_lookup])
+    if(any(col_lookup)){
+      dplyr::rename(df, !!!rename_cols)
     }else{
-      return(paste0(col_df$name[assertion_rows], collapse = ","))
+      df
     }
-  }else{ # assertions not selected as a group
-    if(length(assertion_rows) > 0) {
-      return(paste0(col_df$name[assertion_rows], collapse = ","))
-    }else{
-      return("none")
-    }
+  }else if(type == "assertions"){
+    dplyr::rename(df, !!!c("id" = "name"))
+  }else if(type == "media"){
+    dplyr::rename(df, !!!c("image_id" = "image_identifier",
+                           "mimetype" = "mime_type"))
+  }else{
+    df
   }
-}
-
-##---------------------------------------------------------------
-##                   Query-caching functions                   --
-##---------------------------------------------------------------
-
-# Check whether caching of some url parameters is required.
-# Note: it is only possible to cache one fq so filters can't be cached
-check_for_caching <- function(taxa_query, filter_query, area_query,
-                              columns = NULL, error_call = caller_env()) {
-  if (nchar(paste(filter_query, collapse = "&fq=")) > 1948) {
-    abort("Too many filters provided.", call = error_call)
-  }
-  if (sum(nchar(taxa_query), nchar(filter_query), nchar(area_query),
-          nchar(paste(columns$name, collapse = ",")), na.rm = TRUE) > 1948) {
-    # caching of taxa query and area query required
-    return(TRUE)
-  }
-  return(FALSE)
-}
-
-# Cache a long query 
-# Returns a query id (qid) from the ALA, which can then be used to reference a
-# long query
-cached_query <- function(taxa_query, filter_query, area_query,
-                         columns = NULL) {
-  resp <- url_lookup("records_query") |> 
-          url_POST(body = list(
-            wkt = area_query, 
-            fq = taxa_query,
-            fields = columns))
-  list(fq = filter_query, q = paste0("qid:", resp))
 }
 
 
 ##---------------------------------------------------------------
-##                   Other helpful functions                   --
+##                          Cases                              --
+##---------------------------------------------------------------
+
+#' Internal function to make text to snake case
+#' @noRd
+#' @keywords Internal
+camel_to_snake_case <- function(string){
+  string |>
+    gsub("([a-z])([A-Z])", "\\1_\\L\\2", x = _, perl = TRUE) |>
+    trimws(which = "both") |> # end spaces
+    gsub("\\.+|\\s+", "_", x = _) |> # internal dots or spaces
+    tolower()
+}
+
+#' Internal function to handle conversion from camelCase to upper snake case
+#' @noRd
+#' @keywords internal
+gbif_upper_case <- function(string){
+  gsub("(?=[[:upper:]])", "_", string, perl = TRUE) |> 
+    toupper()
+}
+
+#' Internal function to handle conversion from upper snake case to camelCase
+#' Primarily for reversing the action of [gbif_upper_case()] above
+#' @noRd
+#' @keywords internal
+snake_to_camel_case <- function(string){
+  # first split into words
+  split_string <- string |>
+    tolower() |>
+    strsplit("_") |>
+    purrr::pluck(!!!list(1))
+    
+  # then amend only multi-word strings
+  word_count <- length(split_string)
+  if(word_count > 1){
+    c(split_string[1],
+      stringr::str_to_title(split_string[seq(2, word_count)])) |>
+      glue::glue_collapse()
+  }else{
+    split_string
+  }
+}
+
+##---------------------------------------------------------------
+##                   Set API header arguments                  --
 ##---------------------------------------------------------------
 
 # Construct the user agent string, consisting of the galah version
@@ -450,313 +182,183 @@ galah_version_string <- function() {
   suppressWarnings(
     try(version_string <- utils::packageDescription("galah")[["Version"]],
         silent = TRUE)) ## get the galah version, if we can
-  paste0("galah-R ", version_string)
+  glue::glue("galah-R {version_string}")
 }
 
+#' @noRd
+#' @keywords Internal
+source_type_id_lookup <- function(region){
+  switch(region,
+         "Austria" = 1,
+         "United Kingdom" = 2001,
+         "2004") # ALA default for galah
+}
+
+#' @noRd
+#' @keywords Internal
+email_notify <- function() {
+  notify <- as.logical(potions::pour("package", "send_email"))
+  if (is.na(notify)) {
+    notify <- FALSE
+  }
+  # ala api requires lowercase
+  ifelse(notify, "true", "false")
+}
+
+##----------------------------------------------------------------
+##  Functions to change behaviour depending on selected `atlas` --
+##----------------------------------------------------------------
+
+#' Internal function for determining if we should call GBIF or not
+#' @noRd
+#' @keywords Internal
 is_gbif <- function(){
-  getOption("galah_config")$atlas$region == "Global"
+  potions::pour("atlas", "region") == "Global"
 }
 
-# Check taxonomic argument provided to `atlas_` functions is of correct form
-check_taxa_arg <- function(taxa, error_call = caller_env()) {
-  # if (!any(grepl("id", class(taxa)))) {
-  if(!inherits(taxa, "galah_identify")){
-    if (!any(grepl("\\d", taxa))) {
-      bullets <- c(
-        "Wrong type of input provided to `identify` argument.",
-        i = glue("`identify` requires an identifier input generated by \\
-        `galah_identify`.")
-      )
-      abort(bullets, call = error_call)
-    }
-  }
+#' Internal function to populate `groups` arg in `select()`
+#' @noRd
+#' @keywords Internal
+preset_groups <- function(group_name) {
+  cols <- switch(group_name,
+                 "basic" = default_columns(),
+                 "event" = c("eventRemarks",
+                             "eventTime",
+                             "eventID",
+                             "eventDate",
+                             "samplingEffort",
+                             "samplingProtocol"),
+                 "media" = image_fields(),
+                 "taxonomy" = c("kingdom",
+                                "phylum",
+                                "class", 
+                                "order", 
+                                "family",
+                                "genus",
+                                "species",
+                                "subspecies"))
+  # note: assertions handled elsewhere
+  return(cols)
 }
 
-check_data_request <- function(request, error_call = caller_env()){
-  if(!inherits(request, "data_request")){
-    bullets <- c(
-      "Argument `request` requires an object of type `data_request`.",
-      i = "You can create this object using `galah_call()`",
-      i = "Did you specify the incorrect argument?"
-    )
-    abort(bullets, call = caller_env())      
-  }     
-}
-
-##----------------------------------------------------------------
-##                   Caching helper functions                   --
-##----------------------------------------------------------------
-
-# Read cached file
-read_cache_file <- function(filename) {
-  if (getOption("galah_config")$package$verbose) {
-    inform(glue("Using cached file \"{filename}\"."))
-  }
-  readRDS(filename)
-}
-
-# Write file to cache and metadata to metadata cache
-write_cache_file <- function(object, data_type, cache_file) {
-  if (getOption("galah_config")$package$verbose) {
-    inform(glue("
-                
-                Writing to cache file \"{cache_file}\".
-                
-                "))
-    }
-  tryCatch({
-    saveRDS(object, cache_file)
-    write_metadata(attributes(object)$data_request, data_type, cache_file)
-    },
-    error = function(e) {
-      directory <- dirname(cache_file)
-      bullets <- c(
-        "There was an error writing to the cache file.",
-        x = glue("Cache directory \"{directory}\" does not exist.")
-      )
-      warn(bullets)
-    }
-  )
-}
-
-# Hash cache filename from argument list
-cache_filename <- function(...) {
-  args <- c(...)
-  filename <- paste0(digest(sort(args)), ".rds")
-  file.path(getOption("galah_config")$package$cache_directory, filename)
-}
-
-# Write function call metadata to RDS file to enable metadata viewing with
-# `find_cached_files()`
-write_metadata <- function(request, data_type, cache_file) {
-  metadata_file <- file.path(getOption("galah_config")$package$cache_directory,
-                             "metadata.rds")
-  if (file.exists(metadata_file)) {
-    metadata <- readRDS(metadata_file)
-  } else {
-    metadata <- list()
-  }
-  file_id <- str_split(basename(cache_file), "\\.")[[1]][1]
-  metadata[[file_id]] <- list(data_type = data_type, data_request = request)
-  tryCatch(
-    saveRDS(metadata, metadata_file),
-    error = function(e) {
-      directory <- dirname(cache_file)
-      bullets <- c(
-        "There was an error writing to the cache file.",
-        x = glue("Cache directory \"{directory}\" does not exist.")
-      )
-      warn(bullets)
-    }
-  )
-}
-
-##----------------------------------------------------------------
-##                   Request helper functions                   --
-##----------------------------------------------------------------
-
-# build_fq_url <- function(url, path, params = list()) {
-#   url <- parse_url(url)
-#   url$path <- path
-#   url$query <- params[names(params) != "fq"]
-#   join_char <- ifelse(length(url$query) > 0, "&fq=", "?fq=")
-#   fq <- paste(params$fq, collapse = "&fq=")
-#   paste0(build_url(url), join_char, URLencode(fq))
-# }
-
-build_fq_url <- function(url, params = list()) {
-  url <- parse_url(url)
-  if(any(names(params) == "fq")){
-    # join_char <- ifelse(length(url$query) > 0, "&fq=", "?fq=")
-    
-    # ensure all arguments from galah_filter are enclosed in brackets
-    fq <- params$fq
-    missing_brackets <- !grepl("^\\(", fq)
-    if(any(missing_brackets)){
-      fq[missing_brackets] <- paste0("(", fq[missing_brackets], ")")
-    }
-    fq_single <- paste(fq, collapse = "AND")
-    url$query <- c(fq = fq_single, params[names(params) != "fq"])
-    build_url(url)
-  }else{
-    build_url(url)
-  }
-}
-
-##---------------------------------------------------------------
-##                Data request helper functions                --
-##---------------------------------------------------------------
-
-# Merge arguments 
-merge_args <- function(request, extra) {
-  # get non-null arguments
-  non_null_request <- request[!unlist(lapply(request, is.null))]
-  c(non_null_request, extra)
-}
-
-##---------------------------------------------------------------
-##             show_all_ & search_ internal functions          --
-##---------------------------------------------------------------
-
-## show_all() & search_all()
-
-# Check for valid `type`
-check_type_valid <- function(type, valid, error_call = caller_env()) {
-  if(!any(valid == type)){
-    bullets <- c(
-      glue("type `{type}` is not recognised"),
-      i = "see ?show_all for a list of valid information types."
-    )
-    abort(bullets, call = error_call)   
-  }
-}
-
-
-## show_all_atlases / search_atlases --------------------------#
-
-image_fields <- function() {
-  atlas <- getOption("galah_config")$atlas$region
-  switch (atlas,
-          "Austria" = "all_image_url",
-          "Guatemala" = "all_image_url",
-          "Spain" = "all_image_url",
-          c("images", "videos", "sounds")
-  )
-}
-
+#' Internal function to specify 'basic' columns in `select()`
+#' @noRd
+#' @keywords Internal
 default_columns <- function() {
-  atlas <- getOption("galah_config")$atlas$region
-  switch (atlas,
-          "Guatemala" = c("latitude", "longitude", "species_guid",
-                          "data_resource_uid", "occurrence_date", "id"),
-          "Spain" = c("latitude", "longitude", "species_guid",
-                          "data_resource_uid", "occurrence_date", "recordID"),
-          c("decimalLatitude", "decimalLongitude", "eventDate",
-            "scientificName", "taxonConceptID",
-            "recordID", # note this requires that the ALA name (`id`) be corrected
-            "dataResourceName",
-            "occurrenceStatus")
-  )
+  atlas <- potions::pour("atlas", "region")
+  if(atlas %in% c("Austria", 
+                  "Brazil", 
+                  "Guatemala", 
+                  "Kew",
+                  "Portugal",
+                  "United Kingdom")){
+    c("id",
+      "taxon_name",
+      "taxon_concept_lsid",
+      "latitude",
+      "longitude",
+      "occurrence_date",
+      "basis_of_record",
+      "occurrence_status",
+      "data_resource_uid")
+  }else if(atlas %in% c("France")){
+    c("id", # only difference from ALA
+      "scientificName",
+      "taxonConceptID",
+      "decimalLatitude",
+      "decimalLongitude",
+      "eventDate",
+      "basisOfRecord",
+      "occurrenceStatus",
+      "dataResourceName")
+  }else if(atlas %in% c("Australia",
+                        "Flanders",
+                        "Spain",
+                        "Sweden")){
+    c("recordID", # note this requires that the ALA name (`id`) be corrected
+      "scientificName",
+      "taxonConceptID",
+      "decimalLatitude",
+      "decimalLongitude",
+      "eventDate",
+      "basisOfRecord",
+      "occurrenceStatus",
+      "dataResourceName")
+  }else{
+    cli::cli_abort("Unknown `atlas`")
+  }
 }
 
+#' @noRd
+#' @keywords Internal
+image_fields <- function() {
+  atlas <- potions::pour("atlas", "region")
+  if(atlas %in% c("Austria", 
+                  "Brazil", 
+                  "Guatemala", 
+                  "Kew",
+                  "Portugal",
+                  "United Kingdom")){
+    "all_image_url"
+  }else if(atlas %in% c("Australia",
+                        "Flanders",
+                        "Spain",
+                        "Sweden")){
+    c("multimedia", "images", "sounds", "videos")
+  }else{
+    cli::cli_abort("Unknown `atlas`")
+  }
+}
+
+#' @noRd
+#' @keywords Internal
 species_facets <- function(){
-  atlas <- getOption("galah_config")$atlas$region
-  
-  switch(atlas,
-         "Australia" = "speciesID",
-         # "Austria" = "species_guid",
-         # "Brazil" = "species_guid",
-         # "Canada" = "species_guid"
-         "species_guid"
-  )
-}
-
-
-## show_all_fields --------------------------#
-
-
-# Helper functions to get different field classes
-get_fields <- function() {
-  fields <- all_fields()
-  if(is.null(fields)){
-    NULL
+  atlas <- potions::pour("atlas", "region")
+  if(atlas %in% c("Australia",
+                  "Flanders",
+                  "France",
+                  "Spain",
+                  "Sweden")) {
+    "speciesID"
   }else{
-    # remove fields where class is contextual or environmental
-    fields <- fields[!(fields$classs %in% c("Contextual", "Environmental")),]
-    
-    names(fields) <- rename_columns(names(fields), type = "fields")
-    fields <- fields[wanted_columns("fields")]
-    fields$type <- "fields"
-    
-    # correct id for recordID
-    record_id_lookup <- grepl("http://rs.tdwg.org/dwc/terms/recordID", 
-                              fields$description)
-    if(any(record_id_lookup)){
-      fields$id[which(record_id_lookup)[1]] <- "recordID"
-    }
-    
-    return(fields)
+    "species_guid"
   }
 }
 
-get_layers <- function() {
-  url <- url_lookup("spatial_layers", quiet = TRUE)
-  if(is.null(url)){
-    return(NULL)
-  }
-  result <- url_GET(url)
-  
-  if(is.null(result)){
-    NULL
+#' @noRd
+#' @keywords Internal
+profiles_supported <- function(){
+  atlas <- potions::pour("atlas", "region")
+  if(atlas %in% c("Australia",
+                  "Flanders",
+                  "Sweden",
+                  "Spain")) {
+    TRUE
   }else{
-    if(all(c("type", "id") %in% names(result))){
-      layer_id <- mapply(build_layer_id, result$type, result$id,
-                         USE.NAMES = FALSE)
-      result <- cbind(layer_id, result)
-      result$description <- apply(
-        result[, c("displayname", "description")],
-        1,
-        function(a){paste(a, collapse = " ")}
-      )
-      names(result) <- rename_columns(names(result), type = "layer")
-      result <- result[wanted_columns("layer")]
-      names(result)[1] <- "id"
-      result$type <- "layers"
-      result
-    }else{
-      NULL
-    }
+    FALSE
   }
 }
 
-# Return fields not returned by the API
-get_other_fields <- function() {
-  data.frame(id = "qid", description = "Reference to pre-generated query",
-             type = "other")
+#' Internal function for determining whether a Living Atlas supports reasons API.
+#' This affects whether a reason is appended to a query in `collapse()` (and 
+#' checked in `compute()`)
+#' @noRd
+#' @keywords Internal
+reasons_supported <- function(){
+  atlas <- potions::pour("atlas", "region")
+  supported_atlases <- show_all(apis) |>
+    dplyr::filter(type == "metadata/reasons") |>
+    dplyr::pull(atlas)
+  atlas %in% supported_atlases
 }
 
-# There is no API call to get these fields, so for now they are manually
-# specified
-get_media <- function(x) {
-  
-  ## Original code showed fields returned by `show_all_media`
-  ## These can't be queried with `galah_filter` and have been replaced
-  # fields <- data.frame(id = c("imageId", "height", "width", "tileZoomLevels",
-  #                             "thumbHeight", "thumbWidth", "filesize", "mimetype",
-  #                             "creator", "title", "description", "rights",
-  #                             "rightsHolder", "license", "imageUrl", "thumbUrl",
-  #                             "largeThumbUrl", "squareThumbUrl", "tilesUrlPattern"))
-  data.frame(
-    id = c("multimedia", "multimediaLicence", "images", "videos", "sounds"),
-    description = "Media filter field",
-    type = "media"
-  )
-}
-
-all_fields <- function() {
-  url <- url_lookup("records_fields")
-  url_GET(url)
-}
-
-build_layer_id <- function(type, id) {
-  if (type == "Environmental") {
-    paste0("el", id)
-  } else {
-    paste0("cl", id)
+#' @noRd
+#' @keywords Internal
+media_supported <- function(){
+  atlas <- potions::pour("atlas", "region",
+                         .pkg = "galah")
+  unsupported_atlases <- c("France", "Global")
+  if(atlas %in% unsupported_atlases){
+    cli::cli_abort("`atlas_media` is not supported for atlas = {atlas}")
   }
 }
-
-
-##---------------------------------------------------------------
-##                      System down message                    --
-##---------------------------------------------------------------
-
-system_down_message <- function(function_name){
-  bullets <- c(
-    glue("Calling the API failed for `{function_name}`."),
-    i = "This might mean that the API is down, or that you are not connected to the internet",
-    i = "Double check that your query is correct, or try again later"
-  )
-  inform(bullets)
-}
-

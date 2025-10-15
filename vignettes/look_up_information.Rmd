@@ -1,7 +1,7 @@
 ---
 title: "Look up information"
 author: "Martin Westgate & Dax Kellie"
-date: '2023-01-18'
+date: '2024-11-19'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -11,89 +11,45 @@ vignette: >
 ---
 
 
-# `show_all()` & `search_all()`
-
-As of galah 1.5.0, there are two simplified functions to look up information: 
-`show_all()` and `search_all()`. 
-
-These are individual functions that are able to return all types of information 
-in one place, rather than using specific sub-functions to look up information.
-
-For example, to show all available Living Atlases supported:
+galah supports two functions to look up information: `show_all()` and 
+`search_all()`. The first argument to both functions is a type of information that you 
+wish to look up; for example to see what fields are available to filter a query by, use:
 
 
-```r
-show_all(atlases)
-```
-
-```
-## # A tibble: 11 × 4
-##    region         institution                                                             acronym url                         
-##    <chr>          <chr>                                                                   <chr>   <chr>                       
-##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au      
-##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas.at
-##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br        
-##  4 Estonia        eElurikkus                                                              <NA>    https://elurikkus.ee        
-##  5 France         Portail français d'accès aux données d'observation sur les espèces      OpenObs https://openobs.mnhn.fr/    
-##  6 Global         Global Biodiversity Information Facility                                GBIF    https://gbif.org            
-##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt   
-##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt         
-##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es         
-## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.se 
-## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
-```
-
-To search for a specific available Living Atlas:
-
-
-```r
-search_all(atlases, "Spain")
-```
-
-```
-## # A tibble: 1 × 4
-##   region institution acronym url                
-##   <chr>  <chr>       <chr>   <chr>              
-## 1 Spain  GBIF Spain  GBIF.es https://www.gbif.es
-```
-
-To show all fields:
-
-
-```r
+``` r
 show_all(fields)
 ```
 
 ```
-## # A tibble: 573 × 4
-##    id                    description                                                                                        type   link 
-##    <chr>                 <chr>                                                                                              <chr>  <chr>
-##  1 abcdTypeStatus        ABCD field in use by herbaria                                                                      fields <NA> 
-##  2 acceptedNameUsage     http://rs.tdwg.org/dwc/terms/acceptedNameUsage                                                     fields <NA> 
-##  3 acceptedNameUsageID   http://rs.tdwg.org/dwc/terms/acceptedNameUsageID                                                   fields <NA> 
-##  4 accessRights          <NA>                                                                                               fields <NA> 
-##  5 assertionUserId       User ID of the person who has made an assertion about this record                                  fields <NA> 
-##  6 assertions            A list of all assertions (user and system supplied) for a record resulting from data quality tests fields <NA> 
-##  7 associatedMedia       http://rs.tdwg.org/dwc/terms/associatedMedia                                                       fields <NA> 
-##  8 associatedOccurrences http://rs.tdwg.org/dwc/terms/associatedOccurrences                                                 fields <NA> 
-##  9 associatedOrganisms   http://rs.tdwg.org/dwc/terms/associatedOrganisms                                                   fields <NA> 
-## 10 associatedReferences  http://rs.tdwg.org/dwc/terms/associatedReferences                                                  fields <NA> 
-## # … with 563 more rows
+## # A tibble: 695 × 3
+##    id                  description               type  
+##    <chr>               <chr>                     <chr> 
+##  1 _nest_parent_       <NA>                      fields
+##  2 _nest_path_         <NA>                      fields
+##  3 _root_              <NA>                      fields
+##  4 abcdTypeStatus      <NA>                      fields
+##  5 acceptedNameUsage   Accepted name             fields
+##  6 acceptedNameUsageID Accepted name             fields
+##  7 accessRights        Access rights             fields
+##  8 annotationsDoi      <NA>                      fields
+##  9 annotationsUid      Referenced by publication fields
+## 10 assertionUserId     Assertions by user        fields
+## # ℹ 685 more rows
 ```
 
 And to search for a specific field:
 
 
-```r
+``` r
 search_all(fields, "australian states")
 ```
 
 ```
-## # A tibble: 2 × 4
-##   id     description                                                                                                         type   link   
-##   <chr>  <chr>                                                                                                               <chr>  <chr>  
-## 1 cl2013 ASGS Australian States and Territories Australian Statistical Geography Standard  Australian States and Territories layers http:/…
-## 2 cl22   Australian States and Territories Australian States and Territories                                                 layers http:/…
+## # A tibble: 2 × 3
+##   id     description                            type  
+##   <chr>  <chr>                                  <chr> 
+## 1 cl2013 ASGS Australian States and Territories fields
+## 2 cl22   Australian States and Territories      fields
 ```
 
 Here is a list of information types that can be used with `show_all()` and 
@@ -184,44 +140,34 @@ Here is a list of information types that can be used with `show_all()` and
 
 # `show_all_` subfunctions
 While `show_all` is useful for a variety of cases, you can 
-still call the underlying subfunctions if you prefer. These functions - with 
-the prefix `show_all_` - return a `tibble` doing exactly that; showing all the 
-possible values of the category specified. These functions include:
-
--   `show_all_fields`
--   `show_all_atlases`
--   `show_all_ranks`
--   `show_all_profiles`
--   `show_all_reasons`
--   `show_all_cached_files`
-
-`show_all_` functions require no arguments. Simply call the function and it will 
-return all accepted values as a tibble:
+still call the underlying subfunctions if you prefer. Functions with 
+the prefix `show_all_` do exactly that; they show all the 
+possible values of the category specified. 
 
 
 
-```r
+
+``` r
 show_all_atlases()
 ```
 
 ```
-## # A tibble: 11 × 4
-##    region         institution                                                             acronym url                         
-##    <chr>          <chr>                                                                   <chr>   <chr>                       
-##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au      
-##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas.at
-##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br        
-##  4 Estonia        eElurikkus                                                              <NA>    https://elurikkus.ee        
-##  5 France         Portail français d'accès aux données d'observation sur les espèces      OpenObs https://openobs.mnhn.fr/    
-##  6 Global         Global Biodiversity Information Facility                                GBIF    https://gbif.org            
-##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt   
-##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt         
-##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es         
-## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.se 
-## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
+## # A tibble: 10 × 4
+##    region         institution                                                             acronym url                    
+##    <chr>          <chr>                                                                   <chr>   <chr>                  
+##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au 
+##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityat…
+##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br   
+##  4 France         Portail français d'accès aux données d'observation sur les espèces      OpenObs https://openobs.mnhn.fr
+##  5 Global         Global Biodiversity Information Facility                                GBIF    https://gbif.org       
+##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob…
+##  7 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt    
+##  8 Spain          GBIF Spain                                                              GBIF.es https://gbif.es        
+##  9 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversityda…
+## 10 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
 ```
 
-```r
+``` r
 show_all_reasons()
 ```
 
@@ -229,107 +175,79 @@ show_all_reasons()
 ## # A tibble: 13 × 2
 ##       id name                            
 ##    <int> <chr>                           
-##  1     0 conservation management/planning
-##  2     1 biosecurity management/planning 
-##  3     2 environmental assessment        
-##  4     3 education                       
-##  5     4 scientific research             
-##  6     5 collection management           
-##  7     6 other                           
-##  8     7 ecological research             
-##  9     8 systematic research/taxonomy    
-## 10    10 testing                         
-## 11    11 citizen science                 
-## 12    12 restoration/remediation         
-## 13    13 species modelling
+##  1     1 biosecurity management/planning 
+##  2    11 citizen science                 
+##  3     5 collection management           
+##  4     0 conservation management/planning
+##  5     7 ecological research             
+##  6     3 education                       
+##  7     2 environmental assessment        
+##  8    12 restoration/remediation         
+##  9     4 scientific research             
+## 10     8 systematic research/taxonomy    
+## 11    13 species modelling               
+## 12     6 other                           
+## 13    10 testing
 ```
 
 # `search_` subfunctions
-The second subset of lookup subfunctions use the `search_` prefix, and differ from
-`show_all_` in that they require a query to work. They are used to search for 
-detailed information that can't be summarised across the whole atlas, and include:
+You can also call subfunctions that use the `search_` prefix to lookup information. 
+`search_` subfunctions differ from `show_all_` in that they require a query to work,
+and they useful to search for 
+detailed information that can't be summarised across the whole atlas.
 
--   `search_taxa`
--   `search_identifiers`
--   `search_fields`
--   `show_values`
-
-Search for a single taxon or multiple taxa by name with `search_taxa`.
+`search_taxa()` is an especially useful function in galah. It let's you search 
+for a single taxon or multiple taxa by name.
 
 
-```r
+``` r
 search_taxa("reptilia")
 ```
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                                    rank  match…¹ kingdom phylum class issues
-##   <chr>       <chr>           <chr>                                                               <chr> <chr>   <chr>   <chr>  <chr> <chr> 
-## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550ef… class exactM… Animal… Chord… Rept… noIss…
-## # … with abbreviated variable name ¹​match_type
+##   search_term scientific_name taxon_concept_id                               rank  match_type kingdom phylum class issues
+##   <chr>       <chr>           <chr>                                          <chr> <chr>      <chr>   <chr>  <chr> <chr> 
+## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228… class exactMatch Animal… Chord… Rept… noIss…
 ```
 
-```r
+``` r
 search_taxa("reptilia", "aves", "mammalia", "pisces")
 ```
 
 ```
-## # A tibble: 4 × 10
-##   search_term scientific_name taxon_concept_id                                            rank  match…¹ kingdom phylum class issues verna…²
-##   <chr>       <chr>           <chr>                                                       <chr> <chr>   <chr>   <chr>  <chr> <chr>  <chr>  
-## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-83… class exactM… Animal… Chord… Rept… noIss… <NA>   
-## 2 aves        AVES            https://biodiversity.org.au/afd/taxa/65625205-db74-4a87-b5… class exactM… Animal… Chord… Aves  noIss… Birds  
-## 3 mammalia    MAMMALIA        https://biodiversity.org.au/afd/taxa/e9e7db31-04df-41fb-bd… class exactM… Animal… Chord… Mamm… noIss… Mammals
-## 4 pisces      PISCES          https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d… <NA>  exactM… Animal… Chord… <NA>  noIss… Fishes 
-## # … with abbreviated variable names ¹​match_type, ²​vernacular_name
+## # A tibble: 1 × 9
+##   search_term scientific_name taxon_concept_id                               rank  match_type kingdom phylum class issues
+##   <chr>       <chr>           <chr>                                          <chr> <chr>      <chr>   <chr>  <chr> <chr> 
+## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228… class exactMatch Animal… Chord… Rept… noIss…
 ```
 
-Alternatively, `search_identifiers` is the partner function to `search_taxa`. 
+Alternatively, `search_identifiers()` is the partner function to `search_taxa()`. 
 If we already know a taxonomic identifier, we can search for 
-which taxa the identifier belongs to with `search_identifiers`:
+which taxa the identifier belongs to.
 
 
-```r
+``` r
 search_identifiers("urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550efd40c399")
 ```
 
 ```
-## # A tibble: 1 × 8
-##   scientific_name taxon_concept_id                                                          rank  match_type   kingdom  phylum class issues
-##   <chr>           <chr>                                                                     <chr> <chr>        <chr>    <chr>  <chr> <chr> 
-## 1 REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd40c399 class taxonIdMatch Animalia Chord… Rept… noIss…
-```
-
-Sifting through the output of `show_all_fields` to find a specific field can be 
-inefficient. Instead, we might wish to use `search_fields` to look for specific 
-fields that match a search. As with `search_taxa`, `search_fields` requires a 
-query to work.
-
-
-```r
-search_fields("date") |> head()
-```
-
-```
-## # A tibble: 6 × 4
-##   id            description                                                                                                     type  link 
-##   <chr>         <chr>                                                                                                           <chr> <chr>
-## 1 month         "Month of observation, specimen collection date. http://rs.tdwg.org/dwc/terms/month"                            fiel… <NA> 
-## 2 eventDate     "The ISO formatted date of observation, specimen collection date. http://rs.tdwg.org/dwc/terms/eventDate"       fiel… <NA> 
-## 3 cl10903       "Tenure of Australia's forests (2013) v2.0 Tenure of Australia's forests (2013) v2.0 is a continental dataset … laye… http…
-## 4 cl10955       "National Indicative Aggregated Fire Extent Dataset 2019-2020 - v20200324 The National Indicative Aggregated F… laye… http…
-## 5 lastLoadDate   <NA>                                                                                                           fiel… <NA> 
-## 6 datePrecision "The precision of the date information for the record. Values include Day, Month, Year, Year range, Month rang… fiel… <NA>
+## # A tibble: 1 × 15
+##   search_term     success scientific_name taxon_concept_id rank  rank_id   lft   rgt match_type kingdom kingdom_id phylum
+##   <chr>           <lgl>   <chr>           <chr>            <chr>   <int> <int> <int> <chr>      <chr>   <chr>      <chr> 
+## 1 urn:lsid:biodi… TRUE    REPTILIA        https://biodive… class    3000 33626 36658 taxonIdMa… Animal… https://b… Chord…
+## # ℹ 3 more variables: phylum_id <chr>, class <chr>, class_id <chr>
 ```
 
 # `show_values()` & `search_values()`
 
-Once a desired field is found, you can use `show_values` to understand the 
-information contained within that field, e.g.
+Once a desired field is found, you can use `show_values()` to understand the 
+information contained within that field. For example, we can show the values 
+contained in the field `basisOfRecord`.
 
 
-```r
-search_all(fields, "basis") |> show_values()
+``` r
+search_all(fields, "basisOfRecord") |> show_values()
 ```
 
 ```
@@ -338,24 +256,24 @@ search_all(fields, "basis") |> show_values()
 ```
 
 ```
-## # A tibble: 9 × 2
-##   field         category           
-##   <chr>         <chr>              
-## 1 basisOfRecord HUMAN_OBSERVATION  
-## 2 basisOfRecord PRESERVED_SPECIMEN 
-## 3 basisOfRecord OBSERVATION        
-## 4 basisOfRecord OCCURRENCE         
-## 5 basisOfRecord MACHINE_OBSERVATION
-## 6 basisOfRecord MATERIAL_SAMPLE    
-## 7 basisOfRecord LIVING_SPECIMEN    
-## 8 basisOfRecord MATERIAL_CITATION  
-## 9 basisOfRecord FOSSIL_SPECIMEN
+## # A tibble: 9 × 1
+##   basisOfRecord      
+##   <chr>              
+## 1 HUMAN_OBSERVATION  
+## 2 PRESERVED_SPECIMEN 
+## 3 MACHINE_OBSERVATION
+## 4 OCCURRENCE         
+## 5 OBSERVATION        
+## 6 MATERIAL_SAMPLE    
+## 7 LIVING_SPECIMEN    
+## 8 MATERIAL_CITATION  
+## 9 FOSSIL_SPECIMEN
 ```
 
-This provides the information you need to pass meaningful queries to `galah_filter`.
+Use this information to pass meaningful queries to `galah_filter()`.
 
 
-```r
+``` r
 galah_call() |> 
   galah_filter(basisOfRecord == "LIVING_SPECIMEN") |> 
   atlas_counts()
@@ -365,56 +283,30 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##    count
 ##    <int>
-## 1 213918
+## 1 126135
 ```
 
-This works for several other types of query, such as data profiles:
+This works for other types of query, such as data profiles:
 
 
-```r
+``` r
 search_all(profiles, "ALA") |> 
   show_values() |> 
   head()
 ```
 
 ```
-## ! Search returned 2 matched profiles.
 ## • Showing values for 'ALA'.
 ```
 
 ```
-## # A tibble: 6 × 2
-##   description                                                                                                                        filter
-##   <chr>                                                                                                                              <chr> 
-## 1 "Exclude all records where spatial validity is \"false\""                                                                          "-spa…
-## 2 "Exclude all records with an assertion that the scientific name provided does not match any of the names lists used by the ALA.  … "-ass…
-## 3 "Exclude all records with an assertion that the scientific name provided is not structured as a valid scientific name. Also catch… "-ass…
-## 4 "Exclude all records with an assertion that the name and classification supplied can't be used to choose between 2 homonyms"       "-ass…
-## 5 "Exclude all records with an assertion that kingdom provided doesn't match a known kingdom e.g. Animalia, Plantae"                 "-ass…
-## 6 "Exclude all records with an assertion that the scientific name provided in the record does not match the expected taxonomic scop… "-ass…
+## # A tibble: 6 × 5
+##      id enabled description                                                                           filter displayOrder
+##   <int> <lgl>   <chr>                                                                                 <chr>         <int>
+## 1    94 TRUE    "Exclude all records where spatial validity is \"false\""                             "-spa…            1
+## 2    96 TRUE    "Exclude all records with an assertion that the scientific name provided does not ma… "-ass…            1
+## 3    97 TRUE    "Exclude all records with an assertion that the scientific name provided is not stru… "-ass…            2
+## 4    98 TRUE    "Exclude all records with an assertion that the name and classification supplied can… "-ass…            3
+## 5    99 TRUE    "Exclude all records with an assertion that kingdom provided doesn't match a known k… "-ass…            4
+## 6   100 TRUE    "Exclude all records with an assertion that the scientific name provided in the reco… "-ass…            5
 ```
-
-Or collections:
-
-
-```r
-search_all(collections, "herbarium") |> 
-  show_values() |> 
-  head()
-```
-
-```
-## ! Search returned 21 matched collections.
-## • Showing values for 'co214'.
-```
-
-```
-## # A tibble: 1 × 17
-##   name            acronym uid   phone  email pubDe…¹ latit…² longi…³ websi…⁴ alaPu…⁵ dateC…⁶ lastU…⁷ userL…⁸ active numRe…⁹ numRe…˟ geogr…˟
-##   <chr>           <chr>   <chr> <chr>  <chr> <chr>     <dbl>   <dbl> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>    <int>   <int> <chr>  
-## 1 Allan Herbarium CHR     co214 +64 3… Herb… "The A…   -43.6    172. http:/… https:… 2015-0… 2021-1… not av… Activ…  660000  236000 Worldw…
-## # … with abbreviated variable names ¹​pubDescription, ²​latitude, ³​longitude, ⁴​websiteUrl, ⁵​alaPublicUrl, ⁶​dateCreated, ⁷​lastUpdated,
-## #   ⁸​userLastModified, ⁹​numRecords, ˟​numRecordsDigitised, ˟​geographicDescription
-```
-
-

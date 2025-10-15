@@ -1,7 +1,7 @@
 ---
 title: "Download data"
 author: "Martin Westgate & Dax Kellie"
-date: '2023-01-18'
+date: '2024-11-19'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -12,24 +12,30 @@ vignette: >
 The `atlas_` functions are used to return data from the atlas chosen using 
 `galah_config()`. They are:
 
--   `atlas_counts`
--   `atlas_occurrences`
--   `atlas_species`
--   `atlas_media`
--   `atlas_taxonomy`
+-   `atlas_counts()`
+-   `atlas_occurrences()`
+-   `atlas_species()`
+-   `atlas_media()`
+-   `atlas_taxonomy()`
 
-The final `atlas_` function - `atlas_citation` - is unusual in that it does not
-return any new data. Instead it provides a citation for an existing dataset (
-downloaded using `atlas_occurrences`) that has an associated DOI. The other 
+The final `atlas_` function---`atlas_citation()`---is unusual: It does not
+return any new data, but instead provides a citation for an existing dataset 
+(downloaded using `atlas_occurrences()`) with an associated DOI. The other 
 functions are described below.
+
+It is equally permissable to use the `type` argument of `galah_call()`
+to specify the kind of data you want, and then retrieve the data using `collect()`. 
+Here we use the `atlas_` prefix for consistency with earlier versions of galah,
+and because many `atlas_` functions sometimes include shortcuts to make life
+easier.
 
 
 # Record counts
-`atlas_counts()` provides summary counts on records in the specified atlas, 
-without needing to download all the records. 
+`atlas_counts()` provides summary counts of records in the specified atlas 
+without needing to download all the records first. 
 
 
-```r
+``` r
 galah_config(atlas = "Australia")
 # Total number of records in the ALA
 atlas_counts()
@@ -39,45 +45,46 @@ atlas_counts()
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 113038010
+## 1 146185520
 ```
 
-In addition to the filter arguments, it has an optional `group_by` argument, 
-which provides counts binned by the requested field.
+Group and summarise record counts by specific fields using `galah_group_by()`.
 
 
-```r
+``` r
 galah_call() |>
   galah_group_by(kingdom) |>
   atlas_counts()
 ```
 
 ```
-## # A tibble: 10 × 2
-##    kingdom      count
-##    <chr>        <int>
-##  1 Animalia  85615774
-##  2 Plantae   23758697
-##  3 Fungi      2086631
-##  4 Chromista   854754
-##  5 Protista    145019
-##  6 Bacteria     71523
-##  7 Protozoa      3250
-##  8 Eukaryota     1344
-##  9 Archaea       1106
-## 10 Virus          495
+## # A tibble: 12 × 2
+##    kingdom           count
+##    <chr>             <int>
+##  1 Animalia      113408280
+##  2 Plantae        27572183
+##  3 Fungi           2448600
+##  4 Chromista       1057157
+##  5 Protista         316541
+##  6 Bacteria         113480
+##  7 Archaea            4120
+##  8 Virus              2382
+##  9 Bamfordvirae        210
+## 10 Orthornavirae       138
+## 11 Viroid              104
+## 12 Shotokuvirae         41
 ```
 
 
 # Species lists
 A common use case of atlas data is to identify which species occur in a specified
 region, time period, or taxonomic group. `atlas_species()` is similar to 
-`search_taxa`, in that it returns taxonomic information and unique identifiers 
-in a `tibble`. It differs in not being able to return information on taxonomic 
-levels other than the species; but also in being more flexible by supporting filtering:
+`search_taxa()`, in that it returns taxonomic information and unique identifiers, 
+but differs by returning information only on species and is far more flexible by 
+supporting filtering.
 
 
-```r
+``` r
 species <- galah_call() |>
   galah_identify("Rodentia") |>
   galah_filter(stateProvince == "Northern Territory") |>
@@ -87,33 +94,33 @@ species |> head()
 ```
 
 ```
-## # A tibble: 6 × 10
-##   kingdom  phylum   class    order    family  genus        species                     author            species_guid               verna…¹
-##   <chr>    <chr>    <chr>    <chr>    <chr>   <chr>        <chr>                       <chr>             <chr>                      <chr>  
-## 1 Animalia Chordata Mammalia Rodentia Muridae Mesembriomys Mesembriomys gouldii        (J.E. Gray, 1843) https://biodiversity.org.… Black-…
-## 2 Animalia Chordata Mammalia Rodentia Muridae Zyzomys      Zyzomys argurus             (Thomas, 1889)    https://biodiversity.org.… Common…
-## 3 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys hermannsburgensis (Waite, 1896)     https://biodiversity.org.… Sandy …
-## 4 Animalia Chordata Mammalia Rodentia Muridae Notomys      Notomys alexis              Thomas, 1922      https://biodiversity.org.… Spinif…
-## 5 Animalia Chordata Mammalia Rodentia Muridae Melomys      Melomys burtoni             (Ramsay, 1887)    https://biodiversity.org.… Grassl…
-## 6 Animalia Chordata Mammalia Rodentia Muridae Mus          Mus musculus                Linnaeus, 1758    https://biodiversity.org.… House …
-## # … with abbreviated variable name ¹​vernacular_name
+## # A tibble: 6 × 11
+##   taxon_concept_id species_name scientific_name_auth…¹ taxon_rank kingdom phylum class order family genus vernacular_name
+##   <chr>            <chr>        <chr>                  <chr>      <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr>          
+## 1 https://biodive… Pseudomys d… (Gould, 1842)          species    Animal… Chord… Mamm… Rode… Murid… Pseu… Delicate Mouse 
+## 2 https://biodive… Mesembriomy… (J.E. Gray, 1843)      species    Animal… Chord… Mamm… Rode… Murid… Mese… Black-footed T…
+## 3 https://biodive… Zyzomys arg… (Thomas, 1889)         species    Animal… Chord… Mamm… Rode… Murid… Zyzo… Common Rock-rat
+## 4 https://biodive… Pseudomys h… (Waite, 1896)          species    Animal… Chord… Mamm… Rode… Murid… Pseu… Sandy Inland M…
+## 5 https://biodive… Melomys bur… (Ramsay, 1887)         species    Animal… Chord… Mamm… Rode… Murid… Melo… Grassland Melo…
+## 6 https://biodive… Notomys ale… Thomas, 1922           species    Animal… Chord… Mamm… Rode… Murid… Noto… Spinifex Hoppi…
+## # ℹ abbreviated name: ¹​scientific_name_authorship
 ```
 
 
 # Occurrence data
-To download occurrence data you will need to specify your email in
-`galah_config()`. This email must be associated with an active ALA account. See
-more information in the [config section](#config)
+To download occurrence data you will need to specify an email in
+`galah_config()` that has been registered to an account with your selected GBIF node. 
+See more information in the [config section](#config).
 
 
-```r
+``` r
 galah_config(email = "your_email@email.com", atlas = "Australia")
 ```
 
-Download occurrence records for *Eolophus roseicapilla*
+Download occurrence records for *Eolophus roseicapilla*.
 
 
-```r
+``` r
 occ <- galah_call() |>
   galah_identify("Eolophus roseicapilla") |>
   galah_filter(
@@ -123,32 +130,39 @@ occ <- galah_call() |>
   ) |>
   galah_select(institutionID, group = "basic") |>
   atlas_occurrences()
-  
+```
+
+```
+## Retrying in 1 seconds.
+## Retrying in 2 seconds.
+## Retrying in 4 seconds.
+```
+
+``` r
 occ |> head()
 ```
 
 ```
 ## # A tibble: 6 × 9
-##   decimalLatitude decimalLongitude eventDate           scientificName        taxonConceptID                 recor…¹ dataR…² occur…³ insti…⁴
-##             <dbl>            <dbl> <dttm>              <chr>                 <chr>                          <chr>   <chr>   <chr>   <lgl>  
-## 1           -35.9             149. 2020-09-12 14:00:00 Eolophus roseicapilla https://biodiversity.org.au/a… 17f46d… eBird … PRESENT NA     
-## 2           -35.9             149. 2021-09-27 14:00:00 Eolophus roseicapilla https://biodiversity.org.au/a… dbb711… eBird … PRESENT NA     
-## 3           -35.9             149. 2012-01-18 13:00:00 Eolophus roseicapilla https://biodiversity.org.au/a… 4f7cd7… BirdLi… PRESENT NA     
-## 4           -35.9             149. 2017-03-17 13:00:00 Eolophus roseicapilla https://biodiversity.org.au/a… 3236c4… eBird … PRESENT NA     
-## 5           -35.9             149. 2020-11-14 13:00:00 Eolophus roseicapilla https://biodiversity.org.au/a… ef2b90… eBird … PRESENT NA     
-## 6           -35.8             149. 2021-04-02 13:00:00 Eolophus roseicapilla https://biodiversity.org.au/a… 45a589… eBird … PRESENT NA     
-## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​occurrenceStatus, ⁴​institutionID
+##   recordID            scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           occurrenceStatus
+##   <chr>               <chr>          <chr>                    <dbl>            <dbl> <dttm>              <chr>           
+## 1 0000a928-d756-42eb… Eolophus rose… https://biodi…           -35.6             149. 2017-04-19 09:11:00 PRESENT         
+## 2 0001bc78-d2e9-48aa… Eolophus rose… https://biodi…           -35.2             149. 2019-08-13 15:13:00 PRESENT         
+## 3 0002064f-08ea-425b… Eolophus rose… https://biodi…           -35.3             149. 2014-03-16 06:48:00 PRESENT         
+## 4 00022dd2-9f85-4802… Eolophus rose… https://biodi…           -35.3             149. 2022-05-08 08:20:00 PRESENT         
+## 5 0002cc35-8d5a-4d20… Eolophus rose… https://biodi…           -35.3             149. 2015-11-01 08:00:00 PRESENT         
+## 6 00030a8c-082f-44f0… Eolophus rose… https://biodi…           -35.3             149. 2022-01-06 11:47:00 PRESENT         
+## # ℹ 2 more variables: dataResourceName <chr>, institutionID <lgl>
 ```
 
 
 # Media metadata
 In addition to text data describing individual occurrences and their attributes, 
 ALA stores images, sounds and videos associated with a given record. Metadata on
-these records can be downloaded to `R` using `atlas_media()` and the same set of 
-filters as the other data download functions.
+these records can be downloaded using `atlas_media()`.
 
 
-```r
+``` r
 media_data <- galah_call() |>
   galah_identify("Eolophus roseicapilla") |>
   galah_filter(
@@ -160,134 +174,107 @@ media_data |> head()
 ```
 
 ```
-## # A tibble: 6 × 20
-##   decima…¹ decim…² eventDate           scien…³ taxon…⁴ recor…⁵ dataR…⁶ occur…⁷ multi…⁸ media…⁹ mime_…˟ size_…˟ date_…˟ date_…˟ height width
-##      <dbl>   <dbl> <dttm>              <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>     <int> <chr>   <chr>    <int> <int>
-## 1    -35.6    149. 2020-08-04 01:50:00 Eoloph… https:… 063bb0… iNatur… PRESENT Image   2f4d32… image/… 2654217 2020-0… 2020-0…   1200  1800
-## 2    -35.6    149. 2020-08-04 01:50:00 Eoloph… https:… 063bb0… iNatur… PRESENT Image   734074… image/… 2422643 2020-0… 2020-0…   1200  1800
-## 3    -35.6    149. 2020-08-04 01:50:00 Eoloph… https:… 063bb0… iNatur… PRESENT Image   89171c… image/… 2212660 2020-0… 2020-0…   1200  1800
-## 4    -35.6    149. 2020-08-04 01:50:00 Eoloph… https:… 063bb0… iNatur… PRESENT Image   e681d3… image/… 3414736 2020-0… 2020-0…   1200  1800
-## 5    -35.5    149. 2020-08-26 01:53:00 Eoloph… https:… 286841… iNatur… PRESENT Image   1295c2… image/…  863158 2021-0… 2021-0…   1200  1800
-## 6    -35.5    149. 2020-10-14 02:34:00 Eoloph… https:… 064a39… iNatur… PRESENT Image   f97686… image/…  955916 2020-1… 2020-1…   1200  1800
-## # … with 4 more variables: creator <chr>, license <chr>, data_resource_uid <chr>, occurrence_id <chr>, and abbreviated variable names
-## #   ¹​decimalLatitude, ²​decimalLongitude, ³​scientificName, ⁴​taxonConceptID, ⁵​recordID, ⁶​dataResourceName, ⁷​occurrenceStatus, ⁸​multimedia,
-## #   ⁹​media_id, ˟​mime_type, ˟​size_in_bytes, ˟​date_uploaded, ˟​date_taken
+## # A tibble: 6 × 19
+##   media_id   recordID scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           occurrenceStatus
+##   <chr>      <chr>    <chr>          <chr>                    <dbl>            <dbl> <dttm>              <chr>           
+## 1 ff8322d0-… 003a192… Eolophus rose… https://biodi…           -35.3             149. 2020-09-12 16:11:00 PRESENT         
+## 2 c66fc819-… 015ee7c… Eolophus rose… https://biodi…           -35.4             149. 2020-08-09 15:11:00 PRESENT         
+## 3 fe6d7b94-… 05e86b7… Eolophus rose… https://biodi…           -35.4             149. 2020-11-13 22:29:00 PRESENT         
+## 4 2f4d32c0-… 063bb0f… Eolophus rose… https://biodi…           -35.6             149. 2020-08-04 11:50:00 PRESENT         
+## 5 73407414-… 063bb0f… Eolophus rose… https://biodi…           -35.6             149. 2020-08-04 11:50:00 PRESENT         
+## 6 89171c49-… 063bb0f… Eolophus rose… https://biodi…           -35.6             149. 2020-08-04 11:50:00 PRESENT         
+## # ℹ 11 more variables: dataResourceName <chr>, multimedia <chr>, images <chr>, sounds <lgl>, videos <lgl>,
+## #   creator <chr>, license <chr>, mimetype <chr>, width <int>, height <int>, image_url <chr>
 ```
 
 To actually download the media files to your computer, use [collect_media()].
 
+
+``` r
+media_data |>
+  collect_media()
+```
+
 # Taxonomic trees
-`atlas_taxonomy` provides a way to build taxonomic trees from one clade down to 
-another using ALA's internal taxonomy. Specify which taxonomic level your tree 
-will go down to with `galah_down_to`.
+`atlas_taxonomy()` provides a way to build taxonomic trees from one clade down to 
+another using each GBIF node's internal taxonomy. Specify which taxonomic level 
+your tree will go down to with `galah_filter()` using the `rank` argument.
 
 
-```r
-classes <- galah_call() |>
+``` r
+galah_call() |>
   galah_identify("chordata") |>
-  galah_down_to(class) |>
+  galah_filter(rank == class) |>
   atlas_taxonomy()
 ```
 
-This function is unique within `galah` as it is the only function that returns
-a `data.tree`, rather than a `tibble`. 
-
-
 ```
-##                             levelName
-## 1  Chordata                          
-## 2   ¦--Cephalochordata               
-## 3   ¦   °--Amphioxi                  
-## 4   ¦--Craniata                      
-## 5   ¦   °--Agnatha                   
-## 6   ¦       ¦--Cephalasipidomorphi   
-## 7   ¦       °--Myxini                
-## 8   ¦--Tunicata                      
-## 9   ¦   ¦--Appendicularia            
-## 10  ¦   ¦--Ascidiacea                
-## 11  ¦   °--Thaliacea                 
-## 12  °--Vertebrata                    
-## 13      °--Gnathostomata             
-## 14          ¦--Amphibia              
-## 15          ¦--Aves                  
-## 16          ¦--Mammalia              
-## 17          ¦--Pisces                
-## 18          ¦   ¦--Actinopterygii    
-## 19          ¦   ¦--Chondrichthyes    
-## 20          ¦   ¦--Cephalaspidomorphi
-## 21          ¦   °--Sarcopterygii     
-## 22          °--Reptilia
+## # A tibble: 19 × 4
+##    name            rank      parent_taxon_concept_id                                                   taxon_concept_id  
+##    <chr>           <chr>     <chr>                                                                     <chr>             
+##  1 Chordata        phylum    <NA>                                                                      https://biodivers…
+##  2 Cephalochordata subphylum https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd https://biodivers…
+##  3 Tunicata        subphylum https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd https://biodivers…
+##  4 Appendicularia  class     https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d533cc51 https://biodivers…
+##  5 Ascidiacea      class     https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d533cc51 https://biodivers…
+##  6 Thaliacea       class     https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d533cc51 https://biodivers…
+##  7 Vertebrata      subphylum https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd https://biodivers…
+##  8 Agnatha         informal  https://biodiversity.org.au/afd/taxa/5d6076b1-b7c7-487f-9d61-0fea0111cc7e https://biodivers…
+##  9 Myxini          informal  https://biodiversity.org.au/afd/taxa/66db22c8-891d-4b16-a1a2-b66feaeaa3e0 https://biodivers…
+## 10 Petromyzontida  informal  https://biodiversity.org.au/afd/taxa/66db22c8-891d-4b16-a1a2-b66feaeaa3e0 https://biodivers…
+## 11 Gnathostomata   informal  https://biodiversity.org.au/afd/taxa/5d6076b1-b7c7-487f-9d61-0fea0111cc7e https://biodivers…
+## 12 Amphibia        class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodivers…
+## 13 Aves            class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodivers…
+## 14 Mammalia        class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodivers…
+## 15 Reptilia        class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodivers…
+## 16 Pisces          informal  https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodivers…
+## 17 Actinopterygii  class     https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bdaa051 https://biodivers…
+## 18 Chondrichthyes  class     https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bdaa051 https://biodivers…
+## 19 Sarcopterygii   class     https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bdaa051 https://biodivers…
 ```
 
-Although the tree format is useful, 
-converting to a `data.frame` is straightforward.
-
-
-```r
-data.tree::ToDataFrameTypeCol(classes, type = "rank") |> head()
-```
-
-```
-##   rank_phylum  rank_subphylum rank_superclass rank_informal          rank_class
-## 1    Chordata Cephalochordata            <NA>          <NA>            Amphioxi
-## 2    Chordata        Craniata         Agnatha          <NA> Cephalasipidomorphi
-## 3    Chordata        Craniata         Agnatha          <NA>              Myxini
-## 4    Chordata        Tunicata            <NA>          <NA>      Appendicularia
-## 5    Chordata        Tunicata            <NA>          <NA>          Ascidiacea
-## 6    Chordata        Tunicata            <NA>          <NA>           Thaliacea
-```
-
-
-# Configuring `galah`
-Various aspects of the galah package can be customized. To preserve
-configuration for future sessions, set `profile_path` to a location of a
-`.Rprofile` file.
+# Configuring galah
+Various aspects of the galah package can be customized. 
 
 ## Email
-To download occurrence records, you will need to provide an email address
-registered with the ALA. You can create an account [here](https://auth.ala.org.au/userdetails/registration/createAccount).
-Once an email is registered with the ALA, it should be stored in the config:
+To download occurrence records, species lists or media, you will need to 
+provide an email address registered with the service that you want to use 
+(e.g. for the ALA you can create an account 
+[here](https://auth.ala.org.au/userdetails/registration/createAccount)).
 
-```r
+Once an email is registered, it should be stored in the config:
+
+``` r
 galah_config(email = "myemail@gmail.com")
 ```
 
-## Caching
-`galah` can cache most results to local files. This means that if the same code
-is run multiple times, the second and subsequent iterations will be faster.
-
-By default, this caching is session-based, meaning that the local files are
-stored in a temporary directory that is automatically deleted when the R
-session is ended. This behaviour can be altered so that caching is permanent,
-by setting the caching directory to a non-temporary location.
+## Setting your directory
+By default, galah stores downloads in a temporary folder, meaning that the 
+local files are automatically deleted when the R session is ended. This 
+behaviour can be altered so that downloaded files are preserved by setting the 
+directory to a non-temporary location.
 
 
-```r
-galah_config(cache_directory = "example/dir")
+``` r
+galah_config(directory = "example/dir")
 ```
 
-By default, caching is turned off. To turn caching on, run
-
-```r
-galah_config(caching = FALSE)
-```
 ## Setting the download reason
 ALA requires that you provide a reason when downloading occurrence data 
-(via the galah `atlas_occurrences()` function). The reason is set as 
+(via the galah `atlas_occurrences()` function). `reason` is set as 
 "scientific research" by default, but you can change this using `galah_config()`. 
-See `show_all_reasons()` for valid download reasons.
+See `show_all(reasons)` for valid download reasons.
 
 
-```r
+``` r
 galah_config(download_reason_id = your_reason_id)
 ```
 
 ## Debugging
 If things aren't working as expected, more detail (particularly about web 
-requests and caching behaviour) can be obtained by setting the `verbose` 
-configuration option:
+requests and caching behaviour) can be obtained by setting `verbose = TRUE`.
 
 
-```r
+``` r
 galah_config(verbose = TRUE)
 ```

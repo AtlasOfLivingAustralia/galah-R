@@ -1,4 +1,4 @@
-url: https://galah.ala.org.au
+url: https://galah.ala.org.au/R/
 template:
   bootstrap: 5
   bslib:
@@ -15,6 +15,7 @@ navbar:
     - articles
     - reference
     right:
+    - search
     - news
     - github
   components:
@@ -24,30 +25,41 @@ navbar:
     articles:
       text: Articles
       menu:
+      - text: Get started
       - text: Choosing an atlas
         href: articles/choosing_an_atlas.html
-      - text: Piping in galah
-        href: articles/piping.html
       - text: Look up information
         href: articles/look_up_information.html
       - text: Narrow your results
         href: articles/narrow_your_results.html
       - text: Download data
         href: articles/download_data.html
+      - text: ---
+      - text: Advanced
+      - text: Object-oriented programming
+        href: articles/object_oriented_programming.html
+      - text: Reproduciblility
+        href: articles/download-data-reproducibly.html
+      - text: Taxonomic filtering
+        href: articles/taxonomic_filtering.html
+      - text: Spatial filtering
+        href: articles/spatial_filtering.html
+      - text: Temporal filtering
+        href: articles/temporal_filtering.html
+          
     news:
       text: News
       href: news/index.html
 reference:
-- title: Start a data query
-  contents: galah_call
-- title: Look up information
-  contents:
+- title: Getting started
+  contents: 
+  - galah_call
+  - galah_config
   - show_all
   - search_all
   - search_taxa
   - search_identifiers
   - search_fields
-  - search_media
   - search_values
   - show_all_profiles
   - show_all_fields
@@ -55,38 +67,34 @@ reference:
   - show_all_reasons
   - show_all_ranks
   - show_values
-- title: Narrow results
+- title: Amend a query
   contents:
-  - galah_identify
-  - galah_filter
-  - galah_select
-  - galah_group_by
-  - galah_geolocate
-  - galah_apply_profile
-  - galah_down_to
-- title: Download data
+  - apply_profile
+  - arrange.data_request
+  - count.data_request
+  - desc
+  - filter.data_request
+  - geolocate
+  - group_by.data_request
+  - identify.data_request
+  - select.data_request
+  - slice_head.data_request
+  - reexports
+- title: Execute a query via API
   contents:
+  - collapse.data_request
+  - compute.data_request
+  - collect.data_request
   - atlas_occurrences
   - atlas_counts
   - atlas_species
   - atlas_taxonomy
   - atlas_media
   - collect_media
-  - collect_occurrences
-- title: Masked functions
+- title: Miscellaneous functions
   contents:
-  - identify.data_request
-  - filter.data_request
-  - select.data_request
-  - group_by.data_request
-  - st_crop.data_request
-  - slice_head.data_request
-  - count.data_request
-  - reexports
-- title: Manage cache
-  contents:
-  - clear_cached_files
-- title: Configure session
-  contents: galah_config
-- title: Cite
-  contents: atlas_citation
+  - taxonomic_searches
+  - print_galah_objects
+  - read_zip
+  - atlas_citation
+- title: internal

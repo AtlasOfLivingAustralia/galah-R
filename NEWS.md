@@ -1,3 +1,119 @@
+# galah 2.1.2
+
+### Minor improvements
+* Support `group_by()` for `atlas_occurrences()` queries (#258)
+* Allow users to download additional information like conservation status from lists using `show_values(all_fields = TRUE)` (#266)
+
+### Bug fixes
+* Queries with multiple filter arguments no longer ignore some filters (#265)
+* Support for Flanders Atlas temporarily deactivated (#256)
+* Fix GBIF downloads to append DOI to attributes of downloaded object
+
+
+# galah 2.1.1
+
+### Minor improvements
+* New vignette to demonstrate methods that support reproducibility
+* New function `read_zip()` to reimport downloaded files
+* Support `group_by()` in occurrence queries to allow facet downloads by any variable (#195, #258)
+* Improvements to `atlas_citation()` for improved clarity
+
+### Bug fixes
+* Improved documentation to use `galah_filter()` to specify a `taxon_concept_id` rather than `galah_identify()` (#245)
+* Adding a `field` without data breaks occurrence downloads (#248)
+* Queries that filter using both `!` and `%in%` parse correctly (#251)
+* `show_all(lists)` no longer truncates results to first 500 rows (#252)
+* `atlas_counts()` no longer errors when `group_by()` is set but record count = 0 (#254)
+* Empty tibbles returned by `atlas_species()` no longer return different column names to queries that return a result (#255)
+
+# galah 2.1.0
+
+### Image downloads
+galah now supports media downloads for all atlases. The only exceptions are GBIF and France, for whom these APIs are not supported (yet)
+
+### Minor improvements
+* Reorganise help files for improved clarity, largely following `dplyr` syntax
+* Support data profiles for Sweden and Spain
+* Species downloads (via `atlas_species()`) now work for Sweden, France, and Spain (#234)
+* `select()` now works for species downloads (i.e. via `atlas_species()`; #185, #227)
+* Temporarily remove Estonian atlas (https://elurikkus.ee) during system upgrades
+
+### Bug fixes
+* Fix bugs in `filter`, `group_by` etc. not recognising fields (#237)
+* Swap to new APIs for Australia (#163) and Austria (#231, #242)
+* Re-add taxonomic help under `?taxonomic_searches` (#241)
+
+# galah 2.0.2
+
+### Minor improvements
+* Experimental `galah_geolocate(type = "radius")` added. Supports filtering by point location and radius (in km) (#216)
+* Support `galah_geolocate()` and associated sub-functions for GBIF queries
+* `galah_filter()` no longer fails when assertions are specified in `galah_filter()` (#199)
+* Improved behaviour and robustness of `atlas_species()`, particularly for other atlases (#234)
+* Improved behavior of `select()`, including supporting `atlas_species()` and adding new `group = "taxonomy"` option (#218)
+* Updated namematching services for SBDI (Sweden) (#210)
+* Add onLoad message so user is clear which organisation is being queried
+
+### Bug fixes
+* `collect_media()` no longer fails when a thumbnail is missing (#215)
+* `galah_filter()` parses apostrophes correctly in value names (#214)
+* `group_by() |> atlas_counts()` no longer truncates rows at 30 (#223, #198) 
+* Fix bug where `search_values()` did not return matched values
+* `show_values()` & `atlas_counts()` return correctly formatted values (#233)
+* `atlas_occurrences()` no longer overwrites returned field names with user-supplied ones
+* `galah_apply_profile()` now works as expected
+* List items are no longer truncated when using `show_values()` (#235)
+
+
+# galah 2.0.1
+
+### Minor improvements
+`collapse()` now returns a `query` object, rather than a `query_set`, 
+and gains a `.expand` argument to optionally append a `query_set` for debugging
+purposes (#217).
+
+### Bug fixes
+* Avoid triggering multiple errors when galah_identify() returns no matched taxa (#219)
+* Improve clarity of quick start guide vignette (#221)
+* show_values() no longer truncates rows to 30 (#222)
+* Column ID name returned by search_all(lists) now matches the correct field ID for galah_filter() (#225)
+
+# galah 2.0.0
+
+### Object-oriented programming
+* galah 2.0.0 is now built around object-oriented programming principles. This architectural change makes query building in galah more modular and transparent. As a result, galah 2.0.0 allows for easier debugging and gives users options for more advanced query building (for more information, see "Object-oriented programming" vignette on [galah website](https://galah.ala.org.au/R/)) (#183).
+
+### `collapse()`, `compute()`, `collect()`
+* New underlying architecture behind every function that pings an API in galah separates query building into 3 stages: Convert an object to a `query_set` that lists all APIs that will be pinged (`collapse()`), send the queries to required APIs (`compute()`), and return data as a `tibble` (`collect()`) (#183).
+* New architecture solves timing-out issue when downloading large numbers of records (#180, #192)
+* `galah_filter()`, `galah_select()` and related functions now evaluated lazily; no API calls are made until `compute()` is called, meaning that earlier programming stages are faster and easier to debug.
+
+### Major improvements to `galah_filter()`
+* `galah_filter()` has been upgraded to use a hierarchical parsing architecture suggested by [Advanced R](https://adv-r.hadley.nz/expressions.html). As a result, `galah_filter()` is faster and evaluates expressions more consistently (#196, #169)
+* `galah_filter()` now supports `is.na`, `!`, `c()` & `%in%` (#196)
+
+### Minor improvements
+* The [potions package](https://potions.ala.org.au/) underlies `galah_config()` for better options management (#193)
+* Addition of `slice_head()` and `desc()` as masked functions to use in galah `atlas_counts()` query.
+* New vignettes added for advanced taxonomic, spatial and temporal filtering (#42)
+
+### Bug fixes
+* Fixed parsing of `|` in `galah_filter()` (#169)
+* `show_values()` errors nicely when API is down (#184)
+* Sporadic `atlas$region` error when loading galah fixed with potions package implementation (#178)
+* DOI is no longer missing as an attribute when `atlas_occurrences(mint_doi = TRUE)` (#182)
+* Fixed bug where the order of fields in `group_by()` sometimes caused an error (#201)
+* Fixed parsing of ampersands (`&`) in query results (#203)
+* galah builds correct `data_request` object when wrapped by a function (#207)
+
+# galah 1.5.4
+
+Patch release to fix minor issues on some `devel` systems on CRAN.
+
+# galah 1.5.3
+
+Minor release to address CRAN issues. Last release before 2.0.0.
+
 # galah 1.5.2
 
 Minor release to resolve issues on CRAN, and a few recent bugs.
@@ -40,7 +156,7 @@ The current implementation is experimental and back-end changes are expected in 
 
 ### Minor improvements
 * `galah_config()` gains a `print` function, and now uses fuzzy matching for the `atlas` field to match to region, organisation or acronym (as defined by `show_all(atlases)`). An example use case is to match to organisations via acronyms, e.g. `galah_config(atlas = "ALA")`.
-* Improved support for data from Spain via [gbif.es](https://www.gbif.es) (name-matching, lists, spatial)
+* Improved support for data from Spain via [gbif.es](https://gbif.es) (name-matching, lists, spatial)
 * Swapped provider for data from France; formerly [gbif.fr](http://www.gbif.fr), now [OpenObs](https://openobs.mnhn.fr), as per advice from maintainers
 * Reading data from disk now uses `readr::read_csv` in place of `utils::read.csv` for improved speed
 * `show_all` (and associated sub-functions) gain a `limit` argument, set to NULL (i.e. no limit) by default

@@ -1,69 +1,59 @@
-#' Biodiversity Data from the Living Atlas Community
+#' Biodiversity Data from the GBIF Node Network
 #'
 #' @description
-#' The living atlas community provides tools to enable users to find, access, 
-#' combine and visualise data on biodiversity. 'galah' enables the R community 
-#' to directly access data and resources hosted by the living atlases. The
-#' basic unit of observation is an **occurrence** record, based on the
-#' 'Darwin Core' data standard (<https://dwc.tdwg.org>); however `galah` also 
-#' enables users to locate and download taxonomic information, 
-#' associated media such images or sounds, all while restricting their queries 
-#' to particular taxa or locations. Users can specify which columns are returned
-#' by a query, or restrict their results to observations that meet particular
-#' quality-control criteria. 
+#' The Global Biodiversity Information Facility (GBIF; <https://www.gbif.org>)
+#' provides tools to enable users to find, access, combine and visualise 
+#' biodiversity data. `galah` enables the R community to directly access data and 
+#' resources hosted by GBIF and several of it's subsidiary organisations, known
+#' as 'nodes'. 
+#' 
+#' The basic unit of data stored by these infrastructures is 
+#' an **occurrence** record, which is an observation of a biological entity at
+#' a specific time and place. However, `galah` also facilitates access to 
+#' taxonomic information, or associated media such images or sounds, 
+#' all while restricting their queries to particular taxa or locations. Users 
+#' can specify which columns are returned by a query, or restrict their results 
+#' to observations that meet particular quality-control criteria. 
 #'
+#' For those outside Australia, 'galah' is the common name of
+#' *Eolophus roseicapilla*, a widely-distributed Australian bird species.
 #' @name galah
 #' @docType package
-#' @references For more information on the ALA API, visit <https://docs.ala.org.au/>.
-#' If you have any questions, comments or suggestions, please email
-#' [support@ala.org.au](mailto:support@ala.org.au).
-#'
 #' @section Functions:
-#' **Start a data query**
-#'
-#'   * [galah_call()] Start to build a data query
 #' 
-#' **Narrow your results**
+#' **Getting Started**
 #' 
-#'   * [galah_identify()] or \code{\link[=identify.data_request]{identify()}} Search for taxonomic identifiers
-#'   * [galah_filter()] or \code{\link[=filter.data_request]{filter()}} Filter records
-#'   * [galah_select()] or \code{\link[=select.data_request]{select()}} Fields to report information for
-#'   * [galah_group_by()] or \code{\link[=group_by.data_request]{group_by()}} Fields to group counts by
-#'   * [galah_geolocate()] or \code{\link[=st_crop.data_request]{st_crop()}} Specify a location
-#'   * [galah_apply_profile()] Restrict to data that pass predefined checks (ALA only)
-#'   * [galah_down_to()] Specify a taxonomic rank
-#'   * \code{\link[=slice_head.data_request]{slice_head()}} Choose the first n rows of a download
-#' 
-#' **Download data**
-#' 
-#'   * [atlas_occurrences()] Download occurrence records
-#'   * [atlas_counts()] or \code{\link[=count.data_request]{count()}} Count the number of records or species returned by a query
-#'   * [atlas_species()] Download species lists
-#'   * [atlas_taxonomy()] Return a section of the ALA taxonomic tree
-#'   * [atlas_media()] View images and sounds available to download
-#'   * [collect_media()] Download images and sounds
-#'   * [collect_occurrences()] Download previously-defined sets of occurrence records
-#'   
-#' **Look up information**
-#'
-#'   * [search_taxa()] Search for taxa using a text-search
-#'   * [search_identifiers()] Search for taxa using taxonomic identifiers
+#'   * [galah_call()]/\code{\link[=request_data]{request_()}} Start to build a query
+#'   * [galah_config()] Set package configuration options
 #'   * [show_all()] & [search_all()] Data for generating filter queries
 #'   * [show_values()] & [search_values()] Show or search for values _within_ 
 #'   `fields`, `profiles`, `lists`, `collections`, `datasets` or `providers`
+#'   
+#' **Amend a query**
 #' 
-#' **Manage cache**
+#'   * [apply_profile()]/[galah_apply_profile()] Restrict to data that pass predefined checks (ALA only)
+#'   * \code{\link[=arrange.data_request]{arrange()}} Arrange rows of a query on the server side
+#'   * \code{\link[=count.data_request]{count()}} Request counts of the specified data type
+#'   * [desc()] Arrange counts in descending order (when combined with \code{\link[=arrange.data_request]{arrange()}})
+#'   * \code{\link[=filter.data_request]{filter()}}/[galah_filter()] Filter records
+#'   * [geolocate()]/[galah_geolocate()] Spatial filtering of a query
+#'   * \code{\link[=group_by.data_request]{group_by()}}/[galah_group_by()] Group counts by one or more fields
+#'   * \code{\link[=identify.data_request]{identify()}}/[galah_identify()] Search for taxonomic identifiers (see also \code{\link[=taxonomic_searches]{taxonomic_searches}})
+#'   * \code{\link[=select.data_request]{select()}}/[galah_select()] Fields to report information for
+#'   * \code{\link[=slice_head.data_request]{slice_head()}} Choose the first n rows of a download
+#'   * [unnest()] Expand metadata for `fields`, `lists`, `profiles` or `taxa`
+#'
+#' **Execute a query via API**
 #' 
-#'   * [show_all_cached_files()] List previously cached files and their metadata
-#'   * [clear_cached_files()] Clear previously cached files and their metadata
+#'   * \code{\link[=collapse.data_request]{collapse()}} Convert a `data_request` into a `query` 
+#'   * \code{\link[=compute.data_request]{compute()}} Compute a query
+#'   * \code{\link[=collect.data_request]{collect()}}/\code{\link[=atlas_]{atlas_()}}/[collect_media()] Retrieve a database query
 #' 
-#' **Configure session**
+#' **Miscellaneous functions**
 #' 
-#'   * [galah_config()] Package configuration options
-#' 
-#' **Cite**
-#' 
-#'   * [atlas_citation()] Citation for a dataset
+#'   * [atlas_citation()] Get a citation for a dataset
+#'   * [read_zip()] To read data from an earlier download
+#'   * \code{\link[=print.data_request]{print()}} Print functions for galah objects
 #'
 #' @section Terminology:
 #'
@@ -83,18 +73,14 @@
 #' Data fields are important because they provide a means to **filter**
 #' occurrence records;  i.e. to return only the information that you need, and
 #' no more. Consequently, much of the architecture of `galah` has been
-#' designed to make filtering as simple as possible. 
-#' Functions with the `galah_` prefix offer ways to shape your query 
-#' call. Each `galah_` function allows the user to filter in a different way. 
-#' Again, the function suffix reveals what each one does. [galah_filter()], 
-#' [galah_select()] and [galah_group_by()] intentionally match `dplyr`'s `select()`, 
-#' `filter()` and `group_by()` functions, both in their name and how they they are
-#' used. For example, you can use [galah_select()] to choose what information
-#' is returned as columns. Alternatively, you can use [galah_filter()] to filter
-#' the rows. You can also choose specific taxa with [galah_identify()] or choose 
-#' a specific location using [galah_geolocate()]. 
-#' By combining different filters, it is possible to build complex 
-#' queries to return only the most valuable information for a given problem.
+#' designed to make filtering as simple as possible. The easiest way to do this 
+#' is to start a pipe with `galah_call()` and follow it with the relevant 
+#' `dplyr` function; starting with `filter()`, but also including `select()`,
+#' `group_by()` or others. Functions without a relevant `dplyr` synonym include
+#' [galah_identify()]/`identify()` for choosing a taxon, or [galah_geolocate()]/
+#' `st_crop()` for choosing a specific location. By combining different filters, 
+#' it is possible to build complex queries to return only the most valuable 
+#' information for a given problem.
 #'
 #' A notable extension of the filtering approach is to remove records with low
 #' 'quality'. All living atlases perform quality control checks on all records 
@@ -107,51 +93,10 @@
 #' data quality profiles is returned by `show_all(profiles)`. Note this service 
 #' is currently only available for the Australian atlas (ALA).
 #'
-#' For those outside Australia, 'galah' is the common name of
-#' *Eolophus roseicapilla*, a widely-distributed
-#' Australian bird species.
-#'
-#' @section Package design:
-#'
-#' In most cases, users will be primarily interested in using `galah` to
-#' return data from one of the living atlases. These functions are named with 
-#' the prefix `atlas_`, followed by a suffix describing the information that 
-#' they provide. For example, users that wish to download occurrence data can 
-#' use the function [atlas_occurrences()]. Alternatively, users that wish to 
-#' download data on each species (rather than on each occurrence record) can use
-#' [atlas_species()] or download media content (largely images) 
-#' using [atlas_media()]. Users can also assess how many records
-#' meet their particular criteria using [atlas_counts()] and return a taxonomic 
-#' tree for a specific clade from one level down to another level (e.g., from 
-#' family to genus). All functions return a `data.frame` as their standard 
-#' format, except [atlas_taxonomy()] which returns a `data.tree`.
-#'
-#' Functions in `galah` are designed according to a nested architecture. 
-#' Users that require data should begin by locating the relevant `atlas_` 
-#' function; the arguments within that function then call correspondingly-named 
-#' `galah_` functions; specific values that can be interpreted by those `galah_`
-#' functions can be searched for or listed using [search_all()] and [show_all()] 
-#' functions; desired taxa can be also be identified using [search_taxa()] and 
-#' passed within [galah_identify()] to the `taxa` argument of `atlas_` functions.
-#'
-
+#' @importFrom rlang caller_env
+#' @importFrom rlang .data
 #' @keywords internal
 "_PACKAGE"
 
-## usethis namespace: start
-#' @importFrom httr parse_url build_url
-#' @importFrom crul HttpClient Paginator Async url_build url_parse
-#' @importFrom data.tree Do Set Prune Aggregate FromListExplicit ToDataFrameTypeCol ToDataFrameTree as.Node
-#' @importFrom digest digest
-#' @importFrom jsonlite fromJSON
-#' @importFrom stringr regex str_c str_detect str_extract str_locate
-#' str_match str_match_all str_to_title
-#' @importFrom stringr str_replace str_replace_all str_split str_trim str_match
-#' @importFrom utils data packageVersion read.table str
-#' unzip URLencode download.file setTxtProgressBar txtProgressBar tail
-#' @importFrom lifecycle deprecated
-#' @importFrom rlang abort warn inform caller_env
-#' @importFrom glue glue glue_collapse
-#' @importFrom tibble as_tibble tibble is_tibble
-## usethis namespace: end
+#' @importFrom lifecycle badge
 NULL

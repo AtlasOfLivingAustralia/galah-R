@@ -1,3 +1,19 @@
+#' @importFrom dplyr arrange
+#' @export
+dplyr::arrange
+
+#' @importFrom dplyr collect
+#' @export
+dplyr::collect
+
+#' @importFrom dplyr compute
+#' @export
+dplyr::compute
+
+#' @importFrom dplyr collapse
+#' @export
+dplyr::collapse
+
 #' @importFrom graphics identify
 #' @export
 graphics::identify
@@ -17,6 +33,10 @@ dplyr::group_by
 #' @importFrom dplyr slice_head
 #' @export
 dplyr::slice_head
+
+# @importFrom dplyr slice_tail
+# @export
+# dplyr::slice_tail
 
 #' @importFrom dplyr count
 #' @export

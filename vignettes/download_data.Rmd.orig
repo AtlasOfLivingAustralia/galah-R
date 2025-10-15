@@ -12,16 +12,22 @@ vignette: >
 The `atlas_` functions are used to return data from the atlas chosen using 
 `galah_config()`. They are:
 
--   `atlas_counts`
--   `atlas_occurrences`
--   `atlas_species`
--   `atlas_media`
--   `atlas_taxonomy`
+-   `atlas_counts()`
+-   `atlas_occurrences()`
+-   `atlas_species()`
+-   `atlas_media()`
+-   `atlas_taxonomy()`
 
-The final `atlas_` function - `atlas_citation` - is unusual in that it does not
-return any new data. Instead it provides a citation for an existing dataset (
-downloaded using `atlas_occurrences`) that has an associated DOI. The other 
+The final `atlas_` function---`atlas_citation()`---is unusual: It does not
+return any new data, but instead provides a citation for an existing dataset 
+(downloaded using `atlas_occurrences()`) with an associated DOI. The other 
 functions are described below.
+
+It is equally permissable to use the `type` argument of `galah_call()`
+to specify the kind of data you want, and then retrieve the data using `collect()`. 
+Here we use the `atlas_` prefix for consistency with earlier versions of galah,
+and because many `atlas_` functions sometimes include shortcuts to make life
+easier.
 
 ```{r include = FALSE}
 galah_config(email = "ala4r@ala.org.au",
@@ -30,8 +36,8 @@ galah_config(email = "ala4r@ala.org.au",
              verbose = FALSE)
 ```
 # Record counts
-`atlas_counts()` provides summary counts on records in the specified atlas, 
-without needing to download all the records. 
+`atlas_counts()` provides summary counts of records in the specified atlas 
+without needing to download all the records first. 
 
 ```{r, warning = FALSE}
 galah_config(atlas = "Australia")
@@ -39,8 +45,7 @@ galah_config(atlas = "Australia")
 atlas_counts()
 ```
 
-In addition to the filter arguments, it has an optional `group_by` argument, 
-which provides counts binned by the requested field.
+Group and summarise record counts by specific fields using `galah_group_by()`.
 
 ```{r, warning = FALSE}
 galah_call() |>
@@ -52,9 +57,9 @@ galah_call() |>
 # Species lists
 A common use case of atlas data is to identify which species occur in a specified
 region, time period, or taxonomic group. `atlas_species()` is similar to 
-`search_taxa`, in that it returns taxonomic information and unique identifiers 
-in a `tibble`. It differs in not being able to return information on taxonomic 
-levels other than the species; but also in being more flexible by supporting filtering:
+`search_taxa()`, in that it returns taxonomic information and unique identifiers, 
+but differs by returning information only on species and is far more flexible by 
+supporting filtering.
 
 ```{r}
 species <- galah_call() |>
@@ -67,15 +72,15 @@ species |> head()
 
 
 # Occurrence data
-To download occurrence data you will need to specify your email in
-`galah_config()`. This email must be associated with an active ALA account. See
-more information in the [config section](#config)
+To download occurrence data you will need to specify an email in
+`galah_config()` that has been registered to an account with your selected GBIF node. 
+See more information in the [config section](#config).
 
 ```{r, eval = FALSE}
 galah_config(email = "your_email@email.com", atlas = "Australia")
 ```
 
-Download occurrence records for *Eolophus roseicapilla*
+Download occurrence records for *Eolophus roseicapilla*.
 
 ```{r}
 occ <- galah_call() |>
@@ -95,8 +100,7 @@ occ |> head()
 # Media metadata
 In addition to text data describing individual occurrences and their attributes, 
 ALA stores images, sounds and videos associated with a given record. Metadata on
-these records can be downloaded to `R` using `atlas_media()` and the same set of 
-filters as the other data download functions.
+these records can be downloaded using `atlas_media()`.
 
 ```{r, warning=FALSE}
 media_data <- galah_call() |>
@@ -111,69 +115,52 @@ media_data |> head()
 
 To actually download the media files to your computer, use [collect_media()].
 
+```{r, eval=FALSE}
+media_data |>
+  collect_media()
+```
+
 # Taxonomic trees
-`atlas_taxonomy` provides a way to build taxonomic trees from one clade down to 
-another using ALA's internal taxonomy. Specify which taxonomic level your tree 
-will go down to with `galah_down_to`.
+`atlas_taxonomy()` provides a way to build taxonomic trees from one clade down to 
+another using each GBIF node's internal taxonomy. Specify which taxonomic level 
+your tree will go down to with `galah_filter()` using the `rank` argument.
 
 ```{r, warning = FALSE}
-classes <- galah_call() |>
+galah_call() |>
   galah_identify("chordata") |>
-  galah_down_to(class) |>
+  galah_filter(rank == class) |>
   atlas_taxonomy()
 ```
 
-This function is unique within `galah` as it is the only function that returns
-a `data.tree`, rather than a `tibble`. 
-
-```{r, echo = FALSE}
-classes
-```
-
-Although the tree format is useful, 
-converting to a `data.frame` is straightforward.
-
-```{r to-df}
-data.tree::ToDataFrameTypeCol(classes, type = "rank") |> head()
-
-```
-
-
-# Configuring `galah`
-Various aspects of the galah package can be customized. To preserve
-configuration for future sessions, set `profile_path` to a location of a
-`.Rprofile` file.
+# Configuring galah
+Various aspects of the galah package can be customized. 
 
 ## Email
-To download occurrence records, you will need to provide an email address
-registered with the ALA. You can create an account [here](https://auth.ala.org.au/userdetails/registration/createAccount).
-Once an email is registered with the ALA, it should be stored in the config:
+To download occurrence records, species lists or media, you will need to 
+provide an email address registered with the service that you want to use 
+(e.g. for the ALA you can create an account 
+[here](https://auth.ala.org.au/userdetails/registration/createAccount)).
+
+Once an email is registered, it should be stored in the config:
 ```{r eval=FALSE}
 galah_config(email = "myemail@gmail.com")
 ```
 
-## Caching
-`galah` can cache most results to local files. This means that if the same code
-is run multiple times, the second and subsequent iterations will be faster.
-
-By default, this caching is session-based, meaning that the local files are
-stored in a temporary directory that is automatically deleted when the R
-session is ended. This behaviour can be altered so that caching is permanent,
-by setting the caching directory to a non-temporary location.
+## Setting your directory
+By default, galah stores downloads in a temporary folder, meaning that the 
+local files are automatically deleted when the R session is ended. This 
+behaviour can be altered so that downloaded files are preserved by setting the 
+directory to a non-temporary location.
 
 ```{r eval=FALSE}
-galah_config(cache_directory = "example/dir")
+galah_config(directory = "example/dir")
 ```
 
-By default, caching is turned off. To turn caching on, run
-```{r eval=FALSE}
-galah_config(caching = FALSE)
-```
 ## Setting the download reason
 ALA requires that you provide a reason when downloading occurrence data 
-(via the galah `atlas_occurrences()` function). The reason is set as 
+(via the galah `atlas_occurrences()` function). `reason` is set as 
 "scientific research" by default, but you can change this using `galah_config()`. 
-See `show_all_reasons()` for valid download reasons.
+See `show_all(reasons)` for valid download reasons.
 
 ```{r eval=FALSE}
 galah_config(download_reason_id = your_reason_id)
@@ -181,8 +168,7 @@ galah_config(download_reason_id = your_reason_id)
 
 ## Debugging
 If things aren't working as expected, more detail (particularly about web 
-requests and caching behaviour) can be obtained by setting the `verbose` 
-configuration option:
+requests and caching behaviour) can be obtained by setting `verbose = TRUE`.
 
 ```{r eval=FALSE}
 galah_config(verbose = TRUE)

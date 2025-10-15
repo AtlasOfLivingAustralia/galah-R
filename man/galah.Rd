@@ -2,74 +2,66 @@
 % Please edit documentation in R/galah-package.R
 \docType{package}
 \name{galah}
-\alias{galah}
 \alias{galah-package}
-\title{Biodiversity Data from the Living Atlas Community}
+\alias{galah}
+\title{Biodiversity Data from the GBIF Node Network}
 \description{
-The living atlas community provides tools to enable users to find, access,
-combine and visualise data on biodiversity. 'galah' enables the R community
-to directly access data and resources hosted by the living atlases. The
-basic unit of observation is an \strong{occurrence} record, based on the
-'Darwin Core' data standard (\url{https://dwc.tdwg.org}); however \code{galah} also
-enables users to locate and download taxonomic information,
-associated media such images or sounds, all while restricting their queries
-to particular taxa or locations. Users can specify which columns are returned
-by a query, or restrict their results to observations that meet particular
-quality-control criteria.
+The Global Biodiversity Information Facility (GBIF; \url{https://www.gbif.org})
+provides tools to enable users to find, access, combine and visualise
+biodiversity data. \code{galah} enables the R community to directly access data and
+resources hosted by GBIF and several of it's subsidiary organisations, known
+as 'nodes'.
+
+The basic unit of data stored by these infrastructures is
+an \strong{occurrence} record, which is an observation of a biological entity at
+a specific time and place. However, \code{galah} also facilitates access to
+taxonomic information, or associated media such images or sounds,
+all while restricting their queries to particular taxa or locations. Users
+can specify which columns are returned by a query, or restrict their results
+to observations that meet particular quality-control criteria.
+
+For those outside Australia, 'galah' is the common name of
+\emph{Eolophus roseicapilla}, a widely-distributed Australian bird species.
 }
 \section{Functions}{
 
-\strong{Start a data query}
-\itemize{
-\item \code{\link[=galah_call]{galah_call()}} Start to build a data query
-}
 
-\strong{Narrow your results}
+\strong{Getting Started}
 \itemize{
-\item \code{\link[=galah_identify]{galah_identify()}} or \code{\link[=identify.data_request]{identify()}} Search for taxonomic identifiers
-\item \code{\link[=galah_filter]{galah_filter()}} or \code{\link[=filter.data_request]{filter()}} Filter records
-\item \code{\link[=galah_select]{galah_select()}} or \code{\link[=select.data_request]{select()}} Fields to report information for
-\item \code{\link[=galah_group_by]{galah_group_by()}} or \code{\link[=group_by.data_request]{group_by()}} Fields to group counts by
-\item \code{\link[=galah_geolocate]{galah_geolocate()}} or \code{\link[=st_crop.data_request]{st_crop()}} Specify a location
-\item \code{\link[=galah_apply_profile]{galah_apply_profile()}} Restrict to data that pass predefined checks (ALA only)
-\item \code{\link[=galah_down_to]{galah_down_to()}} Specify a taxonomic rank
-\item \code{\link[=slice_head.data_request]{slice_head()}} Choose the first n rows of a download
-}
-
-\strong{Download data}
-\itemize{
-\item \code{\link[=atlas_occurrences]{atlas_occurrences()}} Download occurrence records
-\item \code{\link[=atlas_counts]{atlas_counts()}} or \code{\link[=count.data_request]{count()}} Count the number of records or species returned by a query
-\item \code{\link[=atlas_species]{atlas_species()}} Download species lists
-\item \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} Return a section of the ALA taxonomic tree
-\item \code{\link[=atlas_media]{atlas_media()}} View images and sounds available to download
-\item \code{\link[=collect_media]{collect_media()}} Download images and sounds
-\item \code{\link[=collect_occurrences]{collect_occurrences()}} Download previously-defined sets of occurrence records
-}
-
-\strong{Look up information}
-\itemize{
-\item \code{\link[=search_taxa]{search_taxa()}} Search for taxa using a text-search
-\item \code{\link[=search_identifiers]{search_identifiers()}} Search for taxa using taxonomic identifiers
+\item \code{\link[=galah_call]{galah_call()}}/\code{\link[=request_data]{request_()}} Start to build a query
+\item \code{\link[=galah_config]{galah_config()}} Set package configuration options
 \item \code{\link[=show_all]{show_all()}} & \code{\link[=search_all]{search_all()}} Data for generating filter queries
 \item \code{\link[=show_values]{show_values()}} & \code{\link[=search_values]{search_values()}} Show or search for values \emph{within}
 \code{fields}, \code{profiles}, \code{lists}, \code{collections}, \code{datasets} or \code{providers}
 }
 
-\strong{Manage cache}
+\strong{Amend a query}
 \itemize{
-\item \code{\link[=show_all_cached_files]{show_all_cached_files()}} List previously cached files and their metadata
-\item \code{\link[=clear_cached_files]{clear_cached_files()}} Clear previously cached files and their metadata
+\item \code{\link[=apply_profile]{apply_profile()}}/\code{\link[=galah_apply_profile]{galah_apply_profile()}} Restrict to data that pass predefined checks (ALA only)
+\item \code{\link[=arrange.data_request]{arrange()}} Arrange rows of a query on the server side
+\item \code{\link[=count.data_request]{count()}} Request counts of the specified data type
+\item \code{\link[=desc]{desc()}} Arrange counts in descending order (when combined with \code{\link[=arrange.data_request]{arrange()}})
+\item \code{\link[=filter.data_request]{filter()}}/\code{\link[=galah_filter]{galah_filter()}} Filter records
+\item \code{\link[=geolocate]{geolocate()}}/\code{\link[=galah_geolocate]{galah_geolocate()}} Spatial filtering of a query
+\item \code{\link[=group_by.data_request]{group_by()}}/\code{\link[=galah_group_by]{galah_group_by()}} Group counts by one or more fields
+\item \code{\link[=identify.data_request]{identify()}}/\code{\link[=galah_identify]{galah_identify()}} Search for taxonomic identifiers (see also \code{\link[=taxonomic_searches]{taxonomic_searches}})
+\item \code{\link[=select.data_request]{select()}}/\code{\link[=galah_select]{galah_select()}} Fields to report information for
+\item \code{\link[=slice_head.data_request]{slice_head()}} Choose the first n rows of a download
+\item \code{\link[=unnest]{unnest()}} Expand metadata for \code{fields}, \code{lists}, \code{profiles} or \code{taxa}
 }
 
-\strong{Configure session}
+\strong{Execute a query via API}
 \itemize{
-\item \code{\link[=galah_config]{galah_config()}} Package configuration options
+\item \code{\link[=collapse.data_request]{collapse()}} Convert a \code{data_request} into a \code{query}
+\item \code{\link[=compute.data_request]{compute()}} Compute a query
+\item \code{\link[=collect.data_request]{collect()}}/\code{\link[=atlas_]{atlas_()}}/\code{\link[=collect_media]{collect_media()}} Retrieve a database query
 }
 
-\strong{Cite}
+\strong{Miscellaneous functions}
 \itemize{
-\item \code{\link[=atlas_citation]{atlas_citation()}} Citation for a dataset
+\item \code{\link[=atlas_citation]{atlas_citation()}} Get a citation for a dataset
+\item \code{\link[=read_zip]{read_zip()}} To read data from an earlier download
+\item \code{\link[=print.data_request]{print()}} Print functions for galah objects
 }
 }
 
@@ -92,18 +84,14 @@ layers and assertions, or conduct a search using \code{search_all(fields)}.
 Data fields are important because they provide a means to \strong{filter}
 occurrence records;  i.e. to return only the information that you need, and
 no more. Consequently, much of the architecture of \code{galah} has been
-designed to make filtering as simple as possible.
-Functions with the \code{galah_} prefix offer ways to shape your query
-call. Each \code{galah_} function allows the user to filter in a different way.
-Again, the function suffix reveals what each one does. \code{\link[=galah_filter]{galah_filter()}},
-\code{\link[=galah_select]{galah_select()}} and \code{\link[=galah_group_by]{galah_group_by()}} intentionally match \code{dplyr}'s \code{select()},
-\code{filter()} and \code{group_by()} functions, both in their name and how they they are
-used. For example, you can use \code{\link[=galah_select]{galah_select()}} to choose what information
-is returned as columns. Alternatively, you can use \code{\link[=galah_filter]{galah_filter()}} to filter
-the rows. You can also choose specific taxa with \code{\link[=galah_identify]{galah_identify()}} or choose
-a specific location using \code{\link[=galah_geolocate]{galah_geolocate()}}.
-By combining different filters, it is possible to build complex
-queries to return only the most valuable information for a given problem.
+designed to make filtering as simple as possible. The easiest way to do this
+is to start a pipe with \code{galah_call()} and follow it with the relevant
+\code{dplyr} function; starting with \code{filter()}, but also including \code{select()},
+\code{group_by()} or others. Functions without a relevant \code{dplyr} synonym include
+\code{\link[=galah_identify]{galah_identify()}}/\code{identify()} for choosing a taxon, or \code{\link[=galah_geolocate]{galah_geolocate()}}/
+\code{st_crop()} for choosing a specific location. By combining different filters,
+it is possible to build complex queries to return only the most valuable
+information for a given problem.
 
 A notable extension of the filtering approach is to remove records with low
 'quality'. All living atlases perform quality control checks on all records
@@ -115,46 +103,12 @@ supports data quality \strong{profiles}, which can be passed to
 \code{\link[=galah_apply_profile]{galah_apply_profile()}} to quickly remove undesirable records. A full list of
 data quality profiles is returned by \code{show_all(profiles)}. Note this service
 is currently only available for the Australian atlas (ALA).
-
-For those outside Australia, 'galah' is the common name of
-\emph{Eolophus roseicapilla}, a widely-distributed
-Australian bird species.
 }
 
-\section{Package design}{
-
-
-In most cases, users will be primarily interested in using \code{galah} to
-return data from one of the living atlases. These functions are named with
-the prefix \code{atlas_}, followed by a suffix describing the information that
-they provide. For example, users that wish to download occurrence data can
-use the function \code{\link[=atlas_occurrences]{atlas_occurrences()}}. Alternatively, users that wish to
-download data on each species (rather than on each occurrence record) can use
-\code{\link[=atlas_species]{atlas_species()}} or download media content (largely images)
-using \code{\link[=atlas_media]{atlas_media()}}. Users can also assess how many records
-meet their particular criteria using \code{\link[=atlas_counts]{atlas_counts()}} and return a taxonomic
-tree for a specific clade from one level down to another level (e.g., from
-family to genus). All functions return a \code{data.frame} as their standard
-format, except \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} which returns a \code{data.tree}.
-
-Functions in \code{galah} are designed according to a nested architecture.
-Users that require data should begin by locating the relevant \code{atlas_}
-function; the arguments within that function then call correspondingly-named
-\code{galah_} functions; specific values that can be interpreted by those \code{galah_}
-functions can be searched for or listed using \code{\link[=search_all]{search_all()}} and \code{\link[=show_all]{show_all()}}
-functions; desired taxa can be also be identified using \code{\link[=search_taxa]{search_taxa()}} and
-passed within \code{\link[=galah_identify]{galah_identify()}} to the \code{taxa} argument of \code{atlas_} functions.
-}
-
-\references{
-For more information on the ALA API, visit \url{https://docs.ala.org.au/}.
-If you have any questions, comments or suggestions, please email
-\href{mailto:support@ala.org.au}{support@ala.org.au}.
-}
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://galah.ala.org.au}
+  \item \url{https://galah.ala.org.au/R/}
   \item Report bugs at \url{https://github.com/AtlasOfLivingAustralia/galah-R/issues}
 }
 

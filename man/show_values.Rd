@@ -5,13 +5,23 @@
 \alias{search_values}
 \title{Show or search for values within a specified field}
 \usage{
-show_values(df)
+show_values(df, all_fields = FALSE)
 
 search_values(df, query)
 }
 \arguments{
 \item{df}{A search result from \code{\link[=search_fields]{search_fields()}}, \code{\link[=search_profiles]{search_profiles()}} or
 \code{\link[=search_lists]{search_lists()}}.}
+
+\item{all_fields}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} If \code{TRUE},
+\code{show_values()} also returns all raw data columns
+(columns included prior to the dataset's ingestion into the ALA).
+For many lists, this will include raw scientific names and vernacular
+names.
+For conservation lists like the EPBC list, this also includes columns
+containing each species' conservation status information.
+Default is set to \code{FALSE}.
+Currently only implemented for metadata type \code{lists}.}
 
 \item{query}{A string specifying a search term. Not case sensitive.}
 }
@@ -30,7 +40,8 @@ For example:
 \itemize{
 \item The \code{field} "year" contains values 2021, 2020, 2019, etc.
 \item The \code{field} "stateProvince" contains values New South Wales, Victoria, Queensland, etc.
-These are used to narrow queries with \code{\link[=galah_filter]{galah_filter()}}.
+These are used to narrow queries with
+\code{\link[=filter.data_request]{filter()}} or \code{\link[=galah_filter]{galah_filter()}}.
 }
 
 Each \strong{Profile} consists of many individual quality filters.
@@ -55,6 +66,13 @@ For example, the Endangered Plant species list contains values:
 search_fields("cl22") |> 
   show_values()
 
+# This is synonymous with `request_metadata() |> unnest()`.
+# For example, the previous example can be run using:
+request_metadata() |>
+  filter(field == "cl22") |>
+  unnest() |>
+  collect() 
+
 # Search for any values in field 'cl22' that match 'tas'
 search_fields("cl22") |> 
   search_values("tas")
@@ -63,5 +81,4 @@ search_fields("cl22") |>
 search_lists("dr19257") |> 
   show_values()
 }
-
 }

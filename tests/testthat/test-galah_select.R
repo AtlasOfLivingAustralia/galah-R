@@ -1,143 +1,193 @@
-context("Test galah_select")
+# set up quiet functions for testing reasons
+quiet_collect <- function(x){
+  purrr_collect <- purrr::quietly(collect.data_request)
+  purrr_collect(x) |> 
+    purrr::pluck("result")
+}
+quiet_occurrences <- purrr::quietly(atlas_occurrences)
 
-
-test_that("galah_select returns error when columns don't exist", {
-  galah_config(email = "ala4r@ala.org.au", run_checks = FALSE)
-  expect_error(galah_select(basisOfRecors))
-  expect_error(galah_select(year, basisOfRecord, eventdate))
+test_that("`select.data_request()` adds content to a `data_request` object", {
+  x <- galah_call() |>
+    select(group = "basic")
+  expect_equal(x$select,
+               list(summary = "group = basic",
+                    group = "basic"))
 })
 
-
-test_that("galah_select returns requested columns", {
-  skip_on_cran()
-  galah_config(email = "ala4r@ala.org.au", run_checks = FALSE)
-  selected_columns <- galah_select(year, basisOfRecord)
-  query <- atlas_occurrences(identify = galah_identify("oxyopes dingo"),
-                             select = selected_columns)
-  expect_equal(selected_columns[[1]], c("year", "basisOfRecord"))
-  expect_equal(names(query), c("year", "basisOfRecord"))
-  expect_equal(names(query), selected_columns[[1]])
+test_that("`galah_select()` doesn't return error when columns don't exist", {
+  expect_no_error(galah_select(basisOfRecord))
+  expect_no_error(galah_select(year, basisOfRecord, eventdate))
 })
 
-
-test_that("galah_select returns requested columns when piped", {
-  skip_on_cran()
-  galah_config(email = "ala4r@ala.org.au", run_checks = FALSE)
-  query <- galah_call() |>
-    galah_identify("oxyopes dingo") |>
-    galah_select(year, basisOfRecord) |>
-    atlas_occurrences()
-  expect_equal(names(query), c("year", "basisOfRecord"))
+test_that("`select()` triggers error during `compute()` when columns don't exist", {
+  skip_if_offline(); skip_on_ci()
+  expect_error(
+    galah_call() |>
+      identify("perameles") |>
+      filter(year == 2003) |>
+      galah_select(basisOfRecors) |>
+      compute())
+  expect_error(
+    galah_call() |>
+      identify("perameles") |>
+      filter(year == 2003) |>
+      select(year, basisOfRecors, eventdate) |>
+      compute())
 })
 
-
-test_that("galah_select builds expected columns when group = basic", {
-  select <- galah_select(group = "basic")
-  expected_output <- structure(
-    tibble(name = c("decimalLatitude", "decimalLongitude",
-                        "eventDate", "scientificName",
-                        "taxonConceptID", "recordID",
-                        "dataResourceName", "occurrenceStatus"),
-               type = rep("field", times = 8)),
-    class = c("tbl_df", "tbl", "data.frame", "galah_select"))
-  expect_s3_class(select, "data.frame")
-  expect_equal(nrow(select), nrow(expected_output))
-  expect_equal(names(select), names(expected_output))
-  expect_true(all(select[1] == expected_output[1]))
-  expect_true(all(select[2] == expected_output[2]))
+test_that("`select()` builds expected columns when group = basic", {
+  skip_if_offline(); skip_on_ci()
+  x <- galah_call() |>
+    identify("oxyopes dingo") |>
+    select(group = "basic") |>
+    collapse()
+  y <- httr2::url_parse(x$url)$query
+  expect_equal(strsplit(y$fields, ",")[[1]], preset_groups("basic"))
+  expect_equal(y$qa, "none")
 })
 
-
-test_that("galah_select builds expected columns when group = event", {
-  select <- galah_select(group = "event")
-  expected_output <- structure(
-    tibble(name = c(
-      paste0("event", c("Remarks", "Time", "ID", "Date")),
-      "samplingEffort", "samplingProtocol"  
-      ),
-      type = rep("field", times = 6)),
-    class = c("tbl_df", "tbl", "data.frame", "galah_select"))
-  expect_s3_class(select, "data.frame")
-  expect_equal(nrow(select), nrow(expected_output))
-  expect_equal(names(select), names(expected_output))
-  expect_true(all(select[1] == expected_output[1]))
-  expect_true(all(select[2] == expected_output[2])) 
+test_that("`select()` builds expected columns when group = event", {
+  skip_if_offline(); skip_on_ci()
+  x <- galah_call() |>
+    identify("oxyopes dingo") |>
+    select(group = "event") |>
+    collapse()
+  y <- httr2::url_parse(x$url)$query
+  expect_equal(strsplit(y$fields, ",")[[1]], 
+               c("recordID", preset_groups("event")))
+  expect_equal(y$qa, "none")
 })
 
-
-# test multiple groups work
-test_that("galah_select accepts multiple groups", {
-  select <- galah_select(group = c("basic", "assertions"))
-  expect_equal(unique(select$type), c("field", "assertion"))
-  expect_gt(nrow(select), 10)
-  expect_true(any(select$name == "decimalLatitude"))
-  expect_true(any(select$name == "AMBIGUOUS_COLLECTION"))
+test_that("`select()` accepts multiple groups", {
+  skip_if_offline(); skip_on_ci()
+  x <- galah_call() |>
+    identify("oxyopes dingo") |>
+    select(group = c("basic", "assertions")) |>
+    collapse()
+  y <- httr2::url_parse(x$url)$query
+  expect_equal(strsplit(y$fields, ",")[[1]], 
+               preset_groups("basic"))
+  expect_equal(y$qa, "includeall")
 })
 
-
-test_that("galah_select defaults to group = basic when there are no args", {
-  # skip_on_cran()
-  galah_config(run_checks = FALSE)
-  expected_output <- structure(
-    tibble(name = c("decimalLatitude", "decimalLongitude",
-                        "eventDate", "scientificName",
-                        "taxonConceptID", "recordID",
-                        "dataResourceName", "occurrenceStatus"),
-               type = rep("field", times = 8)),
-    class = c("tbl_df", "tbl", "data.frame", "galah_select"))
-  expect_s3_class(galah_select(), "data.frame")
-  expect_equal(nrow(galah_select()), nrow(expected_output))
-  expect_equal(names(galah_select()), names(expected_output))
-  expect_true(all(galah_select()[1] == expected_output[1]))
-  galah_config(run_checks = TRUE)
+test_that("`select()` defaults to group = 'basic' when there are no args", {
+  skip_if_offline(); skip_on_ci()
+  x <- galah_call() |>
+    identify("oxyopes dingo") |>
+    collapse()
+  y <- httr2::url_parse(x$url)$query
+  expect_equal(strsplit(y$fields, ",")[[1]], preset_groups("basic"))
+  expect_equal(y$qa, "none")
 })
 
-test_that("galah_select returns assertions + recordID when group = assertions", {
-  skip_on_cran()
-  select <- galah_select(group = "assertions")
-  expect_gt(length(which(select$type == "assertion")), 40)
-  expect_equal(length(which(select$type == "field")), 1)
+test_that("`select()` works with group = 'taxonomy'", {
+  skip_if_offline(); skip_on_ci()
+  x <- galah_call() |>
+    identify("oxyopes dingo") |>
+    select(group = "taxonomy") |>
+    collapse()
+  y <- httr2::url_parse(x$url)$query
+  fields <- strsplit(tolower(y$fields), ",")[[1]]
+  expect_equal(fields,
+               c("recordid",
+                 "kingdom",
+                 "phylum", 
+                 "class",
+                 "order",
+                 "family",
+                 "genus",
+                 "species",
+                 "subspecies"))
 })
 
-test_that("galah_select combines requested columns and group columns", {
-  skip_on_cran()
-  galah_config(run_checks = FALSE)
-  identify <- galah_identify("oxyopes dingo")
-  columns <- galah_select(year, basisOfRecord, group = "basic")
-  query <- atlas_occurrences(identify = identify,
-                             select = columns)
-  expected_columns <- c("decimalLatitude", "decimalLongitude",
-                          "eventDate", "scientificName",
-                          "taxonConceptID", "recordID",
-                          "dataResourceName", "occurrenceStatus",
-                          "year", "basisOfRecord")
-  expect_equal(names(query), expected_columns)
-})
-  
-
-test_that("galah_select can use tidyselect::contains", {
-  query <- galah_select(tidyselect::contains("el"))
-  expect_gt(nrow(query), 0)
-  expect_true(all(grepl("el", tolower(query$name))))
+test_that("`select()` returns assertions + recordID when group = assertions", {
+  skip_if_offline(); skip_on_ci()
+  x <- galah_call() |>
+    identify("oxyopes dingo") |>
+    select(group = "assertions") |>
+    collapse()
+  y <- httr2::url_parse(x$url)$query
+  expect_equal(y$fields, "recordID")
+  expect_equal(y$qa, "includeall")
 })
 
-test_that("galah_select can use tidyselect::starts_with", {
-  query <- galah_select(tidyselect::starts_with("el"))
-  expect_gt(nrow(query), 0)
-  expect_true(all(grepl("^el", tolower(query$name))))
+test_that("`select()` combines requested columns and group columns", {
+  skip_if_offline(); skip_on_ci()
+  x <- galah_call() |>
+    identify("oxyopes dingo") |>
+    select(year, group = "basic") |>
+    collapse()
+  y <- httr2::url_parse(x$url)$query
+  expect_equal(strsplit(y$fields, ",")[[1]], 
+               c(preset_groups("basic"), "year"))
 })
 
-test_that("galah_select can use tidyselect::last_col", {
-  query <- galah_select(tidyselect::last_col())
-  expect_equal(nrow(query), 1)
+test_that("`select()` can use `tidyselect::contains()`", {
+  skip_if_offline(); skip_on_ci()
+  x <- galah_call() |>
+    identify("oxyopes dingo") |>
+    select(tidyselect::contains("el")) |>
+    collapse()
+  y <- httr2::url_parse(x$url)$query
+  fields <- strsplit(tolower(y$fields), ",")[[1]]
+  assertions <- strsplit(tolower(y$qa), ",")[[1]]
+  expect_true(all(grepl("el", fields)))
+  expect_true(all(grepl("el", assertions)))
 })
 
-test_that("galah_select can use tidyselect::last_col & user-defined queries", {
-  query <- galah_select(year, basisOfRecord, tidyselect::last_col())
-  expect_equal(nrow(query), 3)
+# TODO: `galah_select()` fails when `everything()` is called for `type = "occurrences"`
+
+test_that("`select()` can use `tidyselect::starts_with()`", {
+  skip_if_offline(); skip_on_ci()
+  x <- galah_call() |>
+    identify("oxyopes dingo") |>
+    select(tidyselect::starts_with("el")) |>
+    collapse()
+  y <- httr2::url_parse(x$url)$query
+  fields <- strsplit(tolower(y$fields), ",")[[1]]
+  assertions <- strsplit(tolower(y$qa), ",")[[1]]
+  expect_true(all(grepl("^el", fields)))
+  expect_true(all(grepl("^el", assertions)))
 })
 
-test_that("galah_select can use tidyselect::last_col & group", {
-  query <- galah_select(tidyselect::last_col(), group = "basic")
-  expect_equal(nrow(query), 9)
+test_that("`select()` can use `tidyselect::last_col()`", {
+  skip_if_offline(); skip_on_ci()
+  x <- galah_call() |>
+    identify("oxyopes dingo") |>
+    select(tidyselect::last_col()) |>
+    collapse()
+  y <- httr2::url_parse(x$url)$query
+  expect_equal(y$fields, "recordID")
+  expect_equal(y$qa, "ZERO_COORDINATE")
+})
+
+test_that("`select()` can use `tidyselect::last_col()` & user-defined queries", {
+  skip_if_offline(); skip_on_ci()
+  x <- galah_call() |>
+    identify("oxyopes dingo") |>
+    select(year, basisOfRecord, tidyselect::last_col()) |>
+    collapse()
+  y <- httr2::url_parse(x$url)$query
+  expect_equal(y$fields, "year,basisOfRecord")
+  expect_equal(y$qa, "ZERO_COORDINATE")
+})
+
+test_that("`select()` can use `tidyselect::last_col()` & group", {
+  skip_if_offline(); skip_on_ci()
+  x <- galah_call() |>
+    identify("oxyopes dingo") |>
+    select(tidyselect::last_col(), group = "basic") |>
+    collapse()
+  y <- httr2::url_parse(x$url)$query
+  expect_equal(strsplit(y$fields, ",")[[1]], 
+               preset_groups("basic"))
+  expect_equal(y$qa, "ZERO_COORDINATE")
+})
+
+test_that("`select()` warns for invalid field names when type = 'species'", {
+  skip_if_offline(); skip_on_ci()
+  expect_warning({galah_call(type = "species") |>
+    identify("Crinia") |>
+    select(an_unrecognised_field_name) |>
+    collapse()})
 })

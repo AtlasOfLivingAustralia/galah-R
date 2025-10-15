@@ -10,13 +10,19 @@
 #' search term within the valid options for the information specified by the 
 #' suffix.
 #' 
-#' `r lifecycle::badge("experimental")`
-#' `search_all()` is a helper function that can do searches within multiple 
-#' types of information from `search_` sub-functions. 
+#' **For more information about taxonomic searches using `search_taxa()`, see**
+#' \code{\link[=taxonomic_searches]{?taxonomic_searches}}.
+#' 
+#' `r lifecycle::badge("stable")`
+#' `search_all()` is a helper function that can do searches for multiple 
+#' types of information, acting as a wrapper around many `search_` sub-functions. 
 #' See `Details` (below) for accepted values.
 #' 
+#' @param type A string to specify what type of parameters should be searched.
 #' @param query A string specifying a search term. Searches are not 
 #' case-sensitive.
+#' @param ... A set of strings or a tibble to be queried; see 
+#' Details.
 #' @details There are five categories of information, each with their own 
 #' specific sub-functions to look-up each type of information. 
 #' The available types of information for `search_all()` are:
@@ -47,17 +53,13 @@
 #' @aliases search_collections search_datasets search_licences search_apis
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble) 
 #' containing all data that match the search query.
-#' @references 
-#' *  Darwin Core terms <https://dwc.tdwg.org/terms/>
-#' 
-#' @seealso See [search_taxa()] and [search_identifiers()] for more information 
-#' on taxonomic searches. 
-#' Use the [show_all()] function and `show_all_()` sub-functions to 
+#' @seealso Use the [show_all()] function and `show_all_()` sub-functions to 
 #' show available options of information. These functions are used to pass valid 
-#' arguments to [galah_select()], [galah_filter()], and related functions.
-#' 
-#' @examples
-#' \dontrun{
+#' arguments to \code{\link[=filter.data_request]{filter()}}, 
+#' \code{\link[=select.data_request]{select()}}, and related functions. 
+#' Taxonomic queries are somewhat more involved; see [taxonomic_searches] for
+#' details.
+#' @examples \dontrun{
 #' # Search for fields that include the word "date"
 #' search_all(fields, "date")
 #' 
@@ -78,306 +80,187 @@
 #' 
 #' # Search for a valid taxonomic rank, "subphylum"
 #' search_all(ranks, "subphylum")
-#' }
 #' 
-NULL
-
-
-#' search atlas metadata
-#' @param type A string to specify what type of parameters should be searched.
-#' @importFrom utils adist
-#' @rdname search_all
-#' @export search_all
+#' # An alternative is to download the data and then `filter` it. This is 
+#' # largely synonymous, and allows greater control over which fields are searched.
+#' request_metadata(type = "fields") |>
+#'  collect() |>
+#'  dplyr::filter(grepl("date", id))
+#' }
+#' @export
 search_all <- function(type, query){
   
   # vector of valid types for this function
   valid_types <- c(
-    "ranks",
-    "fields", "assertions",
+    "apis",
+    "assertions",
+    "atlases",
+    "collections",
+    "datasets",
+    "fields",
     "licences",
-    "profiles", "lists",
-    "atlases", "apis", "reasons", 
-    "taxa", "identifiers",
-    "providers", "collections", "datasets")
-  # show_all_cached_files?
+    "lists",
+    "identifiers",
+    "profiles",
+    "providers",
+    "reasons",
+    "taxa",
+    "ranks")
   
   # check 'type' is ok
   if(missing(type)){
     type <- "fields"
   }else{
-    type <- enquos(type) |> parse_objects_or_functions() 
-    type <-  gsub("\"", "", deparse(quo_squash(type[[1]])))
-    assert_that(is.character(type))
+    type <- rlang::enquos(type) |>
+      parse_quosures_basic()
+    if(!inherits(type, "character") | length(type) > 1){
+      cli::cli_abort("`type` must be a length-1 vector of class 'character'")
+    }
     check_type_valid(type, valid_types)   
   }
   
-  # check for query
   check_if_missing(query)
   
-  # set function name
-  function_name <- paste0("search_", type)
-  if(is_gbif() &&
-     type %in% c("providers", "collections", "datasets")){
-    function_name <- paste0(function_name, "_GBIF")
-  }
-  
-  # run query
-  df <- do.call(function_name, args = list(query = query))
-  
-  # attach correct 'search_' class attribute
-  attr(df, "call") <- paste0("search_", type)
-  return(df)
-  
-}
-
-
-#' @rdname search_all
-#' @export search_apis
-search_apis <- function(query){
-  check_if_missing(query)
-  df <- node_config
-  attr(df, "call") <- "search_apis"
-  df_string <- apply(
-    df[, c("atlas", "system", "api_name", "called_by")], 
-    1, 
-    function(a){paste(a, collapse = " ")})
-  df[grepl(tolower(query), tolower(df_string)), ]
-}
-
-
-#' @rdname search_all
-#' @export search_assertions
-search_assertions <- function(query){
-  check_if_missing(query)
-  df <- show_all_assertions()
-  attr(df, "call") <- "search_assertions"
-  df[with(df, grepl(tolower(query), 
-                    paste(tolower(df$description), tolower(df$id)))), ]
-}
-
-
-#' @rdname search_all
-#' @export search_atlases
-search_atlases <- function(query){
-  check_if_missing(query)
-  df <- show_all_atlases()
-  attr(df, "call") <- "search_atlases"
-  df[grepl(
-    tolower(query), 
-    tolower(apply(df,
-      1, 
-      function(a){paste(a, collapse = "-")})
-    )
-  ), ]
-}
-
-
-#' @rdname search_all
-#' @export search_collections
-search_collections <- function(query){
-  check_if_missing(query)
-  df <- show_all_collections()
-  attr(df, "call") <- "search_collections"
-  df[with(df, grepl(tolower(query), 
-                    paste(tolower(df$name), tolower(df$uid)))), ]
-}
-
-search_collections_GBIF <- function(query){
-  check_if_missing(query)
-  url <- url_lookup("collections_collections_search")
-  if(getOption("galah_config")$package$verbose){
-    inform("Note: GBIF collection searches are limited to 20 results")
-  }
-  df <- url_GET(url, params = list(q = query, hl = "false"))
-  if(is.null(df)){
-    tibble()
+  if(type == "taxa"){
+    check_if_in_pipe(query)
+    request_metadata(type = "taxa") |>
+      identify(query) |>
+      collect()
+  }else if(type == "identifiers"){
+    request_metadata() |>
+      filter("identifier" == query) |>
+      collect()
   }else{
-    tibble(df)
+    if(is_gbif() & 
+       type %in% c("collections", "datasets", "providers")){ # these support `q` arg in API
+      request_metadata() |>
+        filter({{type}} == query) |>
+        collect()
+    }else{
+      request_metadata(type = type) |> 
+        collect() |>
+        search_text_cols(query = query) 
+    }
   }
 }
 
+#' Internal function to run a query over a tibble
+#' @noRd
+#' @keywords Internal
+search_text_cols <- function(df, query){
 
-#' @rdname search_all
-#' @export search_datasets
-search_datasets <- function(query){
-  check_if_missing(query)
-  df <- show_all_datasets()
-  attr(df, "call") <- "search_datasets"
-  df[with(df, grepl(tolower(query), 
-                    paste(tolower(df$name), tolower(df$uid)))), ]
-}
-
-search_datasets_GBIF <- function(query){
-  check_if_missing(query)
-  url <- url_lookup("collections_datasets_search")
-  if(getOption("galah_config")$package$verbose){
-    inform("Note: GBIF dataset searches are limited to 20 results")
-  }
-  df <- url_GET(url, params = list(q = query, hl = "false"))$results
-  if(is.null(df)){
-    tibble()
-  }else{
-    tibble(df)
-  }
-}
-
-
-#' @rdname search_all
-#' @export search_providers
-search_providers <- function(query){
-  check_if_missing(query)
-  df <- show_all_providers()
-  attr(df, "call") <- "search_providers"
-  df[with(df, grepl(tolower(query), 
-                    paste(tolower(df$name), tolower(df$uid)))), ]
-}
-
-search_providers_GBIF <- function(query){
-  check_if_missing(query)
-  url <- url_lookup("collections_providers")
-  if(getOption("galah_config")$package$verbose){
-    inform("Note: GBIF provider searches are limited to 20 results")
-  }
-  df <- url_GET(url, params = list(q = query))$result
-  if(is.null(df)){
-    tibble()
-  }else{
-    tibble(df)
-  }
-}
-
-
-#' @rdname search_all
-#' @export search_fields
-search_fields <- function(query){
-  
-  if (missing(query) || is.null(query)) {
-    as.data.frame(
-      matrix(nrow = 0, ncol = 4, 
-             dimnames = list(NULL, c("id", "description", "type", "link")))
-    )
-    bullets <- c(
-      "We didn't detect a field to search for.",
-      i = "Try entering text to search for matching fields.",
-      i = "To see all valid fields, use `show_all_fields()`."
-    )
-    rlang::warn(message = bullets, error = rlang::caller_env())
-  } else {
-    df <- show_all_fields()
-    attr(df, "call") <- "search_fields"
-    attr(df, "search") <- {{query}}
-    
-    # merge information together into searchable strings
-    df_string <- tolower(
-      apply(
-        df[, seq_len(min(c(2, ncol(df))))], 
-        1, 
-        function(a){paste(a, collapse = " ")}))
-    
-    # return result of a grepl query
-    df <- df[grepl(tolower(query), df_string), ] |> 
-      as_tibble()
-    
-    # calculate similarity of results to query, reorder results
-    similarity <- adist(df$id, query)[, 1]
-    # similarity <- mapply(stringdist::afind, df$description, query)
-    df <- df[order(similarity), ]
-    
-    # return results in order of similarity to search term
-    return(df)
-  }
-}
-
-
-#' @rdname search_all
-#' @export search_licences
-search_licences <- function(query){
-  check_if_missing(query)
-  df <- show_all_licences()
-  attr(df, "call") <- "search_licences"
-  df[grepl(
-    tolower(query), 
-    tolower(
-      apply(df[, c("name", "acronym")], 
-            1, 
-            function(a){paste(a, collapse = " ")})
-    )
-  ), ]
-}
-
-
-#' @rdname search_all
-#' @export search_reasons
-search_reasons <- function(query){
-  check_if_missing(query)
-  df <- show_all_reasons()
-  attr(df, "call") <- "search_reasons"
-  df[grepl(tolower(query), tolower(df$name)), ]
-}
-
-
-#' @rdname search_all
-#' @export search_ranks
-search_ranks <- function(query){
-  check_if_missing(query)
-  df <- show_all_ranks()
-  attr(df, "call") <- "search_ranks"
-  df[grepl(tolower(query), tolower(df$name)), ]
-}
-
-
-#' @rdname search_all
-#' @export search_profiles
-search_profiles <- function(query){
-  check_if_missing(query)
-  df <- show_all_profiles()
-  attr(df, "call") <- "search_profiles"
-  attr(df, "search") <- {{query}}
-  text_string <- apply(df[, -1], 1, function(a){paste(a, collapse = " ")})
-  
-  # return result of grepl query
-  df <- df[grepl(tolower(query), tolower(text_string)), ]
-  
-  # calculate similarity of results to query, reorder results
-  similarity <- adist(df$name, query, ignore.case = TRUE)[, 1]
-  df <- df[order(similarity), ]
-  
-  # return results
-  return(df)
-}
-
-
-#' @rdname search_all
-#' @export search_lists
-search_lists <- function(query){
-  check_if_missing(query)
-  df <- show_all_lists()
-  attr(df, "call") <- "search_lists"
-  attr(df, "search") <- {{query}}
   query <- tolower(query)
+  keep_cols <- unlist(lapply(df, is.character)) & 
+    colnames(df) != "type"
+  check_list <- purrr::map(df[, keep_cols], 
+                           \(a){grepl(query, tolower(a))})
+  check_vector <- purrr::list_transpose(check_list) |>
+    purrr::map(any) |> 
+    unlist()
+  result <- df |> dplyr::filter({{check_vector}})
   
-  # return result of grepl query
-  df <- df[
-    grepl(query, tolower(df$listName)) |
-    grepl(query, tolower(df$dataResourceUid)), ]
+  # order search_all() results
+  if ("id" %in% colnames(result)) {
+    similarity <- utils::adist(result$id, query)[, 1] # similarity of results to query
+    result <- result[order(similarity), ] # reorder results
+  }
   
-  # calculate similarity of results to query, reorder results
-  similarity <- adist(df$listName, query, ignore.case = TRUE)[, 1]
-  df <- df[order(similarity), ]
-  
-  # return results
-  return(df)
+  # return results in order of similarity to search term
+  return(result)
 }
 
-
-# internal functions ----------------------------------------
-
-check_if_missing <- function(query, error_call = caller_env()) {
+#' Internal function to check for missingness
+#' @noRd
+#' @keywords Internal
+check_if_missing <- function(query,
+                             parent_function,
+                             error_call = rlang::caller_env()) {
   if (missing(query)) {
-    bullets <- c(
-      "We didn't detect a valid query.",
-      i = "Try entering text to search for matching values."
-    )
-    abort(bullets, call = caller_env())
+    c(
+      "We didn't detect a search query.",
+      i = "Try entering a string to search for matching values.") |>
+    cli::cli_abort(call = error_call)
+  }
+}
+
+#' Internal function to check if `search_taxa()` has been piped in a 
+#' `galah_call()` instead of `galah_identify()`
+#' @noRd
+#' @keywords Internal
+check_if_in_pipe <- function(..., 
+                             error_call = rlang::caller_env()){
+  dots <- list(...)
+  col_type_present <- grepl("type", names(unlist(dots)))
+  if(any(col_type_present)){
+    c("Can't pipe `search_taxa()` in a `galah_call()`.",
+      i = "Did you mean to use `galah_identify()`?") |>
+      cli::cli_abort(call = error_call)
+  }
+}
+
+#' @rdname search_all
+#' @export
+search_assertions <- function(query){search_all("assertions", query)}
+
+#' @rdname search_all
+#' @export
+search_apis <- function(query){search_all("apis", query)}
+
+#' @rdname search_all
+#' @export
+search_atlases <- function(query){search_all("atlases", query)}
+
+#' @rdname search_all
+#' @export
+search_collections <- function(query){search_all("collections", query)}
+
+#' @rdname search_all
+#' @export
+search_datasets <- function(query){search_all("datasets", query)}
+
+#' @rdname search_all
+#' @export
+search_fields <- function(query){search_all("fields", query)}
+
+#' @rdname search_all
+#' @export
+search_identifiers <- function(...){search_all("identifiers", unlist(list(...)))}
+
+#' @rdname search_all
+#' @export
+search_licences <- function(query){search_all("licences", query)}
+
+#' @rdname search_all
+#' @export
+search_lists <- function(query){search_all("lists", query)}
+
+#' @rdname search_all
+#' @export
+search_profiles <- function(query){search_all("profiles", query)}
+
+#' @rdname search_all
+#' @export
+search_providers <- function(query){search_all("providers", query)}
+
+#' @rdname search_all
+#' @export
+search_ranks <- function(query){search_all("ranks", query)}
+
+#' @rdname search_all
+#' @export
+search_reasons <- function(query){search_all("reasons", query)}
+ 
+#' @rdname search_all
+#' @export
+search_taxa <- function(...){
+  dots <- list(...)
+  if(length(dots) == 1L){
+    if(inherits(dots[[1]], "data.frame")){
+      search_all("taxa", dots[[1]])
+    }else{
+      search_all("taxa", dots)
+    }
+  }else{
+    search_all("taxa", dots)
   }
 }

@@ -1,0 +1,209 @@
+---
+title: "Spatial filtering"
+author: "Callum Waite & Shandiya Balasubramaniam"
+date: '2023-10-13'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Spatial filtering}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+# set up galah session
+galah_config(email = "ala4r@ala.org.au", verbose = FALSE)
+```
+
+Biodiversity queries to the ALA usually require some spatial filtering. Let's 
+see how spatial data are stored in the ALA and a few different methods to 
+spatially filter data with galah and other packages.
+
+Most records in the ALA contain location data in the form of two key fields: 
+`decimalLatitude` and `decimalLongitude`. As expected, these fields are the 
+decimal coordinates of each occurrence, with south and west values denoted by 
+negatives. While there may be some uncertainty in these values (see field
+`coordinateUncertaintyInMeters`), they are generally very accurate.
+
+While these are very important and useful fields, very rarely will we encounter 
+situations that require queries directly calling `decimalLatitude` and 
+`decimalLongitude`. Instead, the ALA and galah have a number of features that 
+make spatial queries simpler.
+
+### Contextual and spatial layers
+
+Often we want to filter results down to some commonly defined spatial regions, 
+such as states, LGAs or IBRA/IMCRA regions. The ALA contains a large range 
+(\>100) of contextual and spatial layers, in-built as searchable and queriable 
+fields. They are denoted by names beginning with `"cl"`, followed by an 
+identifying number that may be up to 6 digits long. These fields are each based 
+on shapefiles, and contain the names of the regions in these layers that each 
+record lies in.
+
+We strongly recommend using `search_fields()` to check whether a contextual 
+layer already exists in the ALA that matches what you require before proceeding 
+with other methods of spatial filtering. These fields are all able to be queried 
+with `filter()`and so they are generally easier to use.
+
+Suppose we are interested in querying records of the Red-Necked Avocet 
+(*Recurvirostra novaehollandiae*) in the Coorong wetlands in South Australia. 
+We can search the ALA fields for wetlands.
+
+```{r, output = FALSE, message = FALSE, warning = FALSE}
+library(galah)
+library(dplyr)
+library(gt)
+library(sf)
+```
+```{r, eval = FALSE}
+galah_config(email = "your_email_here", verbose = FALSE)
+```
+```{r}
+search_fields("wetlands")
+```
+
+Our search identifies that layer `cl901` seems to match what we are looking for. 
+We can then either view all possible values in the field with `show_values()`, 
+or search again for our particular field.
+
+```{r}
+search_fields("cl901") |> search_values("coorong")
+```
+
+We can filter all occurrences for exact matches with this value, `"Lake Eyre"`. 
+Our `galah` query can be built as follows:
+
+```{r}
+galah_call() |>
+  identify("Recurvirostra novaehollandiae") |>
+  filter(cl901 == "The Coorong, Lake Alexandrina & Lake Albert") |>
+  collect() |>
+  head(5) |>
+  gt::gt()
+```
+
+### Filtering data to a polygon
+
+While server-side spatial information is useful, there are likely to be cases 
+where the shapefile or region you wish to query will not be pre-loaded as a 
+contextual layer in the ALA. In this case, shapefiles can be introduced to the 
+filtering process using the {sf} package and the `geolocate()` function. 
+Shapefiles can be provided as an `sf` object, whether that is by importing them 
+with `sf::st_read()` or taking a `POLYGON` or `MULTIPOLYGON` character string and 
+transforming them with `sf::st_as_sfc()`.
+
+For instance, we might interested in species occurrences in King George Square, 
+Brisbane. We can take the `MULTIPOLYGON` object for the square (as sourced from 
+the [Brisbane City Council](https://data.brisbane.qld.gov.au/pages/home/
+)) and transform it into `sfc` and then `sf` objects.
+
+```{r}
+king_george_sq <- "MULTIPOLYGON(((153.0243 -27.46886, 153.0242 -27.46896, 153.0236 -27.46837, 153.0239 -27.46814, 153.0239 -27.46813, 153.0242 -27.46789, 153.0244 -27.46805, 153.0245 -27.46821, 153.0246 -27.46828, 153.0247 -27.46835, 153.0248 -27.46848, 153.0246 -27.4686, 153.0246 -27.46862, 153.0245 -27.46871, 153.0243 -27.46886)))" |>
+  sf::st_as_sfc() |> 
+  sf::st_as_sf()
+```
+
+We can provide this `MULTIPOLYGON` in our filter as the argument of 
+`geolocate()` to assess which species have been recorded in King George 
+Square.
+
+```{r}
+galah_call() |>
+  geolocate(king_george_sq) |>
+  select(decimalLatitude, 
+         decimalLongitude, 
+         eventDate, 
+         scientificName, 
+         vernacularName) |>
+  collect() |> 
+  head(10) |>
+  gt::gt()
+```
+
+There is a second argument of `geolocate()` called `type`, which defaults 
+to value `"polygon"`. By setting the `type` argument to `"bbox"`, the provided 
+`POLYGON` or `MULTIPOLYGON` will be converted into the smallest bounding box 
+(rectangle) that contains the `POLYGON`. In this case, records will be included 
+that may not exactly lie inside the provided shape.
+
+```{r}
+galah_call() |>
+  geolocate(king_george_sq, type = "bbox") |>
+  select(decimalLatitude, 
+         decimalLongitude, 
+         eventDate, 
+         scientificName, 
+         vernacularName) |>
+  collect() |>
+  head(10) |>
+  gt::gt()
+```
+
+#### Large shapefiles
+
+The `type` argument with option `"bbox"` is provided because `sf` objects with 
+\>500 vertices will not be accepted by the ALA. In the event you have a large 
+shapefile, using `type = "bbox"` will at least enable an initial reduction of 
+the data that is downloaded, before finer filtering to the actual shapefile will 
+obtain the desired set of occurrences. Alternatively, one can also perform the 
+`"bbox"` reduction before passing the shape to `geolocate()` by using 
+`sf::st_bbox()`.
+
+A common situation for this to occur is when a shapefile with multiple shapes is 
+provided, where we are interested in grouping our results by each shape. Here is 
+a mock workflow using a subset of a shapefile of all 2,184 Brisbane parks.
+
+Let's say we are interested in knowing which parks in the Brisbane postcode 4075 
+have the most occurrences of the Scaly-Breasted Lorikeet (*Trichoglossus 
+chlorolepidotus*) since 2020. We can download the entire shapefile from the 
+link above, and perform our filtering and summarising as follows:
+
+```{r, include = FALSE}
+# import actual data (WILL NEED TO SET YOUR OWN FILE PATH HERE)
+load("./brisbane_parks.rds")
+# show fake import in below block
+```
+
+```{r, eval = FALSE}
+brisbane_parks <- sf::st_read("path/to/Park___Locations.shp") |>
+  sf::st_make_valid() |>
+  filter(POST_CODE == 4075)
+```
+
+```{r}
+# Convert shapefile to a bounding box
+brisbane_parks_bbox <- brisbane_parks |> sf::st_bbox()
+
+# Find all occurrences of Trichoglossus chlorolepidotus in the bounding box in 2022
+lorikeet_brisbane <- galah_call() |>
+  filter(scientificName == "Trichoglossus chlorolepidotus", 
+         year >= 2020) |>
+  geolocate(brisbane_parks_bbox, type = "bbox") |>
+  collect()
+```
+
+```{r}
+# Filter records down to only those in the shapefile polygons
+lorikeet_brisbane |>
+  # Create a point geometry based on the occurrence coordinates
+  sf::st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = sf::st_crs(brisbane_parks), remove = FALSE) |>
+  # identify which park each occurrence sits in with st_intersects()
+  mutate(intersection = sf::st_intersects(geometry, brisbane_parks) |> as.integer(),
+         park = ifelse(is.na(intersection), NA, brisbane_parks$PARK_NAME[intersection])) |>
+  # Filter out occurrences that did not occur in a park
+  filter(!is.na(park)) |>
+  # Drop the geometry column
+  sf::st_drop_geometry() |>
+  # Summarise the top 10 parks for lorikeet sightings in 2022
+  group_by(park) |>
+  summarise(counts = n()) |>
+  arrange(desc(counts)) |>
+  head(10)
+```
+
+Some shapefiles cover large geographic areas with the caveat that even the 
+bounding box doesn't restrict the number of records to a value that can be 
+downloaded easily. In this case, we recommend more nuances and detailed methods 
+that can be performed using looping techniques. One of our ALA Labs blog posts, 
+[Hex maps for species occurrence data](https://labs.ala.org.au/posts/2021-04-14_hex-maps-for-species-occurrence-data/), 
+has been written detailing how to approach larger problems such as this.

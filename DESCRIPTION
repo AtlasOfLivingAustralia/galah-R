@@ -1,8 +1,8 @@
 Package: galah
 Type: Package
-Title: Download Biodiversity Data from the GBIF Node Network
-Version: 1.5.3
-Authors@R:
+Title: Biodiversity Data from the GBIF Node Network
+Version: 2.2.0.9999
+Authors@R: 
     c(person(given = "Martin",
              family = "Westgate",
              email = "martin.westgate@csiro.au",
@@ -19,49 +19,50 @@ Authors@R:
              email = "peggy.newman@csiro.au",
              role = "aut"))
 Description: The Global Biodiversity Information Facility 
-    (GBIF, <https://www.gbif.org>) sources data from an international network of 
-    data providers, known as 'nodes'. Several of these nodes - the 'living 
-    atlases' (<https://living-atlases.gbif.org>) - maintain their own
-    web services using a codebase originally developed by the Atlas of Living 
-    Australia (ALA, <https://www.ala.org.au>). 'galah' enables the R community 
-    to directly access data and resources hosted by GBIF and its partner nodes.
+    ('GBIF', <https://www.gbif.org>) sources data from an international network
+    of data providers, known as 'nodes'. Several of these nodes - the "living 
+    atlases" (<https://living-atlases.gbif.org>) - maintain their own web 
+    services using software originally developed by the Atlas of Living 
+    Australia ('ALA', <https://www.ala.org.au>). 'galah' enables the R community 
+    to directly access data and resources hosted by 'GBIF' and its partner nodes.
 Depends:
-    R (>= 4.1.0)
+    R (>= 4.3.0)
 Imports:
-    assertthat,
+    cli,
     crayon,
-    crul,
-    data.tree,
-    digest,
     dplyr,
     glue (>= 1.3.2),
-    httr,
+    httr2,
     jsonlite (>= 0.9.8),
     lifecycle (>= 1.0.0),
+    potions (>= 0.2.0),
+    purrr,
     readr,
     rlang,
     sf,
-    stringr (>= 1.0.0),
+    stringr,
     tibble,
+    tidyr,
     tidyselect,
     utils,
-    jose
-Suggests:
-    vcr (>= 0.6.0),
+    xml2
+Suggests: 
     covr,
     gt,
     kableExtra,
     knitr,
     magrittr,
     pkgdown,
+    reactable,
     rmarkdown,
     testthat
 License: MPL-2.0
-URL: https://galah.ala.org.au
+URL: https://galah.ala.org.au/R/
 BugReports: https://github.com/AtlasOfLivingAustralia/galah-R/issues
 Maintainer: Martin Westgate <martin.westgate@csiro.au>
 LazyLoad: yes
 VignetteBuilder: knitr
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
+Config/testthat/edition: 3
