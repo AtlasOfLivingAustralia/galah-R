@@ -53,7 +53,7 @@ collect_taxa_namematching <- function(.query,
   }
   result |>
     dplyr::rename_with(camel_to_snake_case) |>
-    parse_rename(type = "taxa") |>
+    parse_rename(.query) |>
     parse_select(.query)
 }
 
@@ -76,7 +76,7 @@ collect_taxa_la <- function(.query){
   }
   result |>
     dplyr::rename_with(camel_to_snake_case) |>
-    parse_rename(type = "taxa") |>
+    parse_rename(.query) |>
     parse_select(.query)
 }
 
@@ -91,7 +91,7 @@ collect_taxa_gbif <- function(.query){
     dplyr::mutate("search_term" = search_terms, 
                   .before = 1) |>
     dplyr::rename_with(camel_to_snake_case) |>
-    parse_rename(type = "taxa") |>
+    parse_rename(.query) |>
     parse_select(.query)
 }
 
@@ -207,7 +207,7 @@ collect_identifiers <- function(.query){
   
   result |>
     dplyr::rename_with(camel_to_snake_case) |>
-    parse_rename(type = "taxa") |>
+    parse_rename(.query) |>
     parse_select(.query)
 }
 

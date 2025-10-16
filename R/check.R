@@ -152,7 +152,7 @@ check_fields <- function(.query,
     # error message
     if(any(!is.na(check_result))) {
       returned_invalid <- tibble::tibble(
-        function_name = c("`galah_filter()`", "`galah_group_by()`"),
+        function_name = c("`filter()`", "`group_by()`"),
         fields = check_result) |>
         tidyr::drop_na()
       
@@ -162,9 +162,9 @@ check_fields <- function(.query,
       bullets <- c(
         "Can't use fields that don't exist.",
         i = "Use `search_all(fields)` to find a valid field ID.",
-        x = glue("Can't find field(s) in"),
+        x = glue::glue("Can't find field(s) in"),
         glue::glue("  ", 
-                   format_error_bullets(invalid_fields_message),
+                   rlang::format_error_bullets(invalid_fields_message),
                    call = error_call)
       )
       cli::cli_abort(bullets)
@@ -686,7 +686,7 @@ check_reason <- function(.query,
 check_select <- function(.query,
                          error_call = rlang::caller_env()){
   if(any(names(.query) == "select")){
-    if(is_gbif()){
+    if(is_gbif() & stringr::str_detect(.query$type, "^data")){
       cli::cli_inform(c("skipping `select()`:",
                i = "This function is not supported by the GBIF API v1"))
     }else{

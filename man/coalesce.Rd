@@ -26,7 +26,9 @@ applies to \code{type = "occurrences"} when atlas chosen is "ALA".}
 }
 \value{
 An object of class \code{query_set}, which is simply a list of all \code{query}
-objects required to properly evaluate the specified request.
+objects required to properly evaluate the specified request. Objects are
+listed in the order in which they will be evaluated, meaning the query
+that the user has actually requested will be placed last.
 }
 \description{
 \code{\link[=coalesce]{coalesce()}} is an S3 generic function intended to be called before

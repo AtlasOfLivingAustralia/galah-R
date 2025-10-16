@@ -27,7 +27,7 @@ identifiers.
 
 Note that when taxonomic look-up is required within a pipe, the equivalent
 to \code{\link[=search_taxa]{search_taxa()}} is \code{\link[=identify.data_request]{identify()}} (or
-\code{\link[=galah_identify]{galah_identify()}}). The equivalent to \code{search_identifiers()} is to use
+\code{\link[=galah_identify]{galah_identify()}}). The equivalent to \code{\link[=search_identifiers]{search_identifiers()}} is to use
 \code{\link[=filter.data_request]{filter()}} to filter by \code{taxonConceptId}.
 }
 \details{
@@ -49,6 +49,19 @@ matching service. More information can be found on the
 on the \href{https://github.com/AtlasOfLivingAustralia/ala-name-matching?tab=readme-ov-file#error-types}{name matching github repository}.
 \item \verb{taxonomic names} (e.g. \code{kingdom}, \code{phylum}, \code{class}, \code{order},
 \code{family}, \code{genus})
+}
+
+When querying using \code{\link[=request_metadata]{request_metadata()}}, you have the option to pass
+\code{\link[=select.metadata_request]{select()}} within the query. The
+easiest way to do this is \code{select(everything())}, but for completeness, the
+following additional fields are available:
+\itemize{
+\item \code{success}: Logical indicating success or failure of the search
+\item \code{scientific_name_authorship}: Author and year for the name in question
+\item \code{name_type}: Usually \code{"SCIENTIFIC"}
+\item \code{lft} and \code{rgt}: Numeric indices for taxonomic lookups
+\item \code{species_group} and \code{species_subgroup}: List-columns giving group names
+\item \verb{_id} fields for \code{rank} and any taxonomic rank fields (\code{kingdom_id}, \code{phylum_id} etc.)
 }
 }
 \examples{

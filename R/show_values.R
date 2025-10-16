@@ -68,7 +68,7 @@ show_values <- function(df,
   match_column <- switch(type,
                          "fields" = "id",
                          "lists" = "species_list_uid",
-                         "profiles" = "shortName",
+                         "profiles" = "short_name",
                          "taxa" = "taxon_concept_id",
                          "uid" # last option selected if above are exhausted
   )

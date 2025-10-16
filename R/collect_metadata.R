@@ -42,6 +42,21 @@ flat_lists_only <- function(x){
              })
 }
 
+#' Internal function to ensure rows can be converted to tibble
+#' This is important because some lists contain `NULL`
+#' The function fixes it by converting to `NA`
+#' @param x a single list, to be converted into a tibble row. use map() for multiple rows
+#' @noRd
+#' @keywords Internal
+make_nulls_safe <- function(x){
+  x_null <- purrr::map(x, is.null) |>
+    unlist()
+  if(any(x_null)){
+    x[x_null] <- purrr::map(x[x_null], \(a){c(NA)})
+  }
+  x
+}
+
 # collect functions
 
 #' Internal function to `collect()` APIs
@@ -67,7 +82,7 @@ collect_assertions <- function(.query){
     result_df <- result_api |>
       dplyr::bind_rows() |>
       dplyr::rename_with(camel_to_snake_case) |>
-      parse_rename(type = "assertions") |>
+      parse_rename(.query) |>
       dplyr::mutate(type = "assertions") |> # for consistency with `collect_fields()`
       update_attributes(type = "assertions")
     update_cache(assertions = result_df)
@@ -120,7 +135,7 @@ collect_collections <- function(.query){
     }
     result_df <- result_df |>
       dplyr::rename_with(camel_to_snake_case) |>
-      dplyr::arrange(.data$id) |>
+      parse_arrange() |>
       update_attributes(type = "collections")
     update_cache(collections = result_df)
   }
@@ -155,7 +170,7 @@ collect_datasets <- function(.query){
     }
     result_df <- result_df |>
       dplyr::rename_with(camel_to_snake_case) |>
-      dplyr::arrange(.data$id) |>
+      parse_arrange() |>
       update_attributes(type = "datasets")
     update_cache(datasets = result_df)
   }
@@ -169,7 +184,7 @@ collect_distributions_metadata <- function(.query){
   result <- query_API(.query)
   result <- result |>
     dplyr::bind_rows() |>
-    # NOTE: This syntax should be integrated with `wanted_columns()` et al before shipping
+    # NOTE: This syntax should be integrated with `lookup_select_columns()` et al before shipping
     dplyr::select(
       "spcode", 
       "family", 
@@ -243,7 +258,7 @@ collect_licences <- function(.query){
       result_df <- result |> 
         dplyr::bind_rows() |>
         dplyr::rename_with(camel_to_snake_case) |>
-        dplyr::arrange(result$id)
+        parse_arrange()
     }else{
       result_df <- tibble::tibble(id = character(),
                                   name = character(),
@@ -260,29 +275,47 @@ collect_licences <- function(.query){
 #' @noRd
 #' @keywords Internal
 collect_lists <- function(.query){
+  # NOTE: this function has some quite versatile behaviour, so we need to 
+  # explicitly control when caching does (and does not) happen.
+  should_update_cache <- FALSE
+
+  # requests for cached data use the `data` slot; check this first
   if(!is.null(.query$data)){
     result_df <- retrieve_internal_data(.query)
   }else{
     # here we run and parse an API call
-    if(inherits(.query$url, "data.frame")){
+    result <- query_API(.query) # this when `url` is a single value or a tibble
+    # pagination returns long lists
+    if(length(result) > 1){
       result_df <- purrr::map(query_API(.query), 
-                           \(a){a$lists}) |>
-        dplyr::bind_rows()    
-    }else{
-      result_df <- query_API(.query) |>
-        purrr::pluck("lists") |>
+                              \(a){a$lists}) |>
         dplyr::bind_rows()
+      should_update_cache <- TRUE      
+    }else{
+      lists_slot <- purrr::pluck(result, "lists")
+      # single list queries that use `filter()` don't have a `lists` slot
+      if(is.null(lists_slot)){
+        result_df <- result[[1]] |>
+          make_nulls_safe() |>
+          tibble::as_tibble()
+      # but some queries do
+      }else{
+        result_df <- lists_slot |>
+          dplyr::bind_rows()
+        should_update_cache <- TRUE
+      }
     }
-    if(any(colnames(result_df) == "dataResourceUid")){
-      result_df <- result_df |>
-        dplyr::rename("species_list_uid" = "dataResourceUid")    
-    }
+    
     # cleaning
     result_df <- result_df |>
       dplyr::rename_with(camel_to_snake_case) |>
-      dplyr::arrange(.data$species_list_uid) |>
+      parse_rename(.query) |>
+      parse_arrange() |>
       update_attributes(type = "lists")
-    update_cache(lists = result_df)
+    
+    if(should_update_cache){
+      update_cache(lists = result_df)   
+    }
   }
   # return
   parse_select(result_df, .query)
@@ -309,7 +342,7 @@ collect_media_metadata <- function(.query){
   # NOTE: this has no caching on purpose
   result |>
     dplyr::rename_with(camel_to_snake_case) |>
-    parse_rename(type = "media") |>
+    parse_rename(.query) |>
     dplyr::filter(!is.na(result$image_id)) |>
     parse_select(.query)
 }
@@ -326,7 +359,7 @@ collect_profiles <- function(.query){
     result_df <- result |>
       dplyr::filter(!duplicated(result$id)) |>
       dplyr::rename_with(camel_to_snake_case) |>
-      dplyr::arrange(.data$id) |>
+      parse_arrange() |>
       update_attributes(type = "profiles")
     update_cache(profiles = result_df)
   }
@@ -365,7 +398,7 @@ collect_providers <- function(.query){
     }
     result_df <- result_df |>
       dplyr::rename_with(camel_to_snake_case) |>
-      dplyr::arrange(.data$id) |>
+      parse_arrange() |>
       update_attributes(type = "providers")
     update_cache(providers = result_df)
   }
@@ -392,7 +425,7 @@ collect_reasons <- function(.query){
       dplyr::bind_rows() 
     result_df <- result |>
       dplyr::filter(!result$deprecated) |>
-      dplyr::arrange(.data$id) |>
+      parse_arrange() |>
       dplyr::relocate("id", "name") |>
       update_attributes(type = "reasons")
     update_cache(reasons = result_df)

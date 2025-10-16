@@ -170,12 +170,19 @@ print.query <- function(x, ...){
   }else{
     subtext <- ""
   }
+  if(!is.null(x$select)){
+    select <- galah_grey(glue::glue("\n
+                               select: {x$select$summary}"))
+  }else{
+    select <- NULL
+  }
   cat(c(
     crayon::silver("Object of class"),
     galah_pink("query"),
     crayon::silver("with type"),
     galah_green(x$type),
     subtext, # note: need code for url tibbles
+    select,
     arrange,
     slice))
 }
@@ -243,7 +250,7 @@ print.query_set <- function(x, ...){
   n_queries <- length(x)
   message(c(crayon::silver("Object of class "),
         galah_pink("`query_set` "),
-        crayon::silver(glue("containing ")),
+        crayon::silver(glue::glue("containing ")),
         ifelse(n_queries > 1, 
                crayon::silver(glue::glue("{n_queries} queries:")),
                crayon::silver("1 query:"))))

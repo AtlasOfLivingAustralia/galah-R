@@ -42,9 +42,7 @@ collapse_build_checks <- function(.query){
 #' @keywords Internal
 collapse_run_checks <- function(.query){
   # "data/" functions require pre-processing of metadata,
-  # as do `unnest()`/`show_values()` functions
-  if(grepl("^data/", .query$type) |
-     grepl("-unnest$", .query$type)){
+  if(stringr::str_detect(.query$type, "^data/")){
     # some checks should happen regardless of `run_checks`
     .query <- .query |>
       check_login() |>
@@ -56,17 +54,21 @@ collapse_run_checks <- function(.query){
         check_fields() |>
         check_profiles()
     }
-    # special cases:
-    # distributions
-    if(.query$type == "data/distributions" & 
-       !is.null(.query[["metadata/distributions"]])){
-      .query$url <- tibble(url = glue(utils::URLdecode(.query$url), 
-                                      id = .query[["metadata/distributions"]]$id))
-    }
-    # clean up
-    .query <- collapse_remove_metadata(.query)
+  # as do `unnest()`/`show_values()` functions
+  }else if(stringr::str_detect(.query$type, "-unnest$")){
+    # FIXME: decide which checks should be subject to `if(potions::pour("package", "run_checks"))`
+    .query <- .query |>
+      check_identifiers() |>
+      check_fields()
   }
-  .query
+  collapse_remove_metadata(.query)
+  # special cases:
+  # distributions
+  # if(.query$type == "data/distributions" & 
+  #    !is.null(.query[["metadata/distributions"]])){
+  #   .query$url <- tibble(url = glue(utils::URLdecode(.query$url), 
+  #                                   id = .query[["metadata/distributions"]]$id))
+  # }
 }
 
 #' Internal function to collapse metadata
@@ -90,9 +92,8 @@ collapse_run_metadata <- function(names_vec, .query){
 #' @noRd
 #' @keywords Internal
 collapse_add_metadata <- function(query, meta){
-  result <- c(query, meta)
-  class(result) <- "query"
-  return(result)
+  c(query, meta) |>
+    as_query()
 }
 
 #' Internal function to reduce size of internally computed objects
@@ -100,12 +101,10 @@ collapse_add_metadata <- function(query, meta){
 #' @noRd
 #' @keywords Internal
 collapse_remove_metadata <- function(.query){
-  names_lookup <- grepl("^metadata/", names(.query))
+  names_lookup <- stringr::str_detect( names(.query), "^metadata/")
   if(any(names_lookup)){
-    x <- .query[!names_lookup]
+    as_query(.query[!names_lookup])
   }else{
-    x <- .query
+    as_query(.query)
   }
-  class(x) <- "query"
-  x
 }

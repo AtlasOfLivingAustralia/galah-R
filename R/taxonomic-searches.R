@@ -26,12 +26,13 @@
 #' 
 #' Note that when taxonomic look-up is required within a pipe, the equivalent
 #' to [search_taxa()] is \code{\link[=identify.data_request]{identify()}} (or
-#' [galah_identify()]). The equivalent to `search_identifiers()` is to use 
+#' [galah_identify()]). The equivalent to [search_identifiers()] is to use 
 #' \code{\link[=filter.data_request]{filter()}} to filter by `taxonConceptId`.
 #' 
 #' @details
 #' `search_taxa()` returns the taxonomic match of a supplied text string, along 
 #' with the following information:
+#' 
 #'   *  `search_term`: The search term used by the user. When multiple search 
 #'   terms are provided in a tibble, these are displayed in this column, 
 #'   concatenated using `_`.
@@ -48,6 +49,17 @@
 #'   *  `taxonomic names` (e.g. `kingdom`, `phylum`, `class`, `order`, 
 #'   `family`, `genus`)
 #' 
+#' When querying using [request_metadata()], you have the option to pass
+#' \code{\link[=select.metadata_request]{select()}} within the query. The 
+#' easiest way to do this is `select(everything())`, but for completeness, the
+#' following additional fields are available:
+#' 
+#' * `success`: Logical indicating success or failure of the search
+#' * `scientific_name_authorship`: Author and year for the name in question
+#' * `name_type`: Usually `"SCIENTIFIC"`
+#' * `lft` and `rgt`: Numeric indices for taxonomic lookups
+#' * `species_group` and `species_subgroup`: List-columns giving group names
+#' * `_id` fields for `rank` and any taxonomic rank fields (`kingdom_id`, `phylum_id` etc.)
 #' 
 #' @seealso [search_all()] for how to get names if taxonomic identifiers 
 #' are already known. \code{\link[=filter.data_request]{filter()}}, 

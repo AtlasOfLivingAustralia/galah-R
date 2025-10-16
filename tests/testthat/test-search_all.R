@@ -1,9 +1,9 @@
-test_that("search_all checks inputs, returns helpful error", {
+test_that("`search_all()` checks inputs, returns helpful error", {
   skip_if_offline(); skip_on_ci()
   expect_error(search_all(attributes, ""), "Unrecognised metadata requested")
 })
 
-test_that("search_all returns correct output for type", {
+test_that("`search_all()` returns correct output for type", {
   skip_if_offline(); skip_on_ci()
   fields <- search_all(fields, "year")
   reasons <- search_all(reasons, "genus")
@@ -23,13 +23,13 @@ test_that("search_all returns correct output for type", {
   expect_equal(ncol(profiles), 4)
 })
 
-test_that("search_all returns error when missing query", {
+test_that("`search_all()` returns error when missing query", {
   skip_if_offline(); skip_on_ci()
   expect_error(search_all(profiles), "We didn't detect a search")
   expect_error(search_all(fields, blah))
 })
 
-test_that("search_assertions returns a filtered result", {
+test_that("`search_assertions()` returns a filtered result", {
   skip_if_offline(); skip_on_ci()
   all <- show_all_assertions()
   search <- search_assertions("INVALID")

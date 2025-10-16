@@ -16,7 +16,9 @@
 #' @param ... Other arguments passed to [as_query()].
 #' @order 1
 #' @return An object of class `query_set`, which is simply a list of all `query` 
-#' objects required to properly evaluate the specified request.
+#' objects required to properly evaluate the specified request. Objects are 
+#' listed in the order in which they will be evaluated, meaning the query
+#' that the user has actually requested will be placed last.
 #' @seealso To open a piped query, see [galah_call()]. For alternative 
 #' operations on `_request` objects, see [as_query()], 
 #' \code{\link[=collapse.data_request]{collapse()}}, 
@@ -63,7 +65,7 @@ coalesce.metadata_request <- function(x, ...){
       }
     }else if(is.null(x$filter)){
       current_type <- x$type
-      cli::cli_abort("Requests of type `{current_type}` containing `unnest` must supply `filter()`.")
+      cli::cli_abort("Requests of type `{current_type}` must supply `filter()`.")
     }
   }
   if(x$type == "lists-unnest"){

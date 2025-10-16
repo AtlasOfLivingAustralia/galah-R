@@ -26,7 +26,7 @@ test_that("`request_metadata()` works with `select()` for local APIs", {
     purrr::pluck(query, "select") |>
       is.null() |>
       expect_false()
-    purrr::pluck(query, !!!list("select", 1)) |>
+    purrr::pluck(query, !!!list("select", "quosure", 1)) |>
       rlang::is_quosure() |>
       expect_true()
     purrr::pluck(query, "select", "summary") |>
@@ -76,7 +76,7 @@ test_that("`request_metadata()` works with `select()` for remote APIs *without* 
     purrr::pluck(query, "select") |>
       is.null() |>
       expect_false()
-    purrr::pluck(query, !!!list("select", 1)) |>
+    purrr::pluck(query, !!!list("select", "quosure", 1)) |>
       rlang::is_quosure() |>
       expect_true()
     purrr::pluck(query, "select", "summary") |>
@@ -119,7 +119,7 @@ test_that("`request_metadata()` works with `select()` for remote APIs *with* def
   x <- purrr::map(type_list, \(a){
     
     # setup
-    expected_columns <- wanted_columns(a)
+    expected_columns <- lookup_select_columns(a)
     expected_n <- length(expected_columns)
     
     # set up a query _without_ `everything()`
@@ -134,7 +134,7 @@ test_that("`request_metadata()` works with `select()` for remote APIs *with* def
     purrr::pluck(query, "select") |>
       is.null() |>
       expect_false()
-    purrr::pluck(query, !!!list("select", 1)) |>
+    purrr::pluck(query, !!!list("select", "quosure", 1)) |>
       rlang::is_quosure() |>
       expect_true()
     purrr::pluck(query, "select", "summary") |>
@@ -198,7 +198,7 @@ test_that("`request_metdata()` works with `select()` for `type = 'taxa'`", {
   purrr::pluck(query, "select") |>
     is.null() |>
     expect_false()
-  purrr::pluck(query, !!!list("select", 1)) |>
+  purrr::pluck(query, !!!list("select", "quosure", 1)) |>
     rlang::is_quosure() |>
     expect_true()
   purrr::pluck(query, "select", "summary") |>
@@ -232,7 +232,7 @@ test_that("`request_metdata()` works with `select()` for complex taxa", {
   purrr::pluck(query, "select") |>
     is.null() |>
     expect_false()
-  purrr::pluck(query, !!!list("select", 1)) |>
+  purrr::pluck(query, !!!list("select", "quosure", 1)) |>
     rlang::is_quosure() |>
     expect_true()
   purrr::pluck(query, "select", "summary") |>
@@ -266,7 +266,7 @@ test_that("`request_metdata()` works with `select()` for `type = 'identifiers'`"
   purrr::pluck(query, "select") |>
     is.null() |>
     expect_false()
-  purrr::pluck(query, !!!list("select", 1)) |>
+  purrr::pluck(query, !!!list("select", "quosure", 1)) |>
     rlang::is_quosure() |>
     expect_true()
   purrr::pluck(query, "select", "summary") |>

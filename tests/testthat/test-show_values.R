@@ -22,56 +22,32 @@ test_that("`show_values()` checks values", {
 
 test_that("`show_values()` accepts search & show_all inputs from fields", {
   skip_if_offline(); skip_on_ci()
-  # traditional syntax
-  values_search <- search_all(lists, "EPBC act") |>
+  values_search <- search_all(fields, "basisOfRecord") |>
     quiet_values()
   expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(values_search), 0)
-  # newer syntax (doesn't require `show_all_lists()`)
-  values_show <- request_metadata() |>
-    filter(lists == "dr656") |>
-    unnest() |>
-    collect()
-  expect_s3_class(values_show, c("tbl_df", "tbl", "data.frame"))
-  expect_gt(nrow(values_show), 0)
 })
 
 test_that("`show_values()` accepts search & show_all inputs from profiles", {
   skip_if_offline(); skip_on_ci()
-  # traditional syntax
   values_search <- search_all(profiles, "ALA") |>
     quiet_values()
   expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(values_search), 0)
-  # newer syntax
-  values_show <- request_metadata() |>
-    filter(profiles == "ALA") |>
-    unnest() |>
-    collect()
-  expect_s3_class(values_show, c("tbl_df", "tbl", "data.frame"))
-  expect_gt(nrow(values_show), 0)
 })
 
 test_that("`show_values()` accepts search & show_all inputs from lists", {
   skip_if_offline(); skip_on_ci()
-  # old syntax
-  values_search <- search_all(fields, "cl22") |>
+  values_search <- search_all(lists, "dr650") |>
     quiet_values()
   expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(values_search), 0)
-  # new syntax
-  values_show <- request_metadata() |>
-    filter(fields == "basisOfRecord") |>
-    unnest() |>
-    collect()
-  expect_s3_class(values_show, c("tbl_df", "tbl", "data.frame"))
-  expect_gt(nrow(values_show), 0)
 })
 
 test_that("`search_values()` returns helpful error when missing query", {
   skip_if_offline(); skip_on_ci()
   expect_error(search_values(), "Missing information for values lookup")
-  expect_error(search_all(fields, "cl22") |> purrr_search(), "didn't detect a search")
+  expect_error(search_all(fields, "cl22") |> search_values(), "didn't detect a search")
 })
 
 test_that("`search_values()` returns filtered results for fields", {
@@ -104,11 +80,14 @@ test_that("`search_values()` returns filtered results for profiles", {
 
 test_that("`search_values()` returns filtered results for lists", {
   skip_if_offline(); skip_on_ci()
-  search <- search_all(lists, "ALA")
-  values_search <- search |> quiet_search("frog")
-  values_show <- search |> quiet_values()
+  # use more efficient syntax
+  base_df <- request_metadata() |>
+    filter(lists == "dr650") |>
+    collect()
+  values_search <- base_df |> quiet_search("frog")
+  values_show <- base_df |> quiet_values()
   search_result_check <- all(grepl(pattern = "frog", 
-                                   paste(values_search$commonName, values_search$scientificName),
+                                   paste(values_search$vernacular_name, values_search$scientific_name),
                                    ignore.case = TRUE))
   expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
   expect_equal(names(values_search), names(values_show))
@@ -146,26 +125,6 @@ test_that("`show_values()` returns unformatted names", {
                expected)
 })
 
-test_that("`unnest()` syntax works", {
-  skip_if_offline(); skip_on_ci()
-  # fields
-  x <- request_metadata() |>
-    filter(field == "cl22") |>
-    unnest() |>
-    collect() 
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(colnames(x), "cl22")
-  expect_gte(nrow(x), 1)
-  # profiles
-  y <- request_metadata() |>
-    filter(profile == "ALA") |>
-    unnest() |>
-    collect() 
-  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
-  expect_gte(ncol(y), 4)
-  expect_gte(nrow(y), 1)
-})
-
 test_that("`show_values()` all_fields = TRUE works for lists", {
   skip_if_offline(); skip_on_ci()
   # simple, fake version for testing `show_values()`
@@ -187,26 +146,6 @@ test_that("`show_values()` all_fields = TRUE works for lists", {
                "`all_fields` only applies to type `lists`. Ignoring `all_fields = TRUE`.")
   expect_equal(x$messages,
                "* Showing values for 'cl22'.")
-})
-
-test_that("unnest() |> `select(everything()) works as alternative to all_fields",{
-  x <- request_metadata() |>
-    filter(list == "dr650") |>
-    select(everything()) |>
-    unnest() |>
-    collect()
-  extra_cols <- c("raw_scientificName", "status", "sourceStatus", "IUCN_equivalent_status")
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
-  expect_gt(nrow(x), 0)
-  expect_true(any(colnames(x) %in% extra_cols))
-  expect_gt(ncol(x), 6) # adds additional columns
-  
-  # explicitly errors for other metadata types
-  request_metadata() |>
-    filter(field == "basisOfRecord") |>
-    select(everything()) |>
-    unnest() |>
-    expect_error()
 })
 
 rm(purrr_values, quiet_values, purrr_search, quiet_search)

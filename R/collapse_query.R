@@ -2,7 +2,8 @@
 #' @param x a `query_set`
 #' @noRd
 #' @keywords Internal
-collapse_query <- function(x){
+collapse_query <- function(x,
+                           error_call = rlang::caller_env()){
   switch(x$type,
          "data/occurrences" = collapse_occurrences(x),
          "data/occurrences-count" = {
@@ -33,7 +34,8 @@ collapse_query <- function(x){
          "data/species" = collapse_occurrences(x), # optimised for GBIF
          "data/species-count" = collapse_species_count(x),
          # "-unnest" functions require some checks
-         "metadata/profiles-unnest" = collapse_profile_values(x),  # check this
+         "metadata/profiles-unnest" = collapse_profile_values(x,
+                                                              error_call = error_call),
          # some "metadata/" functions require pagination under some circumstances
          "metadata/lists" = collapse_lists(x), # always paginates
          x # remaining "metadata/" functions are passed as-is 

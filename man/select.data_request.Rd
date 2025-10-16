@@ -123,17 +123,10 @@ it should be one or more of:
 \item \code{lists} to include authoritative lists that each species is included on.
 }
 
-The \code{\link[=everything]{everything()}} function is recoded in galah to support three changed
-behaviours:
-\itemize{
-\item When called with \code{\link[=unnest]{unnest()}} for type \code{"lists"}, it adds user-provided
-columns, for example on conservation status or species traits.
-\item For occurrence downloads with type \verb{"species}, it adds \code{counts},
-\code{synonyms} and \code{lists} to the download.
-\item For 'normal' occurrence downloads, it returns an error. Returning all
-fields is computationally expensive and probably not what you want
-anyway.
-}
+For metadata queries - as generated using \code{\link[=request_metadata]{request_metadata()}} or
+\code{\link[=galah_call]{galah_call()}} - \code{select()} can now be used to return only the requested
+columns. Unlike data queries, this works by capturing the user's query
+and applying it user-side, rather than amending the query.
 }
 \examples{
 \dontrun{

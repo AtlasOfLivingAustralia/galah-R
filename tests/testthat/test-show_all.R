@@ -34,15 +34,12 @@ test_that("all show_all() functions return correctly with all syntax", {
     syntax2 <- paste0("show_all(", a, ")") |> 
       parse(text = _) |> 
       eval() # e.g. show_all(fields)
-    syntax3 <- request_metadata(type = a) |> 
-      collect()
     limit_test <- paste0("show_all_", a) |> 
       do.call(args = list(limit = 3))
     expect_s3_class(syntax1, c("tbl_df", "tbl", "data.frame"))
     expect_equal(attributes(syntax1)$call, a)
     expect_equal(attributes(syntax1)$region, "Australia")
     expect_equal(syntax1, syntax2)
-    expect_equal(syntax1, syntax3)
     expect_equal(nrow(limit_test), 3)
   }))
 })

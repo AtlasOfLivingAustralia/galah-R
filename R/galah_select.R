@@ -96,16 +96,10 @@
 #'   * `synonyms` to include any synonymous names.
 #'   * `lists` to include authoritative lists that each species is included on.
 #'
-#' The [everything()] function is recoded in galah to support three changed
-#' behaviours:
-#' 
-#'    * When called with [unnest()] for type `"lists"`, it adds user-provided 
-#'      columns, for example on conservation status or species traits.
-#'    * For occurrence downloads with type `"species`, it adds `counts`,
-#'     `synonyms` and `lists` to the download.
-#'    * For 'normal' occurrence downloads, it returns an error. Returning all
-#'      fields is computationally expensive and probably not what you want
-#'      anyway.
+#' For metadata queries - as generated using [request_metadata()] or 
+#' [galah_call()] - `select()` can now be used to return only the requested
+#' columns. Unlike data queries, this works by capturing the user's query
+#' and applying it user-side, rather than amending the query.
 #'      
 #' @seealso \code{\link[=filter.data_request]{filter()}}, 
 #' \code{\link[=st_crop.data_request]{st_crop()}} and
@@ -139,9 +133,9 @@ select.data_request <- function(.data, ..., group){
     cli::cli_inform("`select()` is not supported for GBIF: skipping")
     .data
   }else{
-    rlang::enquos(..., .ignore_empty = "all") |>
-      as.list() |>
-      add_summary() |>
+    dots <- rlang::enquos(..., .ignore_empty = "all")
+    list(quosure = dots,
+         summary = generate_summary(dots)) |>
       add_group(group) |>
       update_request_object(.data, select = _)  
   }
@@ -150,14 +144,10 @@ select.data_request <- function(.data, ..., group){
 #' @rdname select.data_request
 #' @export
 select.metadata_request <- function(.data, ...){
-  # if(.data$type != "lists"){
-  #   cli::cli_abort("`select()` is only supported for type `lists`")
-  # }
-  ## TODO: decide whether warnings are needed. 
-  ## Probably inform("Skipping") would be fine
-  rlang::enquos(..., .ignore_empty = "all") |>
-    as.list() |>
-    add_summary() |>
+  dots <- rlang::enquos(...,
+                        .ignore_empty = "all")
+  list(quosure = dots,
+       summary = generate_summary(dots)) |>
     update_request_object(.data, select = _)
 }
 
@@ -175,9 +165,9 @@ galah_select <- function(..., group){
       NULL
     }
   }else{
-    dots <- dots |>
-      add_summary() |>
-      add_group(group)
+    # dots <- dots |>
+    #   add_summary() |> # FIXME: this *will* break rn
+    #   add_group(group)
     if(inherits(dots[[1]], "data_request")){
       update_request_object(dots[[1]],
                             select = dots[-1]) 
@@ -190,14 +180,11 @@ galah_select <- function(..., group){
 #' internal function to summarise select function (to support `print()`)
 #' @noRd
 #' @keywords Internal
-add_summary <- function(dots){
-  labels <- purrr::map(dots, rlang::as_label) |>
-    unlist() 
-  labels <- labels[labels != "<dat_rqst>"]
-  last_entry <- length(dots) + 1
-  dots[[last_entry]] <- glue::glue_collapse(labels, sep = " | ")
-  names(dots)[last_entry] <- "summary"
-  dots
+generate_summary <- function(dots){
+  labels <- purrr::map(dots, rlang::expr_text) |>
+    unlist() |>
+    glue::glue_collapse(sep = " | ")
+  labels[labels != "<dat_rqst>"]
 }
 
 #' internal function to add `group` arg to the end of a list

@@ -34,29 +34,6 @@ filtered_query <- function(query_type, .query){
        headers = build_headers()) 
 }
 
-#' Internal function to enforce `select()` for queries. Basically just supplies
-#' defaults.
-#' @noRd
-#' @keywords Internal
-enforce_select_query <- function(new_query, supplied_query){
-  if(is.null(supplied_query$select)){
-    specific_type <- supplied_query |>
-      purrr::pluck("type") |>
-      stringr::str_remove("^metadata/")
-    chosen_columns <- wanted_columns(specific_type)
-    if(is.null(chosen_columns)){
-      supplied_query <- dplyr::select(supplied_query, 
-                                      tidyselect::everything())    
-    }else{
-      supplied_query <- dplyr::select(supplied_query, 
-                                      tidyselect::any_of(wanted_columns(specific_type)))
-    }
-
-  }
-  update_request_object(new_query, select = supplied_query$select)
-}
-
-
 # Actual functions called to build those queries
 
 #' Internal function get a tibble of APIs
@@ -189,23 +166,43 @@ as_query_licences <- function(x){
 #' Internal function to create a lists query
 #' @noRd
 #' @keywords Internal
-as_query_lists <- function(x){
+as_query_lists <- function(x,
+                           error_call = rlang::caller_env()){
   query_type <- "metadata/lists"
-  if(check_if_cache_update_needed("lists")){
-    url <- url_lookup(query_type) |>
-      httr2::url_parse()
-    url$query <- list(max = 10000)
-    if(!missing(x)){
-      if(!is.null(x$slice)){
-        url$query <- list(max = x$slice$slice_n)
-      }    
+  # if filter is supplied, lookup a specified list by dr number
+  if(!is.null(x$filter)){
+    dr_lookup <- stringr::str_detect(x$filter$value, "^dr")
+    if(any(dr_lookup)){
+      dr_values <- x$filter$value[dr_lookup]
+      base_url <- url_lookup(query_type)
+      url <- glue::glue("{base_url}/{dr_values}")
+      result <- list(type = query_type,
+                     url = tibble::tibble(url = url), # note: tibbles are used to skip pagination in `collapse()`
+                     headers = build_headers(),
+                     slot_name = "lists")
+    }else{
+      cli::cli_abort(c("`filter()` arguments to `lists` only accept a data resource number",
+                       i = "e.g. request_metadata() |> filter(lists == 'dr656')"),
+                     call = error_call)
     }
-    result <- list(type = query_type,
-                   url = httr2::url_build(url),
-                   headers = build_headers(),
-                   slot_name = "lists")
+  # if filter isn't supplied, check cache etc
   }else{
-    result <- default_cache(query_type)
+    if(check_if_cache_update_needed("lists")){
+      url <- url_lookup(query_type) |>
+        httr2::url_parse()
+      url$query <- list(max = 10000)
+      if(!missing(x)){
+        if(!is.null(x$slice)){
+          url$query <- list(max = x$slice$slice_n)
+        }    
+      }
+      result <- list(type = query_type,
+                     url = httr2::url_build(url),
+                     headers = build_headers(),
+                     slot_name = "lists")
+    }else{
+      result <- default_cache(query_type)
+    } 
   }
   result |>
     enforce_select_query(supplied_query = x) |>

@@ -2,12 +2,103 @@
 ##                 Output formatting functions                 --
 ##---------------------------------------------------------------
 
+#' Internal function to enforce `select()` for metadata queries. Basically just 
+#' supplies defaults. This is the *setup* phase as is usually called by 
+#' `as_query()`
+#' @noRd
+#' @keywords Internal
+enforce_select_query <- function(new_query, supplied_query){
+  # if `select()` is given, we simply pass it on
+  # if missing, we have to apply some logic
+  if(is.null(supplied_query$select)){
+    specific_type <- supplied_query |>
+      purrr::pluck("type") |>
+      stringr::str_remove("^metadata/")
+    # see whether `lookup_select_columns()` returns anything
+    chosen_columns <- lookup_select_columns(specific_type)  
+    # some `unnest` queries internally rename the lead column to the name of the supplied field
+    if(is.null(chosen_columns) & 
+       stringr::str_detect(specific_type, "-unnest$")){
+      chosen_columns <- supplied_query$filter |>
+        dplyr::pull(value)
+    }
+    # if we have, after 2 attempts, found some chosen_columns, use them
+    if(!is.null(chosen_columns)){
+      supplied_query <- dplyr::select(supplied_query, 
+                                      tidyselect::any_of({{chosen_columns}}))
+      # if *still* null, choose `everything()`
+    }else{
+      supplied_query <- dplyr::select(supplied_query, 
+                                      tidyselect::everything()) 
+    }
+  }
+  update_request_object(new_query,
+                        select = supplied_query$select)
+}
+
+#' Internal function to run `eval_tidy()` on captured `select()` requests.
+#' This is the *enactment* phase and is usually called by `collect()`.
+#' Critically, this function is *NOT* called by `select()`. This matters because
+#' we have to eval `unnest()` before `select()` for it to work, and this can
+#' only happen at the end of a pipe.
+#' @noRd
+#' @keywords Internal
+parse_select <- function(df, .query){
+  # get quosures captured by `select()`
+  quo_list <- purrr::pluck(.query, "select", "quosure")
+  # map() over list of quosures
+  # honestly I don't know why `!!quo_list` fails here, but it does, so used this instead
+  pos <- purrr::map(quo_list, \(a){
+    tidyselect::eval_select(expr = a, data = df)
+  }) |>
+    unlist()
+  # apply tidy selection to `df`
+  # note: this code taken from `tidyselect` documentation; it could be argued that `df[pos]` is sufficient
+  rlang::set_names(df[pos], names(pos)) 
+}
+
+#' Internal function to rename specific columns. Note this is safer than calling
+#' `dplyr::rename()` directly, because it only seeks to rename columns that 
+#' are actually present, and so won't fail.
+#' @noRd
+#' @keywords Internal
+parse_rename <- function(df, .query){
+  cols <- colnames(df)
+  rename_vec <- .query$type |>
+    stringr::str_remove("^metadata/") |>
+    lookup_rename_columns()
+  # check whether renaming information is given
+  if(!is.null(rename_vec)){
+    # check whether these are actually present in the supplied `tibble`
+    col_lookup <- rename_vec %in% cols
+    # if they are, rename
+    if(any(col_lookup)){
+      rename_cols <- as.list(rename_vec[col_lookup])
+      dplyr::rename(df, !!!rename_cols)
+    # otherwise, return source `tibble`
+    }else{
+      df
+    }
+  # if no lookup information supplied, return source `tibble`
+  }else{
+    df
+  }
+}
+
+#' Simple internal function to `arrange()` by first column
+#' @noRd
+#' @keywords Internal
+parse_arrange <- function(df){
+  col <- colnames(df)[1]
+  dplyr::arrange(df, !!!col)
+}
+
 #' Choose column names to pass to `select()`. 
 #' NOTE: this isn't especially subtle wrt different atlases
 #' NOTE: this assumes `dplyr::rename_with(camel_to_snake_case)` has been run
 #' @noRd
 #' @keywords Internal
-wanted_columns <- function(type) {
+lookup_select_columns <- function(type) {
     switch(type,
            "assertions" = c("id",
                             "description",
@@ -16,7 +107,7 @@ wanted_columns <- function(type) {
            "fields" = c("id",
                         "description",
                         "type"),
-           "identifiers" = wanted_columns_taxa(),
+           "identifiers" = lookup_select_columns_taxa(),
            "licences" = c("id",
                           "name",
                           "acronym",
@@ -26,6 +117,9 @@ wanted_columns <- function(type) {
                        "description",
                        "list_type",
                        "item_count"),
+           "lists-unnest" = c("scientific_name",
+                              "vernacular_name",
+                              "taxon_concept_id"),
            "media" = c("image_id",
                        "creator", 
                        "license",
@@ -42,17 +136,25 @@ wanted_columns <- function(type) {
                          "short_name",
                          "name",
                          "description"),
+           "profiles-unnest" = c("id",
+                                 "description",
+                                 "filter",
+                                 "enabled"),
            "reasons" = c("id",
                          "name"),
-           "taxa" = wanted_columns_taxa(),
+           "taxa" = lookup_select_columns_taxa(),
+           "taxa-unnest" = c("name",
+                             "taxon_concept_id",
+                             "parent_taxon_concept_id",
+                             "rank"),
            NULL # When no defaults are set, sending NULL tells the code to call `everything()`
            )
 }
 
-#' `wanted_columns()` but for taxa *and* identifier queries
+#' `lookup_select_columns()` but for taxa and identifier queries
 #' @noRd
 #' @keywords Internal
-wanted_columns_taxa <- function(){
+lookup_select_columns_taxa <- function(){
   c("search_term",
     "scientific_name",
     "scientific_name_authorship", 
@@ -68,63 +170,46 @@ wanted_columns_taxa <- function(){
     "time_taken",
     "vernacular_name",
     "issues",
-    {show_all_ranks() |> dplyr::pull("name")})
+    # taxonomic ranks (basic only)
+    "kingdom",
+    "phylum",
+    "class",
+    "order",
+    "family",
+    "genus",
+    "species"
+    # if all are needed, use this instead
+    # {show_all_ranks() |> dplyr::pull("name")}
+  )
 }
 
-#' Internal function to run `eval_tidy()` on captured `select()` requests
+#' Choose which columns to rename
 #' @noRd
 #' @keywords Internal
-parse_select <- function(df, .query){
-  select_list <- .query |>
-    purrr::pluck("select") |>
-    purrr::map(rlang::is_quosure) |>
-    unlist() |>
-    which()
-  select_query <- .query |>
-    purrr::pluck("select", !!!select_list) 
-  pos <- tidyselect::eval_select(expr = select_query,
-                                 data = df)
-  rlang::set_names(df[pos], names(pos)) # note: this line taken from 
-  # `tidyselect` documentation; it could be argued that `df[pos]` is sufficient
+lookup_rename_columns <- function(type){
+  switch(type, 
+         "assertions" = c("id" = "name"),
+         "lists" = c("species_list_uid" = "data_resource_uid"),
+         "lists-unnest" = c("taxon_concept_id" = "lsid"),
+         "media" = c("image_id" = "image_identifier",
+                     "mimetype" = "mime_type"),
+         "taxa" = c("class" = "classs",
+                    "taxon_concept_id" = "usage_key",
+                    "taxon_concept_id" = "guid",
+                    "taxon_concept_id" = "reference_id",
+                    "taxon_concept_id" = "key",
+                    "genus" = "genus_name",
+                    "family" = "family_name",
+                    "order" = "order_name",
+                    "phylum" = "phylum_name",
+                    "kingdom" = "kingdom_name",
+                    "rank" = "rank_name",
+                    "vernacular_name" = "french_vernacular_name"),
+         "taxa-unnest" = c("taxon_concept_id" = "guid",
+                           "parent_taxon_concept_id" = "parent_guid"),
+         NULL
+  )
 }
-  
-#' Internal function to rename specific columns
-#' In-progress, tidyverse-compliant replacement for `rename_columns()`
-#' Note that actual renaming is now handled in-pipe by `dplyr::rename()`
-#' @noRd
-#' @keywords Internal
-parse_rename <- function(df, type){
-  if(type == "taxa"){
-    taxa_vec <- c("class" = "classs",
-                  "taxon_concept_id" = "usage_key",
-                  "taxon_concept_id" = "guid",
-                  "taxon_concept_id" = "reference_id",
-                  "taxon_concept_id" = "key",
-                  "genus" = "genus_name",
-                  "family" = "family_name",
-                  "order" = "order_name",
-                  "phylum" = "phylum_name",
-                  "kingdom" = "kingdom_name",
-                  "rank" = "rank_name",
-                  "vernacular_name" = "french_vernacular_name")
-    cols <- colnames(df)
-    col_lookup <- taxa_vec %in% cols
-    rename_cols <- as.list(taxa_vec[col_lookup])
-    if(any(col_lookup)){
-      dplyr::rename(df, !!!rename_cols)
-    }else{
-      df
-    }
-  }else if(type == "assertions"){
-    dplyr::rename(df, !!!c("id" = "name"))
-  }else if(type == "media"){
-    dplyr::rename(df, !!!c("image_id" = "image_identifier",
-                           "mimetype" = "mime_type"))
-  }else{
-    df
-  }
-}
-
 
 ##---------------------------------------------------------------
 ##                          Cases                              --
