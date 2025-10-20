@@ -16,37 +16,41 @@
 \alias{show_all_reasons}
 \title{Show valid record information}
 \usage{
-show_all(..., limit = NULL)
+show_all(..., limit = NULL, all_fields = FALSE)
 
-show_all_apis(limit = NULL)
+show_all_apis(limit = NULL, all_fields = FALSE)
 
-show_all_assertions(limit = NULL)
+show_all_assertions(limit = NULL, all_fields = FALSE)
 
-show_all_atlases(limit = NULL)
+show_all_atlases(limit = NULL, all_fields = FALSE)
 
-show_all_collections(limit = NULL)
+show_all_collections(limit = NULL, all_fields = FALSE)
 
-show_all_datasets(limit = NULL)
+show_all_datasets(limit = NULL, all_fields = FALSE)
 
-show_all_fields(limit = NULL)
+show_all_fields(limit = NULL, all_fields = FALSE)
 
-show_all_licences(limit = NULL)
+show_all_licences(limit = NULL, all_fields = FALSE)
 
-show_all_lists(limit = NULL)
+show_all_lists(limit = NULL, all_fields = FALSE)
 
-show_all_profiles(limit = NULL)
+show_all_profiles(limit = NULL, all_fields = FALSE)
 
-show_all_providers(limit = NULL)
+show_all_providers(limit = NULL, all_fields = FALSE)
 
-show_all_ranks(limit = NULL)
+show_all_ranks(limit = NULL, all_fields = FALSE)
 
-show_all_reasons(limit = NULL)
+show_all_reasons(limit = NULL, all_fields = FALSE)
 }
 \arguments{
 \item{...}{String showing what type of information is to be requested. See
 \code{Details} (below) for accepted values.}
 
 \item{limit}{Optional number of values to return. Defaults to NULL, i.e. all records}
+
+\item{all_fields}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} If \code{TRUE},
+\code{show_values()} also returns all columns available from the API, rather
+than the 'default' columns traditionally provided via galah.}
 }
 \value{
 An object of class \code{tbl_df} and \code{data.frame} (aka a tibble)
@@ -99,6 +103,11 @@ show_all(ranks)
 
 # `show_all()` is synonymous with `request_metadata() |> collect()`
 request_metadata(type = "fields") |>
+  collect()
+  
+# using `all_fields = TRUE` is synonymous with `select(everything())`
+request_metadata(type = "fields") |>
+  select(everything()) |>
   collect()
 }
 }

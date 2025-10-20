@@ -95,8 +95,7 @@ collapse_occurrences_count_atlas_groupby_crossed <- function(.query,
            x <- result[[a]][c(1, 4)]
            names(x)[1] <- a
            x})
-  # browser()
-  
+
   # convert to all combinations of levels
   if(length(result_list) > 1){
     levels_list <- purrr::map(result_list, \(a){a[[1]]})

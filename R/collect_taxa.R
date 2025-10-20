@@ -181,7 +181,7 @@ clean_la_taxa <- function(result, search_terms){
 collect_identifiers <- function(.query){
   search_terms <- .query$url$search_term
   result <- query_API(.query) |>
-    flat_lists_only() |>
+    tidy_list_columns() |>
     dplyr::bind_rows()
   
   if(any(colnames(result) == "taxonConceptID")){

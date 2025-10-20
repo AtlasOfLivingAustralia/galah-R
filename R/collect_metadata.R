@@ -25,21 +25,33 @@ retrieve_internal_data <- function(.query){
     eval()
 }
 
-#' Internal function to remove `list()` entries inside lists
-#' This supports passing to `bind_rows()`, but loses data
+#' Function to convert list entries in tibbles, supporting list-columns
+#' for nested data
+#' @param x a list-entry - i.e. we need to call 
+#' purrr::map(list, tidy_list_columns) for this to work
 #' @noRd
 #' @keywords Internal
-flat_lists_only <- function(x){
-  purrr::map(x, 
-             \(a){
-               purrr::map(a, \(b){
-                 if(is.list(b)){
-                   NULL
-                 }else{
-                   b
-                 }
-               })
-             })
+tidy_list_columns <- function(x){
+  
+  # tibble-ify list columns
+  list_check <- purrr::map(x, is.list) |>
+    unlist()
+  if(any(list_check)){
+    list_names <- names(x)[list_check]
+    list_tibbles <- purrr::map(list_names,
+                              \(a){
+                                tibble::tibble({{a}} := list(x[[a]]))
+                              })
+  }else{
+    list_tibbles <- NULL
+  }
+
+  # bind with non-list columns
+  x[!list_check] |>
+    make_nulls_safe() |>
+    tibble::as_tibble() |>
+    dplyr::bind_cols(list_tibbles) |>
+    dplyr::select(!!!names(x)) # reorder columns to same as `x`
 }
 
 #' Internal function to ensure rows can be converted to tibble
@@ -115,7 +127,7 @@ collect_collections <- function(.query){
         result <- purrr::pluck(result, "results")
       }
       result_df <- result |>
-        flat_lists_only() |>
+        tidy_list_columns() |>
         dplyr::bind_rows()
     # Then France
     }else if(potions::pour("atlas", "region", .pkg = "galah") == "France"){
@@ -156,7 +168,7 @@ collect_datasets <- function(.query){
         result <- purrr::pluck(result, "results")
       }
       result_df <- result |>
-        flat_lists_only() |>
+        tidy_list_columns() |>
         dplyr::bind_rows()
     }else if(potions::pour("atlas", "region", .pkg = "galah") == "France"){
       result_df <- result |> 
@@ -321,29 +333,24 @@ collect_lists <- function(.query){
   parse_select(result_df, .query)
 }
 
-#' Internal version of `collect()` for `request_data(type = "media")`
+#' Internal version of `collect()` for `request_metadata(type = "media")`
 #' @param object of class `data_response`, from `compute()`
 #' @noRd
 #' @keywords Internal
-collect_media_metadata <- function(.query){
-  result <- query_API(.query) |>
-    purrr::pluck("results") |>
-    dplyr::bind_rows()   
-  if(nrow(result) < 1){ # case where no data returned
-    if(potions::pour("package", "verbose")){
-      cli::cli_warn("No data returned from `metadata/media` API")
-    }
-    ids <- .query$body |>
-      jsonlite::fromJSON() |>
-      unlist()
-    result <- tibble::tibble(image_id = ids)
-  }
+collect_media_metadata <- function(.query,
+                                   error_call = rlang::caller_env()){
+  result <- query_API(.query) 
+
+  # ensure list-columns are imported correctly
+  result_df <- purrr::map(result, tidy_list_columns) |>
+    dplyr::bind_rows()
+
   # Select only the information we want
-  # NOTE: this has no caching on purpose
-  result |>
+  # NOTE: this has no caching *on purpose*
+  result_df |>
     dplyr::rename_with(camel_to_snake_case) |>
     parse_rename(.query) |>
-    dplyr::filter(!is.na(result$image_id)) |>
+    dplyr::filter(!is.na(.data$image_id)) |>
     parse_select(.query)
 }
 
@@ -357,7 +364,7 @@ collect_profiles <- function(.query){
     result <- query_API(.query) |>
       dplyr::bind_rows() 
     result_df <- result |>
-      dplyr::filter(!duplicated(result$id)) |>
+      dplyr::filter(!duplicated(.data$id)) |>
       dplyr::rename_with(camel_to_snake_case) |>
       parse_arrange() |>
       update_attributes(type = "profiles")
@@ -380,7 +387,7 @@ collect_providers <- function(.query){
         result <- purrr::pluck(result, "results")
       }
       result_df <- result |>
-        flat_lists_only() |>
+        tidy_list_columns() |>
         dplyr::bind_rows()
     }else if(potions::pour("atlas", "region", .pkg = "galah") == "France"){
       result_df <- tibble::tibble(name = {
@@ -424,7 +431,7 @@ collect_reasons <- function(.query){
     result <- query_API(.query) |> 
       dplyr::bind_rows() 
     result_df <- result |>
-      dplyr::filter(!result$deprecated) |>
+      dplyr::filter(!.data$deprecated) |>
       parse_arrange() |>
       dplyr::relocate("id", "name") |>
       update_attributes(type = "reasons")

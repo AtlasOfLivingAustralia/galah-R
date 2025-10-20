@@ -21,9 +21,10 @@
 #' @param type A string to specify what type of parameters should be searched.
 #' @param query A string specifying a search term. Searches are not 
 #' case-sensitive.
-#' @param ... A set of strings or a tibble to be queried; see 
-#' Details.
-#' @details There are five categories of information, each with their own 
+#' @param all_fields `r lifecycle::badge("experimental")` If `TRUE`, 
+#'   `show_values()` also returns all columns available from the API, rather
+#'   than the 'default' columns traditionally provided via galah.
+#' @details There are six categories of information, each with their own 
 #' specific sub-functions to look-up each type of information. 
 #' The available types of information for `search_all()` are:
 #' 
@@ -44,6 +45,7 @@
 #' |data providers|`providers`| Search for which institutions have provided data | `search_providers()`|
 #' | |`collections`|Search for the specific collections within those institutions| `search_collections()`|
 #' | |`datasets`|Search for the data groupings within those collections| `search_datasets()`|  
+#' |media|`media`|Search for images or sounds using a vector of IDs|`search_media()`|
 #' 
 #' 
 #' @aliases search_all
@@ -88,7 +90,9 @@
 #'  dplyr::filter(grepl("date", id))
 #' }
 #' @export
-search_all <- function(type, query){
+search_all <- function(type,
+                       query,
+                       all_fields = FALSE){
   
   # vector of valid types for this function
   valid_types <- c(
@@ -98,9 +102,10 @@ search_all <- function(type, query){
     "collections",
     "datasets",
     "fields",
+    "identifiers",
     "licences",
     "lists",
-    "identifiers",
+    "media",
     "profiles",
     "providers",
     "reasons",
@@ -120,27 +125,43 @@ search_all <- function(type, query){
   }
   
   check_if_missing(query)
+  run_subsequent_query <- FALSE
   
   if(type == "taxa"){
     check_if_in_pipe(query)
-    request_metadata(type = "taxa") |>
-      identify(query) |>
-      collect()
+    request <- request_metadata(type = "taxa") |>
+      identify(query)
   }else if(type == "identifiers"){
-    request_metadata() |>
-      filter("identifier" == query) |>
-      collect()
+    request <- request_metadata() |>
+      filter("identifier" == query)
+  }else if(type == "media"){
+    request <- request_metadata() |>
+      filter("media" == query)
   }else{
     if(is_gbif() & 
        type %in% c("collections", "datasets", "providers")){ # these support `q` arg in API
-      request_metadata() |>
-        filter({{type}} == query) |>
-        collect()
+      request <- request_metadata() |>
+        filter({{type}} == query)
     }else{
-      request_metadata(type = type) |> 
-        collect() |>
-        search_text_cols(query = query) 
+      request <- request_metadata(type = type)
+      run_subsequent_query <- TRUE
     }
+  }
+  
+  # add all_fields if requested
+  if(isTRUE(all_fields)){
+    request <- request |>
+      dplyr::select(tidyselect::everything())
+  }
+  
+  # collect the supplied `request`
+  result <- collect(request)
+  
+  # add search, or not, depending on behaviour
+  if(isTRUE(run_subsequent_query)){
+    search_text_cols(result, query)  
+  }else{
+    result
   }
 }
 
@@ -150,10 +171,10 @@ search_all <- function(type, query){
 search_text_cols <- function(df, query){
 
   query <- tolower(query)
-  keep_cols <- unlist(lapply(df, is.character)) & 
+  keep_cols <- unlist(purrr::map(df, is.character)) & 
     colnames(df) != "type"
   check_list <- purrr::map(df[, keep_cols], 
-                           \(a){grepl(query, tolower(a))})
+                           \(a){stringr::str_detect(tolower(a), query)})
   check_vector <- purrr::list_transpose(check_list) |>
     purrr::map(any) |> 
     unlist()
@@ -200,67 +221,116 @@ check_if_in_pipe <- function(...,
 
 #' @rdname search_all
 #' @export
-search_assertions <- function(query){search_all("assertions", query)}
+search_assertions <- function(query,
+                              all_fields = FALSE){
+  search_all("assertions", query, all_fields)
+}
 
 #' @rdname search_all
 #' @export
-search_apis <- function(query){search_all("apis", query)}
+search_apis <- function(query,
+                        all_fields = FALSE){
+  search_all("apis", query, all_fields)
+}
 
 #' @rdname search_all
 #' @export
-search_atlases <- function(query){search_all("atlases", query)}
+search_atlases <- function(query,
+                           all_fields = FALSE){
+  search_all("atlases", query, all_fields)
+}
 
 #' @rdname search_all
 #' @export
-search_collections <- function(query){search_all("collections", query)}
+search_collections <- function(query,
+                               all_fields = FALSE){
+  search_all("collections", query, all_fields)
+}
 
 #' @rdname search_all
 #' @export
-search_datasets <- function(query){search_all("datasets", query)}
+search_datasets <- function(query,
+                            all_fields = FALSE){
+  search_all("datasets", query, all_fields)
+}
 
 #' @rdname search_all
 #' @export
-search_fields <- function(query){search_all("fields", query)}
+search_fields <- function(query,
+                          all_fields = FALSE){
+  search_all("fields", query, all_fields)
+}
 
 #' @rdname search_all
 #' @export
-search_identifiers <- function(...){search_all("identifiers", unlist(list(...)))}
+search_identifiers <- function(...,
+                               all_fields = FALSE){
+  search_all("identifiers", 
+             unlist(list(...)), 
+             all_fields = all_fields)
+}
 
 #' @rdname search_all
 #' @export
-search_licences <- function(query){search_all("licences", query)}
+search_licences <- function(query,
+                            all_fields  = FALSE){
+  search_all("licences", query, all_fields)
+}
 
 #' @rdname search_all
 #' @export
-search_lists <- function(query){search_all("lists", query)}
+search_lists <- function(query,
+                         all_fields = FALSE){
+  search_all("lists", query, all_fields)
+}
 
 #' @rdname search_all
 #' @export
-search_profiles <- function(query){search_all("profiles", query)}
+search_media <- function(query,
+                         all_fields = FALSE){
+  search_all("media", query, all_fields)
+}
 
 #' @rdname search_all
 #' @export
-search_providers <- function(query){search_all("providers", query)}
+search_profiles <- function(query,
+                            all_fields = FALSE){
+  search_all("profiles", query, all_fields)
+}
 
 #' @rdname search_all
 #' @export
-search_ranks <- function(query){search_all("ranks", query)}
+search_providers <- function(query,
+                             all_fields = FALSE){
+  search_all("providers", query, all_fields)
+}
 
 #' @rdname search_all
 #' @export
-search_reasons <- function(query){search_all("reasons", query)}
+search_ranks <- function(query,
+                         all_fields = FALSE){
+  search_all("ranks", query, all_fields)
+}
+
+#' @rdname search_all
+#' @export
+search_reasons <- function(query,
+                           all_fields = FALSE){
+  search_all("reasons", query, all_fields)
+}
  
 #' @rdname search_all
 #' @export
-search_taxa <- function(...){
+search_taxa <- function(...,
+                        all_fields = FALSE){
   dots <- list(...)
   if(length(dots) == 1L){
     if(inherits(dots[[1]], "data.frame")){
-      search_all("taxa", dots[[1]])
+      search_all("taxa", dots[[1]], all_fields)
     }else{
-      search_all("taxa", dots)
+      search_all("taxa", dots, all_fields)
     }
   }else{
-    search_all("taxa", dots)
+    search_all("taxa", dots, all_fields)
   }
 }
