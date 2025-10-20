@@ -12,17 +12,18 @@
 #' @keywords internal
 parse_quosures_data_gbif <- function(dots){
   if(length(dots) > 0){
-    result <- purrr::map(dots, 
-                         switch_expr_type_pred)
-    names(result) <- NULL # NOTE: This step is *crucial*
-      # without it, jsonlite::toJSON() wraps predicates in `{}` instead of `[]`
-      # which is then rejected by GBIF
-    if(length(result) > 1L){
-      list(type = "and",
-           predicates = result)
+    predicates <- purrr::map(dots, 
+                             switch_expr_type_pred)
+    names(predicates) <- NULL # NOTE: This step is *crucial*
+    # without it, jsonlite::toJSON() wraps predicates in `{}` instead of `[]`
+    # which is then rejected by GBIF
+    if(length(predicates) > 1L){
+      result <- list(type = "and",
+                     predicates = result)
     }else{
-      result
+      result <- predicates
     }
+    as_predicates_filter(result)
   }else{
     NULL
   }

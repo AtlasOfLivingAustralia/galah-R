@@ -27,7 +27,7 @@ parse_quosures_data <- function(dots){
       value = character(),
       query = character())
   }
-  result
+  as_data_filter(result)
 }
 # FIXME: work out how to propagate `rlang::caller_env()` through the below functions
 
@@ -84,15 +84,16 @@ parse_quosures_files <- function(dots,
                   "literal" = {rlang::quo_get_expr(x)},
                   cli::cli_abort("Quosure type not recognised.", 
                                  call = error_call))
-    if(inherits(rhs, "data.frame")){
-      list(variable = dequote(lhs), 
-           data = rhs)
-    }else{
-      tibble::tibble(
-        variable = dequote(lhs),
-        logical = "==",
-        value = rhs)
-    }
+    # if(inherits(rhs, "data.frame")){
+    list(variable = dequote(lhs), 
+         data = rhs) |>
+      as_files_filter() 
+    # }else{
+      # tibble::tibble(
+      #   variable = dequote(lhs),
+      #   logical = "==",
+      #   value = rhs)
+    # }
   }else{
     NULL
   }

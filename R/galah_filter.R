@@ -143,8 +143,8 @@ filter.metadata_request <- function(.data, ...){
 #' @noRd
 #' @keywords Internal
 parse_quosures_metadata <- function(request, dots){
-  dots_parsed <- parse_quosures_files(dots)
-  request$filter <- dots_parsed
+  dots_parsed <- parse_quosures_data(dots)
+  request$filter <- as_metadata_filter(dots_parsed)
   # The `filter` argument sets `type` when specified
   initial_type <- request$type
   supplied_type <- dots_parsed$variable[1]
@@ -170,8 +170,8 @@ filter.files_request <- function(.data, ...){
   check_named_input(dots)
   dots_parsed <- parse_quosures_files(dots)
   check_files_filter(dots_parsed)
-  .data$type <- dots_parsed$variable
-  .data$filter <- dots_parsed$data
+  .data$type <- dots_parsed$variable[1]
+  .data$filter <- dots_parsed
   .data
 }
 
