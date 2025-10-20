@@ -119,7 +119,7 @@ as_query.metadata_request <- function(x, ...){
 #' @order 5
 #' @export
 as_query.files_request <- function(x, 
-                                   thumbnail,
+                                   thumbnail = FALSE,
                                    ...){
   # NOTE: switch is technically superfluous right now, but could be useful
   # for future file types

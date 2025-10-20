@@ -102,12 +102,22 @@ check_email <- function(.query,
 #' Check files are filtered properly
 #' @noRd
 #' @keywords Internal
-check_files_filter <- function(x){
+check_files_filter <- function(x,
+                               error_call = rlang::caller_env()
+                               ){ 
   if(!(x$variable %in% c("media"))){
-    cli::cli_abort("Variable name must be a valid `type` accepted by `request_files()`.")
+    cli::cli_abort("Variable name must be a valid `type` accepted by `request_files()`.",
+                   call = error_call)
+  }
+  if(is.null(x$data)){
+    cli::cli_abort(c("rhs must be a `tibble` containing media information",
+                     i = "at least, this tibble should contain `media_id` and `mime_type` columns"),
+                   call = error_call)    
   }
   if(!inherits(x$data, "data.frame")){
-    cli::cli_abort("rhs must be a `tibble` containing media information")
+    cli::cli_abort(c("rhs must be a `tibble` containing media information",
+                     i = "at least, this tibble should contain `media_id` and `mime_type` columns"),
+                   call = error_call)
   }
 }
 
@@ -117,7 +127,7 @@ check_files_filter <- function(x){
 check_filter_tibbles <- function(x, # where x is a list of tibbles
                                  error_call = rlang::caller_env()
                                  ){ 
-  syntax_valid <- lapply(x, function(a){
+  syntax_valid <- purrr::map(x, \(a){
     if(length(colnames(a)) == 4){
       all(colnames(a) %in% c("variable", "logical", "value", "query"))
     }else{

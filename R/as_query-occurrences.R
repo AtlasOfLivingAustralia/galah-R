@@ -88,7 +88,7 @@ as_query_occurrences_la <- function(.query,
                                     mint_doi = FALSE){
   # set default columns
   if(is.null(.query$select)){
-    .query$select <- galah_select(group = "basic")
+    .query <- .query |> select(group = "basic")
   }
   # build a query
   query <- c(build_query(identify = .query$identify,

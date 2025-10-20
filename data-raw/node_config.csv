@@ -7,7 +7,7 @@ Australia,data/occurrences-count-groupby,https://api.ala.org.au/occurrences/occu
 Australia,data/occurrences-doi,https://api.ala.org.au/doi/api/doi/{doi_string}/download,TRUE
 Australia,data/species,https://api.ala.org.au/occurrences/occurrences/facets/download,TRUE
 Australia,data/species-count,https://api.ala.org.au/occurrences/occurrences/facets,TRUE
-Australia,files/media,https://api.ala.org.au/images/ws/image/{id}/original,TRUE
+Australia,files/media,https://api.ala.org.au/images/image/{id}/{size},TRUE
 Australia,metadata/assertions,https://api.ala.org.au/occurrences/assertions/codes,TRUE
 Australia,metadata/collections,https://api.ala.org.au/metadata/ws/collection,TRUE
 Australia,metadata/datasets,https://api.ala.org.au/metadata/ws/dataResource,TRUE
@@ -18,7 +18,7 @@ Australia,metadata/identifiers,https://api.ala.org.au/namematching/api/getByTaxo
 Australia,metadata/licences,https://api.ala.org.au/images/ws/licence,TRUE
 Australia,metadata/lists,https://api.ala.org.au/specieslist/ws/speciesList,TRUE
 Australia,metadata/lists-unnest,https://api.ala.org.au/specieslist/ws/speciesListItems/{list_id},TRUE
-Australia,metadata/media,https://api.ala.org.au/images/ws/getImageInfoForIdList,TRUE
+Australia,metadata/media,https://api.ala.org.au/images/ws/image/{id},TRUE
 Australia,metadata/profiles,https://api.ala.org.au/dqf-service/api/v1/data-profiles?enabled=true,TRUE
 Australia,metadata/profiles-unnest,https://api.ala.org.au/dqf-service/api/v1/data-profiles/{profile},TRUE
 Australia,metadata/providers,https://api.ala.org.au/metadata/ws/dataProvider,TRUE

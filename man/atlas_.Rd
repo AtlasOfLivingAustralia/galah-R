@@ -47,7 +47,8 @@ atlas_media(
   filter = NULL,
   select = NULL,
   geolocate = NULL,
-  data_profile = NULL
+  data_profile = NULL,
+  all_fields = FALSE
 )
 
 atlas_taxonomy(
@@ -91,6 +92,10 @@ take a while.}
 Defaults to \code{"occurrences"}, which returns the number of records
 that match the selected criteria; alternatively returns the number of
 species.}
+
+\item{all_fields}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} If \code{TRUE},
+\code{show_values()} also returns all columns available from the media metadata
+API, rather than the 'default' columns traditionally provided via galah.}
 
 \item{constrain_ids}{\code{string}: Optional string to limit which \code{taxon_concept_id}'s
 are returned. This is useful for restricting taxonomy to particular

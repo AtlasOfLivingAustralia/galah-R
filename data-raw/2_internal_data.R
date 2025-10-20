@@ -131,3 +131,14 @@ use_data(
   gbif_internal_archived,
   internal = TRUE, 
   overwrite = TRUE)
+
+# clean up
+rm(galah_internal_archived,
+   galah_internal_cached,
+   gbif_internal_archived,
+   node_config,
+   node_metadata,
+   stored_types,
+   test_biocache,
+   test_lists,
+   use_test_system)

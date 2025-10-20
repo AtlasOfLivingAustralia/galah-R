@@ -342,7 +342,8 @@ collect_media_metadata <- function(.query,
   result <- query_API(.query) 
 
   # ensure list-columns are imported correctly
-  result_df <- purrr::map(result, tidy_list_columns) |>
+  result_df <- result |>
+    purrr::map(tidy_list_columns) |>
     dplyr::bind_rows()
 
   # Select only the information we want
@@ -350,7 +351,7 @@ collect_media_metadata <- function(.query,
   result_df |>
     dplyr::rename_with(camel_to_snake_case) |>
     parse_rename(.query) |>
-    dplyr::filter(!is.na(.data$image_id)) |>
+    dplyr::filter(!is.na(.data$media_id)) |>
     parse_select(.query)
 }
 

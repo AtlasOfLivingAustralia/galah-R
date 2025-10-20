@@ -27,7 +27,7 @@ test_that("atlas_media fails when no filters are provided", {
 
 test_that("`atlas_media()` works", {
   skip_if_offline(); skip_on_ci()
-  purrr_config(email = "ala4r@ala.org.au")
+  capture_config <- purrr_config(email = "ala4r@ala.org.au")
   media_data <- galah_call() |>
     identify("Microseris lanceolata") |>
     filter(year == 2019) |>
@@ -35,6 +35,16 @@ test_that("`atlas_media()` works", {
   expect_s3_class(media_data, c("tbl_df", "tbl", "data.frame"))
   expect_gte(nrow(media_data), 3)
   expect_gte(ncol(media_data), 3)
+  # set `all_fields` = TRUE
+  all_media_data <- galah_call() |>
+    identify("Microseris lanceolata") |>
+    filter(year == 2019) |>
+    quiet_media(all_fields = TRUE)
+  # test for `original_file_name` field (as per issue #266)
+  expect_gt(ncol(all_media_data),
+            ncol(media_data))
+  any(colnames(all_media_data) == "original_file_name") |>
+    expect_true()
 })
 
 test_that("collect_media suggests `galah_config(directory =)` when a temp folder is set as the directory", {
@@ -70,7 +80,7 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
   }
   
   ## PART 1: request occurrence data
-  purrr_config(email = "ala4r@ala.org.au")
+  capture_config <- purrr_config(email = "ala4r@ala.org.au")
   occ_collect <- request_data() |>
     identify("Litoria peronii") |>
     filter(year == 2010, !is.na(images)) |>
@@ -80,7 +90,7 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
   ## PART 2: request media metadata
   # collapse
   media_collapse <- request_metadata() |>
-    filter(media == occ_collect) |>
+    filter(media == unlist(dplyr::pull(occ_collect, "images"))) |>
     quiet_collapse()
   expect_true(inherits(media_collapse, "query"))
   expect_equal(length(media_collapse), 5)
@@ -88,8 +98,8 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
                c("type", 
                  "url",
                  "headers",
-                 "body",
-                 "filter"))
+                 "filter",
+                 "select"))
   expect_true(media_collapse$type == "metadata/media")
   # compute
   media_compute <- quiet_compute(media_collapse)
@@ -99,8 +109,8 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
                c("type", 
                  "url",
                  "headers",
-                 "body",
-                 "filter"))
+                 "filter",
+                 "select"))
   # collect
   media_collect <- quiet_collect(media_compute)
   expect_s3_class(media_collect, c("tbl_df", "tbl", "data.frame"))
@@ -112,7 +122,7 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
   media_dir <- "test_media"
   unlink(media_dir, recursive = TRUE)
   dir.create(media_dir)
-  purrr_config(directory = media_dir)
+  capture_config <- purrr_config(directory = media_dir)
   # collapse
   df <- slice_head(media_collect, n = 3)
   files_collapse <- request_files() |>
@@ -179,18 +189,22 @@ test_that("collect_media handles different file formats", {
     filter(year == 2024) |>
     quiet_media() 
   # sample one of each multimedia type to shorten testing time
-  media_data <- media_data |>
+  media_summary <- media_data |>
     dplyr::group_by(multimedia) |>
     dplyr::sample_n(size = 1)
   expect_equal(sort(unique(media_data$multimedia)),
                c("Image", "Image | Sound", "Sound"))
-  result <- purrr_collect_media(media_data, thumbnail = TRUE)
+  result <- purrr_collect_media(media_summary, thumbnail = TRUE)
   downloads <- list.files(path = media_dir)
   expect_true(any(grepl(".mpg$", downloads))) # sounds
   expect_true(any(grepl(".jpg$", downloads))) # images
-  file_count <- length(list.files(media_dir)) 
-  # expect_equal(file_count, nrow(media_data)) # FIXME correct n
+  file_count <- length(list.files(media_dir))
   unlink(media_dir, recursive = TRUE)
+  # FIXME: we don't test that files are 'valid'; i.e. that images load
+  # properly. This is important for sound files which may not load properly if 
+  # thumbnail settings are ignored.
+  
+  # also worth testing that `thumbnail` is ignored for sounds
 })
 
 test_that("collect_media handles thumbnails", {

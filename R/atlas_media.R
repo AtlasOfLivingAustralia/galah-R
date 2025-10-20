@@ -1,12 +1,16 @@
 #' @rdname atlas_
 #' @order 4
+#' @param all_fields `r lifecycle::badge("experimental")` If `TRUE`, 
+#'   `show_values()` also returns all columns available from the media metadata
+#'   API, rather than the 'default' columns traditionally provided via galah.
 #' @export
 atlas_media <- function(request = NULL, 
                         identify = NULL, 
                         filter = NULL, 
                         select = NULL,
                         geolocate = NULL,
-                        data_profile = NULL
+                        data_profile = NULL,
+                        all_fields = FALSE
                         ) {
   
   # check media is available
@@ -25,8 +29,8 @@ atlas_media <- function(request = NULL,
 
   # ensure media columns are present in `select`
   if(is.null(.query$select)){
-    .query <- update_request_object(.query, 
-                                    select = galah_select(group = c("basic", "media")))
+    .query <- .query |>
+      dplyr::select(group = c("basic", "media"))
     present_fields <- image_fields()
     present_fields <- present_fields[present_fields != "multimedia"] # check these fields for Spain
     query_collapse <- collapse(.query)
@@ -78,11 +82,15 @@ atlas_media <- function(request = NULL,
   if(!any(colnames(occ) == "all_image_url")){
     occ$media_id <- build_media_id(occ)
   }
-
+  
   # collect media metadata
-  media <- request_metadata() |>
-    filter(media == occ) |>
-    collect()
+  media_query <- request_metadata() |>
+    filter(media == dplyr::pull(occ, "media_id"))
+  if(isTRUE(all_fields)){
+    media_query <- media_query |>
+      dplyr::select(tidyselect::everything())
+  }
+  media <- collect(media_query)
   
   # join and return
   if(any(colnames(occ) == "all_image_url")){
@@ -90,7 +98,7 @@ atlas_media <- function(request = NULL,
   }
   occ_media <- dplyr::right_join(occ,
                                  media, 
-                                 by = dplyr::join_by("media_id" == "image_id"))
+                                 by = dplyr::join_by("media_id"))
   dplyr::relocate(occ_media, "media_id", 1)
 }
 

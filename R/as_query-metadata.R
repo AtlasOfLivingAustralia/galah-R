@@ -225,25 +225,27 @@ as_query_media_metadata <- function(.query,
     cli::cli_abort("Requests for metadata of type = \"media\" must have information passed via `filter()`",
                    call = error_call)
   }
-  occ <- .query$filter$data
-  if(any(colnames(occ) %in% c("images", "videos", "sounds"))){ # Australia, Sweden, Spain
-    media_cols <- which(colnames(occ) %in% c("images", "videos", "sounds"))
-    media_ids <- do.call(c, occ[, media_cols]) |>
-      unlist()
-    media_ids <- media_ids[!is.na(media_ids)]
-    names(media_ids) <- NULL
-  }else if(any(colnames(occ) == "all_image_url")){ # Austria, Sweden, UK
-    media_ids <- dplyr::pull(occ, "all_image_url")
-    media_ids <- media_ids[!is.na(media_ids)]
-    names(media_ids) <- NULL
-  }else{
-    cli::cli_abort("Media metadata not found in supplied tibble",
-                   call = error_call)
-  }
+  
+  ## Move this to `atlas_media()`
+  # occ <- .query$filter$data
+  # if(any(colnames(occ) %in% c("images", "videos", "sounds"))){ # Australia, Sweden, Spain
+  #   media_cols <- which(colnames(occ) %in% c("images", "videos", "sounds"))
+  #   media_ids <- do.call(c, occ[, media_cols]) |>
+  #     unlist()
+  #   media_ids <- media_ids[!is.na(media_ids)]
+  #   names(media_ids) <- NULL
+  # }else if(any(colnames(occ) == "all_image_url")){ # Austria, Sweden, UK
+  #   media_ids <- dplyr::pull(occ, "all_image_url")
+  #   media_ids <- media_ids[!is.na(media_ids)]
+  #   names(media_ids) <- NULL
+  # }else{
+  #   cli::cli_abort("Media metadata not found in supplied tibble",
+  #                  call = error_call)
+  # }
   list(type = "metadata/media",
-       url = url_lookup("metadata/media"),
+       url = tibble::tibble(url = url_lookup("metadata/media",
+                                             id= .query$filter$value)),
        headers = build_headers(),
-       body = jsonlite::toJSON(list(imageIds = media_ids)),
        filter = .query$filter) |>
     enforce_select_query(supplied_query = .query) |>
     as_query()

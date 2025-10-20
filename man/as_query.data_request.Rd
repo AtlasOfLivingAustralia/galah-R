@@ -16,7 +16,7 @@ as_query(x, ...)
 
 \method{as_query}{metadata_request}(x, ...)
 
-\method{as_query}{files_request}(x, thumbnail, ...)
+\method{as_query}{files_request}(x, thumbnail = FALSE, ...)
 }
 \arguments{
 \item{x}{An object to convert to a \code{query}. Supported classes are the same
