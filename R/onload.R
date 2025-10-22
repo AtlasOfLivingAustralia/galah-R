@@ -29,13 +29,13 @@
       # see ?packageStartupMessage (required by `check()`)
       c(
         glue::glue("galah version {galah_version}"),
-        i = cli::col_magenta('galah is currently configured to query {current_node} ({current_url}).'),
-        i = cli::col_magenta('You can see all supported organisations with `show_all(atlases)`.'),
-        i = cli::col_magenta('To change organisations, use e.g. `galah_config(atlas = \"GBIF\")`.')
+        "\n", # note: glue wipes newlines, so have to be outside
+        cli::col_magenta(glue::glue('This package is currently configured to query {current_node} ({current_url}).\n')),
+        "\n",
+        i = cli::col_magenta('- You can change this at any time using e.g. `galah_config(atlas = \"GBIF\")`.'),
+        "\n",
+        i = cli::col_magenta('- To see all supported organisations, run `show_all(atlases)`.')
       ) |>
-      cli::cli_inform(class = c("packageStartupMessage",  
-                                "simpleMessage", 
-                                "message", 
-                                "condition"))
+        packageStartupMessage()
     }
 }
