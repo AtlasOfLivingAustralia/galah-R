@@ -143,7 +143,8 @@ filter.metadata_request <- function(.data, ...){
 #' @noRd
 #' @keywords Internal
 parse_quosures_metadata <- function(request, dots){
-  dots_parsed <- parse_quosures_data(dots)
+  dots_parsed <- parse_quosures_files(dots)
+  names(dots_parsed)[2] <- "value"
   request$filter <- as_metadata_filter(dots_parsed)
   # The `filter` argument sets `type` when specified
   initial_type <- request$type

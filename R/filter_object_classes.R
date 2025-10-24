@@ -28,18 +28,16 @@ as_predicates_filter <- function(x){
 as_metadata_filter <- function(x){
   x |>
     structure(class = c("metadata_filter", 
-                        "tbl_df",
-                        "tbl",
-                        "data.frame"))
+                        "list"))
 }
 
 #' @rdname filter_object_classes
 #' @order 4
 #' @export
 as_files_filter <- function(x){
-  list(variable = x$variable,
-       data = x$data) |>
-    structure(class = c("files_filter", "list"))
+  x |>
+    structure(class = c("files_filter",
+                        "list"))
 }
 
 
@@ -68,8 +66,7 @@ print.predicates_filter <- function(x, ...){
 #' @order 7
 #' @export
 print.metadata_filter <- function(x, ...){
-  filter_string <- basic_filter_print(x) 
-  glue::glue("Object of class `metadata_filter`: {filter_string}") |>
+  glue::glue("Object of class `metadata_filter` with type `{x$variable}` (n = {length(x$data)} entries)") |>
     cat()
 }
 

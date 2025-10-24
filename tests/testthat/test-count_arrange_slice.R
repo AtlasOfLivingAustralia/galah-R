@@ -1,10 +1,16 @@
+quiet_collect <- function(x){
+  quiet_fun <- purrr::quietly(dplyr::collect)
+  quiet_fun(x) |>
+    purrr::pluck("result")
+}
+
 test_that("default is to arrange by decending order of count", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     filter(year >= 2015) |>
     group_by(year) |>
     count() |>
-    collect()
+    quiet_collect()
   expect_true(all(diff(result$count) < 0))
   expect_true(nrow(result) > 7)
   expect_equal(ncol(result), 2)
@@ -18,7 +24,7 @@ test_that("arrange in increasing order of count", {
     group_by(year) |>
     count() |>
     arrange(count) |>
-    collect()
+    quiet_collect()
   expect_true(all(diff(result$count) > 0))
   expect_true(nrow(result) > 7)
   expect_equal(ncol(result), 2)
@@ -32,7 +38,7 @@ test_that("arrange in decreasing order of count using `desc()`", {
     group_by(year) |>
     count() |>
     arrange(desc(count)) |>
-    collect()
+    quiet_collect()
   expect_true(all(diff(result$count) < 0))
   expect_true(nrow(result) > 7)
   expect_equal(ncol(result), 2)
@@ -46,7 +52,7 @@ test_that("arrange in increasing order of year", {
     group_by(year) |>
     count() |>
     arrange(year) |>
-    collect()
+    quiet_collect()
   expect_true(all(diff(as.integer(result$year)) == 1))
   expect_true(nrow(result) > 7)
   expect_equal(ncol(result), 2)
@@ -60,7 +66,7 @@ test_that("arrange in decreasing order of year using `desc()`", {
     group_by(year) |>
     count() |>
     arrange(desc(year)) |>
-    collect()
+    quiet_collect()
   expect_true(all(diff(as.integer(result$year)) == -1))
   expect_true(nrow(result) > 7)
   expect_equal(ncol(result), 2)
@@ -76,7 +82,7 @@ test_that("`arrange()` by `count` and `slice_head()` work together", {
     count() |>
     arrange(count) |>
     slice_head(n = 5) |>
-    collect()
+    quiet_collect()
   expect_true(all(diff(result$count) > 0))
   expect_equal(nrow(result), 5)
   expect_equal(ncol(result), 2)
@@ -88,7 +94,7 @@ test_that("`arrange()` by `count` and `slice_head()` work together", {
     count() |>
     arrange(desc(count)) |>
     slice_head(n = 5) |>
-    collect()
+    quiet_collect()
   expect_true(all(diff(result2$count) < 0))
   expect_equal(nrow(result), 5)
   expect_equal(ncol(result), 2)
@@ -106,7 +112,7 @@ test_that("`arrange()` by `year` and `slice_head()` work together", {
     count() |>
     arrange(year) |>
     slice_head(n = 5) |>
-    collect()
+    quiet_collect()
   expect_true(all(diff(as.integer(result$year)) == 1))
   expect_equal(result$year[[1]], "2015")
   expect_equal(nrow(result), 5)
@@ -119,7 +125,7 @@ test_that("`arrange()` by `year` and `slice_head()` work together", {
     count() |>
     arrange(desc(year)) |>
     slice_head(n = 5) |>
-    collect()
+    quiet_collect()
   expect_true(all(diff(as.integer(result2$year)) == -1))
   expect_false(result2$year[[1]] == "2015")
   expect_equal(nrow(result), 5)
@@ -137,9 +143,10 @@ test_that("`group_by()` with multiple fields works with `slice_head()`", {
     count() |>
     arrange(desc(count)) |> # NOTE: desc(count) applied within groups only; is this correct?
     slice_head(n = 5) |> # same issue as above
-    collect()
+    quiet_collect()
   expect_equal(ncol(result), 3)
   expect_equal(colnames(result), c("year", "basisOfRecord", "count"))
   expect_true(all(xtabs(~result$year) <= 5)) # current year may not have all values yet
 })
   
+rm(quiet_collect)

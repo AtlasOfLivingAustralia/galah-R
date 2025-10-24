@@ -181,20 +181,20 @@ clean_la_taxa <- function(result, search_terms){
 collect_identifiers <- function(.query){
   search_terms <- .query$url$search_term
   result <- query_API(.query) |>
-    tidy_list_columns() |>
+    purrr::map(tidy_list_columns) |>
     dplyr::bind_rows()
   
   if(any(colnames(result) == "taxonConceptID")){
     result <- result |>
       dplyr::filter(!duplicated(result$taxonConceptID))
   }
-  
+
   if(!any(colnames(result) == "success")){ # GBIF doesn't indicate success
     # we avoid `is_gbif()` here because other atlases use GBIF APIs
     result$success <- TRUE
     result <- result |>
       dplyr::relocate(success, .before = 1) |>
-      dplyr::rename("taxonConceptID" = "key")
+      parse_rename(.query)
   }
   
   result <- result |>

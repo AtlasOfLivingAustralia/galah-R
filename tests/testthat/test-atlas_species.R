@@ -1,13 +1,28 @@
+quiet_collect <- function(x){
+  quiet_fun <- purrr::quietly(dplyr::collect)
+  quiet_fun(x) |>
+    purrr::pluck("result")
+}
+
+quiet_species <- function(...){
+  quiet_fun <- purrr::quietly(atlas_species)
+  quiet_fun(...) |>
+    purrr::pluck("result")
+}
+
 test_that("atlas_species fails nicely if no email is provided", {
   skip_if_offline(); skip_on_ci()
   galah_config(email = "", run_checks = TRUE) # run_checks = FALSE doesn't provide error message
-  expect_error(atlas_species(identify = galah_identify("Osphranter")))
+  galah_call() |>
+    identify("Osphranter") |>
+    atlas_species() |>
+    expect_error()
   galah_config(email = "ala4r@ala.org.au")
 })
 
 test_that("`atlas_species()` returns a tibble", {
   skip_if_offline(); skip_on_ci()
-  species <- atlas_species(identify = galah_identify("Osphranter"))
+  species <- quiet_species(identify = galah_identify("Osphranter"))
   expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(species), 1)
 })
@@ -17,7 +32,7 @@ test_that("`select()` works for type = 'species' with no arguments", {
   x <- galah_call(type = "species") |>
     identify("Crinia") |>
     select() |>
-    collect()
+    quiet_collect()
   expect_equal(colnames(x), "taxon_concept_id")
   expect_gt(nrow(x), 10)
 })
@@ -27,7 +42,7 @@ test_that("`select()` works for type = 'species' with `counts`", {
   x <- galah_call(type = "species") |>
     identify("Crinia") |>
     select(counts) |>
-    collect()
+    quiet_collect()
   expect_equal(colnames(x), c("taxon_concept_id", "count"))
   expect_gt(nrow(x), 10)
 })
@@ -38,7 +53,7 @@ test_that("`select()` works for type = 'species' with group = 'taxonomy'", {
   x <- galah_call(type = "species") |>
     identify("Crinia") |>
     select(counts, lists, group = "taxonomy") |>
-    collect()
+    quiet_collect()
   expect_true(all(c("taxon_concept_id", "count", "kingdom", "phylum") %in% colnames(x)))
   expect_gt(nrow(x), 10)
 })
@@ -49,7 +64,7 @@ test_that("`atlas_species()` returns correct results when piped", {
   species <- galah_call() |>
     identify("perameles") |>
     filter(year > 2000) |>
-    atlas_species()
+    quiet_species()
   expected_species <- c("Perameles nasuta",
                         "Perameles gunnii", 
                         "Perameles fasciata",
@@ -74,7 +89,7 @@ test_that("`atlas_species()` returns correct results filtered by galah_geolocate
     identify("perameles") |>
     filter(year > 2000) |>
     geolocate(wkt) |>
-    atlas_species()
+    quiet_species()
   expected_species <- c("Perameles gunnii")
   expected_cols <- c("taxon_concept_id", "species_name",
                      "scientific_name_authorship", "taxon_rank",
@@ -93,7 +108,7 @@ test_that("`atlas_species()` works when no species are present", {
   result <- galah_call() |>
     identify("eolophus") |>
     filter(cl1048 == "Kimberley") |>
-    atlas_species()
+    quiet_species()
   expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
 })
 
@@ -105,8 +120,8 @@ test_that("collapse -> compute -> collect workflow is functional", {
     filter(year > 2000)
   species_collapse <- query |> collapse()
   species_compute <- species_collapse |> compute()
-  species_collect <- species_compute |> collect()
-  atlas_species <- query |> atlas_species()
+  species_collect <- species_compute |> quiet_collect()
+  atlas_species <- query |> quiet_species()
   
   expect_s3_class(query, "data_request")
   expect_s3_class(species_collapse, "query")
@@ -135,7 +150,7 @@ test_that("atlas_species reformats column names when empty tibble is returned", 
   species <- galah_call() |> 
     identify("sarcopterygii") |> 
     filter(cl1048 == "Wet Tropics") |> 
-    atlas_species()
+    quiet_species()
   expected_cols <- c("taxon_concept_id", "species_name",
                      "scientific_name_authorship", "taxon_rank",
                      "kingdom", "phylum", "class", "order", "family",
@@ -153,18 +168,20 @@ test_that("`group_by()` works on occurrences", {
     filter(year == 2024,
            genus == "Crinia") |>
     group_by(speciesID) |>
-    collect()
+    quiet_collect()
   y <- galah_call() |>
     filter(year == 2024,
            genus == "Crinia") |>
-    atlas_species()
+    quiet_species()
   expect_equal(x, y)
   # try with a different variable
   z <- galah_call() |>
     filter(year == 2024,
            genus == "Crinia") |>
     group_by(genusID) |>
-    collect()
+    quiet_collect()
   expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
   expect_equal(colnames(z)[1], "taxon_concept_id")
 })
+
+rm(quiet_collect, quiet_species)

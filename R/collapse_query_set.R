@@ -2,8 +2,8 @@
 #' @param x a `query_set`
 #' @noRd
 #' @keywords Internal
-collapse_query <- function(x,
-                           error_call = rlang::caller_env()){
+collapse_query_set <- function(x,
+                               error_call = rlang::caller_env()){
   switch(x$type,
          "data/occurrences" = collapse_occurrences(x),
          "data/occurrences-count" = {
@@ -25,7 +25,7 @@ collapse_query <- function(x,
                purrr::pluck("query") |>
                names()
              if(length(which(query_names == "facets")) > 1){
-               collapse_occurrences_count_atlas_groupby_crossed(x)  
+               collapse_occurrences_count_atlas_groupby_crossed(x)
              }else{
                collapse_occurrences_count_atlas_basic(x)
              }

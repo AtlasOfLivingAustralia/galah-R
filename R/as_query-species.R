@@ -18,7 +18,7 @@ as_query_species <- function(.query){
 as_query_species_atlas <- function(.query){
   # set default columns
   if(is.null(.query$select)){
-    .query$select <- galah_select(group = "taxonomy")
+    .query <- .query |> select(group = "taxonomy")
   }
   
   # determine whether to use `group_by` or `species_facets()`
@@ -61,15 +61,13 @@ as_query_species_atlas <- function(.query){
 #' @keywords Internal
 parse_select_species <- function(.select){
   # parse labels for supplied field names
-  quosure_check <- purrr::map(.select, rlang::is_quosure) |> 
-    unlist()
-  if(any(quosure_check)){
-    named_fields <- purrr::map(.select[quosure_check], 
-                               rlang::as_label) |> 
+  if(length(.select$quosure) > 0){
+    named_fields <- purrr::map(.select$quosure, rlang::as_label) |>
       unlist()
   }else{
     named_fields <- NULL
   }
+
   # create output
   result <- list(
     lookup = "false",

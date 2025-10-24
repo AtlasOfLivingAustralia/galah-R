@@ -40,19 +40,20 @@ collapse_build_checks <- function(.query){
 #' called by `collapse()`
 #' @noRd
 #' @keywords Internal
-collapse_run_checks <- function(.query){
+collapse_run_checks <- function(.query,
+                                error_call = rlang::caller_env()){
   # "data/" functions require pre-processing of metadata,
   if(stringr::str_detect(.query$type, "^data/")){
     # some checks should happen regardless of `run_checks`
     .query <- .query |>
-      check_login() |>
-      check_identifiers() |> 
-      check_select()
+      check_login(error_call) |>
+      check_identifiers(error_call) |> 
+      check_select(error_call)
     if(potions::pour("package", "run_checks")) {
       .query <- .query |>
-        check_reason() |>
-        check_fields() |>
-        check_profiles()
+        check_reason(error_call) |>
+        check_fields(error_call) |>
+        check_profiles(error_call)
     }
   # as do `unnest()`/`show_values()` functions
   }else if(stringr::str_detect(.query$type, "-unnest$")){

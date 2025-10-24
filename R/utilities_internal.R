@@ -20,7 +20,7 @@ enforce_select_query <- function(new_query, supplied_query){
     if(is.null(chosen_columns) & 
        stringr::str_detect(specific_type, "-unnest$")){
       chosen_columns <- supplied_query$filter |>
-        dplyr::pull(value)
+        purrr::pluck("value")
     }
     # if we have, after 2 attempts, found some chosen_columns, use them
     if(!is.null(chosen_columns)){
@@ -187,6 +187,7 @@ lookup_select_columns_taxa <- function(){
 lookup_rename_columns <- function(type){
   switch(type, 
          "assertions" = c("id" = "name"),
+         "identifiers" = c("taxonConceptID" = "key"),
          "lists" = c("species_list_uid" = "data_resource_uid"),
          "lists-unnest" = c("taxon_concept_id" = "lsid"),
          "media" = c("media_id" = "image_identifier"),

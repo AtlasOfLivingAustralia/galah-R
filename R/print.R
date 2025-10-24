@@ -175,6 +175,7 @@ print.query <- function(x, ...){
 #' @rdname print_galah_objects
 #' @export
 print.computed_query <- function(x, ...){
+  # calculate arrange/slice info
   if(!is.null(x$arrange)){
     arrange <- galah_pale_green(glue("\n
                               arrange: {x$arrange$variable} ({x$arrange$direction})"))
@@ -188,6 +189,8 @@ print.computed_query <- function(x, ...){
     arrange <- NULL
     slice <- NULL
   }
+  
+  # add url
   if(!is.null(x$url)){
     if(inherits(x$url, "data.frame")){
       url_temp <- x$url$url[1]
@@ -220,8 +223,18 @@ print.computed_query <- function(x, ...){
     subtext <- NULL
   }
   
+  # add a status ID
+  if(!is.null(x$status_url)){
+    split_url <- strsplit(x$status_url, "\\/")[[1]] 
+    id <- galah_grey(glue::glue("\n
+                                id: {split_url[[length(split_url)]]}"))
+  }else{
+    id <- NULL
+  }
+  
   # keep only populated levels
-  print_list <-  list(subtext, # note: need code for url tibbles
+  print_list <-  list(id,
+                      subtext, # note: need code for url tibbles
                       arrange,
                       slice)
   print_list <- print_list[!unlist(purrr::map(print_list, is.null))]

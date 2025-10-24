@@ -165,14 +165,16 @@ galah_select <- function(..., group){
       NULL
     }
   }else{
-    # dots <- dots |>
-    #   add_summary() |> # FIXME: this *will* break rn
-    #   add_group(group)
     if(inherits(dots[[1]], "data_request")){
+      list(quosure = dots[-1],
+           summary = generate_summary(dots[-1])) |>
+        add_group(group) |>
       update_request_object(dots[[1]],
-                            select = dots[-1]) 
+                            select = _) 
     }else{
-      dots
+      list(quosure = dots,
+           summary = generate_summary(dots)) |>
+        add_group(group)
     } 
   }
 }

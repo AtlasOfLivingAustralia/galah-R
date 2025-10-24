@@ -63,6 +63,5 @@ compute.query <- function(x, ...){
 #' @noRd
 #' @keywords Internal
 as_computed_query <- function(x){
-  class(x) <- "computed_query"
-  x
+  structure(x, class = "computed_query")
 }

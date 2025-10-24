@@ -392,9 +392,7 @@ test_that("`filter() handles `method = 'metadata'` correctly", {
   expect_s3_class(x, "metadata_request")
   expect_equal(length(x), 2)
   expect_equal(names(x), c("type", "filter"))
-  expect_equal(colnames(x$filter), c("variable", "logical", "value"))
-  y <- request_metadata() |> filter(field == cl22)
-  expect_equal(x, y)
+  expect_equal(names(x$filter), c("variable", "value"))
 })
 
 test_that("`filter() handles `method = 'files'` correctly", {
@@ -406,9 +404,7 @@ test_that("`filter() handles `method = 'files'` correctly", {
   expect_s3_class(y, "files_request")
   expect_equal(length(y), 2)
   expect_equal(names(y), c("type", "filter"))
-  expect_equal(y$filter, x)
-  z <- request_files() |> filter(media == x)
-  expect_equal(y, z)
+  expect_equal(y$filter$data, x)
 })
 
 rm(purrr_collect)

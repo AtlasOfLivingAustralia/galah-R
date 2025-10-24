@@ -23,7 +23,7 @@ test_that("`atlas_taxonomy()` requires a single taxon", {
   })
 })
 
-test_that("`atlas_taxonomy()` makes a tree when piped", {
+test_that("`atlas_taxonomy()` makes a `tibble` when piped", {
   skip_if_offline(); skip_on_ci()
   tree <- galah_call() |>
     identify("fungi") |>
@@ -37,8 +37,8 @@ test_that("`atlas_taxonomy()` makes a tree when piped", {
 test_that("`atlas_taxonomy()` example runs", {
   skip_if_offline(); skip_on_ci()
   df <- galah_call() |> 
-    galah_identify("chordata") |>
-    galah_filter(rank == class) |>
+    identify("chordata") |>
+    filter(rank == class) |>
     atlas_taxonomy()
   expect_s3_class(df, c("tbl_df", "tbl", "data.frame"))
   expect_equal(ncol(df), 4)

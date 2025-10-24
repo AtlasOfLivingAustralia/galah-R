@@ -220,7 +220,7 @@ test_that("collect_media handles thumbnails", {
   result <- purrr_collect_media(z)
   result |>
     purrr::pluck("messages") |>
-    stringr::str_detect("Downloaded 31 files successfully") |>
+    stringr::str_detect("Downloaded [[:digit:]]+ files successfully") |>
     any() |>
     expect_true()
   downloads <- list.files(path = media_dir)

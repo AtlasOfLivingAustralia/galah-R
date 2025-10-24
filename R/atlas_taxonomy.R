@@ -86,16 +86,10 @@ drill_down_taxonomy <- function(df,
   if(nrow(children) < 1){
     return(df)
   }else{
-    result <- children |> 
-      dplyr::mutate(name = stringr::str_to_title(children$name),
-                    taxon_concept_id = children$guid,
-                    parent_taxon_concept_id = children$parentGuid) |>
-      dplyr::select("name",
-                    "rank",
-                    "taxon_concept_id",
-                    "parent_taxon_concept_id")
-    if(!is.null(constrain_ids)){
-      result <- result |>
+    if(is.null(constrain_ids)){
+      result <- children
+    }else{
+      result <- children |>
         constrain_id(constrain_to = constrain_ids) 
     }
     if(nrow(result) < 1){

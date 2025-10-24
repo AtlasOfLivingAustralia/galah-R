@@ -6,12 +6,14 @@ quiet_collect <- function(x){
 }
 quiet_occurrences <- purrr::quietly(atlas_occurrences)
 
+config_capture <- galah_config(email = "ala4r@ala.org.au",
+                               run_checks = TRUE)
+
 test_that("`select.data_request()` adds content to a `data_request` object", {
   x <- galah_call() |>
     select(group = "basic")
-  expect_equal(x$select,
-               list(summary = "group = basic",
-                    group = "basic"))
+  expect_equal(names(x$select),
+               c("quosure", "summary", "group"))
 })
 
 test_that("`galah_select()` doesn't return error when columns don't exist", {
@@ -19,20 +21,20 @@ test_that("`galah_select()` doesn't return error when columns don't exist", {
   expect_no_error(galah_select(year, basisOfRecord, eventdate))
 })
 
-test_that("`select()` triggers error during `compute()` when columns don't exist", {
+test_that("`select()` triggers error during `collapse()` when columns don't exist", {
   skip_if_offline(); skip_on_ci()
   expect_error(
     galah_call() |>
       identify("perameles") |>
       filter(year == 2003) |>
-      galah_select(basisOfRecors) |>
-      compute())
+      select(basisOfRecors) |>
+      collapse())
   expect_error(
     galah_call() |>
       identify("perameles") |>
       filter(year == 2003) |>
       select(year, basisOfRecors, eventdate) |>
-      compute())
+      collapse())
 })
 
 test_that("`select()` builds expected columns when group = basic", {
@@ -186,8 +188,11 @@ test_that("`select()` can use `tidyselect::last_col()` & group", {
 
 test_that("`select()` warns for invalid field names when type = 'species'", {
   skip_if_offline(); skip_on_ci()
-  expect_warning({galah_call(type = "species") |>
+  expect_warning({galah_call() |>
     identify("Crinia") |>
+    group_by(speciesID) |>
     select(an_unrecognised_field_name) |>
-    collapse()})
+    as_query()})
 })
+
+rm(quiet_collect, quiet_occurrences, config_capture)

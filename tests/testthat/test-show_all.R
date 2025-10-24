@@ -14,7 +14,7 @@ test_that("show_all parses ... correctly", {
   expect_equal(fields1, fields2)
 })
 
-test_that("all show_all() functions return correctly with all syntax", {
+test_that("all `show_all()` functions return correctly with all syntax", {
   skip_if_offline(); skip_on_ci()
   valid_types <- c("apis",
                    "assertions",
@@ -23,23 +23,37 @@ test_that("all show_all() functions return correctly with all syntax", {
                    "datasets",
                    "fields",
                    "licences",
-                   "lists",
                    "profiles",
                    "providers",
                    "ranks",
                    "reasons")
-  invisible(lapply(valid_types, function(a){
+  invisible(purrr::map(valid_types, function(a){
     syntax1 <- paste0("show_all_", a) |> 
       do.call(args = list()) # e.g. show_all_fields()
+    limit_test <- paste0("show_all_", a) |> 
+      do.call(args = list(limit = 3))
     syntax2 <- paste0("show_all(", a, ")") |> 
       parse(text = _) |> 
       eval() # e.g. show_all(fields)
-    limit_test <- paste0("show_all_", a) |> 
-      do.call(args = list(limit = 3))
     expect_s3_class(syntax1, c("tbl_df", "tbl", "data.frame"))
     expect_equal(attributes(syntax1)$call, a)
     expect_equal(attributes(syntax1)$region, "Australia")
     expect_equal(syntax1, syntax2)
     expect_equal(nrow(limit_test), 3)
   }))
+})
+
+# lists queries are noisy, so run separately
+test_that("`show_all_lists()` functions work correctly", {
+  quiet_lists <- function(...){
+    list_fun <- purrr::quietly(show_all_lists)
+    list_fun(...) |>
+      purrr::pluck("result")
+  }
+  syntax1 <- quiet_lists()
+  limit_test <- quiet_lists(limit = 3)
+  expect_s3_class(syntax1, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(attributes(syntax1)$call, "lists")
+  expect_equal(attributes(syntax1)$region, "Australia")
+  expect_equal(nrow(limit_test), 3)
 })

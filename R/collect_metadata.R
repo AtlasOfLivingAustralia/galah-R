@@ -127,7 +127,7 @@ collect_collections <- function(.query){
         result <- purrr::pluck(result, "results")
       }
       result_df <- result |>
-        tidy_list_columns() |>
+        purrr::map(tidy_list_columns) |>
         dplyr::bind_rows()
     # Then France
     }else if(potions::pour("atlas", "region", .pkg = "galah") == "France"){
@@ -168,7 +168,7 @@ collect_datasets <- function(.query){
         result <- purrr::pluck(result, "results")
       }
       result_df <- result |>
-        tidy_list_columns() |>
+        purrr::map(tidy_list_columns) |>
         dplyr::bind_rows()
     }else if(potions::pour("atlas", "region", .pkg = "galah") == "France"){
       result_df <- result |> 
@@ -388,7 +388,7 @@ collect_providers <- function(.query){
         result <- purrr::pluck(result, "results")
       }
       result_df <- result |>
-        tidy_list_columns() |>
+        purrr::map(tidy_list_columns) |>
         dplyr::bind_rows()
     }else if(potions::pour("atlas", "region", .pkg = "galah") == "France"){
       result_df <- tibble::tibble(name = {

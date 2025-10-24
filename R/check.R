@@ -372,14 +372,15 @@ check_groups <- function(group, n){
 #' function to replace search terms with identifiers via `search_taxa()`  
 #' @noRd
 #' @keywords Internal
-check_identifiers <- function(.query){
+check_identifiers <- function(.query,
+                              error_call = rlang::caller_env()){
   # For GBIF, which uses predicates, we 'promote' taxonomic queries to 'predicates'
   if(is_gbif()){
     .query$body$identify <- .query$`metadata/taxa-single`
     .query
   # otherwise we replace "(`TAXON_PLACEHOLDER`)"
   }else{
-    check_identifiers_la(.query)
+    check_identifiers_la(.query, error_call)
   }
 }
   
@@ -644,7 +645,7 @@ check_profiles <- function(.query,
     query <- httr2::url_parse(.query$url[1])$query
     if(!is.null(query$qualityProfile)){
       profile <- query$qualityProfile
-      if(!profile %in% .query[["metadata/profiles"]]$shortName){
+      if(!profile %in% .query[["metadata/profiles"]]$short_name){
         c("Unrecognised profile requested.",
           i = "See `?show_all(profiles)` for valid profiles.",
           x = "Can't find profile `{profile}` for specified atlas.") |>
@@ -723,16 +724,20 @@ check_select <- function(.query,
       }else{
         group_names <- NULL
       }
-      
+
       # 3. parse quosures to get list of field names
-      check_quosures <- purrr::map(.query$select, rlang::is_quosure) |>
-        unlist()
-      dots <- .query$select[check_quosures]
-      dot_names <- purrr::map(dots, function(a){
-        tidyselect::eval_select(a, data = df) |>
-          names()
-      }) |>
-        unlist()
+      if(length(.query$select$quosure) > 0){
+        dot_names <- purrr::map(.query$select$quosure, 
+                                function(a){
+                                  tidyselect::eval_select(a,
+                                                          data = df,
+                                                          error_call = error_call) |>
+                                    names()
+                                }) |>
+          unlist()
+      }else{
+        dot_names <- c()
+      }
 
       # 3a: set 'identifier' column name
       id_col <- default_columns()[1]

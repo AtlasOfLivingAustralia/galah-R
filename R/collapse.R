@@ -70,7 +70,7 @@ collapse.query_set <- function(x, ...){
     x |>
       collapse_build_checks() |>
       collapse_run_checks() |>
-      collapse_query()
+      collapse_query_set()
   }
 }
 
