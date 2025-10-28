@@ -92,6 +92,7 @@ as_query.metadata_request <- function(x, ...){
          "assertions" = as_query_assertions(x),
          "atlases" = as_query_atlases(x),
          "collections" = as_query_collections(x),
+         "config" = as_query_config(x),
          "datasets" = as_query_datasets(x),
          "distributions" = as_query_distributions_metadata(x),
          "fields" = as_query_fields(x),

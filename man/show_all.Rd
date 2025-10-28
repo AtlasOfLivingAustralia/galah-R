@@ -6,6 +6,7 @@
 \alias{show_all_assertions}
 \alias{show_all_atlases}
 \alias{show_all_collections}
+\alias{show_all_config}
 \alias{show_all_datasets}
 \alias{show_all_fields}
 \alias{show_all_licences}
@@ -25,6 +26,8 @@ show_all_assertions(limit = NULL, all_fields = FALSE)
 show_all_atlases(limit = NULL, all_fields = FALSE)
 
 show_all_collections(limit = NULL, all_fields = FALSE)
+
+show_all_config()
 
 show_all_datasets(limit = NULL, all_fields = FALSE)
 
@@ -75,6 +78,7 @@ The available types of information for \code{show_all_} are:\tabular{llll}{
    \strong{Category} \tab \strong{Type} \tab \strong{Description} \tab \strong{Sub-functions} \cr
    Configuration \tab \code{atlases} \tab Show what atlases are available \tab \code{show_all_atlases()} \cr
     \tab \code{apis} \tab Show what APIs & functions are available for each atlas \tab \code{show_all_apis()} \cr
+    \tab \code{config} \tab Show information necessary for authentication \tab \code{show_all_config()} \cr
     \tab \code{reasons} \tab Show what values are acceptable as 'download reasons' for a specified atlas \tab \code{show_all_reasons()} \cr
    Data providers \tab \code{providers} \tab Show which institutions have provided data \tab \code{show_all_providers()} \cr
     \tab \code{collections} \tab Show the specific collections within those institutions \tab \code{show_all_collections()} \cr

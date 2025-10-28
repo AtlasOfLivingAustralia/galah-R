@@ -96,22 +96,53 @@ galah_config <- function(...) {
     
     # check all values in dots to ensure they are valid
     result <- restructure_config(dots)
+    
+    # look up what information has been given, write specific callouts for unusual cases
+    supplied_names <- names(result)
+    
+    # if authentication is requested, cache config info
+    # NOTE: This is the only place in galah where we _silently_ query
+    # an API. For safety and clarity reasons, I've added the following steps:
+    # 1. giving some notice to the user that this has been performed 
+    # 2. adding a warning message if the API call fails
+    if(any(supplied_names == "authenticate")){
+      if(isTRUE(result$authenticate) & # value set to TRUE by user
+         is.null(retrieve_cache("config")) # not already cached
+         ){
+        cli::cli_inform("Caching `config` information to support authentication")
+        config <- request_metadata(type = "config") |>
+          collect() |>
+          try(silent = TRUE)
+        if(inherits(config, "try-error")){
+          c("`galah_config()` tried caching `config` information for authentication purposes, but failed.",
+            i = "This could mean you are offline or that the API is unavailable.",
+            i = "To try again, call `show_all_config()` or `galah_config(authenticate = TRUE)`") |>
+          cli::cli_warn()
+        }
+      }
+    }
 
     # add to `potions` object
-    if(any(names(result) == "atlas")){
+    if(any(supplied_names == "atlas")){
       potions::brew(atlas = list(atlas = result$atlas))
       result <- result[names(result) != "atlas"]
-      result$atlas_config_called_by_user <- TRUE
     }
     
     if(length(result) > 0){
       potions::brew(result, method = "leaves")
     }
+    
+    # invisibly return
+    x <- potions::pour()
+    structure(x,
+              class = c("galah_config", "list")) |>
+      invisible()
   
   }else{
+    # visibly return
     x <- potions::pour()
-    class(x) <- c("galah_config", "list")
-    return(x)
+    structure(x,
+              class = c("galah_config", "list"))
   }
 }
 
@@ -124,12 +155,11 @@ default_config <- function(){
       verbose = TRUE,
       run_checks = TRUE,
       send_email = FALSE,
-      directory = tempdir(),
-      atlas_config_called_by_user = FALSE),
+      authenticate = FALSE,
+      directory = tempdir()),
     user = list(
       username = "",
       email = "",
-      api_key = "",
       password = "",
       download_reason_id = 4),
     atlas = list(
@@ -145,7 +175,9 @@ default_config <- function(){
 #' @keywords Internal
 restructure_config <- function(dots){
   result <- purrr::map(names(dots),
-                       \(a){validate_config(a, dots[[a]])})
+                       \(a){validate_config(a, 
+                                            dots[[a]],
+                                            error_call = error_call)})
   names(result) <- names(dots)
   result
 }
@@ -156,13 +188,13 @@ restructure_config <- function(dots){
 validate_config <- function(name, 
                             value, 
                             error_call = rlang::caller_env()) {
-  result <- switch(name, 
-         "api_key" = enforce_character(value),
+  result <- switch(name,
          "atlas" = {
            value <- configure_atlas(value)
            # see whether atlases have changed, and if so, give a message
            check_atlas(potions::pour("atlas"), value)
          },
+         "authenticate"     = enforce_logical(value),
          "caching"         = enforce_logical(value),
          "directory"       = check_directory(value),
          "download_reason_id" = enforce_download_reason(value),
@@ -172,7 +204,8 @@ validate_config <- function(name,
          "send_email"      = enforce_logical(value),
          "username"        = enforce_character(value),
          "verbose"         = enforce_logical(value),
-         enforce_invalid_name(name))
+         enforce_invalid_name(name,
+                              error_call = error_call))
   result
 }
 

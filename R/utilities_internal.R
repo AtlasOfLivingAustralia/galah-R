@@ -89,8 +89,7 @@ parse_rename <- function(df, .query){
 #' @noRd
 #' @keywords Internal
 parse_arrange <- function(df){
-  col <- colnames(df)[1]
-  dplyr::arrange(df, !!!col)
+  dplyr::arrange(df, dplyr::pull(df, 1))
 }
 
 #' Choose column names to pass to `select()`. 
@@ -429,7 +428,8 @@ profiles_supported <- function(){
 #' @keywords Internal
 reasons_supported <- function(){
   atlas <- potions::pour("atlas", "region")
-  supported_atlases <- show_all(apis) |>
+  supported_atlases <- request_metadata(type = "apis") |>
+    collect() |>
     dplyr::filter(type == "metadata/reasons") |>
     dplyr::pull(atlas)
   atlas %in% supported_atlases

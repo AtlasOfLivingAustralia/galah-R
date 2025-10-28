@@ -84,7 +84,7 @@ unnest <- function(.query){
   if(!(supplied_type %in% valid_types)){
     c("Invalid `type` supplied to `unnest()`",
       i = "Valid types are `fields`, `lists`, `profiles` or `taxa`") |>
-    cli::cli_abort(call = caller_env())
+    cli::cli_abort()
   }
   .query$type <- glue::glue("{supplied_type}-unnest")
   .query

@@ -34,6 +34,7 @@ update_cache <- function(...){
 }
 
 #' Internal function to retrieve current state of the cache
+#' @param slot_name (optional) slot to extract
 #' @noRd
 #' @keywords Internal
 retrieve_cache <- function(slot_name){
@@ -59,7 +60,7 @@ check_if_cache_update_needed <- function(function_name){
   # build some checks
   is_local <- !is.null(attr(df, "ARCHIVED"))
   is_wrong_atlas <- attr(df, "region") != current_atlas
-  is_too_short <- nrow(df) <= 1 # somewhat arbitrary, but catches empty tibbles
+  is_too_short <- nrow(df) < 1 # somewhat arbitrary, but catches empty tibbles
   # evaluate those checks
   result <- is_local | is_wrong_atlas | is_too_short # if any, update is needed
   if(length(result) < 1){ # bug catcher

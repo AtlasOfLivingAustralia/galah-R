@@ -46,14 +46,20 @@ coalesce.data_request <- function(x, mint_doi, ...){
 #' @order 3
 #' @export
 coalesce.metadata_request <- function(x, ...){
+  
+  # create an empty object to store results
+  result <- list()
+  
+  # add checks if required
   if(potions::pour("package", "run_checks")){
-    result <- switch(x$type, 
-                     "fields-unnest" = list(request_metadata("fields") |> as_query()),
-                     "profiles-unnest" = list(request_metadata("profiles") |> as_query()),
-                     list())
-  }else{
-    result <- list()
+    result <- append(result,
+                     switch(x$type, 
+                            "fields-unnest" = list(request_metadata("fields") |> as_query()),
+                            "profiles-unnest" = list(request_metadata("profiles") |> as_query()),
+                            NULL))
   }
+  
+  # then handle `filter` and `identify` queries, where supported
   if(grepl("-unnest$", x$type)){
     if(x$type == "taxa-unnest"){
       # identify() calls must be parsed, irrespective of `run_checks` (which is parsed above)
@@ -68,14 +74,18 @@ coalesce.metadata_request <- function(x, ...){
       cli::cli_abort("Requests of type `{current_type}` must supply `filter()`.")
     }
   }
+  
+  # lists have extra steps
   if(x$type == "lists-unnest"){
     query_obj <- as_query_lists_unnest(x, ...)
   }else{
     query_obj <- as_query(x)
   }
   result[[(length(result) + 1)]] <- query_obj
-  class(result) <- "query_set"
-  result
+  
+  # return object of correct class
+  structure(result,
+            class = "query_set")
 }
 
 #' @rdname coalesce
@@ -85,11 +95,10 @@ coalesce.files_request <- function(x,
                                    ...){
   # NOTE: switch is technically superfluous right now, but could be useful
   # for future file types
-  result <- list(switch(x$type,
+  list(switch(x$type,
                         "media" = as_query_media_files(x, ...)
-  ))
-  class(result) <- "query_set"
-  result
+  )) |>
+    structure(class = "query_set")
 }
 
 #' Internal function to build a `query_set` object 
@@ -97,10 +106,12 @@ coalesce.files_request <- function(x,
 #' @noRd
 #' @keywords Internal
 build_query_set_data <- function(x, mint_doi, ...){
+  
+  # handle DOIs
   if(!missing(mint_doi)){
     x$mint_doi <- mint_doi
   }
-  # x$type <- check_type(x$type) # needed?
+  
   # handle sending dois via `filter()`
   # important this happens first, as it affects `type`, which affects later code
   variables <- x$filter$variable # NOTE: breaks for GBIF
@@ -109,43 +120,48 @@ build_query_set_data <- function(x, mint_doi, ...){
       x$type <- "occurrences-doi"
     }
   }
+  
+  # set up an object
+  result <- list()
+  
   # handle `run_checks`
   fields_absent <- purrr::map(
     x[c("arrange", "filter", "select", "group_by")],
-    is.null
-  ) |>
+    is.null) |>
     unlist()
-  if (potions::pour("package", "run_checks") & 
+  
+  if(potions::pour("package", "run_checks") & 
       x$type != "occurrences-doi"){
     # add check here to see whether any filters are specified
     # it is possible to only call `identify()`, for example
-    if (any(!fields_absent) | 
+    if(any(!fields_absent) | 
         x$type %in% c("species-count", "species")) {
-      result <- list(request_metadata("fields") |> as_query(),
-                     request_metadata("assertions") |> as_query())
-    } else {
+      result <- c(result,
+                  list(request_metadata("fields") |> as_query(),
+                       request_metadata("assertions") |> as_query()))
+    }else{
       # for living atlases, we need `collapse_fields()` to check the `lsid` field
       # this isn't required for GBIF which doesn't use `fq` for taxon queries
-      if(!is.null(x$identify) &!is_gbif()){
-        result <- list(request_metadata("fields") |> as_query())
-      }else{
-        result <- list()
+      if(!is.null(x$identify) &
+         !is_gbif()){
+        result <- c(result,
+                    list(request_metadata("fields") |> as_query()))
       }
     }
-    if (x$type %in% c("occurrences", "media", "species") &
-        reasons_supported()) {
+    if(x$type %in% c("occurrences", "media", "species") &
+       reasons_supported()) {
       result[[(length(result) + 1)]] <- request_metadata("reasons") |> 
         as_query()
     }
-  } else { # if select is required, we need fields even if `run_checks == FALSE`
+  }else{ # if select is required, we need fields even if `run_checks == FALSE`
     if(!fields_absent[["select"]] | 
        x$type %in% c("occurrences", "species")){
-      result <- list(request_metadata("fields") |> as_query(),
-                     request_metadata("assertions") |> as_query())
-    }else{
-      result <- list()
+      result <- c(result,
+                  list(request_metadata("fields") |> as_query(),
+                       request_metadata("assertions") |> as_query()))
     }
   }
+  
   # handle `identify()`
   if(!is.null(x$identify) & 
      x$type != "occurrences-doi"){
@@ -153,15 +169,18 @@ build_query_set_data <- function(x, mint_doi, ...){
       identify(x$identify) |>
       as_query()
   }
+  
   # handle `apply_profile()`
   if(!is.null(x$data_profile)){
     result[[(length(result) + 1)]] <- request_metadata("profiles") |> 
       as_query()
   }
+  
   # handle query
   result[[(length(result) + 1)]] <- as_query(x)
-  class(result) <- "query_set"
-  result
+  
+  # return
+  structure(result, class = "query_set")
 }
 
 #' Internal function to build a `query_set` object 
@@ -186,6 +205,5 @@ build_query_set_distributions <- function(x, ...){
       result <- list(as_query_distributions_data(x))
     }
   }
-  class(result) <- "query_set"
-  result
+  structure(result, class = "query_set")
 }

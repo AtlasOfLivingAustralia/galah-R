@@ -6,7 +6,7 @@
 #' @noRd
 #' @keywords Internal
 query_API <- function(.query, 
-                      error_call = caller_env()) {
+                      error_call = rlang::caller_env()) {
   # first try situation when many urls are supplied
   # this is common for living atlases, where many urls are generated for
   # e.g. paginated queries, grouped counts etc
@@ -19,7 +19,8 @@ query_API <- function(.query,
             data_tr$download <- TRUE
             data_tr$file <- .query$url$path[[a]]
           }
-          query_API_internal(data_tr)
+          query_API_internal(data_tr,
+                             error_call = error_call)
         },
         .progress = set_progress_bar_behaviour(nrow(.query$url) > 1))
   # next handle multiple `body` arguments
@@ -30,7 +31,8 @@ query_API <- function(.query,
                .f = function(a){
                  data_tr <- .query
                  data_tr$body <- a$predicate[[1]]
-                 a$result <- list(query_API_internal(data_tr))
+                 a$result <- list(query_API_internal(data_tr,
+                                                     error_call = error_call))
                  a
                },
                .progress = set_progress_bar_behaviour(length(.query$body) > 1)) |>
@@ -38,7 +40,8 @@ query_API <- function(.query,
   # finally, some queries are 'simple'; one `url`, one or no `body` args
   # these we just run without any looping.
   }else{
-    query_API_internal(.query)
+    query_API_internal(.query,
+                       error_call = error_call)
   }
 }
 
@@ -60,12 +63,33 @@ set_progress_bar_behaviour <- function(criteria){
 #' Internal function to run an API call using httr2
 #' @noRd
 #' @keywords Internal
-query_API_internal <- function(.query, error_call = caller_env()) {
+query_API_internal <- function(.query,
+                               error_call = rlang::caller_env()) {
   query <- httr2::request(.query$url) |>
     add_headers(.query$headers) |> 
     add_options(.query$options) |> # used by GBIF
     add_body(.query$body)  # NOTE: adding `body` converts from GET to POST
-  # handle downloads first
+
+  # set authentication behaviour
+  if(potions::pour("package", "authenticate", .pkg = "galah") &
+     .query$type != "metadata/config" # necessary to prevent circular problems
+     ){
+    # check whether config data is available
+    auth_config <- retrieve_cache("config")
+    if(is.null(auth_config)){
+      cli::cli_abort(c("`authenticate` is set to `TRUE`, but `config` data is not available",
+                       i = "Call `request_metadata(type = \"config\") |> collect()`, then try again"),
+                     call = error_call)
+    }else{
+      query <- query |>
+        httr2::req_oauth_auth_code(client = build_auth_client(auth_config),
+                                   auth_url = dplyr::pull(auth_config, "authorize_url"),
+                                   scope = dplyr::pull(auth_config, "scopes"),
+                                   cache_disk = TRUE)
+    }
+  }
+
+  # then handle downloads
   if(!is.null(.query$download)){
     check_directory(.query$file)
     
@@ -92,6 +116,25 @@ query_API_internal <- function(.query, error_call = caller_env()) {
       httr2::resp_body_json(res) # may not work for invalid URLs 
     }
   }
+}
+
+#' create a client object
+#' @noRd
+#' @keywords Internal
+build_auth_client <- function(config){
+  # setting a temporary fail to force developers to enter secrets manually.
+  # once that is done, comment out this line
+  cli::cli_abort("galah dev team: Please manually enter `secret` to `build_auth_client()`")
+  
+  # this is the actual code:
+  httr2::oauth_client(
+    id = dplyr::pull(config, "client_id"),
+    # secret = purrr::pluck(config, "client_secret"), # future code
+    ## NOTE: cognito (test) doesn't need a secret, but CAS (prod) does
+    ## unclear whether we'll solve this by configuring CAS to generate a secret,
+    ## or CAS to ignore one.
+    secret = "ADD-SECRET-HERE", # NOTE: temporary fix, *DO NOT SHARE REAL SECRETS*
+    token_url = dplyr::pull(config, "token_url"))  
 }
 
 #' If supplied, add `headers` arg to a `request()`

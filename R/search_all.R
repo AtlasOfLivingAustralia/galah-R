@@ -158,7 +158,7 @@ search_all <- function(type,
   result <- collect(request)
   
   # add search, or not, depending on behaviour
-  if(isTRUE(run_subsequent_query)){
+  if(isTRUE(run_subsequent_query) & nrow(result) > 0){
     search_text_cols(result, query)  
   }else{
     result
@@ -178,6 +178,7 @@ search_text_cols <- function(df, query){
   check_vector <- purrr::list_transpose(check_list) |>
     purrr::map(any) |> 
     unlist()
+
   result <- df |> dplyr::filter({{check_vector}})
   
   # order search_all() results

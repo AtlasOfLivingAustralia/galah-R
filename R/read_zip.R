@@ -52,8 +52,12 @@ read_zip <- function(file){
       suppressWarnings()
     # Note: DOIs for GBIF are stored in `compute()` stage, not in the zip file
   }else{
-    available_files <- all_files[grepl(".csv$", all_files) &
-                                   grepl("^data|records", all_files)]
+    available_files <- all_files[stringr::str_detect(all_files, ".csv$") &
+                                 !(all_files %in% c("citation.csv", "headings.csv"))]
+                                  # grepl("^data|records", all_files)] 
+    # typically files start with data or records, 
+    # but downloads sometimes have the name of the zip file as the csv file
+    
     result <- purrr::map(available_files, 
                          function(a, x){
                            # create connection to a specific file within zip

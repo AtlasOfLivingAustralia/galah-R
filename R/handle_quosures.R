@@ -527,7 +527,7 @@ switch_solr <- function(df){
 #' @keywords internal
 filter_error <- function(){
   cli::cli_abort("Invalid argument passed to `filter()`.",
-                 call = caller_env())
+                 call = rlang::caller_env())
 }
 
 #' Subfunction called by `parse_solr()`

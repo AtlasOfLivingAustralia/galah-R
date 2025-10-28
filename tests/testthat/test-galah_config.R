@@ -1,5 +1,10 @@
 quiet_config <- purrr::quietly(galah_config)
 
+test_that("`galah_config()` gives nice error messages for incorrect arguments", {
+  # FIXME: error comes from `purrr::map()`, not `galah_config()`
+  expect_error(quiet_config(something = "nothing"))
+})
+
 test_that("galah_config warns that `cache_directory` is deprecated", {
   unlink("temp", recursive = TRUE)
   dir.create("temp")

@@ -58,10 +58,14 @@ collect_occurrences_default <- function(.query, wait, file, call){
   }
   # sometimes lookup info critical, but not others - unclear when/why!
   if(any(names(download_response) == "download_url")){
-    new_object <- list(url = download_response$download_url,
-                       download = TRUE)
-    new_object$file <- check_download_filename(file)
+    new_object <- list(type = "data/occurrences",
+                       url = download_response$download_url,
+                       download = TRUE,
+                       file = check_download_filename(file)) |>
+      as_query()
+    # run downloads
     query_API(new_object)
+    # import
     result <- read_zip(new_object$file)
   }else{
     return(download_response) 

@@ -5,9 +5,10 @@
 collapse_build_checks <- function(.query){
   # get basic description of `query_set` object
   n <- length(.query)
-  names_vec <- unlist(purrr::map(.query, function(a){a$type}))
-  # look for any `data`
-  data_lookup <- grepl("^data", names_vec)
+  names_vec <- purrr::map(.query,
+                          \(a){purrr::pluck(a, "type")}) |>
+    unlist()
+  data_lookup <- stringr::str_detect(names_vec, "^data")
   if(any(data_lookup)){
     data_names <- names_vec[data_lookup]
     # parse any `metadata`

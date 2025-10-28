@@ -281,21 +281,26 @@ print.galah_config <- function(x, ...){
   cli::cli_text("`galah` package configuration:")
   cli::cli_end()
   cli::cli_par()
+  # print package settings
   cli::cli_text("{galah_pink(\"Package\")}")
-  package_settings <- galah_green(c("verbose", "run_checks", "send_email"))
-  package_lookup <- unlist(x$package[1:3]) |> 
-    as.integer() + 1
-  names(package_settings) <- c("x", "v")[package_lookup]
+  package_info <- purrr::pluck(x, "package")
+  package_logical_check <- purrr::map(package_info, is.logical) |>
+    unlist()
+  logical_values <- package_info[package_logical_check] |>
+    unlist()
+  package_settings <- names(logical_values) |>
+    galah_green()
+  names(package_settings) <- c("x", "v")[as.integer(logical_values) + 1]
   package_settings <- c(package_settings,
                         "i" = glue::glue("{galah_green('directory')}: {galah_grey(x$package$directory)}")) |>
     cli::cli_bullets()
   cli::cli_end()
+  # print user settings
   cli::cli_par()
-  cli::cli_text("{galah_pink(\"User\")}")         
+  cli::cli_text("{galah_pink(\"User\")}")
   c("{galah_green('username')} {galah_grey(hide_secrets(x$user$username))}",
     "{galah_green('email')}    {galah_grey(x$user$email)}",
     "{galah_green('password')} {galah_grey(hide_secrets(x$user$password))}",
-    "{galah_green('api_key')}  {galah_grey(hide_secrets(x$user$api_key))}",
     "{galah_green('download_reason_id')}   {galah_grey(x$user$download_reason_id)}") |>
     cli::cli_bullets()
   cli::cli_end()

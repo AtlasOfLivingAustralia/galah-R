@@ -404,7 +404,8 @@ check_identifiers_la <- function(.query,
         
         # End query early when no taxonomic search terms were matched
         if (nrow(identifiers) > 0 && !("taxon_concept_id" %in% colnames(identifiers))) {
-          abort("No valid taxonomic identifiers detected.", call = error_call)
+          cli::cli_abort("No valid taxonomic identifiers detected.",
+                         call = error_call)
         }
         
         taxa_ids <- build_taxa_query(identifiers$taxon_concept_id)
@@ -590,7 +591,9 @@ check_occurrence_response <- function(.query,
 #' @noRd
 #' @keywords Internal
 check_occurrence_status <- function(.query){
-  list(url = .query$status_url) |>
+  list(type = "data/occurrences",
+       url = .query$status_url) |>
+    as_query() |>
     query_API() |>
     as.list() |>
     check_occurrence_response()

@@ -31,7 +31,7 @@
     Message
       Object of type metadata_request containing:
       * type lists
-      * filter Object of class `metadata_filter`: list == dr650
+      * filter Object of class `metadata_filter` with type `list` (n = 0 entries)
 
 # object of class `metadata-request` formats correctly with `identify()
 
@@ -95,13 +95,13 @@
       v verbose
       v run_checks
       x send_email
-      i directory: /var/folders/47/2_32ylzx64qgpyqlh7zkd_5h0000gn/T//RtmpauoXVz
+      v authenticate
+      i directory: /var/folders/47/2_32ylzx64qgpyqlh7zkd_5h0000gn/T//Rtmpu7Kgdm
       
       User
       username [Not Provided]
       email
       password [Not Provided]
-      api_key [Not Provided]
       download_reason_id 4
       
       Atlas

@@ -26,6 +26,7 @@
 #' |---|---|---|---|
 #' | Configuration  |`atlases`| Show what atlases are available | `show_all_atlases()` |
 #' | |`apis`| Show what APIs & functions are available for each atlas | `show_all_apis()` |
+#' | |`config`| Show information necessary for authentication | `show_all_config()`|
 #' | |`reasons`| Show what values are acceptable as 'download reasons' for a specified atlas | `show_all_reasons()` |
 #' | Data providers|`providers`| Show which institutions have provided data | `show_all_providers()` |
 #' | |`collections`|Show the specific collections within those institutions| `show_all_collections()` |
@@ -144,6 +145,14 @@ show_all_collections <- function(limit = NULL,
   show_all_generic(type = "collections",
                    limit = limit,
                    all_fields = all_fields)
+}
+
+#' @rdname show_all
+#' @export
+show_all_config <- function(){
+  show_all_generic(type = "config",
+                   limit = NULL,
+                   all_fields = TRUE)
 }
 
 #' @rdname show_all

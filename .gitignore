@@ -13,3 +13,5 @@ docs/*
 /Meta/
 docs
 SECRETS.txt
+.secure-credentials
+/TEST-SENSITIVE-DATA

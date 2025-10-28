@@ -105,6 +105,20 @@ as_query_collections <- function(x){
 # NOTE: LA collectory functions do not accept `max` or `offset`
 # Therefore they cannot be paginated. GBIF collectory funs can.
 
+#' Internal function to create an auth-config query
+#' @noRd
+#' @keywords Internal
+as_query_config <- function(x){
+  query_type <- "metadata/config"
+  if(check_if_cache_update_needed("config")){
+    result <- default_query(query_type)
+  }else{
+    result <- default_cache(query_type)     
+  }
+  result |>
+    as_query()
+}
+
 #' Internal function to create a datasets query
 #' @noRd
 #' @keywords Internal
@@ -132,8 +146,6 @@ as_query_datasets <- function(x){
 }
 
 #' Internal function to create a fields query
-#' Note that this is inconsistent with `show_all_fields()` which returns data
-#' from multiple APIs
 #' @noRd
 #' @keywords Internal
 as_query_fields <- function(x){

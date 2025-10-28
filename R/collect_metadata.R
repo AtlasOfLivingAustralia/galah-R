@@ -154,6 +154,31 @@ collect_collections <- function(.query){
   parse_select(result_df, .query)
 }
 
+#' Internal function to `collect()` config
+#' @returns a tibble containing 4 columns (strings) and one row:
+#' - `client_id`
+#' - `client_secret` (tbd)
+#' - `authorize_url`
+#' - `token_url`
+#' - `scopes`
+#' @details
+#' This is the *ONLY* function in galah that doesn't call `query_API()`, 
+#' for the simple reason that it is sometimes called _inside_ that function,
+#' and we dont' want recursive queries here.
+#' @noRd
+#' @keywords Internal
+collect_config <- function(.query){
+  if(!is.null(.query$data)){
+    result <- retrieve_internal_data(.query)
+  }else{
+    result <- query_API(.query) |>
+      tibble::as_tibble() |>
+      update_attributes(type = "config")
+    update_cache(config = result)
+  }
+  result
+}
+
 #' Internal function to `collect()` datasets
 #' @noRd
 #' @keywords Internal
@@ -433,8 +458,8 @@ collect_reasons <- function(.query){
       dplyr::bind_rows() 
     result_df <- result |>
       dplyr::filter(!.data$deprecated) |>
-      parse_arrange() |>
       dplyr::relocate("id", "name") |>
+      parse_arrange() |>
       update_attributes(type = "reasons")
     update_cache(reasons = result_df)
   }

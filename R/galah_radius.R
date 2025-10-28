@@ -26,7 +26,8 @@ galah_radius <- function(...){
 #' parser for radius
 #' @noRd
 #' @keywords Internal
-parse_point_radius <- function(..., error_call = caller_env()){
+parse_point_radius <- function(...,
+                               error_call = rlang::caller_env()){
   
   query <- rlang::try_fetch(
     list(...)[[1]],
