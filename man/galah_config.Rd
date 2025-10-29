@@ -2,18 +2,42 @@
 % Please edit documentation in R/galah_config.R
 \name{galah_config}
 \alias{galah_config}
-\title{Get or set configuration options that control galah behaviour}
+\title{View or set package behaviour}
 \usage{
 galah_config(...)
 }
 \arguments{
-\item{\dots}{Options can be defined using the form \code{name = "value"}.
-Valid arguments are:
+\item{\dots}{Options can be defined using the form \code{name = "value"}, or
+as a (single) named list. See details for accepted fields.}
+}
+\value{
+Returns an object with classes \code{galah_config} and \code{list}, invisibly
+if arguments are supplied.
+}
+\description{
+The \code{galah} package supports queries to a number of different data providers,
+and once selected, it is desirable that all later queries are sent to that
+organisation. Rather than supply this information separately in each
+query, therefore, it is more parsimonious to cache that information centrally
+and call it as needed, which is what this function supports. Beyond choosing
+an organisation, there are several other use cases for caching. Many
+GBIF nodes require the user to supply a registered email address,
+password, and (in some cases) a reason for downloading data, all stored via
+\code{galah_config()}. This function also provides a convenient place to control
+optional package behaviours, such as checking queries to ensure they are
+valid (\code{run_checks}), informing you via email when your downloads are ready
+(\code{send_email}), or controlling whether galah will provide updates on your
+query as they are processed (\code{verbose}).
+}
+\details{
+Valid arguments to this function are:
 \itemize{
 \item \code{api-key} string: A registered API key (currently unused).
 \item \code{atlas} string: Living Atlas to point to, Australia by default. Can be
 an organisation name, acronym, or region (see \code{\link[=show_all_atlases]{show_all_atlases()}} for
 admissible values)
+\item \code{authenticate} logical: should \code{galah} authenticate your queries using
+JWT tokens? Defaults to \code{FALSE}.
 \item \code{directory} string: the directory to use for the cache.
 By default this is a temporary directory, which means that results will
 only be cached
@@ -40,20 +64,8 @@ useful in some instances, for example for tracking DOIs assigned to
 specific downloads for later citation.
 \item \code{username} string: A registered username (GBIF only)
 \item \code{verbose} logical: should \code{galah} give verbose such as progress bars?
-Defaults to FALSE.
-}}
+Defaults to \code{FALSE}.
 }
-\value{
-For \code{galah_config()}, a \code{list} of all options.
-When \code{galah_config(...)} is called with arguments, nothing is returned
-but the configuration is set.
-}
-\description{
-The \code{galah} package supports large data downloads, and also
-interfaces with the ALA which requires that users of some services
-provide a registered email address and reason for downloading data. The
-\code{galah_config} function provides a way to manage these issues as simply
-as possible.
 }
 \examples{
 \dontrun{
@@ -73,5 +85,9 @@ show_all(reasons)
 
 # Make debugging in your session easier by setting `verbose = TRUE`
 galah_config(verbose = TRUE)
+
+# Optionally supply arguments via a named list
+list(email = "your-email@email.com") |>
+  galah_config()
 }
 }

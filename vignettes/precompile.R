@@ -43,9 +43,9 @@ all_files <- list.files(folder)
 selected_files <- paste0(folder, all_files[grepl(".orig$", all_files)])
 out_files <- sub(".orig$", "", selected_files)
 
-lapply(
+purrr::map(
   seq_along(selected_files), 
-  function(a){
+  \(a){
          knit(selected_files[[a]], out_files[[a]])
 })
 

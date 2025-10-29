@@ -1,0 +1,15 @@
+---
+title: "Downloading images and sounds"
+author: "Martin Westgate"
+date: '2025-10-20'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Downloading images and sounds}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+This is a placeholder only

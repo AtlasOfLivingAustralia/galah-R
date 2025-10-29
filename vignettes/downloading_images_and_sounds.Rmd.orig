@@ -1,0 +1,18 @@
+---
+title: "Downloading images and sounds"
+author: "Martin Westgate"
+date: '2025-10-20'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Downloading images and sounds}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+# set up galah session
+galah_config(email = "ala4r@ala.org.au", verbose = FALSE)
+```
+
+This is a placeholder only

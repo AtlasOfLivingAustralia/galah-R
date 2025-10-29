@@ -1,18 +1,29 @@
-#' Get or set configuration options that control galah behaviour
+#' View or set package behaviour
 #'
-#' The `galah` package supports large data downloads, and also
-#' interfaces with the ALA which requires that users of some services
-#' provide a registered email address and reason for downloading data. The
-#' `galah_config` function provides a way to manage these issues as simply
-#' as possible.
-#'
-#' @param \dots Options can be defined using the form `name = "value"`.
-#' Valid arguments are:
+#' The `galah` package supports queries to a number of different data providers,
+#' and once selected, it is desirable that all later queries are sent to that 
+#' organisation. Rather than supply this information separately in each 
+#' query, therefore, it is more parsimonious to cache that information centrally 
+#' and call it as needed, which is what this function supports. Beyond choosing
+#' an organisation, there are several other use cases for caching. Many
+#' GBIF nodes require the user to supply a registered email address, 
+#' password, and (in some cases) a reason for downloading data, all stored via
+#' `galah_config()`. This function also provides a convenient place to control 
+#' optional package behaviours, such as checking queries to ensure they are 
+#' valid (`run_checks`), informing you via email when your downloads are ready 
+#' (`send_email`), or controlling whether galah will provide updates on your
+#' query as they are processed (`verbose`).
+#' @param \dots Options can be defined using the form `name = "value"`, or 
+#' as a (single) named list. See details for accepted fields.
+#' @details
+#' Valid arguments to this function are:
 #' 
 #'   *  `api-key` string: A registered API key (currently unused). 
 #'   *  `atlas` string: Living Atlas to point to, Australia by default. Can be 
 #'   an organisation name, acronym, or region (see [show_all_atlases()] for 
 #'   admissible values)
+#'   * `authenticate` logical: should `galah` authenticate your queries using 
+#'   JWT tokens? Defaults to `FALSE`.
 #'   *  `directory` string: the directory to use for the cache.
 #'     By default this is a temporary directory, which means that results will
 #'     only be cached
@@ -39,12 +50,9 @@
 #'     specific downloads for later citation.
 #'   *  `username` string: A registered username (GBIF only)
 #'   *  `verbose` logical: should `galah` give verbose such as progress bars?
-#'  Defaults to FALSE.
-#' 
-#' @return For `galah_config()`, a `list` of all options.
-#' When `galah_config(...)` is called with arguments, nothing is returned
-#' but the configuration is set.
-#' 
+#'  Defaults to `FALSE`.
+#' @return Returns an object with classes `galah_config` and `list`, invisibly
+#' if arguments are supplied.
 #' @examples \dontrun{
 #' # To download occurrence records, enter your email in `galah_config()`. 
 #' # This email should be registered with the atlas in question. 
@@ -62,6 +70,10 @@
 #' 
 #' # Make debugging in your session easier by setting `verbose = TRUE`
 #' galah_config(verbose = TRUE)
+#' 
+#' # Optionally supply arguments via a named list
+#' list(email = "your-email@email.com") |>
+#'   galah_config()
 #' }
 #' @export
 galah_config <- function(...) {
@@ -85,6 +97,15 @@ galah_config <- function(...) {
                                 details = glue::glue("Use `galah_config(directory = \"{value}\")` instead.")
       )
       names(dots)[dots_location] <- "directory"
+    }
+    
+    # add exception so that people can supply a named list to `galah_config()`
+    # this avoids calling things like:
+    # `x <- list(email = "something); do.call(galah_config, x)`
+    if(length(dots) == 1){
+      if(is.list(dots[[1]])){
+        dots <- dots[[1]]
+      }
     }
     
     # check all values in dots to ensure they are named

@@ -28,8 +28,8 @@ For those outside Australia, 'galah' is the common name of
 
 \strong{Getting Started}
 \itemize{
-\item \code{\link[=galah_call]{galah_call()}}/\code{\link[=request_data]{request_()}} Start to build a query
 \item \code{\link[=galah_config]{galah_config()}} Set package configuration options
+\item \code{\link[=galah_call]{galah_call()}}/\code{\link[=request_data]{request_()}} Start to build a query
 \item \code{\link[=show_all]{show_all()}} & \code{\link[=search_all]{search_all()}} Data for generating filter queries
 \item \code{\link[=show_values]{show_values()}} & \code{\link[=search_values]{search_values()}} Show or search for values \emph{within}
 \code{fields}, \code{profiles}, \code{lists}, \code{collections}, \code{datasets} or \code{providers}
@@ -41,7 +41,7 @@ For those outside Australia, 'galah' is the common name of
 \item \code{\link[=arrange.data_request]{arrange()}} Arrange rows of a query on the server side
 \item \code{\link[=count.data_request]{count()}} Request counts of the specified data type
 \item \code{\link[=desc]{desc()}} Arrange counts in descending order (when combined with \code{\link[=arrange.data_request]{arrange()}})
-\item \code{\link[=filter.data_request]{filter()}}/\code{\link[=galah_filter]{galah_filter()}} Filter records
+\item \code{\link[=filter.data_request]{filter()}}/\code{\link[=galah_filter]{galah_filter()}} Filter records (see also \code{\link[=filter_object_classes]{filter_object_classes}}))
 \item \code{\link[=geolocate]{geolocate()}}/\code{\link[=galah_geolocate]{galah_geolocate()}} Spatial filtering of a query
 \item \code{\link[=group_by.data_request]{group_by()}}/\code{\link[=galah_group_by]{galah_group_by()}} Group counts by one or more fields
 \item \code{\link[=identify.data_request]{identify()}}/\code{\link[=galah_identify]{galah_identify()}} Search for taxonomic identifiers (see also \code{\link[=taxonomic_searches]{taxonomic_searches}})
@@ -50,11 +50,23 @@ For those outside Australia, 'galah' is the common name of
 \item \code{\link[=unnest]{unnest()}} Expand metadata for \code{fields}, \code{lists}, \code{profiles} or \code{taxa}
 }
 
-\strong{Execute a query via API}
+\strong{Object-oriented processes}
 \itemize{
-\item \code{\link[=collapse.data_request]{collapse()}} Convert a \code{data_request} into a \code{query}
+\item \code{\link[=as_query]{as_query()}} Represent a \code{data_request} as a \code{query} object
+\item \code{\link[=coalesce]{coalesce()}} Convert a \code{data_request} or \code{query} into a \code{query_set} showing all calls needed for evaluation
+\item \code{\link[=collapse.data_request]{collapse()}} Convert an object to a valid \code{query}
 \item \code{\link[=compute.data_request]{compute()}} Compute a query
 \item \code{\link[=collect.data_request]{collect()}}/\code{\link[=atlas_]{atlas_()}}/\code{\link[=collect_media]{collect_media()}} Retrieve a database query
+}
+
+\strong{Wrappers for accessing data}
+\itemize{
+\item \code{\link[=atlas_occurrences]{atlas_occurrences()}} Download occurrence data
+\item \code{\link[=atlas_counts]{atlas_counts()}} Get a summary of the number of records or species
+\item \code{\link[=atlas_species]{atlas_species()}} Download occurrences grouped by \code{speciesID}
+\item \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} Download taxonomic trees
+\item \code{\link[=atlas_media]{atlas_media()}} Download media metadata linked to occurrences
+\item \code{\link[=collect_media]{collect_media()}} Download media (images and sounds)
 }
 
 \strong{Miscellaneous functions}
@@ -78,18 +90,20 @@ also run a number of quality checks against each record, resulting in
 \strong{assertions} attached to the record. Each piece of information
 associated with a given occurrence record is stored in a \strong{field},
 which corresponds to a \strong{column} when imported to an
-\verb{R data.frame}. See \code{show_all(fields)} to view valid fields,
+\code{tibble}. See \code{show_all(fields)} to view valid fields,
 layers and assertions, or conduct a search using \code{search_all(fields)}.
 
 Data fields are important because they provide a means to \strong{filter}
 occurrence records;  i.e. to return only the information that you need, and
 no more. Consequently, much of the architecture of \code{galah} has been
 designed to make filtering as simple as possible. The easiest way to do this
-is to start a pipe with \code{galah_call()} and follow it with the relevant
-\code{dplyr} function; starting with \code{filter()}, but also including \code{select()},
-\code{group_by()} or others. Functions without a relevant \code{dplyr} synonym include
-\code{\link[=galah_identify]{galah_identify()}}/\code{identify()} for choosing a taxon, or \code{\link[=galah_geolocate]{galah_geolocate()}}/
-\code{st_crop()} for choosing a specific location. By combining different filters,
+is to start a pipe with \code{\link[=galah_call]{galah_call()}} and follow it with the relevant
+\code{dplyr} function; starting with \code{\link[=filter.data_request]{filter()}},
+but also including \code{\link[=select.data_request]{select()}},
+\code{\link[=group_by.data_request]{group_by()}} or others. Functions without
+a relevant \code{dplyr} synonym include
+\code{\link[=identify.data_request]{identify()}} for choosing a taxon, or
+\code{\link[=geolocate]{geolocate()}} for choosing a specific location. By combining different filters,
 it is possible to build complex queries to return only the most valuable
 information for a given problem.
 
@@ -100,9 +114,8 @@ be used to filter out records that are unsuitable for particular applications.
 However, there are many possible data quality checks, and it is not always
 clear which are most appropriate in a given instance. Therefore, \code{galah}
 supports data quality \strong{profiles}, which can be passed to
-\code{\link[=galah_apply_profile]{galah_apply_profile()}} to quickly remove undesirable records. A full list of
-data quality profiles is returned by \code{show_all(profiles)}. Note this service
-is currently only available for the Australian atlas (ALA).
+\code{\link[=apply_profile]{apply_profile()}} to quickly remove undesirable records. A full list of
+data quality profiles is returned by \code{show_all(profiles)}.
 }
 
 \seealso{

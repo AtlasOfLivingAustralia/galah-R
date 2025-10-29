@@ -23,8 +23,8 @@
 #' 
 #' **Getting Started**
 #' 
-#'   * [galah_call()]/\code{\link[=request_data]{request_()}} Start to build a query
 #'   * [galah_config()] Set package configuration options
+#'   * [galah_call()]/\code{\link[=request_data]{request_()}} Start to build a query
 #'   * [show_all()] & [search_all()] Data for generating filter queries
 #'   * [show_values()] & [search_values()] Show or search for values _within_ 
 #'   `fields`, `profiles`, `lists`, `collections`, `datasets` or `providers`
@@ -35,7 +35,7 @@
 #'   * \code{\link[=arrange.data_request]{arrange()}} Arrange rows of a query on the server side
 #'   * \code{\link[=count.data_request]{count()}} Request counts of the specified data type
 #'   * [desc()] Arrange counts in descending order (when combined with \code{\link[=arrange.data_request]{arrange()}})
-#'   * \code{\link[=filter.data_request]{filter()}}/[galah_filter()] Filter records
+#'   * \code{\link[=filter.data_request]{filter()}}/[galah_filter()] Filter records (see also \code{\link[=filter_object_classes]{filter_object_classes}}))
 #'   * [geolocate()]/[galah_geolocate()] Spatial filtering of a query
 #'   * \code{\link[=group_by.data_request]{group_by()}}/[galah_group_by()] Group counts by one or more fields
 #'   * \code{\link[=identify.data_request]{identify()}}/[galah_identify()] Search for taxonomic identifiers (see also \code{\link[=taxonomic_searches]{taxonomic_searches}})
@@ -43,11 +43,22 @@
 #'   * \code{\link[=slice_head.data_request]{slice_head()}} Choose the first n rows of a download
 #'   * [unnest()] Expand metadata for `fields`, `lists`, `profiles` or `taxa`
 #'
-#' **Execute a query via API**
+#' **Object-oriented processes**
 #' 
-#'   * \code{\link[=collapse.data_request]{collapse()}} Convert a `data_request` into a `query` 
+#'   * [as_query()] Represent a `data_request` as a `query` object
+#'   * [coalesce()] Convert a `data_request` or `query` into a `query_set` showing all calls needed for evaluation
+#'   * \code{\link[=collapse.data_request]{collapse()}} Convert an object to a valid `query` 
 #'   * \code{\link[=compute.data_request]{compute()}} Compute a query
 #'   * \code{\link[=collect.data_request]{collect()}}/\code{\link[=atlas_]{atlas_()}}/[collect_media()] Retrieve a database query
+#' 
+#' **Wrappers for accessing data**
+#' 
+#'   * [atlas_occurrences()] Download occurrence data
+#'   * [atlas_counts()] Get a summary of the number of records or species
+#'   * [atlas_species()] Download occurrences grouped by `speciesID`
+#'   * [atlas_taxonomy()] Download taxonomic trees
+#'   * [atlas_media()] Download media metadata linked to occurrences
+#'   * [collect_media()] Download media (images and sounds)
 #' 
 #' **Miscellaneous functions**
 #' 
@@ -67,18 +78,20 @@
 #' **assertions** attached to the record. Each piece of information
 #' associated with a given occurrence record is stored in a **field**,
 #' which corresponds to a **column** when imported to an
-#' `R data.frame`. See `show_all(fields)` to view valid fields,
+#' `tibble`. See `show_all(fields)` to view valid fields,
 #' layers and assertions, or conduct a search using `search_all(fields)`.
 #'
 #' Data fields are important because they provide a means to **filter**
 #' occurrence records;  i.e. to return only the information that you need, and
 #' no more. Consequently, much of the architecture of `galah` has been
 #' designed to make filtering as simple as possible. The easiest way to do this 
-#' is to start a pipe with `galah_call()` and follow it with the relevant 
-#' `dplyr` function; starting with `filter()`, but also including `select()`,
-#' `group_by()` or others. Functions without a relevant `dplyr` synonym include
-#' [galah_identify()]/`identify()` for choosing a taxon, or [galah_geolocate()]/
-#' `st_crop()` for choosing a specific location. By combining different filters, 
+#' is to start a pipe with [galah_call()] and follow it with the relevant 
+#' `dplyr` function; starting with \code{\link[=filter.data_request]{filter()}},
+#' but also including \code{\link[=select.data_request]{select()}},
+#' \code{\link[=group_by.data_request]{group_by()}} or others. Functions without
+#' a relevant `dplyr` synonym include 
+#' \code{\link[=identify.data_request]{identify()}} for choosing a taxon, or 
+#' [geolocate()] for choosing a specific location. By combining different filters, 
 #' it is possible to build complex queries to return only the most valuable 
 #' information for a given problem.
 #'
@@ -89,9 +102,8 @@
 #' However, there are many possible data quality checks, and it is not always 
 #' clear which are most appropriate in a given instance. Therefore, `galah` 
 #' supports data quality **profiles**, which can be passed to 
-#' [galah_apply_profile()] to quickly remove undesirable records. A full list of 
-#' data quality profiles is returned by `show_all(profiles)`. Note this service 
-#' is currently only available for the Australian atlas (ALA).
+#' [apply_profile()] to quickly remove undesirable records. A full list of 
+#' data quality profiles is returned by `show_all(profiles)`.
 #'
 #' @importFrom rlang caller_env
 #' @importFrom rlang .data

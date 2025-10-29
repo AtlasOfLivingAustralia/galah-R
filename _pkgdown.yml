@@ -34,12 +34,18 @@ navbar:
         href: articles/narrow_your_results.html
       - text: Download data
         href: articles/download_data.html
+      - text: Downloading images and sounds
+        href: articles/downloading_images_and_sounds.html
       - text: ---
       - text: Advanced
       - text: Object-oriented programming
         href: articles/object_oriented_programming.html
       - text: Reproduciblility
         href: articles/download-data-reproducibly.html
+      - text: Accessing sensitive data
+        href: articles/accessing_sensitive_data.html
+      - text: ---
+      - text: Filtering
       - text: Taxonomic filtering
         href: articles/taxonomic_filtering.html
       - text: Spatial filtering
@@ -53,8 +59,8 @@ navbar:
 reference:
 - title: Getting started
   contents: 
-  - galah_call
   - galah_config
+  - galah_call
   - show_all
   - search_all
   - search_taxa
@@ -80,11 +86,15 @@ reference:
   - select.data_request
   - slice_head.data_request
   - reexports
-- title: Execute a query via API
+- title: Object-oriented processes
   contents:
+  - as_query.data_request
+  - coalesce
   - collapse.data_request
   - compute.data_request
   - collect.data_request
+- title: Wrappers for accessing data
+  contents:
   - atlas_occurrences
   - atlas_counts
   - atlas_species
@@ -94,7 +104,8 @@ reference:
 - title: Miscellaneous functions
   contents:
   - taxonomic_searches
-  - print_galah_objects
   - read_zip
   - atlas_citation
+  - as_data_filter
+  - as_data_filter
 - title: internal
