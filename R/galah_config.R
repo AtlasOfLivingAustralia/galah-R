@@ -18,7 +18,6 @@
 #' @details
 #' Valid arguments to this function are:
 #' 
-#'   *  `api-key` string: A registered API key (currently unused). 
 #'   *  `atlas` string: Living Atlas to point to, Australia by default. Can be 
 #'   an organisation name, acronym, or region (see [show_all_atlases()] for 
 #'   admissible values)
@@ -120,28 +119,6 @@ galah_config <- function(...) {
     
     # look up what information has been given, write specific callouts for unusual cases
     supplied_names <- names(result)
-    
-    # if authentication is requested, cache config info
-    # NOTE: This is the only place in galah where we _silently_ query
-    # an API. For safety and clarity reasons, I've added the following steps:
-    # 1. giving some notice to the user that this has been performed 
-    # 2. adding a warning message if the API call fails
-    if(any(supplied_names == "authenticate")){
-      if(isTRUE(result$authenticate) & # value set to TRUE by user
-         is.null(retrieve_cache("config")) # not already cached
-         ){
-        cli::cli_inform("Caching `config` information to support authentication")
-        config <- request_metadata(type = "config") |>
-          collect() |>
-          try(silent = TRUE)
-        if(inherits(config, "try-error")){
-          c("`galah_config()` tried caching `config` information for authentication purposes, but failed.",
-            i = "This could mean you are offline or that the API is unavailable.",
-            i = "To try again, call `show_all_config()` or `galah_config(authenticate = TRUE)`") |>
-          cli::cli_warn()
-        }
-      }
-    }
 
     # add to `potions` object
     if(any(supplied_names == "atlas")){
@@ -155,6 +132,7 @@ galah_config <- function(...) {
     
     # invisibly return
     x <- potions::pour()
+    check_authentication(x)
     structure(x,
               class = c("galah_config", "list")) |>
       invisible()
@@ -162,6 +140,7 @@ galah_config <- function(...) {
   }else{
     # visibly return
     x <- potions::pour()
+    check_authentication(x)
     structure(x,
               class = c("galah_config", "list"))
   }
@@ -364,4 +343,28 @@ check_atlas <- function(current_data, new_data){
       "Atlas selected: {new_data$organisation} ({new_data$acronym}) [{new_data$region}]")
   }
   new_data
+}
+
+#' if authentication is requested, cache config info
+#' @noRd
+#' @keywords Internal
+check_authentication <- function(x){
+  # NOTE: This is the only place in galah where we _silently_ query
+  # an API. For safety and clarity reasons, I've added the following steps:
+  # 1. giving some notice to the user that this has been performed 
+  # 2. adding a warning message if the API call fails
+  if(isTRUE(purrr::pluck(x, "package", "authenticate")) & # value set to TRUE by user
+     is.null(retrieve_cache("config")) # not already cached
+  ){
+    cli::cli_inform("Caching `config` information to support authentication")
+    config <- request_metadata(type = "config") |>
+      collect() |>
+      try(silent = TRUE)
+    if(inherits(config, "try-error")){
+      c("`galah_config()` tried caching `config` information for authentication purposes, but failed.",
+        i = "This could mean you are offline or that the API is unavailable.",
+        i = "To try again, call `show_all_config()` or `galah_config(authenticate = TRUE)`") |>
+        cli::cli_warn()
+    }
+  }
 }

@@ -76,7 +76,7 @@ collect_occurrences_default <- function(.query, wait, file, call){
     return(tibble::tibble())
   }else{
     result <- result |>
-      check_field_identities(.query) |>
+      check_field_identities(.query, error_call = call) |>
       check_media_cols()  # check for, and then clean, media info
     # exception for GBIF to ensure DOIs are preserved
     if(!is.null(download_response$doi)){

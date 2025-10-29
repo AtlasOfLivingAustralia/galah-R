@@ -85,6 +85,7 @@ query_API_internal <- function(.query,
         httr2::req_oauth_auth_code(client = build_auth_client(auth_config),
                                    auth_url = dplyr::pull(auth_config, "authorize_url"),
                                    scope = dplyr::pull(auth_config, "scopes"),
+                                   pkce = TRUE,
                                    cache_disk = TRUE)
     }
   }
@@ -122,18 +123,8 @@ query_API_internal <- function(.query,
 #' @noRd
 #' @keywords Internal
 build_auth_client <- function(config){
-  # setting a temporary fail to force developers to enter secrets manually.
-  # once that is done, comment out this line
-  cli::cli_abort("galah dev team: Please manually enter `secret` to `build_auth_client()`")
-  
-  # this is the actual code:
   httr2::oauth_client(
     id = dplyr::pull(config, "client_id"),
-    # secret = purrr::pluck(config, "client_secret"), # future code
-    ## NOTE: cognito (test) doesn't need a secret, but CAS (prod) does
-    ## unclear whether we'll solve this by configuring CAS to generate a secret,
-    ## or CAS to ignore one.
-    secret = "ADD-SECRET-HERE", # NOTE: temporary fix, *DO NOT SHARE REAL SECRETS*
     token_url = dplyr::pull(config, "token_url"))  
 }
 

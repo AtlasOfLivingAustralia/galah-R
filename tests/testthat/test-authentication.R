@@ -56,19 +56,19 @@ test_that("setting `authentication` to `TRUE` changes data returned", {
   skip_if(!file.exists(".secure-credentials"),
           "Secret information not provided")
   
-  # load credentials
-  do.call(galah_config,
-          jsonlite::fromJSON(".secure-credentials"))
-  # add other options
-  config <- quiet_config(directory = "TEST-SENSITIVE-DATA",
-                         authenticate = TRUE,
-                         run_checks = FALSE)
+  # load credentials, set authenticate to TRIE
+  config <- c(
+    jsonlite::fromJSON(".secure-credentials"),
+    list(directory = "TEST-SENSITIVE-DATA",
+         authenticate = TRUE)) |>
+    quiet_config()
 
   # These credentials *should* give access to sensitive data for Tasmania *only*
   # subset to species on Tasmania's sensitive species list
   result <- galah_call() |>
     filter(species_list_uid == "dr491") |>
-    collect()
+    collect() |>
+    expect_no_error() # check for exception to `check_field_identities()`
   
   # check sensitive columns exist
   colnames(result) |>
@@ -99,5 +99,11 @@ test_that("setting `authentication` to `TRUE` changes data returned", {
   config <- quiet_config(authenticate = FALSE,
                          directory = "TESTING")
 })
+
+# Downloading from a DOI fails
+# galah_call() |>
+#     filter(doi == "ala.3d0e08ac-d0ec-420d-a1f7-8cde778e82f6") |>
+#     collect()
+# May be same problem as previously documented
 
 rm(quiet_config)

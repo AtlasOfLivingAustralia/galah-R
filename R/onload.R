@@ -5,9 +5,10 @@
     if (pkgname == "galah") {
       
       # set up storage of standard information via {potions}
-      potions::brew(.pkg = "galah")
-      galah_config() # to cache defaults
-      reset_cache()
+      reset_cache() # remove previously stored data
+      potions::brew(.pkg = "galah") # set up caching of behaviour
+      quiet_config <- purrr::quietly(galah_config)
+      config_info <- quiet_config() # to cache defaults without raising a message
 
       # get information to display to the user
       ## get the galah version, if we can
@@ -15,6 +16,7 @@
       suppressWarnings(
         try(galah_version <- utils::packageDescription("galah")[["Version"]],
             silent = TRUE))
+      
       # show currently-selected atlas
       current_node <- potions::pour("atlas", .pkg = "galah") |>
         purrr::pluck("acronym")

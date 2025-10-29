@@ -107,5 +107,5 @@ reference:
   - read_zip
   - atlas_citation
   - as_data_filter
-  - as_data_filter
+  - print_galah_objects
 - title: internal

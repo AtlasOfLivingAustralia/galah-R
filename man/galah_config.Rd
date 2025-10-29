@@ -32,7 +32,6 @@ query as they are processed (\code{verbose}).
 \details{
 Valid arguments to this function are:
 \itemize{
-\item \code{api-key} string: A registered API key (currently unused).
 \item \code{atlas} string: Living Atlas to point to, Australia by default. Can be
 an organisation name, acronym, or region (see \code{\link[=show_all_atlases]{show_all_atlases()}} for
 admissible values)

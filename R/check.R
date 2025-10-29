@@ -216,10 +216,17 @@ check_field_identities <- function(df,
     added_check <- !(field_names %in% .query$fields)
     if(any(added_check)){
       added_fields <- field_names[added_check]
-      names(added_fields) <- rep("*", length(added_fields))
-      c("The following fields were downloaded, but weren't requested in your query:",
-        added_fields) |>
-      cli::cli_warn(call = error_call)
+      # if authentication has occurred, remove `sensitive_` fields
+      if(potions::pour("package", "authenticate", .pkg = "galah")){
+        added_fields <- added_fields[!stringr::str_detect(added_fields, "^sensitive")]
+      }
+      # then, if any remain, warn
+      if(length(added_fields) > 0){
+        names(added_fields) <- rep("*", length(added_fields))
+        c("The following fields were downloaded, but weren't requested in your query:",
+          added_fields) |>
+          cli::cli_warn(call = error_call)
+      }
     }
   }
   df
