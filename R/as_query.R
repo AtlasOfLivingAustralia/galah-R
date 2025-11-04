@@ -80,7 +80,8 @@ as_query.data_request <- function(x,
          "species-count" = as_query_species_count(x),
          "distributions" = as_query_distributions_data(x),
          cli::cli_abort("Unrecognised 'type'")) |>
-    structure(class = c("query", "list"))
+    check_authentication(source = x) |>
+    as_query()
 }
 
 #' @rdname as_query.data_request
@@ -111,7 +112,8 @@ as_query.metadata_request <- function(x, ...){
          "identifiers" = as_query_identifiers(x),
          cli::cli_abort("Unrecognised 'type'")
          ) |>
-    structure(class = c("query", "list"))
+    check_authentication(source = x) |>
+    as_query()
 }
 
 #' @rdname as_query.data_request
@@ -126,10 +128,10 @@ as_query.files_request <- function(x,
   # for future file types
   
   # This code is identical to `collapse.files_request()`
-  result <- list(switch(x$type,
+  list(switch(x$type,
                         "media" = as_query_media_files(x, 
                                                        thumbnail = thumbnail)
-  ))
-  class(result) <- "query_set"
-  result
+  )) |>
+    check_authentication(source = x) |>
+    as_query() # NOTE: previously returned `query_set`
 }

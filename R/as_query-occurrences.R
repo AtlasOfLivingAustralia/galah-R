@@ -46,8 +46,7 @@ as_query_occurrences_uk <- function(.query, ...){
     headers = build_headers(),
     filter = .query$filter,
     select = .query$select)
-  class(result) <- "query"
-  return(result)
+  as_query(result)
 }
 
 #' calculate the query to be returned for GBIF
@@ -76,8 +75,7 @@ as_query_occurrences_gbif <- function(.query,
                 identify = .query$identify,
                 geolocate = .query$geolocate,
                 format = "SIMPLE_CSV"))
-  class(result) <- "query"
-  return(result)
+  as_query(result)
 }
 
 #' calculate the query to be returned for a given living atlas
@@ -120,6 +118,6 @@ as_query_occurrences_la <- function(.query,
     headers = build_headers(),
     filter = .query$filter,
     select = .query$select)
-  class(result) <- "query"
-  return(result)
+  
+  as_query(result)
 }

@@ -50,6 +50,12 @@ coalesce.metadata_request <- function(x, ...){
   # create an empty object to store results
   result <- list()
   
+  # handle authentication
+  if(!is.null(x$authenticate)){
+    result <- append(result,
+                     list(request_metadata("config") |> as_query()))
+  }
+  
   # add checks if required
   if(potions::pour("package", "run_checks")){
     result <- append(result,
@@ -96,9 +102,21 @@ coalesce.files_request <- function(x,
   # NOTE: switch is technically superfluous right now, but could be useful
   # for future file types
   list(switch(x$type,
-                        "media" = as_query_media_files(x, ...)
+              "media" = as_query_media_files(x, ...)
   )) |>
     structure(class = "query_set")
+}
+
+#' @rdname coalesce
+#' @order 5
+#' @export
+coalesce.query <- function(x, ...){
+  type_extracted <- stringr::str_extract(x$type, "^[[:alnum:]]+/") |>
+    stringr::str_remove("/$")
+  switch(type_extracted,
+         "metadata" = coalesce.metadata_request(x, ...),
+         "data" = coalesce.data_request(x, ...),
+         "files" = coalesce.files_request(x, ...)) 
 }
 
 #' Internal function to build a `query_set` object 
@@ -123,6 +141,14 @@ build_query_set_data <- function(x, mint_doi, ...){
   
   # set up an object
   result <- list()
+  
+  # handle authentication
+  if(isTRUE(potions::pour("package", "authenticate", .pkg = "galah")) |
+     !is.null(x$authenticate)
+  ){
+    result <- append(result,
+                     list(request_metadata("config") |> as_query()))
+  }
   
   # handle `run_checks`
   fields_absent <- purrr::map(

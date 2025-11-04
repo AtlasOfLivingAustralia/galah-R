@@ -5,6 +5,7 @@
 \alias{coalesce.data_request}
 \alias{coalesce.metadata_request}
 \alias{coalesce.files_request}
+\alias{coalesce.query}
 \title{Force evaluation of a database query}
 \usage{
 coalesce(x, ...)
@@ -14,6 +15,8 @@ coalesce(x, ...)
 \method{coalesce}{metadata_request}(x, ...)
 
 \method{coalesce}{files_request}(x, ...)
+
+\method{coalesce}{query}(x, ...)
 }
 \arguments{
 \item{x}{An object to be coalesced. Works for \code{data_request},

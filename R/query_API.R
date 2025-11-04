@@ -71,14 +71,15 @@ query_API_internal <- function(.query,
     add_body(.query$body)  # NOTE: adding `body` converts from GET to POST
 
   # set authentication behaviour
-  if(potions::pour("package", "authenticate", .pkg = "galah") &
+  if(!is.null(.query$authenticate) & 
      .query$type != "metadata/config" # necessary to prevent circular problems
      ){
+    
     # check whether config data is available
     auth_config <- retrieve_cache("config")
     if(is.null(auth_config)){
       cli::cli_abort(c("`authenticate` is set to `TRUE`, but `config` data is not available",
-                       i = "Call `request_metadata(type = \"config\") |> collect()`, then try again"),
+                       i = "Call `show_all_config`, then try again"),
                      call = error_call)
     }else{
       query <- query |>
@@ -86,7 +87,7 @@ query_API_internal <- function(.query,
                                    auth_url = dplyr::pull(auth_config, "authorize_url"),
                                    scope = dplyr::pull(auth_config, "scopes"),
                                    pkce = TRUE,
-                                   cache_disk = TRUE)
+                                   cache_disk = purrr::pluck(.query, "authenticate", "cache_disk"))
     }
   }
 

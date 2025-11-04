@@ -5,7 +5,6 @@
     if (pkgname == "galah") {
       
       # set up storage of standard information via {potions}
-      reset_cache() # remove previously stored data
       potions::brew(.pkg = "galah") # set up caching of behaviour
       quiet_config <- purrr::quietly(galah_config)
       config_info <- quiet_config() # to cache defaults without raising a message

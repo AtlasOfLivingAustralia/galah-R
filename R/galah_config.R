@@ -132,7 +132,7 @@ galah_config <- function(...) {
     
     # invisibly return
     x <- potions::pour()
-    check_authentication(x)
+    # check_authentication_argument(x)
     structure(x,
               class = c("galah_config", "list")) |>
       invisible()
@@ -140,7 +140,7 @@ galah_config <- function(...) {
   }else{
     # visibly return
     x <- potions::pour()
-    check_authentication(x)
+    # check_authentication_argument(x)
     structure(x,
               class = c("galah_config", "list"))
   }
@@ -194,7 +194,7 @@ validate_config <- function(name,
            # see whether atlases have changed, and if so, give a message
            check_atlas(potions::pour("atlas"), value)
          },
-         "authenticate"     = enforce_logical(value),
+         "authenticate"    = enforce_logical(value),
          "caching"         = enforce_logical(value),
          "directory"       = check_directory(value),
          "download_reason_id" = enforce_download_reason(value),
@@ -348,7 +348,7 @@ check_atlas <- function(current_data, new_data){
 #' if authentication is requested, cache config info
 #' @noRd
 #' @keywords Internal
-check_authentication <- function(x){
+check_authentication_argument <- function(x){
   # NOTE: This is the only place in galah where we _silently_ query
   # an API. For safety and clarity reasons, I've added the following steps:
   # 1. giving some notice to the user that this has been performed 
@@ -368,3 +368,5 @@ check_authentication <- function(x){
     }
   }
 }
+# NOTE: Need to add trigger to stop this process for orgs that are not ALA.
+# This will mean moving it higher up in the workflow.

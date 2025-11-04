@@ -6,7 +6,7 @@ test_that("`galah_config()` caches config info when `authenticate` is set to `TR
   expect_false(x$package$authenticate)
   expect_true(is.null(retrieve_cache("config")))
   y <- quiet_config(authenticate = TRUE)
-  stringr::str_detect(y$messages, 
+  stringr::str_detect(y$messages,
                       "Caching `config` information to support authentication") |>
     any() |>
     expect_true()
@@ -15,7 +15,6 @@ test_that("`galah_config()` caches config info when `authenticate` is set to `TR
   expect_false(is.null(cached_config))
   expect_equal(nrow(cached_config), 1)
 })
-
 
 test_that("`request_metadata()` works for type = `config`", {
   skip_on_ci(); skip_on_cran()
@@ -36,19 +35,55 @@ test_that("`request_metadata()` caches type `config` correctly", {
   expect_true(!is.null(result$data))  
 })
 
-test_that("setting `authentication` to `TRUE` doesn't break a query", {
-  skip("Authentication currently requires user interaction")
-  config <- quiet_config(authenticate = TRUE)
-  result <- request_metadata(type = "reasons") |>
-    collect() |>
-    expect_no_error()
-  result |>
-    inherits(c("tbl_df", "tbl", "data.frame")) |>
-    expect_true()
-  expect_gt(nrow(result), 1)
-  expect_equal(ncol(result), 2)
-  # reset
-  galah_config(authentication = FALSE)
+test_that("`use_authentication()` works in-pipe for metadata", {
+  query <- request_metadata(type = "reasons") |>
+    use_authentication()
+  
+  result <- as_query(query)
+  is.null(result$authenticate) |>
+    expect_false()
+  
+  result2 <- coalesce(result)
+  expect_equal(length(result2), 2)
+
+  # NOTE: this shows both datasets are set to `data` (not `url`)
+  # so `use_authentication()` won't do anything
+  # perhaps a solution is to have a `force` argument to ensure query happens
+  # this would be logical to put in `collect()` and `show_all()`;
+  # but would be evaluated in `collapse()` so would go there too
+  
+  # in which case, setting `use_authentication()` should set `force = TRUE`
+  
+  # NOTE: `use_credentials()` could be a good counterpoint for setting email etc
+})
+
+test_that("`use_authentication()` works in-pipe for occurrences", {
+  galah_config(email = "ala4r@ala.org.au")
+  
+  query <- galah_call() |>
+    identify("Litoria dentata") |>
+    filter(year == 2025) |>
+    use_authentication() |>
+    coalesce()
+  expect_equal(length(query), 6)
+  is.null(query[[6]]$authenticate) |>
+    expect_false()
+  
+  x <- collapse(query) # FIXME: errors with no email address found
+  # note that this shouldn't happen if authentication has worked;
+  # BUT we haven't tested that yet
+  x |>
+    purrr::pluck("authenticate") |>
+    is.null() |>
+    expect_false()
+  
+  y <- compute(x)
+  # failing here
+  
+  # once auth works, this should still contain authentication metadata
+  
+  z <- collect(y)
+  
 })
 
 test_that("setting `authentication` to `TRUE` changes data returned", {

@@ -14,10 +14,9 @@ compute_occurrences <- function(.query){
 #' @noRd
 #' @keywords Internal
 compute_occurrences_la_direct <- function(.query){
-  result <- c(.query,
-              list(fields = extract_fields(.query)))
-  class(result) <- "computed_query"
-  result  
+  c(.query,
+    list(fields = extract_fields(.query))) |>
+    structure(class = "computed_query")
 }
 
 #' Internal function to `compute()` for `type = "occurrences"` for GBIF
@@ -31,11 +30,9 @@ compute_occurrences_gbif <- function(.query){
     url = glue::glue("https://api.gbif.org/v1/occurrence/download/{post_result}")) |>
     query_API() |>
     check_occurrence_response()
-  result <- c(
-    list(type = "data/occurrences"),
-    status_code)
-  class(result) <- "computed_query"
-  return(result)
+  c(list(type = "data/occurrences"),
+    status_code) |>
+    structure(class = "computed_query")
 }
 
 #' Internal function to `compute()` for `type = "occurrences"` for ALA
@@ -51,12 +48,11 @@ compute_occurrences_la <- function(.query){
     cli::cli_inform("Request for {n_records} occurrences placed in queue")
   }
   # return a useful object
-  result <- c(
-    list(type = "data/occurrences"),
+  c(list(type = "data/occurrences"),
     status_code, 
-    list(fields = extract_fields(.query)))
-  class(result) <- "computed_query"
-  result
+    list(fields = extract_fields(.query))) |>
+    check_authentication(source = .query) |>
+    structure(class = "computed_query")
 }
 
 #' Internal function to get the `fields` vector from a url

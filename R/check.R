@@ -12,6 +12,16 @@ check_atlas_inputs <- function(args){
   }
 }
 
+#' Internal function to pass authentication information forward
+#' @noRd
+#' @keywords Internal
+check_authentication <- function(x, source){
+  if(!is.null(source$authenticate)){
+    x$authenticate <- source$authenticate 
+  }
+  x
+}
+
 #' Internal function to check for `data_request`s
 #' @noRd
 #' @keywords Internal
