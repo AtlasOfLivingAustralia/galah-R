@@ -150,8 +150,8 @@ request_data <- function(type = c("occurrences",
   default_call$type <- type # check_type(type)
   # set default for limit?
   # default_call$limit <- 100 ?
-  class(default_call) <- "data_request"
-  default_call
+  structure(default_call,
+            class = "data_request")
 }
 
 #' @rdname galah_call
@@ -182,9 +182,8 @@ request_metadata <- function(type = c("fields",
       x = "Can't find metadata type `{type}`.") |>
     cli::cli_abort()   
   }
-  x <- list(type = type_checked)
-  class(x) <- "metadata_request"
-  return(x)
+  list(type = type_checked) |>
+    structure(class = "metadata_request")
 }
 
 #' @rdname galah_call
@@ -193,7 +192,6 @@ request_files <- function(
     type = "media"
     # note: option to add `...` here for consistency with `request_data()`
 ){
-  x <- list(type = match.arg(type))
-  class(x) <- "files_request"
-  return(x)
+  list(type = match.arg(type)) |>
+    structure(class = "files_request")
 }

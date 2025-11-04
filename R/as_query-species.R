@@ -45,15 +45,13 @@ as_query_species_atlas <- function(.query){
     httr2::url_parse()
   url$query <- query
   # build output
-  result <- list(
-    type = "data/species",
-    url = httr2::url_build(url),
-    headers = build_headers(),
-    filter = .query$filter,
-    group_by = .query$group_by,
-    download = TRUE)
-  class(result) <- "query"
-  result
+  list(type = "data/species",
+       url = httr2::url_build(url),
+       headers = build_headers(),
+       filter = .query$filter,
+       group_by = .query$group_by,
+       download = TRUE) |>
+    as_query()
 }
 
 #' parse `select()` for `atlas_species()`

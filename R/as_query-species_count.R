@@ -60,6 +60,5 @@ as_query_species_count_atlas <- function(identify = NULL,
                    filter = filter,
                    arrange = slice_arrange)
   }
-  class(result) <- "query"
-  return(result)
+  as_query(result)
 }

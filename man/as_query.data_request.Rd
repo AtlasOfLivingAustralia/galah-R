@@ -3,20 +3,23 @@
 \name{as_query.data_request}
 \alias{as_query.data_request}
 \alias{as_query}
-\alias{as_query.list}
 \alias{as_query.metadata_request}
 \alias{as_query.files_request}
+\alias{as_query.list}
+\alias{as_query.query}
 \title{Convert an object to class \code{query}}
 \usage{
 as_query(x, ...)
-
-\method{as_query}{list}(x)
 
 \method{as_query}{data_request}(x, mint_doi = FALSE, ...)
 
 \method{as_query}{metadata_request}(x, ...)
 
 \method{as_query}{files_request}(x, thumbnail = FALSE, ...)
+
+\method{as_query}{list}(x)
+
+\method{as_query}{query}(x)
 }
 \arguments{
 \item{x}{An object to convert to a \code{query}. Supported classes are the same

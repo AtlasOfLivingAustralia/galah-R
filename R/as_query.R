@@ -52,16 +52,9 @@ as_query <- function(x, ...){
 }
 
 #' @rdname as_query.data_request
-#' @order 2
-as_query.list <- function(x){
-  # TODO add some checks here?
-  structure(x, class = c("query", "list"))
-}
-
-#' @rdname as_query.data_request
 #' @param mint_doi Logical: should a DOI be minted for this download? Only 
 #' applies to `type = "occurrences"` when atlas chosen is "ALA".
-#' @order 3
+#' @order 2
 #' @export
 as_query.data_request <- function(x,
                                   mint_doi = FALSE,
@@ -80,12 +73,11 @@ as_query.data_request <- function(x,
          "species-count" = as_query_species_count(x),
          "distributions" = as_query_distributions_data(x),
          cli::cli_abort("Unrecognised 'type'")) |>
-    check_authentication(source = x) |>
-    as_query()
+    check_authentication(source = x)
 }
 
 #' @rdname as_query.data_request
-#' @order 4
+#' @order 3
 #' @export
 as_query.metadata_request <- function(x, ...){
   switch(x$type,
@@ -112,14 +104,13 @@ as_query.metadata_request <- function(x, ...){
          "identifiers" = as_query_identifiers(x),
          cli::cli_abort("Unrecognised 'type'")
          ) |>
-    check_authentication(source = x) |>
-    as_query()
+    check_authentication(source = x)
 }
 
 #' @rdname as_query.data_request
 #' @param thumbnail Logical: should thumbnail-size images be returned? Defaults 
 #' to `FALSE`, indicating full-size images are required.
-#' @order 5
+#' @order 4
 #' @export
 as_query.files_request <- function(x, 
                                    thumbnail = FALSE,
@@ -128,10 +119,23 @@ as_query.files_request <- function(x,
   # for future file types
   
   # This code is identical to `collapse.files_request()`
-  list(switch(x$type,
-                        "media" = as_query_media_files(x, 
-                                                       thumbnail = thumbnail)
-  )) |>
-    check_authentication(source = x) |>
-    as_query() # NOTE: previously returned `query_set`
+  switch(x$type,
+         "media" = as_query_media_files(x, 
+                                        thumbnail = thumbnail),
+         cli::cli_abort("Unrecognised 'type'")
+  ) |>
+    check_authentication(source = x)
+}
+
+#' @rdname as_query.data_request
+#' @order 5
+as_query.list <- function(x){
+  # TODO add some checks here?
+  structure(x, class = c("query", "list"))
+}
+
+#' @rdname as_query.data_request
+#' @order 6
+as_query.query <- function(x){
+  x
 }

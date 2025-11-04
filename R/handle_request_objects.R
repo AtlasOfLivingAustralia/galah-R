@@ -76,8 +76,8 @@ update_request_object <- function(x, ...){
   if(any(missing_names)){
     result <- append(result, dots[missing_names])
   }
-  class(result) <- class_tr
-  result
+  structure(result,
+            class = class_tr)
 }
 
 #' Internal function to join together two `select` objects

@@ -40,13 +40,12 @@ as_query_occurrences_uk <- function(.query, ...){
                  reasonTypeId = potions::pour("user", "download_reason_id"),
                  dwcHeaders = "true")
   # build output
-  result <- list(
-    type = "data/occurrences",
-    url = httr2::url_build(url),
-    headers = build_headers(),
-    filter = .query$filter,
-    select = .query$select)
-  as_query(result)
+  list(type = "data/occurrences",
+       url = httr2::url_build(url),
+       headers = build_headers(),
+       filter = .query$filter,
+       select = .query$select) |>
+    as_query()
 }
 
 #' calculate the query to be returned for GBIF
@@ -60,22 +59,21 @@ as_query_occurrences_gbif <- function(.query,
   password <- potions::pour("user", "password", .pkg = "galah")
   user_string <- glue::glue("{username}:{password}")
   # build object
-  result <- list(
-    type = "data/occurrences",
-    url = url_lookup("data/occurrences"),
-    headers =  list(
-      `User-Agent` = galah_version_string(), 
-      `X-USER-AGENT` = galah_version_string(),
-      `Content-Type` = "application/json",
-      Accept = "application/json"),
-    options = list(
-      httpauth = 1,
-      userpwd = user_string),
-    body = list(filter = .query$filter, 
-                identify = .query$identify,
-                geolocate = .query$geolocate,
-                format = "SIMPLE_CSV"))
-  as_query(result)
+  list(type = "data/occurrences",
+       url = url_lookup("data/occurrences"),
+       headers =  list(
+         `User-Agent` = galah_version_string(), 
+         `X-USER-AGENT` = galah_version_string(),
+         `Content-Type` = "application/json",
+         Accept = "application/json"),
+       options = list(
+         httpauth = 1,
+         userpwd = user_string),
+       body = list(filter = .query$filter, 
+                   identify = .query$identify,
+                   geolocate = .query$geolocate,
+                   format = "SIMPLE_CSV")) |>
+    as_query()
 }
 
 #' calculate the query to be returned for a given living atlas
@@ -112,12 +110,10 @@ as_query_occurrences_la <- function(.query,
     httr2::url_parse()
   url$query <- query
   # build output
-  result <- list(
-    type = "data/occurrences",
-    url = httr2::url_build(url),
-    headers = build_headers(),
-    filter = .query$filter,
-    select = .query$select)
-  
-  as_query(result)
+  list(type = "data/occurrences",
+       url = httr2::url_build(url),
+       headers = build_headers(),
+       filter = .query$filter,
+       select = .query$select) |>
+    as_query()
 }

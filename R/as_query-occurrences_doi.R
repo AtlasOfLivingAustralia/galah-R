@@ -37,12 +37,10 @@ as_query_occurrences_doi <- function(.query,
     cli::cli_abort(call = error_call)
   }
   
-  result <- list(
-    type = "data/occurrences-doi",
-    url = url_lookup("data/occurrences-doi", 
-                     doi_string = doi_str),
-    headers = build_headers(),
-    download = TRUE)
-  class(result) <- "data_query"
-  return(result)
+  list(type = "data/occurrences-doi",
+       url = url_lookup("data/occurrences-doi", 
+                        doi_string = doi_str),
+       headers = build_headers(),
+       download = TRUE) |>
+  as_query()
 }

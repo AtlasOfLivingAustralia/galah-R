@@ -156,12 +156,10 @@ collapse_occurrences_count_atlas_groupby_crossed <- function(.query,
   result_df <- dplyr::select(result_df, -query)
 
   # join and export
-  result <- c(list(
-    type = data_cached$type,
-    url = result_df),
-    data_cached[!(names(data_cached) %in% c("url", "type"))])
-  class(result) <- "query"
-  result
+  c(list(type = data_cached$type,
+         url = result_df),
+    data_cached[!(names(data_cached) %in% c("url", "type"))]) |>
+    as_query()
 }
 
 #' Internal function to check number of facets to be returned by a `group_by` query

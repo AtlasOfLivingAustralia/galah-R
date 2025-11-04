@@ -65,8 +65,7 @@ as_query_occurrences_count_atlas <- function(identify = NULL,
                    filter = filter,
                    arrange = slice_arrange)
   }
-  class(result) <- "query"
-  return(result)
+  as_query(result)
 }
 
 #' collapse for counts on GBIF
@@ -106,23 +105,19 @@ as_query_occurrences_count_gbif <- function(identify = NULL,
   # build object
   ## Note that unlike with other atlases, parsing of `group_by` is handled
   ## by `collapse()` rather than here.
-  result <- list(
-    type = data_type,
-    url = url_lookup("data/occurrences-count"),
-    headers =  list(
-      `User-Agent` = galah_version_string(), 
-      `X-USER-AGENT` = galah_version_string(),
-      `Content-Type` = "application/json",
-      Accept = "application/json"),
-    options = list(
-      httpauth = 1,
-      userpwd = user_string),
-    body = predicates_info,
-    slot_name = "count")
- 
-  # classify and return
-  class(result) <- "query"
-  result
+  list(type = data_type,
+       url = url_lookup("data/occurrences-count"),
+       headers =  list(
+         `User-Agent` = galah_version_string(), 
+         `X-USER-AGENT` = galah_version_string(),
+         `Content-Type` = "application/json",
+         Accept = "application/json"),
+       options = list(
+         httpauth = 1,
+         userpwd = user_string),
+       body = predicates_info,
+       slot_name = "count") |>
+    as_query()
 }
 
 #' Internal function to check `slice` and `arrange` for counts

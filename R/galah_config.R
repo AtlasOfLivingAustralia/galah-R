@@ -150,24 +150,19 @@ galah_config <- function(...) {
 #' @noRd
 #' @keywords Internal
 default_config <- function(){
-  x <- list(
-    package = list( 
-      verbose = TRUE,
-      run_checks = TRUE,
-      send_email = FALSE,
-      authenticate = FALSE,
-      directory = tempdir()),
-    user = list(
-      username = "",
-      email = "",
-      password = "",
-      download_reason_id = 4),
-    atlas = list(
-      organisation = "Atlas of Living Australia",
-      acronym  = "ALA",
-      region = "Australia"))
-  class(x) <- c("galah_config", "list")
-  x
+  list(package = list(verbose = TRUE,
+                      run_checks = TRUE,
+                      send_email = FALSE,
+                      authenticate = FALSE,
+                      directory = tempdir()),
+       user = list(username = "",
+                   email = "",
+                   password = "",
+                   download_reason_id = 4),
+       atlas = list(organisation = "Atlas of Living Australia",
+                    acronym  = "ALA",
+                    region = "Australia")) |>
+    structure(class = c("galah_config", "list"))
 }
 
 #' Place new options into correctly nested structure
