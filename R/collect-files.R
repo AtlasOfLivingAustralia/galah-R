@@ -34,6 +34,6 @@ collect_media_files <- function(.query){
     bullets <- c(bullets,
                  "x" = "Failed {n_failed} downloads due to missing images (status 403)")
   }
-  cli::cli_inform(bullets)
+  cli::cli_bullets(bullets)
   invisible(result_summary)
 }

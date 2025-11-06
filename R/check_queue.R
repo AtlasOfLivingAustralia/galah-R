@@ -29,7 +29,7 @@ check_queue_loop <- function(.query){
   iter <- 1
   verbose <- potions::pour("package", "verbose", .pkg = "galah")
   if(verbose){
-    cli::cli_inform("Current queue length: {current_queue}")
+    cli::cli_text("Current queue length: {current_queue}")
   }
   while(continue == TRUE){
     .query <- check_occurrence_status(.query)
@@ -37,9 +37,12 @@ check_queue_loop <- function(.query){
     if(continue){    
       iter <- iter + 1
       if(iter > 99){
-        cli::cli_inform(c("No data were returned after 100 tries.", 
-                          i = "If you have saved this output using e.g. `x <- collect(.query)`,", 
-                          i = "you can try again later using `collect(x)`"))
+        cli::cli({
+          cli::cli_text("No data were returned after 100 tries.")
+          c(i = "If you have saved this output using e.g. `x <- collect(.query)`,", 
+            i = "you can try again later using `collect(x)`") |>
+          cli::cli_bullets()
+        })
         return(.query)     
       }else{
         current_queue <- check_queue_size(.query, current_queue)
@@ -69,7 +72,7 @@ check_queue_size <- function(.query, current_queue){
   if(.query$queue_size < current_queue & .query$queue_size > 0){
     current_queue <- .query$queue_size
     if(verbose){
-      cli::cli_inform("Queue length: {current_queue}")
+      cli::cli_text("Queue length: {current_queue}")
     }
   }else{
     if(verbose){cat("-")}

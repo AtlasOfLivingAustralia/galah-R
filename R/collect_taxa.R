@@ -245,7 +245,7 @@ check_search_terms <- function(result, atlas) {
         rlang::format_error_bullets() |>
         cli::cli_text())
     
-    cli::cli_inform(bullets)
+    cli::cli_text(bullets)
     cli::cli_end(d)
   }
 }

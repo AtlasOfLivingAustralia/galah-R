@@ -133,9 +133,11 @@ parse_point_radius <- function(...,
   
   # Should this be an error? A message?
   if(radius > 1565) {
-    c("Radius is larger than the area of Australia.",
-      i = "Try reducing the radius to narrow your query.") |>
-    cli::cli_inform()
+    cli::cli({
+      cli::cli_text("Supplied radius is larger than the area of Australia.")
+      c(i = "Try reducing the radius to narrow your query.") |>
+        cli::cli_bullets()
+    })
   }
   
   out_query <- list(lat = lat, 

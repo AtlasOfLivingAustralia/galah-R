@@ -18,11 +18,10 @@ check_atlas_inputs <- function(args){
 check_data_request <- function(request, 
                                error_call = rlang::caller_env()){
   if(!inherits(request, "data_request")){
-    cli::cli_abort(c(
-      "Argument `.query` requires an object of type `data_request`.",
+    c("Argument `.query` requires an object of type `data_request`.",
       i = "You can create this object using `galah_call()`.",
-      i = "Did you specify the incorrect argument?"), 
-      call = error_call)      
+      i = "Did you specify the incorrect argument?") |>
+    cli::cli_abort(call = error_call)      
   }     
 }
 
@@ -127,14 +126,14 @@ check_files_filter <- function(x,
                    call = error_call)
   }
   if(is.null(x$data)){
-    cli::cli_abort(c("rhs must be a `tibble` containing media information",
-                     i = "at least, this tibble should contain `media_id` and `mime_type` columns"),
-                   call = error_call)    
+    c("rhs must be a `tibble` containing media information.",
+      i = "at least, this tibble should contain `media_id` and `mime_type` columns.") |>
+    cli::cli_abort(call = error_call)    
   }
   if(!inherits(x$data, "data.frame")){
-    cli::cli_abort(c("rhs must be a `tibble` containing media information",
-                     i = "at least, this tibble should contain `media_id` and `mime_type` columns"),
-                   call = error_call)
+    c("rhs must be a `tibble` containing media information.",
+      i = "at least, this tibble should contain `media_id` and `mime_type` columns.") |>
+    cli::cli_abort(call = error_call)
   }
 }
 
@@ -517,10 +516,10 @@ check_media_cols_present <- function(.query,
     purrr::pluck(1)
   fields_check <- image_fields() %in% fields
   if(!any(fields_check)){
-    cli::cli_abort(c("No media fields requested.",
-                     i = "Use `select()` to specify which media fields are required.",
-                     i = "Valid fields are 'images', 'videos' and 'sounds'."),
-                   call = error_call)
+    c("No media fields requested.",
+      i = "Use `select()` to specify which media fields are required.",
+      i = "Valid fields are 'images', 'videos' and 'sounds'.") |>
+    cli::cli_abort(call = error_call)
   }else{
     image_fields()[fields_check]
   }
@@ -724,8 +723,10 @@ check_select <- function(.query,
                          error_call = rlang::caller_env()){
   if(any(names(.query) == "select")){
     if(is_gbif() & stringr::str_detect(.query$type, "^data")){
-      cli::cli_inform(c("skipping `select()`:",
-               i = "This function is not supported by the GBIF API v1"))
+      cli::cli({
+        cli::cli_text("Skipping `select()`.")
+        cli::cli_bullets(c(i = "This function is not supported by the GBIF occurrences downloads API v1."))
+      })
     }else{
       # 1. build df to `select` from
       valid_fields <- .query[["metadata/fields"]]$id

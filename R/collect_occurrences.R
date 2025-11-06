@@ -34,8 +34,7 @@ collect_occurrences_direct <- function(.query, file, call){
   query_API(.query)
   result <- read_zip(.query$file)
   if(is.null(result)){
-    cli::cli_inform("Download failed", call = call)
-    return(tibble::tibble())
+    download_failed_message(call = call)
   }else{
     result
   }
@@ -54,7 +53,7 @@ collect_occurrences_default <- function(.query, wait, file, call){
   # get data
   if(potions::pour("package", "verbose", .pkg = "galah") &
      download_response$status == "complete") {
-    cli::cli_inform("Downloading")
+    cli::cli_text("Downloading")
   }
   # sometimes lookup info critical, but not others - unclear when/why!
   if(any(names(download_response) == "download_url")){
@@ -72,8 +71,7 @@ collect_occurrences_default <- function(.query, wait, file, call){
   }
   # handle result
   if(is.null(result)){
-    cli::cli_inform("Download failed", call = call)
-    return(tibble::tibble())
+    download_failed_message(call = call)
   }else{
     result <- result |>
       check_field_identities(.query, error_call = call) |>
@@ -103,9 +101,18 @@ collect_occurrences_doi <- function(.query,
   query_API(.query)
   result <- read_zip(.query$file)
   if(is.null(result)){
-    cli::cli_inform("Download failed.", call = call)
-    tibble::tibble()
+    download_failed_message(call = call)
   }else{
     result
   }
+}
+
+#' Download failed message
+#' @noRd
+#' @keywords Internal
+download_failed_message <- function(call){
+  c("Download failed.",
+    i = "This usually suggests a problem with the download itself, rather than the API.",
+    i = "Consider checking that a file has been created in the expected location.") |>
+    cli::cli_abort(call = call)
 }

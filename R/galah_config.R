@@ -275,8 +275,7 @@ enforce_download_reason <- function(value,
         dplyr::filter(valid_reasons$name == value) |>
         dplyr::select("id") |>
         dplyr::pull("id")
-      c("v" = "Matched \"{value}\" to valid download reason ID {value_id}.") |>
-        cli::cli_inform(call = error_call)
+      cli::cli_bullets(c("v" = "Matched \"{value}\" to valid download reason ID {value_id}."))
       value_id
     }else{
       value
@@ -334,8 +333,14 @@ configure_atlas <- function(query,
 #' @keywords Internal
 check_atlas <- function(current_data, new_data){
   if(new_data$region != current_data$region){
-    cli::cli_inform(
-      "Atlas selected: {new_data$organisation} ({new_data$acronym}) [{new_data$region}]")
+    current_url <- show_all_atlases() |>
+      dplyr::filter(.data$region == new_data$region) |>
+      dplyr::pull("url") 
+    cli::cli({
+      cli::cli_text("New organisation selected: {new_data$organisation} ({new_data$acronym})")
+      cli::col_magenta(current_url) |>
+      cli::cli_text()
+    })
   }
   new_data
 }
@@ -351,7 +356,7 @@ check_authentication_argument <- function(x){
   if(isTRUE(purrr::pluck(x, "package", "authenticate")) & # value set to TRUE by user
      is.null(retrieve_cache("config")) # not already cached
   ){
-    cli::cli_inform("Caching `config` information to support authentication")
+    cli::cli_text("Caching `config` information to support authentication")
     config <- request_metadata(type = "config") |>
       collect() |>
       try(silent = TRUE)

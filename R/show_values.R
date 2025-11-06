@@ -84,15 +84,15 @@ show_values <- function(df,
     df <- df[1, ]
     c("!" = "Search returned {n_matches} matched {type}.",
       "*" = "Showing values for '{match_name}'.") |>
-        cli::cli_inform()
+        cli::cli_bullets()
   } else {
     if (is.na(match_name)) {
       cli::col_yellow("`search_all()` returned no matched `{type}`.") |>
-        cli::cli_inform()
+        cli::cli_text()
       tibble::tibble()
     } else {
       c("*" = "Showing values for '{match_name}'.") |>
-        cli::cli_inform()
+        cli::cli_bullets()
     }
   }
   

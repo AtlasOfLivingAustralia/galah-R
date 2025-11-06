@@ -18,7 +18,7 @@ authenticate <- function(){
     
     choice <- cli_menu(
       c(" ",
-        "This function will open an authentication screen in your browser",
+        "This function will open an authentication screen in your browser.",
         " "),
       "Do you want to continue? (0 to exit)",
       choices = c("Yes", "No")
@@ -38,7 +38,7 @@ authenticate <- function(){
       galah_config(authenticate = TRUE) # cache authentication behaviour
       return(invisible(result))
     } else {
-      cli::cli_inform(c(
+      cli::cli_bullets(c(
         i = "Exiting..."
       ))
       # exits process quietly
@@ -116,8 +116,9 @@ get_auth_info <- function(error_call = rlang::caller_env()){
 build_auth_client <- function(config){
   result <- httr2::oauth_client(
     id = dplyr::pull(config, "client_id"),
-    token_url = dplyr::pull(config, "token_url"))
-  # consider caching this as well? Perhaps rebuilding is triggering new client id or something?
+    token_url = dplyr::pull(config, "token_url"),
+    auth = "body",
+    name = "galah")
   update_cache(client = result)
   result
 }
@@ -127,7 +128,7 @@ build_auth_client <- function(config){
 #' Built on top of utils::menu(). 
 #' Originally proposed by Hadley here: https://github.com/r-lib/cli/issues/228#issuecomment-1453614104
 #' Full code from gargle here: https://github.com/r-lib/gargle/blob/main/R/utils-ui.R
-#' This version borrowed verbatim from `galaxias` v. 0.1.0
+#' This version updated from `galaxias` v. 0.1.0
 #' @noRd
 #' @keywords Internal
 cli_menu <- function(header,
@@ -146,17 +147,21 @@ cli_menu <- function(header,
   }
   
   choices <- paste0(cli::style_bold(seq_along(choices)), ": ", choices)
-  cli::cli_inform(
-    c(header, prompt, choices),
-    .envir = .envir
-  )
+  
+  cli::cli({
+    cli::cli_text(header, .envir = .envir)
+    cli::cli_text("", .envir = .envir)
+    cli::cli_text(prompt, .envir = .envir)
+    cli::cli_text("", .envir = .envir)
+    cli::cli_bullets(choices, .envir = .envir)
+  })
   
   repeat {
     selected <- cli_readline("Selection: ")
     if (selected %in% c("0", seq_along(choices))) {
       break
     }
-    cli::cli_inform(
+    cli::cli_text(
       "Enter a number between 1 and {length(choices)}, or enter 0 to exit."
     )
   }
@@ -189,7 +194,7 @@ cli_readline <- function(prompt) {
   # this feature in for now
   if (length(local_input) > 0) {
     input <- local_input[[1]]
-    cli::cli_inform(paste0(prompt, input))
+    cli::cli_text(paste0(prompt, input))
     options(cli_input = local_input[-1])
     input
   } else {

@@ -130,7 +130,7 @@
 #' @export
 select.data_request <- function(.data, ..., group){
   if(is_gbif()){
-    cli::cli_inform("`select()` is not supported for GBIF: skipping")
+    cli::cli_text("`select()` is not supported for GBIF occurrence downloads API v1: skipping")
     .data
   }else{
     dots <- rlang::enquos(..., .ignore_empty = "all")
@@ -158,7 +158,7 @@ galah_select <- function(..., group){
     detect_request_object() |>
     as.list()
   if(is_gbif()){
-    cli::cli_inform("`select()` is not supported for GBIF: skipping")
+    cli::cli_text("`select()` is not supported for GBIF occurrence downloads API v1: skipping")
     if(inherits(dots[[1]], "data_request")){
       dots[[1]]
     }else{

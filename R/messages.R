@@ -32,5 +32,5 @@ system_down_message <- function(function_name,
     i = "This might mean that the API is down, or that you are not connected to the internet.",
     i = "Double check that your query is correct, or try again later."
   ) |>
-  cli::cli_inform(call = error_call)
+  cli::cli_abort(call = error_call)
 }

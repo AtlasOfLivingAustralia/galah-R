@@ -98,10 +98,12 @@ galah_bbox <- function(...) {
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons are converted to multipolygons
   if (inherits(query, "sf") || inherits(query, "sfc")) {
-    cli::cli_inform("
-             Data returned for bounding box:
-             xmin = {bbox_coords$xmin} xmax = {bbox_coords$xmax} \\
-             ymin = {bbox_coords$ymin} ymax = {bbox_coords$ymax}")
+    cli::cli({
+      cli::cli_text("Data returned for bounding box:")
+      c("xmin = {bbox_coords$xmin} xmax = {bbox_coords$xmax}",
+        "ymin = {bbox_coords$ymin} ymax = {bbox_coords$ymax}") |>
+      cli::cli_bullets()
+    })
     out_query <- build_wkt(query)
   }
 

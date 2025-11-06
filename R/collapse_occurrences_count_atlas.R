@@ -29,11 +29,10 @@ collapse_occurrences_count_atlas_basic <- function(.query){
           prettyNum(big.mark = ",",
                     preserve.width = "none")
         
-        c(
-          cli::cli_text(cli::col_yellow("Limiting to first {limit} of {n_total_facets} rows.")),
+        cli::cli({
+          cli::cli_text(cli::col_yellow("Limiting to first {limit} of {n_total_facets} rows."))
           cli::cli_text(cli::col_magenta("Use `atlas_counts(limit = )` to return more rows."))
-        ) |>
-        cli::cli_inform()
+        })
       }
       # .query$url <- url_build(url) 
       .query
@@ -82,7 +81,10 @@ collapse_occurrences_count_atlas_groupby_crossed <- function(.query,
     
   # run query to get list of count tibbles
   result <- query_API(.query)
-  if(is.null(result)){system_down_message("count")}
+  if(is.null(result)){
+    system_down_message("count",
+                        error_call = error_call)
+  }
   result <- purrr::map(result, 
                        \(a){a$fieldResult |> 
                              dplyr::bind_rows()})
