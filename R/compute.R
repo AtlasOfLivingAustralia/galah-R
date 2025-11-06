@@ -59,6 +59,15 @@ compute.query <- function(x, ...){
   )
 }
 
+#' @rdname compute.data_request
+#' @order 6
+#' @export
+compute.query_set <- function(x, ...){
+  x |>
+    collapse() |>
+    compute()
+}
+
 #' Internal function to convert class `query` to `computed_query`
 #' @noRd
 #' @keywords Internal

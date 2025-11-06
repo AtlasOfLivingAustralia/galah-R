@@ -57,6 +57,16 @@ collect.query <- function(x, ..., wait = TRUE, file = NULL){
 #' @rdname collect.data_request
 #' @order 5
 #' @export
+collect.query_set <- function(x, ...){
+  x |>
+    collapse(, ...) |>
+    compute() |>
+    collect()
+}
+
+#' @rdname collect.data_request
+#' @order 6
+#' @export
 collect.computed_query <- function(x, 
                           ...,
                           wait = TRUE, 

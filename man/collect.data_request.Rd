@@ -5,6 +5,7 @@
 \alias{collect.metadata_request}
 \alias{collect.files_request}
 \alias{collect.query}
+\alias{collect.query_set}
 \alias{collect.computed_query}
 \title{Retrieve a database query}
 \usage{
@@ -15,6 +16,8 @@
 \method{collect}{files_request}(x, ...)
 
 \method{collect}{query}(x, ..., wait = TRUE, file = NULL)
+
+\method{collect}{query_set}(x, ...)
 
 \method{collect}{computed_query}(x, ..., wait = TRUE, file = NULL)
 }

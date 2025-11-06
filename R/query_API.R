@@ -76,19 +76,14 @@ query_API_internal <- function(.query,
      ){
     
     # check whether config data is available
-    auth_config <- retrieve_cache("config")
-    if(is.null(auth_config)){
-      cli::cli_abort(c("`authenticate` is set to `TRUE`, but `config` data is not available",
-                       i = "Call `show_all_config`, then try again"),
-                     call = error_call)
-    }else{
-      query <- query |>
-        httr2::req_oauth_auth_code(client = build_auth_client(auth_config),
-                                   auth_url = dplyr::pull(auth_config, "authorize_url"),
-                                   scope = dplyr::pull(auth_config, "scopes"),
-                                   pkce = TRUE,
-                                   cache_disk = purrr::pluck(.query, "authenticate", "cache_disk"))
-    }
+    auth_info <- get_auth_info()
+    query <- query |>
+      httr2::req_oauth_auth_code(
+        client = auth_info$client,
+        auth_url = dplyr::pull(auth_info$config, "authorize_url"),
+        scope = dplyr::pull(auth_info$config, "scopes"),
+        pkce = TRUE,
+        cache_disk = purrr::pluck(.query, "authenticate", "cache_disk"))
   }
 
   # then handle downloads
@@ -118,15 +113,6 @@ query_API_internal <- function(.query,
       httr2::resp_body_json(res) # may not work for invalid URLs 
     }
   }
-}
-
-#' create a client object
-#' @noRd
-#' @keywords Internal
-build_auth_client <- function(config){
-  httr2::oauth_client(
-    id = dplyr::pull(config, "client_id"),
-    token_url = dplyr::pull(config, "token_url"))  
 }
 
 #' If supplied, add `headers` arg to a `request()`

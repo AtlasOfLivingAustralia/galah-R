@@ -59,6 +59,7 @@ as_query <- function(x, ...){
 as_query.data_request <- function(x,
                                   mint_doi = FALSE,
                                   ...){
+  x <- check_authentication(x)
   switch(x$type,
          "occurrences" = {
            if(is.null(x$group_by)){
@@ -73,13 +74,14 @@ as_query.data_request <- function(x,
          "species-count" = as_query_species_count(x),
          "distributions" = as_query_distributions_data(x),
          cli::cli_abort("Unrecognised 'type'")) |>
-    check_authentication(source = x)
+    retain_authentication(source = x)
 }
 
 #' @rdname as_query.data_request
 #' @order 3
 #' @export
 as_query.metadata_request <- function(x, ...){
+  x <- check_authentication(x)
   switch(x$type,
          "apis" = as_query_apis(x),
          "assertions" = as_query_assertions(x),
@@ -104,7 +106,7 @@ as_query.metadata_request <- function(x, ...){
          "identifiers" = as_query_identifiers(x),
          cli::cli_abort("Unrecognised 'type'")
          ) |>
-    check_authentication(source = x)
+    retain_authentication(source = x)
 }
 
 #' @rdname as_query.data_request
@@ -122,9 +124,8 @@ as_query.files_request <- function(x,
   switch(x$type,
          "media" = as_query_media_files(x, 
                                         thumbnail = thumbnail),
-         cli::cli_abort("Unrecognised 'type'")
-  ) |>
-    check_authentication(source = x)
+         cli::cli_abort("Unrecognised 'type'")) |>
+    retain_authentication(source = x)
 }
 
 #' @rdname as_query.data_request

@@ -25,6 +25,7 @@ as_query_occurrences_uk <- function(.query, ...){
   if(is.null(.query$select)){
     .query$select <- galah_select(group = "basic")
   }
+  
   # build a url
   # NOTE: providing an email blocks this from executing (2023-08-30)
   url <-  url_lookup("data/occurrences") |> 
@@ -39,6 +40,7 @@ as_query_occurrences_uk <- function(.query, ...){
                  fileType = "csv",
                  reasonTypeId = potions::pour("user", "download_reason_id"),
                  dwcHeaders = "true")
+  
   # build output
   list(type = "data/occurrences",
        url = httr2::url_build(url),
@@ -58,6 +60,7 @@ as_query_occurrences_gbif <- function(.query,
   username <- potions::pour("user", "username", .pkg = "galah")
   password <- potions::pour("user", "password", .pkg = "galah")
   user_string <- glue::glue("{username}:{password}")
+  
   # build object
   list(type = "data/occurrences",
        url = url_lookup("data/occurrences"),
@@ -82,10 +85,12 @@ as_query_occurrences_gbif <- function(.query,
 #' @keywords Internal
 as_query_occurrences_la <- function(.query,
                                     mint_doi = FALSE){
+  
   # set default columns
   if(is.null(.query$select)){
     .query <- .query |> select(group = "basic")
   }
+  
   # build a query
   query <- c(build_query(identify = .query$identify,
                          filter = .query$filter, 
@@ -93,22 +98,20 @@ as_query_occurrences_la <- function(.query,
                          data_profile = .query$data_profile),
              fields = "`SELECT_PLACEHOLDER`",
              qa = "`ASSERTIONS_PLACEHOLDER`",
-             facet = "false", # not tested
-             emailNotify = email_notify(),
+             facet = "false",
              sourceTypeId = {potions::pour("atlas", "region") |>
                              source_type_id_lookup()},
              reasonTypeId = potions::pour("user", "download_reason_id"),
-             email = potions::pour("user", "email"),
-             dwcHeaders = "true")
-  # DOI conditional on this service being offered
-  if(isTRUE(.query$mint_doi) & 
-     potions::pour("atlas", "region") == "Australia"){
-    query$mintDoi <- TRUE 
-  }
+             dwcHeaders = "true") |>
+    add_email_notify() |>
+    add_email_address(query = .query) |>
+    add_doi_request(query = .query)
+
   # build url
   url <- url_lookup("data/occurrences") |> 
     httr2::url_parse()
   url$query <- query
+  
   # build output
   list(type = "data/occurrences",
        url = httr2::url_build(url),

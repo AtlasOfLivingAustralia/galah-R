@@ -12,16 +12,6 @@ check_atlas_inputs <- function(args){
   }
 }
 
-#' Internal function to pass authentication information forward
-#' @noRd
-#' @keywords Internal
-check_authentication <- function(x, source){
-  if(!is.null(source$authenticate)){
-    x$authenticate <- source$authenticate 
-  }
-  x
-}
-
 #' Internal function to check for `data_request`s
 #' @noRd
 #' @keywords Internal
@@ -99,11 +89,28 @@ check_email <- function(.query,
       abort_email_missing(error_call = call)
     }
   }else{
-    email_text <- httr2::url_parse(.query$url)$query$email
-    if(is.null(email_text)) {
-      abort_email_missing(error_call = call)
+    # use purrr::pluck() to search for named slots
+    # base parsing captures `email_notify` and is therefore unrelable
+    email_text <- httr2::url_parse(.query$url) |>
+      purrr::pluck("query", "email")
+    # set criteria for missingness
+    email_text_missing <- if(is.null(email_text)){
+      TRUE
     }else if(email_text == ""){
-      abort_email_missing(error_call = call)
+      TRUE
+    }else{
+      FALSE
+    }
+    # authentication only acceptable alternative to email for ALA
+    if(is_ala()){
+      authentication_missing <- is.null(.query$authenticate)
+      if(email_text_missing & authentication_missing){
+        abort_email_missing(error_call = call)
+      }      
+    }else{
+      if(email_text_missing){
+        abort_email_missing(error_call = call)
+      }     
     }
   }
   .query
@@ -219,15 +226,14 @@ check_field_identities <- function(df,
       names(missing_fields) <- rep("*", length(missing_fields))
       c("The following fields, requested in your query, were not downloaded:",
         missing_fields) |>
-      cli::cli_warn(bullets,
-                    call = error_call)
+      cli::cli_warn(call = error_call)
     }
     # check for additions
     added_check <- !(field_names %in% .query$fields)
     if(any(added_check)){
       added_fields <- field_names[added_check]
       # if authentication has occurred, remove `sensitive_` fields
-      if(potions::pour("package", "authenticate", .pkg = "galah")){
+      if(!is.null(.query$authenticate)){
         added_fields <- added_fields[!stringr::str_detect(added_fields, "^sensitive")]
       }
       # then, if any remain, warn

@@ -5,6 +5,7 @@
 \alias{compute.metadata_request}
 \alias{compute.files_request}
 \alias{compute.query}
+\alias{compute.query_set}
 \title{Compute a query}
 \usage{
 \method{compute}{data_request}(x, ...)
@@ -14,6 +15,8 @@
 \method{compute}{files_request}(x, ...)
 
 \method{compute}{query}(x, ...)
+
+\method{compute}{query_set}(x, ...)
 }
 \arguments{
 \item{x}{An object of class \code{data_request}, \code{metadata_request} or

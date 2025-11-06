@@ -87,22 +87,52 @@ test_that("`use_authentication()` works in-pipe for occurrences", {
 })
 
 test_that("setting `authentication` to `TRUE` changes data returned", {
-  skip_on_ci(); skip_on_cran()
-  skip_if(!file.exists(".secure-credentials"),
-          "Secret information not provided")
+  skip("authentication requires interactivity")
   
-  # load credentials, set authenticate to TRIE
-  config <- c(
-    jsonlite::fromJSON(".secure-credentials"),
-    list(directory = "TEST-SENSITIVE-DATA",
-         authenticate = TRUE)) |>
-    quiet_config()
-
+  # skip_if(!file.exists(".secure-credentials"),
+  #         "Secret information not provided")
+  # 
+  # # load credentials, set authenticate to TRIE
+  # config <- c(
+  #   jsonlite::fromJSON(".secure-credentials"),
+  #   list(directory = "TEST-SENSITIVE-DATA",
+  #        authenticate = TRUE)) |>
+  #   quiet_config()
+  
+  # httr2::oauth_cache_clear() # wipe content - requires a client
+  
+  token <- authenticate() 
+  # NOTE: saving this out is optional - token is currently returned invisibly
+  # there is an argument that this isn't very safe and should be removed,
+  # but is here for debugging rn.
+  
   # These credentials *should* give access to sensitive data for Tasmania *only*
   # subset to species on Tasmania's sensitive species list
-  result <- galah_call() |>
+  
+  # convert to query set first
+  x_queryset <- galah_call() |>
     filter(species_list_uid == "dr491") |>
-    collect() |>
+    coalesce()
+  expect_equal(length(x_queryset), 5)
+  expect_equal(x_queryset[[1]]$type, 
+               "metadata/config")
+  is.null(x_queryset[[5]]$authenticate) |>
+    expect_false()
+  # unclear whether it is _critical_ for coalesce() to source `show_all_config()` here
+  # but some use cases it probably is necessary, and for the others it is 
+  # 'free' because of caching, so probably best to leave it for now
+  
+  # then collapse
+  x_query <- collapse(x_queryset)
+  stringr::str_detect(x_query$url, "&email=") |>
+    expect_false()
+  # TODO add `authenticate` to `print.query()`
+  
+  # compute
+  y <- compute(x_query) # note: triggers authentication a second time?!
+  # check for messages
+  
+  result <- collect(y)  |>
     expect_no_error() # check for exception to `check_field_identities()`
   
   # check sensitive columns exist
@@ -138,6 +168,7 @@ test_that("setting `authentication` to `TRUE` changes data returned", {
 # Downloading from a DOI fails
 # galah_call() |>
 #     filter(doi == "ala.3d0e08ac-d0ec-420d-a1f7-8cde778e82f6") |>
+#     use_authentication() |>
 #     collect()
 # May be same problem as previously documented
 

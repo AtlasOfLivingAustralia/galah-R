@@ -276,15 +276,45 @@ source_type_id_lookup <- function(region){
          "2004") # ALA default for galah
 }
 
+##----------------------------------------------------------------
+##  Functions to add information to occurrence queries          --
+##----------------------------------------------------------------
+## Note these now follow `tidyverse` convention of accepting and
+## returning same object type
+
+#' Add a logical flag re: whether user should receive an email
+#' @param x a list
 #' @noRd
 #' @keywords Internal
-email_notify <- function() {
+add_email_notify <- function(x) {
   notify <- as.logical(potions::pour("package", "send_email"))
-  if (is.na(notify)) {
+  if(is.na(notify)) {
     notify <- FALSE
   }
   # ala api requires lowercase
-  ifelse(notify, "true", "false")
+  x$email_notify <- ifelse(notify, "true", "false")
+  x
+}
+
+#' Add an email address, but *only* when JWT tokens are not given
+#' @noRd
+#' @keywords Internal
+add_email_address <- function(x, query){
+  if(is.null(query$authenticate)){
+    x$email <- potions::pour("user", "email")
+  }
+  x
+}
+
+#' Add a DOI request
+#' @noRd
+#' @keywords Internal
+add_doi_request <- function(x, query){
+  if(isTRUE(query$mint_doi) & 
+     potions::pour("atlas", "region") == "Australia"){
+    x$mintDoi <- TRUE 
+  }
+  x
 }
 
 ##----------------------------------------------------------------
@@ -296,6 +326,13 @@ email_notify <- function() {
 #' @keywords Internal
 is_gbif <- function(){
   potions::pour("atlas", "region") == "Global"
+}
+
+#' Internal function for determining if we should call ALA or not
+#' @noRd
+#' @keywords Internal
+is_ala <- function(){
+  potions::pour("atlas", "region") == "Australia"
 }
 
 #' Internal function to populate `groups` arg in `select()`

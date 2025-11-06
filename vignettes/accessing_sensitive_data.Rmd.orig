@@ -50,9 +50,9 @@ these calls the versions below it.
 
 The ideal way to set authentication is to call `authenticate()`. This checks for 
 and caches `show_all_config()`, which contains the information necessary to 
-run an authentication pipeline. It then triggers a dummy query which, in turn,
-opens a browser window to open for you to enter credentials. Once authentication
-is achieved, default behaviour is applied, namely caching only for:
+run an authentication pipeline. It then opens a browser window to open for you 
+to enter credentials. Once authentication is achieved, default behaviour is 
+applied, namely calling authentication only for:
 
 - occurrence downloads
 - query uploads
