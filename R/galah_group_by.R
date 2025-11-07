@@ -1,44 +1,3 @@
-#' Group by one or more variables
-#'
-#' Most data operations are done on groups defined by variables. `group_by()`
-#' takes a field name (unquoted) and performs a grouping operation. The default
-#' behaviour is to use it in combination with 
-#' \code{\link[=count.data_request]{count()}} to give information on number 
-#' of occurrences per level of that field. Alternatively, you can use it 
-#' without count to get a download of occurrences grouped by that variable. This
-#' is particularly useful when used with a taxonomic `ID` field (`speciesID`,
-#' `genusID` etc.) as it allows further information to be appended to the result.
-#' This is how [atlas_species()] works, for example. See 
-#' \code{\link[=select.data_request]{select()}} for details.
-#' @param .data An object of class `data_request`
-#' @param ... Zero or more individual column names to include
-#' @return If any arguments are provided, returns a `data.frame` with
-#' columns `name` and `type`, as per [select.data_request()].
-#' @examples \dontrun{
-#' # default usage is for grouping counts
-#' galah_call() |> 
-#'   group_by(basisOfRecord) |>
-#'   counts() |>
-#'   collect()
-#' 
-#' # Alternatively, we can use this with an occurrence search  
-#' galah_call() |>
-#'   filter(year == 2024,
-#'          genus = "Crinia") |>
-#'   group_by(speciesID) |>
-#'  collect()
-#' # note that this example is equivalent to `atlas_species()`; 
-#' # but using `group_by()` is more flexible.
-#' }
-#' @export
-group_by.data_request <- function(.data, ...){
-parsed_dots <- rlang::enquos(..., .ignore_empty = "all") |>
-  parse_quosures_basic()
-df <- parse_group_by(parsed_dots)
-update_request_object(.data,
-                      group_by = df)
-}
-
 #' @rdname group_by.data_request
 #' @export
 galah_group_by <- function(...){
@@ -55,36 +14,4 @@ galah_group_by <- function(...){
            parse_quosures_basic(dots) |>
              parse_group_by()
          })
-}
-
-#' Internal parsing of `group_by` args
-#' @noRd
-#' @keywords Internal
-parse_group_by <- function(dot_names, 
-                           error_call = rlang::caller_env()){
-  if(length(dot_names) > 0){
-    if(length(dot_names) > 3){
-      c(
-        "Too many fields supplied.",
-        i = "`group_by.data_request` accepts a maximum of 3 fields.") |>
-      cli::cli_abort(call = error_call)
-    }
-    if(length(dot_names) > 0){
-      names(dot_names) <- NULL # needed to avoid empty strings added as names
-      df <- tibble::tibble(name = dot_names) 
-      df$type <- ifelse(stringr::str_detect(df$name, "[[:lower:]]"), 
-                        "field", 
-                        "assertions")
-    }else{
-      df <- tibble::tibble(name = "name", 
-                           type = "type", 
-                           .rows = 0)
-    }
-  }else{
-    df <- tibble::tibble(name = "name", 
-                         type = "type", 
-                         .rows = 0)
-  }
-  
-  return(df)
 }
