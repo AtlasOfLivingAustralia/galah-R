@@ -33,12 +33,12 @@ as_query_species_atlas <- function(.query){
                 .query$filter, 
                 .query$geolocate, 
                 .query$data_profile),
-    emailNotify = email_notify(),
     sourceTypeId = 2004,
     reasonTypeId = potions::pour("user", "download_reason_id"),
     facets = .query$group_by$name,
     parse_select_species(.query$select)) |>
-    add_email_address(query = .query)
+    add_email_address(query = .query) |>
+    add_email_notify()
   
   # build url
   url <- url_lookup("data/species") |> 

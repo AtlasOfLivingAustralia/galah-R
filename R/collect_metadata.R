@@ -315,19 +315,21 @@ collect_lists <- function(.query){
   # NOTE: this function has some quite versatile behaviour, so we need to 
   # explicitly control when caching does (and does not) happen.
   should_update_cache <- FALSE
-
+  
   # requests for cached data use the `data` slot; check this first
   if(!is.null(.query$data)){
     result_df <- retrieve_internal_data(.query)
   }else{
     # here we run and parse an API call
     result <- query_API(.query) # this when `url` is a single value or a tibble
-    # pagination returns long lists
-    if(length(result) > 1){
+    # pagination returns long lists - handle using `map()`
+    # if(length(result) > 1 & is.null(names(result))){ # this old code is risky
+    # test for pagination requests in .query instead
+    if(inherits(.query$url, "data.frame")){
       result_df <- purrr::map(query_API(.query), 
                               \(a){a$lists}) |>
         dplyr::bind_rows()
-      should_update_cache <- TRUE      
+      should_update_cache <- TRUE
     }else{
       lists_slot <- purrr::pluck(result, "lists")
       # single list queries that use `filter()` don't have a `lists` slot

@@ -128,7 +128,7 @@
 #'   collect()
 #' }
 #' @export
-select.data_request <- function(.data, ..., group){
+select.data_request <- function(.data, ..., group = NULL){
   if(is_gbif()){
     cli::cli_text("`select()` is not supported for GBIF occurrence downloads API v1: skipping")
     .data
@@ -166,7 +166,7 @@ generate_summary <- function(dots){
 #' @noRd
 #' @keywords Internal
 add_group <- function(dots, group){
-  group <- check_groups(group, n = length(dots))
+  group <- check_groups(group, n = length(dots$quosure))
   summary_length <- nchar(dots$summary)
   if(is.null(group)){
     if(summary_length < 1){

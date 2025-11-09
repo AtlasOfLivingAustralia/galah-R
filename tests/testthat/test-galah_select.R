@@ -17,8 +17,10 @@ test_that("`select.data_request()` adds content to a `data_request` object", {
 })
 
 test_that("`galah_select()` doesn't return error when columns don't exist", {
-  expect_no_error(galah_select(basisOfRecord))
-  expect_no_error(galah_select(year, basisOfRecord, eventdate))
+  galah_select(basisOfRecord) |>
+    expect_no_error()
+  galah_select(year, basisOfRecord, eventdate) |>
+    expect_no_error()
 })
 
 test_that("`select()` triggers error during `collapse()` when columns don't exist", {

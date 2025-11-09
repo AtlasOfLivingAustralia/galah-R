@@ -371,10 +371,12 @@ check_fields_la <- function(.query){
 
 
 # If no args are supplied, set default columns returned as group = "basic"
+#' @param group supplied group names
+#' @param n number of non-group arguments given
 #' @noRd
 #' @keywords Internal
 check_groups <- function(group, n){
-  if(missing(group)){
+  if(is.null(group)){
     if(n < 1){
       "basic"
     }else{

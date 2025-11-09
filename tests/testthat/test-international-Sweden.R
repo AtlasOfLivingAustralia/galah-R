@@ -88,7 +88,7 @@ test_that("show_all(profiles) works for Sweden", {
   
   # and values
   y <- request_metadata() |>
-    filter(profiles == x$shortName[1]) |>
+    filter(profiles == x$short_name[1]) |>
     unnest() |>
     collect() |>
     try(silent = TRUE)
@@ -101,7 +101,7 @@ test_that("show_all(profiles) works for Sweden", {
     count() |>
     collect()
   records_clean <- galah_call() |>
-    apply_profile(x$shortName[1]) |>
+    apply_profile(x$short_name[1]) |>
     count() |>
     collect()
   expect_lt(records_clean$count, records_all$count)
