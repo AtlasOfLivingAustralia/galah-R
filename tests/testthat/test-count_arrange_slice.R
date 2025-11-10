@@ -17,6 +17,19 @@ test_that("default is to arrange by decending order of count", {
   expect_equal(colnames(result), c("year", "count"))
 })
 
+test_that("`count(year)` groups by `year`", {
+  skip_if_offline(); skip_on_ci()
+  result <- galah_call() |>
+    filter(year >= 2015) |>
+    count(year) |>
+    quiet_collect()
+  expect_true(all(diff(result$count) < 0))
+  expect_true(nrow(result) > 7)
+  expect_true(all(result$year >= 2015))
+  expect_equal(ncol(result), 2)
+  expect_equal(colnames(result), c("year", "count"))
+})
+
 test_that("arrange in increasing order of count", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>

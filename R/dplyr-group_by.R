@@ -32,11 +32,15 @@
 #' }
 #' @export
 group_by.data_request <- function(.data, ...){
-  parsed_dots <- rlang::enquos(..., .ignore_empty = "all") |>
-    parse_quosures_basic()
-  df <- parse_group_by(parsed_dots)
-  update_request_object(.data,
-                        group_by = df)
+  parsed_dots <- rlang::enquos(...,
+                               .ignore_empty = "all") |>
+    parse_quosures_basic() |>
+    parse_group_by()
+  if(!is.null(parsed_dots)){
+    update_request_object(.data, group_by = parsed_dots)
+  }else{
+    .data 
+  }
 }
 
 #' Internal parsing of `group_by` args
@@ -57,16 +61,11 @@ parse_group_by <- function(dot_names,
       df$type <- ifelse(stringr::str_detect(df$name, "[[:lower:]]"), 
                         "field", 
                         "assertions")
+      df
     }else{
-      df <- tibble::tibble(name = "name", 
-                           type = "type", 
-                           .rows = 0)
+      NULL
     }
   }else{
-    df <- tibble::tibble(name = "name", 
-                         type = "type", 
-                         .rows = 0)
+    NULL
   }
-  
-  return(df)
 }

@@ -19,5 +19,5 @@ count.data_request <- function(x,
                    "species" = "species-count",
                    "media" = cli::cli_abort("type = 'media' is not supported by `count()`"),
                    cli::cli_abort("`count()` only supports `type = 'occurrences' or` `'species'`"))
-  x
+  group_by(x, ...)
 }
