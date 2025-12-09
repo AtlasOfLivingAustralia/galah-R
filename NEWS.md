@@ -1,3 +1,25 @@
+# galah 2.2.0
+
+### Improved organisational support
+* `filter()` now builds predicate queries natively when atlas is set to `GBIF`
+* DOIs now supported for `GBIF`
+* Kew gardens and Flanders living atlases added
+
+### Major changes
+* authentication supported for ALA users
+* new functions `as_query()` and `coalesce()` as prequels to `collapse()`
+* media functions have been updated and have their own vignette; fields returned have changed
+* all metadata requests now accept `select()`; all `show_all()` and `search_all()` functions gain an `all_fields` argument
+
+### Minor and internal changes, bug fixes
+* Move to `testthat` 3rd edition for improved test functionality
+* move to `{cli}` for `print()` calls, not `cat()`
+* reduce usage of `@importFrom` in favour of `pkg::fun()` syntax, as per R style guide
+* Object-oriented workflow for handling `filter()` requests and printing
+* metadata now supports list-columns where the API returns nested data
+* functions now return columns names in `snake_case` rather than `camelCase`
+* `basisOfRecord` now included as default field (i.e. with `select(group = "basic")`) (#281)
+
 # galah 2.1.2
 
 ### Minor improvements
