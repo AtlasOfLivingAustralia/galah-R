@@ -36,6 +36,7 @@ test_that("`request_metadata()` caches type `config` correctly", {
 })
 
 test_that("`use_authentication()` works in-pipe for metadata", {
+  skip("authentication requires interactivity")
   query <- request_metadata(type = "reasons") |>
     use_authentication()
   
@@ -58,6 +59,7 @@ test_that("`use_authentication()` works in-pipe for metadata", {
 })
 
 test_that("`use_authentication()` works in-pipe for occurrences", {
+  skip("authentication requires interactivity")
   galah_config(email = "ala4r@ala.org.au")
   
   query <- galah_call() |>

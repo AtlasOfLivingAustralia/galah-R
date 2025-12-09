@@ -26,9 +26,6 @@ authenticate <- function(){
     
     if (choice == 1) {
       # authenticate now
-      # NOTE: I'm trialling the use of `oauth_flow_auth_code()` here.
-      # This *should* generate a request to the browser without requiring a
-      # dummy API call; but hasn't been found to work yet.
       auth_info <- get_auth_info()
       result <- httr2::oauth_flow_auth_code(
         client = auth_info$client,
@@ -36,7 +33,8 @@ authenticate <- function(){
         scope = dplyr::pull(auth_info$config, "scopes"),
         pkce = TRUE)
       galah_config(authenticate = TRUE) # cache authentication behaviour
-      return(invisible(result))
+      return(invisible(result)) # invisibly return token
+      
     } else {
       cli::cli_bullets(c(
         i = "Exiting..."
