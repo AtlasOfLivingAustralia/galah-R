@@ -73,12 +73,11 @@ reference:
   - show_all_reasons
   - show_all_ranks
   - show_values
-- title: Amend a query
+- title: Update a data request
   contents:
   - apply_profile
   - arrange.data_request
   - count.data_request
-  - desc
   - filter.data_request
   - geolocate
   - group_by.data_request
@@ -86,7 +85,7 @@ reference:
   - select.data_request
   - slice_head.data_request
   - reexports
-- title: Object-oriented processes
+- title: Create and execute a query
   contents:
   - as_query.data_request
   - coalesce

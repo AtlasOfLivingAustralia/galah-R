@@ -5,9 +5,9 @@
 \alias{summarize.data_request}
 \title{Summarise each group down to one row}
 \usage{
-summarise.data_request(.data, ...)
+\method{summarise}{data_request}(.data, ...)
 
-summarize.data_request(.data, ...)
+\method{summarize}{data_request}(.data, ...)
 }
 \arguments{
 \item{...}{Name-value pairs of summary functions. The name will be the

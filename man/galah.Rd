@@ -35,22 +35,21 @@ For those outside Australia, 'galah' is the common name of
 \code{fields}, \code{profiles}, \code{lists}, \code{collections}, \code{datasets} or \code{providers}
 }
 
-\strong{Amend a query}
+\strong{Update a data request}
 \itemize{
-\item \code{\link[=apply_profile]{apply_profile()}}/\code{\link[=galah_apply_profile]{galah_apply_profile()}} Restrict to data that pass predefined checks (ALA only)
+\item \code{\link[=apply_profile]{apply_profile()}} Restrict to data that pass predefined checks (ALA only)
 \item \code{\link[=arrange.data_request]{arrange()}} Arrange rows of a query on the server side
 \item \code{\link[=count.data_request]{count()}} Request counts of the specified data type
-\item \code{\link[=desc]{desc()}} Arrange counts in descending order (when combined with \code{\link[=arrange.data_request]{arrange()}})
-\item \code{\link[=filter.data_request]{filter()}}/\code{\link[=galah_filter]{galah_filter()}} Filter records (see also \code{\link[=filter_object_classes]{filter_object_classes}}))
-\item \code{\link[=geolocate]{geolocate()}}/\code{\link[=galah_geolocate]{galah_geolocate()}} Spatial filtering of a query
-\item \code{\link[=group_by.data_request]{group_by()}}/\code{\link[=galah_group_by]{galah_group_by()}} Group counts by one or more fields
-\item \code{\link[=identify.data_request]{identify()}}/\code{\link[=galah_identify]{galah_identify()}} Search for taxonomic identifiers (see also \code{\link[=taxonomic_searches]{taxonomic_searches}})
-\item \code{\link[=select.data_request]{select()}}/\code{\link[=galah_select]{galah_select()}} Fields to report information for
+\item \code{\link[=filter.data_request]{filter()}} Filter records (see also \code{\link[=filter_object_classes]{filter_object_classes}}))
+\item \code{\link[=geolocate]{geolocate()}} Spatial filtering of a query
+\item \code{\link[=group_by.data_request]{group_by()}} Group counts by one or more fields
+\item \code{\link[=identify.data_request]{identify()}} Search for taxonomic identifiers (see also \code{\link[=taxonomic_searches]{taxonomic_searches}})
+\item \code{\link[=select.data_request]{select()}} Fields to report information for
 \item \code{\link[=slice_head.data_request]{slice_head()}} Choose the first n rows of a download
 \item \code{\link[=unnest]{unnest()}} Expand metadata for \code{fields}, \code{lists}, \code{profiles} or \code{taxa}
 }
 
-\strong{Object-oriented processes}
+\strong{Create and execute a query}
 \itemize{
 \item \code{\link[=as_query]{as_query()}} Represent a \code{data_request} as a \code{query} object
 \item \code{\link[=coalesce]{coalesce()}} Convert a \code{data_request} or \code{query} into a \code{query_set} showing all calls needed for evaluation

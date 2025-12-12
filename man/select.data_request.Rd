@@ -6,11 +6,11 @@
 \alias{galah_select}
 \title{Keep or drop columns using their names}
 \usage{
-\method{select}{data_request}(.data, ..., group)
+\method{select}{data_request}(.data, ..., group = NULL)
 
 \method{select}{metadata_request}(.data, ...)
 
-galah_select(..., group)
+galah_select(..., group = NULL)
 }
 \arguments{
 \item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}.}

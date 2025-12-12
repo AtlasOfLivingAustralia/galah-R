@@ -29,21 +29,20 @@
 #'   * [show_values()] & [search_values()] Show or search for values _within_ 
 #'   `fields`, `profiles`, `lists`, `collections`, `datasets` or `providers`
 #'   
-#' **Amend a query**
+#' **Update a data request**
 #' 
-#'   * [apply_profile()]/[galah_apply_profile()] Restrict to data that pass predefined checks (ALA only)
+#'   * [apply_profile()] Restrict to data that pass predefined checks (ALA only)
 #'   * \code{\link[=arrange.data_request]{arrange()}} Arrange rows of a query on the server side
 #'   * \code{\link[=count.data_request]{count()}} Request counts of the specified data type
-#'   * [desc()] Arrange counts in descending order (when combined with \code{\link[=arrange.data_request]{arrange()}})
-#'   * \code{\link[=filter.data_request]{filter()}}/[galah_filter()] Filter records (see also \code{\link[=filter_object_classes]{filter_object_classes}}))
-#'   * [geolocate()]/[galah_geolocate()] Spatial filtering of a query
-#'   * \code{\link[=group_by.data_request]{group_by()}}/[galah_group_by()] Group counts by one or more fields
-#'   * \code{\link[=identify.data_request]{identify()}}/[galah_identify()] Search for taxonomic identifiers (see also \code{\link[=taxonomic_searches]{taxonomic_searches}})
-#'   * \code{\link[=select.data_request]{select()}}/[galah_select()] Fields to report information for
+#'   * \code{\link[=filter.data_request]{filter()}} Filter records (see also \code{\link[=filter_object_classes]{filter_object_classes}}))
+#'   * [geolocate()] Spatial filtering of a query
+#'   * \code{\link[=group_by.data_request]{group_by()}} Group counts by one or more fields
+#'   * \code{\link[=identify.data_request]{identify()}} Search for taxonomic identifiers (see also \code{\link[=taxonomic_searches]{taxonomic_searches}})
+#'   * \code{\link[=select.data_request]{select()}} Fields to report information for
 #'   * \code{\link[=slice_head.data_request]{slice_head()}} Choose the first n rows of a download
 #'   * [unnest()] Expand metadata for `fields`, `lists`, `profiles` or `taxa`
 #'
-#' **Object-oriented processes**
+#' **Create and execute a query**
 #' 
 #'   * [as_query()] Represent a `data_request` as a `query` object
 #'   * [coalesce()] Convert a `data_request` or `query` into a `query_set` showing all calls needed for evaluation

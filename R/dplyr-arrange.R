@@ -48,17 +48,27 @@
 #' @export
 arrange.data_request <- function(.data, ...){
   dots <- rlang::enquos(..., .ignore_empty = "all")
-  parsed_dots <- parse_quosures_basic(dots)
-  if(length(parsed_dots) == 2 & 
-     all(names(parsed_dots) %in% c("variable", "direction"))){
-    .data$arrange <- as.list(parsed_dots) |> 
-      as.data.frame() |>
-      tibble::tibble()
+  if(length(dots) < 1){
+    return(.data)
   }else{
-    .data$arrange <- tibble::tibble(variable = parsed_dots, 
-                                    direction = "ascending")    
+    parsed_dots <- purrr::map(dots, \(a){
+      switch(expr_type(a),
+             "symbol" = {rlang::as_label(a)},
+             "call" = {purrr::map(rlang::quo_get_expr(a), as_string)},
+             "literal" = {rlang::quo_get_expr(a)},
+             cli::cli_abort("Quosure type not recognised.",
+                            call = rlang::caller_env()))}) |>
+      unlist()
+    if(length(parsed_dots) > 1){
+      result <- tibble::tibble(variable = parsed_dots[[2]],
+                               direction = "descending")
+    }else{
+      result <- tibble::tibble(variable = parsed_dots, 
+                               direction = "ascending")
+    }
+    .data$arrange <- result
+    return(.data)
   }
-  return(.data)
 }
 
 #' @rdname arrange.data_request
