@@ -143,7 +143,7 @@ build_query_set_data <- function(x, mint_doi, ...){
   result <- list()
   
   # handle authentication
-  if(isTRUE(potions::pour("package", "authenticate", .pkg = "galah")) |
+  if(isTRUE(potions::pour("user", "authenticate", .pkg = "galah")) |
      !is.null(x$authenticate)
   ){
     result <- append(result,

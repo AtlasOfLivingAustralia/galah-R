@@ -23,11 +23,12 @@
 #'   admissible values)
 #'   * `authenticate` logical: should `galah` authenticate your queries using 
 #'   JWT tokens? Defaults to `FALSE`.
-#'   *  `directory` string: the directory to use for the cache.
+#'   * `caching` logical: should metadata query results be cached in `options()`?
+#'     Defaults to `TRUE` for improved stability and speed.
+#'   *  `directory` string: the directory to use for the disk cache.
 #'     By default this is a temporary directory, which means that results will
-#'     only be cached
-#'     within an R session and cleared automatically when the user exits R.
-#'     The user may wish to set this to a non-temporary directory for
+#'     only be cached within an R session and cleared automatically when the user 
+#'     exits R. The user may wish to set this to a non-temporary directory for
 #'     caching across sessions. The directory must exist on the file system.
 #'   *  `download_reason_id` numeric or string: the "download reason" required.
 #'   by some ALA services, either as a numeric ID (currently 0--13)
@@ -133,17 +134,23 @@ galah_config <- function(...) {
     # invisibly return
     x <- potions::pour()
     # check_authentication_argument(x)
-    structure(x,
-              class = c("galah_config", "list")) |>
+    as_galah_config(x) |>
       invisible()
   
   }else{
     # visibly return
     x <- potions::pour()
     # check_authentication_argument(x)
-    structure(x,
-              class = c("galah_config", "list"))
+    as_galah_config(x)
   }
+}
+
+#' Internal function to convert lists to class `galah_config`
+#' @noRd
+#' @keywords Internal
+as_galah_config <- function(x){
+  structure(x,
+            class = c("galah_config", "list"))
 }
 
 #' Set a 'default' object for storing config in `galah`
@@ -153,16 +160,17 @@ default_config <- function(){
   list(package = list(verbose = TRUE,
                       run_checks = TRUE,
                       send_email = FALSE,
-                      authenticate = FALSE,
+                      caching = TRUE,
                       directory = tempdir()),
-       user = list(username = "",
+       user = list(authenticate = FALSE,
+                   username = "",
                    email = "",
                    password = "",
                    download_reason_id = 4),
        atlas = list(organisation = "Atlas of Living Australia",
                     acronym  = "ALA",
                     region = "Australia")) |>
-    structure(class = c("galah_config", "list"))
+    as_galah_config()
 }
 
 #' Place new options into correctly nested structure

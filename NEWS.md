@@ -19,6 +19,7 @@
 * metadata now supports list-columns where the API returns nested data
 * functions now return columns names in `snake_case` rather than `camelCase`
 * `basisOfRecord` now included as default field (i.e. with `select(group = "basic")`) (#281)
+* all metadata functions support caching, and are affected by re-introduced `caching` argument in `galah_config()` (set to `TRUE` by default)
 
 # galah 2.1.2
 

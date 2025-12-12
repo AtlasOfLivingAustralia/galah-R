@@ -278,7 +278,7 @@ print.query_set <- function(x, ...){
 #' @export
 print.galah_config <- function(x, ...){
   cli::cli_par()
-  cli::cli_text("`galah` package configuration:")
+  cli::cli_text("`galah` package configuration")
   cli::cli_end()
   cli::cli_par()
   # print package settings
@@ -298,11 +298,16 @@ print.galah_config <- function(x, ...){
   # print user settings
   cli::cli_par()
   cli::cli_text("{galah_pink(\"User\")}")
-  c("{galah_green('username')} {galah_grey(hide_secrets(x$user$username))}",
+  user_settings <- c(
+    "{galah_green('authentication')}",
+    "{galah_green('username')} {galah_grey(hide_secrets(x$user$username))}",
     "{galah_green('email')}    {galah_grey(x$user$email)}",
     "{galah_green('password')} {galah_grey(hide_secrets(x$user$password))}",
-    "{galah_green('download_reason_id')}   {galah_grey(x$user$download_reason_id)}") |>
-    cli::cli_bullets()
+    "{galah_green('download_reason_id')}   {galah_grey(x$user$download_reason_id)}")
+  names(user_settings)[1] <- purrr::pluck(x, "user", "authenticate") |>
+    isTRUE() |>
+    ifelse("v", "x")
+  cli::cli_bullets(user_settings)
   cli::cli_end()
   cli::cli_par()
   cli::cli_text("{galah_pink(\"Atlas\")}")

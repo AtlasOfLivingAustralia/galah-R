@@ -37,11 +37,12 @@ an organisation name, acronym, or region (see \code{\link[=show_all_atlases]{sho
 admissible values)
 \item \code{authenticate} logical: should \code{galah} authenticate your queries using
 JWT tokens? Defaults to \code{FALSE}.
-\item \code{directory} string: the directory to use for the cache.
+\item \code{caching} logical: should metadata query results be cached in \code{options()}?
+Defaults to \code{TRUE} for improved stability and speed.
+\item \code{directory} string: the directory to use for the disk cache.
 By default this is a temporary directory, which means that results will
-only be cached
-within an R session and cleared automatically when the user exits R.
-The user may wish to set this to a non-temporary directory for
+only be cached within an R session and cleared automatically when the user
+exits R. The user may wish to set this to a non-temporary directory for
 caching across sessions. The directory must exist on the file system.
 \item \code{download_reason_id} numeric or string: the "download reason" required.
 by some ALA services, either as a numeric ID (currently 0--13)

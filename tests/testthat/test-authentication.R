@@ -3,14 +3,14 @@ quiet_config <- purrr::quietly(galah_config)
 test_that("`galah_config()` caches config info when `authenticate` is set to `TRUE`", {
   skip_on_ci(); skip_on_cran()
   x <- galah_config()
-  expect_false(x$package$authenticate)
+  expect_false(x$user$authenticate)
   expect_true(is.null(retrieve_cache("config")))
   y <- quiet_config(authenticate = TRUE)
   stringr::str_detect(y$messages,
                       "Caching `config` information to support authentication") |>
     any() |>
     expect_true()
-  expect_true(y$result$package$authenticate)
+  expect_true(y$result$user$authenticate)
   cached_config <- retrieve_cache("config")
   expect_false(is.null(cached_config))
   expect_equal(nrow(cached_config), 1)
@@ -30,6 +30,8 @@ test_that("`request_metadata()` works for type = `config`", {
 test_that("`request_metadata()` caches type `config` correctly", {
   skip_on_ci(); skip_on_cran()
   reset_cache()
+  x <- request_metadata(type = "config") |>
+    collect()
   result <- request_metadata(type = "config") |>
     as_query() 
   expect_true(!is.null(result$data))  
@@ -37,6 +39,7 @@ test_that("`request_metadata()` caches type `config` correctly", {
 
 test_that("`use_authentication()` works in-pipe for metadata", {
   skip("authentication requires interactivity")
+  galah_config(caching = FALSE) # turn off caching to force galah to call an API
   query <- request_metadata(type = "reasons") |>
     use_authentication()
   
@@ -47,69 +50,45 @@ test_that("`use_authentication()` works in-pipe for metadata", {
   result2 <- coalesce(result)
   expect_equal(length(result2), 2)
 
-  # NOTE: this shows both datasets are set to `data` (not `url`)
-  # so `use_authentication()` won't do anything
-  # perhaps a solution is to have a `force` argument to ensure query happens
-  # this would be logical to put in `collect()` and `show_all()`;
-  # but would be evaluated in `collapse()` so would go there too
-  
-  # in which case, setting `use_authentication()` should set `force = TRUE`
-  
-  # NOTE: `use_credentials()` could be a good counterpoint for setting email etc
+  galah_config(caching = TRUE)
 })
 
 test_that("`use_authentication()` works in-pipe for occurrences", {
   skip("authentication requires interactivity")
-  galah_config(email = "ala4r@ala.org.au")
   
+  galah_config(authenticate = TRUE)
   query <- galah_call() |>
     identify("Litoria dentata") |>
     filter(year == 2025) |>
-    use_authentication() |>
     coalesce()
   expect_equal(length(query), 6)
   is.null(query[[6]]$authenticate) |>
     expect_false()
   
-  x <- collapse(query) # FIXME: errors with no email address found
-  # note that this shouldn't happen if authentication has worked;
-  # BUT we haven't tested that yet
+  x <- collapse(query)
   x |>
     purrr::pluck("authenticate") |>
     is.null() |>
     expect_false()
   
   y <- compute(x)
-  # failing here
-  
-  # once auth works, this should still contain authentication metadata
+  inherits(y, "computed_query") |>
+    expect_true()
+  any(names(y) == "authenticate") |>
+    expect_true()
   
   z <- collect(y)
-  
+  stringr::str_detect(names(z), "^sensitive_") |>
+    any() |>
+    expect_true()
 })
 
 test_that("setting `authentication` to `TRUE` changes data returned", {
   skip("authentication requires interactivity")
   
-  # skip_if(!file.exists(".secure-credentials"),
-  #         "Secret information not provided")
-  # 
-  # # load credentials, set authenticate to TRIE
-  # config <- c(
-  #   jsonlite::fromJSON(".secure-credentials"),
-  #   list(directory = "TEST-SENSITIVE-DATA",
-  #        authenticate = TRUE)) |>
-  #   quiet_config()
-  
-  # httr2::oauth_cache_clear() # wipe content - requires a client
-  
-  token <- authenticate() 
-  # NOTE: saving this out is optional - token is currently returned invisibly
-  # there is an argument that this isn't very safe and should be removed,
-  # but is here for debugging rn.
-  
-  # These credentials *should* give access to sensitive data for Tasmania *only*
+  # NOTE: credentials *should* give access to sensitive data for Tasmania *only*
   # subset to species on Tasmania's sensitive species list
+  galah_config(authenticate = TRUE)
   
   # convert to query set first
   x_queryset <- galah_call() |>
@@ -175,3 +154,6 @@ test_that("setting `authentication` to `TRUE` changes data returned", {
 # May be same problem as previously documented
 
 rm(quiet_config)
+galah_config(caching = TRUE,
+             authenticate = FALSE,
+             email = "ala4r@ala.org.au")
