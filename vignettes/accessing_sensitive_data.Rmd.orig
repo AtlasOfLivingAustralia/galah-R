@@ -43,33 +43,6 @@ simply known as the 'RASD framework' (https://www.rasd.org.au).
 If your access to sensitive data is approved by the provider(s) in question,
 from version 2.2.0 you can use 'galah' to access that sensitive data. 
 
-# Switching on authentication
-
-You have three options for setting authentication in galah. In practice, each of
-these calls the versions below it.
-
-The ideal way to set authentication is to call `authenticate()`. This checks for 
-and caches `show_all_config()`, which contains the information necessary to 
-run an authentication pipeline. It then opens a browser window to open for you 
-to enter credentials. Once authentication is achieved, default behaviour is 
-applied, namely calling authentication only for:
-
-- occurrence downloads
-- query uploads
-- (species list uploads?)
-
-An alternative is to call `galah_config(authenticate = TRUE)`. This will 
-establish default authentication behaviour, but won't open a browser until 
-a query is run that requires authentication.
-
-The *final* way to set up authentication is to call it in-pipe with 
-`use_authentication()`. This is called internally by the above functions, and
-amends a `_request` object to add a `authenticate` slot.
-When this slot exists, a query to `show_all_config()` is included by 
-`coalesce()` and executed by `collapse()`. The benefit of this function is it 
-allows overruling of package defaults for authentication.
-
-
 # Keeping emails and passwords secure
 
 First, you will need to add your email address and password, as usual for
