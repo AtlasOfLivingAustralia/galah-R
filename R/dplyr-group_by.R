@@ -38,6 +38,8 @@ group_by.data_request <- function(.data, ...){
     parse_group_by()
   if(!is.null(parsed_dots)){
     update_request_object(.data, group_by = parsed_dots)
+    # TODO: add warning when using >1 dots with `type = 'occurrences'`
+    # as this is not supported by the API
   }else{
     .data 
   }

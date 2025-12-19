@@ -161,27 +161,4 @@ test_that("atlas_species reformats column names when empty tibble is returned", 
   expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
 })
 
-test_that("`group_by()` works on occurrences", {
-  skip_if_offline(); skip_on_ci()
-  # compare group_by with atlas_species
-  x <- galah_call() |>
-    filter(year == 2024,
-           genus == "Crinia") |>
-    group_by(speciesID) |>
-    quiet_collect()
-  y <- galah_call() |>
-    filter(year == 2024,
-           genus == "Crinia") |>
-    quiet_species()
-  expect_equal(x, y)
-  # try with a different variable
-  z <- galah_call() |>
-    filter(year == 2024,
-           genus == "Crinia") |>
-    group_by(genusID) |>
-    quiet_collect()
-  expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
-  expect_equal(colnames(z)[1], "taxon_concept_id")
-})
-
 rm(quiet_collect, quiet_species)

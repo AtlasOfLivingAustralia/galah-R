@@ -26,9 +26,6 @@ get_clean_colnames <- function(file, facet){
                        quiet = TRUE)
   if(length(column_names) > 0){
     column_names <- camel_to_snake_case(column_names)
-    if(grepl("ID$", facet)){
-      column_names[1] <- "taxon_concept_id"
-    }
     column_names[column_names %in% c("counts", "number_of_records")] <- "count"
     column_names    
   }else{

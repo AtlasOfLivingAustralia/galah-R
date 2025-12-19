@@ -2,9 +2,12 @@
 % Please edit documentation in R/dplyr-count.R
 \name{count.data_request}
 \alias{count.data_request}
+\alias{add_count.data_request}
 \title{Count the observations in each group}
 \usage{
 \method{count}{data_request}(x, ..., wt, sort, name)
+
+\method{add_count}{data_request}(x, ..., wt = NULL, sort = FALSE, name = NULL)
 }
 \arguments{
 \item{x}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
@@ -19,5 +22,6 @@
 }
 \description{
 \code{count()} lets you quickly count the unique values of one or more variables.
-It is evaluated lazily.
+It is evaluated lazily. \code{add_count()} is an equivalent that uses \code{mutate()}
+to add a new column with group-wise counts.
 }

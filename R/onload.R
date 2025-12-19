@@ -3,7 +3,7 @@
 #' @keywords Internal
 .onLoad <- function(libname, pkgname) {
     if (pkgname == "galah") {
-      
+
       # set up storage of standard information via {potions}
       potions::brew(.pkg = "galah") # set up caching of behaviour
       quiet_config <- purrr::quietly(galah_config)
@@ -15,7 +15,7 @@
       suppressWarnings(
         try(galah_version <- utils::packageDescription("galah")[["Version"]],
             silent = TRUE))
-      
+
       # show currently-selected atlas
       current_node <- potions::pour("atlas", .pkg = "galah") |>
         purrr::pluck("acronym")

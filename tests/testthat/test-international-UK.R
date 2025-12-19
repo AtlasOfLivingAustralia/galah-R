@@ -167,8 +167,8 @@ test_that("atlas_counts works with galah_identify for United Kingdom", {
 test_that("atlas_counts works with group_by for United Kingdom", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
-    galah_filter(year >= 2020) |>
-    galah_group_by(year) |>
+    filter(year >= 2020) |>
+    group_by(year) |>
     atlas_counts() |>
     try(silent = TRUE)
   skip_if(inherits(result, "try-error"), message = "API not available")

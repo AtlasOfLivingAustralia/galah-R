@@ -232,7 +232,7 @@ gbif_upper_case <- function(string){
 }
 
 #' Internal function to handle conversion from upper snake case to camelCase
-#' Primarily for reversing the action of [gbif_upper_case()] above
+#' Primarily for reversing the action of `gbif_upper_case()` (above)
 #' @noRd
 #' @keywords internal
 snake_to_camel_case <- function(string){

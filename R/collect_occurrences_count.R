@@ -114,7 +114,7 @@ clean_labels <- function(df){
       stringr::str_extract("\\.([:graph:]|\\s)+$") |>
       stringr::str_replace("^\\.", "")
     variable <- df$i18nCode[1] |>
-      stringr::str_extract("^[:graph:]+\\.") |>
+      stringr::str_extract("^[:alnum:]+\\.") |>
       stringr::str_replace("\\.$", "")
     df[[variable]] <- values
     df |>

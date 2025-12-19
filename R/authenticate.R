@@ -32,19 +32,6 @@ check_authentication <- function(x){
   }
 }
 
-#' Internal function to pass authentication information forward 
-#' @noRd
-#' @keywords Internal
-retain_authentication <- function(source, x){
-  if(
-    !is.null(source$authenticate) & # i.e.. authenticate was supplied
-     is.null(x$authenticate)        # but was then lost
-    ){
-    x$authenticate <- source$authenticate
-  }
-  x
-} 
-
 #' get a client, and if it doesn't exist, make one
 #' @noRd
 #' @keywords Internal

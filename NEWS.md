@@ -17,9 +17,10 @@
 * reduce usage of `@importFrom` in favour of `pkg::fun()` syntax, as per R style guide
 * Object-oriented workflow for handling `filter()` requests and printing
 * metadata now supports list-columns where the API returns nested data
-* functions now return columns names in `snake_case` rather than `camelCase`
+* metadata functions now return columns names in `snake_case` rather than `camelCase`
 * `basisOfRecord` now included as default field (i.e. with `select(group = "basic")`) (#281)
 * all metadata functions support caching, and are affected by re-introduced `caching` argument in `galah_config()` (set to `TRUE` by default)
+* `query` objects now have a `request` slot showing the request that generated them 
 
 # galah 2.1.2
 

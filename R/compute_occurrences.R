@@ -56,8 +56,8 @@ compute_occurrences_la <- function(.query){
   c(list(type = "data/occurrences"),
     status_code, 
     list(fields = extract_fields(.query))) |>
-    retain_authentication(source = .query) |>
-    structure(class = "computed_query")
+  add_request(.query) |>
+  structure(class = "computed_query")
 }
 
 #' Internal function to get the `fields` vector from a url

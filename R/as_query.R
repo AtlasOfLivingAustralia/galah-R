@@ -59,23 +59,59 @@ as_query <- function(x, ...){
 as_query.data_request <- function(x,
                                   mint_doi = FALSE,
                                   ...){
-  x <- check_authentication(x)
+  x <- x |> 
+    check_authentication() |>
+    check_distinct()
   switch(x$type,
-         "occurrences" = {
-           if(is.null(x$group_by)){
-             as_query_occurrences(x, mint_doi = mint_doi)  
-           }else{
-             as_query_species(x)
-           }
-         },
+         "occurrences" = as_query_occurrences(x, mint_doi = mint_doi),
          "occurrences-count" = as_query_occurrences_count(x),
          "occurrences-doi" = as_query_occurrences_doi(x),
          "species" = as_query_species(x),
          "species-count" = as_query_species_count(x),
          "distributions" = as_query_distributions_data(x),
          cli::cli_abort("Unrecognised 'type'")) |>
-    retain_authentication(source = x)
+  add_request(x)
 }
+
+
+#' Internal function to check behaviour of `distinct()`, `group_by()` etc.
+#' called by `as_query()`
+#' @noRd
+#' @keywords Internal
+check_distinct <- function(x){
+  
+  # 1. no distinct() call = no changes (regardless of group_by)
+  if(is.null(x$distinct)){
+    x
+  # 2. no args to group_by(), no args to distinct() = no changes
+  }else if(is.na(x$distinct$name) & is.null(x$group_by)){
+    x$distinct <- NULL
+    x
+  # 3. args to group_by() but not to distinct(), keep_all is FALSE = switch to counts
+  }else if(!is.null(x$group_by) & is.na(x$distinct$name) & isFALSE(x$distinct$keep_all)){
+    count_switch(x)
+  # 4. args to group_by() but not distinct(), keep_all is TRUE = switch to species
+  }else if(!is.null(x$group_by) & is.na(x$distinct$name) & isTRUE(x$distinct$keep_all)){
+    x$type <- "species"
+    x
+  # 5. no args to group_by(), args to distinct(), keep_all is FALSE  = switch to counts
+  }else if(is.null(x$group_by) & !is.na(x$distinct$name) & isFALSE(x$distinct$keep_all)){
+    count_switch(x)
+  # 6. no args to group_by, args to distinct, keep_all is TRUE  = switch to species
+  }else if(is.null(x$group_by) & !is.na(x$distinct$name) & isTRUE(x$distinct$keep_all)){
+    x$type <- "species"
+    x
+  # 7. args to group_by AND distinct, keep_all is FALSE = switch to species counts
+  }else if(!is.null(x$group_by) & !is.na(x$distinct$name) & isTRUE(x$distinct$keep_all)){
+    x$type <- "species-count"
+    x
+  # 8. args to both group_by AND distinct, keep_all is TRUE = switch to species, prioritizing distinct()
+  }else if(!is.null(x$group_by) & !is.na(x$distinct$name) & isTRUE(x$distinct$keep_all)){
+    x$type <- "species"
+    x
+  }
+}
+
 
 #' @rdname as_query.data_request
 #' @order 3
@@ -106,7 +142,15 @@ as_query.metadata_request <- function(x, ...){
          "identifiers" = as_query_identifiers(x),
          cli::cli_abort("Unrecognised 'type'")
          ) |>
-    retain_authentication(source = x)
+  add_request(x)
+}
+
+#' @noRd
+#' @keywords Internal
+add_request <- function(new_obj, source_obj){
+  new_class <- class(new_obj)
+  new_obj$request <- source_obj
+  structure(new_obj, class = new_class)
 }
 
 #' @rdname as_query.data_request
@@ -125,7 +169,7 @@ as_query.files_request <- function(x,
          "media" = as_query_media_files(x, 
                                         thumbnail = thumbnail),
          cli::cli_abort("Unrecognised 'type'")) |>
-    retain_authentication(source = x)
+  add_request(x)
 }
 
 #' @rdname as_query.data_request
