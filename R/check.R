@@ -2,28 +2,30 @@
 #' Called exclusively by `atlas_` functions
 #' @noRd
 #' @keywords Internal
-check_atlas_inputs <- function(args){
+check_atlas_inputs <- function(args,
+                               error_call = rlang::caller_env()){
   if(!is.null(args$request)){
-    check_data_request(args$request)
-    update_request_object(args$request, args[-1])
+    if(!inherits(args$request, "data_request")){
+      c("Argument `.query` requires an object of type `data_request`.",
+        i = "You can create this object using `galah_call()`.",
+        i = "Did you specify the incorrect argument?") |>
+      cli::cli_abort(call = error_call)      
+    }    
+    request_obj <- args$request
   }else{
-    galah_call() |>
-      update_request_object(args[-1])
+    request_obj <- galah_call()
   }
+  added_arguments <- args[-1]
+  added_arguments <- added_arguments[!(purrr::map(added_arguments, is.null) |> unlist())]
+  if(length(added_arguments) > 0){
+    for(i in seq_along(added_arguments)){
+      request_object <- do.call(update_request_object, 
+        append(list(x = request_obj), added_arguments[i]))
+    }   
+  }
+  request_object
 }
 
-#' Internal function to check for `data_request`s
-#' @noRd
-#' @keywords Internal
-check_data_request <- function(request, 
-                               error_call = rlang::caller_env()){
-  if(!inherits(request, "data_request")){
-    c("Argument `.query` requires an object of type `data_request`.",
-      i = "You can create this object using `galah_call()`.",
-      i = "Did you specify the incorrect argument?") |>
-    cli::cli_abort(call = error_call)      
-  }     
-}
 
 #' Internal function to check that the specified path exists, and if not,
 #' to create it. Called by `galah_config()`
@@ -723,7 +725,7 @@ check_reason <- function(.query,
 #' @keywords Internal
 check_select <- function(.query,
                          error_call = rlang::caller_env()){
-  if(any(names(.query) == "select")){
+  if(any(names(.query$request) == "select")){
     if(is_gbif() & stringr::str_detect(.query$type, "^data")){
       cli::cli({
         cli::cli_text("Skipping `select()`.")
@@ -739,7 +741,7 @@ check_select <- function(.query,
         as.data.frame()
 
       # 2. parse groups
-      group_initial <- .query$select$group
+      group_initial <- .query$request$select$group
       # new step to avoid calling `show_all_assertions()` internally
       group <- group_initial[group_initial != "assertions"]
       if(length(group) > 0){
@@ -755,8 +757,8 @@ check_select <- function(.query,
       }
 
       # 3. parse quosures to get list of field names
-      if(length(.query$select$quosure) > 0){
-        dot_names <- purrr::map(.query$select$quosure, 
+      if(length(.query$request$select$quosure) > 0){
+        dot_names <- purrr::map(.query$request$select$quosure, 
                                 function(a){
                                   tidyselect::eval_select(a,
                                                           data = df,
@@ -826,13 +828,12 @@ check_select <- function(.query,
       field_text <- glue::glue_collapse(field_values[!is_assertion],
                                         sep = ",")
       
-      # 7. replace `SELECT_PLACEHOLDER` with valid query
+      # 7. replace `SELECT_PLACEHOLDER` and `ASSERTIONS_PLACEHOLDER` with valid queries
       # located in .query$url in query/fields
       url <- httr2::url_parse(.query$url) # note: this assumes a single url every time
       url$query$fields <- field_text
       url$query$qa <- assertion_text
       .query$url <- httr2::url_build(url)
-      .query$select <- NULL
     }
   }
   .query

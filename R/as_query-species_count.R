@@ -24,8 +24,7 @@ as_query_species_count_atlas <- function(identify = NULL,
                                          geolocate = NULL,
                                          apply_profile = NULL,
                                          group_by = NULL, 
-                                         slice = NULL,
-                                         arrange = NULL
+                                         slice_arrange = NULL
 ){
   url <- url_lookup("data/species-count") |> 
     httr2::url_parse()
@@ -40,25 +39,14 @@ as_query_species_count_atlas <- function(identify = NULL,
                         facets = species_facets()))
     result <- list(type = "data/species-count",
                    url = httr2::url_build(url),
-                   headers = build_headers(),
-                   filter = filter)
+                   headers = build_headers())
   }else{
     facets <- c(as.list(group_by$name), species_facets())
     names(facets) <- rep("facets", length(facets))
-    if(is.null(slice)){
-      slice <- tibble::tibble(slice_n = 30, slice_called = FALSE)
-    }
-    if(is.null(arrange)){
-      arrange <- tibble::tibble(variable = "count", direction = "descending")
-    }
-    slice_arrange <- dplyr::bind_cols(slice, arrange) 
-    arrange_list <- check_slice_arrange(slice_arrange)
-    url$query <- c(query, facets, arrange_list)
+    url$query <- c(query, facets, slice_arrange)
     result <- list(type = "data/species-count",
                    url = httr2::url_build(url),
-                   headers = build_headers(),
-                   filter = filter,
-                   arrange = slice_arrange)
+                   headers = build_headers())
   }
   as_query(result)
 }

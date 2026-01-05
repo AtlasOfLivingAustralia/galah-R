@@ -35,7 +35,8 @@ collapse_query_set <- function(x,
          "data/species-count" = collapse_species_count(x),
          # "-unnest" functions require some checks
          "metadata/profiles-unnest" = collapse_profile_values(x,
-                                                              error_call = error_call),
+                                                              error_call = error_call) |> 
+           add_request(x$request),
          # some "metadata/" functions require pagination under some circumstances
          "metadata/lists" = collapse_lists(x), # always paginates
          x # remaining "metadata/" functions are passed as-is 

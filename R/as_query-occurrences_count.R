@@ -24,8 +24,7 @@ as_query_occurrences_count_atlas <- function(identify = NULL,
                                              geolocate = NULL,
                                              apply_profile = NULL,
                                              group_by = NULL, 
-                                             slice = NULL,
-                                             arrange = NULL
+                                             slice_arrange = NULL
 ){
   query <- build_query(identify, 
                        filter, 
@@ -38,32 +37,17 @@ as_query_occurrences_count_atlas <- function(identify = NULL,
     url$query <- c(query, pageSize = 0)
     result <- list(type = "data/occurrences-count",
                    url = httr2::url_build(url),
-                   headers = build_headers(),
-                   filter = filter,
-                   slot_name = "totalRecords")
+                   headers = build_headers())
   }else{
     url <- url_lookup("data/occurrences-count-groupby") |> 
       httr2::url_parse()
     facets <- as.list(group_by$name)
     names(facets) <- rep("facets", length(facets))
-    if(is.null(slice)){
-      # limits to 10,000 rows
-      # TODO: This should ultimately be set by `slice` or `atlas_counts(limit = )`, not internally.
-      #       Will need updating to avoid hidden limit setting here & in `compute_occurrences_count()`
-      slice <- tibble::tibble(slice_n = 1e4, slice_called = FALSE) 
-    }
-    if(is.null(arrange)){
-      arrange <- tibble::tibble(variable = "count", 
-                                direction = "descending")
-    }
-    slice_arrange <- dplyr::bind_cols(slice, arrange) 
-    arrange_list <- check_slice_arrange(slice_arrange)
-    url$query <- c(query, facets, arrange_list)
+ 
+    url$query <- c(query, facets, parse_slice_arrange(slice_arrange))
     result <- list(type = "data/occurrences-count-groupby",
                    url = httr2::url_build(url),
-                   headers = build_headers(),
-                   filter = filter,
-                   arrange = slice_arrange)
+                   headers = build_headers())
   }
   as_query(result)
 }
@@ -75,7 +59,7 @@ as_query_occurrences_count_gbif <- function(identify = NULL,
                                             filter = NULL,
                                             geolocate = NULL,
                                             group_by = NULL,
-                                            slice = NULL
+                                            slice = NULL # probably broken
                                             ){
   # compile supplied arguments into a list
   # honestly this is a little messy, but the alternative is to call 
@@ -118,23 +102,4 @@ as_query_occurrences_count_gbif <- function(identify = NULL,
        body = predicates_info,
        slot_name = "count") |>
     as_query()
-}
-
-#' Internal function to check `slice` and `arrange` for counts
-#' @keywords Internal
-#' @noRd
-check_slice_arrange <- function(df){
-  if(df$variable == "count"){ # arranged in descending order by default
-    if(df$direction == "ascending"){
-      list(fsort = "count", flimit = 0)
-    }else{
-      list(fsort = "count", flimit = df$slice_n)
-    }
-  }else{ # non-count fields are arranged in ascending order by default
-    if(df$direction == "ascending"){
-      list(fsort = "index", flimit = df$slice_n)
-    }else{
-      list(fsort = "index", flimit = 0)
-    }
-  }
 }

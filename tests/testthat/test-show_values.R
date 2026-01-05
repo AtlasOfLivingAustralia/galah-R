@@ -83,6 +83,7 @@ test_that("`search_values()` returns filtered results for lists", {
   # use more efficient syntax
   base_df <- request_metadata() |>
     filter(lists == "dr650") |>
+    unnest() |>
     collect()
   values_search <- base_df |> quiet_search("frog")
   values_show <- base_df |> quiet_values()

@@ -15,7 +15,6 @@ as_query_fields_unnest <- function(.query){
   }
   list(type = "metadata/fields-unnest",
        url = httr2::url_build(url))  |>
-    enforce_select_query(.query) |>
     as_query()
 }
 
@@ -34,7 +33,6 @@ as_query_lists_unnest <- function(.query){
   # create object
   list(type = "metadata/lists-unnest",
        url = httr2::url_build(url))  |>
-    enforce_select_query(.query) |>
     as_query()
 }
 
@@ -46,7 +44,6 @@ as_query_profiles_unnest <- function(.query){
   list(type = "metadata/profiles-unnest",
        url = url_lookup("metadata/profiles-unnest", 
                         profile = .query$filter$value[1]))  |>
-    enforce_select_query(.query) |>
     as_query()
 }
 
@@ -63,6 +60,5 @@ as_query_taxa_unnest <- function(.query){
   list(type = "metadata/taxa-unnest",
        url = url_lookup("metadata/taxa-unnest", id = id),
        headers = build_headers()) |>
-    enforce_select_query(.query) |>
     as_query()
 }

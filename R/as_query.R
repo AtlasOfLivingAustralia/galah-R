@@ -60,8 +60,10 @@ as_query.data_request <- function(x,
                                   mint_doi = FALSE,
                                   ...){
   x <- x |> 
+    enforce_select_query() |>
     check_authentication() |>
-    check_distinct()
+    check_distinct() |>
+    check_slice_arrange()
   switch(x$type,
          "occurrences" = as_query_occurrences(x, mint_doi = mint_doi),
          "occurrences-count" = as_query_occurrences_count(x),
@@ -112,12 +114,59 @@ check_distinct <- function(x){
   }
 }
 
+#' Internal function to check `slice` and `arrange` for counts
+#' @keywords Internal
+#' @noRd
+check_slice_arrange <- function(x){
+  if(is.null(x$count)){
+    x
+  }else{
+    if(is.null(x$slice)){
+      # limits to 10,000 rows
+      # TODO: This should ultimately be set by `slice` or `atlas_counts(limit = )`, not internally.
+      #       Will need updating to avoid hidden limit setting here & in `compute_occurrences_count()`
+      slice <- tibble::tibble(slice_n = 1e4, slice_called = FALSE) 
+    }else{
+      slice <- x$slice
+    }
+    if(is.null(x$arrange)){
+      arrange <- tibble::tibble(variable = "count", 
+                                direction = "descending")
+    }else{
+      arrange <- x$arrange
+    }
+    x$slice_arrange <- dplyr::bind_cols(slice, arrange)
+    x$arrange <- NULL
+    x$slice <- NULL
+    x
+  }
+}
+
+#' Internal function to parse `slice` and `arrange` for counts
+#' @keywords Internal
+#' @noRd
+parse_slice_arrange <- function(df){
+  if(df$variable == "count"){ # arranged in descending order by default
+    if(df$direction == "ascending"){
+      list(fsort = "count", flimit = 0)
+    }else{
+      list(fsort = "count", flimit = df$slice_n)
+    }
+  }else{ # non-count fields are arranged in ascending order by default
+    if(df$direction == "ascending"){
+      list(fsort = "index", flimit = df$slice_n)
+    }else{
+      list(fsort = "index", flimit = 0)
+    }
+  }
+}
 
 #' @rdname as_query.data_request
 #' @order 3
 #' @export
 as_query.metadata_request <- function(x, ...){
-  x <- check_authentication(x)
+  x <- check_authentication(x) |>
+    enforce_select_query()
   switch(x$type,
          "apis" = as_query_apis(x),
          "assertions" = as_query_assertions(x),
@@ -143,6 +192,49 @@ as_query.metadata_request <- function(x, ...){
          cli::cli_abort("Unrecognised 'type'")
          ) |>
   add_request(x)
+}
+
+#' Internal function to enforce `select()` for metadata queries. Basically just 
+#' supplies defaults. This is the *setup* phase as is usually called by 
+#' `as_query()`
+#' @noRd
+#' @keywords Internal
+enforce_select_query <- function(x){
+  if(inherits(x, "metadata_request")){
+    # if `select()` is given, we simply pass it on
+    # if missing, we have to apply some logic
+    if(is.null(x$select)){
+     specific_type <- x |>
+       purrr::pluck("type") |>
+       stringr::str_remove("^metadata/")
+     # see whether `lookup_select_columns()` returns anything
+     chosen_columns <- lookup_select_columns(specific_type)  
+     # some `unnest` queries internally rename the lead column to the name of the supplied field
+     if(is.null(chosen_columns) & 
+        stringr::str_detect(specific_type, "-unnest$")){
+       chosen_columns <- x$filter |>
+         purrr::pluck("value")
+      }
+      # if we have, after 2 attempts, found some chosen_columns, use them
+      if(!is.null(chosen_columns)){
+       x <- dplyr::select(x, 
+                          tidyselect::any_of({{chosen_columns}}))
+       # if *still* null, choose `everything()`
+      }else{
+       x <- dplyr::select(x, 
+                          tidyselect::everything()) 
+      }
+    }
+  }else if(inherits(x, "data_request")){
+    # `select()` is only needed if DOI is not requested
+    is_doi <- ifelse(is.null(x$filter),
+                     FALSE,
+                     {ifelse(x$filter$variable[1] == "doi", TRUE, FALSE)})
+    if(is.null(x$select) & !is_doi){
+      x <- x |> select(group = "basic")
+    }
+  }
+  x
 }
 
 #' @noRd

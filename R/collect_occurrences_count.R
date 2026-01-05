@@ -77,8 +77,8 @@ collect_occurrences_count_la <- function(.query){
     clean_group_by(result, .query) |>
       dplyr::bind_rows() |>
       clean_labels() |>
-      arrange_counts(direction = .query$arrange$direction,
-                     variable = .query$arrange$variable)
+      arrange_counts(direction = .query$request$slice_arrange$direction,
+                     variable = .query$request$slice_arrange$variable)
   }
 }
 

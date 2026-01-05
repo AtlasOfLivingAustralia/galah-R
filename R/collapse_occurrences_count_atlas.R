@@ -12,9 +12,9 @@ collapse_occurrences_count_atlas_basic <- function(.query){
     
     # handle slice_head
     if(as.integer(url$query$flimit) < 1){
-      url$query$flimit <- .query$arrange$slice_n # Q: is this correct? 
-      if(.query$arrange$slice_n < n_facets){
-        url$query$foffset <- n_facets - .query$arrange$slice_n
+      url$query$flimit <- .query$request$slice_arrange$slice_n # Q: is this correct? 
+      if(.query$request$slice_arrange$slice_n < n_facets){
+        url$query$foffset <- n_facets - .query$request$slice_arrange$slice_n
       }
       .query$url <- httr2::url_build(url) 
       .query

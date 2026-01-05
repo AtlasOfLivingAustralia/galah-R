@@ -42,7 +42,6 @@ filtered_query <- function(query_type, .query){
 as_query_apis <- function(x){
   list(type = "metadata/apis",
        data = "galah:::node_config") |>
-    enforce_select_query(supplied_query = x) |>
     as_query()
 }
 
@@ -63,7 +62,6 @@ as_query_assertions <- function(x){
     }
   }
   result |>
-    enforce_select_query(supplied_query = x) |>
     as_query()
 }
 
@@ -73,7 +71,6 @@ as_query_assertions <- function(x){
 as_query_atlases <- function(x){
   list(type = "metadata/atlases",
        data = "galah:::node_metadata") |>
-    enforce_select_query(supplied_query = x) |>
     as_query()
 }
 
@@ -99,7 +96,6 @@ as_query_collections <- function(x){
     }
   }
   result |>
-    enforce_select_query(supplied_query = x) |>
     as_query()
 }
 # NOTE: LA collectory functions do not accept `max` or `offset`
@@ -141,7 +137,6 @@ as_query_datasets <- function(x){
     }
   }
   result |>
-    enforce_select_query(supplied_query = x) |>
     as_query()
 }
 
@@ -151,13 +146,10 @@ as_query_datasets <- function(x){
 as_query_fields <- function(x){
   query_type <- "metadata/fields"
   if(check_if_cache_update_needed("fields")){
-    result <- default_query(query_type)
+    default_query(query_type) |> as_query()
   }else{
-    result <- default_cache(query_type)     
+    default_cache(query_type) |> as_query()  
   }
-  result |>
-    enforce_select_query(supplied_query = x) |>
-    as_query()
 }
 
 #' Internal function to create a licences query
@@ -166,13 +158,10 @@ as_query_fields <- function(x){
 as_query_licences <- function(x){
   query_type <- "metadata/licences"
   if(check_if_cache_update_needed("licences")){
-    result <- default_query(query_type)
+    default_query(query_type) |> as_query()
   }else{
-    result <- default_cache(query_type)     
+    default_cache(query_type) |> as_query()  
   }
-  result |>
-    enforce_select_query(supplied_query = x) |>
-    as_query()
 }
 
 #' Internal function to create a lists query
@@ -190,8 +179,7 @@ as_query_lists <- function(x,
       url <- glue::glue("{base_url}/{dr_values}")
       result <- list(type = query_type,
                      url = tibble::tibble(url = url), # note: tibbles are used to skip pagination in `collapse()`
-                     headers = build_headers(),
-                     slot_name = "lists")
+                     headers = build_headers())
     }else{
       cli::cli_abort(c("`filter()` arguments to `lists` only accept a data resource number",
                        i = "e.g. request_metadata() |> filter(lists == 'dr656')"),
@@ -210,14 +198,12 @@ as_query_lists <- function(x,
       }
       result <- list(type = query_type,
                      url = httr2::url_build(url),
-                     headers = build_headers(),
-                     slot_name = "lists")
+                     headers = build_headers())
     }else{
       result <- default_cache(query_type)
     } 
   }
   result |>
-    enforce_select_query(supplied_query = x) |>
     as_query()
 }
 
@@ -259,7 +245,6 @@ as_query_media_metadata <- function(.query,
                                              id= .query$filter$value)),
        headers = build_headers(),
        filter = .query$filter) |>
-    enforce_select_query(supplied_query = .query) |>
     as_query()
   
 }
@@ -275,7 +260,6 @@ as_query_profiles <- function(x){
     result <- default_cache(query_type)     
   }
   result |>
-    enforce_select_query(supplied_query = x) |>
     as_query()
 }
 
@@ -301,7 +285,6 @@ as_query_providers <- function(x){
     }
   }
   result |>
-    enforce_select_query(supplied_query = x) |>
     as_query()
 }
 
@@ -316,7 +299,6 @@ as_query_reasons <- function(x){
     result <- default_cache(query_type)     
   }
   result |>
-    enforce_select_query(supplied_query = x) |>
     as_query()
 }
 
@@ -332,6 +314,5 @@ as_query_ranks <- function(x){
                    data = "galah:::galah_internal_archived$ranks")
   }
   result |>
-    enforce_select_query(supplied_query = x) |>
     as_query()
 }

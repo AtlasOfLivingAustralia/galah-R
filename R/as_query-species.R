@@ -48,8 +48,6 @@ as_query_species_atlas <- function(.query){
   list(type = "data/species",
        url = httr2::url_build(url),
        headers = build_headers(),
-       filter = .query$filter,
-       group_by = .query$group_by,
        download = TRUE) |>
     as_query()
 }

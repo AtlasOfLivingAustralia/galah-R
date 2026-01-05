@@ -13,7 +13,6 @@ as_query_taxa <- function(.query){
     }
   }
   result |>
-    enforce_select_query(supplied_query = .query) |>
     as_query()
 }
 
@@ -96,7 +95,6 @@ as_query_identifiers <- function(.query){
        url = tibble::tibble(url = urls, 
                             search_term = search_terms),
        headers = build_headers()) |>
-    enforce_select_query(supplied_query = .query) |>
     as_query()
 }
 

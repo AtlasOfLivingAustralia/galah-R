@@ -47,6 +47,7 @@ test_that("`atlas_occurrences()` gives a nice error for invalid emails", {
 
 test_that("collapse(type = 'occurrences') creates an object", {
   skip_if_offline(); skip_on_ci()
+  galah_config(email = "ala4r@ala.org.au")
   result <- galah_call() |> 
     identify("Perameles") |>
     collapse()
@@ -57,6 +58,7 @@ test_that("collapse(type = 'occurrences') creates an object", {
 
 test_that("`compute(type = 'occurrences')` works", {
   skip_if_offline(); skip_on_ci()
+  galah_config(email = "ala4r@ala.org.au")
   base_query <- galah_call() |>
     identify("Vulpes vulpes") |>
     filter(year <= 1900, 
@@ -78,12 +80,14 @@ test_that("`compute(type = 'occurrences')` works", {
                  "status_url",
                  "cancel_url",
                  "search_url",
-                 "fields"))
+                 "fields",
+                 "request"))
 })
 
 # test all filters and type of columns in one call
 test_that("`atlas_occurrences()` accepts all narrowing functions inline", { 
   skip_if_offline(); skip_on_ci()
+  galah_config(email = "ala4r@ala.org.au")
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "basisOfRecord", "scientificName", "taxonConceptID", 
                      "recordID", "dataResourceName", "occurrenceStatus",
@@ -105,7 +109,8 @@ test_that("`atlas_occurrences()` accepts all narrowing functions inline", {
                  "status_url",
                  "cancel_url",
                  "search_url",
-                 "fields"))
+                 "fields",
+                 "request"))
   expect_s3_class(x, "computed_query")
   # collect with wait = TRUE
   y <- quiet_collect(x, wait = TRUE)    
@@ -141,12 +146,13 @@ test_that("`atlas_occurrences()`() and friends accept a file name", {
   directory <- "TEMP"
   unlink(directory, recursive = TRUE)
   dir.create(directory)
-  galah_config(directory = directory)
+  galah_config(directory = directory,
+               email = "ala4r@ala.org.au")
   # set up query
   base_query <- galah_call() |>
-    galah_filter(year <= 1970) |>
-    galah_select(group = "basic") |>
-    galah_identify("Crinia tinnula")
+    filter(year <= 1970) |>
+    select(group = "basic") |>
+    identify("Crinia tinnula")
   # base_query |> count() |> collect() # n = 49 on 2023-11-15
   # test `atlas_occurrences`
   occ1 <- base_query |> 
@@ -192,7 +198,9 @@ test_that("`atlas_occurrences()` downloads data from a DOI", {
   result2 <- request_data() |>
     filter(doi == doi) |>
     quiet_collapse()
-  expect_equal(length(result2), 4)
+  expect_equal(length(result2), 5)
+  expect_equal(names(result2),
+               c("type", "url", "headers", "download", "request"))
   expect_s3_class(result2, "query")
   expect_equal(result2$type, "data/occurrences-doi")
   result3 <- quiet_collect(result2)
@@ -202,6 +210,7 @@ test_that("`atlas_occurrences()` downloads data from a DOI", {
 
 # TODO check DOIs still placed correctly in as_query(), collapse() etc
 
+# NOTE: This test is *very* slow - worth investigating why
 test_that("`atlas_occurrences()` places DOI in `attr()` correctly", {
   skip_if_offline(); skip_on_ci()
   directory <- "TEMP"

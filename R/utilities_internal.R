@@ -2,40 +2,6 @@
 ##                 Output formatting functions                 --
 ##---------------------------------------------------------------
 
-#' Internal function to enforce `select()` for metadata queries. Basically just 
-#' supplies defaults. This is the *setup* phase as is usually called by 
-#' `as_query()`
-#' @noRd
-#' @keywords Internal
-enforce_select_query <- function(new_query, supplied_query){
-  # if `select()` is given, we simply pass it on
-  # if missing, we have to apply some logic
-  if(is.null(supplied_query$select)){
-    specific_type <- supplied_query |>
-      purrr::pluck("type") |>
-      stringr::str_remove("^metadata/")
-    # see whether `lookup_select_columns()` returns anything
-    chosen_columns <- lookup_select_columns(specific_type)  
-    # some `unnest` queries internally rename the lead column to the name of the supplied field
-    if(is.null(chosen_columns) & 
-       stringr::str_detect(specific_type, "-unnest$")){
-      chosen_columns <- supplied_query$filter |>
-        purrr::pluck("value")
-    }
-    # if we have, after 2 attempts, found some chosen_columns, use them
-    if(!is.null(chosen_columns)){
-      supplied_query <- dplyr::select(supplied_query, 
-                                      tidyselect::any_of({{chosen_columns}}))
-      # if *still* null, choose `everything()`
-    }else{
-      supplied_query <- dplyr::select(supplied_query, 
-                                      tidyselect::everything()) 
-    }
-  }
-  update_request_object(new_query,
-                        select = supplied_query$select)
-}
-
 #' Internal function to run `eval_tidy()` on captured `select()` requests.
 #' This is the *enactment* phase and is usually called by `collect()`.
 #' Critically, this function is *NOT* called by `select()`. This matters because
@@ -45,7 +11,7 @@ enforce_select_query <- function(new_query, supplied_query){
 #' @keywords Internal
 parse_select <- function(df, .query){
   # get quosures captured by `select()`
-  quo_list <- purrr::pluck(.query, "select", "quosure")
+  quo_list <- purrr::pluck(.query, "request", "select", "quosure")
   # map() over list of quosures
   # honestly I don't know why `!!quo_list` fails here, but it does, so used this instead
   pos <- purrr::map(quo_list, \(a){

@@ -134,8 +134,6 @@ test_that("`search_identifiers()` works via `search_all()`", {
   id <- "urn:lsid:biodiversity.org.au:afd.taxon:08b9a1f0-62ae-45ca-9208-e773b00021ed"
   search <- search_identifiers(id)
   search2 <- search_all(identifiers, id)
-  
-  expect_equal(attributes(search)$call, "identifiers")
   expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(search), 1)
   expect_equal(search, search2)
@@ -150,7 +148,7 @@ test_that("`request_metadata()` works for `type = 'taxa'`", {
   expect_equal(x$identify$search_term, "crinia")
   y <- collapse(x)
   expect_s3_class(y, "query")
-  expect_equal(names(y), c("type", "url", "headers"))
+  expect_equal(names(y), c("type", "url", "headers", "request"))
   z <- collect(y)
   expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(z), 1)

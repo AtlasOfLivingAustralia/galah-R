@@ -57,19 +57,24 @@ update_request_object <- function(x,
 
   # if this slot is already populated, update or overwrite
   if(any(x_names == dot_names)){
-    x[dot_names] <- switch(a,
+    x[[dot_names]] <- switch(dot_names,
                            "identify" = {
-                              bind_unique_rows(x[[dot_names]], dots, "search_term")
+                              bind_unique_rows(x[[dot_names]],
+                                               dots[[dot_names]],
+                                               "search_term")
                             },
                             "filter" = {
-                              bind_unique_rows(x[[dot_names]], dots, "query")
+                              bind_unique_rows(x[[dot_names]],
+                                               dots[[dot_names]],
+                                               "query")
                             },
                             "select" = {
-                              update_select(x[[dot_names]], dots)
+                              update_select(x[[dot_names]],
+                                            dots[[dot_names]])
                             }, 
                             # for below, we assume that in all other circumstances we 
                             # simply pass the most recent result (i.e. overwrite)
-                            dots # default
+                            dots[[dot_names]] # default
                             )
     structure(x, class = x_class)
   }else{ # if not already present, add to end of object

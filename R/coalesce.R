@@ -46,7 +46,6 @@ coalesce.data_request <- function(x, mint_doi, ...){
 #' @order 3
 #' @export
 coalesce.metadata_request <- function(x, ...){
-  
   # create an empty object to store results
   result <- list()
   
@@ -70,7 +69,10 @@ coalesce.metadata_request <- function(x, ...){
     if(x$type == "taxa-unnest"){
       # identify() calls must be parsed, irrespective of `run_checks` (which is parsed above)
       if(!is.null(x$identify)){
-        result[[(length(result) + 1)]] <- as_query_taxa(x) # best syntax for this??
+        result[[(length(result) + 1)]] <- list(type = "taxa",
+             identify = x$identify) |>
+          structure(class = "metadata_request") |>
+          as_query()
       }
       if(is.null(x$identify) & is.null(x$filter)){
         cli::cli_abort("Requests of type `taxa-unnest` must also supply one of `filter()` or `identify()`.")
@@ -81,13 +83,8 @@ coalesce.metadata_request <- function(x, ...){
     }
   }
   
-  # lists have extra steps
-  if(x$type == "lists-unnest"){
-    query_obj <- as_query_lists_unnest(x, ...)
-  }else{
-    query_obj <- as_query(x)
-  }
-  result[[(length(result) + 1)]] <- query_obj
+  # add query in last place
+  result[[(length(result) + 1)]] <- as_query(x)
   
   # return object of correct class
   structure(result,
@@ -151,10 +148,10 @@ build_query_set_data <- function(x, mint_doi, ...){
   }
   
   # handle `run_checks`
-  fields_absent <- purrr::map(
-    x[c("arrange", "filter", "select", "group_by")],
-    is.null) |>
-    unlist()
+  # find which functions are missing from the pipe
+  lookup_fields <- c("arrange", "filter", "select", "group_by")
+  fields_absent <- !(lookup_fields %in% names(x))
+  names(fields_absent) <- lookup_fields
   
   if(potions::pour("package", "run_checks") & 
       x$type != "occurrences-doi"){

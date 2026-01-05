@@ -170,15 +170,24 @@ search_all <- function(type,
 #' @keywords Internal
 search_text_cols <- function(df, query){
 
+  if(nrow(df) < 1){
+    return(df)
+  }
+
   query <- tolower(query)
   keep_cols <- unlist(purrr::map(df, is.character)) & 
     colnames(df) != "type"
+
   check_list <- purrr::map(df[, keep_cols], 
                            \(a){stringr::str_detect(tolower(a), query)})
+  
+  if(length(check_list) < 1){
+    return(df)
+  }
+
   check_vector <- purrr::list_transpose(check_list) |>
     purrr::map(any) |> 
     unlist()
-
   result <- df |> dplyr::filter({{check_vector}})
   
   # order search_all() results

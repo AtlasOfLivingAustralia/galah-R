@@ -51,13 +51,14 @@ get_max_n <- function(.query){
             paginate = 500, 
             max_available = {
               url$query <- list(max = 0)
-              list(url = httr2::url_build(url),
+              list(type = "metadata/list-count",
+                   url = httr2::url_build(url),
                    headers = .query$headers) |>
                 query_API() |>
                 purrr::pluck(count_field) # NOTE: only tested for ALA                
             })
   n$max_requested <- min(c(n$requested, n$max_available))
-  return(n)
+  n
 }
 
 
@@ -80,7 +81,6 @@ collapse_profile_values <- function(.query,
   }
   list(type = .query$type,
        url = httr2::url_build(url)) |>
-    enforce_select_query(.query) |>
     as_query()
 }
 # this doesn't print for some reason

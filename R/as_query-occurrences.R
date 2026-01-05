@@ -44,9 +44,7 @@ as_query_occurrences_uk <- function(.query, ...){
   # build output
   list(type = "data/occurrences",
        url = httr2::url_build(url),
-       headers = build_headers(),
-       filter = .query$filter,
-       select = .query$select) |>
+       headers = build_headers()) |>
     as_query()
 }
 
@@ -85,12 +83,6 @@ as_query_occurrences_gbif <- function(.query,
 #' @keywords Internal
 as_query_occurrences_la <- function(.query,
                                     mint_doi = FALSE){
-  
-  # set default columns
-  if(is.null(.query$select)){
-    .query <- .query |> select(group = "basic")
-  }
-  
   # build a query
   query <- c(build_query(identify = .query$identify,
                          filter = .query$filter, 
@@ -115,8 +107,6 @@ as_query_occurrences_la <- function(.query,
   # build output
   list(type = "data/occurrences",
        url = httr2::url_build(url),
-       headers = build_headers(),
-       filter = .query$filter,
-       select = .query$select) |>
+       headers = build_headers()) |>
     as_query()
 }
