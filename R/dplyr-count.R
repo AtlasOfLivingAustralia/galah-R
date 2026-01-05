@@ -16,8 +16,7 @@ count.data_request <- function(x,
                                sort, 
                                name){
   count_switch(x) |>
-    group_by(...) |>
-    update_request_object(count = TRUE)
+    group_by(...)
 }
 
 #' Internal function called by `count.data_request()` and `distinct.data_request()`
@@ -41,10 +40,6 @@ add_count.data_request <- function(x,
                                    wt = NULL,
                                    sort = FALSE,
                                    name = NULL){
-  # note: this function effectively is only used by `atlas_species()`/`distinct()`
-  # unclear whether this error message will be evaluated properly at this point
-  if(x$type != "species"){
-    cli::cli_abort("`add_count()` is only supported for `type = 'species'`")
-  }
-  update_request_object(x, count = TRUE)
+  update_request_object(x, 
+                        add_count = TRUE)
 }

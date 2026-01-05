@@ -5,7 +5,7 @@ atlas_species <- function(request = NULL,
                           identify = NULL,
                           filter = NULL,
                           geolocate = NULL,
-                          data_profile = NULL
+                          apply_profile = NULL
                           ) {
                             
   # capture supplied arguments

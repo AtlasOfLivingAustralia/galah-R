@@ -11,7 +11,7 @@ build_headers <- function(){
 build_query <- function(identify = NULL, 
                         filter = NULL, 
                         location = NULL, 
-                        data_profile = NULL) {
+                        apply_profile = NULL) {
   if(is.null(identify)) {
     taxa_query <- NULL
   } else { # assumes a tibble or data.frame has been given
@@ -54,8 +54,8 @@ build_query <- function(identify = NULL,
   }
   # add profiles information (ALA only) 
   if(profiles_supported()){
-    if(!is.null(data_profile)) {
-      query$qualityProfile <- data_profile
+    if(!is.null(apply_profile)) {
+      query$qualityProfile <- apply_profile
     } else {
       query$disableAllQualityFilters <- "true"
     }    

@@ -2,7 +2,7 @@ test_that("`apply_profile()` amends a `query", {
   x <- galah_call() |>
     filter (year == 2025) |>
     apply_profile("ALA")
-  expect_equal(x$data_profile, "ALA")
+  expect_equal(x$apply_profile, "ALA")
 })
 
 test_that("`galah_apply_profile()` matches profile", {

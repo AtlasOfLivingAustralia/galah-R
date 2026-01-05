@@ -66,8 +66,8 @@ arrange.data_request <- function(.data, ...){
       result <- tibble::tibble(variable = parsed_dots, 
                                direction = "ascending")
     }
-    .data$arrange <- result
-    return(.data)
+    update_request_object(.data,
+                          arrange = result)
   }
 }
 

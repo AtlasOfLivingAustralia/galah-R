@@ -134,24 +134,8 @@ request_data <- function(type = c("occurrences",
   }else{
     type <- "occurrences"
   }
-  # create an empty list
-  valid_names <- c("type",
-                   "identify",
-                   "filter",
-                   "select",
-                   "group_by",
-                   "arrange",
-                   "geolocate", 
-                   "data_profile"
-                   # "order" # tentatively removed
-                   )
-  default_call <- vector(mode = "list", length = length(valid_names))
-  names(default_call) <- valid_names
-  default_call$type <- type # check_type(type)
-  # set default for limit?
-  # default_call$limit <- 100 ?
-  structure(default_call,
-            class = "data_request")
+  list(type = type) |>
+    structure(class = "data_request")
 }
 
 #' @rdname galah_call

@@ -17,7 +17,7 @@ of a data quality profile to apply to the query. Valid values can be seen
 using \code{show_all(profiles)}}
 }
 \value{
-An updated \code{data_request} with a completed \code{data_profile} slot.
+An updated \code{data_request} with a completed \code{apply_profile} slot.
 }
 \description{
 A 'profile' is a group of filters that are pre-applied by the ALA. Using a

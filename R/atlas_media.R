@@ -9,7 +9,7 @@ atlas_media <- function(request = NULL,
                         filter = NULL, 
                         select = NULL,
                         geolocate = NULL,
-                        data_profile = NULL,
+                        apply_profile = NULL,
                         all_fields = FALSE
                         ) {
   

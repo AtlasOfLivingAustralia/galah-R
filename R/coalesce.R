@@ -197,7 +197,7 @@ build_query_set_data <- function(x, mint_doi, ...){
   }
   
   # handle `apply_profile()`
-  if(!is.null(x$data_profile)){
+  if(!is.null(x$apply_profile)){
     result[[(length(result) + 1)]] <- request_metadata("profiles") |> 
       as_query()
   }

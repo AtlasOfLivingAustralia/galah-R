@@ -28,56 +28,53 @@ detect_request_object <- function(dots){
   }
 }
 
-#' Internal function to update a `data_request`
+#' Internal function to update a `data_request` or `metadata_request`
+#' @param x an object to update
+#' @param ... named entry to add
 #' @noRd
 #' @keywords Internal
-update_request_object <- function(x, ...){
-  class_tr <- class(x)
+update_request_object <- function(x,
+                                  ...,
+                                  error_call = rlang::caller_env()){
+  # collect supplied information
+  x_class <- class(x)
+  x_names <- names(x)
   dots <- list(...)
-  if(length(dots)[[1]] == 1){
-    if(inherits(dots[[1]], "list") & is.null(names(dots))){
-      dots <- dots[[1]]
-    }
+  dot_names <- names(dots)
+
+  # ensure only one value is supplied
+  if(length(dots) > 1){
+    cli::cli_warn("Can only update a request with one object at a time; skipping")
+    x
   }
-  result <- purrr::map(
-    names(x), # i.e. for all slots in object of class `data_request` or `metadata_request`
-    function(a){
-      if(any(names(dots) == a)){ # object is present in `x`
-        if(is.null(x[[a]])){ # slot in `x` is empty
-          dots[[a]]
-        }else{ # slot is filled
-          if(is.null(dots[[a]])){ # if nothing has been supplied, retain source
-            x[[a]]
-          }else{ # both supplied and source contain data
-            switch(a,
-                   "identify" = {
-                     bind_unique_rows(x[[a]], dots[[a]], "search_term")
-                   },
-                   "filter" = {
-                     bind_unique_rows(x[[a]], dots[[a]], "query")
-                   },
-                   "select" = {
-                     update_select(x[[a]], dots[[a]])
-                   }, 
-                   # for below, we assume that in all other circumstances we 
-                   # simply pass the most recent result (i.e. overwrite)
-                   dots[[a]] # default
-            )
-          }      
-        }
-      }else{ # if supplied object is not named in `data_request`
-        x[[a]]
-      }
-    })
-  names(result) <- names(x)
-  
-  # check if any names in `dots` have been missed from `results`
-  missing_names <- !(names(dots) %in% names(result))
-  if(any(missing_names)){
-    result <- append(result, dots[missing_names])
+
+  # ensure it is named
+  if(length(dot_names) < 1){
+    cli::cli_warn("Error updating `data_request` object - all entries must be named - skipping",
+                  call = error_call)
+    x
   }
-  structure(result,
-            class = class_tr)
+
+  # if this slot is already populated, update or overwrite
+  if(any(x_names == dot_names)){
+    x[dot_names] <- switch(a,
+                           "identify" = {
+                              bind_unique_rows(x[[dot_names]], dots, "search_term")
+                            },
+                            "filter" = {
+                              bind_unique_rows(x[[dot_names]], dots, "query")
+                            },
+                            "select" = {
+                              update_select(x[[dot_names]], dots)
+                            }, 
+                            # for below, we assume that in all other circumstances we 
+                            # simply pass the most recent result (i.e. overwrite)
+                            dots # default
+                            )
+    structure(x, class = x_class)
+  }else{ # if not already present, add to end of object
+    structure(c(x, dots), class = x_class)
+  }
 }
 
 #' Internal function to join together two `select` objects

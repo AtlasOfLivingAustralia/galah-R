@@ -16,7 +16,7 @@
 #' @param ... a profile name. Should be a `string` - the name or abbreviation 
 #'    of a data quality profile to apply to the query. Valid values can be seen 
 #'    using `show_all(profiles)`
-#' @return An updated `data_request` with a completed `data_profile` slot.
+#' @return An updated `data_request` with a completed `apply_profile` slot.
 #' @seealso [show_all()] and [search_all()] to look up available data profiles. 
 #' [filter.data_request()] can be used for more bespoke editing of individual data 
 #' profile filters.
@@ -36,7 +36,7 @@ apply_profile <- function(.data, ...){
     purrr::pluck(!!!list(1)) |>
     parse_profile()
   update_request_object(.data,
-                        data_profile = result)
+                        apply_profile = result)
 }
 
 #' @rdname apply_profile
@@ -49,7 +49,7 @@ galah_apply_profile <- function(...){
            result <- parse_quosures_basic(dots[-1]) |>
              parse_profile()
            update_request_object(dots[[1]],
-                                 data_profile = result)
+                                 apply_profile = result)
          },
          {
            parse_quosures_basic(dots) |>

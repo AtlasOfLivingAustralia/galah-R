@@ -32,7 +32,7 @@ as_query_species_atlas <- function(.query){
     build_query(.query$identify, 
                 .query$filter, 
                 .query$geolocate, 
-                .query$data_profile),
+                .query$apply_profile),
     sourceTypeId = 2004,
     reasonTypeId = potions::pour("user", "download_reason_id"),
     facets = .query$group_by$name,

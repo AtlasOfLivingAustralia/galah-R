@@ -1,5 +1,3 @@
-## Note: "order" arg was removed from galah_call, adding it back will require updating of these tests
-
 test_that("galah_call builds objects of class 'data_request' by default", {
   expect_equal(length(galah_call()), 8)
   expect_s3_class(galah_call(), "data_request")
@@ -18,14 +16,23 @@ test_that("galah_call accepts method arg", {
 test_that("galah_call works with all `galah_` functions", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |> 
-    galah_identify("Litoria") |>
-    galah_filter(year == 2021, cl22 == "Tasmania") |>
-    galah_select(year) |>
-    galah_apply_profile(ALA) |>
-    galah_geolocate("POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))") |>
-    galah_group_by(year, basisOfRecord) |>
+    identify("Litoria") |>
+    filter(year == 2021, cl22 == "Tasmania") |>
+    select(year) |>
+    apply_profile(ALA) |>
+    geolocate("POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))") |>
+    group_by(year, basisOfRecord) |>
     arrange(basisOfRecord)
-  expect_false(any(unlist(lapply(result, is.null))))   
+  # ensure no null values
+  purrr::map(result, is.null) |>
+    unlist() |>
+    any() |>
+    expect_false()
+  # ensure content is added in same order as supplied
+  expect_equal(
+    names(result),
+    c("type", "identify", "filter", "select", "apply_profile",
+      "geolocate", "group_by", "arrange"))
 })
 
 test_that("galah_call works irrespective of `galah_` function order", {

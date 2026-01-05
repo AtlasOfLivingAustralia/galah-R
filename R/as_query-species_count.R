@@ -22,7 +22,7 @@ as_query_species_count <- function(.query,
 as_query_species_count_atlas <- function(identify = NULL, 
                                          filter = NULL, 
                                          geolocate = NULL,
-                                         data_profile = NULL,
+                                         apply_profile = NULL,
                                          group_by = NULL, 
                                          slice = NULL,
                                          arrange = NULL
@@ -32,7 +32,7 @@ as_query_species_count_atlas <- function(identify = NULL,
   query <- build_query(identify, 
                        filter, 
                        geolocate, 
-                       data_profile = data_profile)
+                       apply_profile = apply_profile)
   # set behaviour depending on `group_by()`
   if(is.null(group_by)){
     url$query <- c(query,
