@@ -7,6 +7,18 @@ quiet_collect <- function(...){
     purrr::pluck("result")
 }
 
+check_select_structure <- function(query){
+    purrr::pluck(query, "request", "select") |>
+      is.null() |>
+      expect_false()
+    purrr::pluck(query, !!!list("request", "select", "quosure", 1)) |>
+      rlang::is_quosure() |>
+      expect_true()
+    purrr::pluck(query, "request", "select", "summary") |>
+      is.null() |>
+      expect_false()
+}
+
 test_that("`request_metadata()` works with `select()` for local APIs", {
   type_list <- c("atlases",
                  "apis",
@@ -22,16 +34,9 @@ test_that("`request_metadata()` works with `select()` for local APIs", {
       purrr::pluck("data") |>
       is.null() |>
       expect_false()
+
     # check `select` exists, and contains a quosure and a summary
-    purrr::pluck(query, "select") |>
-      is.null() |>
-      expect_false()
-    purrr::pluck(query, !!!list("select", "quosure", 1)) |>
-      rlang::is_quosure() |>
-      expect_true()
-    purrr::pluck(query, "select", "summary") |>
-      is.null() |>
-      expect_false()
+    check_select_structure(query)
     
     # collect result
     result <- collect(query)
@@ -73,15 +78,7 @@ test_that("`request_metadata()` works with `select()` for remote APIs *without* 
       is.null() |>
       expect_false()
     # check `select` exists, and contains a quosure and a summary
-    purrr::pluck(query, "select") |>
-      is.null() |>
-      expect_false()
-    purrr::pluck(query, !!!list("select", "quosure", 1)) |>
-      rlang::is_quosure() |>
-      expect_true()
-    purrr::pluck(query, "select", "summary") |>
-      is.null() |>
-      expect_false()
+    check_select_structure(query)
     
     # collect result
     result <- collect(query)
@@ -131,15 +128,7 @@ test_that("`request_metadata()` works with `select()` for remote APIs *with* def
       is.null() |>
       expect_false()
     # check `select` exists, and contains a quosure and a summary
-    purrr::pluck(query, "select") |>
-      is.null() |>
-      expect_false()
-    purrr::pluck(query, !!!list("select", "quosure", 1)) |>
-      rlang::is_quosure() |>
-      expect_true()
-    purrr::pluck(query, "select", "summary") |>
-      is.null() |>
-      expect_false()
+    check_select_structure(query)
     
     # collect that query, and check for expected columns
     result <- quiet_collect(query)
@@ -195,15 +184,7 @@ test_that("`request_metdata()` works with `select()` for `type = 'taxa'`", {
     is.null() |>
     expect_false()
   # check `select` exists, and contains a quosure and a summary
-  purrr::pluck(query, "select") |>
-    is.null() |>
-    expect_false()
-  purrr::pluck(query, !!!list("select", "quosure", 1)) |>
-    rlang::is_quosure() |>
-    expect_true()
-  purrr::pluck(query, "select", "summary") |>
-    is.null() |>
-    expect_false()
+  check_select_structure(query)
   # now run the query
   basic_search <- search_taxa("Crinia")
   everything_search <- quiet_collect(query)
@@ -229,15 +210,7 @@ test_that("`request_metdata()` works with `select()` for complex taxa", {
     is.null() |>
     expect_false()
   # check `select` exists, and contains a quosure and a summary
-  purrr::pluck(query, "select") |>
-    is.null() |>
-    expect_false()
-  purrr::pluck(query, !!!list("select", "quosure", 1)) |>
-    rlang::is_quosure() |>
-    expect_true()
-  purrr::pluck(query, "select", "summary") |>
-    is.null() |>
-    expect_false()
+  check_select_structure(query)
   # now run the query
   basic_search <- search_taxa(crinia_tibble)
   everything_search <- quiet_collect(query)
@@ -263,15 +236,7 @@ test_that("`request_metdata()` works with `select()` for `type = 'identifiers'`"
     stringr::str_detect("namematching\\/api\\/getByTaxonID") |>
     expect_true()
   # check `select` exists, and contains a quosure and a summary
-  purrr::pluck(query, "select") |>
-    is.null() |>
-    expect_false()
-  purrr::pluck(query, !!!list("select", "quosure", 1)) |>
-    rlang::is_quosure() |>
-    expect_true()
-  purrr::pluck(query, "select", "summary") |>
-    is.null() |>
-    expect_false()
+  check_select_structure(query)
   # now run the query
   basic_search <- search_identifiers(tcid)
   everything_search <- quiet_collect(query)
@@ -283,4 +248,4 @@ test_that("`request_metdata()` works with `select()` for `type = 'identifiers'`"
                   c("success", "lft", "rgt", "kingdom_id"))
 })
 
-rm(purrr_collect, quiet_collect)
+rm(purrr_collect, quiet_collect, check_select_structure)

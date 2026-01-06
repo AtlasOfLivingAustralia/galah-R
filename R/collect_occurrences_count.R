@@ -2,11 +2,12 @@
 #' @noRd
 #' @keywords Internal
 collect_occurrences_count <- function(.query){
-  if(is_gbif()){
+ {if(is_gbif()){
     collect_occurrences_count_gbif(.query)
   }else{
     collect_occurrences_count_la(.query)
-  }
+  }} |>
+   parse_select(.query)
 }
 
 #' `collect()` for `type = "data/occurrences-count"` for gbif
@@ -118,7 +119,6 @@ clean_labels <- function(df){
       stringr::str_replace("\\.$", "")
     df[[variable]] <- values
     df |>
-      dplyr::select(-dplyr::any_of(c("label", "i18nCode", "fq"))) |>
       dplyr::relocate("count", 
                       .after = dplyr::last_col())
   }else{ 
@@ -129,8 +129,8 @@ clean_labels <- function(df){
       col_lookup <- c("label")
       names(col_lookup) <- field_name
       df |>
-        dplyr::rename(dplyr::all_of(col_lookup)) |>
-        dplyr::select(-"fq")      
+        dplyr::rename(dplyr::all_of(col_lookup))
+        # dplyr::select(-"fq")      
     }else{
     # some are completely empty
       df

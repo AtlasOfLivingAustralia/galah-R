@@ -47,7 +47,7 @@ two or more of the following slots:
 \item \code{headers}: headers to be sent with the API call
 \item \code{body}: body section of the API call
 \item \code{options}: options section of the API call
-\item Any other information retained from the preceeding \verb{_request} object (see \code{\link[=galah_call]{galah_call()}})
+\item \code{request}: captures the preceeding \verb{_request} object (see \code{\link[=galah_call]{galah_call()}})
 }
 }
 \description{

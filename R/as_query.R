@@ -39,7 +39,7 @@
 #'  - `headers`: headers to be sent with the API call
 #'  - `body`: body section of the API call
 #'  - `options`: options section of the API call
-#'  - Any other information retained from the preceeding `_request` object (see [galah_call()])
+#'  - `request`: captures the preceeding `_request` object (see [galah_call()])
 #'
 #' @seealso To open a piped query, see [galah_call()]. For alternative 
 #' operations on `_request` objects, see [coalesce()], 
@@ -60,10 +60,10 @@ as_query.data_request <- function(x,
                                   mint_doi = FALSE,
                                   ...){
   x <- x |> 
-    enforce_select_query() |>
     check_authentication() |>
-    check_distinct() |>
-    check_slice_arrange()
+    check_distinct_count_groupby() |>
+    check_slice_arrange() |>
+    enforce_select_query()
   switch(x$type,
          "occurrences" = as_query_occurrences(x, mint_doi = mint_doi),
          "occurrences-count" = as_query_occurrences_count(x),
@@ -73,92 +73,6 @@ as_query.data_request <- function(x,
          "distributions" = as_query_distributions_data(x),
          cli::cli_abort("Unrecognised 'type'")) |>
   add_request(x)
-}
-
-
-#' Internal function to check behaviour of `distinct()`, `group_by()` etc.
-#' called by `as_query()`
-#' @noRd
-#' @keywords Internal
-check_distinct <- function(x){
-  
-  # 1. no distinct() call = no changes (regardless of group_by)
-  if(is.null(x$distinct)){
-    x
-  # 2. no args to group_by(), no args to distinct() = no changes
-  }else if(is.na(x$distinct$name) & is.null(x$group_by)){
-    x$distinct <- NULL
-    x
-  # 3. args to group_by() but not to distinct(), keep_all is FALSE = switch to counts
-  }else if(!is.null(x$group_by) & is.na(x$distinct$name) & isFALSE(x$distinct$keep_all)){
-    count_switch(x)
-  # 4. args to group_by() but not distinct(), keep_all is TRUE = switch to species
-  }else if(!is.null(x$group_by) & is.na(x$distinct$name) & isTRUE(x$distinct$keep_all)){
-    x$type <- "species"
-    x
-  # 5. no args to group_by(), args to distinct(), keep_all is FALSE  = switch to counts
-  }else if(is.null(x$group_by) & !is.na(x$distinct$name) & isFALSE(x$distinct$keep_all)){
-    count_switch(x)
-  # 6. no args to group_by, args to distinct, keep_all is TRUE  = switch to species
-  }else if(is.null(x$group_by) & !is.na(x$distinct$name) & isTRUE(x$distinct$keep_all)){
-    x$type <- "species"
-    x
-  # 7. args to group_by AND distinct, keep_all is FALSE = switch to species counts
-  }else if(!is.null(x$group_by) & !is.na(x$distinct$name) & isTRUE(x$distinct$keep_all)){
-    x$type <- "species-count"
-    x
-  # 8. args to both group_by AND distinct, keep_all is TRUE = switch to species, prioritizing distinct()
-  }else if(!is.null(x$group_by) & !is.na(x$distinct$name) & isTRUE(x$distinct$keep_all)){
-    x$type <- "species"
-    x
-  }
-}
-
-#' Internal function to check `slice` and `arrange` for counts
-#' @keywords Internal
-#' @noRd
-check_slice_arrange <- function(x){
-  if(is.null(x$count)){
-    x
-  }else{
-    if(is.null(x$slice)){
-      # limits to 10,000 rows
-      # TODO: This should ultimately be set by `slice` or `atlas_counts(limit = )`, not internally.
-      #       Will need updating to avoid hidden limit setting here & in `compute_occurrences_count()`
-      slice <- tibble::tibble(slice_n = 1e4, slice_called = FALSE) 
-    }else{
-      slice <- x$slice
-    }
-    if(is.null(x$arrange)){
-      arrange <- tibble::tibble(variable = "count", 
-                                direction = "descending")
-    }else{
-      arrange <- x$arrange
-    }
-    x$slice_arrange <- dplyr::bind_cols(slice, arrange)
-    x$arrange <- NULL
-    x$slice <- NULL
-    x
-  }
-}
-
-#' Internal function to parse `slice` and `arrange` for counts
-#' @keywords Internal
-#' @noRd
-parse_slice_arrange <- function(df){
-  if(df$variable == "count"){ # arranged in descending order by default
-    if(df$direction == "ascending"){
-      list(fsort = "count", flimit = 0)
-    }else{
-      list(fsort = "count", flimit = df$slice_n)
-    }
-  }else{ # non-count fields are arranged in ascending order by default
-    if(df$direction == "ascending"){
-      list(fsort = "index", flimit = df$slice_n)
-    }else{
-      list(fsort = "index", flimit = 0)
-    }
-  }
 }
 
 #' @rdname as_query.data_request
@@ -194,57 +108,6 @@ as_query.metadata_request <- function(x, ...){
   add_request(x)
 }
 
-#' Internal function to enforce `select()` for metadata queries. Basically just 
-#' supplies defaults. This is the *setup* phase as is usually called by 
-#' `as_query()`
-#' @noRd
-#' @keywords Internal
-enforce_select_query <- function(x){
-  if(inherits(x, "metadata_request")){
-    # if `select()` is given, we simply pass it on
-    # if missing, we have to apply some logic
-    if(is.null(x$select)){
-     specific_type <- x |>
-       purrr::pluck("type") |>
-       stringr::str_remove("^metadata/")
-     # see whether `lookup_select_columns()` returns anything
-     chosen_columns <- lookup_select_columns(specific_type)  
-     # some `unnest` queries internally rename the lead column to the name of the supplied field
-     if(is.null(chosen_columns) & 
-        stringr::str_detect(specific_type, "-unnest$")){
-       chosen_columns <- x$filter |>
-         purrr::pluck("value")
-      }
-      # if we have, after 2 attempts, found some chosen_columns, use them
-      if(!is.null(chosen_columns)){
-       x <- dplyr::select(x, 
-                          tidyselect::any_of({{chosen_columns}}))
-       # if *still* null, choose `everything()`
-      }else{
-       x <- dplyr::select(x, 
-                          tidyselect::everything()) 
-      }
-    }
-  }else if(inherits(x, "data_request")){
-    # `select()` is only needed if DOI is not requested
-    is_doi <- ifelse(is.null(x$filter),
-                     FALSE,
-                     {ifelse(x$filter$variable[1] == "doi", TRUE, FALSE)})
-    if(is.null(x$select) & !is_doi){
-      x <- x |> select(group = "basic")
-    }
-  }
-  x
-}
-
-#' @noRd
-#' @keywords Internal
-add_request <- function(new_obj, source_obj){
-  new_class <- class(new_obj)
-  new_obj$request <- source_obj
-  structure(new_obj, class = new_class)
-}
-
 #' @rdname as_query.data_request
 #' @param thumbnail Logical: should thumbnail-size images be returned? Defaults 
 #' to `FALSE`, indicating full-size images are required.
@@ -275,4 +138,186 @@ as_query.list <- function(x){
 #' @order 6
 as_query.query <- function(x){
   x
+}
+
+#' Internal function called by `as_query()`
+#' @noRd
+#' @keywords Internal
+count_switch <- function(x){ 
+  x$type <- switch(x$type, 
+                   "occurrences" = "occurrences-count",
+                   "occurrences-count" = "occurrences-count",
+                   "species" = "species-count",
+                   "species-count" = "species-count",
+                   "media" = cli::cli_abort("type = 'media' is not supported by `count()`"),
+                   cli::cli_abort("`count()` only supports `type = 'occurrences' or` `'species'`"))
+  x
+}
+
+#' Internal function to check behaviour of `distinct()`, `group_by()` etc.
+#' called by `as_query()`
+#' @noRd
+#' @keywords Internal
+check_distinct_count_groupby <- function(x){
+
+  # get basic info
+  has_group_by <- !is.null(x$group_by)
+  has_count <- !is.null(x$count)
+  has_distinct <- !is.null(x$distinct)
+  has_select <- !is.null(x$select)
+
+  # first handle case when distinct() is supplied
+  if(has_distinct){
+    has_distinct_name <- !is.na(x$distinct$name)
+    keep_all <- x$distinct$keep_all
+    if(has_distinct_name){
+      if(keep_all){ # this section feels incomplete
+        update_request_object(x, type = "species")
+      }else{ # keep_all is FALSE
+        update_request_object(x, type = "species-count")
+      }
+    }else{ # no distinct name
+      if(has_group_by){
+        if(keep_all){
+          x <- update_request_object(x, type = "species")
+          if(has_count){
+            count_switch(x)
+          }else{
+            x
+          }
+        }else{
+          x <- update_request_object(x, type = "occurrences-count")
+          if(has_select){
+            if(has_count){
+              x
+            }else{
+              dplyr::select(x, -dplyr::any_of("count"))
+            } # end has_count
+          }else{ # end has_select
+            if(has_count){
+              dplyr::select(x, -dplyr::any_of(c("label", "i18nCode", "fq")))
+            }else{
+              dplyr::select(x, -dplyr::any_of(c("label", "i18nCode", "fq", "count")))
+            }
+          } # end has_select
+        } # end keep_all = FALSE
+      }else{ # no group_by() AND empty call distinct()
+        if(has_count){
+          count_switch(x)
+        }else{
+          x
+        }
+      } # end has_group_by
+    } # end has_distinct_name
+  }else{ # no distinct() call
+    if(has_select){
+      if(has_count){
+        count_switch(x)
+      }else{
+        x
+      }
+    }else{ # no select
+      if(has_count){
+        x |>
+          count_switch() |>
+          dplyr::select(-dplyr::any_of(c("label", "i18nCode", "fq")))
+      }else{
+        dplyr::select(x, group = "basic") # assumes type = "occurrences"
+      }
+    } # end has_select
+  } # end has_distinct
+} # end function
+  
+#' Internal function to check `slice` and `arrange` for counts
+#' @keywords Internal
+#' @noRd
+check_slice_arrange <- function(x){
+  if(!stringr::str_detect(x$type, "-count$")){
+    x
+  }else{
+    if(is.null(x$slice)){
+      # limits to 10,000 rows
+      # TODO: This should ultimately be set by `slice` or `atlas_counts(limit = )`, not internally.
+      #       Will need updating to avoid hidden limit setting here & in `compute_occurrences_count()`
+      slice <- tibble::tibble(slice_n = 1e4, slice_called = FALSE) 
+    }else{
+      slice <- x$slice
+    }
+    if(is.null(x$arrange)){
+      arrange <- tibble::tibble(variable = "count", 
+                                direction = "descending")
+    }else{
+      arrange <- x$arrange
+    }
+    x$slice_arrange <- dplyr::bind_cols(slice, arrange)
+    x$arrange <- NULL
+    x$slice <- NULL
+    x
+  }
+}
+
+#' Internal function to enforce `select()` for metadata queries. Basically just 
+#' supplies defaults. This is the *setup* phase as is usually called by 
+#' `as_query()`
+#' @noRd
+#' @keywords Internal
+enforce_select_query <- function(x){
+  # note: UseMethod() would be tidier, but seems to need to be exported to work?
+  switch(class(x)[1],
+    "metadata_request" = enforce_select_query_metadata(x),
+    "data_request" = enforce_select_query_data(x),
+    x)
+}
+
+#' sub-function to `enforce_select_query()`
+#' @noRd
+#' @keywords Internal
+enforce_select_query_metadata <- function(x){
+  # if `select()` is given, we simply pass it on
+  # if missing, we have to apply some logic
+  if(is.null(x$select)){
+    specific_type <- x |>
+      purrr::pluck("type") |>
+      stringr::str_remove("^metadata/")
+    # see whether `lookup_select_columns()` returns anything
+    chosen_columns <- lookup_select_columns(specific_type)  
+    # some `unnest` queries internally rename the lead column to the name of the supplied field
+    if(is.null(chosen_columns) & 
+       stringr::str_detect(specific_type, "-unnest$")){
+         chosen_columns <- x$filter |>
+           purrr::pluck("value")
+    }
+    # if we have, after 2 attempts, found some chosen_columns, use them
+    if(!is.null(chosen_columns)){
+      x <- dplyr::select(x, tidyselect::any_of({{chosen_columns}}))
+    # if *still* null, choose `everything()`
+    }else{
+      x <- dplyr::select(x, tidyselect::everything()) 
+    }
+  }
+}
+
+#' sub-function to `enforce_select_query()`
+#' @noRd
+#' @keywords Internal
+enforce_select_query_data <- function(x){
+  if(is.null(x$select)){
+    switch(x$type, 
+      "occurrences" = dplyr::select(x, group = "basic"),
+      "occurrences-count" = dplyr::select(x, -dplyr::any_of(c("label", "i18nCode", "fq"))),
+      "species" = dplyr::select(x, group = "taxonomy"),
+      # NOTE: further exceptions may be needed for type = "species"
+      dplyr::select(x, tidyselect::everything()) # useful for type = "occurrences-doi"
+    )    
+  }else{
+    x
+  }
+}
+
+#' @noRd
+#' @keywords Internal
+add_request <- function(new_obj, source_obj){
+  new_class <- class(new_obj)
+  new_obj$request <- source_obj
+  structure(new_obj, class = new_class)
 }

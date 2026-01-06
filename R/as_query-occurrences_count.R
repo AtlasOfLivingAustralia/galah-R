@@ -43,13 +43,31 @@ as_query_occurrences_count_atlas <- function(identify = NULL,
       httr2::url_parse()
     facets <- as.list(group_by$name)
     names(facets) <- rep("facets", length(facets))
- 
     url$query <- c(query, facets, parse_slice_arrange(slice_arrange))
     result <- list(type = "data/occurrences-count-groupby",
                    url = httr2::url_build(url),
                    headers = build_headers())
   }
   as_query(result)
+}
+
+#' Internal function to parse `slice` and `arrange` for counts
+#' @keywords Internal
+#' @noRd
+parse_slice_arrange <- function(df){
+  if(df$variable == "count"){ # arranged in descending order by default
+    if(df$direction == "ascending"){
+      list(fsort = "count", flimit = 0)
+    }else{
+      list(fsort = "count", flimit = df$slice_n)
+    }
+  }else{ # non-count fields are arranged in ascending order by default
+    if(df$direction == "ascending"){
+      list(fsort = "index", flimit = df$slice_n)
+    }else{
+      list(fsort = "index", flimit = 0)
+    }
+  }
 }
 
 #' collapse for counts on GBIF

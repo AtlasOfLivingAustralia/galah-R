@@ -272,7 +272,12 @@ collect_fields <- function(.query){
                       type = "fields") |>
         dplyr::rename_with(camel_to_snake_case) |>
         dplyr::bind_rows(galah_internal_archived$media,
-                         galah_internal_archived$other)       
+                         galah_internal_archived$other) |>
+        dplyr::distinct(.data$id, .keep_all = TRUE) # please keep this line!
+        # Sometimes living atlases update their field lists to add or remove
+        # media information which is *also* added here in the `bind_rows()` line.
+        # Using `distinct()` is a safe way to ensure they are always present 
+        # but **not** duplicated.
     }
     result_df <- update_attributes(result_df, type = "fields")
     update_cache(fields = result_df)

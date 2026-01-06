@@ -72,23 +72,11 @@ test_that("`count(year)` groups by `year`", {
   expect_equal(colnames(result), c("year", "count"))
 })
 
-test_that("`count()` handles multiple 'group by' variables", {
-  skip_if_offline(); skip_on_ci()
-  counts <- galah_call() |>
-    filter(year >= 2021) |>
-    group_by(year, month, basisOfRecord) |>
-    count() |>
-    collect()
-  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(names(counts),
-               c("year", "month", "basisOfRecord", "count"))
-  expect_true(all(counts$year >= 2021))
-})
-
 test_that("`count()` handles multiple variables", {
   skip_if_offline(); skip_on_ci()
   counts <- galah_call() |>
-    filter(year >= 2021) |>
+    filter(year >= 2021,
+           month >= 10) |>
     count(year, month, basisOfRecord) |>
     collect()
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
@@ -321,6 +309,17 @@ test_that("`group_by()` works when > 1 `filter()`", {
   expect_equal(y, z)
 })
 
+test_that("`select()` works for count queries", {
+  x <- galah_call() |>
+    filter(year == 2024,
+           genus == "Crinia") |>
+    count(speciesID) |>
+    select(dplyr::everything()) |>
+    collect()
+  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_gte(ncol(x), 4) # traditionally this was only two cols
+})
+
 ## BELOW HERE TESTS WILL FAIL
 
 # capture_requests("count_piped_2", {
@@ -335,16 +334,4 @@ test_that("`group_by()` works when > 1 `filter()`", {
 #     expect_equal(names(counts), c("year", "count"))
 #     expect_gt(nrow(counts), 0)
 #   })
-# })
-
-# test_that("`atlas_counts()` handles pagination", {
-#   vcr::use_cassette("count_with_pagination", {
-#     counts <- galah_call() |>
-#       group_by(year) |>
-#       slice_head(n = 101) |>
-#       count()
-#   })
-#   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-#   expect_equal(nrow(counts), 101)
-#   expect_equal(names(counts), c("year", "count"))
 # })

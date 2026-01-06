@@ -45,11 +45,17 @@ collapse_run_checks <- function(.query,
                                 error_call = rlang::caller_env()){
   # "data/" functions require pre-processing of metadata,
   if(stringr::str_detect(.query$type, "^data/")){
-    # some checks should happen regardless of `run_checks`
-    .query <- .query |>
-      check_login(error_call) |>
-      check_identifiers(error_call) |> 
-      check_select(error_call)
+    # taxon concept ID must always be evaluated
+    .query <- check_identifiers(.query, error_call) 
+    # login should only be evaluated for species and occurrence
+    if(.query$type %in% c("data/occurrences", "data/species")){
+      .query <- check_login(.query, error_call)
+    }
+    # check_select() is specifically for parsing fields into urls,
+    # should only be called for occurrences
+    if(.query$type == "data/occurrences"){
+      .query <- check_select(.query, error_call)
+    }
     if(potions::pour("package", "run_checks")) {
       .query <- .query |>
         check_reason(error_call) |>

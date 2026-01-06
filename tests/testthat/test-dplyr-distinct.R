@@ -4,6 +4,7 @@ quiet_collect <- function(x){
   purrr_collect(x) |> 
     purrr::pluck("result")
 }
+galah_config(email = "ala4r@ala.org.au")
 
 test_that("`group_by()` without `distinct()` returns occurrences, not species", {
   skip_if_offline(); skip_on_ci()
@@ -69,8 +70,48 @@ test_that("`group_by() |> distinct(.keep_all = TRUE)` converts type from occurre
   x <- quiet_collect(query)
   expect_s3_class(x,
                   c("tbl_df", "tbl", "data.frame"))
-  expect_equal(length(unique(x$speciesID)),
+  expect_equal(length(unique(x$species)),
                nrow(x))
+})
+
+test_that("`distinct()` can be used in place of `group_by()` for species queries", {
+  skip_if_offline(); skip_on_ci()
+  result <- galah_call() |>
+    identify("Osphranter") |>
+    distinct(speciesID, .keep_all = TRUE) |>
+    quiet_collect()
+  expect_gte(nrow(result), 4)
+  expect_s3_class(result,
+                  c("tbl_df", "tbl", "data.frame"))
+  expect_contains(colnames(result),
+                  c("species", "species_name", "kingdom"))
+})
+
+test_that("`distinct(speciesID) |> count()` can be used to count the number of species", {
+  skip_if_offline(); skip_on_ci()
+  result <- galah_call() |>
+    identify("perameles") |>
+    distinct(taxonConceptID) |>
+    count() |>
+    quiet_collect()
+  expect_s3_class(x,
+                  c("tbl_df", "tbl", "data.frame"))
+  expect_equal(nrow(result), 1)
+  expect_true(result$count[1] > 1 & result$count[1] < 10)
+})
+
+test_that("`group_by(something) |> distinct(speciesID) |> count()` gives grouped number of categories", {
+  skip_if_offline(); skip_on_ci()
+  result <- galah_call() |>
+    identify("perameles") |>
+    group_by(basisOfRecord) |>
+    distinct(speciesID) |>
+    count() |>
+    collect()
+  expect_equal(colnames(result),
+               c("basisOfRecord", "count"))
+  all(result$count < 10) |> 
+    expect_true()
 })
 
 test_that("`add_count() |> distinct()` adds record counts to each species", {
@@ -90,49 +131,8 @@ test_that("`add_count() |> distinct()` adds record counts to each species", {
                nrow(x))
 })
 
-test_that("`distinct()` can be used in place of `group_by()` for species queries", {
-  skip_if_offline(); skip_on_ci()
-  result <- galah_call() |>
-    identify("Osphranter") |>
-    distinct(speciesID, .keep_all = TRUE) |>
-    quiet_collect()
-  expect_gte(nrow(result), 4)
-  expect_s3_class(result,
-                  c("tbl_df", "tbl", "data.frame"))
-  expect_contains(colnames(result),
-                  c("taxon_concept_id", "species_name", "kingdom"))
-})
-
-test_that("`distinct(speciesID) |> count()` can be used to count the number of species", {
-  skip_if_offline(); skip_on_ci()
-  result <- galah_call() |>
-    identify("perameles") |>
-    distinct(taxonConceptID) |>
-    count()
-  expect_s3_class(x,
-                  c("tbl_df", "tbl", "data.frame"))
-  expect_equal(nrow(result), 1)
-  expect_true(result$count[1] > 1 & result$count[1] < 10)
-})
-
-test_that("`group_by(something) |> distinct(speciesID) |> count()` gives grouped number of categories", {
-  skip_if_offline(); skip_on_ci()
-  result <- galah_call() |>
-    identify("perameles")
-    group_by(basisOfRecord) |>
-    distinct(speciesID) |>
-    count()
-  expect_equal(colnames(result),
-               c("basisOfRecord", "count"))
-  all(result$count < 10) |> 
-    expect_true()
-})
-
-test_that("using `add_count()` allows counts to be added to speces queries", {
-  galah_call() |>
-    group_by(taxonConceptID) |>
-    add_count() |>  # no longer in `select()`
-    distinct(taxonConceptID, .keep_all = TRUE)
+test_that("add_count() without `distinct()` just adds a column of 1s", {
+  skip("not built")
 })
 
 rm(quiet_collect)

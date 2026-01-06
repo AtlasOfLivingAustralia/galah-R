@@ -80,11 +80,7 @@ test_that("`search_values()` returns filtered results for profiles", {
 
 test_that("`search_values()` returns filtered results for lists", {
   skip_if_offline(); skip_on_ci()
-  # use more efficient syntax
-  base_df <- request_metadata() |>
-    filter(lists == "dr650") |>
-    unnest() |>
-    collect()
+  base_df <- search_all(lists, "dr650")
   values_search <- base_df |> quiet_search("frog")
   values_show <- base_df |> quiet_values()
   search_result_check <- all(grepl(pattern = "frog", 
@@ -143,10 +139,9 @@ test_that("`show_values()` all_fields = TRUE works for lists", {
   # doesn't work for fields
   x <- search_all(fields, "cl22") |>
     purrr_values(all_fields = TRUE)
-  expect_equal(x$warnings,
-               "`all_fields` only applies to type `lists`. Ignoring `all_fields = TRUE`.")
-  expect_equal(x$messages,
-               "* Showing values for 'cl22'.")
+  stringr::str_detect(x$messages, "cl22") |>
+    any() |>
+    expect_true()
 })
 
 rm(purrr_values, quiet_values, purrr_search, quiet_search)

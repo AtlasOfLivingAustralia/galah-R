@@ -15,22 +15,9 @@ count.data_request <- function(x,
                                wt, 
                                sort, 
                                name){
-  count_switch(x) |>
-    group_by(...)
-}
-
-#' Internal function called by `count.data_request()` and `distinct.data_request()`
-#' @noRd
-#' @keywords Internal
-count_switch <- function(x){ 
-  x$type <- switch(x$type, 
-                   "occurrences" = "occurrences-count",
-                   "occurrences-count" = "occurrences-count",
-                   "species" = "species-count",
-                   "species-count" = "species-count",
-                   "media" = cli::cli_abort("type = 'media' is not supported by `count()`"),
-                   cli::cli_abort("`count()` only supports `type = 'occurrences' or` `'species'`"))
-  x
+  x |>
+    group_by(...) |>
+    update_request_object(count = TRUE)
 }
 
 #' @rdname count.data_request
