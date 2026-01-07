@@ -1,8 +1,6 @@
 #' Order rows using column values
 #' 
 #' @description
-#' `r lifecycle::badge("experimental")`  
-#' 
 #' `arrange.data_request()` arranges rows of a query on the server side, meaning 
 #' that the query is constructed in such a way that information will be arranged 
 #' when the query is processed. This only has an effect when used in combination

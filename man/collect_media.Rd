@@ -4,7 +4,7 @@
 \alias{collect_media}
 \title{Collect media files}
 \usage{
-collect_media(df, thumbnail = FALSE, path)
+collect_media(df, thumbnail = FALSE)
 }
 \arguments{
 \item{df}{A \code{tibble} returned by \code{atlas_media()} or a pipe starting with
@@ -12,10 +12,6 @@ collect_media(df, thumbnail = FALSE, path)
 
 \item{thumbnail}{Default is \code{FALSE}. If \code{TRUE} will download small
 thumbnail-sized images, rather than full size images (default).}
-
-\item{path}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-Use \verb{galah_config(directory = "path-to-directory)"} instead. Supply a path
-to a local folder/directory where downloaded media will be saved to.}
 }
 \value{
 Invisibly returns a \code{tibble} listing the number of files downloaded,

@@ -61,6 +61,29 @@ reference:
   contents: 
   - galah_config
   - galah_call
+- title: Update a request object
+  contents:
+  - apply_profile
+  - arrange.data_request
+  - count.data_request
+  - distinct.data_request
+  - filter.data_request
+  - geolocate
+  - group_by.data_request
+  - identify.data_request
+  - select.data_request
+  - slice_head.data_request
+  - reexports
+  - unnest
+- title: Create and execute a query
+  contents:
+  - as_query.data_request
+  - coalesce
+  - collapse.data_request
+  - compute.data_request
+  - collect.data_request
+- title: Wrappers for accessing data
+  contents:
   - show_all
   - search_all
   - search_taxa
@@ -73,27 +96,6 @@ reference:
   - show_all_reasons
   - show_all_ranks
   - show_values
-- title: Update a data request
-  contents:
-  - apply_profile
-  - arrange.data_request
-  - count.data_request
-  - filter.data_request
-  - geolocate
-  - group_by.data_request
-  - identify.data_request
-  - select.data_request
-  - slice_head.data_request
-  - reexports
-- title: Create and execute a query
-  contents:
-  - as_query.data_request
-  - coalesce
-  - collapse.data_request
-  - compute.data_request
-  - collect.data_request
-- title: Wrappers for accessing data
-  contents:
   - atlas_occurrences
   - atlas_counts
   - atlas_species

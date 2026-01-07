@@ -3,9 +3,9 @@
 #' @description
 #' The Global Biodiversity Information Facility (GBIF; <https://www.gbif.org>)
 #' provides tools to enable users to find, access, combine and visualise 
-#' biodiversity data. `galah` enables the R community to directly access data and 
-#' resources hosted by GBIF and several of it's subsidiary organisations, known
-#' as 'nodes'. 
+#' biodiversity data. `galah` is a `dplyr` extension package that enables the R 
+#' community to directly access data and resources hosted by GBIF and several 
+#' of it's subsidiary organisations (known as 'nodes') using `dplyr` verbs.
 #' 
 #' The basic unit of data stored by these infrastructures is 
 #' an **occurrence** record, which is an observation of a biological entity at
@@ -13,8 +13,8 @@
 #' taxonomic information, or associated media such images or sounds, 
 #' all while restricting their queries to particular taxa or locations. Users 
 #' can specify which columns are returned by a query, or restrict their results 
-#' to observations that meet particular quality-control criteria. 
-#'
+#' to observations that meet particular quality-control criteria.  
+#' 
 #' For those outside Australia, 'galah' is the common name of
 #' *Eolophus roseicapilla*, a widely-distributed Australian bird species.
 #' @name galah
@@ -24,16 +24,14 @@
 #' **Getting Started**
 #' 
 #'   * [galah_config()] Set package configuration options
-#'   * [galah_call()]/\code{\link[=request_data]{request_()}} Start to build a query
-#'   * [show_all()] & [search_all()] Data for generating filter queries
-#'   * [show_values()] & [search_values()] Show or search for values _within_ 
-#'   `fields`, `profiles`, `lists`, `collections`, `datasets` or `providers`
+#'   * [galah_call()]/\code{\link[=request_data]{request_()}} Start to build a request
 #'   
-#' **Update a data request**
+#' **Update a request object**
 #' 
-#'   * [apply_profile()] Restrict to data that pass predefined checks (ALA only)
+#'   * [apply_profile()] Restrict to data that pass predefined checks
 #'   * \code{\link[=arrange.data_request]{arrange()}} Arrange rows of a query on the server side
 #'   * \code{\link[=count.data_request]{count()}} Request counts of the specified data type
+#'   * \code{\link[=distinct.data_request]{distinct()}} Keep distinct/unique rows
 #'   * \code{\link[=filter.data_request]{filter()}} Filter records (see also \code{\link[=filter_object_classes]{filter_object_classes}}))
 #'   * [geolocate()] Spatial filtering of a query
 #'   * \code{\link[=group_by.data_request]{group_by()}} Group counts by one or more fields
@@ -44,14 +42,16 @@
 #'
 #' **Create and execute a query**
 #' 
-#'   * [as_query()] Represent a `data_request` as a `query` object
+#'   * [as_query()] Convert a request into a `query` object
 #'   * [coalesce()] Convert a `data_request` or `query` into a `query_set` showing all calls needed for evaluation
 #'   * \code{\link[=collapse.data_request]{collapse()}} Convert an object to a valid `query` 
 #'   * \code{\link[=compute.data_request]{compute()}} Compute a query
-#'   * \code{\link[=collect.data_request]{collect()}}/\code{\link[=atlas_]{atlas_()}}/[collect_media()] Retrieve a database query
+#'   * \code{\link[=collect.data_request]{collect()}} Retrieve a database query
 #' 
 #' **Wrappers for accessing data**
 #' 
+#'   * [show_all()] & [search_all()] Data for generating filter queries
+#'   * [show_values()] & [search_values()] Show or search for values _within_ `fields`, `profiles`, `lists`, `collections`, `datasets` or `providers`
 #'   * [atlas_occurrences()] Download occurrence data
 #'   * [atlas_counts()] Get a summary of the number of records or species
 #'   * [atlas_species()] Download occurrences grouped by `speciesID`

@@ -1,8 +1,6 @@
 #' Subset rows using their positions
 #' 
 #' @description 
-#' `r lifecycle::badge("experimental")`  
-#' 
 #' `slice()` lets you index rows by their (integer) locations. For objects of
 #' classes `data_request` or `metadata_request`, only `slice_head()` is
 #' currently implemented, and selects the first `n` rows.

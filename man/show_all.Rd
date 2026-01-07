@@ -67,7 +67,6 @@ options or categories for the type of information they are interested in.
 Functions prefixed with \code{show_all_} do this, displaying all valid options
 for the information specified by the suffix.
 
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 \code{show_all()} is a helper function that can display multiple types of
 information from \code{show_all_} sub-functions.
 }

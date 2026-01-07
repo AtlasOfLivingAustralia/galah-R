@@ -9,7 +9,6 @@
 #' Functions prefixed with `show_all_` do this, displaying all valid options 
 #' for the information specified by the suffix. 
 #' 
-#' `r lifecycle::badge("stable")`
 #' `show_all()` is a helper function that can display multiple types of 
 #' information from `show_all_` sub-functions. 
 #' @param ... String showing what type of information is to be requested. See 

@@ -5,7 +5,7 @@
 \alias{request_data}
 \alias{request_metadata}
 \alias{request_files}
-\title{Start building a query}
+\title{Start building a request}
 \usage{
 galah_call(method = c("data", "metadata", "files"), type)
 
@@ -37,17 +37,8 @@ Each sub-function returns a different object class:
 \item \code{\link[=request_files]{request_files()}} returns class \code{"files_request"}
 }
 
-These objects are list-like and contain the following slots:
-\itemize{
-\item \code{filter}: edit by piping \code{\link[=filter.data_request]{filter()}} or \code{\link[=galah_filter]{galah_filter()}}.
-\item \code{select}: edit by piping \code{\link[=filter.data_request]{select}} or \code{\link[=galah_select]{galah_select()}}.
-\item \code{group_by}: edit by piping \code{\link[=group_by.data_request]{group_by()}} or \code{\link[=galah_group_by]{galah_group_by()}}.
-\item \code{identify}: edit by piping \code{\link[=identify.data_request]{identify()}} or \code{\link[=galah_identify]{galah_identify()}}.
-\item \code{geolocate}: edit by piping \code{\link[=st_crop.data_request]{st_crop()}},
-\code{\link[=galah_geolocate]{galah_geolocate()}}, \code{\link[=galah_polygon]{galah_polygon()}} or \code{\link[=galah_bbox]{galah_bbox()}}.
-\item \code{limit}: edit by piping \code{\link[=slice_head.data_request]{slice_head()}}.
-\item \code{doi}: edit by piping \code{\link[=filter.data_request]{filter(doi == "my-doi-here")}}.
-}
+These objects are list-like and store later dplyr verbs in the order
+they are provided.
 }
 \description{
 To download data from the selected atlas, one must construct a query. This
@@ -57,7 +48,7 @@ download data, in the same way that you would wrangle data with \code{dplyr} and
 the \code{tidyverse}.
 }
 \details{
-In practice, \code{\link[=galah_call]{galah_call()}} is a wrapper to a group of underlying
+\code{\link[=galah_call]{galah_call()}} is a wrapper to a group of underlying
 \code{request_} functions, selected using the \code{method} argument.
 Each of these functions can begin a piped query, which is then actioned using
 \code{\link[=collect.data_request]{collect()}}, or optionally one of the
@@ -66,13 +57,7 @@ details see the object-oriented programming vignette:
 \code{vignette("object_oriented_programming", package = "galah")}
 
 Accepted values of the \code{type} argument are set by the underlying \code{request_}
-functions. While all accepted types can be set directly, some are affected
-by later functions. The most common example is that adding
-\code{\link[=count.data_request]{count()}} to a pipe updates \code{type},
-converting \code{type = "occurrences"} to \code{type = "occurrences-count"} (and ditto
-for \code{type = "species"}).
-
-The underlying \code{request_} functions are useful because they allow \code{galah}
+functions. These functions are useful because they allow \code{galah}
 to separate different types of requests to perform better. For example,
 \code{\link[=filter.data_request]{filter.data_request()}} translates filters
 to \code{solr} syntax for the living atlases, or to predicates for GBIF, whereas
@@ -88,12 +73,14 @@ galah_call() |>
   identify("Aves") |>
   filter(year > 2000 & year < 2005) |>
   group_by(year) |>
-  atlas_counts()
+  count() |>
+  collect()
   
 # Get information for all species in *Cacatuidae* family
 galah_call() |>
   identify("Cacatuidae") |>
-  atlas_species()
+  distinct("speciesID", .keep_all = TRUE) |>
+  collect()
   
 # Download records of genus *Eolophus* from 2001 to 2004
 galah_config(email = "your-email@email.com")
@@ -101,32 +88,19 @@ galah_config(email = "your-email@email.com")
 galah_call() |>
   identify("Eolophus") |>
   filter(year > 2000 & year < 2005) |>
-  atlas_occurrences() # synonymous with `collect()`
-
-
-# galah_call() is a wrapper to various `request_` functions.
-# These can be called directly for greater specificity.
-
-# Get number of records of *Aves* from 2001 to 2004 by year
-request_data() |>
-  identify("Aves") |>
-  filter(year > 2000 & year < 2005) |>
-  group_by(year) |>
-  count() |>
   collect()
-
-# Get information for all species in *Cacatuidae* family
-request_data(type = "species") |>
-  identify("Cacatuidae") |>
-  collect()
-  
-# Get metadata information about supported atlases in galah
-request_metadata(type = "atlases") |>
-  collect()
-
 }
 }
 \seealso{
+To amend a request object, use \code{\link[=apply_profile]{apply_profile()}},
+\code{\link[=arrange.data_request]{arrange()}},
+\code{\link[=count.data_request]{count()}},
+\code{\link[=distinct.data_request]{distinct()}},
+\code{\link[=filter.data_request]{filter()}},
+\code{\link[=group_by.data_request]{group_by()}},
+\code{\link[=identify.data_request]{identify()}},
+\code{\link[=select.data_request]{select}},
+\code{\link[=slice_head.data_request]{slice_head()}} or \code{\link[=unnest]{unnest()}}.
 For operations on \verb{_request} objects, see
 \code{\link[=as_query.data_request]{as_query()}},
 \code{\link[=coalesce]{coalesce()}},

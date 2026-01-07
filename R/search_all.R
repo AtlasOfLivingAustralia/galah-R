@@ -13,7 +13,6 @@
 #' **For more information about taxonomic searches using `search_taxa()`, see**
 #' \code{\link[=taxonomic_searches]{?taxonomic_searches}}.
 #' 
-#' `r lifecycle::badge("stable")`
 #' `search_all()` is a helper function that can do searches for multiple 
 #' types of information, acting as a wrapper around many `search_` sub-functions. 
 #' See `Details` (below) for accepted values.

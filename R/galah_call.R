@@ -1,4 +1,4 @@
-#' Start building a query
+#' Start building a request
 #' 
 #' @description
 #' To download data from the selected atlas, one must construct a query. This 
@@ -11,7 +11,7 @@
 #' @param type string: what form of data should be returned? Acceptable values
 #' are specified by the corresponding `request` function
 #' @details
-#' In practice, [galah_call()] is a wrapper to a group of underlying 
+#' [galah_call()] is a wrapper to a group of underlying 
 #' `request_` functions, selected using the `method` argument. 
 #' Each of these functions can begin a piped query, which is then actioned using
 #' \code{\link[=collect.data_request]{collect()}}, or optionally one of the 
@@ -20,13 +20,7 @@
 #' \code{vignette("object_oriented_programming", package = "galah")}
 #' 
 #' Accepted values of the `type` argument are set by the underlying `request_`
-#' functions. While all accepted types can be set directly, some are affected
-#' by later functions. The most common example is that adding 
-#' \code{\link[=count.data_request]{count()}} to a pipe updates `type`, 
-#' converting `type = "occurrences"` to `type = "occurrences-count"` (and ditto 
-#' for `type = "species"`).
-#' 
-#' The underlying `request_` functions are useful because they allow `galah` 
+#' functions. These functions are useful because they allow `galah` 
 #' to separate different types of requests to perform better. For example, 
 #' \code{\link[=filter.data_request]{filter.data_request()}} translates filters 
 #' to `solr` syntax for the living atlases, or to predicates for GBIF, whereas 
@@ -38,19 +32,19 @@
 #' - [request_metadata()] returns class `"metadata_request"`
 #' - [request_files()] returns class `"files_request"` 
 #' 
-#' 
-#' These objects are list-like and contain the following slots:
-#' 
-#'  - `filter`: edit by piping \code{\link[=filter.data_request]{filter()}} or [galah_filter()].
-#'  - `select`: edit by piping \code{\link[=filter.data_request]{select}} or [galah_select()].
-#'  - `group_by`: edit by piping \code{\link[=group_by.data_request]{group_by()}} or [galah_group_by()].
-#'  - `identify`: edit by piping \code{\link[=identify.data_request]{identify()}} or [galah_identify()].
-#'  - `geolocate`: edit by piping \code{\link[=st_crop.data_request]{st_crop()}}, 
-#'    [galah_geolocate()], [galah_polygon()] or [galah_bbox()].
-#'  - `limit`: edit by piping \code{\link[=slice_head.data_request]{slice_head()}}.
-#'  - `doi`: edit by piping \code{\link[=filter.data_request]{filter(doi == "my-doi-here")}}.
+#' These objects are list-like and store later dplyr verbs in the order 
+#' they are provided.
 #'  
-#' @seealso For operations on `_request` objects, see 
+#' @seealso To amend a request object, use [apply_profile()],
+#' \code{\link[=arrange.data_request]{arrange()}},
+#' \code{\link[=count.data_request]{count()}},
+#' \code{\link[=distinct.data_request]{distinct()}},
+#' \code{\link[=filter.data_request]{filter()}},
+#' \code{\link[=group_by.data_request]{group_by()}},
+#' \code{\link[=identify.data_request]{identify()}},
+#' \code{\link[=select.data_request]{select}},
+#' \code{\link[=slice_head.data_request]{slice_head()}} or [unnest()].
+#' For operations on `_request` objects, see 
 #' \code{\link[=as_query.data_request]{as_query()}}, 
 #' [coalesce()], 
 #' \code{\link[=collapse.data_request]{collapse()}}, 
@@ -65,12 +59,14 @@
 #'   identify("Aves") |>
 #'   filter(year > 2000 & year < 2005) |>
 #'   group_by(year) |>
-#'   atlas_counts()
+#'   count() |>
+#'   collect()
 #'   
 #' # Get information for all species in *Cacatuidae* family
 #' galah_call() |>
 #'   identify("Cacatuidae") |>
-#'   atlas_species()
+#'   distinct("speciesID", .keep_all = TRUE) |>
+#'   collect()
 #'   
 #' # Download records of genus *Eolophus* from 2001 to 2004
 #' galah_config(email = "your-email@email.com")
@@ -78,29 +74,7 @@
 #' galah_call() |>
 #'   identify("Eolophus") |>
 #'   filter(year > 2000 & year < 2005) |>
-#'   atlas_occurrences() # synonymous with `collect()`
-#' 
-#' 
-#' # galah_call() is a wrapper to various `request_` functions.
-#' # These can be called directly for greater specificity.
-#' 
-#' # Get number of records of *Aves* from 2001 to 2004 by year
-#' request_data() |>
-#'   identify("Aves") |>
-#'   filter(year > 2000 & year < 2005) |>
-#'   group_by(year) |>
-#'   count() |>
 #'   collect()
-#' 
-#' # Get information for all species in *Cacatuidae* family
-#' request_data(type = "species") |>
-#'   identify("Cacatuidae") |>
-#'   collect()
-#'   
-#' # Get metadata information about supported atlases in galah
-#' request_metadata(type = "atlases") |>
-#'   collect()
-#' 
 #' }
 #' @export
 galah_call <- function(method = c("data", 

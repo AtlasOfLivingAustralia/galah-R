@@ -13,7 +13,7 @@
 
 \method{filter}{files_request}(.data, ...)
 
-galah_filter(..., profile = NULL)
+galah_filter(...)
 }
 \arguments{
 \item{.data}{An object of class \code{data_request}, \code{metadata_request}
@@ -23,9 +23,6 @@ or \code{files_request}, created using \code{\link[=galah_call]{galah_call()}} o
 of the variables in the selected atlas (and checked using \code{show_all(fields)}.
 If multiple expressions are included, they are combined with the & operator.
 Only rows for which all conditions evaluate to \code{TRUE} are kept.}
-
-\item{profile}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-Use \code{galah_apply_profile} instead.}
 }
 \value{
 A tibble containing filter values.

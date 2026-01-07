@@ -19,8 +19,6 @@ the variables also listed in \code{\link[=group_by.data_request]{group_by()}}.}
 An amended \code{data_request} with a completed \code{arrange} slot.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 \code{arrange.data_request()} arranges rows of a query on the server side, meaning
 that the query is constructed in such a way that information will be arranged
 when the query is processed. This only has an effect when used in combination

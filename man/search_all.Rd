@@ -77,7 +77,6 @@ suffix.
 \strong{For more information about taxonomic searches using \code{search_taxa()}, see}
 \code{\link[=taxonomic_searches]{?taxonomic_searches}}.
 
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 \code{search_all()} is a helper function that can do searches for multiple
 types of information, acting as a wrapper around many \code{search_} sub-functions.
 See \code{Details} (below) for accepted values.

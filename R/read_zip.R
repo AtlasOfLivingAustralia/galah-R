@@ -1,8 +1,6 @@
 #' Read downloaded data from a zip file
 #' 
 #' @description
-#' `r lifecycle::badge("experimental")`
-#' 
 #' Living atlases supply data downloads as zip files. This function reads these
 #' data efficiently, i.e. without unzipping them first, using the `readr` 
 #' package. Although this function has been part of galah for some time, it was 

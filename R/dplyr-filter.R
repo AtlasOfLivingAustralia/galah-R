@@ -14,9 +14,6 @@
 #' of the variables in the selected atlas (and checked using `show_all(fields)`. 
 #' If multiple expressions are included, they are combined with the & operator. 
 #' Only rows for which all conditions evaluate to `TRUE` are kept.
-#' @param profile 
-#'    `r lifecycle::badge("deprecated")`  
-#'    Use `galah_apply_profile` instead. 
 #' @return A tibble containing filter values.
 #' @seealso \code{\link[=select.data_request]{select()}}, 
 #' \code{\link[=group_by.data_request]{group_by()}} and [geolocate()] for 

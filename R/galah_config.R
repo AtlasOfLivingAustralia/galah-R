@@ -88,16 +88,6 @@ galah_config <- function(...) {
   
   # add user-provided information
   if(length(dots) > 0){
-    # check for deprecated `cache_directory`
-    if(any(names(dots) == "cache_directory")){
-      dots_location <- which(names(dots) == "cache_directory")
-      value <- dots$cache_directory
-      lifecycle::deprecate_warn(when = "2.0.0",
-                                what = "galah_config(cache_directory)",
-                                details = glue::glue("Use `galah_config(directory = \"{value}\")` instead.")
-      )
-      names(dots)[dots_location] <- "directory"
-    }
     
     # add exception so that people can supply a named list to `galah_config()`
     # this avoids calling things like:

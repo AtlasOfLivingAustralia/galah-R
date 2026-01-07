@@ -64,7 +64,6 @@ box. Bounding boxes can be extracted from a supplied \code{sf} object or
 a shapefile. A bounding box can also be supplied as a \code{bbox} object
 (via \code{sf::st_bbox()}) or a \code{tibble}/\code{data.frame}.
 
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 \strong{Use a point radius}
 Alternatively, set \code{type = "radius"} to narrow queries to within a circular
 area around a specific point location. Point coordinates can be supplied as

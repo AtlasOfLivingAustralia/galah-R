@@ -8,9 +8,9 @@
 \description{
 The Global Biodiversity Information Facility (GBIF; \url{https://www.gbif.org})
 provides tools to enable users to find, access, combine and visualise
-biodiversity data. \code{galah} enables the R community to directly access data and
-resources hosted by GBIF and several of it's subsidiary organisations, known
-as 'nodes'.
+biodiversity data. \code{galah} is a \code{dplyr} extension package that enables the R
+community to directly access data and resources hosted by GBIF and several
+of it's subsidiary organisations (known as 'nodes') using \code{dplyr} verbs.
 
 The basic unit of data stored by these infrastructures is
 an \strong{occurrence} record, which is an observation of a biological entity at
@@ -29,17 +29,15 @@ For those outside Australia, 'galah' is the common name of
 \strong{Getting Started}
 \itemize{
 \item \code{\link[=galah_config]{galah_config()}} Set package configuration options
-\item \code{\link[=galah_call]{galah_call()}}/\code{\link[=request_data]{request_()}} Start to build a query
-\item \code{\link[=show_all]{show_all()}} & \code{\link[=search_all]{search_all()}} Data for generating filter queries
-\item \code{\link[=show_values]{show_values()}} & \code{\link[=search_values]{search_values()}} Show or search for values \emph{within}
-\code{fields}, \code{profiles}, \code{lists}, \code{collections}, \code{datasets} or \code{providers}
+\item \code{\link[=galah_call]{galah_call()}}/\code{\link[=request_data]{request_()}} Start to build a request
 }
 
-\strong{Update a data request}
+\strong{Update a request object}
 \itemize{
-\item \code{\link[=apply_profile]{apply_profile()}} Restrict to data that pass predefined checks (ALA only)
+\item \code{\link[=apply_profile]{apply_profile()}} Restrict to data that pass predefined checks
 \item \code{\link[=arrange.data_request]{arrange()}} Arrange rows of a query on the server side
 \item \code{\link[=count.data_request]{count()}} Request counts of the specified data type
+\item \code{\link[=distinct.data_request]{distinct()}} Keep distinct/unique rows
 \item \code{\link[=filter.data_request]{filter()}} Filter records (see also \code{\link[=filter_object_classes]{filter_object_classes}}))
 \item \code{\link[=geolocate]{geolocate()}} Spatial filtering of a query
 \item \code{\link[=group_by.data_request]{group_by()}} Group counts by one or more fields
@@ -51,15 +49,17 @@ For those outside Australia, 'galah' is the common name of
 
 \strong{Create and execute a query}
 \itemize{
-\item \code{\link[=as_query]{as_query()}} Represent a \code{data_request} as a \code{query} object
+\item \code{\link[=as_query]{as_query()}} Convert a request into a \code{query} object
 \item \code{\link[=coalesce]{coalesce()}} Convert a \code{data_request} or \code{query} into a \code{query_set} showing all calls needed for evaluation
 \item \code{\link[=collapse.data_request]{collapse()}} Convert an object to a valid \code{query}
 \item \code{\link[=compute.data_request]{compute()}} Compute a query
-\item \code{\link[=collect.data_request]{collect()}}/\code{\link[=atlas_]{atlas_()}}/\code{\link[=collect_media]{collect_media()}} Retrieve a database query
+\item \code{\link[=collect.data_request]{collect()}} Retrieve a database query
 }
 
 \strong{Wrappers for accessing data}
 \itemize{
+\item \code{\link[=show_all]{show_all()}} & \code{\link[=search_all]{search_all()}} Data for generating filter queries
+\item \code{\link[=show_values]{show_values()}} & \code{\link[=search_values]{search_values()}} Show or search for values \emph{within} \code{fields}, \code{profiles}, \code{lists}, \code{collections}, \code{datasets} or \code{providers}
 \item \code{\link[=atlas_occurrences]{atlas_occurrences()}} Download occurrence data
 \item \code{\link[=atlas_counts]{atlas_counts()}} Get a summary of the number of records or species
 \item \code{\link[=atlas_species]{atlas_species()}} Download occurrences grouped by \code{speciesID}

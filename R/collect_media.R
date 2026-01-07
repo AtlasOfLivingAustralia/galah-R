@@ -7,12 +7,7 @@
 #' @param df A `tibble` returned by `atlas_media()` or a pipe starting with 
 #' `request_data(type = "media")`.
 #' @param thumbnail Default is `FALSE`. If `TRUE` will download small 
-#' thumbnail-sized images, rather than full size images (default).
-#' @param path  
-#'    `r lifecycle::badge("deprecated")` 
-#'    Use `galah_config(directory = "path-to-directory)"` instead. Supply a path 
-#'    to a local folder/directory where downloaded media will be saved to.
-#'    
+#' thumbnail-sized images, rather than full size images (default).  
 #' @return Invisibly returns a `tibble` listing the number of files downloaded,
 #' grouped by their HTML status codes. Primarily called for the side effect of
 #' downloading available image & media files to a user local directory.
@@ -49,24 +44,8 @@
 #' }
 #' @export
 collect_media <- function(df, 
-                          thumbnail = FALSE, 
-                          path
-                          ){
-  if (!missing(path)) {
-    lifecycle::deprecate_stop(
-      when = "2.0.0",
-      what = "collect_media(path = )",
-      details = "Use `galah_config(directory = )` to supply a folder path instead."
-    )
-  }
-  
-  # suggest option to set directory in galah_config()
-  user_directory <- potions::pour("package", "directory")
-  if (stringr::str_detect(user_directory, "Temp")) {
-    cli::col_magenta("To change which file directory media files are saved to, use `galah_config(directory = )`.") |>
-    cli::cli_text()
-  }
-  
+                          thumbnail = FALSE
+                          ){ 
   request_files() |>
     filter("media" == df) |>
     collapse(thumbnail = thumbnail) |>

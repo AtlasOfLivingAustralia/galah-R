@@ -1,7 +1,7 @@
 #' @rdname filter.data_request
 #' @order 4
 #' @export
-galah_filter <- function(..., profile = NULL){
+galah_filter <- function(...){
   dots <- rlang::enquos(..., .ignore_empty = "all") |>
     detect_request_object()
   check_named_input(dots)
