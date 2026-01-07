@@ -56,6 +56,9 @@ test_that("object of class `query_set` formats correctly", {
 })
 
 test_that("`galah_config()` formats correctly", {
+  galah_config(directory = "something")
   galah_config() |>
     expect_snapshot()
+  galah_config(directory = tempdir(check = TRUE))
+  unlink("something", recursive = TRUE)
 })

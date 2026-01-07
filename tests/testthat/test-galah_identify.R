@@ -87,8 +87,8 @@ test_that("`identify()` truncates unmatched list of taxa at 3 ", {
   expected_messages <- c(
     "Matched 1 of 5 taxonomic search terms in selected atlas (Australia).\n",
     "4 unmatched search terms:\n",
-    "* \"blarghy\", \"blorp\", \"florp\" + 1 more\"\n",
-    "")
+    "• \"blarghy\", \"blorp\", \"florp\" + 1 more\"\n",
+    "\n")
   x |>
     purrr::pluck("messages") |>
     expect_equal(expected_messages)

@@ -242,9 +242,8 @@ as_query_media_metadata <- function(.query,
   # }
   list(type = "metadata/media",
        url = tibble::tibble(url = url_lookup("metadata/media",
-                                             id= .query$filter$value)),
-       headers = build_headers(),
-       filter = .query$filter) |>
+                                             id = .query$filter$value)),
+       headers = build_headers()) |>
     as_query()
   
 }

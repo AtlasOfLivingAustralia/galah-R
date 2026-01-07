@@ -20,6 +20,7 @@ atlas_species <- function(request = NULL,
   
   # convert to `data_request` object
   check_atlas_inputs(args) |>
+    distinct("speciesID", .keep_all = TRUE) |>
     collapse() |>
     collect()
 }

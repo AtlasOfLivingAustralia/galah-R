@@ -270,10 +270,6 @@ test_that("order of `group_by()` doesn't affect result in `count()", {
   # we also expect them to have the same number of rows, and the same total
   expect_equal(nrow(ibra_year), nrow(year_ibra))
   expect_equal(sum(ibra_year$count), sum(year_ibra$count))
-  ## FIXME:
-  # expect_equal(ibra_year, year_ibra) # this fails,
-  ## because `arrange` is not (re-)applied after download,
-  ## so rows are not in the same order
 })
 
 test_that("`group_by()` works when > 1 `filter()`", {

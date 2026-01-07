@@ -238,14 +238,12 @@ test_that("`filter()` handles lsid as an input", {
            lsid == ids) |>
     count() |>
     collapse()
-  # number of taxa searches is 3, not 4
   expect_s3_class(query, "query")
-  expect_equal(length(query), 5)
+  expect_equal(length(query), 4)
   expect_equal(names(query), c("type", 
                                "url", 
                                "headers",
-                               "filter",
-                               "slot_name"))
+                               "request"))
 })
 
 test_that("`filter()` handles different fields separated by OR", {

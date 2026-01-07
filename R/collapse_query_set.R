@@ -33,7 +33,6 @@ collapse_query_set <- function(x,
          },
          "data/species" = collapse_occurrences(x), # optimised for GBIF
          "data/species-count" = collapse_species_count(x),
-         "data/species-count-groupby" = collapse_species_count(x),
          # "-unnest" functions require some checks
          "metadata/profiles-unnest" = collapse_profile_values(x,
                                                               error_call = error_call) |> 

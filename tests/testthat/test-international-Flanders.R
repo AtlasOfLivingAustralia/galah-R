@@ -139,6 +139,7 @@ test_that("search_all(taxa) works for Flanders", {
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_true(any(colnames(x) == "taxon_concept_id"))
 })
 
 test_that("search_all(identifiers) works for Flanders", {
@@ -163,7 +164,7 @@ test_that("show_values works for fields for Flanders", {
 test_that("atlas_counts works for Flanders", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
@@ -172,7 +173,7 @@ test_that("atlas_counts works for Flanders", {
 test_that("atlas_counts works with type = 'species' for Flanders", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
@@ -208,7 +209,7 @@ test_that("atlas_counts works with group_by for Flanders", {
     try(silent = TRUE)
   skip_if(inherits(result, "try-error"), message = "API not available")
   expect_gt(nrow(result), 1)
-  expect_equal(names(result), c("basis_of_record", "count"))
+  expect_equal(names(result), c("basisOfRecord", "count"))
   })
 
 test_that("atlas_species works for Flanders", {
@@ -218,7 +219,7 @@ test_that("atlas_species works for Flanders", {
     email = "galah@natuurdata@inbo.be",
     send_email = FALSE)
   spp <- galah_call() |>
-    identify("Canis") |>
+    identify("Corvus") |>
     atlas_species() |>
     try(silent = TRUE)
   skip_if(inherits(spp, "try-error"), message = "API not available")
@@ -227,7 +228,7 @@ test_that("atlas_species works for Flanders", {
   expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
 })
 
-test_that("atlas_occurrences works for Flanders", {
+test_that("atlas_occurrences() works for Flanders", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Flanders",
@@ -242,7 +243,7 @@ test_that("atlas_occurrences works for Flanders", {
   
   response <- compute(query) |>
     try(silent = TRUE)
-  skip_if(inherits(occ, "try-error"), message = "API not available")
+  skip_if(inherits(response, "try-error"), message = "API not available")
   
   occ <- collect(response) |>
     try(silent = TRUE)

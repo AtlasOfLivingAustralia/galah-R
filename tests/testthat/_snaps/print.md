@@ -58,11 +58,6 @@
     Message
       Object of class query with type metadata/taxa-single
       * url: https://api.ala.org.au/namematching/api/search?q=Crinia
-      * select: ~tidyselect::any_of(~c("search_term", "scientific_name",
-      "scientific_name_authorship", "taxon_concept_id", "taxon_concept_lsid",
-      "authority", "usage_key", "guid", "canonical_name", "status", "rank",
-      "match_type", "confidence", "time_taken", "vernacular_name", "issues",
-      "kingdom", "phylum", "class", "order", "family", "genus", "species"))
 
 # object of class `computed_query` formats correctly
 
@@ -89,16 +84,17 @@
     Code
       galah_config()
     Message
-      `galah` package configuration:
+      `galah` package configuration
       
       Package
       v verbose
       v run_checks
       x send_email
-      v authenticate
-      i directory: /var/folders/47/2_32ylzx64qgpyqlh7zkd_5h0000gn/T//Rtmpu7Kgdm
+      v caching
+      i directory: something
       
       User
+      x authentication
       username [Not Provided]
       email
       password [Not Provided]

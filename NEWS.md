@@ -5,9 +5,12 @@
 * DOIs now supported for `GBIF`
 * Kew gardens and Flanders living atlases added
 
-### Major changes
-* authentication supported for ALA users
+### New functions
+* `dplyr::distinct()` can be used to find grouped data and summaries, generalising `atlas_species()`
 * new functions `as_query()` and `coalesce()` as prequels to `collapse()`
+
+### Major changes
+* authentication supported for ALA users within `galah_config()`
 * media functions have been updated and have their own vignette; fields returned have changed
 * all metadata requests now accept `select()`; all `show_all()` and `search_all()` functions gain an `all_fields` argument
 

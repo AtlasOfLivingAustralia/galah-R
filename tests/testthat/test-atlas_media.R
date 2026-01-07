@@ -93,24 +93,22 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
     filter(media == unlist(dplyr::pull(occ_collect, "images"))) |>
     quiet_collapse()
   expect_true(inherits(media_collapse, "query"))
-  expect_equal(length(media_collapse), 5)
+  expect_equal(length(media_collapse), 4)
   expect_equal(names(media_collapse), 
                c("type", 
                  "url",
                  "headers",
-                 "filter",
-                 "select"))
+                 "request"))
   expect_true(media_collapse$type == "metadata/media")
   # compute
   media_compute <- quiet_compute(media_collapse)
   expect_true(inherits(media_compute, "computed_query"))
-  expect_equal(length(media_compute), 5)
+  expect_equal(length(media_compute), 4)
   expect_equal(names(media_compute), 
                c("type", 
                  "url",
                  "headers",
-                 "filter",
-                 "select"))
+                 "request"))
   # collect
   media_collect <- quiet_collect(media_compute)
   expect_s3_class(media_collect, c("tbl_df", "tbl", "data.frame"))
@@ -160,7 +158,7 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
     any() |>
     expect_true()
   fullsize <- get_image_sizes(media_dir)
-  purrr_collect_media(df, thumbnail = TRUE)
+  collect_media_catcher <- purrr_collect_media(df, thumbnail = TRUE)
   thumbsize <- get_image_sizes(media_dir)
   expect_lt(thumbsize, fullsize)
   unlink(media_dir, recursive = TRUE)
@@ -193,7 +191,7 @@ test_that("collect_media handles different file formats", {
     dplyr::group_by(multimedia) |>
     dplyr::sample_n(size = 1)
   expect_equal(sort(unique(media_data$multimedia)),
-               c("Image", "Image | Sound", "Sound"))
+               c("Image", "Image | Sound"))
   result <- purrr_collect_media(media_summary, thumbnail = TRUE)
   downloads <- list.files(path = media_dir)
   expect_true(any(grepl(".mpg$", downloads))) # sounds

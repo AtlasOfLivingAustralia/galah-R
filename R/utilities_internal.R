@@ -32,6 +32,7 @@ parse_rename <- function(df, .query){
   cols <- colnames(df)
   rename_vec <- .query$type |>
     stringr::str_remove("^metadata/") |>
+    stringr::str_remove("-single$|-multiple$") |> # so that `taxa` args are matched
     lookup_rename_columns()
   # check whether renaming information is given
   if(!is.null(rename_vec)){
@@ -124,6 +125,7 @@ lookup_select_columns_taxa <- function(){
     "taxon_concept_id", # ALA
     "taxon_concept_lsid", # Austria, Guatemala
     "authority", # OpenObs
+    "key", # GBIF
     "usage_key", # GBIF
     "guid", # species search
     "canonical_name", "status", 
@@ -257,8 +259,7 @@ add_email_notify <- function(x) {
   if(is.na(notify)) {
     notify <- FALSE
   }
-  # ala api requires lowercase
-  x$email_notify <- ifelse(notify, "true", "false")
+  x$emailNotify <- ifelse(notify, "true", "false")
   x
 }
 

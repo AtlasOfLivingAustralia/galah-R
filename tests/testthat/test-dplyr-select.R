@@ -192,7 +192,7 @@ test_that("`select()` warns for invalid field names when type = 'species'", {
   skip_if_offline(); skip_on_ci()
   expect_warning({galah_call() |>
     identify("Crinia") |>
-    group_by(speciesID) |>
+    distinct(speciesID, .keep_all = TRUE) |>
     select(an_unrecognised_field_name) |>
     as_query()})
 })

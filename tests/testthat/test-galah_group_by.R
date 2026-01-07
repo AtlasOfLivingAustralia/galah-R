@@ -69,11 +69,11 @@ test_that("`count()` with `group_by()` returns an empty tibble if number of reco
 
 test_that("`count()` with `group_by()` for species returns expected output", {
   skip_if_offline(); skip_on_ci()
-  counts <- galah_call() |>
+  counts <- galah_call(type = "species") |>
     identify("Mammalia") |>
     filter(year == 2020) |>
     group_by(month) |>
-    count(type = "species") |>
+    count() |>
     quiet_collect() |>
     purrr::pluck("result")
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))

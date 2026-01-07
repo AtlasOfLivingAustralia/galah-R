@@ -74,7 +74,7 @@ test_that("`group_by() |> distinct(.keep_all = TRUE)` converts type from occurre
                nrow(x))
 })
 
-test_that("`distinct()` can be used in place of `group_by()` for species queries", {
+test_that("`distinct(.keep_all = TRUE)` sets species queries", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     identify("Osphranter") |>
@@ -94,7 +94,7 @@ test_that("`distinct(speciesID) |> count()` can be used to count the number of s
     distinct(taxonConceptID) |>
     count() |>
     quiet_collect()
-  expect_s3_class(x,
+  expect_s3_class(result,
                   c("tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(result), 1)
   expect_true(result$count[1] > 1 & result$count[1] < 10)

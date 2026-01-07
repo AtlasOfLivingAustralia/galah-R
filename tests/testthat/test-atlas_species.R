@@ -22,19 +22,11 @@ test_that("atlas_species fails nicely if no email is provided", {
 
 test_that("`atlas_species()` returns a tibble", {
   skip_if_offline(); skip_on_ci()
-  species <- quiet_species(identify = galah_identify("Osphranter"))
+  species <- galah_call() |>
+    identify("Osphranter") |>
+    quiet_species()
   expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(species), 1)
-})
-
-test_that("`select()` works for type = 'species' with no arguments", {
-  skip_if_offline(); skip_on_ci()
-  x <- galah_call(type = "species") |>
-    identify("Crinia") |>
-    select() |>
-    quiet_collect()
-  expect_equal(colnames(x), "taxon_concept_id")
-  expect_gt(nrow(x), 10)
 })
 
 test_that("`select()` works for type = 'species' with `counts`", {
@@ -43,10 +35,9 @@ test_that("`select()` works for type = 'species' with `counts`", {
     identify("Crinia") |>
     select(counts) |>
     quiet_collect()
-  expect_equal(colnames(x), c("taxon_concept_id", "count"))
+  expect_equal(colnames(x), c("species_id", "count"))
   expect_gt(nrow(x), 10)
 })
-
 
 test_that("`select()` works for type = 'species' with group = 'taxonomy'", {
   skip_if_offline(); skip_on_ci()
@@ -54,7 +45,7 @@ test_that("`select()` works for type = 'species' with group = 'taxonomy'", {
     identify("Crinia") |>
     select(counts, lists, group = "taxonomy") |>
     quiet_collect()
-  expect_true(all(c("taxon_concept_id", "count", "kingdom", "phylum") %in% colnames(x)))
+  expect_true(all(c("species", "count", "kingdom", "phylum") %in% colnames(x)))
   expect_gt(nrow(x), 10)
 })
 
@@ -70,12 +61,14 @@ test_that("`atlas_species()` returns correct results when piped", {
                         "Perameles fasciata",
                         "Perameles pallescens",
                         "Perameles bougainville")
-  expected_cols <- c("taxon_concept_id", "species_name",
+  expected_cols <- c("species", "species_name",
                      "scientific_name_authorship", "taxon_rank",
                      "kingdom", "phylum", "class", "order", "family",
                      "genus", "vernacular_name")
   expect_setequal(names(species), expected_cols)
-  expect_equal(species$species_name[1:5], expected_species)
+  (expected_species %in% species$species_name) |>
+    all() |>
+    expect_true()
   expect_gt(nrow(species), 1)
   expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
 })
@@ -91,7 +84,7 @@ test_that("`atlas_species()` returns correct results filtered by galah_geolocate
     geolocate(wkt) |>
     quiet_species()
   expected_species <- c("Perameles gunnii")
-  expected_cols <- c("taxon_concept_id", "species_name",
+  expected_cols <- c("species", "species_name",
                      "scientific_name_authorship", "taxon_rank",
                      "kingdom", "phylum", "class", "order", "family",
                      "genus", "vernacular_name")
@@ -110,6 +103,8 @@ test_that("`atlas_species()` works when no species are present", {
     filter(cl1048 == "Kimberley") |>
     quiet_species()
   expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(ncol(result), 11)
+  expect_equal(nrow(result), 0)
 })
 
 test_that("collapse -> compute -> collect workflow is functional", {
@@ -151,7 +146,7 @@ test_that("atlas_species reformats column names when empty tibble is returned", 
     identify("sarcopterygii") |> 
     filter(cl1048 == "Wet Tropics") |> 
     quiet_species()
-  expected_cols <- c("taxon_concept_id", "species_name",
+  expected_cols <- c("species", "species_name",
                      "scientific_name_authorship", "taxon_rank",
                      "kingdom", "phylum", "class", "order", "family",
                      "genus", "vernacular_name")

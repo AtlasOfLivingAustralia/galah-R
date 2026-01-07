@@ -79,7 +79,8 @@ as_query.data_request <- function(x,
 #' @order 3
 #' @export
 as_query.metadata_request <- function(x, ...){
-  x <- check_authentication(x) |>
+  x <- x |>
+    check_authentication() |>
     enforce_select_query()
   switch(x$type,
          "apis" = as_query_apis(x),
@@ -165,6 +166,17 @@ check_distinct_count_groupby <- function(x){
   has_count <- !is.null(x$count)
   has_distinct <- !is.null(x$distinct)
   has_select <- !is.null(x$select)
+
+  # if type is 'species', ensure `distinct` is added
+  # this is clunky, but backwards compatible
+  if(x$type == "species" & !has_distinct){
+    if(has_count){
+      x <- x |> distinct("speciesID", .keep_all = FALSE)
+    }else{
+      x <- x |> distinct("speciesID", .keep_all = TRUE)
+    }
+    has_distinct <- TRUE
+  }
 
   # first handle case when distinct() is supplied
   if(has_distinct){
@@ -294,6 +306,8 @@ enforce_select_query_metadata <- function(x){
     }else{
       x <- dplyr::select(x, tidyselect::everything()) 
     }
+  }else{
+    x
   }
 }
 

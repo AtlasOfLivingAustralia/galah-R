@@ -19,11 +19,11 @@ check_atlas_inputs <- function(args,
   added_arguments <- added_arguments[!(purrr::map(added_arguments, is.null) |> unlist())]
   if(length(added_arguments) > 0){
     for(i in seq_along(added_arguments)){
-      request_object <- do.call(update_request_object, 
-        append(list(x = request_obj), added_arguments[i]))
+      request_obj <- do.call(update_request_object, 
+                             append(list(x = request_obj), added_arguments[i]))
     }   
   }
-  request_object
+  request_obj
 }
 
 

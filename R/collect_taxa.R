@@ -4,12 +4,10 @@
 collect_taxa <- function(.query){
   if(stringr::str_detect(.query$url$url[1], "namematching|name-matching")){
     collect_taxa_namematching(.query) # Australia, Spain, Sweden
+  }else if(stringr::str_detect(.query$url$url[1], "api.gbif.org")){
+    collect_taxa_gbif(.query)
   }else{
-    if(is_gbif()){
-      collect_taxa_gbif(.query)
-    }else{
-      collect_taxa_la(.query)  # tested for Austria, UK 
-    }
+    collect_taxa_la(.query)  # tested for Austria, UK 
   }
 }
 
@@ -161,8 +159,6 @@ clean_la_taxa <- function(result, search_terms){
         } else {
           list_of_results <- list_of_results[[min_distance]]
         }
-    } else {
-      list_of_results <- list_of_results
     }
     
     # unlist if necessary

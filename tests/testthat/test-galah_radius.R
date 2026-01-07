@@ -91,7 +91,7 @@ test_that("galah_radius messages when radius is very large", {
   radius <- 1600
   expect_message(
     galah_radius(lon = 151, lat = -32, radius = radius),
-    "Radius is larger than the area of Australia")
+    "Supplied radius is larger than the area of Australia")
 })
 
 test_that("galah_radius only uses first arguments supplied to lon/lat/radius", {
