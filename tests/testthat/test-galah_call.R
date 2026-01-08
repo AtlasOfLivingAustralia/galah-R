@@ -1,19 +1,18 @@
-test_that("galah_call builds objects of class 'data_request' by default", {
+test_that("`galah_call()` builds objects of class 'data_request' by default", {
   expect_equal(length(galah_call()), 1)
   expect_s3_class(galah_call(), "data_request")
 })
 
-test_that("galah_call accepts method arg", {
-  x <- galah_call(method = "metadata")
+test_that("`request_` functions build correct object classes", {
+  x <- request_metadata()
   expect_s3_class(x, "metadata_request")
   expect_true(x$type == "fields") 
-  y <- galah_call(method = "files")
+  y <- request_files()
   expect_s3_class(y, "files_request")
   expect_true(y$type == "media")
-  expect_error(galah_call(method = "nothing"))
 })
 
-test_that("galah_call works with all `galah_` functions", {
+test_that("`galah_call()` works with all `galah_` functions", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |> 
     identify("Litoria") |>
@@ -35,7 +34,7 @@ test_that("galah_call works with all `galah_` functions", {
       "geolocate", "group_by", "arrange"))
 })
 
-test_that("galah_call works irrespective of `galah_` function order", {
+test_that("`galah_call()` works irrespective of `galah_` function order", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |> 
     galah_apply_profile(ALA) |>
@@ -48,17 +47,17 @@ test_that("galah_call works irrespective of `galah_` function order", {
   expect_false(any(unlist(lapply(result, is.null))))   
 })
   
-test_that("repeated calls to `galah_identify` are added correctly", {
+test_that("repeated calls to `identify()` are added correctly", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |> 
-    galah_identify("Litoria") |>
-    galah_identify("Aves")
+    identify("Litoria") |>
+    identify("Aves")
   expect_equal(nrow(result$identify), 2)
 })
 
-test_that("repeated calls to `galah_filter` are added correctly", { 
+test_that("repeated calls to `filter()` are added correctly", { 
   result <- galah_call() |> 
-    galah_filter(year >= 2010) |>
-    galah_filter(basisOfRecord == "human_observation", cl22 == "Tasmania")
+    filter(year >= 2010) |>
+    filter(basisOfRecord == "human_observation", cl22 == "Tasmania")
   expect_equal(nrow(result$filter), 3)
 })

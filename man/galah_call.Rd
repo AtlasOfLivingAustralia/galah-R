@@ -7,7 +7,10 @@
 \alias{request_files}
 \title{Start building a request}
 \usage{
-galah_call(method = c("data", "metadata", "files"), type)
+galah_call(
+  type = c("occurrences", "occurrences-count", "occurrences-doi", "species",
+    "species-count")
+)
 
 request_data(
   type = c("occurrences", "occurrences-count", "occurrences-doi", "species",
@@ -23,16 +26,13 @@ request_metadata(
 request_files(type = "media")
 }
 \arguments{
-\item{method}{string: what \code{request} function should be called. Should be one
-of \code{"data"} (default), \code{"metadata"} or \code{"files"}}
-
 \item{type}{string: what form of data should be returned? Acceptable values
 are specified by the corresponding \code{request} function}
 }
 \value{
 Each sub-function returns a different object class:
 \itemize{
-\item \code{\link[=request_data]{request_data()}}  returns class \code{"data_request"}
+\item \code{\link[=request_data]{request_data()}}  and \code{\link[=galah_call]{galah_call()}} return class \code{"data_request"}
 \item \code{\link[=request_metadata]{request_metadata()}} returns class \code{"metadata_request"}
 \item \code{\link[=request_files]{request_files()}} returns class \code{"files_request"}
 }
@@ -45,24 +45,20 @@ To download data from the selected atlas, one must construct a query. This
 query tells the atlas API what data to download and return, as well as how it
 should be filtered. Using \code{\link[=galah_call]{galah_call()}} allows you to build a piped query to
 download data, in the same way that you would wrangle data with \code{dplyr} and
-the \code{tidyverse}.
+the \code{tidyverse}. It is synonymous with \code{\link[=request_data]{request_data()}}; to query other
+data types call \code{\link[=request_metadata]{request_metadata()}} or \code{\link[=request_files]{request_files()}}.
 }
 \details{
-\code{\link[=galah_call]{galah_call()}} is a wrapper to a group of underlying
-\code{request_} functions, selected using the \code{method} argument.
-Each of these functions can begin a piped query, which is then actioned using
+\code{\link[=galah_call]{galah_call()}} and any of the \code{request_} functions are used to begin a
+piped query, which is then actioned using
 \code{\link[=collect.data_request]{collect()}}, or optionally one of the
-\code{\link[=atlas_occurrences]{atlas_}} family of functions. For more
-details see the object-oriented programming vignette:
-\code{vignette("object_oriented_programming", package = "galah")}
+\code{\link[=atlas_occurrences]{atlas_}} family of functions.
 
-Accepted values of the \code{type} argument are set by the underlying \code{request_}
-functions. These functions are useful because they allow \code{galah}
-to separate different types of requests to perform better. For example,
-\code{\link[=filter.data_request]{filter.data_request()}} translates filters
+Having distinct functions for different types of request is useful because
+it allows \code{galah} to separate different types of requests to perform better.
+For example, \code{\link[=filter.data_request]{filter.data_request()}}translates filters
 to \code{solr} syntax for the living atlases, or to predicates for GBIF, whereas
-\code{\link[=filter.metadata_request]{filter.metadata_request()}} adds a
-search term to your query.
+\code{\link[=filter.metadata_request]{filter.metadata_request()}} adds a search term to your metadata query.
 }
 \examples{
 \dontrun{ 

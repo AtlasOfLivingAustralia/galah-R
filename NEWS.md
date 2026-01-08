@@ -6,9 +6,10 @@
 * Kew gardens and Flanders living atlases added
 * authentication supported for ALA users within `galah_config()`
 
-### New functions
+### New & amended functions
 * `dplyr::distinct()` can be used to find grouped data and summaries, generalising `atlas_species()`
 * new functions `as_query()` and `coalesce()` as prequels to `collapse()`
+* `galah_call()` is now synonmous with `request_data()` rather than wrapping all `request_` functions; `method` argument is removed.
 
 ## Changes to metadata functions
 * all metadata requests now accept `select()`

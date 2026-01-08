@@ -5,30 +5,24 @@
 #' query tells the atlas API what data to download and return, as well as how it 
 #' should be filtered. Using [galah_call()] allows you to build a piped query to 
 #' download data, in the same way that you would wrangle data with `dplyr` and 
-#' the `tidyverse`.
-#' @param method string: what `request` function should be called. Should be one
-#' of `"data"` (default), `"metadata"` or `"files"`
+#' the `tidyverse`. It is synonymous with [request_data()]; to query other
+#' data types call [request_metadata()] or [request_files()].
 #' @param type string: what form of data should be returned? Acceptable values
 #' are specified by the corresponding `request` function
 #' @details
-#' [galah_call()] is a wrapper to a group of underlying 
-#' `request_` functions, selected using the `method` argument. 
-#' Each of these functions can begin a piped query, which is then actioned using
+#' [galah_call()] and any of the `request_` functions are used to begin a 
+#' piped query, which is then actioned using
 #' \code{\link[=collect.data_request]{collect()}}, or optionally one of the 
-#' \code{\link[=atlas_occurrences]{atlas_}} family of functions. For more 
-#' details see the object-oriented programming vignette:  
-#' \code{vignette("object_oriented_programming", package = "galah")}
+#' \code{\link[=atlas_occurrences]{atlas_}} family of functions.
 #' 
-#' Accepted values of the `type` argument are set by the underlying `request_`
-#' functions. These functions are useful because they allow `galah` 
-#' to separate different types of requests to perform better. For example, 
-#' \code{\link[=filter.data_request]{filter.data_request()}} translates filters 
+#' Having distinct functions for different types of request is useful because 
+#' it allows `galah` to separate different types of requests to perform better. 
+#' For example, [filter.data_request()]translates filters 
 #' to `solr` syntax for the living atlases, or to predicates for GBIF, whereas 
-#' \code{\link[=filter.metadata_request]{filter.metadata_request()}} adds a 
-#' search term to your query.
+#' [filter.metadata_request()] adds a search term to your metadata query.
 #' @return Each sub-function returns a different object class: 
 #' 
-#' - [request_data()]  returns class `"data_request"`
+#' - [request_data()]  and [galah_call()] return class `"data_request"`
 #' - [request_metadata()] returns class `"metadata_request"`
 #' - [request_files()] returns class `"files_request"` 
 #' 
@@ -77,26 +71,7 @@
 #'   collect()
 #' }
 #' @export
-galah_call <- function(method = c("data", 
-                                  "metadata", 
-                                  "files"),
-                       type){
-  method <- match.arg(method)
-  if(missing(type)){
-    type <- switch(method,
-                   "data" = "occurrences", 
-                   "metadata" = "fields",
-                   "files" = "media")
-  }
-  switch(method, 
-         "data" = request_data(type = type),
-         "metadata" = request_metadata(type = type),
-         "files" = request_files(type = type))
-}
-
-#' @rdname galah_call
-#' @export
-request_data <- function(type = c("occurrences", 
+galah_call <- function(type = c("occurrences", 
                                   "occurrences-count",
                                   "occurrences-doi",
                                   # "distributions",
@@ -111,6 +86,10 @@ request_data <- function(type = c("occurrences",
   list(type = type) |>
     structure(class = "data_request")
 }
+
+#' @rdname galah_call
+#' @export
+request_data <- galah_call
 
 #' @rdname galah_call
 #' @export
