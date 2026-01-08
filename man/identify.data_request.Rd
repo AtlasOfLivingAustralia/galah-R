@@ -13,7 +13,7 @@
 galah_identify(...)
 }
 \arguments{
-\item{x}{An object of class \code{metadata_request}, created using \code{\link[=request_metadata]{request_metadata()}}}
+\item{x}{An object of class \code{data_request} or \code{metadata_request}.}
 
 \item{...}{One or more scientific names.}
 }

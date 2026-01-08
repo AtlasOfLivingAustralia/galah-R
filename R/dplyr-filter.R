@@ -24,8 +24,8 @@
 #' 
 #' *Syntax*
 #' 
-#' `filter.data_request()` and `galah_filter()` uses non-standard evaluation 
-#' (NSE), and are designed to be as compatible as possible with 
+#' `filter()` uses non-standard evaluation 
+#' (NSE), and is designed to be as compatible as possible with 
 #' `dplyr::filter()` syntax. Permissible examples include:
 #' 
 #'   * `==` (e.g. `year = 2020`) but not `=` (for consistency with `dplyr`)
@@ -34,7 +34,6 @@
 #'   * `<` or `<=` (e.g. `year <= 2020`)
 #'   * `OR` statements (e.g. `year == 2018 | year == 2020`)
 #'   * `AND` statements (e.g. `year >= 2000 & year <= 2020`)
-#'   * Field names can be parsed from objects using `{{}}` syntax, e.g. `field <- "year"; value <- "2025"; galah_filter({{field}} == value)`
 #' 
 #' Some general tips:
 #'  * Separating statements with a comma is equivalent to an `AND` statement; 
@@ -96,9 +95,18 @@
 #'   collect()}
 #'   
 #' @examples \dontrun{
+#' # basic example
 #' galah_call() |>
 #'   filter(year >= 2019,
 #'          basisOfRecord == "HumanObservation") |>
+#'   count() |>
+#'   collect()
+#' 
+#' # Field names can be parsed from objects using `{{}}` syntax, e.g. 
+#' field <- "year"
+#' value <- "2025"
+#' galah_call() |> 
+#'   filter({{field}} == value) |>
 #'   count() |>
 #'   collect()
 #' }

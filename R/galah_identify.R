@@ -12,7 +12,7 @@
 #' correct results.
 #' @name identify.data_request
 #' @order 1
-#' @param x An object of class `data_request`, created using [request_data()]
+#' @param x An object of class `data_request` or `metadata_request`.
 #' @param ... One or more scientific names.
 #' @return A `tibble` containing identified taxa.
 #' @seealso \code{\link[=filter.data_request]{filter()}} or [geolocate()] for 
@@ -52,7 +52,6 @@ identify.data_request <- function(x, ...){
 }
 
 #' @rdname identify.data_request
-#' @param x An object of class `metadata_request`, created using [request_metadata()]
 #' @order 2
 #' @export
 identify.metadata_request <- function(x, ...){

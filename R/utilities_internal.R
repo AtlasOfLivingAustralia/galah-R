@@ -23,6 +23,24 @@ parse_select <- function(df, .query){
   rlang::set_names(df[pos], names(pos)) 
 }
 
+#' equivalent to `parse_select()` but for filter
+#' mainly called for delayed filter arugments on APIs that don't support `q`
+#' @noRd
+#' @keywords Internal
+parse_filter <- function(df, query){
+  filter_entry <- query$request$filter
+  if(!is.null(filter_entry) & ncol(df) > 0){
+    search_col <- switch(query$type, 
+                         "metadata/fields" = "id",
+                         "metadata/profiles" = "short_name", 
+                         colnames(df)[1])
+    value <- filter_entry$value
+    df |> dplyr::filter(.data[[search_col]] == value)
+  }else{
+    df
+  }
+}
+
 #' Internal function to rename specific columns. Note this is safer than calling
 #' `dplyr::rename()` directly, because it only seeks to rename columns that 
 #' are actually present, and so won't fail.

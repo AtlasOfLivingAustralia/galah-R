@@ -9,6 +9,8 @@ collapse_lists <- function(.query){
     .query
   }else if(inherits(.query$url, "tbl_df")){
     .query
+  }else if(stringr::str_detect(.query$url, "[:digit:]+$")){
+    .query
   }else{
     url <- httr2::url_parse(.query$url)
     n_requested <- as.integer(url$query$max)

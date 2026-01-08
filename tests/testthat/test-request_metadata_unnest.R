@@ -17,22 +17,29 @@ test_that("request_metadata() |> unnest() works for type = 'fields'", {
     filter(field == unknown) |> 
     collapse(),
     label = "Can't use fields that don't exist.")
-  # whole thing works when...
-  x <- request_metadata() |> 
-    unnest() |> 
-    filter(field == basisOfRecord) |> 
+  # supplying `filter()` without unnest() works
+  x <- request_metadata() |>
+    filter(field == "basisOfRecord") |> 
     collect()
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
-  expect_gte(nrow(x), 4)
-  expect_equal(ncol(x), 1)
-  expect_equal(colnames(x), "basisOfRecord")
-  expect_true(any(x[[1]] == "HUMAN_OBSERVATION"))
+  expect_equal(nrow(x), 1)
+  expect_equal(x$id, "basisOfRecord")
+  # whole thing works when...
+  y <- request_metadata() |> 
+    unnest() |> 
+    filter(field == "basisOfRecord") |> 
+    collect()
+  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
+  expect_gte(nrow(y), 4)
+  expect_equal(ncol(y), 1)
+  expect_equal(colnames(y), "basisOfRecord")
+  expect_true(any(y[[1]] == "HUMAN_OBSERVATION"))
 })
 
 test_that("request_metadata() |> select() |> unnest() works for type = 'fields'", {
   skip_if_offline(); skip_on_ci()
   base_query <- request_metadata() |> 
-    filter(field == basisOfRecord) |>
+    filter(field == "basisOfRecord") |>
     unnest()
   x <-  base_query |>
     collect()
@@ -54,8 +61,14 @@ test_that("request_metadata() |> select() |> unnest() works for type = 'fields'"
 
 test_that("request_metadata() |> unnest() works for type = 'lists'", {
   skip_if_offline(); skip_on_ci()
+  x1 <- request_metadata() |> 
+    filter(list == "dr947") |> 
+    collect()
+  expect_s3_class(x1, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(nrow(x1), 1)
+  expect_equal(x1[[1]], "dr947")
   x <- request_metadata() |> 
-    filter(list == dr947) |> 
+    filter(list == "dr947") |> 
     unnest() |>
     collapse()
   expect_s3_class(x, "query")
@@ -70,7 +83,7 @@ test_that("request_metadata() |> unnest() works for type = 'lists'", {
   expect_gte(ncol(z), 3)
   # now check `everything()`
   xx <- request_metadata() |> 
-    filter(list == dr947) |> 
+    filter(list == "dr947") |> 
     unnest() |>
     select(everything()) |>
     collect()
@@ -88,6 +101,12 @@ test_that("`request_metadata() |> unnest()` fails for invalid profiles", {
 
 test_that("`request_metadata() |> unnest() |> collapse()` works for type = profiles", {
   skip_if_offline(); skip_on_ci()
+    x1 <- request_metadata() |> 
+    filter(profile == "ALA") |> 
+    collect()
+  expect_s3_class(x1, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(nrow(x1), 1)
+  expect_equal(x1$short_name, "ALA")
   x <- request_metadata() |>
     filter(profile == "ALA") |>
     unnest() |>
@@ -126,6 +145,12 @@ test_that("request_metadata() |> unnest() works for type = 'profiles'", {
 
 test_that("request_metadata() |> unnest() works for type = 'taxa' using `identify()`", {
   skip_if_offline(); skip_on_ci()
+  x1 <- request_metadata() |> 
+    identify("crinia") |>
+    collect()
+  expect_s3_class(x1, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(nrow(x1), 1)
+  expect_equal(x1[[1]], "crinia")
   x <- request_metadata() |>
     identify("crinia") |>
     unnest() |>

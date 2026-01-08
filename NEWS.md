@@ -1,29 +1,31 @@
 # galah 2.2.0
 
 ### Improved organisational support
-* `filter()` now builds predicate queries natively when atlas is set to `GBIF`
+* `filter()` now builds predicate queries natively when atlas is set to `GBIF`. Filter now uses an object-oriented workflow.
 * DOIs now supported for `GBIF`
 * Kew gardens and Flanders living atlases added
+* authentication supported for ALA users within `galah_config()`
 
 ### New functions
 * `dplyr::distinct()` can be used to find grouped data and summaries, generalising `atlas_species()`
 * new functions `as_query()` and `coalesce()` as prequels to `collapse()`
 
-### Major changes
-* authentication supported for ALA users within `galah_config()`
-* media functions have been updated and have their own vignette; fields returned have changed
-* all metadata requests now accept `select()`; all `show_all()` and `search_all()` functions gain an `all_fields` argument
+## Changes to metadata functions
+* all metadata requests now accept `select()`
+* metadata types that support `unnest()` now also support `filter()` when unnest is not supplied
+* all `show_all()` and `search_all()` functions gain an `all_fields` argument
+* metadata now supports list-columns where the API returns nested data
+* metadata functions now return columns names in `snake_case` rather than `camelCase`
+* all metadata functions support caching, and are affected by re-introduced `caching` argument in `galah_config()` (set to `TRUE` by default)
+* media metadata now uses a different API to return more relevant information
 
 ### Minor and internal changes, bug fixes
 * Move to `testthat` 3rd edition for improved test functionality
 * move to `{cli}` for `print()` calls, not `cat()`
 * reduce usage of `@importFrom` in favour of `pkg::fun()` syntax, as per R style guide
-* Object-oriented workflow for handling `filter()` requests and printing
-* metadata now supports list-columns where the API returns nested data
-* metadata functions now return columns names in `snake_case` rather than `camelCase`
 * `basisOfRecord` now included as default field (i.e. with `select(group = "basic")`) (#281)
-* all metadata functions support caching, and are affected by re-introduced `caching` argument in `galah_config()` (set to `TRUE` by default)
 * `query` objects now have a `request` slot showing the request that generated them 
+
 
 # galah 2.1.2
 

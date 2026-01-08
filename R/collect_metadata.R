@@ -282,7 +282,9 @@ collect_fields <- function(.query){
     result_df <- update_attributes(result_df, type = "fields")
     update_cache(fields = result_df)
   }
-  parse_select(result_df, .query)
+  result_df |>
+    parse_select(.query) |>
+    parse_filter(.query)
 }
 
 #' Internal function to `collect()` licences
@@ -337,9 +339,9 @@ collect_lists <- function(.query){
       should_update_cache <- TRUE
     }else{
       lists_slot <- purrr::pluck(result, "lists")
-      # single list queries that use `filter()` don't have a `lists` slot
+      # single-list queries that use `filter()` don't have a `lists` slot
       if(is.null(lists_slot)){
-        result_df <- result[[1]] |>
+        result_df <- result |>
           make_nulls_safe() |>
           tibble::as_tibble()
       # but some queries do
@@ -349,7 +351,7 @@ collect_lists <- function(.query){
         should_update_cache <- TRUE
       }
     }
-    
+
     # cleaning
     result_df <- result_df |>
       dplyr::rename_with(camel_to_snake_case) |>
@@ -403,7 +405,9 @@ collect_profiles <- function(.query){
       update_attributes(type = "profiles")
     update_cache(profiles = result_df)
   }
-  parse_select(result_df, .query)
+  result_df |>
+    parse_select(.query) |>
+    parse_filter(.query)
 }
 
 #' Internal function to `collect()` providers

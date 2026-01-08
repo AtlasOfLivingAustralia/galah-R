@@ -177,9 +177,15 @@ as_query_lists <- function(x,
       dr_values <- x$filter$value[dr_lookup]
       base_url <- url_lookup(query_type)
       url <- glue::glue("{base_url}/{dr_values}")
-      result <- list(type = query_type,
-                     url = tibble::tibble(url = url), # note: tibbles are used to skip pagination in `collapse()`
-                     headers = build_headers())
+      if(length(url) > 1){
+        result <- list(type = query_type,
+                       url = tibble::tibble(url = url), # note: tibbles are used to skip pagination in `collapse()`
+                       headers = build_headers())
+      }else{
+        result <- list(type = query_type,
+                       url = url,
+                       headers = build_headers())
+      }
     }else{
       cli::cli_abort(c("`filter()` arguments to `lists` only accept a data resource number",
                        i = "e.g. request_metadata() |> filter(lists == 'dr656')"),

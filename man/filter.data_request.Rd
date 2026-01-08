@@ -38,8 +38,8 @@ by \code{collect()} or one of the \code{atlas_} family of functions (such as
 \details{
 \emph{Syntax}
 
-\code{filter.data_request()} and \code{galah_filter()} uses non-standard evaluation
-(NSE), and are designed to be as compatible as possible with
+\code{filter()} uses non-standard evaluation
+(NSE), and is designed to be as compatible as possible with
 \code{dplyr::filter()} syntax. Permissible examples include:
 \itemize{
 \item \code{==} (e.g. \code{year = 2020}) but not \code{=} (for consistency with \code{dplyr})
@@ -48,7 +48,6 @@ by \code{collect()} or one of the \code{atlas_} family of functions (such as
 \item \code{<} or \code{<=} (e.g. \code{year <= 2020})
 \item \code{OR} statements (e.g. \code{year == 2018 | year == 2020})
 \item \code{AND} statements (e.g. \code{year >= 2000 & year <= 2020})
-\item Field names can be parsed from objects using \code{{{}}} syntax, e.g. \verb{field <- "year"; value <- "2025"; galah_filter(\{\{field\}\} == value)}
 }
 
 Some general tips:
@@ -114,9 +113,18 @@ And finally, the metadata tibble can be used to request files:
 }
 \examples{
 \dontrun{
+# basic example
 galah_call() |>
   filter(year >= 2019,
          basisOfRecord == "HumanObservation") |>
+  count() |>
+  collect()
+
+# Field names can be parsed from objects using `{{}}` syntax, e.g. 
+field <- "year"
+value <- "2025"
+galah_call() |> 
+  filter({{field}} == value) |>
   count() |>
   collect()
 }
