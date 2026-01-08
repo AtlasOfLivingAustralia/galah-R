@@ -121,10 +121,6 @@ galah_call() |>
 ```
 
 ```
-## --
-```
-
-```
 ## # A tibble: 21,984 × 3
 ##    eventDate decimalLatitude species              
 ##    <dttm>              <dbl> <chr>                
@@ -146,7 +142,7 @@ it is possible to write extensions that apply them to new object classes.
 In our case, `galah_call()` creates a new object class called a 
 `data_request` for which we have written new extensions. This means that galah 
 will not interfere with your use of `filter()` and friends on your tibbles.
-The full list of supported `dplyr` extensions is:
+Supported `dplyr` verbs that modify queries are as follows:
 
 - `arrange.data_request()`
 - `count.data_request()`
@@ -162,6 +158,19 @@ Additional verbs are:
 - `geolocate()` or `st_crop.data_request()`
 - `identify.data_request()`
 - `unnest()`
+
+Three other `dplyr` functions are supported to conclude a pipe:
+
+- `collapse.data_request()` converts the `request` object to a `query`. This allows users to inspect  
+   their API calls before they are sent. Depending on the request, this function
+   may also call 'supplementary' APIs to collect required information,
+   such as Taxon Concept Identifiers or field names.
+- `compute.data_request()` is intended to send the query in question to the requested API 
+   for processing. In practice, only occurrence queries distinguish between
+   posting a query and retrieving the results, meaning that in all other cases, 
+   `compute()` simply converts the `query` to a new class (`computed_query`).
+- `collect.data_request()` retrieves the requested data into your workspace, returning a 
+  `tibble`.
 
 It is good practice to download your data in as few steps as possible,
 to minimize impacts on the server, and to ensure you can get a single
@@ -267,10 +276,6 @@ galah_call() |>
          cl22 == "Australian Capital Territory") |>
   atlas_occurrences() |>
   print(n = 6)
-```
-
-```
-## -----
 ```
 
 ```
