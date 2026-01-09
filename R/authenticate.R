@@ -21,9 +21,8 @@ use_authentication <- function(.data,
 #' @keywords Internal
 check_authentication <- function(x){
   if(
-    isTRUE(potions::pour("user",
-                         "authenticate",
-                         .pkg = "galah")) &
+    isTRUE(potions::pour("user", "authenticate", .pkg = "galah")) &
+    (potions::pour("atlas", "region", .pkg = "galah") == "Australia") &
     x$type %in% c("occurrences") # possible to add other allowed queries
   ){
     x |> use_authentication()

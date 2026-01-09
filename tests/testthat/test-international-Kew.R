@@ -127,7 +127,7 @@ test_that("search_all(identifiers) unavailable for Kew", {
 test_that("atlas_counts works for Kew", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)

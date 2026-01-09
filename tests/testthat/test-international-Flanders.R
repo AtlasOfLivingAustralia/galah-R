@@ -263,8 +263,10 @@ test_that("atlas_media() works for Flanders", {
     directory = "temp",
     send_email = FALSE)
   x <- request_data() |>
-    identify("Mammalia") |>
-    filter(year >= 2023
+    identify("Erinaceinae") |> # problem here: 
+     # 1. query works but doesn't return an entry
+     # 2. identify() is not robust to searches that return no values
+    filter(year == 2023
            # imageIDsCount > 0
            ) |>
     # count() |>

@@ -140,8 +140,10 @@ build_query_set_data <- function(x, mint_doi, ...){
   result <- list()
   
   # handle authentication
-  if(isTRUE(potions::pour("user", "authenticate", .pkg = "galah")) |
-     !is.null(x$authenticate)
+  if(
+    (isTRUE(potions::pour("user", "authenticate", .pkg = "galah")) |
+     !is.null(x$authenticate)) &
+    potions::pour("atlas", "region") == "Australia"
   ){
     result <- append(result,
                      list(request_metadata("config") |> as_query()))

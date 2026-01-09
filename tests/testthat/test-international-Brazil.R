@@ -105,7 +105,7 @@ test_that("show_values works for Brazil", {
 test_that("atlas_counts works for Brazil", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
@@ -114,7 +114,7 @@ test_that("atlas_counts works for Brazil", {
 test_that("atlas_counts works with type = 'species' for Brazil", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
@@ -190,7 +190,7 @@ test_that("atlas_occurrences works for Brazil", {
   skip_if(inherits(occ_collapse, "try-error"), message = "API not available")
   expect_s3_class(occ_collapse, "query")
   expect_equal(names(occ_collapse), 
-               c("type", "url", "headers", "filter"))
+               c("type", "url", "headers", "request"))
   occ_compute <- compute(occ_collapse) |>
     try(silent = TRUE)
   skip_if(inherits(occ_compute, "try-error"), message = "API not available")
@@ -200,7 +200,7 @@ test_that("atlas_occurrences works for Brazil", {
     try(silent = TRUE)
   skip_if(inherits(occ, "try-error"), message = "API not available")
   expect_gt(nrow(occ), 0)
-  expect_equal(ncol(occ), 8)
+  expect_equal(ncol(occ), 9)
   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
 })
 

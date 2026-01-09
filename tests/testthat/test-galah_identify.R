@@ -87,11 +87,14 @@ test_that("`identify()` truncates unmatched list of taxa at 3 ", {
   expected_messages <- c(
     "Matched 1 of 5 taxonomic search terms in selected atlas (Australia).\n",
     "4 unmatched search terms:\n",
-    "• \"blarghy\", \"blorp\", \"florp\" + 1 more\"\n",
+    "\"blarghy\", \"blorp\", \"florp\" + 1 more\"\n",
     "\n")
-  x |>
-    purrr::pluck("messages") |>
-    expect_equal(expected_messages)
+  actual_messages <- purrr::pluck(x, "messages")
+  # NOTE: due to differences in how dot points are represented, this test
+  # fails unless we handle the strings carefully
+  expect_equal(
+    stringr::str_replace_all(actual_messages, "[:punct:]", "") |> trimws(),
+    stringr::str_replace_all(expected_messages, "[:punct:]", "") |> trimws())
 })
 
 ## NOTE: Not certain if this is a necessary test

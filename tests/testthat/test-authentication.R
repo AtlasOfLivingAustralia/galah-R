@@ -1,21 +1,5 @@
 quiet_config <- purrr::quietly(galah_config)
 
-test_that("`galah_config()` caches config info when `authenticate` is set to `TRUE`", {
-  skip_on_ci(); skip_on_cran()
-  x <- galah_config()
-  expect_false(x$user$authenticate)
-  expect_true(is.null(retrieve_cache("config")))
-  y <- quiet_config(authenticate = TRUE)
-  stringr::str_detect(y$messages,
-                      "Caching `config` information to support authentication") |>
-    any() |>
-    expect_true()
-  expect_true(y$result$user$authenticate)
-  cached_config <- retrieve_cache("config")
-  expect_false(is.null(cached_config))
-  expect_equal(nrow(cached_config), 1)
-})
-
 test_that("`request_metadata()` works for type = `config`", {
   skip_on_ci(); skip_on_cran()
   result <- request_metadata(type = "config") |>

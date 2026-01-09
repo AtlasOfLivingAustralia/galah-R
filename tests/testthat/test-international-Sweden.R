@@ -180,7 +180,7 @@ test_that("show_values works for lists in Sweden", {
 test_that("atlas_counts works with type = 'occurrences' for Sweden", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
@@ -189,7 +189,7 @@ test_that("atlas_counts works with type = 'occurrences' for Sweden", {
 test_that("atlas_counts works with type = 'species' for Sweden", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
@@ -269,7 +269,7 @@ test_that("atlas_occurrences works for Sweden", {
   skip_if(inherits(occ_collapse, "try-error"), message = "API not available")
   expect_s3_class(occ_collapse, "query")
   expect_equal(names(occ_collapse), 
-               c("type", "url", "headers", "filter"))
+               c("type", "url", "headers", "request"))
   expect_equal(occ_collapse$type, "data/occurrences")
   # compute
   occ_compute <- compute(occ_collapse)

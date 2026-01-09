@@ -99,7 +99,7 @@ test_that("show_values works for fields for Portugal", {
 test_that("atlas_counts works for Portugal", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
@@ -108,7 +108,7 @@ test_that("atlas_counts works for Portugal", {
 test_that("atlas_counts works with type = 'species' for Portugal", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)

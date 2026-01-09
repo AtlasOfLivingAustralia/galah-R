@@ -32,7 +32,7 @@ Austria,data/occurrences-count,https://biocache.biodiversityatlas.at/ws/occurren
 Austria,data/occurrences-count-groupby,https://biocache.biodiversityatlas.at/ws/occurrence/facets,TRUE
 Austria,data/species,https://biocache.biodiversityatlas.at/ws/occurrences/facets/download,TRUE
 Austria,data/species-count,https://biocache.biodiversityatlas.at/ws/occurrence/facets,TRUE
-Austria,files/media,https://images.biodiversityatlas.at/ws/image/{id}/{size},TRUE
+Austria,files/media,https://images.biodiversityatlas.at/image/{id}/{size},TRUE
 Austria,metadata/assertions,https://biocache.biodiversityatlas.at/ws/assertions/codes,TRUE
 Austria,metadata/collections,https://collectory.biodiversityatlas.at/ws/collection,TRUE
 Austria,metadata/datasets,https://collectory.biodiversityatlas.at/ws/dataResource,TRUE
@@ -51,7 +51,7 @@ Brazil,data/occurrences-count,https://biocache-service.sibbr.gov.br/biocache-ser
 Brazil,data/occurrences-count-groupby,https://biocache-service.sibbr.gov.br/biocache-service/occurrence/facets,TRUE
 Brazil,data/species,https://biocache-service.sibbr.gov.br/biocache-service/occurrences/facets/download,TRUE
 Brazil,data/species-count,https://biocache-service.sibbr.gov.br/biocache-service/occurrence/facets,TRUE
-Brazil,files/media,https://images.sibbr.gov.br/ws/image/{id}/{size},TRUE
+Brazil,files/media,https://images.sibbr.gov.br/image/{id}/{size},TRUE
 Brazil,metadata/assertions,https://biocache-service.sibbr.gov.br/biocache-service/assertions/codes,TRUE
 Brazil,metadata/collections,https://collectory.sibbr.gov.br/collectory/ws/collection,TRUE
 Brazil,metadata/datasets,https://collectory.sibbr.gov.br/collectory/ws/dataResource,TRUE
@@ -81,7 +81,7 @@ Flanders,data/occurrences-count,https://natuurdata.inbo.be/biocache-service/occu
 Flanders,data/occurrences-count-groupby,https://natuurdata.inbo.be/biocache-service/occurrence/facets,TRUE
 Flanders,data/species,https://natuurdata.inbo.be/biocache-service/occurrences/facets/download,TRUE
 Flanders,data/species-count,https://natuurdata.inbo.be/biocache-service/occurrence/facets,TRUE
-Flanders,files/media,https://natuurdata.inbo.be/image-service/ws/image/{id}/{size},TRUE
+Flanders,files/media,https://natuurdata.inbo.be/image-service/image/{id}/{size},TRUE
 Flanders,metadata/assertions,https://natuurdata.inbo.be/biocache-service/assertions/codes,TRUE
 Flanders,metadata/collections,https://natuurdata.inbo.be/collectory/ws/collection,TRUE
 Flanders,metadata/datasets,https://natuurdata.inbo.be/collectory/ws/dataResource,TRUE
@@ -133,7 +133,7 @@ Guatemala,data/occurrences-count,https://snib.conap.gob.gt/registros-ws/occurren
 Guatemala,data/occurrences-count-groupby,https://snib.conap.gob.gt/registros-ws/occurrence/facets,TRUE
 Guatemala,data/species,https://snib.conap.gob.gt/registros-ws/occurrences/facets/download,FALSE
 Guatemala,data/species-count,https://snib.conap.gob.gt/registros-ws/occurrence/facets,TRUE
-Guatemala,files/media,https://imagenes.snib.conap.gob.gt/ws/image/{id}/{size},TRUE
+Guatemala,files/media,https://imagenes.snib.conap.gob.gt/image/{id}/{size},TRUE
 Guatemala,metadata/assertions,https://snib.conap.gob.gt/registros-ws/assertions/codes,TRUE
 Guatemala,metadata/collections,https://snib.conap.gob.gt/colecciones/ws/collection,TRUE
 Guatemala,metadata/datasets,https://snib.conap.gob.gt/colecciones/ws/dataResource,TRUE
@@ -150,7 +150,7 @@ Kew,data/occurrences-count,https://records-ws.data.kew.org/occurrences/search,TR
 Kew,data/occurrences-count-groupby,https://records-ws.data.kew.org/occurrences/facets,TRUE
 Kew,data/species,https://records-ws.data.kew.org/occurrences/facets/download,TRUE
 Kew,data/species-count,https://records-ws.data.kew.org/occurrences/facets,TRUE
-Kew,files/media,https://images.data.kew.org/ws/image/{id}/{size},TRUE
+Kew,files/media,https://images.data.kew.org/image/{id}/{size},TRUE
 Kew,metadata/assertions,https://records-ws.data.kew.org/assertions/codes,TRUE
 Kew,metadata/collections,https://collections.data.kew.org/ws/collection,TRUE
 Kew,metadata/datasets,https://collections.data.kew.org/ws/dataResource,TRUE
@@ -169,7 +169,7 @@ Portugal,data/occurrences-count,https://registos-ws.gbif.pt/occurrences/search,T
 Portugal,data/occurrences-count-groupby,https://registos-ws.gbif.pt/occurrence/facets,TRUE
 Portugal,data/species,https://registos-ws.gbif.pt/occurrences/facets/download,FALSE
 Portugal,data/species-count,https://registos-ws.gbif.pt/occurrence/facets,TRUE
-Portugal,files/media,https://imagens.gbif.pt/ws/image/{id}/{size},TRUE
+Portugal,files/media,https://imagens.gbif.pt/image/{id}/{size},TRUE
 Portugal,metadata/assertions,https://registos-ws.gbif.pt/assertions/codes,TRUE
 Portugal,metadata/collections,https://metadados.gbif.pt/ws/collection,TRUE
 Portugal,metadata/datasets,https://metadados.gbif.pt/ws/dataResource,TRUE
@@ -188,7 +188,7 @@ Spain,data/occurrences-count-groupby,https://registros-ws.gbif.es/occurrence/fac
 Spain,data/occurrences-doi,https://doi.gbif.es/doi/{doi_string}/download,TRUE
 Spain,data/species,https://registros-ws.gbif.es/occurrences/facets/download,TRUE
 Spain,data/species-count,https://registros-ws.gbif.es/occurrence/facets,TRUE
-Spain,files/media,https://imagenes.gbif.es/ws/images/{id}/{size},TRUE
+Spain,files/media,https://imagenes.gbif.es/images/{id}/{size},TRUE
 Spain,metadata/assertions,https://registros-ws.gbif.es/assertions/codes,TRUE
 Spain,metadata/collections,https://colecciones.gbif.es/ws/collection,TRUE
 Spain,metadata/datasets,https://colecciones.gbif.es/ws/dataResource,TRUE
@@ -234,7 +234,7 @@ United Kingdom,data/occurrences-count,https://records-ws.nbnatlas.org/occurrence
 United Kingdom,data/occurrences-count-groupby,https://records-ws.nbnatlas.org/occurrence/facets,TRUE
 United Kingdom,data/species,https://records-ws.nbnatlas.org/occurrences/facets/download,TRUE
 United Kingdom,data/species-count,https://records-ws.nbnatlas.org/occurrence/facets,TRUE
-United Kingdom,files/media,https://images.nbnatlas.org/ws/image/{id}/{size},TRUE
+United Kingdom,files/media,https://images.nbnatlas.org/image/{id}/{size},TRUE
 United Kingdom,metadata/assertions,https://records-ws.nbnatlas.org/assertions/codes,TRUE
 United Kingdom,metadata/collections,https://registry.nbnatlas.org/ws/collection,TRUE
 United Kingdom,metadata/datasets,https://registry.nbnatlas.org/ws/dataResource,TRUE

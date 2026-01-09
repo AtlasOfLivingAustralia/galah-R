@@ -79,7 +79,9 @@ atlas_media <- function(request = NULL,
     collect(wait = TRUE) |>
     tidyr::unnest_longer(col = tidyselect::any_of(present_fields))
   
-  if(!any(colnames(occ) == "all_image_url")){
+  if(any(colnames(occ) == "all_image_url")){
+    occ <- dplyr::rename(occ, "media_id" = "all_image_url")
+  }else{
     occ$media_id <- build_media_id(occ)
   }
   
@@ -93,9 +95,6 @@ atlas_media <- function(request = NULL,
   media <- collect(media_query)
   
   # join and return
-  if(any(colnames(occ) == "all_image_url")){
-    occ <- dplyr::rename(occ, "media_id" = "all_image_url")
-  }
   occ_media <- dplyr::right_join(occ,
                                  media, 
                                  by = dplyr::join_by("media_id"))
@@ -113,7 +112,7 @@ parse_regional_media_filters <- function(present_fields,
          "Austria" = "(all_image_url:*)",
          "Australia" = glue::glue("({present_fields}:*)"),
          "Brazil" = "(all_image_url:*)",
-         # Flanders?
+         "Flanders" = "(all_image_url:*)",
          "Guatemala" = "(all_image_url:*)",
          "Kew" =  "(all_image_url:*)",
          "Portugal" = "(all_image_url:*)",

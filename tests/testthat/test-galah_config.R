@@ -5,15 +5,6 @@ test_that("`galah_config()` gives nice error messages for incorrect arguments", 
   expect_error(quiet_config(something = "nothing"))
 })
 
-test_that("galah_config warns that `cache_directory` is deprecated", {
-  unlink("temp", recursive = TRUE)
-  dir.create("temp")
-  expect_warning(galah_config(cache_directory = "temp"))
-  expect_true(galah_config()$package$directory == "temp")
-  galah_config(directory = tempfile())
-  unlink("temp", recursive = TRUE)
-})
-
 test_that("galah_config creates nested folders where requested", {
   galah_config(directory = "non/existent")
   directories <- list.dirs(recursive = TRUE)

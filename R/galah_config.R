@@ -351,6 +351,7 @@ check_authentication_argument <- function(x){
   # an API. For safety and clarity reasons, I've added the following steps:
   # 1. giving some notice to the user that this has been performed 
   # 2. adding a warning message if the API call fails
+  # This is currently deactivated due to changes in workflow
   if(isTRUE(purrr::pluck(x, "package", "authenticate")) & # value set to TRUE by user
      is.null(retrieve_cache("config")) # not already cached
   ){
