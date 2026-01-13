@@ -168,9 +168,14 @@ print.query <- function(x, ...){
   print_list <- print_list[!unlist(purrr::map(print_list, is.null))]
 
   # print
-  cli::cli_text("Object of class {galah_pink(\"query\")} with type {galah_green(x$type)}")
+  class_tr <- class(x)[1]
+  cli::cli_text("Object of class {galah_pink(class_tr)} with type {galah_green(x$type)}")
   cli::cli_li(print_list)
 }
+
+#' @rdname print_galah_objects
+#' @export
+print.prequery <- print.query
 
 #' @rdname print_galah_objects
 #' @export

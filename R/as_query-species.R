@@ -49,7 +49,7 @@ as_query_species_atlas <- function(.query){
        url = httr2::url_build(url),
        headers = build_headers(),
        download = TRUE) |>
-    as_query()
+    as_prequery()
 }
 
 #' parse `select()` for `atlas_species()`

@@ -5,10 +5,12 @@
 #' @name collect.data_request
 #' @order 1
 #' @param x An object of class `data_request`, `metadata_request` or 
-#' `files_request` (from `galah_call()`); or an object of class `query_set` or 
-#' `query` (from `collapse()` or `compute()`)
+#' `files_request` (from `galah_call()`); or an object of class `prequery`,
+#' `query_set` or `query` (from [capture()],
+#' \code{\link[=collapse.data_request]{collapse()}}
+#' or \code{\link[=compute.data_request]{compute()}})
 #' @param ... Arguments passed on to other methods
-#' @param wait logical; should `galah` wait for a response? Defaults to FALSE.
+#' @param wait logical; should `galah` wait for a response? Defaults to `FALSE`.
 #' Only applies for `type = "occurrences"` or `"species"`.
 #' @param file (Optional) file name. If not given, will be set to `data` with 
 #' date and time added. The file path (directory) is always given by 
@@ -18,7 +20,7 @@
 #' `wait` is set to `FALSE`), this function returns an object of class `query`
 #' that can be used to recheck the download at a later time.
 #' @seealso To open a piped query, see [galah_call()]. For alternative 
-#' operations on `_request` objects, see [as_query()], [coalesce()], 
+#' operations on `_request` objects, see [capture()], [coalesce()], 
 #' \code{\link[=collapse.data_request]{collapse()}} or 
 #' \code{\link[=compute.data_request]{compute()}}.
 #' @export

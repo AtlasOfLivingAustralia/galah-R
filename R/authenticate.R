@@ -2,7 +2,7 @@
 #' 
 #' Add an authentication slot to a query. That slot is then used by later
 #' code to determine whether to add an OAuth workflow. It is triggered
-#' automatically within [as_query()] if the `authenticate` argument
+#' automatically within [capture()] if the `authenticate` argument
 #' of [galah_config()] is set to `TRUE`, but only for occurrence queries
 #' to the Atlas of Living Australia.
 #' `r lifecycle::badge("experimental")`.

@@ -45,7 +45,7 @@ as_query_occurrences_uk <- function(.query, ...){
   list(type = "data/occurrences",
        url = httr2::url_build(url),
        headers = build_headers()) |>
-    as_query()
+    as_prequery()
 }
 
 #' calculate the query to be returned for GBIF
@@ -74,7 +74,7 @@ as_query_occurrences_gbif <- function(.query,
                    identify = .query$identify,
                    geolocate = .query$geolocate,
                    format = "SIMPLE_CSV")) |>
-    as_query()
+    as_prequery()
 }
 
 #' calculate the query to be returned for a given living atlas
@@ -108,5 +108,5 @@ as_query_occurrences_la <- function(.query,
   list(type = "data/occurrences",
        url = httr2::url_build(url),
        headers = build_headers()) |>
-    as_query()
+    as_prequery()
 }

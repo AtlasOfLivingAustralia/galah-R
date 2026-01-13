@@ -23,12 +23,14 @@
 }
 \arguments{
 \item{x}{An object of class \code{data_request}, \code{metadata_request} or
-\code{files_request} (from \code{galah_call()}); or an object of class \code{query_set} or
-\code{query} (from \code{collapse()} or \code{compute()})}
+\code{files_request} (from \code{galah_call()}); or an object of class \code{prequery},
+\code{query_set} or \code{query} (from \code{\link[=capture]{capture()}},
+\code{\link[=collapse.data_request]{collapse()}}
+or \code{\link[=compute.data_request]{compute()}})}
 
 \item{...}{Arguments passed on to other methods}
 
-\item{wait}{logical; should \code{galah} wait for a response? Defaults to FALSE.
+\item{wait}{logical; should \code{galah} wait for a response? Defaults to \code{FALSE}.
 Only applies for \code{type = "occurrences"} or \code{"species"}.}
 
 \item{file}{(Optional) file name. If not given, will be set to \code{data} with
@@ -47,7 +49,7 @@ default way to end a piped query begun with \code{\link[=galah_call]{galah_call(
 }
 \seealso{
 To open a piped query, see \code{\link[=galah_call]{galah_call()}}. For alternative
-operations on \verb{_request} objects, see \code{\link[=as_query]{as_query()}}, \code{\link[=coalesce]{coalesce()}},
+operations on \verb{_request} objects, see \code{\link[=capture]{capture()}}, \code{\link[=coalesce]{coalesce()}},
 \code{\link[=collapse.data_request]{collapse()}} or
 \code{\link[=compute.data_request]{compute()}}.
 }

@@ -5,7 +5,9 @@
 \alias{coalesce.data_request}
 \alias{coalesce.metadata_request}
 \alias{coalesce.files_request}
+\alias{coalesce.prequery}
 \alias{coalesce.query}
+\alias{coalesce.query_set}
 \title{Force evaluation of a database query}
 \usage{
 coalesce(x, ...)
@@ -16,16 +18,20 @@ coalesce(x, ...)
 
 \method{coalesce}{files_request}(x, ...)
 
+\method{coalesce}{prequery}(x, mint_doi, ...)
+
 \method{coalesce}{query}(x, ...)
+
+\method{coalesce}{query_set}(x, ...)
 }
 \arguments{
 \item{x}{An object to be coalesced. Works for \code{data_request},
 \code{metadata_request} and \code{file_request}.}
 
-\item{...}{Other arguments passed to \code{\link[=as_query]{as_query()}}.}
+\item{...}{Other arguments passed to \code{\link[=capture]{capture()}}.}
 
 \item{mint_doi}{Logical: should a DOI be minted for this download? Only
-applies to \code{type = "occurrences"} when atlas chosen is "ALA".}
+applies to \code{type = "occurrences"}, and only for supported atlases.}
 }
 \value{
 An object of class \code{query_set}, which is simply a list of all \code{query}
@@ -43,11 +49,11 @@ the user's query includes a call to
 is required to run \emph{before} the 'final' query is attempted. In relation to
 other functions that manipulate \verb{_request} objects, \code{\link[=coalesce]{coalesce()}} is called
 within \code{\link[=collapse.data_request]{collapse()}}, and itself
-calls \code{\link[=as_query]{as_query()}} internally.
+calls \code{\link[=capture]{capture()}} internally where required.
 }
 \seealso{
 To open a piped query, see \code{\link[=galah_call]{galah_call()}}. For alternative
-operations on \verb{_request} objects, see \code{\link[=as_query]{as_query()}},
+operations on \verb{_request} objects, see \code{\link[=capture]{capture()}},
 \code{\link[=collapse.data_request]{collapse()}},
 \code{\link[=compute.data_request]{compute()}} or
 \code{\link[=collect.data_request]{collect()}}.

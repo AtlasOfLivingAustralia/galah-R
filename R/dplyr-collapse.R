@@ -10,9 +10,9 @@
 #' @order 1
 #' @param x An object to run `collapse()` on. Classes supported by `galah` 
 #' include `data_request`, `metadata_request` and `files_request` for building
-#' queries; and `query` or `query_set` once constructed (via [as_query()] or
-#' [coalesce()]).
-#' @param ... Arguments passed on to [as_query()].
+#' queries; and `prequery`, `query` or `query_set` once constructed (via 
+#' [capture()] or [coalesce()]).
+#' @param ... Arguments passed on to [capture()].
 #' @return An object of class `query`, which is a list-like object containing 
 #' two or more of the following slots:
 #' 
@@ -23,43 +23,44 @@
 #'  - `headers`: headers to be sent with the API call
 #'  - `body`: body section of the API call
 #'  - `options`: options section of the API call
-#'  - Any other information retained from the preceeding `_request` object (see [galah_call()])
+#'  - Any other information retained from the preceeding `_request` object (see [capture()])
 #'  
 #' @seealso To open a piped query, see [galah_call()]. For alternative 
-#' operations on `_request` objects, see [as_query()], [coalesce()], 
+#' operations on `_request` objects, see [capture()], [coalesce()], 
 #' \code{\link[=compute.data_request]{compute()}} or 
 #' \code{\link[=collect.data_request]{collect()}}.
 #' @export
 collapse.data_request <- function(x, ...){
-  coalesce(x, ...) |>
+  x |>
+    coalesce(...) |>
     collapse()
 }
 
-# if calling `collapse()` after `request_metadata()`
 #' @rdname collapse.data_request
 #' @order 2
 #' @export
-collapse.metadata_request <- function(x,
-                                      ...){
-  coalesce(x, ...) |>
-    collapse()
-}
+collapse.metadata_request <- collapse.data_request
 
-# if calling `collapse()` after `request_files()`
 #' @rdname collapse.data_request
 #' @order 3
 #' @export
-collapse.files_request <- function(x,
-                                   ...
-                                   ){
-  # convert to `query_set` then parse
-  coalesce(x, ...) |>
-    collapse()
+collapse.files_request <- collapse.data_request
+
+#' @rdname collapse.data_request
+#' @order 4
+#' @export
+collapse.prequery <- collapse.data_request
+
+#' @rdname collapse.data_request
+#' @order 5
+#' @export
+collapse.query <- function(x, ...){
+  x
 }
 
 # if calling `collapse()` after `coalesce()`
 #' @rdname collapse.data_request
-#' @order 4
+#' @order 6
 #' @export
 collapse.query_set <- function(x, ...){
   # note: files requests do not need to call build_checks()
@@ -72,12 +73,4 @@ collapse.query_set <- function(x, ...){
       collapse_run_checks() |>
       collapse_query_set()
   }
-}
-
-# if calling `collapse()` after `as_query()`
-#' @rdname collapse.data_request
-#' @order 4
-#' @export
-collapse.query <- function(x, ...){
-  x
 }

@@ -53,7 +53,7 @@ as_query_occurrences_count_atlas <- function(identify = NULL,
                    url = httr2::url_build(url),
                    headers = build_headers())
   }
-  as_query(result)
+  as_prequery(result)
 }
 
 #' Internal function to parse `slice` and `arrange` for counts
@@ -124,5 +124,5 @@ as_query_occurrences_count_gbif <- function(identify = NULL,
          userpwd = user_string),
        body = predicates_info,
        slot_name = "count") |>
-    as_query()
+    as_prequery()
 }

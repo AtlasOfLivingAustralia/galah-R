@@ -4,8 +4,9 @@
 \alias{collapse.data_request}
 \alias{collapse.metadata_request}
 \alias{collapse.files_request}
-\alias{collapse.query_set}
+\alias{collapse.prequery}
 \alias{collapse.query}
+\alias{collapse.query_set}
 \title{Generate a query}
 \usage{
 \method{collapse}{data_request}(x, ...)
@@ -14,17 +15,19 @@
 
 \method{collapse}{files_request}(x, ...)
 
-\method{collapse}{query_set}(x, ...)
+\method{collapse}{prequery}(x, ...)
 
 \method{collapse}{query}(x, ...)
+
+\method{collapse}{query_set}(x, ...)
 }
 \arguments{
 \item{x}{An object to run \code{collapse()} on. Classes supported by \code{galah}
 include \code{data_request}, \code{metadata_request} and \code{files_request} for building
-queries; and \code{query} or \code{query_set} once constructed (via \code{\link[=as_query]{as_query()}} or
-\code{\link[=coalesce]{coalesce()}}).}
+queries; and \code{prequery}, \code{query} or \code{query_set} once constructed (via
+\code{\link[=capture]{capture()}} or \code{\link[=coalesce]{coalesce()}}).}
 
-\item{...}{Arguments passed on to \code{\link[=as_query]{as_query()}}.}
+\item{...}{Arguments passed on to \code{\link[=capture]{capture()}}.}
 }
 \value{
 An object of class \code{query}, which is a list-like object containing
@@ -39,7 +42,7 @@ two or more of the following slots:
 \item \code{headers}: headers to be sent with the API call
 \item \code{body}: body section of the API call
 \item \code{options}: options section of the API call
-\item Any other information retained from the preceeding \verb{_request} object (see \code{\link[=galah_call]{galah_call()}})
+\item Any other information retained from the preceeding \verb{_request} object (see \code{\link[=capture]{capture()}})
 }
 }
 \description{
@@ -52,7 +55,7 @@ the \code{method} argument.
 }
 \seealso{
 To open a piped query, see \code{\link[=galah_call]{galah_call()}}. For alternative
-operations on \verb{_request} objects, see \code{\link[=as_query]{as_query()}}, \code{\link[=coalesce]{coalesce()}},
+operations on \verb{_request} objects, see \code{\link[=capture]{capture()}}, \code{\link[=coalesce]{coalesce()}},
 \code{\link[=compute.data_request]{compute()}} or
 \code{\link[=collect.data_request]{collect()}}.
 }

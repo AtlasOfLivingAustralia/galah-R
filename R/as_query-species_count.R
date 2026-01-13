@@ -48,5 +48,5 @@ as_query_species_count_atlas <- function(identify = NULL,
                    url = httr2::url_build(url),
                    headers = build_headers())
   }
-  as_query(result)
+  as_prequery(result)
 }

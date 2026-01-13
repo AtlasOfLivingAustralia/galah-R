@@ -14,8 +14,8 @@ as_query_fields_unnest <- function(.query){
                       flimit = 10^4)
   }
   list(type = "metadata/fields-unnest",
-       url = httr2::url_build(url))  |>
-    as_query()
+       url = httr2::url_build(url)) |>
+    as_prequery()
 }
 
 #' Internal function to run `as_query()` for 
@@ -44,7 +44,7 @@ as_query_profiles_unnest <- function(.query){
   list(type = "metadata/profiles-unnest",
        url = url_lookup("metadata/profiles-unnest", 
                         profile = .query$filter$value[1]))  |>
-    as_query()
+    as_prequery()
 }
 
 #' Internal function to `as_query()` for 
@@ -60,5 +60,5 @@ as_query_taxa_unnest <- function(.query){
   list(type = "metadata/taxa-unnest",
        url = url_lookup("metadata/taxa-unnest", id = id),
        headers = build_headers()) |>
-    as_query()
+    as_prequery()
 }

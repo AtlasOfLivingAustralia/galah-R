@@ -42,7 +42,7 @@ prevents execution of new code until the server-side process is complete.
 }
 \seealso{
 To open a piped query, see \code{\link[=galah_call]{galah_call()}}. For alternative
-operations on \verb{_request} objects, see \code{\link[=as_query]{as_query()}}, \code{\link[=coalesce]{coalesce()}},
+operations on \verb{_request} objects, see \code{\link[=capture]{capture()}}, \code{\link[=coalesce]{coalesce()}},
 \code{\link[=collapse.data_request]{collapse()}},
 \code{\link[=collect.data_request]{collect()}}.
 }

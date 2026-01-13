@@ -19,7 +19,7 @@ An object of the same class as supplied, but with an added
 \description{
 Add an authentication slot to a query. That slot is then used by later
 code to determine whether to add an OAuth workflow. It is triggered
-automatically within \code{\link[=as_query]{as_query()}} if the \code{authenticate} argument
+automatically within \code{\link[=capture]{capture()}} if the \code{authenticate} argument
 of \code{\link[=galah_config]{galah_config()}} is set to \code{TRUE}, but only for occurrence queries
 to the Atlas of Living Australia.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}.

@@ -64,7 +64,7 @@ reference:
   - unnest
 - title: Create and execute a query
   contents:
-  - as_query.data_request
+  - capture
   - coalesce
   - collapse.data_request
   - compute.data_request
