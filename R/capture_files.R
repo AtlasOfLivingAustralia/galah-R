@@ -1,8 +1,8 @@
-#' Internal version of `as_query()` for `request_files(type = "media")`
+#' Internal version of `capture()` for `request_files(type = "media")`
 #' @param .query An object of class `files_request` (from `request_files()`)
 #' @noRd
 #' @keywords Internal
-as_query_media_files <- function(.query, 
+capture_media_files <- function(.query, 
                                  thumbnail = FALSE,
                                  error_call = rlang::caller_env()
                                  ){

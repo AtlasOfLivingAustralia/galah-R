@@ -1,4 +1,4 @@
-# These functions are called by `as_query.metadata_request()`
+# These functions are called by `capture.metadata_request()`
 
 # Utility functions to build default forms of query
 
@@ -39,7 +39,7 @@ filtered_query <- function(query_type, .query){
 #' Internal function get a tibble of APIs
 #' @noRd
 #' @keywords Internal
-as_query_apis <- function(x){
+capture_apis <- function(x){
   list(type = "metadata/apis",
        data = "galah:::node_config") |>
     as_query()
@@ -49,7 +49,7 @@ as_query_apis <- function(x){
 #' NOTE: API doesn't accept any arguments - could post-filter for search
 #' @noRd
 #' @keywords Internal
-as_query_assertions <- function(x){
+capture_assertions <- function(x){
   query_type <- "metadata/assertions"
   if(is_gbif()){
     result <- list(type = query_type,
@@ -68,7 +68,7 @@ as_query_assertions <- function(x){
 #' Internal function to create an atlases query
 #' @noRd
 #' @keywords Internal
-as_query_atlases <- function(x){
+capture_atlases <- function(x){
   list(type = "metadata/atlases",
        data = "galah:::node_metadata") |>
     as_query()
@@ -77,7 +77,7 @@ as_query_atlases <- function(x){
 #' Internal function to create a collections query
 #' @noRd
 #' @keywords Internal
-as_query_collections <- function(x){
+capture_collections <- function(x){
   # set `type`
   query_type <- "metadata/collections"
   # If `filter()` is supplied, we always need a query
@@ -104,7 +104,7 @@ as_query_collections <- function(x){
 #' Internal function to create an auth-config query
 #' @noRd
 #' @keywords Internal
-as_query_config <- function(x){
+capture_config <- function(x){
   query_type <- "metadata/config"
   if(check_if_cache_update_needed("config")){
     result <- default_query(query_type)
@@ -118,7 +118,7 @@ as_query_config <- function(x){
 #' Internal function to create a datasets query
 #' @noRd
 #' @keywords Internal
-as_query_datasets <- function(x){
+capture_datasets <- function(x){
   # set `type`
   query_type <- "metadata/datasets"
   # If `filter()` is supplied, we always need a query
@@ -143,7 +143,7 @@ as_query_datasets <- function(x){
 #' Internal function to create a fields query
 #' @noRd
 #' @keywords Internal
-as_query_fields <- function(x){
+capture_fields <- function(x){
   query_type <- "metadata/fields"
   if(check_if_cache_update_needed("fields")){
     default_query(query_type) |> as_query()
@@ -155,7 +155,7 @@ as_query_fields <- function(x){
 #' Internal function to create a licences query
 #' @noRd
 #' @keywords Internal
-as_query_licences <- function(x){
+capture_licences <- function(x){
   query_type <- "metadata/licences"
   if(check_if_cache_update_needed("licences")){
     default_query(query_type) |> as_query()
@@ -167,7 +167,7 @@ as_query_licences <- function(x){
 #' Internal function to create a lists query
 #' @noRd
 #' @keywords Internal
-as_query_lists <- function(x,
+capture_lists <- function(x,
                            error_call = rlang::caller_env()){
   query_type <- "metadata/lists"
   # if filter is supplied, lookup a specified list by dr number
@@ -217,7 +217,7 @@ as_query_lists <- function(x,
 #' @param .query An object of class `metadata_request` (from `request_metadata()`)
 #' @noRd
 #' @keywords Internal
-as_query_media_metadata <- function(.query,
+capture_media_metadata <- function(.query,
                                     error_call = rlang::caller_env()){
   # NOTE:
   # this function currently assumes that the user has passed an occurrence 
@@ -257,7 +257,7 @@ as_query_media_metadata <- function(.query,
 #' Internal function to create a profiles query
 #' @noRd
 #' @keywords Internal
-as_query_profiles <- function(x){
+capture_profiles <- function(x){
   query_type <- "metadata/profiles"
   if(check_if_cache_update_needed("profiles")){
     result <- default_query(query_type)
@@ -271,7 +271,7 @@ as_query_profiles <- function(x){
 #' Internal function to create a providers query
 #' @noRd
 #' @keywords Internal
-as_query_providers <- function(x){
+capture_providers <- function(x){
   # set `type`
   query_type <- "metadata/providers"
   # If `filter()` is supplied, we always need a query
@@ -296,7 +296,7 @@ as_query_providers <- function(x){
 #' Internal function to create a reasons query
 #' @noRd
 #' @keywords Internal
-as_query_reasons <- function(x){
+capture_reasons <- function(x){
   query_type <- "metadata/reasons"
   if(check_if_cache_update_needed("reasons")){
     result <- default_query(query_type)
@@ -310,7 +310,7 @@ as_query_reasons <- function(x){
 #' Internal function to create a ranks query
 #' @noRd
 #' @keywords Internal
-as_query_ranks <- function(x){
+capture_ranks <- function(x){
   if(is_gbif()){
     result <- list(type = "metadata/ranks",
                    data = "galah:::gbif_internal_archived$ranks")

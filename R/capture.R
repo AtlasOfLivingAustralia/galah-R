@@ -55,12 +55,12 @@ capture.data_request <- function(x,
     check_slice_arrange() |>
     enforce_select_query()
   switch(x$type,
-         "occurrences" = as_query_occurrences(x, mint_doi = mint_doi),
-         "occurrences-count" = as_query_occurrences_count(x),
-         "occurrences-doi" = as_query_occurrences_doi(x),
-         "species" = as_query_species(x),
-         "species-count" = as_query_species_count(x),
-         "distributions" = as_query_distributions_data(x),
+         "occurrences" = capture_occurrences(x, mint_doi = mint_doi),
+         "occurrences-count" = capture_occurrences_count(x),
+         "occurrences-doi" = capture_occurrences_doi(x),
+         "species" = capture_species(x),
+         "species-count" = capture_species_count(x),
+         "distributions" = capture_distributions_data(x),
          cli::cli_abort("Unrecognised 'type'")) |>
   add_request(x)
 }
@@ -73,27 +73,27 @@ capture.metadata_request <- function(x, ...){
     check_authentication() |>
     enforce_select_query()
   switch(x$type,
-         "apis" = as_query_apis(x),
-         "assertions" = as_query_assertions(x),
-         "atlases" = as_query_atlases(x),
-         "collections" = as_query_collections(x),
-         "config" = as_query_config(x),
-         "datasets" = as_query_datasets(x),
-         "distributions" = as_query_distributions_metadata(x),
-         "fields" = as_query_fields(x),
-         "fields-unnest" = as_query_fields_unnest(x),
-         "licences" = as_query_licences(x),
-         "lists" = as_query_lists(x),
-         "lists-unnest" = as_query_lists_unnest(x),
-         "media" = as_query_media_metadata(x),
-         "profiles" = as_query_profiles(x),
-         "profiles-unnest" = as_query_profiles_unnest(x),
-         "providers" = as_query_providers(x),
-         "ranks" = as_query_ranks(x),
-         "reasons" = as_query_reasons(x),
-         "taxa" = as_query_taxa(x),
-         "taxa-unnest" = as_query_taxa_unnest(x),
-         "identifiers" = as_query_identifiers(x),
+         "apis" = capture_apis(x),
+         "assertions" = capture_assertions(x),
+         "atlases" = capture_atlases(x),
+         "collections" = capture_collections(x),
+         "config" = capture_config(x),
+         "datasets" = capture_datasets(x),
+         "distributions" = capture_distributions_metadata(x),
+         "fields" = capture_fields(x),
+         "fields-unnest" = capture_fields_unnest(x),
+         "licences" = capture_licences(x),
+         "lists" = capture_lists(x),
+         "lists-unnest" = capture_lists_unnest(x),
+         "media" = capture_media_metadata(x),
+         "profiles" = capture_profiles(x),
+         "profiles-unnest" = capture_profiles_unnest(x),
+         "providers" = capture_providers(x),
+         "ranks" = capture_ranks(x),
+         "reasons" = capture_reasons(x),
+         "taxa" = capture_taxa(x),
+         "taxa-unnest" = capture_taxa_unnest(x),
+         "identifiers" = capture_identifiers(x),
          cli::cli_abort("Unrecognised 'type'")
          ) |>
   add_request(x)
@@ -113,7 +113,7 @@ capture.files_request <- function(x,
   
   # This code is identical to `collapse.files_request()`
   switch(x$type,
-         "media" = as_query_media_files(x, 
+         "media" = capture_media_files(x, 
                                         thumbnail = thumbnail),
          cli::cli_abort("Unrecognised 'type'")) |>
   add_request(x)

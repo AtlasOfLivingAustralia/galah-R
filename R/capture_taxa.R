@@ -1,15 +1,15 @@
-#' Internal function to run `as_query()` for `type = "taxa"`, `method = "metadata`
+#' Internal function to run `capture()` for `type = "taxa"`, `method = "metadata`
 #' @noRd
 #' @keywords Internal
-as_query_taxa <- function(.query){
+capture_taxa <- function(.query){
   if(is.null(.query$identify)){
     result <- list(type = "metadata/taxa")
   }else{
     if(ncol(.query$identify) > 1 | 
        colnames(.query$identify)[1] != "search_term"){
-      result <- as_query_taxa_multiple(.query)
+      result <- capture_taxa_multiple(.query)
     }else{
-      result <- as_query_taxa_single(.query)
+      result <- capture_taxa_single(.query)
     }
   }
   result |>
@@ -19,7 +19,7 @@ as_query_taxa <- function(.query){
 #' Internal function to `as_query()` for a single taxonomic name 
 #' @noRd
 #' @keywords Internal
-as_query_taxa_single <- function(.query){
+capture_taxa_single <- function(.query){
   terms <- .query$identify$search_term
   list(type = "metadata/taxa-single",
        url = tibble::tibble(url = url_lookup("metadata/taxa-single",
@@ -31,7 +31,7 @@ as_query_taxa_single <- function(.query){
 #' Internal function to `collapse()` where multiple taxonomic levels are given 
 #' @noRd
 #' @keywords Internal
-as_query_taxa_multiple <- function(.query){
+capture_taxa_multiple <- function(.query){
   # get a data.frame, enforce use of accepted taxon levels
   identify_df <- .query$identify
   colnames(identify_df) <- colnames(identify_df) |>
@@ -65,7 +65,7 @@ as_query_taxa_multiple <- function(.query){
 #' Internal function to create an identifiers query
 #' @noRd
 #' @keywords Internal
-as_query_identifiers <- function(.query){
+capture_identifiers <- function(.query){
   if(is.null(.query$filter)){
     url_list <- url_lookup("metadata/identifiers")
     names(url_list) <- "no-name-supplied"

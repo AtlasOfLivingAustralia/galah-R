@@ -17,14 +17,12 @@
             silent = TRUE))
 
       # show currently-selected atlas
-      current_node <- "ALA"
-      current_url <- "none"
-      #current_node <- potions::pour("atlas", .pkg = "galah") |>
-      #  purrr::pluck("acronym")
-      #current_url <- show_all_atlases() |>
-      #  dplyr::filter(.data$acronym == current_node) |>
-      #  dplyr::pull("url") |>
-      #  stringr::str_replace("^https://", "")
+      current_node <- potions::pour("atlas", .pkg = "galah") |>
+        purrr::pluck("acronym")
+      current_url <- show_all_atlases() |>
+        dplyr::filter(.data$acronym == current_node) |>
+        dplyr::pull("url") |>
+        stringr::str_replace("^https://", "")
 
       # display a message
       # NOTE: This message *must* have the following classes to enable them

@@ -1,25 +1,25 @@
-#' collapse for type = "occurrences-count"
+#' capture() for type = "occurrences-count"
 #' @keywords Internal
 #' @param .query an object of class `data_request`
 #' @noRd
-as_query_occurrences_count <- function(.query){
+capture_occurrences_count <- function(.query){
   # NOTE: This is quite weird syntax; consider revising
   if(is_gbif()){
-    function_name <- "as_query_occurrences_count_gbif"
-    arg_names <- names(formals(as_query_occurrences_count_gbif))
+    function_name <- "capture_occurrences_count_gbif"
+    arg_names <- names(formals(capture_occurrences_count_gbif))
   }else{
-    function_name <- "as_query_occurrences_count_atlas"
-    arg_names <- names(formals(as_query_occurrences_count_atlas))
+    function_name <- "capture_occurrences_count_atlas"
+    arg_names <- names(formals(capture_occurrences_count_atlas))
   }
   custom_call <- .query[names(.query) %in% arg_names]
   class(custom_call) <- "data_request"
   do.call(function_name, custom_call)
 }
 
-#' collapse for counts on LAs
+#' capture() for counts on LAs
 #' @keywords Internal
 #' @noRd
-as_query_occurrences_count_atlas <- function(identify = NULL, 
+capture_occurrences_count_atlas <- function(identify = NULL, 
                                              filter = NULL, 
                                              geolocate = NULL,
                                              apply_profile = NULL,
@@ -75,10 +75,10 @@ parse_slice_arrange <- function(df){
   }
 }
 
-#' collapse for counts on GBIF
+#' capture() for counts on GBIF
 #' @keywords Internal
 #' @noRd
-as_query_occurrences_count_gbif <- function(identify = NULL, 
+capture_occurrences_count_gbif <- function(identify = NULL, 
                                             filter = NULL,
                                             geolocate = NULL,
                                             group_by = NULL,

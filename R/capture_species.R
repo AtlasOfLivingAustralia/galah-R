@@ -1,21 +1,21 @@
-#' Internal function to convert `data_request` with `type = "species"` to a `query`
+#' Internal function to run capture() for type = "species"
 #' @noRd
 #' @keywords Internal
-as_query_species <- function(.query){
+capture_species <- function(.query){
   if(is_gbif()){
-    result <- as_query_occurrences_gbif(.query, 
-                                        format = "SPECIES_LIST")
+    result <- capture_occurrences_gbif(.query, 
+                                       format = "SPECIES_LIST")
     result$type <- "data/species"
     result
   }else{
-    as_query_species_atlas(.query)
+    capture_species_atlas(.query)
   }
 }
 
 #' calculate the query to be returned for a given living atlas
 #' @noRd
 #' @keywords Internal
-as_query_species_atlas <- function(.query){
+capture_species_atlas <- function(.query){
   # set default columns
   if(is.null(.query$select)){
     .query <- .query |> select(group = "taxonomy")

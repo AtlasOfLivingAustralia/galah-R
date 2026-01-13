@@ -1,7 +1,7 @@
-#' Internal function to run `as_query()` for type `data/distributions`
+#' Internal function to run `capture()` for type `data/distributions`
 #' @noRd
 #' @keywords Internal
-as_query_distributions_data <- function(.query,
+capture_distributions_data <- function(.query,
                                         error_call = rlang::caller_env()){
   identify_supplied <- !is.null(.query$identify)
   filter_supplied <- !is.null(.query$filter)
@@ -31,7 +31,7 @@ as_query_distributions_data <- function(.query,
 #' Internal function to create a distributions query
 #' @noRd
 #' @keywords Internal
-as_query_distributions_metadata <- function(.query){
+capture_distributions_metadata <- function(.query){
   url <- url_lookup("metadata/distributions")
   result <- list(type = "metadata/distributions",
                  url = url,

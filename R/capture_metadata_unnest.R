@@ -1,8 +1,8 @@
-#' Internal function to run `as_query()` for 
+#' Internal function to run `capture()` for 
 #' `request_metadata(type = "fields") |> unnest()`
 #' @noRd
 #' @keywords Internal
-as_query_fields_unnest <- function(.query){
+capture_fields_unnest <- function(.query){
   url <- url_lookup("metadata/fields-unnest") |> 
     httr2::url_parse()
   if(is_gbif()){
@@ -18,11 +18,11 @@ as_query_fields_unnest <- function(.query){
     as_prequery()
 }
 
-#' Internal function to run `as_query()` for 
+#' Internal function to run `capture()` for 
 #' `request_metadata(type = "lists") |> unnest()`
 #' @noRd
 #' @keywords Internal
-as_query_lists_unnest <- function(.query){
+capture_lists_unnest <- function(.query){
   # get list lookup url
   url <- url_lookup("metadata/lists-unnest",
                     list_id = .query$filter$value[1]) |>
@@ -36,22 +36,22 @@ as_query_lists_unnest <- function(.query){
     as_query()
 }
 
-#' Internal function to run `as_query()` for 
+#' Internal function to run `capture()` for 
 #' `request_metadata(type = "profiles") |> unnest()`
 #' @noRd
 #' @keywords Internal
-as_query_profiles_unnest <- function(.query){
+capture_profiles_unnest <- function(.query){
   list(type = "metadata/profiles-unnest",
        url = url_lookup("metadata/profiles-unnest", 
                         profile = .query$filter$value[1]))  |>
     as_prequery()
 }
 
-#' Internal function to `as_query()` for 
+#' Internal function to `capture()` for 
 #' `request_metadata(type = "taxa") |> unnest()`
 #' @noRd
 #' @keywords Internal
-as_query_taxa_unnest <- function(.query){
+capture_taxa_unnest <- function(.query){
   if(!is.null(.query$filter)){
     id <- .query$filter$value[1]
   }else if(!is.null(.query$identify)){
