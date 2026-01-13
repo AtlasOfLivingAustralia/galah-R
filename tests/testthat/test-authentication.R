@@ -21,37 +21,40 @@ test_that("`request_metadata()` caches type `config` correctly", {
   expect_true(!is.null(result$data))  
 })
 
-test_that("`use_authentication()` works in-pipe for metadata", {
+test_that("`authenticate()` works in-pipe for metadata", {
   skip("authentication requires interactivity")
   galah_config(caching = FALSE) # turn off caching to force galah to call an API
   query <- request_metadata(type = "reasons") |>
-    use_authentication()
+    authenticate()
   
   result <- as_query(query)
-  is.null(result$authenticate) |>
+  is.null(result$request$authenticate) |>
     expect_false()
   
   result2 <- coalesce(result)
   expect_equal(length(result2), 2)
+  purrr::map(result2, \(a){a$type}) |>
+    unlist() |>
+    expect_equal(c("metadata/config", "metadata/reasons"))
 
   galah_config(caching = TRUE)
 })
 
-test_that("`use_authentication()` works in-pipe for occurrences", {
+test_that("`authenticate()` works in-pipe for occurrences", {
   skip("authentication requires interactivity")
   
-  galah_config(authenticate = TRUE)
-  query <- galah_call() |>
+   query <- galah_call() |>
+    authenticate() |>
     identify("Litoria dentata") |>
     filter(year == 2025) |>
     coalesce()
   expect_equal(length(query), 6)
-  is.null(query[[6]]$authenticate) |>
+  is.null(query[[6]]$request$authenticate) |>
     expect_false()
   
   x <- collapse(query)
   x |>
-    purrr::pluck("authenticate") |>
+    purrr::pluck("request", "authenticate") |>
     is.null() |>
     expect_false()
   
@@ -133,7 +136,7 @@ test_that("setting `authentication` to `TRUE` changes data returned", {
 # Downloading from a DOI fails
 # galah_call() |>
 #     filter(doi == "ala.3d0e08ac-d0ec-420d-a1f7-8cde778e82f6") |>
-#     use_authentication() |>
+#     authenticate() |>
 #     collect()
 # May be same problem as previously documented
 

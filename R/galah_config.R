@@ -123,14 +123,12 @@ galah_config <- function(...) {
     
     # invisibly return
     x <- potions::pour()
-    # check_authentication_argument(x)
     as_galah_config(x) |>
       invisible()
   
   }else{
     # visibly return
     x <- potions::pour()
-    # check_authentication_argument(x)
     as_galah_config(x)
   }
 }
@@ -166,11 +164,17 @@ default_config <- function(){
 #' Place new options into correctly nested structure
 #' @noRd
 #' @keywords Internal
-restructure_config <- function(dots){
-  result <- purrr::map(names(dots),
-                       \(a){validate_config(a, 
-                                            dots[[a]],
-                                            error_call = error_call)})
+restructure_config <- function(dots,
+                               error_call= rlang::caller_env()){
+  # NOTE: we use `lapply()` here rather than `purrr::map()` ON PURPOSE
+  # It prevents error messages being prefaced with:
+  # Error in `purrr::map()` at galah-R/R/galah_config.R:171:3:
+  # ℹ In index: 1.
+  # ...which is undesirable
+  result <- lapply(names(dots),
+                   \(a){validate_config(a, 
+                                        dots[[a]],
+                                        error_call = error_call)})
   names(result) <- names(dots)
   result
 }
@@ -342,30 +346,3 @@ check_atlas <- function(current_data, new_data){
   }
   new_data
 }
-
-#' if authentication is requested, cache config info
-#' @noRd
-#' @keywords Internal
-check_authentication_argument <- function(x){
-  # NOTE: This is the only place in galah where we _silently_ query
-  # an API. For safety and clarity reasons, I've added the following steps:
-  # 1. giving some notice to the user that this has been performed 
-  # 2. adding a warning message if the API call fails
-  # This is currently deactivated due to changes in workflow
-  if(isTRUE(purrr::pluck(x, "package", "authenticate")) & # value set to TRUE by user
-     is.null(retrieve_cache("config")) # not already cached
-  ){
-    cli::cli_text("Caching `config` information to support authentication")
-    config <- request_metadata(type = "config") |>
-      collect() |>
-      try(silent = TRUE)
-    if(inherits(config, "try-error")){
-      c("`galah_config()` tried caching `config` information for authentication purposes, but failed.",
-        i = "This could mean you are offline or that the API is unavailable.",
-        i = "To try again, call `show_all_config()` or `galah_config(authenticate = TRUE)`") |>
-        cli::cli_warn()
-    }
-  }
-}
-# NOTE: Need to add trigger to stop this process for orgs that are not ALA.
-# This will mean moving it higher up in the workflow.

@@ -50,11 +50,11 @@ coalesce.metadata_request <- function(x, ...){
   result <- list()
   
   # handle authentication
-  if(!is.null(x$authenticate)){
+  if(!is.null(x$request$authenticate)){
     result <- append(result,
                      list(request_metadata("config") |> as_query()))
   }
-  
+
   # add checks if required
   if(potions::pour("package", "run_checks")){
     result <- append(result,
@@ -140,9 +140,9 @@ build_query_set_data <- function(x, mint_doi, ...){
   result <- list()
   
   # handle authentication
+  browser()
   if(
-    (isTRUE(potions::pour("user", "authenticate", .pkg = "galah")) |
-     !is.null(x$authenticate)) &
+    !is.null(x$authenticate) &
     potions::pour("atlas", "region") == "Australia"
   ){
     result <- append(result,

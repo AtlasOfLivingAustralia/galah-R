@@ -26,6 +26,25 @@ check_atlas_inputs <- function(args,
   request_obj
 }
 
+#' Internal function to lookup requests for authentication
+#' Note this is currently only called on `data_request` objects, and 
+#' then only before parsing
+#' @noRd
+#' @keywords Internal
+check_authentication <- function(x){
+  if(is.null(x$authenticate) & 
+     isTRUE(potions::pour("user", "authenticate", .pkg = "galah")) & 
+     x$type %in% c("occurrences")){
+      x <- x |> authenticate()
+  }
+  atlas <- potions::pour("atlas", "region", .pkg = "galah")
+  if(atlas != "Australia" &
+     !is.null(x$authenticate)){
+      cli::cli_warn("Authentication not supported for atlas {atlas}: skipping")
+      x$authenticate <- NULL    
+  }
+  x
+}
 
 #' Internal function to check that the specified path exists, and if not,
 #' to create it. Called by `galah_config()`
@@ -234,7 +253,7 @@ check_field_identities <- function(df,
     if(any(added_check)){
       added_fields <- field_names[added_check]
       # if authentication has occurred, remove `sensitive_` fields
-      if(!is.null(.query$authenticate)){
+      if(!is.null(.query$request$request$authenticate)){
         added_fields <- added_fields[!stringr::str_detect(added_fields, "^sensitive")]
       }
       # then, if any remain, warn
@@ -477,7 +496,9 @@ check_login <- function(.query,
       check_password(.query, call = error_call)
     }
   }else{
-    if(.query$type %in% c("data/occurrences", "data/species")){
+    if(.query$type %in% c("data/occurrences", "data/species") & 
+      is.null(.query$request$authenticate) # i.e. only validate if authenticate = FALSE
+      ){
       switch(potions::pour("atlas", "region"), 
              "United Kingdom" = {},
              check_email(.query, call = error_call))

@@ -1,7 +1,6 @@
 quiet_config <- purrr::quietly(galah_config)
 
 test_that("`galah_config()` gives nice error messages for incorrect arguments", {
-  # FIXME: error comes from `purrr::map()`, not `galah_config()`
   expect_error(quiet_config(something = "nothing"))
 })
 
