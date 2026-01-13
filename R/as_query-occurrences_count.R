@@ -23,7 +23,8 @@ as_query_occurrences_count_atlas <- function(identify = NULL,
                                              filter = NULL, 
                                              geolocate = NULL,
                                              apply_profile = NULL,
-                                             group_by = NULL, 
+                                             group_by = NULL,
+                                             distinct = NULL,
                                              slice_arrange = NULL
 ){
   query <- build_query(identify, 
@@ -31,7 +32,7 @@ as_query_occurrences_count_atlas <- function(identify = NULL,
                        geolocate, 
                        apply_profile = apply_profile) 
   # set behaviour depending on `group_by()`
-  if(is.null(group_by)){
+  if(is.null(group_by) & is.null(distinct)){
     url <- url_lookup("data/occurrences-count") |> 
       httr2::url_parse()
     url$query <- c(query, pageSize = 0)
@@ -41,7 +42,11 @@ as_query_occurrences_count_atlas <- function(identify = NULL,
   }else{
     url <- url_lookup("data/occurrences-count-groupby") |> 
       httr2::url_parse()
-    facets <- as.list(group_by$name)
+    if(!is.null(group_by)){
+      facets <- group_by$name
+    }else{
+      facets <- distinct$name
+    }
     names(facets) <- rep("facets", length(facets))
     url$query <- c(query, facets, parse_slice_arrange(slice_arrange))
     result <- list(type = "data/occurrences-count-groupby",

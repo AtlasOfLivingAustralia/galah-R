@@ -151,7 +151,7 @@ build_query_set_data <- function(x, mint_doi, ...){
   
   # handle `run_checks`
   # find which functions are missing from the pipe
-  lookup_fields <- c("arrange", "filter", "select", "group_by")
+  lookup_fields <- c("arrange", "filter", "select", "group_by", "distinct")
   fields_absent <- !(lookup_fields %in% names(x))
   names(fields_absent) <- lookup_fields
   

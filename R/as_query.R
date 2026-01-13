@@ -183,10 +183,24 @@ check_distinct_count_groupby <- function(x){
     has_distinct_name <- !is.na(x$distinct$name)
     keep_all <- x$distinct$keep_all
     if(has_distinct_name){
-      if(keep_all){ # this section feels incomplete
+      if(keep_all){
         update_request_object(x, type = "species")
       }else{ # keep_all is FALSE
-        update_request_object(x, type = "species-count")
+        if(has_group_by){
+          x |>
+            update_request_object(type = "species-count")
+        }else{
+          if(has_count){
+            # counts the number of facets
+            x |>
+              update_request_object(type = "species-count")
+          }else{
+            # designed to be equivalent to `show_values()`
+            x |>
+              update_request_object(type = "occurrences-count") |>
+              dplyr::select(-dplyr::any_of(c("label", "i18nCode", "fq", "count")))
+          }
+        }
       }
     }else{ # no distinct name
       if(has_group_by){

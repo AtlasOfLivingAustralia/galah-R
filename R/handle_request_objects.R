@@ -100,7 +100,7 @@ update_select <- function(x, y){
     group_vec <- NULL
   }
   result |>
-    add_summary() |>
+    generate_summary(dots) |>
     add_group(group = group_vec)
 }
 

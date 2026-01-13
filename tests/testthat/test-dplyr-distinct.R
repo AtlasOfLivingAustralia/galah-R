@@ -74,6 +74,18 @@ test_that("`group_by() |> distinct(.keep_all = TRUE)` converts type from occurre
                nrow(x))
 })
 
+test_that("distinct(variable, .keep_all = FALSE) returns field values", {
+  skip_if_offline(); skip_on_ci()
+  result <- galah_call() |>
+    distinct(cl11226) |>
+    quiet_collect()
+  # should return values for that field
+  expect_s3_class(result,
+                  c("tbl_df", "tbl", "data.frame"))
+  expect_equal(colnames(result), "cl11226")
+  expect_gte(nrow(result), 10)
+})
+
 test_that("`distinct(.keep_all = TRUE)` sets species queries", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
@@ -87,7 +99,7 @@ test_that("`distinct(.keep_all = TRUE)` sets species queries", {
                   c("species", "species_name", "kingdom"))
 })
 
-test_that("`distinct(speciesID) |> count()` can be used to count the number of species", {
+test_that("`distinct(variable) |> count()` can be used to count the number of levels", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     identify("perameles") |>
