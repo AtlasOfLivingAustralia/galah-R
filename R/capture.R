@@ -51,6 +51,7 @@ capture.data_request <- function(x,
                                   ...){
   x <- x |> 
     check_authentication() |>
+    check_doi() |>
     check_distinct_count_groupby() |>
     check_slice_arrange() |>
     enforce_select_query()
@@ -153,11 +154,32 @@ count_switch <- function(x){
   x
 }
 
+#' Internal function to ensure that DOIs are parsed properly
+#' @noRd
+#' @keywords Internal
+check_doi <- function(x){
+  if(x$type == "occurrences"){
+    # handle sending dois via `filter()`
+    # important this happens first, as it affects `type`, which affects later code
+    variables <- purrr::pluck(x, "filter", "variable") # NOTE: breaks for GBIF
+    if(!is.null(variables)){
+      if(length(variables) == 1 & variables[1] == "doi"){
+        x$type <- "occurrences-doi"
+      }
+    }
+  }
+  x
+}
+
 #' Internal function to check behaviour of `distinct()`, `group_by()` etc.
 #' called by `capture()`
 #' @noRd
 #' @keywords Internal
 check_distinct_count_groupby <- function(x){
+
+  if(x$type == "occurrences-doi"){
+    return(x)
+  }
 
   # get basic info
   has_group_by <- !is.null(x$group_by)

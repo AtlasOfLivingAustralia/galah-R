@@ -12,7 +12,7 @@ update_attributes <- function(df, type){
 
 #' Often a `.query` will have a `data` slot in place of a `url`
 #' This may call e.g. `retrieve_cache()` OR an internal object
-#' Either way, the string will be a valid function call set in `as_query()`
+#' Either way, the string will be a valid function call set in `capture()`
 #' Our job at this point is to parse that function, NOT just `retrieve_cache()`
 #' @noRd
 #' @keywords Internal

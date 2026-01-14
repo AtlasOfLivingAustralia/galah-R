@@ -39,7 +39,7 @@
 #' \code{\link[=select.data_request]{select}},
 #' \code{\link[=slice_head.data_request]{slice_head()}} or [unnest()].
 #' For operations on `_request` objects, see 
-#' \code{\link[=as_query.data_request]{as_query()}}, 
+#' [capture()], 
 #' [coalesce()], 
 #' \code{\link[=collapse.data_request]{collapse()}}, 
 #' \code{\link[=compute.data_request]{compute()}} or 

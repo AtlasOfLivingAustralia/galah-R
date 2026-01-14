@@ -481,7 +481,7 @@ parse_c <- function(x, excl){
   in_as_or_statements <- glue::glue_collapse(
     glue::glue("{variable} {logical} '{value}'"), 
     sep = " | ") |>
-    parse_expr()
+    rlang::parse_expr()
   parse_logical(rlang::enquo(in_as_or_statements), 
                 rlang::quo_get_env(x)) # pass this to parse_logical
 }

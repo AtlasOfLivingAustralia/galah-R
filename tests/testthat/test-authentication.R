@@ -17,7 +17,7 @@ test_that("`request_metadata()` caches type `config` correctly", {
   x <- request_metadata(type = "config") |>
     collect()
   result <- request_metadata(type = "config") |>
-    as_query() 
+    capture() 
   expect_true(!is.null(result$data))  
 })
 
@@ -27,7 +27,7 @@ test_that("`authenticate()` works in-pipe for metadata", {
   query <- request_metadata(type = "reasons") |>
     authenticate()
   
-  result <- as_query(query)
+  result <- capture(query)
   is.null(result$request$authenticate) |>
     expect_false()
   

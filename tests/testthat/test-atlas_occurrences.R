@@ -208,7 +208,7 @@ test_that("`atlas_occurrences()` downloads data from a DOI", {
   # TODO add file name tests
 })
 
-# TODO check DOIs still placed correctly in as_query(), collapse() etc
+# TODO check DOIs still placed correctly in capture(), collapse() etc
 
 # NOTE: This test is *very* slow - worth investigating why
 test_that("`atlas_occurrences()` places DOI in `attr()` correctly", {

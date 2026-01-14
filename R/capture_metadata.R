@@ -213,7 +213,7 @@ capture_lists <- function(x,
     as_query()
 }
 
-#' Internal version of `as_query()` for `request_metadata(type = "media")`
+#' Internal version of `capture()` for `request_metadata(type = "media")`
 #' @param .query An object of class `metadata_request` (from `request_metadata()`)
 #' @noRd
 #' @keywords Internal

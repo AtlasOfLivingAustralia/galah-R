@@ -194,7 +194,7 @@ test_that("`select()` warns for invalid field names when type = 'species'", {
     identify("Crinia") |>
     distinct(speciesID, .keep_all = TRUE) |>
     select(an_unrecognised_field_name) |>
-    as_query()})
+    capture()})
 })
 
 rm(quiet_collect, quiet_occurrences, config_capture)

@@ -16,7 +16,7 @@ capture_taxa <- function(.query){
     as_query()
 }
 
-#' Internal function to `as_query()` for a single taxonomic name 
+#' Internal function to `capture()` for a single taxonomic name 
 #' @noRd
 #' @keywords Internal
 capture_taxa_single <- function(.query){

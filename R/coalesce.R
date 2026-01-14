@@ -157,15 +157,6 @@ build_query_set_data <- function(x, mint_doi, ...){
     x$request$mint_doi <- mint_doi
   }
   
-  # handle sending dois via `filter()`
-  # important this happens first, as it affects `type`, which affects later code
-  variables <- purrr::pluck(x, "request", "filter", "variable") # NOTE: breaks for GBIF
-  if(!is.null(variables)){
-    if(length(variables) == 1 & variables[1] == "doi"){
-      x$request$type <- "occurrences-doi"
-    }
-  }
-  
   # set up an object
   result <- list()
   
@@ -235,7 +226,7 @@ build_query_set_data <- function(x, mint_doi, ...){
   result[[(length(result) + 1)]] <- x
   
   # return
-  structure(result, class = "query_set")
+  as_query_set(result)
 }
 
 #' Internal function to build a `query_set` object 
@@ -246,19 +237,19 @@ build_query_set_distributions <- function(x, ...){
   if(is.null(x$identify) & is.null(x$filter)){
     # find all expert distributions
     result <- list(
-      as_query_distributions_metadata(),
-      as_query_distributions_data(x)
+      capture_distributions_metadata(),
+      capture_distributions_data(x)
     )
   }else{
     if(!is.null(x$identify)){
       result <- list(
         collapse_taxa(list(identify = x$identify)) # wrong syntax?
       )
-      result[[2]] <- as_query_distributions_data(x) # NOTE: shouldn't call microfunctions directly
+      result[[2]] <- capture_distributions_data(x) # NOTE: shouldn't call microfunctions directly
     }else{
       # i.e. !is.null(x$filter)
-      result <- list(as_query_distributions_data(x))
+      result <- list(capture_distributions_data(x))
     }
   }
-  structure(result, class = "query_set")
+  as_query_set(result)
 }

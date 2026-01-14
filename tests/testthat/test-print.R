@@ -36,14 +36,14 @@ test_that("object of class `metadata-request` formats correctly with `identify()
 test_that("object of class `query` formats correctly", {
   request_metadata() |>
     identify("Crinia") |>
-    as_query() |>
+    capture() |>
     expect_snapshot()
 })
 
 test_that("object of class `computed_query` formats correctly", {
   x <- request_metadata() |>
     identify("Crinia") |>
-    as_query()
+    capture()
   class(x) <- c("computed_query", "list")
   expect_snapshot(x)
 })
