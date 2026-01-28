@@ -9,6 +9,7 @@
 status](https://www.r-pkg.org/badges/version/galah)](https://cran.r-project.org/package=galah)
 [![Codecov test
 coverage](https://codecov.io/gh/AtlasOfLivingAustralia/galah-R/branch/main/graph/badge.svg)](https://app.codecov.io/gh/AtlasOfLivingAustralia/galah-R?branch=main)
+[![R-CMD-check](https://github.com/AtlasOfLivingAustralia/galah-R/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AtlasOfLivingAustralia/galah-R/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 ## Overview
@@ -45,7 +46,7 @@ us](mailto:support@ala.org.au).
   provides an introduction to the package functions.
 - For an outline of the package structure, and a list of all the
   available functions, run `?galah` or view the [reference
-  page](https://galah.ala.org.au/R/index.html).
+  page](https://galah.ala.org.au/R/reference/index.html).
 
 ## Installation
 
