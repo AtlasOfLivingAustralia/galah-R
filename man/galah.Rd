@@ -131,8 +131,12 @@ Useful links:
 Authors:
 \itemize{
   \item Dax Kellie \email{dax.kellie@csiro.au}
-  \item Matilda Stevenson
-  \item Peggy Newman \email{peggy.newman@csiro.au}
+}
+
+Other contributors:
+\itemize{
+  \item Shandiya Balasubramaniam \email{shandiya.balasubramaniam@csiro.au} [contributor]
+  \item Matilda Stevenson [contributor]
 }
 
 }

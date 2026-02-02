@@ -11,13 +11,13 @@ Authors@R:
              family = "Kellie",
              email = "dax.kellie@csiro.au",
              role = "aut"),
+      person(given = "Shandiya",
+             family = "Balasubramaniam",
+             email = "shandiya.balasubramaniam@csiro.au",
+             role = "ctb"),
       person(given = "Matilda",
              family = "Stevenson",
-             role = "aut"),
-      person(given = "Peggy",
-             family = "Newman",
-             email = "peggy.newman@csiro.au",
-             role = "aut"))
+             role = "ctb"))
 Description: The Global Biodiversity Information Facility 
     ('GBIF', <https://www.gbif.org>) sources data from an international network
     of data providers, known as 'nodes'. Several of these nodes - the "living 
