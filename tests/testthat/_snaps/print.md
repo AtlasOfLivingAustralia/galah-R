@@ -54,7 +54,7 @@
 # object of class `query` formats correctly
 
     Code
-      as_query(identify(request_metadata(), "Crinia"))
+      capture(identify(request_metadata(), "Crinia"))
     Message
       Object of class query with type metadata/taxa-single
       * url: https://api.ala.org.au/namematching/api/search?q=Crinia

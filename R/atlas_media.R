@@ -64,7 +64,7 @@ atlas_media <- function(request = NULL,
   # add media content to filters
   if(length(present_fields) > 0){
     # do region-specific filter parsing
-    media_fq <- parse_regional_media_filters(present_fields)
+    media_fq <- image_filters(present_fields)
     # add back to source object
     if(length(media_fq) > 1){
       media_fq <- glue::glue("({glue::glue_collapse(media_fq, ' OR ')})") 
@@ -74,17 +74,11 @@ atlas_media <- function(request = NULL,
     query_collapse$url <- httr2::url_build(url)
   }
 
-  # get occurrences
+  # get occurrences, expand to one row per media entry
   occ <- query_collapse |> 
     collect(wait = TRUE) |>
-    tidyr::unnest_longer(col = tidyselect::any_of(present_fields))
-  
-  if(any(colnames(occ) == "all_image_url")){
-    occ <- dplyr::rename(occ, "media_id" = "all_image_url")
-  }else{
-    occ$media_id <- build_media_id(occ)
-  }
-  
+    build_media_id(media_fields = present_fields)
+
   # collect media metadata
   media_query <- request_metadata() |>
     filter(media == dplyr::pull(occ, "media_id"))
@@ -95,59 +89,31 @@ atlas_media <- function(request = NULL,
   media <- collect(media_query)
   
   # join and return
-  occ_media <- dplyr::right_join(occ,
-                                 media, 
-                                 by = dplyr::join_by("media_id"))
-  dplyr::relocate(occ_media, "media_id", 1)
-}
-
-#' Set filters that work for media in each atlas
-#' @noRd
-#' @keywords Internal
-parse_regional_media_filters <- function(present_fields,
-                                         error_call = rlang::caller_env()){
-  
-  atlas <- potions::pour("atlas", "region")
-  switch(atlas,
-         "Austria" = "(all_image_url:*)",
-         "Australia" = glue::glue("({present_fields}:*)"),
-         "Brazil" = "(all_image_url:*)",
-         "Flanders" = "(all_image_url:*)",
-         "Guatemala" = "(all_image_url:*)",
-         "Kew" =  "(all_image_url:*)",
-         "Portugal" = "(all_image_url:*)",
-         "Spain" = {filter_fields <- present_fields |>
-                       stringr::str_remove("s$") |>
-                       paste0("IDsCount")
-                     glue::glue("{filter_fields}:[1 TO *]")},
-         "Sweden" = {filter_fields <- present_fields |>
-                       stringr::str_remove("s$") |>
-                       paste0("IDsCount")
-                     glue::glue("{filter_fields}:[1 TO *]")},
-         "United Kingdom" = "(all_image_url:*)", # !is.na(all_image_url),
-         cli::cli_abort("`atlas_media` is not supported for atlas = {atlas}",
-                        call = error_call)
-  )
+  dplyr::right_join(occ,
+                    media, 
+                    by = dplyr::join_by("media_id"))
 }
 
 #' Internal function to get media metadata, and create a valid file name
 #' @noRd
 #' @keywords Internal
-build_media_id <- function(df){
-  # create a column that includes media identifiers, regardless of which column they are in
-  ## NOTE: I haven't found good tidyverse syntax for this yet
-  x <- rep(NA, nrow(df))
-  if(any(colnames(df) == "videos")){
-    videos <- !is.na(df$videos)
-    if(any(videos)){x[videos] <- df$videos[videos]}    
+build_media_id <- function(df, media_fields){
+  if(any(colnames(df) == "all_image_url")){
+    df |>
+      dplyr::mutate("media_id" = "all_image_url",
+                    "media_type" = "images",
+                  .before = 1) |>
+      dplyr::select(-"images")
+  }else{
+    purrr::map(media_fields, .f = \(a){
+     df |>
+        tidyr::unnest_longer(col = a) |>
+       dplyr::mutate(media_id = as.character(.data[[a]]),
+                     media_type = as.character(a),
+                    .before = 1) |>
+       dplyr::filter(!is.na(.data$media_id)) |>
+       dplyr::select(- tidyselect::any_of(media_fields))
+    }) |>
+    dplyr::bind_rows()
   }
-  if(any(colnames(df) == "sounds")){
-    sounds <- !is.na(df$sounds)
-    if(any(sounds)){x[sounds] <- df$sounds[sounds]}
-  }
-  if(any(colnames(df) == "images")){
-    images <- !is.na(df$images)
-    if(any(images)){x[images] <- df$images[images]}
-  }
-  x
 }
