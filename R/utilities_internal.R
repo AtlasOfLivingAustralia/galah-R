@@ -294,8 +294,8 @@ add_email_address <- function(x, query){
 #' Add a DOI request
 #' @noRd
 #' @keywords Internal
-add_doi_request <- function(x, query){
-  if(isTRUE(query$mint_doi) & 
+add_doi_request <- function(x, mint_doi = FALSE){
+  if(isTRUE(mint_doi) & 
      potions::pour("atlas", "region") == "Australia"){
     x$mintDoi <- TRUE 
   }

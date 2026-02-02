@@ -4,6 +4,7 @@
 \alias{compute.data_request}
 \alias{compute.metadata_request}
 \alias{compute.files_request}
+\alias{compute.prequery}
 \alias{compute.query}
 \alias{compute.query_set}
 \title{Compute a query}
@@ -13,6 +14,8 @@
 \method{compute}{metadata_request}(x, ...)
 
 \method{compute}{files_request}(x, ...)
+
+\method{compute}{prequery}(x, ...)
 
 \method{compute}{query}(x, ...)
 

@@ -47,8 +47,8 @@ capture <- function(x, ...){
 #' @order 2
 #' @export
 capture.data_request <- function(x,
-                                  mint_doi = FALSE,
-                                  ...){
+                                 mint_doi = FALSE,
+                                 ...){
   x <- x |> 
     check_authentication() |>
     check_doi() |>

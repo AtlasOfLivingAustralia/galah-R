@@ -51,7 +51,7 @@ collect.files_request <- function(x, ...){
 #' @rdname collect.data_request
 #' @order 4
 #' @export
-collect.query <- function(x, ..., wait = TRUE, file = NULL){
+collect.prequery <- function(x, wait = TRUE, file = NULL){
   compute(x) |>
     collect(wait = wait, file = file)
 }
@@ -59,15 +59,27 @@ collect.query <- function(x, ..., wait = TRUE, file = NULL){
 #' @rdname collect.data_request
 #' @order 5
 #' @export
-collect.query_set <- function(x, ...){
-  x |>
-    collapse(, ...) |>
-    compute() |>
-    collect()
+collect.query <- function(x, ..., wait = TRUE, file = NULL){
+  compute(x) |>
+    collect(wait = wait, file = file)
 }
 
 #' @rdname collect.data_request
 #' @order 6
+#' @export
+collect.query_set <- function(x,
+                              ...,
+                              wait = TRUE, 
+                              file = NULL
+                              ){
+  x |>
+    collapse(...) |>
+    compute() |>
+    collect(wait = wait, file = file)
+}
+
+#' @rdname collect.data_request
+#' @order 7
 #' @export
 collect.computed_query <- function(x, 
                           ...,

@@ -12,13 +12,13 @@
 \usage{
 coalesce(x, ...)
 
-\method{coalesce}{data_request}(x, mint_doi, ...)
+\method{coalesce}{data_request}(x, mint_doi = FALSE, ...)
 
 \method{coalesce}{metadata_request}(x, ...)
 
 \method{coalesce}{files_request}(x, ...)
 
-\method{coalesce}{prequery}(x, mint_doi, ...)
+\method{coalesce}{prequery}(x, mint_doi = FALSE, ...)
 
 \method{coalesce}{query}(x, ...)
 

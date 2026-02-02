@@ -32,9 +32,9 @@ coalesce <- function(x, ...){
 #' @rdname coalesce
 #' @order 2
 #' @export
-coalesce.data_request <- function(x, mint_doi, ...){
+coalesce.data_request <- function(x, mint_doi = FALSE, ...){
   x |>
-    capture() |>
+    capture(mint_doi = mint_doi, ...) |>
     coalesce()
 }
 
@@ -43,7 +43,7 @@ coalesce.data_request <- function(x, mint_doi, ...){
 #' @export
 coalesce.metadata_request <- function(x, ...){
   x |>
-    capture() |>
+    capture(...) |>
     coalesce()
 }
 
@@ -53,7 +53,7 @@ coalesce.metadata_request <- function(x, ...){
 coalesce.files_request <- function(x, 
                                    ...){
   x |>
-    capture() |>
+    capture(...) |>
     coalesce()
 }
 
@@ -62,7 +62,7 @@ coalesce.files_request <- function(x,
 #' applies to `type = "occurrences"`, and only for supported atlases.
 #' @order 5
 #' @export
-coalesce.prequery <- function(x, mint_doi, ...){
+coalesce.prequery <- function(x, mint_doi = FALSE, ...){
   if(stringr::str_detect(x$type, "^metadata")){
     build_query_set_metadata(x)
   }else if(stringr::str_detect(x$type, "^files")){

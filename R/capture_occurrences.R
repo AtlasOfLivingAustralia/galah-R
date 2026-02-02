@@ -97,7 +97,7 @@ capture_occurrences_la <- function(.query,
              dwcHeaders = "true") |>
     add_email_notify() |>
     add_email_address(query = .query) |>
-    add_doi_request(query = .query)
+    add_doi_request(mint_doi = mint_doi)
 
   # build url
   url <- url_lookup("data/occurrences") |> 

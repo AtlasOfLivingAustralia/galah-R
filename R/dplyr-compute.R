@@ -41,6 +41,12 @@ compute.metadata_request <- compute.data_request
 #' @export
 compute.files_request <- compute.data_request
 
+# if calling `compute()` after `capture()` 
+#' @rdname compute.data_request
+#' @order 4
+#' @export
+compute.prequery <- compute.data_request
+
 # if calling `compute()` on an object extracted from `collapse()` 
 #' @rdname compute.data_request
 #' @order 5

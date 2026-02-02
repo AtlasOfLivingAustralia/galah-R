@@ -4,6 +4,7 @@
 \alias{collect.data_request}
 \alias{collect.metadata_request}
 \alias{collect.files_request}
+\alias{collect.prequery}
 \alias{collect.query}
 \alias{collect.query_set}
 \alias{collect.computed_query}
@@ -15,9 +16,11 @@
 
 \method{collect}{files_request}(x, ...)
 
+\method{collect}{prequery}(x, wait = TRUE, file = NULL)
+
 \method{collect}{query}(x, ..., wait = TRUE, file = NULL)
 
-\method{collect}{query_set}(x, ...)
+\method{collect}{query_set}(x, ..., wait = TRUE, file = NULL)
 
 \method{collect}{computed_query}(x, ..., wait = TRUE, file = NULL)
 }
