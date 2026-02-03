@@ -191,9 +191,9 @@ check_distinct_count_groupby <- function(x){
   # this is clunky, but backwards compatible
   if(x$type == "species" & !has_distinct){
     if(has_count){
-      x <- x |> distinct("speciesID", .keep_all = FALSE)
+      x <- x |> distinct(species_facets(), .keep_all = FALSE)
     }else{
-      x <- x |> distinct("speciesID", .keep_all = TRUE)
+      x <- x |> distinct(species_facets(), .keep_all = TRUE)
     }
     has_distinct <- TRUE
   }

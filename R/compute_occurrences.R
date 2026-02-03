@@ -4,7 +4,6 @@
 compute_occurrences <- function(.query){
   switch(potions::pour("atlas", "region"),
          "Austria" = compute_occurrences_la_direct(.query),
-         "United Kingdom" = compute_occurrences_la_direct(.query),
          "Global" = compute_occurrences_gbif(.query),
          compute_occurrences_la(.query))
 }

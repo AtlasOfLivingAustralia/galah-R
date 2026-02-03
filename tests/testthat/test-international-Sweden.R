@@ -1,11 +1,11 @@
 # set verbose to off
 galah_config(verbose = FALSE, run_checks = FALSE)
 
-test_that("swapping to atlas = Sweden works", {
+test_that("`galah_config(atlas = Sweden)` works", {
   expect_message(galah_config(atlas = "Sweden"))
 })
 
-test_that("show_all(collections) works for Sweden", {
+test_that("`show_all(collections)` works for Sweden", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(collections, limit = 10) |>
     try(silent = TRUE)
@@ -14,7 +14,7 @@ test_that("show_all(collections) works for Sweden", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("show_all(datasets) works for Sweden", {
+test_that("`show_all(datasets)` works for Sweden", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(datasets, limit = 10) |>
     try(silent = TRUE)
@@ -23,7 +23,7 @@ test_that("show_all(datasets) works for Sweden", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("show_all(fields) works for Sweden", {
+test_that("`show_all(fields)` works for Sweden", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(fields) |>
     try(silent = TRUE)
@@ -32,7 +32,7 @@ test_that("show_all(fields) works for Sweden", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("show_all(licences) works for Sweden", {
+test_that("`show_all(licences)` works for Sweden", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(licences, limit = 10) |>
     try(silent = TRUE)
@@ -298,7 +298,7 @@ test_that("atlas_media() works for Sweden", {
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gte(nrow(x), 1)
   expect_equal(colnames(x)[1:2],
-               c("media_id", "recordID"))
+               c("media_id", "media_type"))
 })
 
 test_that("collect_media() works for Sweden", {

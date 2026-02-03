@@ -66,7 +66,7 @@ test_that("show_all(profiles) fails for Guatemala", {
   expect_error(show_all(profiles))
 })
 
-test_that("show_all(lists) works for Guatemala", {
+test_that("show_all(profiles) fails for Guatemala", {
   expect_error(show_all(profiles))
 })
 

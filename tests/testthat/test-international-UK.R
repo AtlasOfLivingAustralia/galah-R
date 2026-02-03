@@ -108,7 +108,7 @@ test_that("search_taxa doesn't break with typos", {
 
 test_that("show_values works for UK", {
   skip_if_offline(); skip_on_ci()
-  x <- search_fields("basis_of_record") |>
+  x <- search_fields("basisOfRecord") |>
     show_values() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -117,7 +117,7 @@ test_that("show_values works for UK", {
 
 test_that("show_list_values works for United Kingdom", {
   skip_if_offline(); skip_on_ci()
-  x <- search_lists("dr556") |> 
+  x <- search_lists("dr1445") |> 
     show_values() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -142,7 +142,7 @@ test_that("atlas_counts works with type = 'species' for United Kingdom", {
   expect_gt(x, 0)
 })
 
-test_that("atlas_counts works with galah_identify for United Kingdom", {
+test_that("atlas_counts works with `identify()` for United Kingdom", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     identify("Vulpes") |>
@@ -256,7 +256,7 @@ test_that("atlas_media() works for UK", {
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gte(nrow(x), 1)
   expect_equal(colnames(x)[1:2],
-               c("media_id", "recordID"))
+               c("media_id", "media_type"))
   # download a subset
   n_downloads <- 5
   collect_media(x[seq_len(n_downloads), ])

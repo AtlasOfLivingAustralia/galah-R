@@ -32,7 +32,7 @@ atlas_species <- function(request = NULL,
 check_distinct_for_atlas_species <- function(.query){
   if(is.null(.query$distinct)){
     .query |>
-      distinct("speciesID", .keep_all = TRUE)
+      distinct(species_facets(), .keep_all = TRUE)
   }else{
     .query$distinct$keep_all <- TRUE
     .query

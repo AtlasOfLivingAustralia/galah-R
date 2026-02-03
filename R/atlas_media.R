@@ -100,10 +100,10 @@ atlas_media <- function(request = NULL,
 build_media_id <- function(df, media_fields){
   if(any(colnames(df) == "all_image_url")){
     df |>
-      dplyr::mutate("media_id" = "all_image_url",
+      dplyr::mutate("media_id" = .data$all_image_url,
                     "media_type" = "images",
                   .before = 1) |>
-      dplyr::select(-"images")
+      dplyr::select(-"all_image_url")
   }else{
     purrr::map(media_fields, .f = \(a){
      df |>

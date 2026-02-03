@@ -11,41 +11,8 @@ capture_occurrences <- function(.query,
                    call = error_call)
   }
   switch(potions::pour("atlas", "region"),
-         "United Kingdom" = capture_occurrences_uk(.query, ...),
          "Global" = capture_occurrences_gbif(.query, ...),
          capture_occurrences_la(.query, ...))
-}
-
-#' calculate the query to be returned for the UK atlas
-#' @param .query An object of class `data_request()`
-#' @noRd
-#' @keywords Internal
-capture_occurrences_uk <- function(.query, ...){
-  # set default columns
-  if(is.null(.query$select)){
-    .query$select <- galah_select(group = "basic")
-  }
-  
-  # build a url
-  # NOTE: providing an email blocks this from executing (2023-08-30)
-  url <-  url_lookup("data/occurrences") |> 
-    httr2::url_parse()
-  url$query <- c(build_query(identify = .query$identify,
-                             filter = .query$filter, 
-                             location = .query$geolocate, 
-                             apply_profile = .query$apply_profile),
-                 fields = "`SELECT_PLACEHOLDER`",
-                 qa = "`ASSERTIONS_PLACEHOLDER`",
-                 sourceTypeId = source_type_id_lookup("United Kingdom"),
-                 fileType = "csv",
-                 reasonTypeId = potions::pour("user", "download_reason_id"),
-                 dwcHeaders = "true")
-  
-  # build output
-  list(type = "data/occurrences",
-       url = httr2::url_build(url),
-       headers = build_headers()) |>
-    as_prequery()
 }
 
 #' calculate the query to be returned for GBIF

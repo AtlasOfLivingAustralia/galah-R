@@ -41,14 +41,12 @@ test_that("show_values works for GBIF fields", {
   x <- request_metadata() |>
     filter(fields == "gbifRegion") |>
     unnest() |>
-    collapse()
-  collect(x)
+    collect()
   # traditional syntax
   y <- search_fields("gbifRegion") |>
     show_values()
   # tests
-  x |>
-    inherits(c("tbl_df", "tbl", "data.frame")) |>
+  inherits(x, c("tbl_df", "tbl", "data.frame")) |>
     expect_true()
   x |>
     nrow() |>

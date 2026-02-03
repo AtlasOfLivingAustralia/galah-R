@@ -59,16 +59,40 @@ check_missing_fields <- function(x, call){
 #' @noRd
 #' @keywords Internal
 collect_lists_unnest <- function(.query){
-  result <- query_API(.query) |> 
-    dplyr::bind_rows()
-  # extract additional raw fields columns
-  if (any(colnames(result) %in% "kvpValues")) {
-    result <- result |>
-      tidyr::unnest_wider("kvpValues") |>
-      tidyr::pivot_wider(names_from = "key",
-                         values_from = "value")
+
+  clean_common_names <- function(df){
+    if(any(colnames(df) == "commonName")){
+      df$commonName <- as.character(df$commonName)
+      if(any(df$commonName == "NULL")){
+        df$commonName[df$commonName == "NULL"] <- NA
+      }
+    }
+    df
   }
+
+  # extract additional raw fields columns
+  clean_kvp_values <- function(df){
+    browser()
+    if(any(colnames(df) == "kvpValues")){
+      if(any(lengths(df$kvpValues) > 0)){
+        df <- df |>
+          tidyr::unnest_wider("kvpValues") |>
+          tidyr::pivot_wider(names_from = "key",
+                             values_from = "value")
+      }
+    }
+    df
+  }
+
+  # get data
+  result <- query_API(.query)
+
+  # process
   result |>
+    purrr::list_transpose() |>
+    tibble::as_tibble() |>
+    clean_common_names() |>
+    clean_kvp_values() |>
     dplyr::rename_with(camel_to_snake_case) |>
     parse_rename(.query) |>
     parse_select(.query)

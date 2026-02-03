@@ -354,8 +354,7 @@ default_columns <- function() {
                   "Brazil", 
                   "Guatemala", 
                   "Kew",
-                  "Portugal",
-                  "United Kingdom")){
+                  "Portugal")){
     c("id",
       "taxon_name",
       "taxon_concept_lsid",
@@ -378,7 +377,8 @@ default_columns <- function() {
   }else if(atlas %in% c("Australia",
                         "Flanders",
                         "Spain",
-                        "Sweden")){
+                        "Sweden",
+                        "United Kingdom")){
     c("recordID", # note this requires that the ALA name (`id`) be corrected
       "scientificName",
       "taxonConceptID",
@@ -401,13 +401,13 @@ image_fields <- function() {
                   "Brazil", 
                   "Guatemala", 
                   "Kew",
-                  "Portugal",
-                  "United Kingdom")){
+                  "Portugal")){
     "all_image_url"
   }else if(atlas %in% c("Australia",
                         "Flanders",
                         "Spain",
-                        "Sweden")){
+                        "Sweden",
+                        "United Kingdom")){
     c("multimedia", "images", "sounds", "videos")
   }else{
     cli::cli_abort("Unknown `atlas`")
@@ -451,7 +451,8 @@ species_facets <- function(){
                   "Flanders",
                   "France",
                   "Spain",
-                  "Sweden")) {
+                  "Sweden",
+                  "United Kingdom")) {
     "speciesID"
   }else{
     "species_guid"

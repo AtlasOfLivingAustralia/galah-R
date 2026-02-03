@@ -250,18 +250,14 @@ test_that("atlas_media() works for Austria", {
     send_email = FALSE)
   x <- request_data() |>
     identify("Mammalia") |>
-    filter(year == 2010,
-           # !is.na(all_image_url)
-    ) |>
-    # count() |>
-    # collect()
+    filter(year == 2010) |> # !is.na(all_image_url)
     atlas_media() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gte(nrow(x), 1)
   expect_equal(colnames(x)[1:2],
-               c("media_id", "recordID"))
+               c("media_id", "media_type"))
   # download a subset
   n_downloads <- 5
   collect_media(x[seq_len(n_downloads), ])
@@ -270,13 +266,12 @@ test_that("atlas_media() works for Austria", {
   unlink("temp", recursive = TRUE)
 })
 
-## FIXME: atlas_taxonomy doesn't work
 test_that("atlas_taxonomy works for Austria", {
   skip_if_offline(); skip_on_ci()
   y <- galah_call() |>
     identify("Aves") |>
     filter(rank >= order) |>
-    atlas_taxonomy()|>
+    atlas_taxonomy() |>
     try(silent = TRUE)
   skip_if(inherits(y, "try-error"), message = "API not available")
   # add tests

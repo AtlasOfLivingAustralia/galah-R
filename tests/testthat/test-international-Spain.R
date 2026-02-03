@@ -213,13 +213,13 @@ test_that("atlas_counts works with group_by for Spain", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     filter(year >= 2000) |>
-    group_by(basis_of_record) |>
+    group_by(basisOfRecord) |>
     count() |>
     collect() |>
     try(silent = TRUE)
   skip_if(inherits(result, "try-error"), message = "API not available")
   expect_gt(nrow(result), 1)
-  expect_equal(names(result), c("basis_of_record", "count"))
+  expect_equal(names(result), c("basisOfRecord", "count"))
   })
 
 test_that("atlas_counts works with apply_profile for Spain", {
@@ -296,18 +296,14 @@ test_that("atlas_media() works for Spain", {
     send_email = FALSE)
   x <- request_data() |>
     identify("Mammalia") |>
-    filter(year >= 2023
-           # imageIDsCount > 0
-           ) |>
-    # count() |>
-    # collect()
+    filter(year >= 2023) |>
     atlas_media() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available") # FIXME: failing here
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gte(nrow(x), 1)
   expect_equal(colnames(x)[1:2],
-               c("media_id", "recordID"))
+               c("media_id", "media_type"))
   # download a subset
   n_downloads <- 5
   collect_media(x[seq_len(n_downloads), ])

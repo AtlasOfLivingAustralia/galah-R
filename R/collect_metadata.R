@@ -141,15 +141,22 @@ collect_collections <- function(.query){
       result <- .query |>
         query_API()
       result_df <- result |>
-        dplyr::bind_rows() |>
-        dplyr::relocate("uid") |>
-        dplyr::rename("id" = "uid")
+        dplyr::bind_rows()  
+      if(any(colnames(result_df) == "uid")){
+        result_df <- result_df |>
+          dplyr::relocate("uid") |>
+          dplyr::rename("id" = "uid")
+      }
     }
-    result_df <- result_df |>
-      dplyr::rename_with(camel_to_snake_case) |>
-      parse_arrange() |>
-      update_attributes(type = "collections")
-    update_cache(collections = result_df)
+
+    if(nrow(result_df) > 0){
+      result_df <- result_df |>
+        dplyr::rename_with(camel_to_snake_case) |>
+        parse_arrange() |>
+        update_attributes(type = "collections")
+      update_cache(collections = result_df)
+    }
+
   }
   parse_select(result_df, .query)
 }
