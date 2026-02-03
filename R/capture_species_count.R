@@ -20,30 +20,44 @@ capture_species_count <- function(.query,
 #' @keywords Internal
 #' @noRd
 capture_species_count_atlas <- function(identify = NULL, 
-                                         filter = NULL, 
-                                         geolocate = NULL,
-                                         apply_profile = NULL,
-                                         group_by = NULL, 
-                                         slice_arrange = NULL
+                                        filter = NULL, 
+                                        geolocate = NULL,
+                                        apply_profile = NULL,
+                                        group_by = NULL, 
+                                        distinct = NULL,
+                                        slice_arrange = NULL
 ){
+  # determine facets
+  if(is.null(distinct)){
+    facet_variable <- species_facets()
+  }else{
+    facet_variable <- distinct$name[[1]]
+  }
+  
+  # get url
   url <- url_lookup("data/species-count") |> 
     httr2::url_parse()
   query <- build_query(identify, 
                        filter, 
                        geolocate, 
                        apply_profile = apply_profile)
+  
   # set behaviour depending on `group_by()`
   if(is.null(group_by)){
     url$query <- c(query,
                    list(flimit = 1, 
-                        facets = species_facets()))
+                        facets = facet_variable))
     result <- list(type = "data/species-count",
                    url = httr2::url_build(url),
                    headers = build_headers())
   }else{
-    facets <- c(as.list(group_by$name), species_facets())
+    facets <- c(as.list(group_by$name),
+                facet_variable)
     names(facets) <- rep("facets", length(facets))
-    url$query <- c(query, facets, parse_slice_arrange(slice_arrange))
+    url$query <- c(query,
+                   facets,
+                   parse_slice_arrange(slice_arrange),
+                   list(flimit = -1))
     result <- list(type = "data/species-count",
                    url = httr2::url_build(url),
                    headers = build_headers())

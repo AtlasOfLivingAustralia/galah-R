@@ -156,4 +156,17 @@ test_that("atlas_species reformats column names when empty tibble is returned", 
   expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
 })
 
+test_that("`atlas_species()` accepts `distinct()` to set the grouping variable", {
+  genera <- galah_call() |>
+    identify("Limnodynastidae") |>
+    distinct(genusID) |>
+    quiet_species()
+  expect_s3_class(genera, c("tbl_df", "tbl", "data.frame"))
+  expect_true(nrow(genera) > 4 & nrow(genera) < 10)
+  expect_gte(ncol(genera), 10) # test that `.keep_all = TRUE` is not required 
+  # as this is implied (and asserted) by calling `atlas_species()`
+  all(genera$taxon_rank == "genus") |>
+    expect_true()
+})
+
 rm(quiet_collect, quiet_species)

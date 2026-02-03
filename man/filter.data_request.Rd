@@ -102,12 +102,12 @@ should begin with an occurrence query:
    collect()}
 
 They can then use the \code{media} field to request media metadata:
-\preformatted{media_metadata <- galah_call("metadata") |>
+\preformatted{media_metadata <- request_metadata |>
   filter(media == occurrences) |>
   collect()}
 
 And finally, the metadata tibble can be used to request files:
-\preformatted{galah_call("files") |>
+\preformatted{request_files() |>
   filter(media == media_metadata) |>
   collect()}
 }

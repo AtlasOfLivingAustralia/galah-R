@@ -99,17 +99,32 @@ test_that("`distinct(.keep_all = TRUE)` sets species queries", {
                   c("species", "species_name", "kingdom"))
 })
 
+test_that("`distinct(.keep_all = TRUE)` accepts non-species-level groupings", {
+  genera <- galah_call() |>
+    identify("Limnodynastidae") |>
+    distinct(genusID, .keep_all = TRUE) |>
+    quiet_collect()
+  expect_s3_class(genera, c("tbl_df", "tbl", "data.frame"))
+  expect_true(nrow(genera) > 4 & nrow(genera) < 10)
+  all(genera$taxon_rank == "genus") |>
+    expect_true()
+})
+
 test_that("`distinct(variable) |> count()` can be used to count the number of levels", {
+  # NOTE: This is set to `basisOfRecord` because the number of values is easy to verify
+  # taxonomic identifiers are more slippery and therefore less reliable to test
   skip_if_offline(); skip_on_ci()
-  result <- galah_call() |>
-    identify("perameles") |>
-    distinct(taxonConceptID) |>
+  levels_all <- galah_call() |>
+    distinct(basisOfRecord) |>
+    quiet_collect()
+  levels_count <- galah_call() |>
+    distinct(basisOfRecord) |>
     count() |>
     quiet_collect()
-  expect_s3_class(result,
+  expect_s3_class(levels_count,
                   c("tbl_df", "tbl", "data.frame"))
-  expect_equal(nrow(result), 1)
-  expect_true(result$count[1] > 1 & result$count[1] < 10)
+  expect_equal(nrow(levels_count), 1)
+  expect_equal(nrow(levels_all), levels_count$count)
 })
 
 test_that("`group_by(something) |> distinct(speciesID) |> count()` gives grouped number of categories", {

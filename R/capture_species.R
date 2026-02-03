@@ -21,10 +21,18 @@ capture_species_atlas <- function(.query){
     .query <- .query |> select(group = "taxonomy")
   }
   
-  # determine whether to use `group_by` or `species_facets()`
-  if(is.null(.query$group_by)){
-    .query$group_by <- tibble::tibble(name = species_facets(),
+  # determine whether to use `distinct()` or `species_facets()`
+  if(is.null(.query$distinct)){
+    .query$distinct <- tibble::tibble(name = species_facets(),
                                       type = "field")
+  }else{
+    if(is.na(.query$distinct$name)){
+      if(!is.null(.query$group_by)){
+        .query$distinct$name <- .query$group_by$name
+      }else{
+        cli::cli_error("No variable supplied to `distinct()`")
+      }
+    }
   }
   
   # build a query
@@ -35,7 +43,7 @@ capture_species_atlas <- function(.query){
                 .query$apply_profile),
     sourceTypeId = 2004,
     reasonTypeId = potions::pour("user", "download_reason_id"),
-    facets = .query$group_by$name,
+    facets = .query$distinct$name,
     parse_select_species(.query$select)) |>
     add_email_address(query = .query) |>
     add_email_notify()

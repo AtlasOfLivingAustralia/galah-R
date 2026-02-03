@@ -11,14 +11,114 @@
 lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below,
 for more details.}
 
-\item{...}{Optional variables to use when determining uniqueness. If there
-are multiple rows for a given combination of inputs, only the first row
-will be preserved. If omitted, will use all variables in the data frame.}
+\item{...}{Variables to use when determining uniqueness. Unlike the \code{dplyr}
+implementation this must be set for the function to do anything, and only
+a single variable is used.}
 
-\item{.keep_all}{If \code{TRUE}, keep all variables in .data. If a combination
-of \code{...} is not distinct, this keeps the first row of values.}
+\item{.keep_all}{If \code{TRUE}, keep all variables in .data. Defaults to
+\code{FALSE}}
 }
 \description{
 Keep only unique/distinct rows from a data frame. This is similar to
 \code{\link[=unique.data.frame]{unique.data.frame()}} but considerably faster. It is evaluated lazily.
+}
+\details{
+This function has several potential uses. In it's default mode, it simply
+shows the unique values for a supplied field:
+
+\preformatted{galah_call() |>
+  distinct(basisOfRecord) |> 
+  collect()
+
+# A tibble: 9 × 1
+  basisOfRecord      
+  <chr>              
+1 HUMAN_OBSERVATION  
+2 PRESERVED_SPECIMEN 
+3 OCCURRENCE         
+4 MACHINE_OBSERVATION
+5 OBSERVATION        
+6 MATERIAL_SAMPLE    
+7 LIVING_SPECIMEN    
+8 FOSSIL_SPECIMEN    
+9 MATERIAL_CITATION
+}
+
+This is the same result as you would get using \code{\link[=show_values]{show_values()}}:
+
+\preformatted{search_all(fields, "basisOfRecord") |> 
+  show_values()}
+
+Using \code{\link[=distinct]{distinct()}} is somewhat more reliable, however, as it doesn't rely
+on searching the tibble returned by \code{show_all(fields)}. It is also more
+efficient, particularly when caching is turned off. If the goal is to
+retrieve the \emph{number} of levels of a factor, use:
+
+\preformatted{galah_call() |>
+  distinct(basisOfRecord) |> 
+  count() |>
+  collect()
+
+# A tibble: 1 × 1
+  count
+  <int>
+1     9
+}
+
+When the variable passed to \code{\link[=distinct]{distinct()}} in the above example is
+\code{speciesID}, this is identical to calling:
+
+\preformatted{atlas_counts(type = "species")}
+
+You can also pass \code{\link[=group_by.data_request]{group_by()}}
+to find the number of facets per level of a second variable:
+
+\preformatted{galah_call() |>
+  identify("Perameles") |>
+  distinct(speciesID) |> 
+  group_by(basisOfRecord) |>
+  count() |>
+  collect()
+
+# A tibble: 8 × 2
+  basisOfRecord       count
+  <chr>               <int>
+1 Human observation       7
+2 Preserved specimen      9
+3 Machine observation     2
+4 Observation             3
+5 Occurrence              3
+6 Material Sample         4
+7 Fossil specimen         1
+8 Living specimen         1
+}
+
+By setting \code{.keep_all = TRUE}, we get more information on each record.
+Due to limits on the APIs this is not a perfect analogy for running
+\code{\link[dplyr:distinct]{dplyr::distinct()}} on raw occurrences; but it does allow us to
+generalise \code{\link[=atlas_species]{atlas_species()}} to use any taxonomic identifier. For example,
+we might choose to show data by family instead of species:
+
+\preformatted{galah_call() |>
+  identify("Coleoptera") |>
+  distinct(familyID, .keep_all = TRUE) |> 
+  collect()}
+
+In this case, \code{\link[=collect.data_request]{collect()}} and
+\code{\link[=atlas_species]{atlas_species()}} are synonymous, with the exception that the latter
+does not require you to set the \code{.keep_all} argument to \code{TRUE}. So you
+could instead use:
+
+\preformatted{galah_call() |>
+  identify("Coleoptera") |>
+  distinct(familyID) |> 
+  atlas_species()}
+}
+\examples{
+\dontrun{
+galah_call() |>
+  distinct(basisOfRecord) |>
+  count() |>
+  collect()
+}
 }
