@@ -3,34 +3,27 @@
 #' @noRd
 #' @keywords Internal
 build_predicates <- function(x){
+  
+  # handle newly supplied information
+  x_identify <- parse_predicates_identify(x$identify)
+  x_location <- parse_predicates_location(x$geolocate)
 
-  # combine provided information
-  filters_list <- c(
-    parse_predicates_filter(x),
-    parse_predicates_identify(x$identify),
-    parse_predicates_location(x$geolocate)) |>
-    remove_nulls_from_list()
-
-  # return correctly structured object
-  if(length(filters_list) < 1){
-    NULL
-  }else{
-    names(filters_list) <- NULL # important for parsing with toJSON
-    list(type = "and", 
+  # for and queries, we extract everything, add new content, then rebuild
+  if(is_and_query(x)){
+    filters_list <- c(x$filter$predicates, x_identify, x_location) |>
+      remove_nulls_from_list()
+    names(filters_list) <- NULL
+    list(type = "and",
          predicates = filters_list)
-    # NOTE: This is messy for length-1, but does work
-  }
-}
-
-#' Cleanly handle filter args
-#' @noRd
-#' @keywords Internal
-parse_predicates_filter <- function(x){
-  if(is.null(x)){
-    NULL
   }else{
-    if(is_and_query(x)){
-      x$filter$predicates
+    # if we have been given further information, use AND
+    if(!is.null(x_identify) | !is.null(x_location)){
+      filters_list <- c(x$filter, x_identify, x_location) |> # note: not x$filter$predicates
+        remove_nulls_from_list()
+      names(filters_list) <- NULL
+      list(type = "and",
+           predicates = filters_list)
+    # otherwise we can pass what we were given (usually an OR statement)
     }else{
       x$filter
     }

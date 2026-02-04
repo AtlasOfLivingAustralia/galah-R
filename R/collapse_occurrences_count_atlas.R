@@ -187,7 +187,6 @@ check_facet_count <- function(.query,
   url$query$flimit <- 0
   temp_data <- .query
   temp_data$url <- httr2::url_build(url)
-  temp_data$slot_name <- NULL
   result <- query_API(temp_data)
   if(length(result) < 1){
     0

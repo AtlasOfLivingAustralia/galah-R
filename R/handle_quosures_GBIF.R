@@ -14,14 +14,20 @@ parse_quosures_data_gbif <- function(dots){
   if(length(dots) > 0){
     predicates <- purrr::map(dots, 
                              switch_expr_type_pred)
-    names(predicates) <- NULL # NOTE: This step is *crucial*
-    # without it, jsonlite::toJSON() wraps predicates in `{}` instead of `[]`
-    # which is then rejected by GBIF
-    if(length(predicates) > 1L){
-      result <- list(type = "and",
-                     predicates = result)
+    # sometimes, because we call `map()`, we end up with predicates
+    # buried one layer down in the list. Correct this
+    if(length(predicates) == 1L){
+      # if(is.list(predicates[[1]])){
+      result <- predicates[[1]]
+      # }
     }else{
-      result <- predicates
+      # wipe predicate names
+      # NOTE: This step is *crucial*
+      # without it, jsonlite::toJSON() wraps predicates in `{}` instead of `[]`
+      # which is then rejected by GBIF
+      names(predicates) <- NULL 
+      result <- list(type = "and",
+                     predicates = predicates)
     }
     as_predicates_filter(result)
   }else{
@@ -118,9 +124,9 @@ parse_relational_pred <- function(x){
     if(operator == "!="){
       list(
         type = "not",
-        list(type = "equals",
-             key = lhs,
-             value = rhs))
+        predicate = list(type = "equals",
+                         key = lhs,
+                         value = rhs))
 
     # everything else is flat
     }else{
@@ -169,7 +175,7 @@ parse_logical_pred <- function(x){
 #' @noRd
 #' @keywords internal
 parse_brackets_pred <- function(x){
-  if(length(quo_get_expr(x)) != 2L){
+  if(length(rlang::quo_get_expr(x)) != 2L){
     filter_error()
   }
   try_next_quosure_pred(x)
@@ -188,11 +194,11 @@ parse_exclamation_pred <- function(x){
       next_section
     }else{
       list(type = "not", 
-           next_section)      
+           predicate = next_section)      
     }
   }else{
     list(type = "not", 
-         next_section)     
+         predicate = next_section)     
   }
 }
 

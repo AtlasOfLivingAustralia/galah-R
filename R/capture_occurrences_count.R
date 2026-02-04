@@ -122,7 +122,6 @@ capture_occurrences_count_gbif <- function(identify = NULL,
        options = list(
          httpauth = 1,
          userpwd = user_string),
-       body = predicates_info,
-       slot_name = "count") |>
+       body = predicates_info) |>
     as_prequery()
 }

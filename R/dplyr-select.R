@@ -129,16 +129,16 @@
 #' }
 #' @export
 select.data_request <- function(.data, ..., group = NULL){
-  if(is_gbif()){
-    cli::cli_text("`select()` is not supported for GBIF occurrence downloads API v1: skipping")
-    .data
-  }else{
+  # if(is_gbif()){
+  #  cli::cli_text("`select()` is not supported for GBIF occurrence downloads API v1: skipping")
+  #  .data
+  # }else{
     dots <- rlang::enquos(..., .ignore_empty = "all")
     list(quosure = dots,
          summary = generate_summary(dots)) |>
       add_group(group) |>
       update_request_object(.data, select = _)  
-  }
+  # }
 }
 
 #' @rdname select.data_request
