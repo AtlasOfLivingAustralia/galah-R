@@ -104,6 +104,15 @@ we might choose to show data by family instead of species:
   distinct(familyID, .keep_all = TRUE) |> 
   collect()}
 
+Using \code{\link[=group_by]{group_by()}} is also valid:
+
+\preformatted{galah_call() |>
+    filter(year == 2024,
+           genus == "Crinia") |>
+    group_by(speciesID) |>
+    distinct(.keep_all = TRUE) |>
+    collapse()}
+
 In this case, \code{\link[=collect.data_request]{collect()}} and
 \code{\link[=atlas_species]{atlas_species()}} are synonymous, with the exception that the latter
 does not require you to set the \code{.keep_all} argument to \code{TRUE}. So you

@@ -53,9 +53,21 @@ collapse_run_checks <- function(.query,
     }
     # check_select() is specifically for parsing fields into urls,
     # should only be called for occurrences
-    if(.query$type == "data/occurrences"){
+    if(.query$type %in% c("data/occurrences", "data/occurrences-glimpse")){
       .query <- check_select(.query, error_call)
     }
+
+    # after checking, for type = "glimpse", we need to rename the fields query
+    if(.query$type == "data/occurrences-glimpse"){
+      url <- httr2::url_parse(.query$url)
+      query_names <- names(url$query)
+      if(any(query_names == "fields")){
+        names(url$query)[which(query_names == "fields")] <- "fl"
+      }
+      .query$url <- httr2::url_build(url)
+    } 
+
+    # run remaining checks, if requested by the user
     if(potions::pour("package", "run_checks")) {
       .query <- .query |>
         check_reason(error_call) |>

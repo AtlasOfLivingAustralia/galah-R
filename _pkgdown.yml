@@ -52,10 +52,12 @@ reference:
   contents:
   - apply_profile
   - arrange.data_request
+  - authenticate
   - count.data_request
   - distinct.data_request
   - filter.data_request
   - geolocate
+  - glimpse.data_request
   - group_by.data_request
   - identify.data_request
   - select.data_request

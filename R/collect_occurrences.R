@@ -104,6 +104,37 @@ collect_occurrences_doi <- function(.query,
   }
 }
 
+#' collect type `data/occurrences-glimpse`
+#' @noRd
+#' @keywords Internal
+collect_occurrences_glimpse <- function(.query){
+  result <- query_API(.query)
+
+  # pull required info from API
+  df_list <- result |>
+    purrr::pluck("occurrences") |>
+    # non-standard fields are nested within `otherProperties`
+    # extract these
+    purrr::map(\(a){
+      if(any(names(a) == "otherProperties")){
+        c(a[names(a) != "otherProperties"],
+          a[["otherProperties"]])
+      }
+    }) 
+
+  # create a tibble
+  df <- dplyr::bind_rows(df_list) 
+  attr(df, "total_n") <- result$totalRecords
+
+  # assign new object for bespoke printing
+  if(tibble::is_tibble(df)){
+    structure(df, 
+              class = c("occurrences_glimpse", "tbl_df", "tbl", "data.frame")) 
+  }else{
+    df # not sure what use case this is, but probably NULL
+  }
+}
+
 #' Download failed message
 #' @noRd
 #' @keywords Internal

@@ -53,12 +53,14 @@ capture.data_request <- function(x,
     check_authentication() |>
     check_doi() |>
     check_distinct_count_groupby() |>
+    check_glimpse() |>
     check_slice_arrange() |>
     enforce_select_query()
   switch(x$type,
          "occurrences" = capture_occurrences(x, mint_doi = mint_doi),
          "occurrences-count" = capture_occurrences_count(x),
          "occurrences-doi" = capture_occurrences_doi(x),
+         "occurrences-glimpse" = capture_occurrences_glimpse(x),
          "species" = capture_species(x),
          "species-count" = capture_species_count(x),
          "distributions" = capture_distributions_data(x),
@@ -138,20 +140,6 @@ as_query <- function(x){
 #' @keywords Internal
 as_prequery <- function(x){
   structure(x, class = c("prequery", "list"))
-}
-
-#' Internal function called by `capture()`
-#' @noRd
-#' @keywords Internal
-count_switch <- function(x){ 
-  x$type <- switch(x$type, 
-                   "occurrences" = "occurrences-count",
-                   "occurrences-count" = "occurrences-count",
-                   "species" = "species-count",
-                   "species-count" = "species-count",
-                   "media" = cli::cli_abort("type = 'media' is not supported by `count()`"),
-                   cli::cli_abort("`count()` only supports `type = 'occurrences' or` `'species'`"))
-  x
 }
 
 #' Internal function to ensure that DOIs are parsed properly
@@ -273,6 +261,34 @@ check_distinct_count_groupby <- function(x){
     } # end has_select
   } # end has_distinct
 } # end function
+  
+#' Internal function called by `capture()`
+#' @noRd
+#' @keywords Internal
+count_switch <- function(x){ 
+  x$type <- switch(x$type, 
+                   "occurrences" = "occurrences-count",
+                   "occurrences-count" = "occurrences-count",
+                   "species" = "species-count",
+                   "species-count" = "species-count",
+                   "media" = cli::cli_abort("type = 'media' is not supported by `count()`"),
+                   cli::cli_abort("`count()` only supports `type = 'occurrences' or` `'species'`"))
+  x
+}
+
+#' Internal function to capture `glimpse()` calls
+#' @noRd
+#' @keywords Internal
+check_glimpse <- function(x){
+  if(!is.null(x$glimpse)){
+    if(x$type == "occurrences"){
+      x$type <- "occurrences-glimpse"
+    }else{
+      cli::cli_inform("`glimpse()` is only supported for `type =\"occurrences\"")
+    }
+  }
+  x
+}
   
 #' Internal function to check `slice` and `arrange` for counts
 #' @keywords Internal

@@ -30,6 +30,10 @@ dplyr::distinct
 #' @export
 dplyr::filter
 
+#' @importFrom dplyr glimpse
+#' @export
+dplyr::glimpse
+
 #' @importFrom dplyr group_by
 #' @export
 dplyr::group_by

@@ -67,7 +67,7 @@ capture_occurrences_la <- function(.query,
     add_doi_request(mint_doi = mint_doi)
 
   # build url
-  url <- url_lookup("data/occurrences") |> 
+  url <- url_lookup("data/occurrences") |>
     httr2::url_parse()
   url$query <- query
   
@@ -123,4 +123,30 @@ capture_occurrences_doi <- function(.query,
        headers = build_headers(),
        download = TRUE) |>
   as_query()
+}
+
+#' Internal function to convert `data_request` with `type = "occurrences-glimpse"` to a `query`
+#' @noRd
+#' @keywords Internal
+capture_occurrences_glimpse <- function(.query){
+  if(is_gbif()){
+    # browser() # not coded yet
+    .query
+  }else{
+    result <- capture_occurrences_la(.query)
+    url <- httr2::url_parse(result$url)
+
+    # replace path with count API
+    url$path <- url_lookup("data/occurrences-count") |>
+      httr2::url_parse() |>
+      purrr::pluck("path")
+
+    # add a pageSize arg
+    url$query$pageSize <- 3
+
+    # rebuild and ship
+    result$url <- httr2::url_build(url)
+    result$type <- "data/occurrences-glimpse"
+    result
+  }
 }

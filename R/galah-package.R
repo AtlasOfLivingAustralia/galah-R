@@ -30,10 +30,12 @@
 #' 
 #'   * [apply_profile()] Restrict to data that pass predefined checks
 #'   * \code{\link[=arrange.data_request]{arrange()}} Arrange rows of a query on the server side
+#'   * [authenticate()] Authenticate your request via OAUTH in the browser
 #'   * \code{\link[=count.data_request]{count()}} Request counts of the specified data type
 #'   * \code{\link[=distinct.data_request]{distinct()}} Keep distinct/unique rows
 #'   * \code{\link[=filter.data_request]{filter()}} Filter records (see also \code{\link[=filter_object_classes]{filter_object_classes}}))
 #'   * [geolocate()] Spatial filtering of a query
+#'   * \code{\link[=glimpse]{glimpse()}} Get a glimpse of your data
 #'   * \code{\link[=group_by.data_request]{group_by()}} Group counts by one or more fields
 #'   * \code{\link[=identify.data_request]{identify()}} Search for taxonomic identifiers (see also \code{\link[=taxonomic_searches]{taxonomic_searches}})
 #'   * \code{\link[=select.data_request]{select()}} Fields to report information for

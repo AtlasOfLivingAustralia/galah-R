@@ -36,10 +36,12 @@ For those outside Australia, 'galah' is the common name of
 \itemize{
 \item \code{\link[=apply_profile]{apply_profile()}} Restrict to data that pass predefined checks
 \item \code{\link[=arrange.data_request]{arrange()}} Arrange rows of a query on the server side
+\item \code{\link[=authenticate]{authenticate()}} Authenticate your request via OAUTH in the browser
 \item \code{\link[=count.data_request]{count()}} Request counts of the specified data type
 \item \code{\link[=distinct.data_request]{distinct()}} Keep distinct/unique rows
 \item \code{\link[=filter.data_request]{filter()}} Filter records (see also \code{\link[=filter_object_classes]{filter_object_classes}}))
 \item \code{\link[=geolocate]{geolocate()}} Spatial filtering of a query
+\item \code{\link[=glimpse]{glimpse()}} Get a glimpse of your data
 \item \code{\link[=group_by.data_request]{group_by()}} Group counts by one or more fields
 \item \code{\link[=identify.data_request]{identify()}} Search for taxonomic identifiers (see also \code{\link[=taxonomic_searches]{taxonomic_searches}})
 \item \code{\link[=select.data_request]{select()}} Fields to report information for

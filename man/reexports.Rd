@@ -11,6 +11,7 @@
 \alias{count}
 \alias{distinct}
 \alias{filter}
+\alias{glimpse}
 \alias{group_by}
 \alias{select}
 \alias{slice_head}
@@ -23,7 +24,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{dplyr}{\code{\link[dplyr:count]{add_count}}, \code{\link[dplyr]{arrange}}, \code{\link[dplyr:compute]{collapse}}, \code{\link[dplyr:compute]{collect}}, \code{\link[dplyr]{compute}}, \code{\link[dplyr]{count}}, \code{\link[dplyr]{distinct}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{select}}, \code{\link[dplyr:slice]{slice_head}}}
+  \item{dplyr}{\code{\link[dplyr:count]{add_count}}, \code{\link[dplyr]{arrange}}, \code{\link[dplyr:compute]{collapse}}, \code{\link[dplyr:compute]{collect}}, \code{\link[dplyr]{compute}}, \code{\link[dplyr]{count}}, \code{\link[dplyr]{distinct}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{glimpse}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{select}}, \code{\link[dplyr:slice]{slice_head}}}
 
   \item{graphics}{\code{\link[graphics]{identify}}}
 
