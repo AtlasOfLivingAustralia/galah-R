@@ -1,15 +1,28 @@
 #' Capture a request
 #'
+#' @description
 #' The first step in evaluating a request is to capture and parse the 
 #' information it contains. The resulting object has class `prequery`
-#' for those requiring further processing or `query` for those that don't.
+#' for those requiring further processing or `query` for those that don't. 
+#' A `prequery` object shows what has been requested by a user in a given 
+#' `galah_call()`.
+#' 
 #' @details
 #' Typically, queries in galah are piped using [galah_call()], which builds
 #' an object of class `"data_request"`; or [request_metadata()] or
-#' [request_files()]. All these objects can be converted to class `"query"` 
-#' using \code{\link[=collapse.data_request]{collapse()}}. However,
-#' properly evaluating a query often requires building and running
-#' additional queries to populate or validate the requested information. 
+#' [request_files()]. Under the hood, [galah_call()] constructs a query 
+#' ([collapse()]), sends it to an API ([compute()]), and returns its 
+#' contents ([collect()]).
+#' 
+#' For [collapse()] to construct a complete query (class `"query"`), 
+#' it often requires additional, smaller API calls to validate pieces 
+#' of information used to construct the full user request. 
+#' Underlying [collapse()] are these 
+#' smaller but necessary steps:
+#'   * [capture()] parses the basic structure of a user request
+#'   * [compound()] combines all necessary API calls to construct the final query
+#'   * [collapse()] constructs the complete query
+#'
 #' A `prequery` object shows what has been requested, before those 
 #' calls are built by [compound()] and evaluated by  
 #' \code{\link[=collapse.data_request]{collapse()}}.
