@@ -273,34 +273,42 @@ check_field_identities <- function(df,
 #' @noRd
 #' @keywords Internal
 check_fields_gbif_counts <- function(.query){
-  # set fields to check against
-  valid_fields <- .query[["metadata/fields"]]$id
-  valid_assertions <- .query[["metadata/assertions"]]$id
-  valid_any <- c(valid_fields, valid_assertions)
-  url <- httr2::url_parse(.query$url[1])
 
-  # get fields from url
-  skip_fields <- c("limit", "facet", "facetLimit",
-                   "taxonKey", "geometry", "geoDistance") # GBIF-specific fields
-  query_names <- names(url$query)
-  fields <- query_names[!(query_names %in% skip_fields)]
-  # check invalid fields
+  # First get filters
+  # set fields that can be queried using predicates or downloaded
+  valid_download_fields <- .query[["metadata/fields"]] |>
+    filter(download_field == TRUE) |>
+    dplyr::pull(id)
+  valid_assertions <- .query[["metadata/assertions"]]$id
+  valid_any <- c(valid_download_fields, valid_assertions)
+
+  # check for invalid fields in predicates
+  filter_vec <- unlist(.query$body$filter)
+  filter_keys <- stringr::str_detect(names(filter_vec), "key$")
   filter_invalid <- NA
-  if (length(fields) > 0) {
+  if(any(filter_keys)){
+    fields <- filter_vec[filter_keys] |>
+      snake_to_camel_case()
     if (!all(fields %in% valid_any)) {
       invalid_fields <- fields[!(fields %in% valid_any)]
       filter_invalid <- glue::glue_collapse(invalid_fields, sep = ", ")
     }
   }
-  
-  # check for invalid facets
+
+  # then facets  
+  # first extract facets
   group_by_invalid <- NA
-  if(any(query_names == "facet")){
-    fields <- unlist(url$query[which(query_names == "facet")])
-    if (!all(fields %in% valid_any)) {
-      invalid_fields <- fields[!(fields %in% valid_any)]
-      group_by_invalid <- glue::glue_collapse(invalid_fields, sep = ", ")
-    }
+  if(!is.null(.query$body$group_by)){
+    facets <- .query$body$group_by$name
+    # check for invalid facets
+    valid_search_fields <- .query[["metadata/fields"]] |>
+      filter(search_field == TRUE) |>
+      dplyr::pull(id)
+     if (!all(facets %in% valid_search_fields)) {
+       invalid_facets <- facets[!(facets %in% valid_search_fields)]
+       group_by_invalid <- glue::glue_collapse(invalid_facets, sep = ", ")
+     }
+    # }
   }
   
   c(filter_invalid, group_by_invalid)

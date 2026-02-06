@@ -73,19 +73,42 @@ test_that("`filter()` handles multiple (`AND`) queries for GBIF", {
   expect_equal(x$count, z$count)
 })
 
+test_that("`count()` errors when real but non-indexed fields are requested", {
+  skip_if_offline(); skip_on_ci()
+
+  # invalid fields
+  galah_call() |>
+    filter(something == 9) |>
+    count() |>
+    collapse() |>
+    expect_error(label = "Can't use fields that don't exist")
+
+  # real, but not indexed, group_by statement
+  request_data() |>
+    filter(class == "Mammalia") |>
+    group_by(order) |>
+    count() |>
+    collapse() |>
+    expect_error(label = "Can't use fields that don't exist")
+})
+
 test_that("`count()` works with `identify()` for GBIF", {
   skip_if_offline(); skip_on_ci()
   # collapse
   x <- request_data() |>
     identify("Mammalia") |>
     filter(year >= 2020, basisOfRecord == "HUMAN_OBSERVATION") |>
-    group_by(class) |>
+    group_by(classKey) |>
     count() |>
     collect()
   expect_equal(nrow(x), 1)
   expect_equal(ncol(x), 2)
-  expect_equal(x$class, "Mammalia")
+  expect_equal(x$classKey, "359")
 })
+# FIXME: fields returned by show_all(fields) are not the same as those accepted by occurrences/search API
+# This leads to real field names being passed to this API, but not affecting the result
+# accepted fields are here:
+# https://techdocs.gbif.org/en/openapi/v1/occurrence#/Searching%20occurrences/searchOccurrence
 
 test_that("`filter()` handles `OR` and `%in%` for GBIF", {
   skip_if_offline(); skip_on_ci()

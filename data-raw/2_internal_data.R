@@ -116,6 +116,7 @@ names(galah_internal_cached) <- stored_types
 gbif_internal_archived <- list(
   assertions = read_csv("./data-raw/gbif_assertions.csv"),
   # fields = read_csv("./data-raw/gbif_fields.csv"),
+  search_fields = read_csv("./data-raw/gbif_search_fields.csv"),
   ranks =  tibble(
     id = seq_len(9),
     name = c("kingdom", "phylum", "class", 

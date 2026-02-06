@@ -7,6 +7,7 @@ library(tibble) # generate tibbles
 library(dplyr) # data manipulation
 library(purrr) # extraction from lists
 library(rvest) # web scraping assertions from gbif.org
+library(stringr)
 
 # Legacy code: this is now available via API
 # # tibble of available fields: 
@@ -54,3 +55,21 @@ lapply(assertions_list, function(a){
   bind_rows() |>
   mutate(type = "assertions") |>
   write_csv("./data-raw/gbif_assertions.csv")
+
+## Also, fields that exist are *not* the same as those that 
+## can be used for search or faceting.
+## Download and store these separately
+
+gbif_search_url <- "https://raw.githubusercontent.com/gbif/gbif-api/refs/heads/dev/src/main/java/org/gbif/api/model/occurrence/search/OccurrenceSearchParameter.java"
+data_raw <- readLines(gbif_search_url)
+field_strings <- data_raw[str_detect(data_raw, "^\\s+public final static")] |>
+  str_replace("^\\s+public final static OccurrenceSearchParameter ", "") |>
+  str_extract("^\\s*[:graph:]+") |>
+  trimws() |>
+  sort()
+# can be compared to:
+# https://gbif.github.io/gbif-api/apidocs/org/gbif/api/model/occurrence/search/OccurrenceSearchParameter.html
+
+tibble::tibble(id = snake_to_camel_case(field_strings)) |>
+  write_csv("./data-raw/gbif_search_fields.csv")
+

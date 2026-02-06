@@ -219,24 +219,25 @@ gbif_upper_case <- function(string){
 
 #' Internal function to handle conversion from upper snake case to camelCase
 #' Primarily for reversing the action of `gbif_upper_case()` (above)
+#' vectorized (kinda) 2026-02-05
 #' @noRd
 #' @keywords internal
 snake_to_camel_case <- function(string){
   # first split into words
-  split_string <- string |>
+  string_list <- string |>
     tolower() |>
-    strsplit("_") |>
-    purrr::pluck(!!!list(1))
-    
-  # then amend only multi-word strings
-  word_count <- length(split_string)
-  if(word_count > 1){
-    c(split_string[1],
-      stringr::str_to_title(split_string[seq(2, word_count)])) |>
-      glue::glue_collapse()
-  }else{
-    split_string
+    strsplit("_")
+  # then merge multi-word strings
+  n_words <- lengths(string_list)
+  if(any(n_words > 1)){
+    x <- purrr::map(string_list[n_words > 1],
+               \(a){
+                  c(a[[1]],  stringr::str_to_title(a[seq(2, length(a))])) |>
+                    paste0(collapse = "")
+               })
+    string_list[n_words > 1] <- x
   }
+  unlist(string_list)
 }
 
 ##---------------------------------------------------------------

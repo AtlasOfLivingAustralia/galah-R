@@ -183,7 +183,9 @@ build_query_set_data <- function(x, mint_doi, ...){
     if(any(!fields_absent) | 
         x_type %in% c("species-count", "species")) {
       result <- c(result,
-                  list(request_metadata("fields") |> capture(),
+                  list(request_metadata("fields") |> 
+                        select(tidyselect::everything()) |> # needed to ensure GBIF works
+                        capture(),
                        request_metadata("assertions") |> capture()))
     }else{
       # for living atlases, we need `collapse_fields()` to check the `lsid` field

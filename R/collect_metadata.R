@@ -263,10 +263,22 @@ collect_fields <- function(.query){
       dplyr::bind_rows() 
     
     if(is_gbif()){
+      # we need to join some local metadata to GBIF info
+      df <- galah:::gbif_internal_archived$search_fields |>
+        dplyr::mutate(search_field = TRUE)
+
+      # organise information from the API
       result_df <- result |>
         dplyr::mutate(id = .data$simpleName,
                       description = .data$qualifiedName,
-                      type = "fields")
+                      type = "fields",
+                      download_field = TRUE) |>
+        dplyr::full_join(df, by = "id")
+
+      # clean up NAs (without `tidyr`)
+      result_df$download_field[is.na(result_df$download_field)] <- FALSE
+      result_df$search_field[is.na(result_df$search_field)] <- FALSE
+
     }else{
       # if there is a 'stored' field, use it to filter results
       if(any(colnames(result) == "stored")){
