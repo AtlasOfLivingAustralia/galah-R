@@ -19,7 +19,7 @@ test_that("`galah_filter()` returns predicates for GBIF", {
 })
 
 test_that("`filter()` handles a single entry for GBIF", {
-   skip_if_offline(); skip_on_ci()
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     filter(year == 2024) |>
     count() |>
@@ -141,6 +141,8 @@ test_that("`filter()` handles `OR` and `%in%` for GBIF", {
 })
 
 test_that("`filter()` handles multiple queries including != for GBIF", {
+  skip_if_offline(); skip_on_ci()
+
   x <- galah_call() |>
     filter(year == 2024, country != "AU") |>  # FIXME: countryCode fails with cryptic warning
     count() |>
@@ -158,6 +160,8 @@ test_that("`filter()` handles multiple queries including != for GBIF", {
 })
 
 test_that("`filter()` handles `between()` for GBIF", {
+  skip_if_offline(); skip_on_ci()
+
   x <- galah_call() |>
     filter(dplyr::between(year, 2010, 2020)) |>
     group_by(year) |>
@@ -173,6 +177,7 @@ test_that("`filter()` handles `between()` for GBIF", {
 })
 
 test_that("filter() handles !() for GBIF", {
+  skip_if_offline(); skip_on_ci()
 
   # exclude some levels of basisOfRecord
   excluded_categories <- c("OCCURRENCE", "LIVING_SPECIMEN", "HUMAN_OBSERVATION")
@@ -198,6 +203,8 @@ test_that("filter() handles !() for GBIF", {
 })
 
 test_that("filter() handles `is.na()` for GBIF", {
+  skip_if_offline(); skip_on_ci()
+
   # missing values
   x <- galah_call() |>
     filter(is.na(country)) |>
@@ -224,6 +231,8 @@ test_that("filter() handles `is.na()` for GBIF", {
 })
 
 test_that("filter() handles c() for GBIF", {
+  skip_if_offline(); skip_on_ci()
+
   # effectively parses this as 'in' as per GBIF instructions
   country_vector <- c("AU", "US", "NL")
 

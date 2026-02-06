@@ -40,7 +40,7 @@ tidy_list_columns <- function(x){
     list_names <- names(x)[list_check]
     list_tibbles <- purrr::map(list_names,
                               \(a){
-                                tibble::tibble({{a}} := list(x[[a]]))
+                                tibble::tibble({{a}} == list(x[[a]]))
                               })
   }else{
     list_tibbles <- NULL
@@ -51,7 +51,7 @@ tidy_list_columns <- function(x){
     make_nulls_safe() |>
     tibble::as_tibble() |>
     dplyr::bind_cols(list_tibbles) |>
-    dplyr::select(!!!names(x)) # reorder columns to same as `x`
+    dplyr::select(tidyselect::any_of(names(x))) # reorder columns to same as `x`
 }
 
 #' Internal function to ensure rows can be converted to tibble
@@ -264,7 +264,7 @@ collect_fields <- function(.query){
     
     if(is_gbif()){
       # we need to join some local metadata to GBIF info
-      df <- galah:::gbif_internal_archived$search_fields |>
+      df <- gbif_internal_archived$search_fields |>
         dplyr::mutate(search_field = TRUE)
 
       # organise information from the API

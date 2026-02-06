@@ -277,8 +277,8 @@ check_fields_gbif_counts <- function(.query){
   # First get filters
   # set fields that can be queried using predicates or downloaded
   valid_download_fields <- .query[["metadata/fields"]] |>
-    filter(download_field == TRUE) |>
-    dplyr::pull(id)
+    dplyr::filter(.data$download_field == TRUE) |>
+    dplyr::pull("id")
   valid_assertions <- .query[["metadata/assertions"]]$id
   valid_any <- c(valid_download_fields, valid_assertions)
 
@@ -302,13 +302,12 @@ check_fields_gbif_counts <- function(.query){
     facets <- .query$body$group_by$name
     # check for invalid facets
     valid_search_fields <- .query[["metadata/fields"]] |>
-      filter(search_field == TRUE) |>
+      dplyr::filter(.data$search_field == TRUE) |>
       dplyr::pull(id)
      if (!all(facets %in% valid_search_fields)) {
        invalid_facets <- facets[!(facets %in% valid_search_fields)]
        group_by_invalid <- glue::glue_collapse(invalid_facets, sep = ", ")
      }
-    # }
   }
   
   c(filter_invalid, group_by_invalid)

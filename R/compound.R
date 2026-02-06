@@ -66,7 +66,7 @@ compound.prequery <- function(x, mint_doi = FALSE, ...){
   if(stringr::str_detect(x$type, "^metadata")){
     build_query_set_metadata(x)
   }else if(stringr::str_detect(x$type, "^files")){
-    list(as_query_media_files(x, ...)) |>
+    list(capture_media_files(x, ...)) |>
       as_query_set()
   }else if(x$type == "data/distribtions"){
     build_query_set_distributions(x)
@@ -245,7 +245,7 @@ build_query_set_distributions <- function(x, ...){
   }else{
     if(!is.null(x$identify)){
       result <- list(
-        collapse_taxa(list(identify = x$identify)) # wrong syntax?
+        capture_taxa(list(identify = x$identify)) # wrong syntax?
       )
       result[[2]] <- capture_distributions_data(x) # NOTE: shouldn't call microfunctions directly
     }else{

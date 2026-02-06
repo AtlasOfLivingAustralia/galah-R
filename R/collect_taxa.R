@@ -189,7 +189,7 @@ collect_identifiers <- function(.query){
     # we avoid `is_gbif()` here because other atlases use GBIF APIs
     result$success <- TRUE
     result <- result |>
-      dplyr::relocate(success, .before = 1) |>
+      dplyr::relocate("success", .before = 1) |>
       parse_rename(.query)
   }
   

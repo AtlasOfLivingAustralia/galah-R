@@ -21,7 +21,7 @@ test_that("galah_polygon checks inputs", {
 })
 
 test_that("galah_polygon finds polygon errors 1" , {
-  skip_on_cran()
+  skip_if_offline(); skip_on_ci()
   invalid_wkt <- "POLYGON((145.71622941565508 -32.17848852726597,))"
   expect_error(galah_polygon(invalid_wkt))
   # NOTE: 

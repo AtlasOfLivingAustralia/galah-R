@@ -9,6 +9,11 @@
 
 \method{print}{occurrences_glimpse}(x, ...)
 }
+\arguments{
+\item{x}{An object of class \code{data_request}}
+
+\item{...}{Other arguments, currently ignored}
+}
 \description{
 \code{\link[=glimpse]{glimpse()}} is like a transposed version of \code{\link[=print]{print()}}: columns run down the page,
 and data runs across. This makes it possible to see every column in a data

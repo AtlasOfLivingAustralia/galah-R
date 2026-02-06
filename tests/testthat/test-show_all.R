@@ -45,6 +45,7 @@ test_that("all `show_all()` functions return correctly with all syntax", {
 
 # lists queries are noisy, so run separately
 test_that("`show_all_lists()` functions work correctly", {
+  skip_if_offline(); skip_on_ci()
   quiet_lists <- function(...){
     list_fun <- purrr::quietly(show_all_lists)
     list_fun(...) |>

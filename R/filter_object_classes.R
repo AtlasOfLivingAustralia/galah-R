@@ -2,8 +2,8 @@
 #' 
 #' In galah, there are several ways to provide filter information. To ensure
 #' these are handled and printed correctly, they are assigned classes
-#' @param x a list
-#' @rdname filter_object_classes
+#' @param x a list, or object of supported class
+#' @name filter_object_classes
 #' @order 1
 #' @export
 as_data_filter <- function(x){
@@ -44,6 +44,7 @@ as_files_filter <- function(x){
 # Print functions for the above
 
 #' @rdname filter_object_classes
+#' @param ... Additional arguments, currently ignored
 #' @order 5
 #' @export
 print.data_filter <- function(x, ...){

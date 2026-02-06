@@ -157,6 +157,8 @@ test_that("atlas_species reformats column names when empty tibble is returned", 
 })
 
 test_that("`atlas_species()` accepts `distinct()` to set the grouping variable", {
+  skip_if_offline(); skip_on_ci()
+  
   genera <- galah_call() |>
     identify("Limnodynastidae") |>
     distinct(genusID) |>

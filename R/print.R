@@ -182,10 +182,10 @@ print.prequery <- print.query
 print.computed_query <- function(x, ...){
   # calculate arrange/slice info
   if(!is.null(x$arrange)){
-    arrange <- galah_pale_green(glue("\n
+    arrange <- galah_pale_green(glue::glue("\n
                               arrange: {x$arrange$variable} ({x$arrange$direction})"))
     if(x$arrange$slice_called == TRUE){
-      slice <- galah_pale_green(glue("\n
+      slice <- galah_pale_green(glue::glue("\n
                               slice: {x$arrange$slice_n}"))
     }else{
       slice <- NULL

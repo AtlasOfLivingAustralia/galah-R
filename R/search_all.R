@@ -23,6 +23,8 @@
 #' @param all_fields `r lifecycle::badge("experimental")` If `TRUE`, 
 #'   `show_values()` also returns all columns available from the API, rather
 #'   than the 'default' columns traditionally provided via galah.
+#' @param One or more objects accepted by the taxonomic lookup services. See 
+#' [taxonomic_searches] for details
 #' @details There are six categories of information, each with their own 
 #' specific sub-functions to look-up each type of information. 
 #' The available types of information for `search_all()` are:

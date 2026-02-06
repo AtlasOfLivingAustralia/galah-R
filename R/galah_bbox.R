@@ -87,10 +87,10 @@ galah_bbox <- function(...) {
     } else {
       if (inherits(query, c("sf", "sfc"))) {
         query <- query |> 
-          sf::st_bbox(crs = st_crs("WGS84"))
+          sf::st_bbox(crs = sf::st_crs("WGS84"))
         bbox_coords <- round(query, 5)
         query <- query |> 
-          sf::st_as_sfc(crs = st_crs("WGS84")) # FIXME: should we define the projection?
+          sf::st_as_sfc(crs = sf::st_crs("WGS84")) # FIXME: should we define the projection?
       }
     }
   }

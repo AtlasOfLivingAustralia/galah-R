@@ -107,12 +107,15 @@ build_media_id <- function(df, media_fields){
   }else{
     purrr::map(media_fields, .f = \(a){
      df |>
-        tidyr::unnest_longer(col = a) |>
+       tidyr::unnest_longer(col = tidyselect::any_of(a)) |>
        dplyr::mutate(media_id = as.character(.data[[a]]),
                      media_type = as.character(a),
                     .before = 1) |>
        dplyr::filter(!is.na(.data$media_id)) |>
        dplyr::select(- tidyselect::any_of(media_fields))
+        # break pipe at this point because tidyselect can't handle -any_of()
+       # keep_cols <- colnames(result)[!(colnames(result) %in% media_fields)]
+       # dplyr::select(result, tidyselect::any_of(keep_cols))
     }) |>
     dplyr::bind_rows()
   }

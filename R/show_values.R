@@ -99,7 +99,7 @@ show_values <- function(df,
   if(isTRUE(all_fields)){
     request_metadata() |>
       filter({{type}} == {{match_name}}) |>
-      select(everything()) |>
+      select(tidyselect::everything()) |>
       unnest() |>
       collect()
   }else{

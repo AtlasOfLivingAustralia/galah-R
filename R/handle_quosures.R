@@ -468,7 +468,7 @@ parse_in <- function(x, excl){
 #' @noRd
 #' @keywords internal
 parse_c <- function(x, excl){ 
-  if(length(quo_get_expr(x)) < 2L){
+  if(length(rlang::quo_get_expr(x)) < 2L){
     filter_error()
   }
   # convert to logical format using OR statements
