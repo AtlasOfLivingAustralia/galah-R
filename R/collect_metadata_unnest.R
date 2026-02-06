@@ -72,10 +72,10 @@ collect_lists_unnest <- function(.query){
 
   # extract additional raw fields columns
   clean_kvp_values <- function(df){
-    browser()
     if(any(colnames(df) == "kvpValues")){
       if(any(lengths(df$kvpValues) > 0)){
         df <- df |>
+          tidyr::unnest(cols = "kvpValues") |>
           tidyr::unnest_wider("kvpValues") |>
           tidyr::pivot_wider(names_from = "key",
                              values_from = "value")
