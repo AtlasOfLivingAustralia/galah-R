@@ -44,13 +44,15 @@ collect_occurrences_default <- function(.query, wait, file, call){
   # check queue
   download_response <- check_queue(.query, wait = wait)
   if(is.null(download_response)){
-    cli::cli_abort("No response from selected atlas",
+    cli::cli_abort("No response from selected atlas.",
                    call = call)
   }
   # get data
   if(potions::pour("package", "verbose", .pkg = "galah") &
      download_response$status == "complete") {
-    cli::cli_text("Downloading")
+    
+    scrolly_dots_message("Downloading")
+    # cli::cli_par()
   }
   # sometimes lookup info critical, but not others - unclear when/why!
   if(any(names(download_response) == "download_url")){
@@ -143,4 +145,33 @@ download_failed_message <- function(call){
     i = "This usually suggests a problem with the download itself, rather than the API.",
     i = "Consider checking that a file has been created in the expected location.") |>
     cli::cli_abort(call = call)
+}
+
+
+
+#' Theatrics
+#' @noRd
+#' @keywords Internal
+scrolly_dots_message <- function(message) {
+  
+  spinny <- cli::make_spinner(
+    which = "simpleDotsScrolling",
+    template = paste0(message, " {spin}")
+  )
+  
+  # update the spinner 100 times
+  lapply(1:100, function(x) {
+    spinny$spin()
+    wait(.001)
+  })
+  
+  # clear the spinner from the status bar
+  # spinny$finish()
+}
+
+#' Wait time
+#' @noRd
+#' @keywords Internal
+wait <- function(seconds = 1) {
+  Sys.sleep(seconds)
 }
