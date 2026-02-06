@@ -102,7 +102,7 @@ test_that("`request_metadata()` works with `select()` for remote APIs *without* 
 })
 
 test_that("`request_metadata()` works with `select()` for remote APIs *with* default columns", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   type_list <- c("assertions",
                  "fields",
                  "licences",
@@ -174,6 +174,8 @@ test_that("`request_metadata()` works with `select()` for remote APIs *with* def
 })
 
 test_that("`request_metdata()` works with `select()` for `type = 'taxa'`", {
+  skip_if_offline(); skip_on_ci()
+
   query <- request_metadata() |>
     identify("Crinia") |>
     select(everything()) |>
@@ -197,6 +199,7 @@ test_that("`request_metdata()` works with `select()` for `type = 'taxa'`", {
 })
 
 test_that("`request_metdata()` works with `select()` for complex taxa", {
+  skip_if_offline(); skip_on_ci()
   crinia_tibble <- tibble::tibble(kingdom = "Animalia",
                                   phylum = "Chordata",
                                   genus = "Crinia")
@@ -223,6 +226,7 @@ test_that("`request_metdata()` works with `select()` for complex taxa", {
 })
 
 test_that("`request_metdata()` works with `select()` for `type = 'identifiers'`", {
+  skip_if_offline(); skip_on_ci()
   tcid <- search_taxa("Chordata") |>
     dplyr::pull("taxon_concept_id")
   query <- request_metadata() |>

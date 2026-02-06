@@ -483,8 +483,8 @@ reasons_supported <- function(){
   atlas <- potions::pour("atlas", "region")
   supported_atlases <- request_metadata(type = "apis") |>
     collect() |>
-    dplyr::filter(type == "metadata/reasons") |>
-    dplyr::pull(atlas)
+    dplyr::filter(.data$type == "metadata/reasons") |>
+    dplyr::pull("atlas")
   atlas %in% supported_atlases
 }
 

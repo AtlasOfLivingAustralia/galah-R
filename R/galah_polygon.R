@@ -120,8 +120,8 @@ parse_polygon <- function(query,
   } else {
     
     # remove space after "POLYGON" if present
-    if(str_detect(query, "POLYGON \\(\\("))
-      query <- string::str_replace(query, "POLYGON \\(\\(", "POLYGON\\(\\(")
+    if(stringr::str_detect(query, "POLYGON \\(\\("))
+      query <- stringr::str_replace(query, "POLYGON \\(\\(", "POLYGON\\(\\(")
     
     if (stringr::str_detect(query, "POLYGON") &
         !stringr::str_detect(query, "MULTIPOLYGON")) {

@@ -60,6 +60,9 @@ case-sensitive.}
 \item{all_fields}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} If \code{TRUE},
 \code{show_values()} also returns all columns available from the API, rather
 than the 'default' columns traditionally provided via galah.}
+
+\item{One}{or more objects accepted by the taxonomic lookup services. See
+\link{taxonomic_searches} for details}
 }
 \value{
 An object of class \code{tbl_df} and \code{data.frame} (aka a tibble)

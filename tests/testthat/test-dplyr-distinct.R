@@ -100,6 +100,7 @@ test_that("`distinct(.keep_all = TRUE)` sets species queries", {
 })
 
 test_that("`distinct(.keep_all = TRUE)` accepts non-species-level groupings", {
+  skip_if_offline(); skip_on_ci()
   genera <- galah_call() |>
     identify("Limnodynastidae") |>
     distinct(genusID, .keep_all = TRUE) |>

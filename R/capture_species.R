@@ -30,7 +30,7 @@ capture_species_atlas <- function(.query){
       if(!is.null(.query$group_by)){
         .query$distinct$name <- .query$group_by$name
       }else{
-        cli::cli_error("No variable supplied to `distinct()`")
+        cli::cli_abort("No variable supplied to `distinct()`")
       }
     }
   }

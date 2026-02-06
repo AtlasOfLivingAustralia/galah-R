@@ -114,6 +114,7 @@ test_that("`count()` handles 'taxonConceptID' as a 'group by' variable", {
 })
 
 test_that("`count()` handles 'speciesID' as a 'group by' variable", {
+  skip_if_offline(); skip_on_ci()
   # FIXME: Currently returns colname `speciesID.https://biodiversity.org`
   counts <- galah_call() |>
     filter(year == 1900,
@@ -306,6 +307,7 @@ test_that("`group_by()` works when > 1 `filter()`", {
 })
 
 test_that("`select()` works for count queries", {
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     filter(year == 2024,
            genus == "Crinia") |>
