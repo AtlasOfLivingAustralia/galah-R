@@ -51,7 +51,7 @@ test_that("object of class `computed_query` formats correctly", {
 test_that("object of class `query_set` formats correctly", {
   galah_call() |>
     filter(basisOfRecord == "HUMAN_OBSERVATION") |>
-    coalesce() |>
+    compound() |>
     expect_snapshot()
 })
 

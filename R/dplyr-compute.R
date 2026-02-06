@@ -18,7 +18,7 @@
 #' `query` except for occurrence data, where it also contains information on the 
 #' status of the request.
 #' @seealso To open a piped query, see [galah_call()]. For alternative 
-#' operations on `_request` objects, see [capture()], [coalesce()], 
+#' operations on `_request` objects, see [capture()], [compound()], 
 #' \code{\link[=collapse.data_request]{collapse()}}, 
 #' \code{\link[=collect.data_request]{collect()}}.
 #' @export

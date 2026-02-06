@@ -52,7 +52,7 @@ For those outside Australia, 'galah' is the common name of
 \strong{Create and execute a query}
 \itemize{
 \item \code{\link[=capture]{capture()}} Convert a request into a \code{prequery} or \code{query}
-\item \code{\link[=coalesce]{coalesce()}} Convert an object into a \code{query_set} showing all calls needed for evaluation
+\item \code{\link[=compound]{compound()}} Convert an object into a \code{query_set} showing all calls needed for evaluation
 \item \code{\link[=collapse.data_request]{collapse()}} Convert an object to a valid \code{query}
 \item \code{\link[=compute.data_request]{compute()}} Compute a query
 \item \code{\link[=collect.data_request]{collect()}} Retrieve a database query

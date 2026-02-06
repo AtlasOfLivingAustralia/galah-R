@@ -70,7 +70,7 @@
 # object of class `query_set` formats correctly
 
     Code
-      coalesce(filter(galah_call(), basisOfRecord == "HUMAN_OBSERVATION"))
+      compound(filter(galah_call(), basisOfRecord == "HUMAN_OBSERVATION"))
     Message
       Object of class query_set containing 4 queries:
       * metadata/fields url: https://api.ala.org.au/occurrences/index/fields

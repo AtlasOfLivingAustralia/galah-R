@@ -1,18 +1,18 @@
 #' Force evaluation of a database query
 #' 
-#' [coalesce()] is an S3 generic function intended to be called before 
+#' [compound()] is an S3 generic function intended to be called before 
 #' [collapse()]. It is important as it shows the full set of queries 
 #' required to properly evaluate the user's request. This is often broader 
 #' than the single query returned by [collapse()]. If, for example,
 #' the user's query includes a call to 
 #' \code{\link[=identify.data_request]{identify()}}, then a taxonomic query
 #' is required to run _before_ the 'final' query is attempted. In relation to
-#' other functions that manipulate `_request` objects, [coalesce()] is called
+#' other functions that manipulate `_request` objects, [compound()] is called
 #' within \code{\link[=collapse.data_request]{collapse()}}, and itself 
 #' calls [capture()] internally where required.
-#' @rdname coalesce
-#' @param x An object to be coalesced. Works for `data_request`, 
-#' `metadata_request` and `file_request`.
+#' @rdname compound
+#' @param x An object to be compounded. Works for `data_request`, 
+#' `metadata_request`, `file_request`, `query` or `prequery`.
 #' @param ... Other arguments passed to [capture()].
 #' @order 1
 #' @return An object of class `query_set`, which is simply a list of all `query` 
@@ -25,44 +25,44 @@
 #' \code{\link[=compute.data_request]{compute()}} or 
 #' \code{\link[=collect.data_request]{collect()}}.
 #' @export
-coalesce <- function(x, ...){
-  UseMethod("coalesce")
+compound <- function(x, ...){
+  UseMethod("compound")
 }
 
-#' @rdname coalesce
+#' @rdname compound
 #' @order 2
 #' @export
-coalesce.data_request <- function(x, mint_doi = FALSE, ...){
+compound.data_request <- function(x, mint_doi = FALSE, ...){
   x |>
     capture(mint_doi = mint_doi, ...) |>
-    coalesce()
+    compound()
 }
 
-#' @rdname coalesce
+#' @rdname compound
 #' @order 3
 #' @export
-coalesce.metadata_request <- function(x, ...){
+compound.metadata_request <- function(x, ...){
   x |>
     capture(...) |>
-    coalesce()
+    compound()
 }
 
-#' @rdname coalesce
+#' @rdname compound
 #' @order 4
 #' @export
-coalesce.files_request <- function(x, 
+compound.files_request <- function(x, 
                                    ...){
   x |>
     capture(...) |>
-    coalesce()
+    compound()
 }
 
-#' @rdname coalesce
+#' @rdname compound
 #' @param mint_doi Logical: should a DOI be minted for this download? Only 
 #' applies to `type = "occurrences"`, and only for supported atlases.
 #' @order 5
 #' @export
-coalesce.prequery <- function(x, mint_doi = FALSE, ...){
+compound.prequery <- function(x, mint_doi = FALSE, ...){
   if(stringr::str_detect(x$type, "^metadata")){
     build_query_set_metadata(x)
   }else if(stringr::str_detect(x$type, "^files")){
@@ -75,18 +75,18 @@ coalesce.prequery <- function(x, mint_doi = FALSE, ...){
   }
 }
 
-#' @rdname coalesce
+#' @rdname compound
 #' @order 6
 #' @export
-coalesce.query <- function(x, ...){
+compound.query <- function(x, ...){
   list(x) |>
     as_query_set()
 }
 
-#' @rdname coalesce
+#' @rdname compound
 #' @order 7
 #' @export
-coalesce.query_set <- function(x, ...){
+compound.query_set <- function(x, ...){
   x
 }
 

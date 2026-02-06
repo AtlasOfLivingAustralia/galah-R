@@ -45,7 +45,7 @@
 #' **Create and execute a query**
 #' 
 #'   * [capture()] Convert a request into a `prequery` or `query`
-#'   * [coalesce()] Convert an object into a `query_set` showing all calls needed for evaluation
+#'   * [compound()] Convert an object into a `query_set` showing all calls needed for evaluation
 #'   * \code{\link[=collapse.data_request]{collapse()}} Convert an object to a valid `query` 
 #'   * \code{\link[=compute.data_request]{compute()}} Compute a query
 #'   * \code{\link[=collect.data_request]{collect()}} Retrieve a database query

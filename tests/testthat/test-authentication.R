@@ -31,7 +31,7 @@ test_that("`authenticate()` works in-pipe for metadata", {
   is.null(result$request$authenticate) |>
     expect_false()
   
-  result2 <- coalesce(result)
+  result2 <- compound(result)
   expect_equal(length(result2), 2)
   purrr::map(result2, \(a){a$type}) |>
     unlist() |>
@@ -47,7 +47,7 @@ test_that("`authenticate()` works in-pipe for occurrences", {
     authenticate() |>
     identify("Litoria dentata") |>
     filter(year == 2025) |>
-    coalesce()
+    compound()
   expect_equal(length(query), 6)
   is.null(query[[6]]$request$authenticate) |>
     expect_false()
@@ -80,13 +80,13 @@ test_that("setting `authentication` to `TRUE` changes data returned", {
   # convert to query set first
   x_queryset <- galah_call() |>
     filter(species_list_uid == "dr491") |>
-    coalesce()
+    compound()
   expect_equal(length(x_queryset), 5)
   expect_equal(x_queryset[[1]]$type, 
                "metadata/config")
   is.null(x_queryset[[5]]$authenticate) |>
     expect_false()
-  # unclear whether it is _critical_ for coalesce() to source `show_all_config()` here
+  # unclear whether it is _critical_ for compound() to source `show_all_config()` here
   # but some use cases it probably is necessary, and for the others it is 
   # 'free' because of caching, so probably best to leave it for now
   

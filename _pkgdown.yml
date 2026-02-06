@@ -67,7 +67,7 @@ reference:
 - title: Create and execute a query
   contents:
   - capture
-  - coalesce
+  - compound
   - collapse.data_request
   - compute.data_request
   - collect.data_request

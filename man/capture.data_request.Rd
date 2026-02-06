@@ -56,16 +56,16 @@ using \code{\link[=collapse.data_request]{collapse()}}. However,
 properly evaluating a query often requires building and running
 additional queries to populate or validate the requested information.
 A \code{prequery} object shows what has been requested, before those
-calls are built by \code{\link[=coalesce]{coalesce()}} and evaluated by
+calls are built by \code{\link[=compound]{compound()}} and evaluated by
 \code{\link[=collapse.data_request]{collapse()}}.
 For simple cases, this gives the same result as running
 \code{\link[=collapse.data_request]{collapse()}} while the \code{run_checks}
 argument of \code{\link[=galah_config]{galah_config()}} is set to \code{FALSE}, but is slightly faster.
-In complex cases, it is simply a precursor to \code{\link[=coalesce]{coalesce()}}
+In complex cases, it is simply a precursor to \code{\link[=compound]{compound()}}
 }
 \seealso{
 To open a piped query, see \code{\link[=galah_call]{galah_call()}}. For alternative
-operations on \verb{_request} objects, see \code{\link[=coalesce]{coalesce()}},
+operations on \verb{_request} objects, see \code{\link[=compound]{compound()}},
 \code{\link[=collapse.data_request]{collapse()}},
 \code{\link[=compute.data_request]{compute()}} or
 \code{\link[=collect.data_request]{collect()}}.

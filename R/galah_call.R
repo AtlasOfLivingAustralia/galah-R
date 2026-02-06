@@ -40,7 +40,7 @@
 #' \code{\link[=slice_head.data_request]{slice_head()}} or [unnest()].
 #' For operations on `_request` objects, see 
 #' [capture()], 
-#' [coalesce()], 
+#' [compound()], 
 #' \code{\link[=collapse.data_request]{collapse()}}, 
 #' \code{\link[=compute.data_request]{compute()}} or 
 #' \code{\link[=collect.data_request]{collect()}}.

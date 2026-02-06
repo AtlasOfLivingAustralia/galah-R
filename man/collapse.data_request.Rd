@@ -25,7 +25,7 @@
 \item{x}{An object to run \code{collapse()} on. Classes supported by \code{galah}
 include \code{data_request}, \code{metadata_request} and \code{files_request} for building
 queries; and \code{prequery}, \code{query} or \code{query_set} once constructed (via
-\code{\link[=capture]{capture()}} or \code{\link[=coalesce]{coalesce()}}).}
+\code{\link[=capture]{capture()}} or \code{\link[=compound]{compound()}}).}
 
 \item{...}{Arguments passed on to \code{\link[=capture]{capture()}}.}
 }
@@ -55,7 +55,7 @@ the \code{method} argument.
 }
 \seealso{
 To open a piped query, see \code{\link[=galah_call]{galah_call()}}. For alternative
-operations on \verb{_request} objects, see \code{\link[=capture]{capture()}}, \code{\link[=coalesce]{coalesce()}},
+operations on \verb{_request} objects, see \code{\link[=capture]{capture()}}, \code{\link[=compound]{compound()}},
 \code{\link[=compute.data_request]{compute()}} or
 \code{\link[=collect.data_request]{collect()}}.
 }

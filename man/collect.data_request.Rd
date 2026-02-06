@@ -52,7 +52,7 @@ default way to end a piped query begun with \code{\link[=galah_call]{galah_call(
 }
 \seealso{
 To open a piped query, see \code{\link[=galah_call]{galah_call()}}. For alternative
-operations on \verb{_request} objects, see \code{\link[=capture]{capture()}}, \code{\link[=coalesce]{coalesce()}},
+operations on \verb{_request} objects, see \code{\link[=capture]{capture()}}, \code{\link[=compound]{compound()}},
 \code{\link[=collapse.data_request]{collapse()}} or
 \code{\link[=compute.data_request]{compute()}}.
 }

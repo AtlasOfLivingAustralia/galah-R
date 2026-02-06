@@ -13,8 +13,7 @@
 \code{\link[=glimpse]{glimpse()}} is like a transposed version of \code{\link[=print]{print()}}: columns run down the page,
 and data runs across. This makes it possible to see every column in a data
 frame. It's a little like \code{\link[=str]{str()}} applied to a data frame but it tries to
-show you as much data as possible. (And it always shows the underlying data,
-even when applied to a remote data source.) This implementation is specific
+show you as much data as possible. This implementation is specific
 to \code{galah} and is evaluated lazily. \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \details{

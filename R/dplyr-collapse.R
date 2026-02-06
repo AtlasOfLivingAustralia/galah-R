@@ -11,7 +11,7 @@
 #' @param x An object to run `collapse()` on. Classes supported by `galah` 
 #' include `data_request`, `metadata_request` and `files_request` for building
 #' queries; and `prequery`, `query` or `query_set` once constructed (via 
-#' [capture()] or [coalesce()]).
+#' [capture()] or [compound()]).
 #' @param ... Arguments passed on to [capture()].
 #' @return An object of class `query`, which is a list-like object containing 
 #' two or more of the following slots:
@@ -26,13 +26,13 @@
 #'  - Any other information retained from the preceeding `_request` object (see [capture()])
 #'  
 #' @seealso To open a piped query, see [galah_call()]. For alternative 
-#' operations on `_request` objects, see [capture()], [coalesce()], 
+#' operations on `_request` objects, see [capture()], [compound()], 
 #' \code{\link[=compute.data_request]{compute()}} or 
 #' \code{\link[=collect.data_request]{collect()}}.
 #' @export
 collapse.data_request <- function(x, ...){
   x |>
-    coalesce(...) |>
+    compound(...) |>
     collapse()
 }
 
@@ -58,7 +58,7 @@ collapse.query <- function(x, ...){
   x
 }
 
-# if calling `collapse()` after `coalesce()`
+# if calling `collapse()` after `compound()`
 #' @rdname collapse.data_request
 #' @order 6
 #' @export

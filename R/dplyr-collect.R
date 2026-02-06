@@ -20,7 +20,7 @@
 #' `wait` is set to `FALSE`), this function returns an object of class `query`
 #' that can be used to recheck the download at a later time.
 #' @seealso To open a piped query, see [galah_call()]. For alternative 
-#' operations on `_request` objects, see [capture()], [coalesce()], 
+#' operations on `_request` objects, see [capture()], [compound()], 
 #' \code{\link[=collapse.data_request]{collapse()}} or 
 #' \code{\link[=compute.data_request]{compute()}}.
 #' @export

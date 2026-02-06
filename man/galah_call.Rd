@@ -99,7 +99,7 @@ To amend a request object, use \code{\link[=apply_profile]{apply_profile()}},
 \code{\link[=slice_head.data_request]{slice_head()}} or \code{\link[=unnest]{unnest()}}.
 For operations on \verb{_request} objects, see
 \code{\link[=capture]{capture()}},
-\code{\link[=coalesce]{coalesce()}},
+\code{\link[=compound]{compound()}},
 \code{\link[=collapse.data_request]{collapse()}},
 \code{\link[=compute.data_request]{compute()}} or
 \code{\link[=collect.data_request]{collect()}}.

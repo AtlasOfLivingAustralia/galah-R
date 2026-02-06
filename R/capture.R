@@ -11,12 +11,12 @@
 #' properly evaluating a query often requires building and running
 #' additional queries to populate or validate the requested information. 
 #' A `prequery` object shows what has been requested, before those 
-#' calls are built by [coalesce()] and evaluated by  
+#' calls are built by [compound()] and evaluated by  
 #' \code{\link[=collapse.data_request]{collapse()}}.
 #' For simple cases, this gives the same result as running 
 #' \code{\link[=collapse.data_request]{collapse()}} while the `run_checks` 
 #' argument of [galah_config()] is set to `FALSE`, but is slightly faster.
-#' In complex cases, it is simply a precursor to [coalesce()]
+#' In complex cases, it is simply a precursor to [compound()]
 #' @name capture.data_request
 #' @param x A `_request` object to convert to a `prequery`.
 #' @param ... Other arguments, currently ignored
@@ -32,7 +32,7 @@
 #'  - `request`: captures the preceeding `_request` object (see [galah_call()])
 #'
 #' @seealso To open a piped query, see [galah_call()]. For alternative 
-#' operations on `_request` objects, see [coalesce()], 
+#' operations on `_request` objects, see [compound()], 
 #' \code{\link[=collapse.data_request]{collapse()}}, 
 #' \code{\link[=compute.data_request]{compute()}} or 
 #' \code{\link[=collect.data_request]{collect()}}.
