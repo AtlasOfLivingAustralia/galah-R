@@ -18,7 +18,7 @@ collect_fields_unnest <- function(.query,
       purrr::pluck(!!!list("facets", 1, "counts")) |>
       dplyr::bind_rows() |>
       dplyr::rename_with(camel_to_snake_case) |>
-      dplyr::rename({{facet}} == "name") |>
+      dplyr::rename({{facet}} := "name") |>
       parse_select(.query)
     
   }else{ 
@@ -33,10 +33,10 @@ collect_fields_unnest <- function(.query,
     if(nrow(result) > 0){
       result |>
         dplyr::mutate(
-          field_name == stringr::str_extract(result$i18nCode, "(?<=\\.).*"),
+          field_name = stringr::str_extract(.data$i18nCode, "(?<=\\.).*"),
           .before = 1) |>
         dplyr::rename_with(camel_to_snake_case) |>
-        dplyr::rename({{facet}} == "field_name") |>
+        dplyr::rename({{facet}} := "field_name") |>
         parse_select(.query)
     }else{ # i.e. catch empty results
       result

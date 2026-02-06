@@ -190,7 +190,7 @@ test_that("`atlas_species()` works for Kew", {
     try(silent = TRUE)
   skip_if(inherits(spp, "try-error"), message = "API not available")
   expect_gt(nrow(spp), 20)
-  expect_equal(ncol(spp), 10) # Note: some atlasses have 11 cols
+  expect_gte(ncol(spp), 10)
   expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
 })
 

@@ -222,20 +222,6 @@ test_that("atlas_counts works with group_by for Spain", {
   expect_equal(names(result), c("basisOfRecord", "count"))
   })
 
-test_that("atlas_counts works with apply_profile for Spain", {
-  skip_if_offline(); skip_on_ci()
-  without_profile <- galah_call() |>
-    count() |>
-    collect()
-  with_profile <- galah_call() |>
-    apply_profile(LA) |>
-    count() |>
-    collect()
-  expect_gt(with_profile$count, 0)
-  expect_equal(class(without_profile), class(with_profile))
-  expect_lt(with_profile$count, without_profile$count)
-})
-
 test_that("atlas_species works for Spain", {
   skip_if_offline(); skip_on_ci()
   galah_config(

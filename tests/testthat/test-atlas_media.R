@@ -189,7 +189,7 @@ test_that("collect_media handles different file formats", {
     quiet_media() 
   # sample one of each multimedia type to shorten testing time
   media_summary <- media_data |>
-    dplyr::group_by(multimedia) |>
+    dplyr::group_by(media_type) |>
     dplyr::sample_n(size = 2)
   expect_equal(sort(unique(media_data$multimedia)),
                c("Image", "Image | Sound"))
@@ -203,7 +203,7 @@ test_that("collect_media handles different file formats", {
   # properly. This is important for sound files which may not load properly if 
   # thumbnail settings are ignored.
   
-  # also worth testing that `thumbnail` is ignored for sounds
+  # FIXME: worth testing that `thumbnail` is ignored for sounds
 })
 
 test_that("collect_media handles thumbnails", {

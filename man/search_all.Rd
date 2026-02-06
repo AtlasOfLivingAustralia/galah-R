@@ -61,7 +61,7 @@ case-sensitive.}
 \code{show_values()} also returns all columns available from the API, rather
 than the 'default' columns traditionally provided via galah.}
 
-\item{One}{or more objects accepted by the taxonomic lookup services. See
+\item{...}{One or more objects accepted by the taxonomic lookup services. See
 \link{taxonomic_searches} for details}
 }
 \value{

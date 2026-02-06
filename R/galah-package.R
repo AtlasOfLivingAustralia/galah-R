@@ -108,6 +108,7 @@
 #'
 #' @importFrom rlang caller_env
 #' @importFrom rlang .data
+#' @importFrom rlang `:=`
 #' @keywords internal
 "_PACKAGE"
 

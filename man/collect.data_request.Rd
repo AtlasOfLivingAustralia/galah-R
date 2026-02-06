@@ -16,9 +16,9 @@
 
 \method{collect}{files_request}(x, ...)
 
-\method{collect}{prequery}(x, wait = TRUE, file = NULL)
+\method{collect}{prequery}(x, ...)
 
-\method{collect}{query}(x, ..., wait = TRUE, file = NULL)
+\method{collect}{query}(x, ...)
 
 \method{collect}{query_set}(x, ..., wait = TRUE, file = NULL)
 

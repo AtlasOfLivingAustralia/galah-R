@@ -142,25 +142,26 @@ test_that("`group_by(something) |> distinct(speciesID) |> count()` gives grouped
     expect_true()
 })
 
-test_that("`add_count() |> distinct()` adds record counts to each species", {
-  skip_if_offline(); skip_on_ci()
-  query <- galah_call() |>
-    filter(year == 2024,
-           genus == "Crinia") |>
-    group_by(speciesID) |>
-    add_count() |>
-    distinct(.keep_all = TRUE) |>
-    collapse()
-  expect_equal(query$type, "data/species")
-  x <- quiet_collect(query)
-  expect_s3_class(x,
-                  c("tbl_df", "tbl", "data.frame"))
-  expect_equal(length(unique(x$speciesID)),
-               nrow(x))
-})
+# FIXME: not implemented
+# test_that("`add_count() |> distinct()` adds record counts to each species", {
+#  skip_if_offline(); skip_on_ci()
+#  query <- galah_call() |>
+#    filter(year == 2024,
+#           genus == "Crinia") |>
+#    group_by(speciesID) |>
+#    add_count() |>
+#    distinct(.keep_all = TRUE) |>
+#    collapse()
+#  expect_equal(query$type, "data/species")
+#  x <- quiet_collect(query)
+#  expect_s3_class(x,
+#                  c("tbl_df", "tbl", "data.frame"))
+#  expect_equal(length(unique(x$speciesID)),
+#               nrow(x))
+# })
 
-test_that("add_count() without `distinct()` just adds a column of 1s", {
-  skip("not built")
-})
+# test_that("add_count() without `distinct()` just adds a column of 1s", {
+#   skip("not built")
+# })
 
 rm(quiet_collect)

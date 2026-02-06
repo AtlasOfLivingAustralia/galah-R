@@ -51,17 +51,17 @@ collect.files_request <- function(x, ...){
 #' @rdname collect.data_request
 #' @order 4
 #' @export
-collect.prequery <- function(x, wait = TRUE, file = NULL){
+collect.prequery <- function(x, ...){
   compute(x) |>
-    collect(wait = wait, file = file)
+    collect(...)
 }
 
 #' @rdname collect.data_request
 #' @order 5
 #' @export
-collect.query <- function(x, ..., wait = TRUE, file = NULL){
+collect.query <- function(x, ...){
   compute(x) |>
-    collect(wait = wait, file = file)
+    collect(...)
 }
 
 #' @rdname collect.data_request

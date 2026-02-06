@@ -1,5 +1,3 @@
-# Tests commented out until Flanders atlas is operational
-
 # set verbose to off
 galah_config(verbose = FALSE, run_checks = FALSE)
 
@@ -198,6 +196,8 @@ test_that("atlas_counts works with galah_identify for Flanders", {
     sqrt((result2$count - result$count)^2) / result$count,
     0.1) # i.e. <1% margin of error
 })
+
+# FIXME test glimpse()
 
 test_that("atlas_counts works with group_by for Flanders", {
   skip_if_offline(); skip_on_ci()

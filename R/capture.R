@@ -124,7 +124,8 @@ capture.files_request <- function(x,
 
 #' @rdname capture.data_request
 #' @order 5
-capture.list <- function(x){
+#' @export
+capture.list <- function(x, ...){
   as_prequery(x)
 }
 

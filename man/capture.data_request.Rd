@@ -16,7 +16,7 @@ capture(x, ...)
 
 \method{capture}{files_request}(x, thumbnail = FALSE, ...)
 
-\method{capture}{list}(x)
+\method{capture}{list}(x, ...)
 }
 \arguments{
 \item{x}{A \verb{_request} object to convert to a \code{prequery}.}
