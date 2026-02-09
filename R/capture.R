@@ -4,35 +4,33 @@
 #' The first step in evaluating a request is to capture and parse the 
 #' information it contains. The resulting object has class `prequery`
 #' for those requiring further processing or `query` for those that don't. 
-#' A `prequery` object shows what has been requested by a user in a given 
-#' `galah_call()`.
+#' A `prequery` object shows the basic structure of what has been requested by 
+#' a user in a given [galah_call()].
 #' 
+#' @name capture.data_request
+#' @param x A `_request` object to convert to a `prequery`.
+#' @param ... Other arguments, currently ignored
 #' @details
 #' Typically, queries in galah are piped using [galah_call()], which builds
 #' an object of class `"data_request"`; or [request_metadata()] or
-#' [request_files()]. Under the hood, [galah_call()] constructs a query 
-#' ([collapse()]), sends it to an API ([compute()]), and returns its 
-#' contents ([collect()]).
+#' [request_files()]. Under the hood, [galah_call()] consists of a series of 
+#' step-wise functions that run in order:
 #' 
-#' For [collapse()] to construct a complete query (class `"query"`), 
-#' it often requires additional, smaller API calls to validate pieces 
-#' of information used to construct the full user request. 
-#' Underlying [collapse()] are these 
-#' smaller but necessary steps:
-#'   * [capture()] parses the basic structure of a user request
-#'   * [compound()] combines all necessary API calls to construct the final query
-#'   * [collapse()] constructs the complete query
-#'
+#' [capture()] → [compound()] → 
+#' \code{\link[=collapse.data_request]{collapse()}} → 
+#' \code{\link[=compute.data_request]{compute()}} → 
+#' \code{\link[=collect.data_request]{collect()}}
+#' 
+#' [capture()] is the first of the [galah_call()] workflow, and it parses the 
+#' basic structure of a user request, returned as a `prequery` object. 
 #' A `prequery` object shows what has been requested, before those 
 #' calls are built by [compound()] and evaluated by  
 #' \code{\link[=collapse.data_request]{collapse()}}.
 #' For simple cases, this gives the same result as running 
 #' \code{\link[=collapse.data_request]{collapse()}} while the `run_checks` 
 #' argument of [galah_config()] is set to `FALSE`, but is slightly faster.
-#' In complex cases, it is simply a precursor to [compound()]
-#' @name capture.data_request
-#' @param x A `_request` object to convert to a `prequery`.
-#' @param ... Other arguments, currently ignored
+#' In complex cases, it is simply a precursor to [compound()].
+#' 
 #' @order 1
 #' @return Either an object of class `prequery` when further processing is 
 #' required; or `query` when it is not. Both classes are structurally identical,

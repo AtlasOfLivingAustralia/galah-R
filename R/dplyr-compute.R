@@ -1,19 +1,39 @@
 #' Compute a query
 #' 
-#' This function sends a request for information to a server. This is only 
-#' useful for processes that run a server-side process, as it separates the 
-#' submission of the request from its' retrieval. Within galah, this is used
-#' exclusively for generating occurrence queries, where calling 
-#' \code{\link[=compute.data_request]{compute()}} and then passing 
-#' the resulting `query` object to \code{\link[=collect.data_request]{collect()}}
-#' at a later time can be preferable to calling [atlas_occurrences()], which 
+#' @description
+#' Sends a request for information to a server. This is useful 
+#' for requests that run a server-side process, as it separates the 
+#' submission of the request from its retrieval. 
+#' 
+#' Within galah, `compute()` is generally hidden as it is one part of the overall 
+#' process to complete a `data_request`,  
+#' `metadata_request` or `file_request`. However, calling 
+#' \code{\link[=compute.data_request]{compute()}} at the 
+#' end of a [galah_call()] sends a request to be completed server-side 
+#' (i.e., outside of R), and the result can be returned in R by 
+#' calling \code{\link[=collect.data_request]{collect()}}
+#' at a later time. This can be preferable to calling [atlas_occurrences()], which 
 #' prevents execution of new code until the server-side process is complete.
 #' @name compute.data_request
 #' @order 1
 #' @param x An object of class `data_request`, `metadata_request` or 
 #' `files_request` (i.e. constructed using a pipe) or `query` 
-#' (i.e. constructed by `collapse()`) 
+#' (i.e. constructed by \code{\link[=collapse.data_request]{collapse()}}) 
 #' @param ... Arguments passed on to other methods
+#' @details
+#' Typically, queries in galah are piped using [galah_call()], which builds
+#' an object of class `"data_request"`; or [request_metadata()] or
+#' [request_files()]. Under the hood, [galah_call()] consists of a series of 
+#' step-wise functions that run in order:
+#' 
+#' [capture()] → [compound()] → 
+#' \code{\link[=collapse.data_request]{collapse()}} → 
+#' \code{\link[=compute.data_request]{compute()}} → 
+#' \code{\link[=collect.data_request]{collect()}}
+#' 
+#' \code{\link[=compute.data_request]{compute()}} sends a query to a server, 
+#' which, once completed, can be retrieved using 
+#' \code{\link[=collect.data_request]{collect()}}.
 #' @return An object of class `computed_query`, which is identical to class
 #' `query` except for occurrence data, where it also contains information on the 
 #' status of the request.
