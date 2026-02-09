@@ -64,9 +64,9 @@ update_request_object <- function(x,
                                                "search_term")
                             },
                             "filter" = {
-                              bind_unique_rows(x[[dot_names]],
-                                               dots[[dot_names]],
-                                               "query")
+                              update_filter(x[[dot_names]],
+                                            dots[[dot_names]],
+                                            "query")
                             },
                             "select" = {
                               update_select(x[[dot_names]],
@@ -103,6 +103,23 @@ update_select <- function(x, y){
     generate_summary(dots) |>
     add_group(group = group_vec)
 }
+
+## FIXME: do we need `update_identify()` to support GBIF,
+## using same logic as `update_filter()`?
+
+#' Internal function to join together two `filter` objects
+update_filter <- function(x, y, column){
+  if(!all(class(x) == class(y))){
+    cli::cli_abort("Cannot join unlike filter objects")
+  }
+  # first join predicates
+  if(inherits(x, "predicates_filter") ){
+    join_predicates(x, y)
+  }else{ # then tibbles
+    bind_unique_rows(x, y, column)
+  }
+}
+
 
 #' Internal function to join tibbles by row
 #' @noRd

@@ -1,32 +1,35 @@
 #' join all queries
 #' NOTE: There is a maximum of 101k entries in total. Should be possible to enforce that here
+#' @param an object of class `query_set`
 #' @noRd
 #' @keywords Internal
 build_predicates <- function(x){
-  
-  # handle newly supplied information
-  x_identify <- parse_predicates_identify(x$identify)
-  x_location <- parse_predicates_location(x$geolocate)
+  x$filter |>
+    join_predicates(parse_predicates_identify(x$identify)) |>
+    join_predicates(parse_predicates_location(x$geolocate))
 
-  # for and queries, we extract everything, add new content, then rebuild
-  if(is_and_query(x)){
-    filters_list <- c(x$filter$predicates, x_identify, x_location) |>
-      remove_nulls_from_list()
+}
+
+#' Internal function to join predicates together
+#' @param a predicate
+#' @param ... two or more predicates to join to x
+join_predicates <- function(x, y = NULL){
+
+  if(is.null(y)){
+    x
+  }else{
+    # for `and` queries, we extract everything, add new content, then rebuild
+
+    if(is_and_query(x)){
+      x <- x$predicates
+    }
+
+    # add content together
+    filters_list <- c(check_predicate_wrapping(x), 
+                      check_predicate_wrapping(y))
     names(filters_list) <- NULL
     list(type = "and",
          predicates = filters_list)
-  }else{
-    # if we have been given further information, use AND
-    if(!is.null(x_identify) | !is.null(x_location)){
-      filters_list <- c(x$filter, x_identify, x_location) |> # note: not x$filter$predicates
-        remove_nulls_from_list()
-      names(filters_list) <- NULL
-      list(type = "and",
-           predicates = filters_list)
-    # otherwise we can pass what we were given (usually an OR statement)
-    }else{
-      x$filter
-    }
   }
 }
 
@@ -34,14 +37,26 @@ build_predicates <- function(x){
 #' @noRd
 #' @keywords Internal
 is_and_query <- function(x){
-  if(purrr::pluck_exists(x, "filter", "type")){
-    if(purrr::pluck(x, "filter", "type") == "and"){
+  if(purrr::pluck_exists(x, "type")){
+    if(purrr::pluck(x, "type") == "and"){
       TRUE
     }else{
       FALSE
     }
   }else{
     FALSE
+  }
+}
+
+#' simple check to ensure lists are joined correctly
+#' @noRd
+#' @keywords Internal
+check_predicate_wrapping <- function(x){
+  if(length(x) > 2 &
+     any(names(x) %in% c("in", "key", "value"))){
+    list(x)
+  }else{
+    x
   }
 }
 

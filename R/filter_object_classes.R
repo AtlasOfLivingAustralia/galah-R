@@ -59,7 +59,7 @@ print.data_filter <- function(x, ...){
 print.predicates_filter <- function(x, ...){
   # object of class `predicates_filter`
   predicates_string <- glue::glue_collapse(unlist(x), sep = " ") 
-  glue::glue("Object of class `predictes_filter`: {predicates_string}") |>
+  glue::glue("Object of class `predicates_filter`: {predicates_string}") |>
     cat()
 }
 

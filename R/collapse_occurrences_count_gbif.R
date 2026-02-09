@@ -34,49 +34,59 @@ collapse_occurrences_count_gbif_groupby_crossed <- function(x){
 
   # get a 'basic' query, showing facets for each variable separately 
   facets <- collapse_occurrences_count_gbif_groupby_basic(x) |>
-    collect()
-  
-  # then order queries by decreasing number of levels
-  facet_order <- facets |> 
-    select(-"count") |>
-    purrr::map(.f = \(a){length(which(!is.na(a)))}) |> 
-    unlist() |>
-    sort()
+    collect() |> 
+    dplyr::relocate(x$request$group_by$name) # place in supplied order
 
   # build filters for our next round of queries
   # for 3 facets, we need to expand our crossed variables
-  if(length(facet_order) > 2){
+  if(ncol(facets) > 3){
+
     filters <- facets |>
-      select(!!!names(facet_order[1:2])) |>
+      select(!!!names(facets[1:2])) |>
       purrr::map(.f = \(a){a[!is.na(a)]}) |>
-      expand.grid()
-    facet <- names(facet_order)[3]
+      expand.grid(stringsAsFactors = FALSE)
+    facet <- colnames(facets)[3]
+
+    z <- x$request
+    z$slice_arrange <- NULL # this is a hack to avoid messy object update code
+    filter_1 <- colnames(filters)[1]
+    filter_2 <- colnames(filters)[2]
+
+    body_list <- purrr::map(
+      split(filters, seq_len(nrow(filters))), 
+      \(a){
+       value_1 <- a[[1]][[1]]
+       value_2 <- a[[2]][[1]]
+       result <- z |>
+          filter({{filter_1}} == {{value_1}},
+                 {{filter_2}} == {{value_2}}) |> 
+          group_by(facet) |>
+          collapse()
+        result$body
+      })
+
+
   # for 2 facets, we just select the levels we need
   }else{
-    variable <- names(facet_order)[1]
     filters <- facets |>
-      select(!!!(names(facet_order)[1])) |>
+      select(!!!(colnames(facets)[1])) |>
       tidyr::drop_na()
-    facet <- names(facet_order)[2]
+    facet <- colnames(facets)[2]
+    # extract a query that we can update with new parameters
+    z <- x$request
+    z$slice_arrange <- NULL # this is a hack to avoid messy object update code
+    filter_name <- colnames(filters)[1]
+    # create multiple new queries from the old one
+    # this works because new calls to `filter()` *adds* to a query
+    # while new calls to `group_by()` *replaces* old entries
+    body_list <- purrr::map(filters[[1]], \(a){
+      result <- z |>
+        filter({{filter_name}} == {{a}}) |> 
+        group_by(facet) |>
+        collapse()
+      result$body
+    })
   }
-  
-  # convert our tibble of new filters into predicate entries
-  predicate_list <- tibble_to_predicate(filters)
-  
-  # create separate `body` (JSON) files for each query, accounting for `filter`
-  # and `facet`
-  body_list <- purrr::map(predicate_list, .f = \(a){
-    temp_obj <- x$body
-    temp_obj$filter <- c(temp_obj$filter, a)
-    temp_obj$group_by <- NULL
-    list(predicate = build_predicates(temp_obj),
-         limit = 0,
-         facets = tibble::tibble(name = facet) |> 
-           parse_predicates_groupby()) |>
-      remove_nulls_from_list() |>
-      jsonlite::toJSON(auto_unbox = TRUE,
-                       pretty = TRUE)
-  })
   
   # add predicates to tibble; tibble to `body`; return
   filters$predicate <- body_list

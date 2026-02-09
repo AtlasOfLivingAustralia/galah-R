@@ -51,11 +51,13 @@ collapse_run_checks <- function(.query,
     if(.query$type %in% c("data/occurrences", "data/species")){
       .query <- check_login(.query, error_call)
     }
+
     # check_select() is specifically for parsing fields into urls,
     # should only be called for occurrences
     if(.query$type %in% c("data/occurrences", "data/occurrences-glimpse")){
       .query <- check_select(.query, error_call)
     }
+    # NOTE: the naming convention here is misleading; should probably be `parse_select()`
 
     # after checking, for type = "glimpse", we need to rename the fields query
     if(.query$type == "data/occurrences-glimpse"){
