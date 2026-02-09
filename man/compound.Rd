@@ -40,9 +40,10 @@ listed in the order in which they will be evaluated, meaning the query
 that the user has actually requested will be placed last.
 }
 \description{
-\code{\link[=compound]{compound()}} is an S3 generic function intended to be called before
-\code{\link[=collapse]{collapse()}}. It is important as it shows the full set of queries
-required to properly evaluate the user's request. This is often broader
+\code{\link[=compound]{compound()}} shows the full set of queries
+required to properly evaluate the user's request, run prior to \code{\link[=collapse]{collapse()}}.
+
+The number of total queries to send for a single data request is often broader
 than the single query returned by \code{\link[=collapse]{collapse()}}. If, for example,
 the user's query includes a call to
 \code{\link[=identify.data_request]{identify()}}, then a taxonomic query
@@ -50,6 +51,23 @@ is required to run \emph{before} the 'final' query is attempted. In relation to
 other functions that manipulate \verb{_request} objects, \code{\link[=compound]{compound()}} is called
 within \code{\link[=collapse.data_request]{collapse()}}, and itself
 calls \code{\link[=capture]{capture()}} internally where required.
+}
+\details{
+\code{galah} uses an object-based pipeline to convert piped requests into
+valid queries, and to enact those queries with the specified organisation.
+Typically, requests open with \code{\link[=galah_call]{galah_call()}} - though \code{\link[=request_metadata]{request_metadata()}}
+and \code{\link[=request_files]{request_files()}} are also valid - and end with
+\code{\link[=collect.data_request]{collect()}}. Under the hood,
+the sequence of functions is as follows:
+
+\code{\link[=capture]{capture()}} → \code{\link[=compound]{compound()}} →
+\code{\link[=collapse.data_request]{collapse()}} →
+\code{\link[=compute.data_request]{compute()}} →
+\code{\link[=collect.data_request]{collect()}}
+
+\code{\link[=compound]{compound()}} is the second of the \code{\link[=galah_call]{galah_call()}} workflow, and it collates
+the complete list of queries required to send in order to meet the user's
+data request, returned by \code{\link[=collapse.data_request]{collapse()}}.
 }
 \seealso{
 To open a piped query, see \code{\link[=galah_call]{galah_call()}}. For alternative

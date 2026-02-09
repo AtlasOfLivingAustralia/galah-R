@@ -24,7 +24,7 @@
 \arguments{
 \item{x}{An object of class \code{data_request}, \code{metadata_request} or
 \code{files_request} (i.e. constructed using a pipe) or \code{query}
-(i.e. constructed by \code{collapse()})}
+(i.e. constructed by \code{\link[=collapse.data_request]{collapse()}})}
 
 \item{...}{Arguments passed on to other methods}
 }
@@ -34,14 +34,36 @@ An object of class \code{computed_query}, which is identical to class
 status of the request.
 }
 \description{
-This function sends a request for information to a server. This is only
-useful for processes that run a server-side process, as it separates the
-submission of the request from its' retrieval. Within galah, this is used
-exclusively for generating occurrence queries, where calling
-\code{\link[=compute.data_request]{compute()}} and then passing
-the resulting \code{query} object to \code{\link[=collect.data_request]{collect()}}
-at a later time can be preferable to calling \code{\link[=atlas_occurrences]{atlas_occurrences()}}, which
+Sends a request for information to a server. This is useful
+for requests that run a server-side process, as it separates the
+submission of the request from its retrieval.
+
+Within galah, \code{compute()} is generally hidden as it is one part of the overall
+process to complete a \code{data_request},
+\code{metadata_request} or \code{file_request}. However, calling
+\code{\link[=compute.data_request]{compute()}} at the
+end of a \code{\link[=galah_call]{galah_call()}} sends a request to be completed server-side
+(i.e., outside of R), and the result can be returned in R by
+calling \code{\link[=collect.data_request]{collect()}}
+at a later time. This can be preferable to calling \code{\link[=atlas_occurrences]{atlas_occurrences()}}, which
 prevents execution of new code until the server-side process is complete.
+}
+\details{
+\code{galah} uses an object-based pipeline to convert piped requests into
+valid queries, and to enact those queries with the specified organisation.
+Typically, requests open with \code{\link[=galah_call]{galah_call()}} - though \code{\link[=request_metadata]{request_metadata()}}
+and \code{\link[=request_files]{request_files()}} are also valid - and end with
+\code{\link[=collect.data_request]{collect()}}. Under the hood,
+the sequence of functions is as follows:
+
+\code{\link[=capture]{capture()}} → \code{\link[=compound]{compound()}} →
+\code{\link[=collapse.data_request]{collapse()}} →
+\code{\link[=compute.data_request]{compute()}} →
+\code{\link[=collect.data_request]{collect()}}
+
+\code{\link[=compute.data_request]{compute()}} sends a query to a server,
+which, once completed, can be retrieved using
+\code{\link[=collect.data_request]{collect()}}.
 }
 \seealso{
 To open a piped query, see \code{\link[=galah_call]{galah_call()}}. For alternative

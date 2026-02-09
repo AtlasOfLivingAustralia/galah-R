@@ -47,21 +47,31 @@ being list-like and containing at the following slots:
 The first step in evaluating a request is to capture and parse the
 information it contains. The resulting object has class \code{prequery}
 for those requiring further processing or \code{query} for those that don't.
+A \code{prequery} object shows the basic structure of what has been requested by
+a user in a given \code{\link[=galah_call]{galah_call()}}.
 }
 \details{
-Typically, queries in galah are piped using \code{\link[=galah_call]{galah_call()}}, which builds
-an object of class \code{"data_request"}; or \code{\link[=request_metadata]{request_metadata()}} or
-\code{\link[=request_files]{request_files()}}. All these objects can be converted to class \code{"query"}
-using \code{\link[=collapse.data_request]{collapse()}}. However,
-properly evaluating a query often requires building and running
-additional queries to populate or validate the requested information.
+\code{galah} uses an object-based pipeline to convert piped requests into
+valid queries, and to enact those queries with the specified organisation.
+Typically, requests open with \code{\link[=galah_call]{galah_call()}} - though \code{\link[=request_metadata]{request_metadata()}}
+and \code{\link[=request_files]{request_files()}} are also valid - and end with
+\code{\link[=collect.data_request]{collect()}}. Under the hood,
+the sequence of functions is as follows:
+
+\code{\link[=capture]{capture()}} → \code{\link[=compound]{compound()}} →
+\code{\link[=collapse.data_request]{collapse()}} →
+\code{\link[=compute.data_request]{compute()}} →
+\code{\link[=collect.data_request]{collect()}}
+
+\code{\link[=capture]{capture()}} is the first of the \code{\link[=galah_call]{galah_call()}} workflow, and it parses the
+basic structure of a user request, returned as a \code{prequery} object.
 A \code{prequery} object shows what has been requested, before those
 calls are built by \code{\link[=compound]{compound()}} and evaluated by
 \code{\link[=collapse.data_request]{collapse()}}.
 For simple cases, this gives the same result as running
 \code{\link[=collapse.data_request]{collapse()}} while the \code{run_checks}
 argument of \code{\link[=galah_config]{galah_config()}} is set to \code{FALSE}, but is slightly faster.
-In complex cases, it is simply a precursor to \code{\link[=compound]{compound()}}
+In complex cases, it is simply a precursor to \code{\link[=compound]{compound()}}.
 }
 \seealso{
 To open a piped query, see \code{\link[=galah_call]{galah_call()}}. For alternative

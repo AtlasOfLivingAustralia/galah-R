@@ -47,8 +47,25 @@ data. Where the requested data are not yet ready (i.e. for occurrences when
 that can be used to recheck the download at a later time.
 }
 \description{
-This function retrieves the specified query from the server. It is the
-default way to end a piped query begun with \code{\link[=galah_call]{galah_call()}}.
+Retrieve the result of a query from the server. It is the
+default way to end a piped query that begins with \code{\link[=galah_call]{galah_call()}}.
+}
+\details{
+\code{galah} uses an object-based pipeline to convert piped requests into
+valid queries, and to enact those queries with the specified organisation.
+Typically, requests open with \code{\link[=galah_call]{galah_call()}} - though \code{\link[=request_metadata]{request_metadata()}}
+and \code{\link[=request_files]{request_files()}} are also valid - and end with
+\code{\link[=collect.data_request]{collect()}}. Under the hood,
+the sequence of functions is as follows:
+
+\code{\link[=capture]{capture()}} → \code{\link[=compound]{compound()}} →
+\code{\link[=collapse.data_request]{collapse()}} →
+\code{\link[=compute.data_request]{compute()}} →
+\code{\link[=collect.data_request]{collect()}}
+
+\code{\link[=collect.data_request]{collect()}} is the final step of the
+\code{\link[=galah_call]{galah_call()}} workflow, and it retrieves the result of a
+query once it is processed by the server.
 }
 \seealso{
 To open a piped query, see \code{\link[=galah_call]{galah_call()}}. For alternative

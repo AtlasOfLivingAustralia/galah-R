@@ -18,8 +18,10 @@ if arguments are supplied.
 The \code{galah} package supports queries to a number of different data providers,
 and once selected, it is desirable that all later queries are sent to that
 organisation. Rather than supply this information separately in each
-query, therefore, it is more parsimonious to cache that information centrally
-and call it as needed, which is what this function supports. Beyond choosing
+query, it is more parsimonious to cache it centrally
+and call it as needed, which is what this function supports.
+
+Beyond choosing
 an organisation, there are several other use cases for caching. Many
 GBIF nodes require the user to supply a registered email address,
 password, and (in some cases) a reason for downloading data, all stored via
@@ -35,11 +37,13 @@ Valid arguments to this function are:
 \item \code{atlas} string: Living Atlas to point to, Australia by default. Can be
 an organisation name, acronym, or region (see \code{\link[=show_all_atlases]{show_all_atlases()}} for
 admissible values)
-\item \code{authenticate} logical: should \code{galah} authenticate your queries using
-JWT tokens? Defaults to \code{FALSE}.
+\item \code{authenticate} logical: Should \code{galah} use authenticate your queries using
+JWT tokens? Defaults to \code{FALSE}. If \code{TRUE}, user credentials are
+verified prior to sending a query. This can allow users with special
+access to download additional information in \code{galah}.
 \item \code{caching} logical: should metadata query results be cached in \code{options()}?
 Defaults to \code{TRUE} for improved stability and speed.
-\item \code{directory} string: the directory to use for the disk cache.
+\item \code{directory} string: The directory to use for the disk cache.
 By default this is a temporary directory, which means that results will
 only be cached within an R session and cleared automatically when the user
 exits R. The user may wish to set this to a non-temporary directory for

@@ -4,16 +4,16 @@
 * `filter()` now builds predicate queries natively when atlas is set to `GBIF`. `filter()` now uses an object-oriented workflow.
 * DOIs now supported for `GBIF`.
 * Kew gardens and Flanders living atlases added (#256).
-* Authentication supported for ALA users within `galah_config()` (#189).
+* Authentication supported for ALA users (#189).
 
 ### New & amended functions
 * `dplyr::distinct()` can be used to find grouped data and summaries, generalising `atlas_species()` (#284).
-* New functions `as_query()` and `compound()` as prequels to `collapse()` (#278).
+* New functions `capture()` and `compound()` as prequels to `collapse()` (#278).
 * `galah_call()` is now synonmous with `request_data()` rather than wrapping all `request_` functions; `method` argument is removed.
 
 ## Changes to metadata functions
 * All metadata requests now accept `select()`.
-* Metadata types that support `unnest()` now also support `filter()` when `unnest()` is not supplied.
+* Metadata types that support `unnest()` now also support `filter()`, even when `unnest()` is not supplied.
 * All `show_all()` and `search_all()` functions gain an `all_fields` argument.
 * Metadata now supports list-columns where the API returns nested data.
 * Metadata functions now return columns names in `snake_case` rather than `camelCase`.

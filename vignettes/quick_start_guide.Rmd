@@ -1,7 +1,7 @@
 ---
 title: "Quick start guide"
 author: "Martin Westgate & Dax Kellie"
-date: '2026-01-08'
+date: '2026-02-09'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -51,8 +51,8 @@ galah_config(atlas = "GBIF",
 The full list of supported queries by organisation is as follows:
 
 <div class="figure">
-<img src="../man/figures/atlases_plot.png" alt="Organisations supported by galah" width="100%" />
-<p class="caption">Organisations supported by galah</p>
+<img src="../man/figures/atlases_plot.png" alt="Fig 1: Organisations and APIs supported by galah" width="100%" />
+<p class="caption">Fig 1: Organisations and APIs supported by galah</p>
 </div>
 
 # Getting data
@@ -79,13 +79,13 @@ galah_call() |>            # open a pipe
 ## # A tibble: 7 × 2
 ##   year     count
 ##   <chr>    <int>
-## 1 2024  11770412
-## 2 2023  10974292
-## 3 2022   9422565
-## 4 2025   8989765
-## 5 2021   8686097
-## 6 2020   7308421
-## 7 2026     26191
+## 1 2024  11884223
+## 2 2023  11007008
+## 3 2022   9429562
+## 4 2025   9132194
+## 5 2021   8692767
+## 6 2020   7311538
+## 7 2026    256885
 ```
 
 Or to find the number of categories present in a dataset, for example how many 
@@ -107,7 +107,33 @@ galah_call() |>
 ## 1    17
 ```
 
-Or to download the records themselves:
+You can 'glimpse' a data download before you run it, to check all the data 
+you need is included:
+
+
+``` r
+galah_call() |>
+  identify("Eolophus roseicapilla") |> 
+  filter(year == 2010) |>
+  glimpse() |>
+  collect()
+```
+
+```
+## Rows: 21,984
+## Columns: 8
+## $ taxonConceptID <chr> "https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea", "https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c46…
+## $ eventDate <dbl> 1.281139e+12, 1.292890e+12, 1.270944e+12
+## $ scientificName <chr> "Eolophus roseicapilla", "Eolophus roseicapilla", "Eolophus roseicapilla"
+## $ decimalLatitude <dbl> -36.975, -31.600, -35.240
+## $ decimalLongitude <dbl> 143.8083, 116.5200, 138.9100
+## $ basisOfRecord <chr> "HUMAN_OBSERVATION", "HUMAN_OBSERVATION", "HUMAN_OBSERVATION"
+## $ dataResourceName <chr> "Victorian Biodiversity Atlas", "BirdLife Australia, Birdata", "BirdLife Australia, Birdata"
+## $ occurrenceStatus <chr> "PRESENT", "PRESENT", "PRESENT"
+```
+
+And, once satisfied that your parameters are correct, download the records 
+themselves:
 
 
 
@@ -116,7 +142,7 @@ Or to download the records themselves:
 galah_call() |>
   identify("Eolophus roseicapilla") |> 
   filter(year == 2010) |>
-  select(eventDate, decimalLatitude, species) |>  # choose columns to keep
+  select(eventDate, decimalLatitude, species) |>
   collect()
 ```
 
@@ -126,14 +152,14 @@ galah_call() |>
 ##    <dttm>              <dbl> <chr>                
 ##  1 NA                  -38.2 Eolophus roseicapilla
 ##  2 NA                  -38.2 Eolophus roseicapilla
-##  3 NA                  -37.0 Eolophus roseicapilla
-##  4 NA                  -37.7 Eolophus roseicapilla
+##  3 NA                  -36.1 Eolophus roseicapilla
+##  4 NA                  -38.5 Eolophus roseicapilla
 ##  5 NA                  -35.6 Eolophus roseicapilla
-##  6 NA                  -31.1 Eolophus roseicapilla
+##  6 NA                  -38.3 Eolophus roseicapilla
 ##  7 NA                  -38.2 Eolophus roseicapilla
-##  8 NA                  -36.8 Eolophus roseicapilla
+##  8 NA                  -38.2 Eolophus roseicapilla
 ##  9 NA                  -38.3 Eolophus roseicapilla
-## 10 NA                  -36.8 Eolophus roseicapilla
+## 10 NA                  -38.2 Eolophus roseicapilla
 ## # ℹ 21,974 more rows
 ```
 
@@ -148,6 +174,7 @@ Supported `dplyr` verbs that modify queries are as follows:
 - `count.data_request()`
 - `distinct.data_request()`
 - `filter.data_request()`
+- `glimpse.data_request()`
 - `group_by.data_request()`
 - `select.data_request()`
 - `slice_head.data_request()`
@@ -158,19 +185,6 @@ Additional verbs are:
 - `geolocate()` or `st_crop.data_request()`
 - `identify.data_request()`
 - `unnest()`
-
-Three other `dplyr` functions are supported to conclude a pipe:
-
-- `collapse.data_request()` converts the `request` object to a `query`. This allows users to inspect  
-   their API calls before they are sent. Depending on the request, this function
-   may also call 'supplementary' APIs to collect required information,
-   such as Taxon Concept Identifiers or field names.
-- `compute.data_request()` is intended to send the query in question to the requested API 
-   for processing. In practice, only occurrence queries distinguish between
-   posting a query and retrieving the results, meaning that in all other cases, 
-   `compute()` simply converts the `query` to a new class (`computed_query`).
-- `collect.data_request()` retrieves the requested data into your workspace, returning a 
-  `tibble`.
 
 It is good practice to download your data in as few steps as possible,
 to minimize impacts on the server, and to ensure you can get a single
@@ -189,7 +203,7 @@ Finding this information requires looking for metadata:
 
 
 ``` r
-request_metadata() |>
+request_metadata(type = "fields") |>
   collect()
 ```
 
@@ -245,7 +259,7 @@ a full list.
 # Wrapper functions
 
 While `dplyr` syntax is very flexible, there are cases where it is easier 
-to simply say the sort of data you want, rather than create a full database
+to simply say the sort of data you want, rather than create a database
 query to implement it. For this reason, several common use cases have
 their own wrapper functions.
 
@@ -263,7 +277,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 8989765
+## 1 9132194
 ```
 
 Or occurrences:
@@ -280,14 +294,14 @@ galah_call() |>
 
 ```
 ## # A tibble: 2,032 × 9
-##   recordID                             scientificName        taxonConceptID                                                            decimalLatitude decimalLongitude eventDate           basisOfRecord     occurrenceStatus dataResourceName           
-##   <chr>                                <chr>                 <chr>                                                                               <dbl>            <dbl> <dttm>              <chr>             <chr>            <chr>                      
-## 1 0026d29f-b6ab-4a1d-9c57-6ee12cfde3a0 Eolophus roseicapilla https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea           -35.4             149. 2000-08-07 00:00:00 HUMAN_OBSERVATION PRESENT          Garden Bird Surveys        
-## 2 0062d446-007b-4164-ac4f-ae84297e2578 Eolophus roseicapilla https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea           -35.3             149. 2000-03-10 00:00:00 HUMAN_OBSERVATION PRESENT          BirdLife Australia, Birdata
-## 3 00a62ee0-1e08-4114-b0d8-9b7905472d53 Eolophus roseicapilla https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea           -35.2             149. 2000-01-29 00:00:00 HUMAN_OBSERVATION PRESENT          Garden Bird Surveys        
-## 4 00ab2f4d-326f-4b01-9a8a-1a10c1f77e3c Eolophus roseicapilla https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea           -35.4             149. 2000-09-25 00:00:00 HUMAN_OBSERVATION PRESENT          Garden Bird Surveys        
-## 5 00ae4631-ea59-44ec-b8f8-4377b6b3b3ef Eolophus roseicapilla https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea           -35.3             149. 2000-02-12 00:00:00 HUMAN_OBSERVATION PRESENT          BirdLife Australia, Birdata
-## 6 00b6c8ec-e7b9-4d9f-9638-d962b1b4acfa Eolophus roseicapilla https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea           -35.2             149. 2000-02-05 00:00:00 HUMAN_OBSERVATION PRESENT          Garden Bird Surveys        
+##   recordID                             scientificName       taxonConceptID decimalLatitude decimalLongitude eventDate           basisOfRecord occurrenceStatus dataResourceName
+##   <chr>                                <chr>                <chr>                    <dbl>            <dbl> <dttm>              <chr>         <chr>            <chr>           
+## 1 0026d29f-b6ab-4a1d-9c57-6ee12cfde3a0 Eolophus roseicapil… https://biodi…           -35.4             149. 2000-08-07 00:00:00 HUMAN_OBSERV… PRESENT          Garden Bird Sur…
+## 2 0062d446-007b-4164-ac4f-ae84297e2578 Eolophus roseicapil… https://biodi…           -35.3             149. 2000-03-10 00:00:00 HUMAN_OBSERV… PRESENT          BirdLife Austra…
+## 3 00a62ee0-1e08-4114-b0d8-9b7905472d53 Eolophus roseicapil… https://biodi…           -35.2             149. 2000-01-29 00:00:00 HUMAN_OBSERV… PRESENT          Garden Bird Sur…
+## 4 00ab2f4d-326f-4b01-9a8a-1a10c1f77e3c Eolophus roseicapil… https://biodi…           -35.4             149. 2000-09-25 00:00:00 HUMAN_OBSERV… PRESENT          Garden Bird Sur…
+## 5 00ae4631-ea59-44ec-b8f8-4377b6b3b3ef Eolophus roseicapil… https://biodi…           -35.3             149. 2000-02-12 00:00:00 HUMAN_OBSERV… PRESENT          BirdLife Austra…
+## 6 00b6c8ec-e7b9-4d9f-9638-d962b1b4acfa Eolophus roseicapil… https://biodi…           -35.2             149. 2000-02-05 00:00:00 HUMAN_OBSERV… PRESENT          Garden Bird Sur…
 ## # ℹ 2,026 more rows
 ```
 
@@ -297,6 +311,32 @@ calls; see the [downloading images and sounds](downloading_images_and_sounds.htm
 vignette for details.
 
 Finally, metadata calls can be made more efficiently using the `show_all()` 
-and `show_values()` functions; see the 
-[look up information](lookup_up_information.html) vignette for details.
+and `show_values()` functions. These take the same arguments as the `type`
+argument in `request_metadata()`, but use non-standard evaluation, so they
+don't require quotes. They are also evaluated immediately rather than lazily:
+
+
+``` r
+show_all(fields)
+```
+
+```
+## # A tibble: 639 × 3
+##    id                  description               type  
+##    <chr>               <chr>                     <chr> 
+##  1 abcdTypeStatus      <NA>                      fields
+##  2 acceptedNameUsage   Accepted name             fields
+##  3 acceptedNameUsageID Accepted name             fields
+##  4 accessRights        Access rights             fields
+##  5 annotationsDoi      <NA>                      fields
+##  6 annotationsUid      Referenced by publication fields
+##  7 assertionUserId     Assertions by user        fields
+##  8 assertions          Record issues             fields
+##  9 assertionsCount     <NA>                      fields
+## 10 associatedMedia     Associated Media          fields
+## # ℹ 629 more rows
+```
+
+You can check the [look up information](lookup_up_information.html) vignette 
+for further details.
 

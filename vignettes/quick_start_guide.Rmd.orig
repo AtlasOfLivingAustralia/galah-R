@@ -47,7 +47,7 @@ galah_config(atlas = "GBIF",
 
 The full list of supported queries by organisation is as follows:
 
-```{r, atlas-support, echo = FALSE, out.width = "100%", fig.cap="Organisations supported by galah"}
+```{r, atlas-support, echo = FALSE, out.width = "100%", fig.cap="Fig 1: Organisations and APIs supported by galah"}
 knitr::include_graphics('../man/figures/atlases_plot.png')
 ```
 
@@ -81,7 +81,19 @@ galah_call() |>
   collect()
 ```
 
-Or to download the records themselves:
+You can 'glimpse' a data download before you run it, to check all the data 
+you need is included:
+
+```{r, glimpse-example}
+galah_call() |>
+  identify("Eolophus roseicapilla") |> 
+  filter(year == 2010) |>
+  glimpse() |>
+  collect()
+```
+
+And, once satisfied that your parameters are correct, download the records 
+themselves:
 
 ```{r, cache-email, echo = FALSE}
 galah_config(email = "ala4r@ala.org.au",
@@ -92,7 +104,7 @@ galah_config(email = "ala4r@ala.org.au",
 galah_call() |>
   identify("Eolophus roseicapilla") |> 
   filter(year == 2010) |>
-  select(eventDate, decimalLatitude, species) |>  # choose columns to keep
+  select(eventDate, decimalLatitude, species) |>
   collect()
 ```
 
@@ -107,6 +119,7 @@ Supported `dplyr` verbs that modify queries are as follows:
 - `count.data_request()`
 - `distinct.data_request()`
 - `filter.data_request()`
+- `glimpse.data_request()`
 - `group_by.data_request()`
 - `select.data_request()`
 - `slice_head.data_request()`
@@ -117,19 +130,6 @@ Additional verbs are:
 - `geolocate()` or `st_crop.data_request()`
 - `identify.data_request()`
 - `unnest()`
-
-Three other `dplyr` functions are supported to conclude a pipe:
-
-- `collapse.data_request()` converts the `request` object to a `query`. This allows users to inspect  
-   their API calls before they are sent. Depending on the request, this function
-   may also call 'supplementary' APIs to collect required information,
-   such as Taxon Concept Identifiers or field names.
-- `compute.data_request()` is intended to send the query in question to the requested API 
-   for processing. In practice, only occurrence queries distinguish between
-   posting a query and retrieving the results, meaning that in all other cases, 
-   `compute()` simply converts the `query` to a new class (`computed_query`).
-- `collect.data_request()` retrieves the requested data into your workspace, returning a 
-  `tibble`.
 
 It is good practice to download your data in as few steps as possible,
 to minimize impacts on the server, and to ensure you can get a single
@@ -147,7 +147,7 @@ Building queries using `filter()` requires that you know two things:
 Finding this information requires looking for metadata:
 
 ```{r, metadata-fields}
-request_metadata() |>
+request_metadata(type = "fields") |>
   collect()
 ```
 
@@ -168,7 +168,7 @@ a full list.
 # Wrapper functions
 
 While `dplyr` syntax is very flexible, there are cases where it is easier 
-to simply say the sort of data you want, rather than create a full database
+to simply say the sort of data you want, rather than create a database
 query to implement it. For this reason, several common use cases have
 their own wrapper functions.
 
@@ -198,6 +198,14 @@ calls; see the [downloading images and sounds](downloading_images_and_sounds.htm
 vignette for details.
 
 Finally, metadata calls can be made more efficiently using the `show_all()` 
-and `show_values()` functions; see the 
-[look up information](lookup_up_information.html) vignette for details.
+and `show_values()` functions. These take the same arguments as the `type`
+argument in `request_metadata()`, but use non-standard evaluation, so they
+don't require quotes. They are also evaluated immediately rather than lazily:
+
+```{r, show-all-fields}
+show_all(fields)
+```
+
+You can check the [look up information](lookup_up_information.html) vignette 
+for further details.
 

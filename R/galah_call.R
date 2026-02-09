@@ -34,6 +34,7 @@
 #' \code{\link[=count.data_request]{count()}},
 #' \code{\link[=distinct.data_request]{distinct()}},
 #' \code{\link[=filter.data_request]{filter()}},
+#' \code{\link[=glimpse.data_request]{glimpse()}},
 #' \code{\link[=group_by.data_request]{group_by()}},
 #' \code{\link[=identify.data_request]{identify()}},
 #' \code{\link[=select.data_request]{select}},

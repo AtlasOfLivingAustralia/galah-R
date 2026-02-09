@@ -21,10 +21,12 @@
 #' (i.e. constructed by \code{\link[=collapse.data_request]{collapse()}}) 
 #' @param ... Arguments passed on to other methods
 #' @details
-#' Typically, queries in galah are piped using [galah_call()], which builds
-#' an object of class `"data_request"`; or [request_metadata()] or
-#' [request_files()]. Under the hood, [galah_call()] consists of a series of 
-#' step-wise functions that run in order:
+#' `galah` uses an object-based pipeline to convert piped requests into
+#' valid queries, and to enact those queries with the specified organisation.
+#' Typically, requests open with [galah_call()] - though [request_metadata()] 
+#' and [request_files()] are also valid - and end with 
+#' \code{\link[=collect.data_request]{collect()}}. Under the hood,
+#' the sequence of functions is as follows:
 #' 
 #' [capture()] → [compound()] → 
 #' \code{\link[=collapse.data_request]{collapse()}} → 
