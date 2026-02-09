@@ -1,10 +1,13 @@
 #' View or set package behaviour
-#'
+#' 
+#' @description
 #' The `galah` package supports queries to a number of different data providers,
 #' and once selected, it is desirable that all later queries are sent to that 
 #' organisation. Rather than supply this information separately in each 
-#' query, therefore, it is more parsimonious to cache that information centrally 
-#' and call it as needed, which is what this function supports. Beyond choosing
+#' query, it is more parsimonious to cache it centrally 
+#' and call it as needed, which is what this function supports. 
+#' 
+#' Beyond choosing
 #' an organisation, there are several other use cases for caching. Many
 #' GBIF nodes require the user to supply a registered email address, 
 #' password, and (in some cases) a reason for downloading data, all stored via
@@ -19,23 +22,25 @@
 #' Valid arguments to this function are:
 #' 
 #'   *  `atlas` string: Living Atlas to point to, Australia by default. Can be 
-#'   an organisation name, acronym, or region (see [show_all_atlases()] for 
-#'   admissible values)
-#'   * `authenticate` logical: should `galah` authenticate your queries using 
-#'   JWT tokens? Defaults to `FALSE`.
+#'     an organisation name, acronym, or region (see [show_all_atlases()] for 
+#'     admissible values)
+#'   * `authenticate` logical: Should `galah` use authenticate your queries using 
+#'     JWT tokens? Defaults to `FALSE`. If `TRUE`, user credentials are 
+#'     verified prior to sending a query. This can allow users with special 
+#'     access to download additional information in `galah`.
 #'   * `caching` logical: should metadata query results be cached in `options()`?
 #'     Defaults to `TRUE` for improved stability and speed.
-#'   *  `directory` string: the directory to use for the disk cache.
+#'   *  `directory` string: The directory to use for the disk cache.
 #'     By default this is a temporary directory, which means that results will
 #'     only be cached within an R session and cleared automatically when the user 
 #'     exits R. The user may wish to set this to a non-temporary directory for
 #'     caching across sessions. The directory must exist on the file system.
 #'   *  `download_reason_id` numeric or string: the "download reason" required.
-#'   by some ALA services, either as a numeric ID (currently 0--13)
-#'   or a string (see `show_all(reasons)` for a list of valid ID codes and
-#'   names). By default this is NA. Some ALA services require a valid
-#'   download_reason_id code, either specified here or directly to the
-#'   associated R function.
+#'     by some ALA services, either as a numeric ID (currently 0--13)
+#'     or a string (see `show_all(reasons)` for a list of valid ID codes and
+#'     names). By default this is NA. Some ALA services require a valid
+#'     download_reason_id code, either specified here or directly to the
+#'     associated R function.
 #'   *  `email` string: An email address that has been registered with the chosen
 #'   atlas. For the ALA, you can register at
 #'   [this address](https://auth.ala.org.au/userdetails/registration/createAccount).

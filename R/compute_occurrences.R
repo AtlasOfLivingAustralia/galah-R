@@ -44,12 +44,10 @@ compute_occurrences_la <- function(.query){
     check_occurrence_response()
   if(potions::pour("package", "verbose")){
     n_records <- status_code$total_records
-    cli::cli_par()
     if(!is.null(.query$request$authenticate)){
       cli::cli_text("Query sent including JWT token")
     }
-    cli::cli_text("Request for {n_records} occurrences placed in queue")
-    cli::cli_end()
+    cli::cli_text("Request for {n_records} occurrences placed in queue.")
   }
   # return a useful object
   c(list(type = "data/occurrences"),

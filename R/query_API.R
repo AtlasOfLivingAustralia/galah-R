@@ -22,7 +22,8 @@ query_API <- function(.query,
           query_API_internal(data_tr,
                              error_call = error_call)
         },
-        .progress = set_progress_bar_behaviour(nrow(.query$url) > 1))
+        .progress = set_progress_bar_behaviour(nrow(.query$url) > 1)
+        )
   # next handle multiple `body` arguments
   # this is currently limited to GBIF count requests with > 1 `group_by` args
   }else if(inherits(.query$body, "data.frame")){ 
@@ -35,7 +36,8 @@ query_API <- function(.query,
                                                      error_call = error_call))
                  a
                },
-               .progress = set_progress_bar_behaviour(length(.query$body) > 1)) |>
+               .progress = set_progress_bar_behaviour(nrow(.query$url) > 1)
+               ) |>
       dplyr::bind_rows()
   # finally, some queries are 'simple'; one `url`, one or no `body` args
   # these we just run without any looping.
@@ -53,7 +55,7 @@ set_progress_bar_behaviour <- function(criteria){
   verbose <- potions::pour("package", "verbose", .pkg = "galah") &
     criteria
   if(verbose){
-    progress_bar <- list(name = "Querying API",
+    progress_bar <- list(format = "Querying API | {pb_bar} {pb_percent}",
                          clear = TRUE)
   }else{
     progress_bar <- FALSE

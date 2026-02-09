@@ -29,7 +29,8 @@ check_queue_loop <- function(.query){
   iter <- 1
   verbose <- potions::pour("package", "verbose", .pkg = "galah")
   if(verbose){
-    cli::cli_text("Current queue length: {current_queue}")
+    position <- glue::glue("Current queue length: {current_queue}")
+    cli::cli_text(position)
   }
   while(continue == TRUE){
     .query <- check_occurrence_status(.query)

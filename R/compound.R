@@ -1,8 +1,10 @@
 #' Force evaluation of a database query
 #' 
-#' [compound()] is an S3 generic function intended to be called before 
-#' [collapse()]. It is important as it shows the full set of queries 
-#' required to properly evaluate the user's request. This is often broader 
+#' @description
+#' [compound()] shows the full set of queries 
+#' required to properly evaluate the user's request, run prior to [collapse()]. 
+#' 
+#' The number of total queries to send for a single data request is often broader 
 #' than the single query returned by [collapse()]. If, for example,
 #' the user's query includes a call to 
 #' \code{\link[=identify.data_request]{identify()}}, then a taxonomic query
@@ -14,6 +16,20 @@
 #' @param x An object to be compounded. Works for `data_request`, 
 #' `metadata_request`, `file_request`, `query` or `prequery`.
 #' @param ... Other arguments passed to [capture()].
+#' @details
+#' Typically, queries in galah are piped using [galah_call()], which builds
+#' an object of class `"data_request"`; or [request_metadata()] or
+#' [request_files()]. Under the hood, [galah_call()] consists of a series of 
+#' step-wise functions that run in order:
+#' 
+#' [capture()] → [compound()] → 
+#' \code{\link[=collapse.data_request]{collapse()}} → 
+#' \code{\link[=compute.data_request]{compute()}} → 
+#' \code{\link[=collect.data_request]{collect()}}
+#' 
+#' [compound()] is the second of the [galah_call()] workflow, and it collates 
+#' the complete list of queries required to send in order to meet the user's
+#' data request, returned by \code{\link[=collapse.data_request]{collapse()}}.
 #' @order 1
 #' @return An object of class `query_set`, which is simply a list of all `query` 
 #' objects required to properly evaluate the specified request. Objects are 

@@ -1,7 +1,8 @@
 #' Retrieve a database query
-#'
-#' This function retrieves the specified query from the server. It is the 
-#' default way to end a piped query begun with [galah_call()].
+#' 
+#' @description
+#' Retrieve the result of a query from the server. It is the 
+#' default way to end a piped query that begins with [galah_call()].
 #' @name collect.data_request
 #' @order 1
 #' @param x An object of class `data_request`, `metadata_request` or 
@@ -15,6 +16,20 @@
 #' @param file (Optional) file name. If not given, will be set to `data` with 
 #' date and time added. The file path (directory) is always given by 
 #' `galah_config()$package$directory`.
+#' @details
+#' Typically, queries in galah are piped using [galah_call()], which builds
+#' an object of class `"data_request"`; or [request_metadata()] or
+#' [request_files()]. Under the hood, [galah_call()] consists of a series of 
+#' step-wise functions that run in order:
+#' 
+#' [capture()] → [compound()] → 
+#' \code{\link[=collapse.data_request]{collapse()}} → 
+#' \code{\link[=compute.data_request]{compute()}} → 
+#' \code{\link[=collect.data_request]{collect()}}
+#' 
+#' \code{\link[=collect.data_request]{collect()}} is the final step of the 
+#' [galah_call()] workflow, and it retrieves the result of a 
+#' query once it is processed by the server.
 #' @return In most cases, `collect()` returns a `tibble` containing requested 
 #' data. Where the requested data are not yet ready (i.e. for occurrences when
 #' `wait` is set to `FALSE`), this function returns an object of class `query`
