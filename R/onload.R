@@ -1,7 +1,7 @@
 #' Set-up for galah during loading
 #' @noRd
 #' @keywords Internal
-.onLoad <- function(libname, pkgname) {
+.onAttach <- function(libname, pkgname) {
     if (pkgname == "galah") {
 
       # set up storage of standard information via {potions}

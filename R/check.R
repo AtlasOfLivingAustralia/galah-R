@@ -303,7 +303,7 @@ check_fields_gbif_counts <- function(.query){
     # check for invalid facets
     valid_search_fields <- .query[["metadata/fields"]] |>
       dplyr::filter(.data$search_field == TRUE) |>
-      dplyr::pull(id)
+      dplyr::pull("id")
      if (!all(facets %in% valid_search_fields)) {
        invalid_facets <- facets[!(facets %in% valid_search_fields)]
        group_by_invalid <- glue::glue_collapse(invalid_facets, sep = ", ")

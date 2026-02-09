@@ -13,6 +13,8 @@ build_predicates <- function(x){
 #' Internal function to join predicates together
 #' @param a predicate
 #' @param ... two or more predicates to join to x
+#' @noRd 
+#' @keywords Internal
 join_predicates <- function(x, y = NULL){
 
   if(is.null(y)){

@@ -100,7 +100,7 @@ update_select <- function(x, y){
     group_vec <- NULL
   }
   result |>
-    generate_summary(dots) |>
+    generate_summary() |>
     add_group(group = group_vec)
 }
 
@@ -108,6 +108,8 @@ update_select <- function(x, y){
 ## using same logic as `update_filter()`?
 
 #' Internal function to join together two `filter` objects
+#' @noRd
+#' @keywords Internal
 update_filter <- function(x, y, column){
   if(!all(class(x) == class(y))){
     cli::cli_abort("Cannot join unlike filter objects")

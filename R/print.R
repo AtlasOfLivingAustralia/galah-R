@@ -334,6 +334,8 @@ hide_secrets <- function(string){
 }
 
 #' Pink for printing primary text (e.g. object names) to the console
+#' Note: `@importFrom` here added to avoid CRAN checks flagging crayon as not required 
+#' @importFrom crayon make_style
 #' @noRd
 #' @keywords Internal
 galah_pink <- crayon::make_style("#bf2a6d")
