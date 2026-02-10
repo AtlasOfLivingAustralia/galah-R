@@ -43,8 +43,9 @@ collapse_build_checks <- function(.query){
 #' @keywords Internal
 collapse_run_checks <- function(.query,
                                 error_call = rlang::caller_env()){
+  
   # "data/" functions require pre-processing of metadata,
-  if(stringr::str_detect(.query$type, "^data/")){
+  if(stringr::str_detect(.query$type, "^data/") & .query$type != "data/occurrences-doi"){
     # taxon concept ID must always be evaluated
     .query <- check_identifiers(.query, error_call) 
     # login should only be evaluated for species and occurrence

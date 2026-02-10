@@ -175,6 +175,7 @@ test_that("`atlas_occurrences()`() and friends accept a file name", {
     quiet_collect(file = "test_doi2")
   expect_equal(occ3, occ4)
   expect_true(any(list.files(directory) == "test_doi2.zip"))
+  expect_false(is.null(attributes(occ3)$doi))
   # clean up
   unlink("TEMP", recursive = TRUE)
   cache_dir <- tempfile()

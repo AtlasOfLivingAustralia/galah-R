@@ -50,9 +50,7 @@ collect_occurrences_default <- function(.query, wait, file, call){
   # get data
   if(potions::pour("package", "verbose", .pkg = "galah") &
      download_response$status == "complete") {
-    
     scrolly_dots_message("Downloading")
-    # cli::cli_par()
   }
   # sometimes lookup info critical, but not others - unclear when/why!
   if(any(names(download_response) == "download_url")){
@@ -102,6 +100,10 @@ collect_occurrences_doi <- function(.query,
   if(is.null(result)){
     download_failed_message(call = call)
   }else{
+    # first see if DOI is returned in the API call
+    if(!is.null(.query$doi)){
+      attr(result, "doi") <- glue::glue("https://doi.org/{.query$doi}")
+    }
     result
   }
 }
@@ -146,8 +148,6 @@ download_failed_message <- function(call){
     i = "Consider checking that a file has been created in the expected location.") |>
     cli::cli_abort(call = call)
 }
-
-
 
 #' Theatrics
 #' @noRd

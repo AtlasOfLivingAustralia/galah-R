@@ -161,14 +161,22 @@ as_prequery <- function(x){
 #' @keywords Internal
 check_doi <- function(x){
   if(x$type == "occurrences"){
-    # handle sending dois via `filter()`
-    # important this happens first, as it affects `type`, which affects later code
-    variables <- purrr::pluck(x, "filter", "variable") # NOTE: breaks for GBIF
-    if(!is.null(variables)){
-      if(length(variables) == 1 & variables[1] == "doi"){
+    if(is_gbif()){
+      variables <- unlist(x$filter)
+      if(any(variables == "DOI")){
         x$type <- "occurrences-doi"
       }
+    }else{
+      # handle sending dois via `filter()`
+      # important this happens first, as it affects `type`, which affects later code
+      variables <- purrr::pluck(x, "filter", "variable")
+      if(!is.null(variables)){
+        if(length(variables) == 1 & variables[1] == "doi"){
+         x$type <- "occurrences-doi"
+       }
+      }
     }
+
   }
   x
 }

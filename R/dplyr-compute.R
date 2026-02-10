@@ -76,6 +76,7 @@ compute.prequery <- compute.data_request
 compute.query <- function(x, ...){
   switch(x$type, 
          "data/occurrences" = compute_occurrences(x),
+         "data/occurrences-doi" = compute_occurrences_doi(x),
          "data/species" = {
            if(is_gbif()){
              compute_occurrences(x)

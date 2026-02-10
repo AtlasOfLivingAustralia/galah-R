@@ -68,3 +68,22 @@ extract_fields <- function(.query){
     strsplit(split = ",") |>
     purrr::pluck(!!!list(1))
 }
+
+#' Internal function to retrieve a GBIF DOI
+#' @noRd
+#' @keywords Internal
+compute_occurrences_doi <- function(.query){
+  if(stringr::str_detect(.query$url, "api.gbif.org")){
+    .query$download <- NULL
+    result <- query_API(.query)
+    c(list(type = "data/occurrences-doi",
+           url = result$downloadLink,
+           download = TRUE),
+      result[!(names(result) %in% c("request", "downloadLink"))]) |>
+    add_request(.query) |>
+    structure(class = "computed_query")
+  }else{
+    # living atlases just need passing onward
+    as_computed_query(.query)
+  }
+}

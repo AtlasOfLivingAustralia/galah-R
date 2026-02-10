@@ -251,6 +251,7 @@ test_that("`count()` works with `identify` for GBIF when `run_checks` = TRUE", {
 
 ## TODO: Add a more basic occurrences check
 test_that("`atlas_occurrences()` works for GBIF", {
+  skip_if_offline(); skip_on_ci()
   galah_config(atlas = "GBIF",
                username = "atlasoflivingaustralia",
                email = "ala4r@ala.org.au",
@@ -334,7 +335,7 @@ test_that("atlas_media fails for GBIF", {
   })
 })
 
-test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
+test_that("`collect()` works for GBIF with `type = 'occurrences' or 'occurrences-doi'` ", {
   skip_if_offline(); skip_on_ci()
   # collapse
   base_query <- request_data() |>
@@ -364,10 +365,12 @@ test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
   expect_true(!is.null(attributes(z)$doi))
 
   # FIXME: need DOI search test
-  ## recent_doi <- attributes(z)$doi
-  # a <- galah_call() |>
-  #  filter(doi == recent_doi) |>
-  #  collect()
+  recent_doi <- attributes(z)$doi
+  a <- galah_call() |>
+   filter(doi == recent_doi) |>
+   collect()
+  expect_equal(a, z, ignore_attr = TRUE)
+  expect_equal(attributes(a)$doi, attributes(z)$doi)
 })
 
 quiet_config <- purrr::quietly(galah_config)
