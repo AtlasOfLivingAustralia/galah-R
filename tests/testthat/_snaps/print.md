@@ -73,8 +73,8 @@
       compound(filter(galah_call(), basisOfRecord == "HUMAN_OBSERVATION"))
     Message
       Object of class query_set containing 4 queries:
-      * metadata/fields data: galah:::retrieve_cache("fields")
-      * metadata/assertions data: galah:::retrieve_cache("assertions")
+      * metadata/fields url: https://api.ala.org.au/occurrences/index/fields
+      * metadata/assertions url: https://api.ala.org.au/occurrences/assertions/codes
       * metadata/reasons url: https://api.ala.org.au/logger/service/logger/reasons
       * data/occurrences url:
       https://api.ala.org.au/occurrences/occurrences/offline/...

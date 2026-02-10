@@ -49,6 +49,8 @@ test_that("object of class `computed_query` formats correctly", {
 })
 
 test_that("object of class `query_set` formats correctly", {
+  # prevent earlier caching (or lack thereof) affecting the result
+  reset_cache()
   galah_call() |>
     filter(basisOfRecord == "HUMAN_OBSERVATION") |>
     compound() |>
@@ -56,7 +58,11 @@ test_that("object of class `query_set` formats correctly", {
 })
 
 test_that("`galah_config()` formats correctly", {
-  galah_config(directory = "something")
+  galah_config(atlas = "ALA",
+               directory = "something",
+               verbose = FALSE,
+               caching = TRUE,
+               download_reason_id = 10)
   galah_config() |>
     expect_snapshot()
   galah_config(directory = tempdir(check = TRUE))

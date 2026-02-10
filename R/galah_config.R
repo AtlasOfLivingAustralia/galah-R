@@ -259,27 +259,30 @@ enforce_download_reason <- function(value,
                                     error_call = rlang::caller_env()){
   # first ensure API is available. Currently missing for Brazil, for example.
   
-  reasons_api_available <- url_lookup("metadata/reasons") |> 
+  reasons_df <- show_all_reasons() |> 
     try(silent = TRUE)
-  if(inherits(reasons_api_available, "try-error")){
-    return(1)
+  if(inherits(reasons_df, "try-error")){
+    if(is.numeric(value)){
+      as.integer(value)
+    }else{
+      1
+    }
   }else{
-    if (is.numeric(value) & !(value %in% show_all_reasons()$id)) {
+    if (is.numeric(value) & !(value %in% reasons_df$id)) {
       c("Invalid download reason ID.",
         i = "Use `show_all(reasons)` to see all valid reasons.",
         x = "{value} does not match an existing reason ID.") |>
       cli::cli_abort(call = error_call)
-    } else if(is.character(value) & !(value %in% show_all_reasons()$name)) {
+    } else if(is.character(value) & !(value %in% reasons_df$name)) {
       bullets <- c(
         "Invalid download reason name.",
         i = "Use `show_all(reasons)` to see all valid reasons.",
         x = "\"{value}\" does not match an existing reason name.") |>
       cli::cli_abort(call = error_call)
     }
-    if (is.character(value) & (value %in% show_all_reasons()$name)) {
-      valid_reasons <- show_all_reasons()
-      value_id <- valid_reasons |>
-        dplyr::filter(valid_reasons$name == value) |>
+    if (is.character(value) & (value %in% reasons_df$name)) {
+      value_id <- reasons_df |>
+        dplyr::filter(reasons_df$name == value) |>
         dplyr::select("id") |>
         dplyr::pull("id")
       cli::cli_bullets(c("v" = "Matched \"{value}\" to valid download reason ID {value_id}."))
