@@ -52,13 +52,14 @@ query_API <- function(.query,
 #' @noRd
 #' @keywords Internal
 set_progress_bar_behaviour <- function(criteria){
-  verbose <- potions::pour("package", "verbose", .pkg = "galah") &
-    criteria
+  verbose <- all(
+    potions::pour("package", "verbose", .pkg = "galah") &
+    isTRUE(criteria))
   if(verbose){
-    progress_bar <- list(format = "Querying API | {pb_bar} {pb_percent}",
-                         clear = TRUE)
+    list(name = "Querying API",
+         clear = TRUE)
   }else{
-    progress_bar <- FALSE
+    FALSE
   }
 }
 

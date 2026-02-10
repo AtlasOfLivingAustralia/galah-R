@@ -149,8 +149,12 @@ test_that("search_all(identifiers) works for Spain", {
 
 test_that("show_values works for fields for Spain", {
   skip_if_offline(); skip_on_ci()
+  quiet_values <- function(...){
+    x <- purrr::quietly(show_values)
+    x(...)$result
+  }
   x <- search_all(fields, "basisOfRecord") |> 
-    show_values() |>
+    quiet_values() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gte(nrow(x), 1)
@@ -291,11 +295,17 @@ test_that("atlas_media() works for Spain", {
   expect_equal(colnames(x)[1:2],
                c("media_id", "media_type"))
   # download a subset
+  quiet_media <- function(...){
+    x <- purrr::quietly(collect_media)
+    x(...)$result
+  }
   n_downloads <- 5
-  collect_media(x[seq_len(n_downloads), ])
+  quiet_media(x[seq_len(n_downloads), ])
   expect_equal(length(list.files("temp", pattern = ".jpg$")),
                n_downloads)
   unlink("temp", recursive = TRUE)
 })
 
-galah_config(atlas = "Australia")
+quiet_config <- purrr::quietly(galah_config)
+quiet_config(atlas = "Australia")
+rm(quiet_config)

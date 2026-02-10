@@ -151,8 +151,12 @@ test_that("search_all(identifiers) works for Flanders", {
 
 test_that("show_values works for fields for Flanders", {
   skip_if_offline(); skip_on_ci()
+  quiet_values <- function(...){
+    x <- purrr::quietly(show_values)
+    x(...)$result
+  }
   x <- search_all(fields, "basisOfRecord") |>
-    show_values() |>
+    quiet_values() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gte(nrow(x), 1)
@@ -177,7 +181,7 @@ test_that("atlas_counts works with type = 'species' for Flanders", {
   expect_gt(x, 0)
 })
 
-test_that("atlas_counts works with galah_identify for Flanders", {
+test_that("`count()` works with galah_identify for Flanders", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     identify("Mammalia") |>
@@ -197,9 +201,25 @@ test_that("atlas_counts works with galah_identify for Flanders", {
     0.1) # i.e. <1% margin of error
 })
 
-# FIXME test glimpse()
+test_that("`glimpse()` works for Flanders", {
+  skip_if_offline(); skip_on_ci()
+  x <- galah_call() |>
+    filter(year == 2025) |>
+    glimpse() |>
+    collect()
+  expect_s3_class(x, c("occurrences_glimpse", "tbl_df", "tbl", "data.frame"))
+  expect_equal(nrow(x), 3) # number of rows in the tibble
+  quiet_print <- purrr::quietly(print.occurrences_glimpse)
+  x_print <- strsplit(quiet_print(x)$messages, "\n")[[1]] # print statement
+  expect_gt(length(x_print), 5)
+  stringr::str_detect(x_print,
+                       "^\\$ (taxonConceptID|eventDate|decimalLatitude|scientificName)") |>
+    which() |>
+    length() |>
+    expect_equal(4) # note: recordID missing
+})
 
-test_that("atlas_counts works with group_by for Flanders", {
+test_that("`count()` works with `group_by()` for Flanders", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     filter(year >= 2000) |>
@@ -212,7 +232,7 @@ test_that("atlas_counts works with group_by for Flanders", {
   expect_equal(names(result), c("basisOfRecord", "count"))
   })
 
-test_that("atlas_species works for Flanders", {
+test_that("`atlas_species()` works for Flanders", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Flanders",
@@ -228,7 +248,7 @@ test_that("atlas_species works for Flanders", {
   expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
 })
 
-test_that("atlas_occurrences() works for Flanders", {
+test_that("`atlas_occurrences()` works for Flanders", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Flanders",
@@ -254,7 +274,7 @@ test_that("atlas_occurrences() works for Flanders", {
   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("atlas_media() works for Flanders", {
+test_that("`atlas_media()` works for Flanders", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Flanders",
@@ -263,12 +283,13 @@ test_that("atlas_media() works for Flanders", {
     directory = "temp",
     send_email = FALSE)
   x <- request_data() |>
-    identify("Erinaceinae") |> # problem here: 
-     # 1. query works but doesn't return an entry
-     # 2. identify() is not robust to searches that return no values
-    filter(year == 2023
-           # imageIDsCount > 0
+    identify("Vulpes") |>
+    filter(year == 2025,
+           basisOfRecord == "HUMAN_OBSERVATION",
+           # month == 6,
+           !is.na(images)
            ) |>
+    # group_by(year) |>
     # count() |>
     # collect()
     atlas_media() |>
@@ -277,13 +298,19 @@ test_that("atlas_media() works for Flanders", {
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gte(nrow(x), 1)
   expect_equal(colnames(x)[1:2],
-               c("media_id", "recordID"))
+               c("media_id", "media_type"))
   # download a subset
+  quiet_media <- function(...){
+    x <- purrr::quietly(collect_media)
+    x(...)$result
+  }
   n_downloads <- 5
-  collect_media(x[seq_len(n_downloads), ])
+  quiet_media(x[seq_len(n_downloads), ])
   expect_equal(length(list.files("temp", pattern = ".jpg$")),
                n_downloads)
   unlink("temp", recursive = TRUE)
 })
 
-galah_config(atlas = "Australia")
+quiet_config <- purrr::quietly(galah_config)
+quiet_config(atlas = "Australia")
+rm(quiet_config)

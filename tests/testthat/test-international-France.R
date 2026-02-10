@@ -209,5 +209,6 @@ test_that("atlas_occurrences works for France", {
   unlink("temp", recursive = TRUE)
 })
 
-rm(skip_message)
-galah_config(atlas = "Australia")
+quiet_config <- purrr::quietly(galah_config)
+quiet_config(atlas = "Australia")
+rm(quiet_config, skip_message)

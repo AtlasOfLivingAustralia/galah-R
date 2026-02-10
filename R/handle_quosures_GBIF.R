@@ -12,8 +12,8 @@
 #' @keywords internal
 parse_quosures_data_gbif <- function(dots){
   if(length(dots) > 0){
-    predicates <- purrr::map(dots, 
-                             switch_expr_type_pred)
+    predicates <- lapply(dots,  # NOTE: `map()` raises an error here
+                         switch_expr_type_pred)
     # sometimes, because we call `map()`, we end up with predicates
     # buried one layer down in the list. Correct this
     if(length(predicates) == 1L){
@@ -159,12 +159,13 @@ parse_logical_pred <- function(x){
   }
   
   # wrap later predicates in supplied boolean
-  subpredicates <- purrr::map(rlang::quo_get_expr(x)[-1], 
-                              \(a){
-                                rlang::as_quosure(a, 
-                                                  env = rlang::quo_get_env(x)) |>
-                                  switch_expr_type_pred()
-                              })
+  # NOTE: deliberate use of `lapply()` and NOT `purrr::map()`
+  subpredicates <- lapply(rlang::quo_get_expr(x)[-1], 
+                          \(a){
+                            rlang::as_quosure(a, 
+                                              env = rlang::quo_get_env(x)) |>
+                              switch_expr_type_pred()
+                          })
   names(subpredicates) <- NULL
   list(type = logical_string,
        predicates = subpredicates)

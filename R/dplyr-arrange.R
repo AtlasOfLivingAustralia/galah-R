@@ -52,7 +52,10 @@ arrange.data_request <- function(.data, ...){
     parsed_dots <- purrr::map(dots, \(a){
       switch(expr_type(a),
              "symbol" = {rlang::as_label(a)},
-             "call" = {purrr::map(rlang::quo_get_expr(a), rlang::as_string)},
+             "call" = {
+               # NOTE: this is *deliberately* not purrr::map(),
+               # which raises a warning
+               lapply(rlang::quo_get_expr(a), rlang::as_string)},
              "literal" = {rlang::quo_get_expr(a)},
              cli::cli_abort("Quosure type not recognised.",
                             call = rlang::caller_env()))}) |>

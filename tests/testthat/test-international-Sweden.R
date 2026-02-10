@@ -158,17 +158,20 @@ test_that("`search_taxa()` works for multiple ranks in Sweden", {
   expect_true(all(grepl("^[[:digit:]]+$", taxa$taxon_concept_id)))
 })
 
-test_that("show_values works fields in Sweden", {
+test_that("s`how_values()` works fields in Sweden", {
   skip_if_offline(); skip_on_ci()
+  quiet_values <- function(...){
+    x <- purrr::quietly(show_values)
+    x(...)$result
+  }
+  # fields
   x <- search_fields("basisOfRecord") |>
-    show_values() |>
+    quiet_values() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(nrow(x), 1)
-})
 
-test_that("show_values works for lists in Sweden", {
-  skip_if_offline(); skip_on_ci()
+  # lists
   x <- try({search_all(lists, "dr156") |> 
       show_values()},
       silent = TRUE)
@@ -273,11 +276,12 @@ test_that("atlas_occurrences works for Sweden", {
   expect_equal(occ_collapse$type, "data/occurrences")
   # compute
   occ_compute <- compute(occ_collapse)
+  skip_if(inherits(occ_compute, "try-error"), message = "API not available")
   expect_s3_class(occ_compute, "computed_query")
   # collect
   occ <- collect(occ_compute) |>
     try(silent = TRUE)
-  skip_if(inherits(occ_compute, "try-error"), message = "API not available")
+  skip_if(inherits(occ, "try-error"), message = "API not available")
   expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
   expect_equal(ncol(occ), length(default_columns()))
 })
@@ -340,10 +344,16 @@ test_that("collect_media() works for Sweden", {
                n_downloads)
   unlink("temp", recursive = TRUE)
   # try with collect_media()
-  collect_media(media_meta[seq_len(n_downloads), ])
+  quiet_media <- function(...){
+    x <- purrr::quietly(collect_media)
+    x(...)$result
+  }
+  quiet_media(x[seq_len(n_downloads), ])
   expect_equal(length(list.files("temp", pattern = ".jpg$")),
                n_downloads)
   unlink("temp", recursive = TRUE)
 })
 
-galah_config(atlas = "Australia")
+quiet_config <- purrr::quietly(galah_config)
+quiet_config(atlas = "Australia")
+rm(quiet_config)

@@ -79,15 +79,15 @@ test_that("show_all(profiles) unavailable for Kew", {
     expect_error(label = "No API is available for type `metadata/profiles`")
 })
 
-test_that("show_all(lists) works for Kew", {
-  # NOTE: When tested on 2025-07-04 this API works, but contains no data
-  skip_if_offline(); skip_on_ci()
-  x <- show_all(lists, limit = 10) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
-  expect_lte(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-})
+##  NOTE: When tested on 2025-07-04 this API works, but contains no data
+# test_that("show_all(lists) works for Kew", {
+#  skip_if_offline(); skip_on_ci()
+#  x <- show_all(lists, limit = 10) |>
+#    try(silent = TRUE)
+#  skip_if(inherits(x, "try-error"), message = "API not available")
+#  expect_lte(nrow(x), 10)
+#  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+# })
 
 test_that("search_all(fields) works for Kew", {
   skip_if_offline(); skip_on_ci()
@@ -218,7 +218,7 @@ test_that("`atlas_media()` works for Kew", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Kew",
-    email = "test@ala.org.au",
+    email = "ala4r@ala.org.au",
     download_reason_id = 10,
     directory = "temp",
     send_email = FALSE)
@@ -231,13 +231,19 @@ test_that("`atlas_media()` works for Kew", {
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gte(nrow(x), 1)
   expect_equal(colnames(x)[1:2],
-               c("media_id", "recordID"))
+               c("media_id", "media_type"))
   # download a subset
-  n_downloads <- 5
-  collect_media(x[seq_len(n_downloads), ])
+  quiet_media <- function(...){
+    x <- purrr::quietly(collect_media)
+    x(...)$result
+  }
+  n_downloads <- min(c(nrow(x), 5))
+  quiet_media(x[seq_len(n_downloads), ])
   expect_equal(length(list.files("temp", pattern = ".jpg$")),
                n_downloads)
   unlink("temp", recursive = TRUE)
 })
 
-galah_config(atlas = "Australia")
+quiet_config <- purrr::quietly(galah_config)
+quiet_config(atlas = "Australia")
+rm(quiet_config)

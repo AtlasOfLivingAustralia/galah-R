@@ -43,8 +43,12 @@ test_that("show_values works for GBIF fields", {
     unnest() |>
     collect()
   # traditional syntax
+  quiet_values <- function(...){
+    x <- purrr::quietly(show_values)
+    x(...)$result
+  }
   y <- search_fields("gbifRegion") |>
-    show_values()
+    quiet_values()
   # tests
   inherits(x, c("tbl_df", "tbl", "data.frame")) |>
     expect_true()
@@ -248,9 +252,9 @@ test_that("`count()` works with `identify` for GBIF when `run_checks` = TRUE", {
 ## TODO: Add a more basic occurrences check
 test_that("`atlas_occurrences()` works for GBIF", {
   galah_config(atlas = "GBIF",
-                              username = "atlasoflivingaustralia",
-                              email = "ala4r@ala.org.au",
-                              password = "galah-gbif-test-login")
+               username = "atlasoflivingaustralia",
+               email = "ala4r@ala.org.au",
+               password = "galah-gbif-test-login")
   x <- galah_call() |>
     filter(year == 1890,
            classKey == "359",
@@ -358,6 +362,14 @@ test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
   expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
   expect_equal(nrow(z), count$count)
   expect_true(!is.null(attributes(z)$doi))
+
+  # FIXME: need DOI search test
+  ## recent_doi <- attributes(z)$doi
+  # a <- galah_call() |>
+  #  filter(doi == recent_doi) |>
+  #  collect()
 })
 
-galah_config(atlas = "Australia")
+quiet_config <- purrr::quietly(galah_config)
+quiet_config(atlas = "Australia")
+rm(quiet_config)

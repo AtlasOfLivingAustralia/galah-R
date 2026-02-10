@@ -269,7 +269,6 @@ check_field_identities <- function(df,
 }
 
 #' sub-function to `check_fields()` for GBIF
-#' NOTE: This is probably obsolete once we start using predicates for counts
 #' @noRd
 #' @keywords Internal
 check_fields_gbif_counts <- function(.query){
@@ -754,12 +753,12 @@ check_reason <- function(.query,
 check_select <- function(.query,
                          error_call = rlang::caller_env()){
   if(any(names(.query$request) == "select")){
-    if(is_gbif() & stringr::str_detect(.query$type, "^data")){
-      cli::cli({
-        cli::cli_text("Skipping `select()`.")
-        cli::cli_bullets(c(i = "This function is not supported by the GBIF occurrences downloads API v1."))
-      })
-    }else{
+    if(!(is_gbif() & stringr::str_detect(.query$type, "^data"))){
+      # cli::cli({
+      #  cli::cli_text("Skipping `select()`.")
+      #  cli::cli_bullets(c(i = "This function is not supported by the GBIF occurrences downloads API v1."))
+     # })
+    # }else{
       # 1. build df to `select` from
       valid_fields <- .query[["metadata/fields"]]$id
       valid_assertions <- .query[["metadata/assertions"]]$id

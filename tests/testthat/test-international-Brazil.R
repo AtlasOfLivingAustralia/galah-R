@@ -87,18 +87,22 @@ test_that("search_all(taxa) works for Brazil", {
 
 test_that("`show_values()` works for Brazil", {
   skip_if_offline(); skip_on_ci()
+  quiet_values <- function(...){
+    x <- purrr::quietly(show_values)
+    x(...)$result
+  }
   x <- search_fields("basis_of_record") |>
-    show_values() |>
+    quiet_values() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(nrow(x), 1)
   y <- search_lists("drt1565630923841") |>
-    show_values() |>
+    quiet_values() |>
     try(silent = TRUE)
   skip_if(inherits(y, "try-error"), message = "API not available")
   expect_gt(nrow(y), 1)
   search_profiles("profile") |>
-    show_values() |>
+    quiet_values() |>
     expect_error()
 })
 
@@ -226,11 +230,17 @@ test_that("`atlas_media()` works for Brazil", {
   expect_equal(colnames(x)[1:2],
                c("media_id", "recordID"))
   # download a subset
+   quiet_media <- function(...){
+    x <- purrr::quietly(collect_media)
+    x(...)$result
+  }
   n_downloads <- 5
-  collect_media(x[seq_len(n_downloads), ])
+  quiet_media(x[seq_len(n_downloads), ])
   expect_equal(length(list.files("temp", pattern = ".jpg$")),
                n_downloads)
   unlink("temp", recursive = TRUE)
 })
 
-galah_config(atlas = "Australia")
+quiet_config <- purrr::quietly(galah_config)
+quiet_config(atlas = "Australia")
+rm(quiet_config)

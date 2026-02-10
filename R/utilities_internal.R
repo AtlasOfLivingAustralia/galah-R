@@ -354,7 +354,6 @@ default_columns <- function() {
   if(atlas %in% c("Austria", 
                   "Brazil", 
                   "Guatemala", 
-                  "Kew",
                   "Portugal")){
     c("id",
       "taxon_name",
@@ -377,6 +376,7 @@ default_columns <- function() {
       "dataResourceName")
   }else if(atlas %in% c("Australia",
                         "Flanders",
+                        "Kew",
                         "Spain",
                         "Sweden",
                         "United Kingdom")){
@@ -401,7 +401,6 @@ image_fields <- function() {
   if(atlas %in% c("Austria", 
                   "Brazil", 
                   "Guatemala", 
-                  "Kew",
                   "Portugal")){
     "all_image_url"
   }else if(atlas %in% c("Australia",
@@ -410,6 +409,8 @@ image_fields <- function() {
                         "Sweden",
                         "United Kingdom")){
     c("multimedia", "images", "sounds", "videos")
+  }else if(atlas %in% c("Kew")){
+    c("multimedia", "images")
   }else{
     cli::cli_abort("Unknown `atlas`")
   }
@@ -419,26 +420,23 @@ image_fields <- function() {
 #' @noRd
 #' @keywords Internal
 image_filters <- function(present_fields,
-                                         error_call = rlang::caller_env()){
+                          error_call = rlang::caller_env()){
   
   atlas <- potions::pour("atlas", "region")
   switch(atlas,
          "Austria" = "(all_image_url:*)",
          "Australia" = glue::glue("({present_fields}:*)"),
          "Brazil" = "(all_image_url:*)",
-         "Flanders" = "(all_image_url:*)",
+         "Flanders" = "(images:*)",
          "Guatemala" = "(all_image_url:*)",
-         "Kew" =  "(all_image_url:*)",
+         "Kew" =  "(images:*)",
          "Portugal" = "(all_image_url:*)",
-         "Spain" = {filter_fields <- present_fields |>
-                       stringr::str_remove("s$") |>
-                       paste0("IDsCount")
-                     glue::glue("{filter_fields}:[1 TO *]")},
+         "Spain" = "(multimedia:*)",
          "Sweden" = {filter_fields <- present_fields |>
                        stringr::str_remove("s$") |>
                        paste0("IDsCount")
                      glue::glue("{filter_fields}:[1 TO *]")},
-         "United Kingdom" = "(all_image_url:*)", # !is.na(all_image_url),
+         "United Kingdom" = "(all_image_url:*)",
          cli::cli_abort("`atlas_media` is not supported for atlas = {atlas}",
                         call = error_call)
   )

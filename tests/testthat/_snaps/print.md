@@ -73,8 +73,8 @@
       compound(filter(galah_call(), basisOfRecord == "HUMAN_OBSERVATION"))
     Message
       Object of class query_set containing 4 queries:
-      * metadata/fields url: https://api.ala.org.au/occurrences/index/fields
-      * metadata/assertions url: https://api.ala.org.au/occurrences/assertions/codes
+      * metadata/fields data: galah:::retrieve_cache("fields")
+      * metadata/assertions data: galah:::retrieve_cache("assertions")
       * metadata/reasons url: https://api.ala.org.au/logger/service/logger/reasons
       * data/occurrences url:
       https://api.ala.org.au/occurrences/occurrences/offline/...
@@ -87,7 +87,7 @@
       `galah` package configuration
       
       Package
-      v verbose
+      x verbose
       v run_checks
       x send_email
       v caching
@@ -95,10 +95,10 @@
       
       User
       x authentication
-      username [Not Provided]
-      email
-      password [Not Provided]
-      download_reason_id 4
+      username [Provided]
+      email ala4r@ala.org.au
+      password [Provided]
+      download_reason_id 10
       
       Atlas
       Atlas of Living Australia (ALA), Australia

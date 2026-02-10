@@ -1,6 +1,6 @@
 quiet_config <- purrr::quietly(galah_config)
 
-x <- quiet_config(atlas = "GBIF",
+gbif_config <- quiet_config(atlas = "GBIF",
                   username = "atlasoflivingaustralia",
                   email = "ala4r@ala.org.au",
                   password = "galah-gbif-test-login")
@@ -29,8 +29,6 @@ test_that("`filter()` handles a single entry for GBIF", {
   expect_equal(ncol(x), 1)
   expect_true(is.integer(x$count))
 })
-
-# FIXME: `check_fields()` not tested for GBIF - try sending invalid fields to `filter()`
 
 test_that("`filter()` handles multiple (`AND`) queries for GBIF", {
   skip_if_offline(); skip_on_ci()
@@ -105,10 +103,6 @@ test_that("`count()` works with `identify()` for GBIF", {
   expect_equal(ncol(x), 2)
   expect_equal(x$classKey, "359")
 })
-# FIXME: fields returned by show_all(fields) are not the same as those accepted by occurrences/search API
-# This leads to real field names being passed to this API, but not affecting the result
-# accepted fields are here:
-# https://techdocs.gbif.org/en/openapi/v1/occurrence#/Searching%20occurrences/searchOccurrence
 
 test_that("`filter()` handles `OR` and `%in%` for GBIF", {
   skip_if_offline(); skip_on_ci()
@@ -319,5 +313,5 @@ test_that("`count()` works with `galah_radius()` for GBIF", {
 
 # TODO: add assertions?
 
-x <- quiet_config(atlas = "ALA")
-rm(x, quiet_config)
+gbif_config <- quiet_config(atlas = "ALA")
+rm(gbif_config, quiet_config)

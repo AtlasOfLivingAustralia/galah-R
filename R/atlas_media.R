@@ -70,7 +70,7 @@ atlas_media <- function(request = NULL,
       media_fq <- glue::glue("({glue::glue_collapse(media_fq, ' OR ')})") 
     }
     url <- httr2::url_parse(query_collapse$url)
-    url$query$fq <- glue::glue("{url$query$fq} AND {media_fq}")
+    url$query$fq <- glue::glue("{url$query$fq}AND{media_fq}")
     query_collapse$url <- httr2::url_build(url)
   }
 

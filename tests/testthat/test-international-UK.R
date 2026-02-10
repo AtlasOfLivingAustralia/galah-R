@@ -108,15 +108,19 @@ test_that("search_taxa doesn't break with typos", {
 
 test_that("show_values works for UK", {
   skip_if_offline(); skip_on_ci()
+  quiet_values <- function(...){
+    x <- purrr::quietly(show_values)
+    x(...)$result
+  }
+  
+  # fields
   x <- search_fields("basisOfRecord") |>
     show_values() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(nrow(x), 1)
-})
 
-test_that("show_list_values works for United Kingdom", {
-  skip_if_offline(); skip_on_ci()
+  # lists
   x <- search_lists("dr1445") |> 
     show_values() |>
     try(silent = TRUE)
@@ -258,11 +262,17 @@ test_that("atlas_media() works for UK", {
   expect_equal(colnames(x)[1:2],
                c("media_id", "media_type"))
   # download a subset
+  quiet_media <- function(...){
+    x <- purrr::quietly(collect_media)
+    x(...)$result
+  }
   n_downloads <- 5
-  collect_media(x[seq_len(n_downloads), ])
+  quiet_media(x[seq_len(n_downloads), ])
   expect_equal(length(list.files("temp", pattern = ".jpg$")),
                n_downloads)
   unlink("temp", recursive = TRUE)
 })
 
-galah_config(atlas = "Australia")
+quiet_config <- purrr::quietly(galah_config)
+quiet_config(atlas = "Australia")
+rm(quiet_config)

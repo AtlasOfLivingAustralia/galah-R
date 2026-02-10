@@ -112,8 +112,8 @@ collect_occurrences_doi <- function(.query,
 collect_occurrences_glimpse <- function(.query){
   result <- query_API(.query)
 
-  # pull required info from API
-  df_list <- result |>
+  # pull required info from API into a tibble
+  df <- result |>
     purrr::pluck("occurrences") |>
     # non-standard fields are nested within `otherProperties`
     # extract these
@@ -121,11 +121,11 @@ collect_occurrences_glimpse <- function(.query){
       if(any(names(a) == "otherProperties")){
         c(a[names(a) != "otherProperties"],
           a[["otherProperties"]])
+      }else{
+        a
       }
-    }) 
-
-  # create a tibble
-  df <- dplyr::bind_rows(df_list) 
+    }) |>
+    dplyr::bind_rows()
   attr(df, "total_n") <- result$totalRecords
 
   # assign new object for bespoke printing
