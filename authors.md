@@ -13,7 +13,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/AtlasOfLivingAustralia/galah-R/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/AtlasOfLivingAustralia/galah-R/blob/v2.2.0/inst/CITATION)
 
 Westgate M, Kellie D, Balasubramaniam S, Stevenson M (2026). *galah:
 Biodiversity Data from the GBIF Node Network*. R package version 2.2.0,
