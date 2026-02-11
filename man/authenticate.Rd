@@ -24,3 +24,19 @@ of \code{\link[=galah_config]{galah_config()}} is set to \code{TRUE}, but only f
 to the Atlas of Living Australia.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}.
 }
+\examples{
+\dontrun{
+# use `galah_config()` to set for all occurrence queries
+galah_config(authenticate = TRUE)
+
+x <- galah_call() |>
+  identify("Wollemia nobilis") |>
+  collect()
+
+# use in-pipe for more control
+x <- galah_call() |>
+  identify("Wollemia nobilis") |>
+  authenticate() |>
+  collect()
+}
+}

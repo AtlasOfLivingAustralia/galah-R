@@ -26,3 +26,13 @@ This implementation of \code{\link[=glimpse]{glimpse()}} actually involves chang
 sent to the server, then returning a novel object class with it's own
 \code{\link[=print]{print()}} method.
 }
+\examples{
+\dontrun{
+galah_call() |>
+  filter(year >= 2019,
+         basisOfRecord == "HumanObservation") |>
+  select(year, basisOfRecord, species) |>
+  glimpse() |>
+  collect()
+}
+}

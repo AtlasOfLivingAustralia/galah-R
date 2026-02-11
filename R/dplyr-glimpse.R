@@ -12,6 +12,14 @@
 #' sent to the server, then returning a novel object class with it's own 
 #' [print()] method.
 #' @name glimpse.data_request
+#' @examples \dontrun{
+#' galah_call() |>
+#'   filter(year >= 2019,
+#'          basisOfRecord == "HumanObservation") |>
+#'   select(year, basisOfRecord, species) |>
+#'   glimpse() |>
+#'   collect()
+#' }
 #' @export
 glimpse.data_request <- function(x, ...){
   update_request_object(x, glimpse = TRUE)

@@ -62,6 +62,7 @@ test_that("`galah_config()` formats correctly", {
                directory = "something",
                verbose = FALSE,
                caching = TRUE,
+               run_checks = TRUE,
                download_reason_id = 10)
   galah_config() |>
     expect_snapshot()

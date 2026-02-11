@@ -11,6 +11,20 @@
 #' to `FALSE`
 #' @returns An object of the same class as supplied, but with an added
 #' `authenticate` slot.
+#' @examples \dontrun{
+#' # use `galah_config()` to set for all occurrence queries
+#' galah_config(authenticate = TRUE)
+#' 
+#' x <- galah_call() |>
+#'   identify("Wollemia nobilis") |>
+#'   collect()
+#' 
+#' # use in-pipe for more control
+#' x <- galah_call() |>
+#'   identify("Wollemia nobilis") |>
+#'   authenticate() |>
+#'   collect()
+#' }
 #' @export
 authenticate <- function(.data,
                          cache_disk = FALSE){
