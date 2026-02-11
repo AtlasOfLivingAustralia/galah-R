@@ -112,6 +112,39 @@ collect_occurrences_doi <- function(.query,
 #' @noRd
 #' @keywords Internal
 collect_occurrences_glimpse <- function(.query){
+  if(is_gbif()){
+    collect_occurrences_glimpse_gbif(.query)
+  }else{
+    collect_occurrences_glimpse_la(.query)
+  }
+}
+
+#' collect type `data/occurrences-glimpse` for GBIF
+#' @noRd
+#' @keywords Internal
+collect_occurrences_glimpse_gbif <- function(.query){
+  result <- query_API(.query)
+
+  # convert to tibble
+  df <- result |>
+    purrr::pluck("results") |>
+    purrr::map(tidy_list_columns) |>
+    dplyr::bind_rows()
+  attr(df, "total_n") <- result$count
+
+   # assign new object for bespoke printing
+  if(tibble::is_tibble(df)){
+    structure(df, 
+              class = c("occurrences_glimpse", "tbl_df", "tbl", "data.frame")) 
+  }else{
+    df # not sure what use case this is, but probably NULL
+  }
+}
+
+#' collect type `data/occurrences-glimpse` for living atlases
+#' @noRd
+#' @keywords Internal
+collect_occurrences_glimpse_la <- function(.query){
   result <- query_API(.query)
 
   # pull required info from API into a tibble

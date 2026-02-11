@@ -79,11 +79,11 @@ parse_slice_arrange <- function(df){
 #' @keywords Internal
 #' @noRd
 capture_occurrences_count_gbif <- function(identify = NULL, 
-                                            filter = NULL,
-                                            geolocate = NULL,
-                                            group_by = NULL,
-                                            slice = NULL # probably broken
-                                            ){
+                                           filter = NULL,
+                                           geolocate = NULL,
+                                           group_by = NULL,
+                                           slice = NULL # probably broken
+                                           ){
   # compile supplied arguments into a list
   # honestly this is a little messy, but the alternative is to call 
   # [build_predicates()], which is messier as taxonomic info hasn't yet been 

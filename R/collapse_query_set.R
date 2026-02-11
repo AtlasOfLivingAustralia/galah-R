@@ -31,6 +31,12 @@ collapse_query_set <- function(x,
              }
            }
          },
+         "data/occurrences-glimpse" = {
+           if(is_gbif()){
+            collapse_occurrences_count_gbif(x, limit = 3)
+           }else{
+             x
+           }},
          "data/species" = collapse_occurrences(x), # optimised for GBIF
          "data/species-count" = collapse_species_count(x),
          # "-unnest" functions require some checks

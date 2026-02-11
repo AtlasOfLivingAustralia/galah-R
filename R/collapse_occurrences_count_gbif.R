@@ -4,9 +4,9 @@
 #' @param x A list with slots relevant to building predicates
 #' @noRd
 #' @keywords Internal
-collapse_occurrences_count_gbif <- function(x){
+collapse_occurrences_count_gbif <- function(x, limit = 0){
   x$body <- list(predicate = build_predicates(x$body),
-                 limit = 0) |>
+                 limit = limit) |>
     remove_nulls_from_list() |>
     jsonlite::toJSON(auto_unbox = TRUE,
                      pretty = TRUE)

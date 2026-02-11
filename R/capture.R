@@ -305,11 +305,14 @@ check_glimpse <- function(x){
   if(!is.null(x$glimpse)){
     if(x$type == "occurrences"){
       x$type <- "occurrences-glimpse"
+      x
     }else{
       cli::cli_inform("`glimpse()` is only supported for `type =\"occurrences\"")
+      x
     }
+  }else{
+    x
   }
-  x
 }
   
 #' Internal function to check `slice` and `arrange` for counts

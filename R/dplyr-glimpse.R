@@ -24,8 +24,5 @@ print.occurrences_glimpse <- function(x, ...){
   n_text <- attr(x, 'total_n') |>
     formatC(big.mark = ",")
   y[[1]] <- glue::glue("Rows: {n_text}")
-  cli::cli({
-    purrr::map(y, cli::cli_text) |>
-      invisible()
-  })
+  cli::cat_line(y)
 }

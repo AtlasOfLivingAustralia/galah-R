@@ -210,7 +210,7 @@ test_that("`glimpse()` works for Flanders", {
   expect_s3_class(x, c("occurrences_glimpse", "tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(x), 3) # number of rows in the tibble
   quiet_print <- purrr::quietly(print.occurrences_glimpse)
-  x_print <- strsplit(quiet_print(x)$messages, "\n")[[1]] # print statement
+  x_print <- strsplit(quiet_print(x)$output, "\n")[[1]] # print statement
   expect_gt(length(x_print), 5)
   stringr::str_detect(x_print,
                        "^\\$ (taxonConceptID|eventDate|decimalLatitude|scientificName)") |>

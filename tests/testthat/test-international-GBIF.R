@@ -249,7 +249,24 @@ test_that("`count()` works with `identify` for GBIF when `run_checks` = TRUE", {
   expect_equal(nrow(z), 1)
 })
 
-## TODO: Add a more basic occurrences check
+test_that("`glimpse()` works for GBIF", {
+  skip_if_offline(); skip_on_ci()
+  x <- galah_call() |>
+    filter(year == 2025) |>
+    glimpse() |>
+    collect()
+  expect_s3_class(x, c("occurrences_glimpse", "tbl_df", "tbl", "data.frame"))
+  expect_equal(nrow(x), 3) # number of rows in the tibble
+  quiet_print <- purrr::quietly(print.occurrences_glimpse)
+  x_print <- strsplit(quiet_print(x)$output, "\n")[[1]] # print statement
+  expect_gt(length(x_print), 5)
+  stringr::str_detect(x_print,
+                       "^\\$ (taxonConceptID|eventDate|decimalLatitude)") |>
+    which() |>
+    length() |>
+    expect_equal(3)
+})
+
 test_that("`atlas_occurrences()` works for GBIF", {
   skip_if_offline(); skip_on_ci()
   galah_config(atlas = "GBIF",

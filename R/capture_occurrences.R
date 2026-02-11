@@ -138,8 +138,10 @@ capture_occurrences_doi <- function(.query,
 #' @keywords Internal
 capture_occurrences_glimpse <- function(.query){
   if(is_gbif()){
-    # browser() # not coded yet
-    .query
+    result <- capture_occurrences_count(.query)
+    result$body$limit <- 3
+    result$type <- "data/occurrences-glimpse"
+    as_prequery(result)
   }else{
     result <- capture_occurrences_la(.query)
     url <- httr2::url_parse(result$url)
@@ -155,6 +157,6 @@ capture_occurrences_glimpse <- function(.query){
     # rebuild and ship
     result$url <- httr2::url_build(url)
     result$type <- "data/occurrences-glimpse"
-    result
+    as_prequery(result)
   }
 }
