@@ -294,11 +294,7 @@ replaces the need for
 call, while
 [`atlas_media()`](https://galah.ala.org.au/R/reference/atlas_.md) is a
 shortcut to a complex workflow that incorporates both data and metadata
-calls; see the [downloading images and
-sounds](https://galah.ala.org.au/R/articles/downloading_images_and_sounds.md)
-vignette for details.
-
-Finally, metadata calls can be made more efficiently using the
+calls. Finally, metadata calls can be made more efficiently using the
 [`show_all()`](https://galah.ala.org.au/R/reference/show_all.md) and
 [`show_values()`](https://galah.ala.org.au/R/reference/show_values.md)
 functions. These take the same arguments as the `type` argument in
@@ -326,5 +322,5 @@ show_all(fields)
     ## # ℹ 629 more rows
 
 You can check the [look up
-information](https://galah.ala.org.au/R/articles/lookup_up_information.md)
+information](https://galah.ala.org.au/R/articles/look_up_information.html)
 vignette for further details.
