@@ -1,7 +1,7 @@
 ---
 title: "Quick start guide"
 author: "Martin Westgate & Dax Kellie"
-date: '2026-02-09'
+date: '2026-02-11'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -79,13 +79,13 @@ galah_call() |>            # open a pipe
 ## # A tibble: 7 × 2
 ##   year     count
 ##   <chr>    <int>
-## 1 2024  11884223
-## 2 2023  11007008
-## 3 2022   9429562
-## 4 2025   9132194
-## 5 2021   8692767
-## 6 2020   7311538
-## 7 2026    256885
+## 1 2024  11889930
+## 2 2023  11007491
+## 3 2022   9430065
+## 4 2025   9142677
+## 5 2021   8695248
+## 6 2020   7311836
+## 7 2026    309836
 ```
 
 Or to find the number of categories present in a dataset, for example how many 
@@ -122,14 +122,14 @@ galah_call() |>
 ```
 ## Rows: 21,984
 ## Columns: 8
-## $ taxonConceptID <chr> "https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea", "https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c46…
-## $ eventDate <dbl> 1.281139e+12, 1.292890e+12, 1.270944e+12
-## $ scientificName <chr> "Eolophus roseicapilla", "Eolophus roseicapilla", "Eolophus roseicapilla"
-## $ decimalLatitude <dbl> -36.975, -31.600, -35.240
-## $ decimalLongitude <dbl> 143.8083, 116.5200, 138.9100
-## $ basisOfRecord <chr> "HUMAN_OBSERVATION", "HUMAN_OBSERVATION", "HUMAN_OBSERVATION"
-## $ dataResourceName <chr> "Victorian Biodiversity Atlas", "BirdLife Australia, Birdata", "BirdLife Australia, Birdata"
-## $ occurrenceStatus <chr> "PRESENT", "PRESENT", "PRESENT"
+## $ taxonConceptID   <chr> "https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea", "https://biodiversity.org.au…
+## $ eventDate        <dbl> 1.272672e+12, 1.289002e+12, 1.291014e+12
+## $ scientificName   <chr> "Eolophus roseicapilla", "Eolophus roseicapilla", "Eolophus roseicapilla"
+## $ decimalLatitude  <dbl> -25.98833, -37.83032, -35.41707
+## $ decimalLongitude <dbl> 152.0442, 144.9812, 138.6868
+## $ basisOfRecord    <chr> "HUMAN_OBSERVATION", "HUMAN_OBSERVATION", "HUMAN_OBSERVATION"
+## $ dataResourceName <chr> "BirdLife Australia, Birdata", "eBird Australia", "eBird Australia"
+## $ occurrenceStatus <chr> "PRESENT", "ABSENT", "ABSENT"
 ```
 
 And, once satisfied that your parameters are correct, download the records 
@@ -150,15 +150,15 @@ galah_call() |>
 ## # A tibble: 21,984 × 3
 ##    eventDate decimalLatitude species              
 ##    <dttm>              <dbl> <chr>                
-##  1 NA                  -38.2 Eolophus roseicapilla
+##  1 NA                  -36.5 Eolophus roseicapilla
 ##  2 NA                  -38.2 Eolophus roseicapilla
-##  3 NA                  -36.1 Eolophus roseicapilla
-##  4 NA                  -38.5 Eolophus roseicapilla
+##  3 NA                  -37.0 Eolophus roseicapilla
+##  4 NA                  -37.7 Eolophus roseicapilla
 ##  5 NA                  -35.6 Eolophus roseicapilla
-##  6 NA                  -38.3 Eolophus roseicapilla
+##  6 NA                  -31.1 Eolophus roseicapilla
 ##  7 NA                  -38.2 Eolophus roseicapilla
 ##  8 NA                  -38.2 Eolophus roseicapilla
-##  9 NA                  -38.3 Eolophus roseicapilla
+##  9 NA                  -38.2 Eolophus roseicapilla
 ## 10 NA                  -38.2 Eolophus roseicapilla
 ## # ℹ 21,974 more rows
 ```
@@ -277,7 +277,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 9132194
+## 1 9142677
 ```
 
 Or occurrences:
@@ -294,15 +294,16 @@ galah_call() |>
 
 ```
 ## # A tibble: 2,032 × 9
-##   recordID                             scientificName       taxonConceptID decimalLatitude decimalLongitude eventDate           basisOfRecord occurrenceStatus dataResourceName
-##   <chr>                                <chr>                <chr>                    <dbl>            <dbl> <dttm>              <chr>         <chr>            <chr>           
-## 1 0026d29f-b6ab-4a1d-9c57-6ee12cfde3a0 Eolophus roseicapil… https://biodi…           -35.4             149. 2000-08-07 00:00:00 HUMAN_OBSERV… PRESENT          Garden Bird Sur…
-## 2 0062d446-007b-4164-ac4f-ae84297e2578 Eolophus roseicapil… https://biodi…           -35.3             149. 2000-03-10 00:00:00 HUMAN_OBSERV… PRESENT          BirdLife Austra…
-## 3 00a62ee0-1e08-4114-b0d8-9b7905472d53 Eolophus roseicapil… https://biodi…           -35.2             149. 2000-01-29 00:00:00 HUMAN_OBSERV… PRESENT          Garden Bird Sur…
-## 4 00ab2f4d-326f-4b01-9a8a-1a10c1f77e3c Eolophus roseicapil… https://biodi…           -35.4             149. 2000-09-25 00:00:00 HUMAN_OBSERV… PRESENT          Garden Bird Sur…
-## 5 00ae4631-ea59-44ec-b8f8-4377b6b3b3ef Eolophus roseicapil… https://biodi…           -35.3             149. 2000-02-12 00:00:00 HUMAN_OBSERV… PRESENT          BirdLife Austra…
-## 6 00b6c8ec-e7b9-4d9f-9638-d962b1b4acfa Eolophus roseicapil… https://biodi…           -35.2             149. 2000-02-05 00:00:00 HUMAN_OBSERV… PRESENT          Garden Bird Sur…
+##   recordID         scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           basisOfRecord occurrenceStatus
+##   <chr>            <chr>          <chr>                    <dbl>            <dbl> <dttm>              <chr>         <chr>           
+## 1 0026d29f-b6ab-4… Eolophus rose… https://biodi…           -35.4             149. 2000-08-07 00:00:00 HUMAN_OBSERV… PRESENT         
+## 2 0062d446-007b-4… Eolophus rose… https://biodi…           -35.3             149. 2000-03-10 00:00:00 HUMAN_OBSERV… PRESENT         
+## 3 00a62ee0-1e08-4… Eolophus rose… https://biodi…           -35.2             149. 2000-01-29 00:00:00 HUMAN_OBSERV… PRESENT         
+## 4 00ab2f4d-326f-4… Eolophus rose… https://biodi…           -35.4             149. 2000-09-25 00:00:00 HUMAN_OBSERV… PRESENT         
+## 5 00ae4631-ea59-4… Eolophus rose… https://biodi…           -35.3             149. 2000-02-12 00:00:00 HUMAN_OBSERV… PRESENT         
+## 6 00b6c8ec-e7b9-4… Eolophus rose… https://biodi…           -35.2             149. 2000-02-05 00:00:00 HUMAN_OBSERV… PRESENT         
 ## # ℹ 2,026 more rows
+## # ℹ 1 more variable: dataResourceName <chr>
 ```
 
 `atlas_species()` replaces the need for `distinct()` call, while `atlas_media()`

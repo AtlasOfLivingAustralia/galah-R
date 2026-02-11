@@ -1,7 +1,7 @@
 ---
 title: "Accessing sensitive data"
 author: "Martin Westgate"
-date: "2025-10-29"
+date: "2026-02-11"
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -39,43 +39,37 @@ Framework for the Sharing of Restricted Access Species Data in Australia, more
 simply known as the 'RASD framework' (https://www.rasd.org.au). 
 
 If your access to sensitive data is approved by the provider(s) in question,
-from version 2.2.0 you can use 'galah' to access that sensitive data. 
+you can use 'galah' to access that sensitive data. 
 
-# Switching on authentication
+# Using authentication
 
-First, you will need to add your email address and password, as usual for
-downloads via `galah`. Because you might want to share your script at some 
-point, we do not recommend that you simply type these into your script. Instead,
-if you save your information in json format, you can import it directly to 
-R without ever showing the text in your script. For example, if you save this 
-text into a file:
-
-
-``` r
-{"email":"my.email@email.com", "password":"the-most-secure-password-ever"}
-```
-
-Then, if we import this from JSON to a list, we can pass it directly to 
-`galah_config()` without typing secret information into our script. 
-
-
-``` r
-jsonlite::fromJSON("my_secret_information.txt") |>
-  galah_config()
-```
-
-The second step is to switch on authentication, also via `galah_config()`. 
-This downloads a client ID and set of URLs from the ALA that enable 
-authentication, and also triggers later queries to run an authentication process.
+You have two choices for how to call authentication in your queries. The 
+simplest way is to 'switch on' authentication using `galah_config()`:
 
 
 ``` r
 galah_config(authenticate = TRUE)
 ```
 
-That's it! What happens next is that your first query will trigger your browser
-to open. Once you have successfully signed in to the ALA, later queries will
-have the full set of permissions available to you via `galah`.
+This is straightforward, but you'll have to remember to switch
+`authentication` to `FALSE` again once you're done. A safer choice is to 
+use the `authenticate()` function in-pipe:
+
+
+``` r
+df <- galah_call() |>
+  identify("Mammalia") |>
+  filter(year == 2025) |>
+  authenticate() |>
+  collect()
+```
+
+It doesn't matter where in the pipe you place `authenticate()`, as it will only
+trigger your browser to open once you run `collect()`. Whichever method
+you use, you'll notice a page pop up in your default browser, encouraging 
+you to sign in. Once you have done so, you should be redirected back to your
+chosen IDE to continue working.
+
 
 # Deciding what sensitive data to access
 
@@ -84,35 +78,23 @@ existing field name prefixed with `sensitive_`. They cannot be requested
 directly. Instead, if you request a field that has a sensitive counterpart, both 
 the public and sensitive version of that field will be returned.
 
-
-```
-## 
-## Attaching package: 'gt'
-```
-
-```
-## The following object is masked from 'package:testthat':
-## 
-##     matches
-```
-
-<!--html_preserve--><div id="nibetlyjiv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#nibetlyjiv table {
+<!--html_preserve--><div id="suepizzkgk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#suepizzkgk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#nibetlyjiv thead, #nibetlyjiv tbody, #nibetlyjiv tfoot, #nibetlyjiv tr, #nibetlyjiv td, #nibetlyjiv th {
+#suepizzkgk thead, #suepizzkgk tbody, #suepizzkgk tfoot, #suepizzkgk tr, #suepizzkgk td, #suepizzkgk th {
   border-style: none;
 }
 
-#nibetlyjiv p {
+#suepizzkgk p {
   margin: 0;
   padding: 0;
 }
 
-#nibetlyjiv .gt_table {
+#suepizzkgk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -138,12 +120,12 @@ the public and sensitive version of that field will be returned.
   border-left-color: #D3D3D3;
 }
 
-#nibetlyjiv .gt_caption {
+#suepizzkgk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#nibetlyjiv .gt_title {
+#suepizzkgk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -155,7 +137,7 @@ the public and sensitive version of that field will be returned.
   border-bottom-width: 0;
 }
 
-#nibetlyjiv .gt_subtitle {
+#suepizzkgk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -167,7 +149,7 @@ the public and sensitive version of that field will be returned.
   border-top-width: 0;
 }
 
-#nibetlyjiv .gt_heading {
+#suepizzkgk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -179,13 +161,13 @@ the public and sensitive version of that field will be returned.
   border-right-color: #D3D3D3;
 }
 
-#nibetlyjiv .gt_bottom_border {
+#suepizzkgk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nibetlyjiv .gt_col_headings {
+#suepizzkgk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -200,7 +182,7 @@ the public and sensitive version of that field will be returned.
   border-right-color: #D3D3D3;
 }
 
-#nibetlyjiv .gt_col_heading {
+#suepizzkgk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -220,7 +202,7 @@ the public and sensitive version of that field will be returned.
   overflow-x: hidden;
 }
 
-#nibetlyjiv .gt_column_spanner_outer {
+#suepizzkgk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -232,15 +214,15 @@ the public and sensitive version of that field will be returned.
   padding-right: 4px;
 }
 
-#nibetlyjiv .gt_column_spanner_outer:first-child {
+#suepizzkgk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nibetlyjiv .gt_column_spanner_outer:last-child {
+#suepizzkgk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nibetlyjiv .gt_column_spanner {
+#suepizzkgk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -252,11 +234,11 @@ the public and sensitive version of that field will be returned.
   width: 100%;
 }
 
-#nibetlyjiv .gt_spanner_row {
+#suepizzkgk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#nibetlyjiv .gt_group_heading {
+#suepizzkgk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -282,7 +264,7 @@ the public and sensitive version of that field will be returned.
   text-align: left;
 }
 
-#nibetlyjiv .gt_empty_group_heading {
+#suepizzkgk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -297,15 +279,15 @@ the public and sensitive version of that field will be returned.
   vertical-align: middle;
 }
 
-#nibetlyjiv .gt_from_md > :first-child {
+#suepizzkgk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nibetlyjiv .gt_from_md > :last-child {
+#suepizzkgk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nibetlyjiv .gt_row {
+#suepizzkgk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -324,7 +306,7 @@ the public and sensitive version of that field will be returned.
   overflow-x: hidden;
 }
 
-#nibetlyjiv .gt_stub {
+#suepizzkgk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -337,7 +319,7 @@ the public and sensitive version of that field will be returned.
   padding-right: 5px;
 }
 
-#nibetlyjiv .gt_stub_row_group {
+#suepizzkgk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -351,15 +333,15 @@ the public and sensitive version of that field will be returned.
   vertical-align: top;
 }
 
-#nibetlyjiv .gt_row_group_first td {
+#suepizzkgk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#nibetlyjiv .gt_row_group_first th {
+#suepizzkgk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#nibetlyjiv .gt_summary_row {
+#suepizzkgk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -369,16 +351,16 @@ the public and sensitive version of that field will be returned.
   padding-right: 5px;
 }
 
-#nibetlyjiv .gt_first_summary_row {
+#suepizzkgk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#nibetlyjiv .gt_first_summary_row.thick {
+#suepizzkgk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#nibetlyjiv .gt_last_summary_row {
+#suepizzkgk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -388,7 +370,7 @@ the public and sensitive version of that field will be returned.
   border-bottom-color: #D3D3D3;
 }
 
-#nibetlyjiv .gt_grand_summary_row {
+#suepizzkgk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -398,7 +380,7 @@ the public and sensitive version of that field will be returned.
   padding-right: 5px;
 }
 
-#nibetlyjiv .gt_first_grand_summary_row {
+#suepizzkgk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -408,7 +390,7 @@ the public and sensitive version of that field will be returned.
   border-top-color: #D3D3D3;
 }
 
-#nibetlyjiv .gt_last_grand_summary_row_top {
+#suepizzkgk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -418,11 +400,11 @@ the public and sensitive version of that field will be returned.
   border-bottom-color: #D3D3D3;
 }
 
-#nibetlyjiv .gt_striped {
+#suepizzkgk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nibetlyjiv .gt_table_body {
+#suepizzkgk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -431,7 +413,7 @@ the public and sensitive version of that field will be returned.
   border-bottom-color: #D3D3D3;
 }
 
-#nibetlyjiv .gt_footnotes {
+#suepizzkgk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -445,7 +427,7 @@ the public and sensitive version of that field will be returned.
   border-right-color: #D3D3D3;
 }
 
-#nibetlyjiv .gt_footnote {
+#suepizzkgk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -454,7 +436,7 @@ the public and sensitive version of that field will be returned.
   padding-right: 5px;
 }
 
-#nibetlyjiv .gt_sourcenotes {
+#suepizzkgk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -468,7 +450,7 @@ the public and sensitive version of that field will be returned.
   border-right-color: #D3D3D3;
 }
 
-#nibetlyjiv .gt_sourcenote {
+#suepizzkgk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -476,72 +458,72 @@ the public and sensitive version of that field will be returned.
   padding-right: 5px;
 }
 
-#nibetlyjiv .gt_left {
+#suepizzkgk .gt_left {
   text-align: left;
 }
 
-#nibetlyjiv .gt_center {
+#suepizzkgk .gt_center {
   text-align: center;
 }
 
-#nibetlyjiv .gt_right {
+#suepizzkgk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nibetlyjiv .gt_font_normal {
+#suepizzkgk .gt_font_normal {
   font-weight: normal;
 }
 
-#nibetlyjiv .gt_font_bold {
+#suepizzkgk .gt_font_bold {
   font-weight: bold;
 }
 
-#nibetlyjiv .gt_font_italic {
+#suepizzkgk .gt_font_italic {
   font-style: italic;
 }
 
-#nibetlyjiv .gt_super {
+#suepizzkgk .gt_super {
   font-size: 65%;
 }
 
-#nibetlyjiv .gt_footnote_marks {
+#suepizzkgk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#nibetlyjiv .gt_asterisk {
+#suepizzkgk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#nibetlyjiv .gt_indent_1 {
+#suepizzkgk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#nibetlyjiv .gt_indent_2 {
+#suepizzkgk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#nibetlyjiv .gt_indent_3 {
+#suepizzkgk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#nibetlyjiv .gt_indent_4 {
+#suepizzkgk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#nibetlyjiv .gt_indent_5 {
+#suepizzkgk .gt_indent_5 {
   text-indent: 25px;
 }
 
-#nibetlyjiv .katex-display {
+#suepizzkgk .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#nibetlyjiv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#suepizzkgk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -584,7 +566,6 @@ the public and sensitive version of that field will be returned.
     <tr><td headers="public_field" class="gt_row gt_left">verbatimLongitude</td>
 <td headers="restricted_field" class="gt_row gt_left">sensitive_verbatimLongitude</td></tr>
   </tbody>
-  
   
 </table>
 </div><!--/html_preserve-->

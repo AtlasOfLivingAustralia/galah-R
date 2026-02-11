@@ -28,10 +28,12 @@ navbar:
       - text: Further information
       - text: Looking up information
         href: articles/look_up_information.html
+      - text: Accessing sensitive data
+        href: articles/accessing_sensitive_data.html
       - text: Reproduciblility
         href: articles/download-data-reproducibly.html
-      - text: Downloading images and sounds
-        href: articles/downloading_images_and_sounds.html
+      - text: Object oriented programming
+        href: articles/object-oriented-programming.html
       - text: ---
       - text: Filtering
       - text: Taxonomic filtering
