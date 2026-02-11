@@ -27,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,15 +40,13 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><h6 class="dropdown-header" data-toc-skip>Get started</h6></li>
-    <li><a class="dropdown-item" href="../articles/choosing_an_atlas.html">Choosing an atlas</a></li>
-    <li><a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a></li>
-    <li><a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a></li>
-    <li><a class="dropdown-item" href="../articles/download_data.html">Download data</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
-    <li><a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a></li>
+<li><h6 class="dropdown-header" data-toc-skip>Further information</h6></li>
+    <li><a class="dropdown-item" href="../articles/look_up_information.html">Looking up information</a></li>
+    <li><a class="dropdown-item" href="../articles/accessing_sensitive_data.html">Accessing sensitive data</a></li>
     <li><a class="dropdown-item" href="../articles/download-data-reproducibly.html">Reproduciblility</a></li>
+    <li><a class="dropdown-item" href="../articles/object-oriented-programming.html">Object oriented programming</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Filtering</h6></li>
     <li><a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a></li>
     <li><a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a></li>
     <li><a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a></li>
@@ -78,16 +76,16 @@
                         <h4 data-toc-skip class="author">Martin Westgate
 &amp; Dax Kellie</h4>
             
-            <h4 data-toc-skip class="date">2024-11-19</h4>
+            <h4 data-toc-skip class="date">2026-02-11</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/v2.1.2/vignettes/quick_start_guide.Rmd" class="external-link"><code>vignettes/quick_start_guide.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/main/vignettes/quick_start_guide.Rmd" class="external-link"><code>vignettes/quick_start_guide.Rmd</code></a></small>
       <div class="d-none name"><code>quick_start_guide.Rmd</code></div>
     </div>
 
     
     
-<p>galah is an R interface to biodiversity data hosted by the Global
-Biodiversity Information Facility (<a href="https://www.gbif.org" class="external-link">GBIF</a>) and its subsidiary node
+<p><code>galah</code> is an R interface to biodiversity data hosted by
+the Global Biodiversity Information Facility (<a href="https://www.gbif.org" class="external-link">GBIF</a>) and its subsidiary node
 organisations. GBIF and its partner nodes collate and store observations
 of individual life forms using the <a href="https://dwc.tdwg.org" class="external-link">‘Darwin Core’</a> data standard.</p>
 <div class="section level2">
@@ -107,147 +105,258 @@ of individual life forms using the <a href="https://dwc.tdwg.org" class="externa
 <div class="section level2">
 <h2 id="configuration">Configuration<a class="anchor" aria-label="anchor" href="#configuration"></a>
 </h2>
-<p>By default, galah downloads information from the Atlas of Living
-Australia (ALA). To show the full list of organisations currently
-supported by galah, use <code>show_all(atlases)</code>.</p>
+<p>Begin by choosing which organisation you would like
+<code>galah</code> to query, and providing your registration information
+for that organisation.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/show_all.html">show_all</a></span><span class="op">(</span><span class="va">atlases</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 10 × 4</span></span>
-<span><span class="co">##    region         institution                                                             acronym url                    </span></span>
-<span><span class="co">##    &lt;chr&gt;          &lt;chr&gt;                                                                   &lt;chr&gt;   &lt;chr&gt;                  </span></span>
-<span><span class="co">##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au </span></span>
-<span><span class="co">##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityat…</span></span>
-<span><span class="co">##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br   </span></span>
-<span><span class="co">##  4 France         Portail français d'accès aux données d'observation sur les espèces      OpenObs https://openobs.mnhn.fr</span></span>
-<span><span class="co">##  5 Global         Global Biodiversity Information Facility                                GBIF    https://gbif.org       </span></span>
-<span><span class="co">##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob…</span></span>
-<span><span class="co">##  7 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt    </span></span>
-<span><span class="co">##  8 Spain          GBIF Spain                                                              GBIF.es https://gbif.es        </span></span>
-<span><span class="co">##  9 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversityda…</span></span>
-<span><span class="co">## 10 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk</span></span></code></pre>
-<p>Use <code><a href="../reference/galah_config.html">galah_config()</a></code> to set the node organisation using
-its region, name, or acronym. Once set, <code>galah</code> will
-automatically populate the server configuration for your selected GBIF
-node. To download occurrence records from your chosen GBIF node, you
-will need to register an account with them (using their website), then
-provide your registration email to galah. To download from GBIF, you
-will need to provide the email, username, and password.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>atlas <span class="op">=</span> <span class="st">"GBIF"</span>,</span>
 <span>             username <span class="op">=</span> <span class="st">"user1"</span>,</span>
 <span>             email <span class="op">=</span> <span class="st">"email@email.com"</span>,</span>
 <span>             password <span class="op">=</span> <span class="st">"my_password"</span><span class="op">)</span></span></code></pre></div>
-<p>You can find a full list of configuration options by running
-<code><a href="../reference/galah_config.html">?galah_config</a></code>.</p>
+<p>The full list of supported queries by organisation is as follows:</p>
+<div class="figure">
+<img src="../reference/figures/atlases_plot.png" alt="Fig 1: Organisations and APIs supported by galah" width="100%"><p class="caption">
+Fig 1: Organisations and APIs supported by galah
+</p>
+</div>
 </div>
 <div class="section level2">
-<h2 id="basic-syntax">Basic syntax<a class="anchor" aria-label="anchor" href="#basic-syntax"></a>
+<h2 id="getting-data">Getting data<a class="anchor" aria-label="anchor" href="#getting-data"></a>
 </h2>
-<p>The standard method to construct queries in <a href="https://galah.ala.org.au/R/">galah</a> is
-via piped functions. Pipes in <code>galah</code> start with the
-<code><a href="../reference/galah_call.html">galah_call()</a></code> function, and typically end with
-<code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code>, though <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code> and
-<code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">compute()</a></code> are also supported. The development team use the
-base pipe by default (<code>|&gt;</code>), but the
-<a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a> pipe (<code>%&gt;%</code>) should work too.</p>
+<p><code>galah</code> is a <code>dplyr</code> extension package; rather
+than using pipes to amend a <code>tibble</code> in your workspace, you
+amend a query, which is then sent to your chosen organisation. These
+pipes differ from traditional syntax in two ways:</p>
+<ul>
+<li>they begin with a function - usually <code><a href="../reference/galah_call.html">galah_call()</a></code> -
+instead of a <code>tibble</code>
+</li>
+<li>they end with one of <code>dplyr</code>’s evaluation functions,
+usually <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code>
+</li>
+</ul>
+<p>So an example query might be to find the number of records per
+year:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>atlas <span class="op">=</span> <span class="st">"Australia"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span>            <span class="co"># open a pipe</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># choose rows to keep</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span>           <span class="co"># count the number of rows</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>                <span class="co"># retrieve query from the server</span></span></code></pre></div>
+<pre><code><span><span class="co">## # A tibble: 7 × 2</span></span>
+<span><span class="co">##   year     count</span></span>
+<span><span class="co">##   &lt;chr&gt;    &lt;int&gt;</span></span>
+<span><span class="co">## 1 2024  11889930</span></span>
+<span><span class="co">## 2 2023  11007491</span></span>
+<span><span class="co">## 3 2022   9430065</span></span>
+<span><span class="co">## 4 2025   9142677</span></span>
+<span><span class="co">## 5 2021   8695248</span></span>
+<span><span class="co">## 6 2020   7311836</span></span>
+<span><span class="co">## 7 2026    309836</span></span></code></pre>
+<p>Or to find the number of categories present in a dataset, for example
+how many species are present:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>atlas <span class="op">=</span> <span class="st">"ALA"</span>,</span>
-<span>             verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
-<span><span class="co">##       count</span></span>
-<span><span class="co">##       &lt;int&gt;</span></span>
-<span><span class="co">## 1 146185520</span></span></code></pre>
-<p>To pass more complex queries, you can use additional
-<a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a> functions such as <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code>,
-<code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code>, and <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code>.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
-<span><span class="co">##      count</span></span>
-<span><span class="co">##      &lt;int&gt;</span></span>
-<span><span class="co">## 1 40200358</span></span></code></pre>
-<p>Each GBIF node allows you to query using their own set of in-built
-fields. You can investigate which fields are available using
-<code><a href="../reference/show_all.html">show_all()</a></code> and <code><a href="../reference/search_all.html">search_all()</a></code>:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">fields</span>, <span class="st">"australian states"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 2 × 3</span></span>
-<span><span class="co">##   id     description                            type  </span></span>
-<span><span class="co">##   &lt;chr&gt;  &lt;chr&gt;                                  &lt;chr&gt; </span></span>
-<span><span class="co">## 1 cl2013 ASGS Australian States and Territories fields</span></span>
-<span><span class="co">## 2 cl22   Australian States and Territories      fields</span></span></code></pre>
-</div>
-<div class="section level2">
-<h2 id="taxonomic-searches">Taxonomic searches<a class="anchor" aria-label="anchor" href="#taxonomic-searches"></a>
-</h2>
-<p>To narrow your search to a particular taxonomic group, use
-<code><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify()</a></code>. Note that this function only accepts scientific
-names and is not case sensitive. It’s good practice to first use
-<code><a href="../reference/search_all.html">search_taxa()</a></code> to check that the taxa you provide returns
-the correct taxonomic results.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/search_all.html">search_taxa</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="co"># Check whether taxonomic info is correct</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 1 × 9</span></span>
-<span><span class="co">##   search_term scientific_name taxon_concept_id                               rank  match_type kingdom phylum class issues</span></span>
-<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                                          &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; </span></span>
-<span><span class="co">## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228… class exactMatch Animal… Chord… Rept… noIss…</span></span></code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
-<span><span class="co">##    count</span></span>
-<span><span class="co">##    &lt;int&gt;</span></span>
-<span><span class="co">## 1 338434</span></span></code></pre>
-<p>If you want to query something other than the number of records,
-modify the <code>type</code> argument in <code><a href="../reference/galah_call.html">galah_call()</a></code>. Here
-we’ll query the number of species:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="st">"Crinia"</span><span class="op">)</span> <span class="op">|&gt;</span>   <span class="co"># filters by taxonomic names</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">speciesID</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># keep only unique values</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##   count</span></span>
 <span><span class="co">##   &lt;int&gt;</span></span>
-<span><span class="co">## 1   883</span></span></code></pre>
+<span><span class="co">## 1    17</span></span></code></pre>
+<p>You can ‘glimpse’ a data download before you run it, to check all the
+data you need is included:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="st">"Eolophus roseicapilla"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2010</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Rows: 21,984</span></span>
+<span><span class="co">## Columns: 8</span></span>
+<span><span class="co">## $ taxonConceptID   &lt;chr&gt; "https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea", "https://biodiversity.org.au…</span></span>
+<span><span class="co">## $ eventDate        &lt;dbl&gt; 1.272672e+12, 1.289002e+12, 1.291014e+12</span></span>
+<span><span class="co">## $ scientificName   &lt;chr&gt; "Eolophus roseicapilla", "Eolophus roseicapilla", "Eolophus roseicapilla"</span></span>
+<span><span class="co">## $ decimalLatitude  &lt;dbl&gt; -25.98833, -37.83032, -35.41707</span></span>
+<span><span class="co">## $ decimalLongitude &lt;dbl&gt; 152.0442, 144.9812, 138.6868</span></span>
+<span><span class="co">## $ basisOfRecord    &lt;chr&gt; "HUMAN_OBSERVATION", "HUMAN_OBSERVATION", "HUMAN_OBSERVATION"</span></span>
+<span><span class="co">## $ dataResourceName &lt;chr&gt; "BirdLife Australia, Birdata", "eBird Australia", "eBird Australia"</span></span>
+<span><span class="co">## $ occurrenceStatus &lt;chr&gt; "PRESENT", "ABSENT", "ABSENT"</span></span></code></pre>
+<p>And, once satisfied that your parameters are correct, download the
+records themselves:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="st">"Eolophus roseicapilla"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2010</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">eventDate</span>, <span class="va">decimalLatitude</span>, <span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## # A tibble: 21,984 × 3</span></span>
+<span><span class="co">##    eventDate decimalLatitude species              </span></span>
+<span><span class="co">##    &lt;dttm&gt;              &lt;dbl&gt; &lt;chr&gt;                </span></span>
+<span><span class="co">##  1 NA                  -36.5 Eolophus roseicapilla</span></span>
+<span><span class="co">##  2 NA                  -38.2 Eolophus roseicapilla</span></span>
+<span><span class="co">##  3 NA                  -37.0 Eolophus roseicapilla</span></span>
+<span><span class="co">##  4 NA                  -37.7 Eolophus roseicapilla</span></span>
+<span><span class="co">##  5 NA                  -35.6 Eolophus roseicapilla</span></span>
+<span><span class="co">##  6 NA                  -31.1 Eolophus roseicapilla</span></span>
+<span><span class="co">##  7 NA                  -38.2 Eolophus roseicapilla</span></span>
+<span><span class="co">##  8 NA                  -38.2 Eolophus roseicapilla</span></span>
+<span><span class="co">##  9 NA                  -38.2 Eolophus roseicapilla</span></span>
+<span><span class="co">## 10 NA                  -38.2 Eolophus roseicapilla</span></span>
+<span><span class="co">## # ℹ 21,974 more rows</span></span></code></pre>
+<p>This works because many of the functions in <code>dplyr</code> are
+“generic”, meaning it is possible to write extensions that apply them to
+new object classes. In our case, <code><a href="../reference/galah_call.html">galah_call()</a></code> creates a new
+object class called a <code>data_request</code> for which we have
+written new extensions. This means that galah will not interfere with
+your use of <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code> and friends on your tibbles. Supported
+<code>dplyr</code> verbs that modify queries are as follows:</p>
+<ul>
+<li><code><a href="../reference/arrange.data_request.html">arrange.data_request()</a></code></li>
+<li><code><a href="../reference/count.data_request.html">count.data_request()</a></code></li>
+<li><code><a href="../reference/distinct.data_request.html">distinct.data_request()</a></code></li>
+<li><code><a href="../reference/filter.data_request.html">filter.data_request()</a></code></li>
+<li><code><a href="../reference/glimpse.data_request.html">glimpse.data_request()</a></code></li>
+<li><code><a href="../reference/group_by.data_request.html">group_by.data_request()</a></code></li>
+<li><code><a href="../reference/select.data_request.html">select.data_request()</a></code></li>
+<li><code><a href="../reference/slice_head.data_request.html">slice_head.data_request()</a></code></li>
+</ul>
+<p>Additional verbs are:</p>
+<ul>
+<li><code><a href="../reference/apply_profile.html">apply_profile()</a></code></li>
+<li>
+<code><a href="../reference/geolocate.html">geolocate()</a></code> or <code><a href="../reference/geolocate.html">st_crop.data_request()</a></code>
+</li>
+<li><code><a href="../reference/identify.data_request.html">identify.data_request()</a></code></li>
+<li><code><a href="../reference/unnest.html">unnest()</a></code></li>
+</ul>
+<p>It is good practice to download your data in as few steps as
+possible, to minimize impacts on the server, and to ensure you can get a
+single DOI for your data. See the <a href="download-data-reproducibly.html">download data reproducibly</a>
+vignette for details.</p>
 </div>
 <div class="section level2">
-<h2 id="download">Download<a class="anchor" aria-label="anchor" href="#download"></a>
+<h2 id="finding-information">Finding information<a class="anchor" aria-label="anchor" href="#finding-information"></a>
 </h2>
-<p>To download records—rather than find how many records are
-available—simply remove the <code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count()</a></code> function from your
-pipe.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="st">"Litoria"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span>, <span class="va">cl22</span> <span class="op">==</span> <span class="st">"Tasmania"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">basisOfRecord</span>, group <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<p>Building queries using <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code> requires that you know
+two things:</p>
+<ul>
+<li>what <strong>fields</strong> (columns) are present in the dataset
+you are searching</li>
+<li>what <strong>values</strong> exist for those fields</li>
+</ul>
+<p>Finding this information requires looking for metadata:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">request_metadata</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"fields"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Retrying in 1 seconds.</span></span></code></pre>
+<pre><code><span><span class="co">## # A tibble: 639 × 3</span></span>
+<span><span class="co">##    id                  description               type  </span></span>
+<span><span class="co">##    &lt;chr&gt;               &lt;chr&gt;                     &lt;chr&gt; </span></span>
+<span><span class="co">##  1 abcdTypeStatus      &lt;NA&gt;                      fields</span></span>
+<span><span class="co">##  2 acceptedNameUsage   Accepted name             fields</span></span>
+<span><span class="co">##  3 acceptedNameUsageID Accepted name             fields</span></span>
+<span><span class="co">##  4 accessRights        Access rights             fields</span></span>
+<span><span class="co">##  5 annotationsDoi      &lt;NA&gt;                      fields</span></span>
+<span><span class="co">##  6 annotationsUid      Referenced by publication fields</span></span>
+<span><span class="co">##  7 assertionUserId     Assertions by user        fields</span></span>
+<span><span class="co">##  8 assertions          Record issues             fields</span></span>
+<span><span class="co">##  9 assertionsCount     &lt;NA&gt;                      fields</span></span>
+<span><span class="co">## 10 associatedMedia     Associated Media          fields</span></span>
+<span><span class="co">## # ℹ 629 more rows</span></span></code></pre>
+<p>You can browser this tibble using <code><a href="https://rdrr.io/r/utils/View.html" class="external-link">View()</a></code> or search it
+using <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code>. Once you have found a field that you want
+to include in your query, you can find values for that field using
+<code><a href="../reference/unnest.html">unnest()</a></code>:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">request_metadata</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">fields</span> <span class="op">==</span> <span class="st">"cl22"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## # A tibble: 11 × 1</span></span>
+<span><span class="co">##    cl22                        </span></span>
+<span><span class="co">##    &lt;chr&gt;                       </span></span>
+<span><span class="co">##  1 New South Wales             </span></span>
+<span><span class="co">##  2 Victoria                    </span></span>
+<span><span class="co">##  3 Queensland                  </span></span>
+<span><span class="co">##  4 South Australia             </span></span>
+<span><span class="co">##  5 Western Australia           </span></span>
+<span><span class="co">##  6 Northern Territory          </span></span>
+<span><span class="co">##  7 Tasmania                    </span></span>
+<span><span class="co">##  8 Australian Capital Territory</span></span>
+<span><span class="co">##  9 Macquarie Island            </span></span>
+<span><span class="co">## 10 Coral Sea Islands           </span></span>
+<span><span class="co">## 11 Ashmore and Cartier Islands</span></span></code></pre>
+<p>Different types of metadata are available; see
+<code><a href="../reference/galah_call.html">?request_metadata</a></code> for a full list.</p>
+</div>
+<div class="section level2">
+<h2 id="wrapper-functions">Wrapper functions<a class="anchor" aria-label="anchor" href="#wrapper-functions"></a>
+</h2>
+<p>While <code>dplyr</code> syntax is very flexible, there are cases
+where it is easier to simply say the sort of data you want, rather than
+create a database query to implement it. For this reason, several common
+use cases have their own wrapper functions.</p>
+<p>The <code>atlas_</code> family of functions act like
+<code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code>, but enforce a particular type of data to be
+returned, such as record counts:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2025</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/atlas_.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span>   <span class="co"># note no need for a `count()` function</span></span></code></pre></div>
+<pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
+<span><span class="co">##     count</span></span>
+<span><span class="co">##     &lt;int&gt;</span></span>
+<span><span class="co">## 1 9142677</span></span></code></pre>
+<p>Or occurrences:</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="st">"Eolophus roseicapilla"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2000</span>,</span>
+<span>         <span class="va">cl22</span> <span class="op">==</span> <span class="st">"Australian Capital Territory"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/atlas_.html">atlas_occurrences</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## # A tibble: 2,032 × 9</span></span>
+<span><span class="co">##   recordID         scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           basisOfRecord occurrenceStatus</span></span>
+<span><span class="co">##   &lt;chr&gt;            &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;         &lt;chr&gt;           </span></span>
+<span><span class="co">## 1 0026d29f-b6ab-4… Eolophus rose… https://biodi…           -35.4             149. 2000-08-07 00:00:00 HUMAN_OBSERV… PRESENT         </span></span>
+<span><span class="co">## 2 0062d446-007b-4… Eolophus rose… https://biodi…           -35.3             149. 2000-03-10 00:00:00 HUMAN_OBSERV… PRESENT         </span></span>
+<span><span class="co">## 3 00a62ee0-1e08-4… Eolophus rose… https://biodi…           -35.2             149. 2000-01-29 00:00:00 HUMAN_OBSERV… PRESENT         </span></span>
+<span><span class="co">## 4 00ab2f4d-326f-4… Eolophus rose… https://biodi…           -35.4             149. 2000-09-25 00:00:00 HUMAN_OBSERV… PRESENT         </span></span>
+<span><span class="co">## 5 00ae4631-ea59-4… Eolophus rose… https://biodi…           -35.3             149. 2000-02-12 00:00:00 HUMAN_OBSERV… PRESENT         </span></span>
+<span><span class="co">## 6 00b6c8ec-e7b9-4… Eolophus rose… https://biodi…           -35.2             149. 2000-02-05 00:00:00 HUMAN_OBSERV… PRESENT         </span></span>
+<span><span class="co">## # ℹ 2,026 more rows</span></span>
+<span><span class="co">## # ℹ 1 more variable: dataResourceName &lt;chr&gt;</span></span></code></pre>
+<p><code><a href="../reference/atlas_.html">atlas_species()</a></code> replaces the need for
+<code><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct()</a></code> call, while <code><a href="../reference/atlas_.html">atlas_media()</a></code> is a
+shortcut to a complex workflow that incorporates both data and metadata
+calls; see the <a href="downloading_images_and_sounds.html">downloading
+images and sounds</a> vignette for details.</p>
+<p>Finally, metadata calls can be made more efficiently using the
+<code><a href="../reference/show_all.html">show_all()</a></code> and <code><a href="../reference/show_values.html">show_values()</a></code> functions. These
+take the same arguments as the <code>type</code> argument in
+<code><a href="../reference/galah_call.html">request_metadata()</a></code>, but use non-standard evaluation, so
+they don’t require quotes. They are also evaluated immediately rather
+than lazily:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">result</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 6 × 9</span></span>
-<span><span class="co">##   recordID            scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           occurrenceStatus</span></span>
-<span><span class="co">##   &lt;chr&gt;               &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;           </span></span>
-<span><span class="co">## 1 00052544-d943-42e9… Litoria ewing… https://biodi…           -42.9             147. 2022-09-19 00:00:00 PRESENT         </span></span>
-<span><span class="co">## 2 00168ca6-84d0-4af1… Litoria ranif… https://biodi…           -41.2             146. 2023-12-21 10:20:19 PRESENT         </span></span>
-<span><span class="co">## 3 001a43fe-8586-4064… Litoria ewing… https://biodi…           -43.0             147. 2021-08-07 00:00:00 PRESENT         </span></span>
-<span><span class="co">## 4 00250163-ec50-4eda… Litoria ranif… https://biodi…           -41.2             147. 2023-08-23 11:49:28 PRESENT         </span></span>
-<span><span class="co">## 5 003e0f63-9f95-4af9… Litoria ewing… https://biodi…           -42.9             148. 2022-12-24 06:27:00 PRESENT         </span></span>
-<span><span class="co">## 6 0070521f-bb45-46fb… Litoria ewing… https://biodi…           -43.1             147. 2023-12-20 14:29:23 PRESENT         </span></span>
-<span><span class="co">## # ℹ 2 more variables: dataResourceName &lt;chr&gt;, basisOfRecord &lt;chr&gt;</span></span></code></pre>
-<p>Check out our other vignettes for more detail on how to use these
-functions.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/show_all.html">show_all</a></span><span class="op">(</span><span class="va">fields</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## # A tibble: 639 × 3</span></span>
+<span><span class="co">##    id                  description               type  </span></span>
+<span><span class="co">##    &lt;chr&gt;               &lt;chr&gt;                     &lt;chr&gt; </span></span>
+<span><span class="co">##  1 abcdTypeStatus      &lt;NA&gt;                      fields</span></span>
+<span><span class="co">##  2 acceptedNameUsage   Accepted name             fields</span></span>
+<span><span class="co">##  3 acceptedNameUsageID Accepted name             fields</span></span>
+<span><span class="co">##  4 accessRights        Access rights             fields</span></span>
+<span><span class="co">##  5 annotationsDoi      &lt;NA&gt;                      fields</span></span>
+<span><span class="co">##  6 annotationsUid      Referenced by publication fields</span></span>
+<span><span class="co">##  7 assertionUserId     Assertions by user        fields</span></span>
+<span><span class="co">##  8 assertions          Record issues             fields</span></span>
+<span><span class="co">##  9 assertionsCount     &lt;NA&gt;                      fields</span></span>
+<span><span class="co">## 10 associatedMedia     Associated Media          fields</span></span>
+<span><span class="co">## # ℹ 629 more rows</span></span></code></pre>
+<p>You can check the <a href="lookup_up_information.html">look up
+information</a> vignette for further details.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -256,11 +365,11 @@ functions.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Martin Westgate, Dax Kellie, Matilda Stevenson, Peggy Newman.</p>
+  <p>Developed by Martin Westgate, Dax Kellie.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

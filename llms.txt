@@ -1,0 +1,296 @@
+# galah
+
+## Overview
+
+`galah` is an R interface to biodiversity data hosted by the [Global
+Biodiversity Information Facility](https://www.gbif.org) (GBIF) and
+those members of the GBIF node network that maintain their own APIs
+(i.e. the [‘living atlases’](https://living-atlases.gbif.org)). These
+organisations collate and store observations of individual life forms,
+using the [‘Darwin Core’](https://dwc.tdwg.org) data standard. `galah`
+was built and is maintained by the [Science & Decision Support
+Team](https://labs.ala.org.au) at the [Atlas of Living
+Australia](https://www.ala.org.au) (ALA).
+
+`galah` enables users to locate and download species occurrence records
+(observations, specimens, eDNA records, etc.), taxonomic information, or
+associated media such as images or sounds, and to restrict their queries
+to particular taxa or locations. Users can specify which columns are
+returned by a query, or restrict their results to occurrences that meet
+particular data-quality criteria. All functions return a `tibble` as
+their standard format.
+
+The package is named for the bird of the same name (*Eolophus
+roseicapilla*), a widely-distributed endemic Australian species. The
+logo was designed by [Ian Brennan](https://www.iangbrennan.org/).
+
+If you have any comments, questions or suggestions, please [contact
+us](mailto:support@ala.org.au).
+
+## Getting started
+
+- The [quick start
+  guide](https://galah.ala.org.au/R/articles/quick_start_guide.html)
+  provides an introduction to the package functions.
+- For an outline of the package structure, and a list of all the
+  available functions, run
+  [`?galah`](https://galah.ala.org.au/R/reference/galah.md) or view the
+  [reference page](https://galah.ala.org.au/R/reference/index.html).
+
+## Installation
+
+Install from CRAN:
+
+``` r
+install.packages("galah")
+```
+
+Install the development version from GitHub:
+
+``` r
+install.packages("remotes")
+remotes::install_github("AtlasOfLivingAustralia/galah-R")
+```
+
+`galah` depends on `sf` for location-based searches. To install `galah`
+you will need to make sure your system meets the `sf` system
+requirements, as specified
+[here](https://cran.r-project.org/package=sf).
+
+## Cheat sheet
+
+[![](reference/figures/galah_cheatsheet_thumbnail.png)](https://github.com/AtlasOfLivingAustralia/galah-R/blob/main/cheatsheet/galah-r.pdf)
+
+## Citations
+
+To generate a citation for the package version you are using, you can
+run
+
+``` r
+citation(package = "galah")
+```
+
+If you’re using occurrence data downloaded through `galah` in a
+publication, please generate a DOI and cite it. To request a DOI for a
+download of occurrence record, set `mint_doi = TRUE` in a call to
+[`atlas_occurrences()`](https://galah.ala.org.au/R/reference/atlas_.md).
+To generate a citation for the downloaded occurrence records, pass the
+`tibble` generated to
+[`atlas_citation()`](https://galah.ala.org.au/R/reference/atlas_citation.md).
+
+``` r
+# Download occurrence records with a DOI 
+occ <- atlas_occurrences(..., mint_doi = TRUE)
+
+# See DOI
+attr(occ, "doi")
+
+# Generate citation
+atlas_citation(occ)
+```
+
+# Package index
+
+## Getting started
+
+- [`galah_config()`](https://galah.ala.org.au/R/reference/galah_config.md)
+  : View or set package behaviour
+- [`galah_call()`](https://galah.ala.org.au/R/reference/galah_call.md)
+  [`request_data()`](https://galah.ala.org.au/R/reference/galah_call.md)
+  [`request_metadata()`](https://galah.ala.org.au/R/reference/galah_call.md)
+  [`request_files()`](https://galah.ala.org.au/R/reference/galah_call.md)
+  : Start building a request
+
+## Update a request object
+
+- [`apply_profile()`](https://galah.ala.org.au/R/reference/apply_profile.md)
+  [`galah_apply_profile()`](https://galah.ala.org.au/R/reference/apply_profile.md)
+  : Apply a data quality profile
+- [`arrange(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/arrange.data_request.md)
+  [`arrange(`*`<metadata_request>`*`)`](https://galah.ala.org.au/R/reference/arrange.data_request.md)
+  : Order rows using column values
+- [`authenticate()`](https://galah.ala.org.au/R/reference/authenticate.md)
+  **\[experimental\]** : Set up authentication
+- [`count(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/count.data_request.md)
+  [`add_count(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/count.data_request.md)
+  : Count the observations in each group
+- [`distinct(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/distinct.data_request.md)
+  : Keep distinct/unique rows
+- [`filter(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/filter.data_request.md)
+  [`filter(`*`<metadata_request>`*`)`](https://galah.ala.org.au/R/reference/filter.data_request.md)
+  [`filter(`*`<files_request>`*`)`](https://galah.ala.org.au/R/reference/filter.data_request.md)
+  [`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md)
+  : Keep rows that match a condition
+- [`geolocate()`](https://galah.ala.org.au/R/reference/geolocate.md)
+  [`galah_geolocate()`](https://galah.ala.org.au/R/reference/geolocate.md)
+  [`galah_polygon()`](https://galah.ala.org.au/R/reference/geolocate.md)
+  [`galah_bbox()`](https://galah.ala.org.au/R/reference/geolocate.md)
+  [`galah_radius()`](https://galah.ala.org.au/R/reference/geolocate.md)
+  [`st_crop(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/geolocate.md)
+  : Narrow a query to within a specified area
+- [`glimpse(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/glimpse.data_request.md)
+  [`print(`*`<occurrences_glimpse>`*`)`](https://galah.ala.org.au/R/reference/glimpse.data_request.md)
+  **\[experimental\]** : Get a glimpse of your data
+- [`group_by(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/group_by.data_request.md)
+  [`galah_group_by()`](https://galah.ala.org.au/R/reference/group_by.data_request.md)
+  : Group by one or more variables
+- [`identify(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/identify.data_request.md)
+  [`identify(`*`<metadata_request>`*`)`](https://galah.ala.org.au/R/reference/identify.data_request.md)
+  [`galah_identify()`](https://galah.ala.org.au/R/reference/identify.data_request.md)
+  : Narrow a query by passing taxonomic identifiers
+- [`select(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/select.data_request.md)
+  [`select(`*`<metadata_request>`*`)`](https://galah.ala.org.au/R/reference/select.data_request.md)
+  [`galah_select()`](https://galah.ala.org.au/R/reference/select.data_request.md)
+  : Keep or drop columns using their names
+- [`slice_head(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/slice_head.data_request.md)
+  [`slice_head(`*`<metadata_request>`*`)`](https://galah.ala.org.au/R/reference/slice_head.data_request.md)
+  : Subset rows using their positions
+- [`reexports`](https://galah.ala.org.au/R/reference/reexports.md)
+  [`add_count`](https://galah.ala.org.au/R/reference/reexports.md)
+  [`arrange`](https://galah.ala.org.au/R/reference/reexports.md)
+  [`collect`](https://galah.ala.org.au/R/reference/reexports.md)
+  [`compute`](https://galah.ala.org.au/R/reference/reexports.md)
+  [`collapse`](https://galah.ala.org.au/R/reference/reexports.md)
+  [`count`](https://galah.ala.org.au/R/reference/reexports.md)
+  [`distinct`](https://galah.ala.org.au/R/reference/reexports.md)
+  [`filter`](https://galah.ala.org.au/R/reference/reexports.md)
+  [`glimpse`](https://galah.ala.org.au/R/reference/reexports.md)
+  [`group_by`](https://galah.ala.org.au/R/reference/reexports.md)
+  [`select`](https://galah.ala.org.au/R/reference/reexports.md)
+  [`slice_head`](https://galah.ala.org.au/R/reference/reexports.md)
+  [`identify`](https://galah.ala.org.au/R/reference/reexports.md)
+  [`st_crop`](https://galah.ala.org.au/R/reference/reexports.md) :
+  Objects exported from other packages
+- [`unnest()`](https://galah.ala.org.au/R/reference/unnest.md) : Unnest
+  a query
+
+## Create and execute a query
+
+- [`capture()`](https://galah.ala.org.au/R/reference/capture.data_request.md)
+  : Capture a request
+- [`compound()`](https://galah.ala.org.au/R/reference/compound.md) :
+  Force evaluation of a database query
+- [`collapse(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/collapse.data_request.md)
+  [`collapse(`*`<metadata_request>`*`)`](https://galah.ala.org.au/R/reference/collapse.data_request.md)
+  [`collapse(`*`<files_request>`*`)`](https://galah.ala.org.au/R/reference/collapse.data_request.md)
+  [`collapse(`*`<prequery>`*`)`](https://galah.ala.org.au/R/reference/collapse.data_request.md)
+  [`collapse(`*`<query>`*`)`](https://galah.ala.org.au/R/reference/collapse.data_request.md)
+  [`collapse(`*`<query_set>`*`)`](https://galah.ala.org.au/R/reference/collapse.data_request.md)
+  : Generate a query
+- [`compute(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/compute.data_request.md)
+  [`compute(`*`<metadata_request>`*`)`](https://galah.ala.org.au/R/reference/compute.data_request.md)
+  [`compute(`*`<files_request>`*`)`](https://galah.ala.org.au/R/reference/compute.data_request.md)
+  [`compute(`*`<prequery>`*`)`](https://galah.ala.org.au/R/reference/compute.data_request.md)
+  [`compute(`*`<query>`*`)`](https://galah.ala.org.au/R/reference/compute.data_request.md)
+  [`compute(`*`<query_set>`*`)`](https://galah.ala.org.au/R/reference/compute.data_request.md)
+  : Compute a query
+- [`collect(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/collect.data_request.md)
+  [`collect(`*`<metadata_request>`*`)`](https://galah.ala.org.au/R/reference/collect.data_request.md)
+  [`collect(`*`<files_request>`*`)`](https://galah.ala.org.au/R/reference/collect.data_request.md)
+  [`collect(`*`<prequery>`*`)`](https://galah.ala.org.au/R/reference/collect.data_request.md)
+  [`collect(`*`<query>`*`)`](https://galah.ala.org.au/R/reference/collect.data_request.md)
+  [`collect(`*`<query_set>`*`)`](https://galah.ala.org.au/R/reference/collect.data_request.md)
+  [`collect(`*`<computed_query>`*`)`](https://galah.ala.org.au/R/reference/collect.data_request.md)
+  : Retrieve a database query
+
+## Wrappers for accessing data
+
+- [`show_all()`](https://galah.ala.org.au/R/reference/show_all.md)
+  [`show_all_apis()`](https://galah.ala.org.au/R/reference/show_all.md)
+  [`show_all_assertions()`](https://galah.ala.org.au/R/reference/show_all.md)
+  [`show_all_atlases()`](https://galah.ala.org.au/R/reference/show_all.md)
+  [`show_all_collections()`](https://galah.ala.org.au/R/reference/show_all.md)
+  [`show_all_config()`](https://galah.ala.org.au/R/reference/show_all.md)
+  [`show_all_datasets()`](https://galah.ala.org.au/R/reference/show_all.md)
+  [`show_all_fields()`](https://galah.ala.org.au/R/reference/show_all.md)
+  [`show_all_licences()`](https://galah.ala.org.au/R/reference/show_all.md)
+  [`show_all_lists()`](https://galah.ala.org.au/R/reference/show_all.md)
+  [`show_all_profiles()`](https://galah.ala.org.au/R/reference/show_all.md)
+  [`show_all_providers()`](https://galah.ala.org.au/R/reference/show_all.md)
+  [`show_all_ranks()`](https://galah.ala.org.au/R/reference/show_all.md)
+  [`show_all_reasons()`](https://galah.ala.org.au/R/reference/show_all.md)
+  : Show valid record information
+- [`search_all()`](https://galah.ala.org.au/R/reference/search_all.md)
+  [`search_assertions()`](https://galah.ala.org.au/R/reference/search_all.md)
+  [`search_apis()`](https://galah.ala.org.au/R/reference/search_all.md)
+  [`search_atlases()`](https://galah.ala.org.au/R/reference/search_all.md)
+  [`search_collections()`](https://galah.ala.org.au/R/reference/search_all.md)
+  [`search_datasets()`](https://galah.ala.org.au/R/reference/search_all.md)
+  [`search_fields()`](https://galah.ala.org.au/R/reference/search_all.md)
+  [`search_identifiers()`](https://galah.ala.org.au/R/reference/search_all.md)
+  [`search_licences()`](https://galah.ala.org.au/R/reference/search_all.md)
+  [`search_lists()`](https://galah.ala.org.au/R/reference/search_all.md)
+  [`search_media()`](https://galah.ala.org.au/R/reference/search_all.md)
+  [`search_profiles()`](https://galah.ala.org.au/R/reference/search_all.md)
+  [`search_providers()`](https://galah.ala.org.au/R/reference/search_all.md)
+  [`search_ranks()`](https://galah.ala.org.au/R/reference/search_all.md)
+  [`search_reasons()`](https://galah.ala.org.au/R/reference/search_all.md)
+  [`search_taxa()`](https://galah.ala.org.au/R/reference/search_all.md)
+  : Search for record information
+- [`show_values()`](https://galah.ala.org.au/R/reference/show_values.md)
+  [`search_values()`](https://galah.ala.org.au/R/reference/show_values.md)
+  : Show or search for values within a specified field
+- [`atlas_occurrences()`](https://galah.ala.org.au/R/reference/atlas_.md)
+  [`atlas_counts()`](https://galah.ala.org.au/R/reference/atlas_.md)
+  [`atlas_species()`](https://galah.ala.org.au/R/reference/atlas_.md)
+  [`atlas_media()`](https://galah.ala.org.au/R/reference/atlas_.md)
+  [`atlas_taxonomy()`](https://galah.ala.org.au/R/reference/atlas_.md) :
+  Retrieve a database query
+- [`collect_media()`](https://galah.ala.org.au/R/reference/collect_media.md)
+  : Collect media files
+
+## Miscellaneous functions
+
+- [`taxonomic_searches`](https://galah.ala.org.au/R/reference/taxonomic_searches.md)
+  : Look up taxon information
+
+- [`read_zip()`](https://galah.ala.org.au/R/reference/read_zip.md) :
+  Read downloaded data from a zip file
+
+- [`atlas_citation()`](https://galah.ala.org.au/R/reference/atlas_citation.md)
+  : Generate a citation for occurrence data
+
+- [`as_data_filter()`](https://galah.ala.org.au/R/reference/filter_object_classes.md)
+  [`as_predicates_filter()`](https://galah.ala.org.au/R/reference/filter_object_classes.md)
+  [`as_metadata_filter()`](https://galah.ala.org.au/R/reference/filter_object_classes.md)
+  [`as_files_filter()`](https://galah.ala.org.au/R/reference/filter_object_classes.md)
+  [`print(`*`<data_filter>`*`)`](https://galah.ala.org.au/R/reference/filter_object_classes.md)
+  [`print(`*`<predicates_filter>`*`)`](https://galah.ala.org.au/R/reference/filter_object_classes.md)
+  [`print(`*`<metadata_filter>`*`)`](https://galah.ala.org.au/R/reference/filter_object_classes.md)
+  [`print(`*`<files_filter>`*`)`](https://galah.ala.org.au/R/reference/filter_object_classes.md)
+  :
+
+  Object classes for
+  [`filter()`](https://dplyr.tidyverse.org/reference/filter.html)
+  queries
+
+- [`print(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/print_galah_objects.md)
+  [`print(`*`<files_request>`*`)`](https://galah.ala.org.au/R/reference/print_galah_objects.md)
+  [`print(`*`<metadata_request>`*`)`](https://galah.ala.org.au/R/reference/print_galah_objects.md)
+  [`print(`*`<query>`*`)`](https://galah.ala.org.au/R/reference/print_galah_objects.md)
+  [`print(`*`<prequery>`*`)`](https://galah.ala.org.au/R/reference/print_galah_objects.md)
+  [`print(`*`<computed_query>`*`)`](https://galah.ala.org.au/R/reference/print_galah_objects.md)
+  [`print(`*`<query_set>`*`)`](https://galah.ala.org.au/R/reference/print_galah_objects.md)
+  [`print(`*`<galah_config>`*`)`](https://galah.ala.org.au/R/reference/print_galah_objects.md)
+  : Print galah objects
+
+# Articles
+
+### All vignettes
+
+- [Accessing sensitive
+  data](https://galah.ala.org.au/R/articles/accessing_sensitive_data.md):
+- [Download data
+  reproducibly](https://galah.ala.org.au/R/articles/download-data-reproducibly.md):
+- [Look up
+  information](https://galah.ala.org.au/R/articles/look_up_information.md):
+- [Object-Oriented
+  Programming](https://galah.ala.org.au/R/articles/object-oriented-programming.md):
+- [Quick start
+  guide](https://galah.ala.org.au/R/articles/quick_start_guide.md):
+- [Spatial
+  filtering](https://galah.ala.org.au/R/articles/spatial_filtering.md):
+- [Taxonomic
+  filtering](https://galah.ala.org.au/R/articles/taxonomic_filtering.md):
+- [Temporal
+  filtering](https://galah.ala.org.au/R/articles/temporal_filtering.md):

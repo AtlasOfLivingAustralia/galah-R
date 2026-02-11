@@ -49,7 +49,7 @@ filter() to filter by taxonConceptId."><meta property="og:image" content="https:
 
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,15 +60,13 @@ filter() to filter by taxonConceptId."><meta property="og:image" content="https:
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/quick_start_guide.html">Quick start guide</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Get started</h6></li>
-    <li><a class="dropdown-item" href="../articles/choosing_an_atlas.html">Choosing an atlas</a></li>
-    <li><a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a></li>
-    <li><a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a></li>
-    <li><a class="dropdown-item" href="../articles/download_data.html">Download data</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
-    <li><a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Further information</h6></li>
+    <li><a class="dropdown-item" href="../articles/look_up_information.html">Looking up information</a></li>
+    <li><a class="dropdown-item" href="../articles/accessing_sensitive_data.html">Accessing sensitive data</a></li>
     <li><a class="dropdown-item" href="../articles/download-data-reproducibly.html">Reproduciblility</a></li>
+    <li><a class="dropdown-item" href="../articles/object-oriented-programming.html">Object oriented programming</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Filtering</h6></li>
     <li><a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a></li>
     <li><a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a></li>
     <li><a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a></li>
@@ -86,7 +84,7 @@ filter() to filter by taxonConceptId."><meta property="og:image" content="https:
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Look up taxon information</h1>
-      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/v2.1.2/R/taxonomic-searches.R" class="external-link"><code>R/taxonomic-searches.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/main/R/taxonomic-searches.R" class="external-link"><code>R/taxonomic-searches.R</code></a></small>
       <div class="d-none name"><code>taxonomic_searches.Rd</code></div>
     </div>
 
@@ -134,6 +132,15 @@ matching service. More information can be found on the
 on the <a href="https://github.com/AtlasOfLivingAustralia/ala-name-matching?tab=readme-ov-file#error-types" class="external-link">name matching github repository</a>.</p></li>
 <li><p><code>taxonomic names</code> (e.g. <code>kingdom</code>, <code>phylum</code>, <code>class</code>, <code>order</code>,
 <code>family</code>, <code>genus</code>)</p></li>
+</ul><p>When querying using <code><a href="galah_call.html">request_metadata()</a></code>, you have the option to pass
+<code><a href="select.data_request.html">select()</a></code> within the query. The
+easiest way to do this is <code>select(everything())</code>, but for completeness, the
+following additional fields are available:</p><ul><li><p><code>success</code>: Logical indicating success or failure of the search</p></li>
+<li><p><code>scientific_name_authorship</code>: Author and year for the name in question</p></li>
+<li><p><code>name_type</code>: Usually <code>"SCIENTIFIC"</code></p></li>
+<li><p><code>lft</code> and <code>rgt</code>: Numeric indices for taxonomic lookups</p></li>
+<li><p><code>species_group</code> and <code>species_subgroup</code>: List-columns giving group names</p></li>
+<li><p><code>_id</code> fields for <code>rank</code> and any taxonomic rank fields (<code>kingdom_id</code>, <code>phylum_id</code> etc.)</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -170,8 +177,27 @@ to restrict the information returned by <code><a href="atlas_.html">atlas_()</a>
 <span class="r-in"><span>  family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pardalotidae"</span>, <span class="st">"maluridae"</span><span class="op">)</span>, </span></span>
 <span class="r-in"><span>  scientificName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Pardalotus striatus striatus"</span>, <span class="st">"malurus cyaneus"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use OOP for the same effect</span></span></span>
+<span class="r-in"><span><span class="co"># `identify()` tells the code that we want to search for _taxonomic_ metadata.</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="galah_call.html">request_metadata</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="st">"crinia"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># This approach has the advantage that we can call `select()`</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="galah_call.html">request_metadata</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="st">"crinia"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">everything</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Look up a unique taxon identifier</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="search_all.html">search_identifiers</a></span><span class="op">(</span>query <span class="op">=</span> <span class="st">"https://id.biodiversity.org.au/node/apni/2914510"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># OOP process for identifiers uses `filter()`, not `identify()`</span></span></span>
+<span class="r-in"><span><span class="co"># In these cases the `field` argument is used to specify `type`</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="galah_call.html">request_metadata</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span>identifier <span class="op">=</span> <span class="st">"https://id.biodiversity.org.au/node/apni/2914510"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">everything</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
@@ -180,11 +206,11 @@ to restrict the information returned by <code><a href="atlas_.html">atlas_()</a>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Martin Westgate, Dax Kellie, Matilda Stevenson, Peggy Newman.</p>
+  <p>Developed by Martin Westgate, Dax Kellie.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

@@ -17,7 +17,7 @@ atlas_counts() or atlas_occurrences())."><meta property="og:image" content="http
 
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,15 +28,13 @@ atlas_counts() or atlas_occurrences())."><meta property="og:image" content="http
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/quick_start_guide.html">Quick start guide</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Get started</h6></li>
-    <li><a class="dropdown-item" href="../articles/choosing_an_atlas.html">Choosing an atlas</a></li>
-    <li><a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a></li>
-    <li><a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a></li>
-    <li><a class="dropdown-item" href="../articles/download_data.html">Download data</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
-    <li><a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Further information</h6></li>
+    <li><a class="dropdown-item" href="../articles/look_up_information.html">Looking up information</a></li>
+    <li><a class="dropdown-item" href="../articles/accessing_sensitive_data.html">Accessing sensitive data</a></li>
     <li><a class="dropdown-item" href="../articles/download-data-reproducibly.html">Reproduciblility</a></li>
+    <li><a class="dropdown-item" href="../articles/object-oriented-programming.html">Object oriented programming</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Filtering</h6></li>
     <li><a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a></li>
     <li><a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a></li>
     <li><a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a></li>
@@ -54,7 +52,7 @@ atlas_counts() or atlas_occurrences())."><meta property="og:image" content="http
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Keep rows that match a condition</h1>
-      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/v2.1.2/R/galah_filter.R" class="external-link"><code>R/galah_filter.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/main/R/dplyr-filter.R" class="external-link"><code>R/dplyr-filter.R</code></a>, <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/main/R/galah_filter.R" class="external-link"><code>R/galah_filter.R</code></a></small>
       <div class="d-none name"><code>filter.data_request.Rd</code></div>
     </div>
 
@@ -78,7 +76,7 @@ by <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="ext
 <span><span class="co"># S3 method for class 'files_request'</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.data</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">galah_filter</span><span class="op">(</span><span class="va">...</span>, profile <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">galah_filter</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -96,11 +94,6 @@ of the variables in the selected atlas (and checked using <code>show_all(fields)
 If multiple expressions are included, they are combined with the &amp; operator.
 Only rows for which all conditions evaluate to <code>TRUE</code> are kept.</p></dd>
 
-
-<dt id="arg-profile">profile<a class="anchor" aria-label="anchor" href="#arg-profile"></a></dt>
-<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>
-Use <code>galah_apply_profile</code> instead.</p></dd>
-
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -109,8 +102,8 @@ Use <code>galah_apply_profile</code> instead.</p></dd>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><em>Syntax</em></p>
-<p><code>filter.data_request()</code> and <code>galah_filter()</code> uses non-standard evaluation
-(NSE), and are designed to be as compatible as possible with
+<p><code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code> uses non-standard evaluation
+(NSE), and is designed to be as compatible as possible with
 <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">dplyr::filter()</a></code> syntax. Permissible examples include:</p><ul><li><p><code>==</code> (e.g. <code>year = 2020</code>) but not <code>=</code> (for consistency with <code>dplyr</code>)</p></li>
 <li><p><code>!=</code>, e.g. <code>year != 2020</code>)</p></li>
 <li><p><code>&gt;</code> or <code>&gt;=</code> (e.g. <code>year &gt;= 2020</code>)</p></li>
@@ -142,7 +135,7 @@ required, as follows.</p>
 
 <p>For taxonomic metadata, the <code>taxa</code> field is valid:</p><div class="sourceCode"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">request_metadata</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">taxa</span> <span class="op">==</span> <span class="st">"Chordata"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/tidyverse_functions.html">unnest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 
 <p>For building taxonomic trees, the <code>rank</code> field is valid:</p><div class="sourceCode"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">request_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="st">"Chordata"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -158,11 +151,11 @@ should begin with an occurrence query:</p>
    select(group = c("basic", "media") |&gt;
    collect()</code></pre></div>
 
-<p>They can then use the <code>media</code> field to request media metadata:</p><div class="sourceCode"><pre><code><span><span class="va">media_metadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="st">"metadata"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<p>They can then use the <code>media</code> field to request media metadata:</p><div class="sourceCode"><pre><code><span><span class="va">media_metadata</span> <span class="op">&lt;-</span> <span class="va">request_metadata</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">media</span> <span class="op">==</span> <span class="va">occurrences</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 
-<p>And finally, the metadata tibble can be used to request files:</p><div class="sourceCode"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="st">"files"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<p>And finally, the metadata tibble can be used to request files:</p><div class="sourceCode"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">request_files</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">media</span> <span class="op">==</span> <span class="va">media_metadata</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 
@@ -179,9 +172,18 @@ other ways to amend the information returned by <code><a href="atlas_.html">atla
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># basic example</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2019</span>,</span></span>
 <span class="r-in"><span>         <span class="va">basisOfRecord</span> <span class="op">==</span> <span class="st">"HumanObservation"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Field names can be parsed from objects using `{{}}` syntax, e.g. </span></span></span>
+<span class="r-in"><span><span class="va">field</span> <span class="op">&lt;-</span> <span class="st">"year"</span></span></span>
+<span class="r-in"><span><span class="va">value</span> <span class="op">&lt;-</span> <span class="st">"2025"</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span><span class="va">field</span><span class="op">}</span><span class="op">}</span> <span class="op">==</span> <span class="va">value</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
@@ -192,11 +194,11 @@ other ways to amend the information returned by <code><a href="atlas_.html">atla
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Martin Westgate, Dax Kellie, Matilda Stevenson, Peggy Newman.</p>
+  <p>Developed by Martin Westgate, Dax Kellie.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

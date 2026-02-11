@@ -1,0 +1,206 @@
+# Object-Oriented Programming
+
+`galah` has some alot of functions that display object-oriented
+behaviour, which are used for two purposes:
+
+- building piped queries via `request` objects
+- handling the parsing of those objects into `query` objects
+
+Below we’ll go through each in turn.
+
+## `request` objects
+
+The default method for building queries in `galah` is to first use
+[`galah_call()`](https://galah.ala.org.au/R/reference/galah_call.md) to
+create a query object called a “`data_request`”. When a piped object is
+of class `data_request`, galah triggers functions to use specific
+methods for this object class, e.g.
+
+``` r
+galah_call() |> 
+  filter(genus == "Crinia", year == 2020) |>
+  group_by(species) |>
+  count() |>
+  collect()
+```
+
+    ## # A tibble: 16 × 2
+    ##    species                 count
+    ##    <chr>                   <int>
+    ##  1 Crinia signifera        42477
+    ##  2 Crinia parinsignifera    8363
+    ##  3 Crinia glauerti          3111
+    ##  4 Crinia georgiana         1509
+    ##  5 Crinia remota             717
+    ##  6 Crinia sloanei            682
+    ##  7 Crinia insignifera        530
+    ##  8 Crinia tinnula            316
+    ##  9 Crinia deserticola        254
+    ## 10 Crinia pseudinsignifera   222
+    ## 11 Crinia tasmaniensis       182
+    ## 12 Crinia bilingua            75
+    ## 13 Crinia subinsignifera      46
+    ## 14 Crinia riparia             10
+    ## 15 Crinia flindersensis        3
+    ## 16 Crinia nimba                1
+
+Thanks to object-oriented programming, galah “masks”
+[`filter()`](https://dplyr.tidyverse.org/reference/filter.html) and
+[`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
+functions to use methods defined for `data_request` objects instead. The
+full list of masked functions is:
+
+- [`arrange()`](https://dplyr.tidyverse.org/reference/arrange.html)
+  ([dplyr](https://dplyr.tidyverse.org))
+- [`count()`](https://dplyr.tidyverse.org/reference/count.html)
+  ([dplyr](https://dplyr.tidyverse.org))
+- [`glimpse()`](https://pillar.r-lib.org/reference/glimpse.html)
+  ([dplyr](https://dplyr.tidyverse.org))
+- [`identify()`](https://rdrr.io/r/graphics/identify.html)
+  (`{graphics}`)
+- [`select()`](https://dplyr.tidyverse.org/reference/select.html)
+  ([dplyr](https://dplyr.tidyverse.org))
+- [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
+  ([dplyr](https://dplyr.tidyverse.org))
+- [`slice_head()`](https://dplyr.tidyverse.org/reference/slice.html)
+  ([dplyr](https://dplyr.tidyverse.org))
+- [`st_crop()`](https://r-spatial.github.io/sf/reference/st_crop.html)
+  ([sf](https://r-spatial.github.io/sf/))
+
+Note that these functions are all evaluated lazily; they amend the
+underlying object, but do not amend the nature of the data until the
+call is evaluated.
+
+## `query` objects
+
+A `request` object stores all the information needed to generate a
+query, but does not build or enact that query. To achieve this, galah
+has a second object-oriented workflow, consisting of the following
+stages
+
+- [`capture()`](https://galah.ala.org.au/R/reference/capture.data_request.md)
+  identifies the url needed to execute the request. For complex requests
+  that require multiple API calls to evaluate, it returns a `prequery`
+  object. For simpler requests it returns a `query`.
+- `compund()` identifies the full set of queries necessary to properly
+  evaluate the specified request, returning them as a `query_set`.
+- [`collapse()`](https://dplyr.tidyverse.org/reference/compute.html)
+  converts a `query_set` to a `query`. This is the point in the pipeline
+  where the final url is generated.
+- [`compute()`](https://dplyr.tidyverse.org/reference/compute.html) is
+  intended to send the query in question to the requested API for
+  processing. This is particularly important for occurrences, where it
+  can be useful to submit a query and retrieve it at a later time. If
+  the [`compute()`](https://dplyr.tidyverse.org/reference/compute.html)
+  stage is not required, however,
+  [`compute()`](https://dplyr.tidyverse.org/reference/compute.html)
+  simply converts the `query` to a new class (`computed_query`).
+- [`collect()`](https://dplyr.tidyverse.org/reference/compute.html)
+  retrieves the requested data into your workspace, returning a
+  `tibble`.
+
+We can use these in sequence, or just leap ahead to the stage we want:
+
+``` r
+x <- request_data() |>
+  filter(genus == "Crinia", year == 2020) |>
+  group_by(species) |>
+  arrange(species) |>
+  count()
+
+capture(x)
+```
+
+    ## Object of class prequery with type data/occurrences-count-groupby
+
+    ## • url: https://api.ala.org.au/occurrences/occurrences/facets?fq=%28genus%3A%2...
+
+``` r
+compound(x)
+```
+
+    ## Object of class query_set containing 3 queries:
+
+    ## • metadata/fields data: galah:::retrieve_cache("fields")
+
+    ## • metadata/assertions data: galah:::retrieve_cache("assertions")
+
+    ## • data/occurrences-count-groupby url: https://api.ala.org.au/occurrences/occurr...
+
+``` r
+collapse(x)
+```
+
+    ## Object of class query with type data/occurrences-count-groupby
+
+    ## • url: https://api.ala.org.au/occurrences/occurrences/facets?fq=%28genus%3A%2...
+
+``` r
+collect(x) |> head()
+```
+
+    ## # A tibble: 6 × 2
+    ##   species              count
+    ##   <chr>                <int>
+    ## 1 Crinia bilingua         75
+    ## 2 Crinia deserticola     254
+    ## 3 Crinia flindersensis     3
+    ## 4 Crinia georgiana      1509
+    ## 5 Crinia glauerti       3111
+    ## 6 Crinia insignifera     530
+
+The benefit of this workflow is that it is highly modular. This is
+critical for debugging workflows that might have gone wrong for one
+reason or another, but it is also useful for handling large data
+requests in galah. Users can send their query using
+[`compute()`](https://dplyr.tidyverse.org/reference/compute.html), and
+download data once the query has finished — downloading with
+[`collect()`](https://dplyr.tidyverse.org/reference/compute.html) later
+— rather than waiting for the request to finish within R.
+
+``` r
+# Create and send query to be calculated server-side
+request <- request_data() |>
+  identify("perameles") |>
+  filter(year > 1900) |>
+  compute()
+  
+# Download data
+request |>
+  collect()
+```
+
+## metadata requests
+
+For the above workflow to be achivable, it is neccessary for every API
+call in `galah` to be written as a `request` object. This is because
+[`compound()`](https://galah.ala.org.au/R/reference/compound.md) must
+collect a range of different requests to evaluate a single query. To
+this end, `galah` supports metadata requests, in addition to the data
+requests described above.
+
+``` r
+request_metadata(type = "fields") |>
+  collect()
+```
+
+Or to show values for states and territories:
+
+``` r
+request_metadata() |>
+  filter(field == "cl22") |>
+  unnest() |>
+  collect()
+```
+
+While
+[`request_metadata()`](https://galah.ala.org.au/R/reference/galah_call.md)
+is more modular than
+[`show_all()`](https://galah.ala.org.au/R/reference/show_all.md), there
+is little benefit to using it for most applications. However, in some
+cases, larger databases like GBIF return huge `data.frame`s of metadata
+when called via
+[`show_all()`](https://galah.ala.org.au/R/reference/show_all.md). Using
+`request_metdata()` allows users to specify a
+[`slice_head()`](https://dplyr.tidyverse.org/reference/slice.html) line
+within their pipe to get around this issue.

@@ -1,12 +1,10 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://galah.ala.org.au/R/404.html</loc></url>
-<url><loc>https://galah.ala.org.au/R/articles/choosing_an_atlas.html</loc></url>
+<url><loc>https://galah.ala.org.au/R/articles/accessing_sensitive_data.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/articles/download-data-reproducibly.html</loc></url>
-<url><loc>https://galah.ala.org.au/R/articles/download_data.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/articles/index.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/articles/look_up_information.html</loc></url>
-<url><loc>https://galah.ala.org.au/R/articles/narrow_your_results.html</loc></url>
-<url><loc>https://galah.ala.org.au/R/articles/object_oriented_programming.html</loc></url>
+<url><loc>https://galah.ala.org.au/R/articles/object-oriented-programming.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/articles/quick_start_guide.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/articles/spatial_filtering.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/articles/taxonomic_filtering.html</loc></url>
@@ -18,16 +16,22 @@
 <url><loc>https://galah.ala.org.au/R/reference/arrange.data_request.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/atlas_.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/atlas_citation.html</loc></url>
+<url><loc>https://galah.ala.org.au/R/reference/authenticate.html</loc></url>
+<url><loc>https://galah.ala.org.au/R/reference/capture.data_request.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/collapse.data_request.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/collect.data_request.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/collect_media.html</loc></url>
+<url><loc>https://galah.ala.org.au/R/reference/compound.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/compute.data_request.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/count.data_request.html</loc></url>
+<url><loc>https://galah.ala.org.au/R/reference/distinct.data_request.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/filter.data_request.html</loc></url>
+<url><loc>https://galah.ala.org.au/R/reference/filter_object_classes.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/galah.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/galah_call.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/galah_config.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/geolocate.html</loc></url>
+<url><loc>https://galah.ala.org.au/R/reference/glimpse.data_request.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/group_by.data_request.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/identify.data_request.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/index.html</loc></url>
@@ -40,6 +44,6 @@
 <url><loc>https://galah.ala.org.au/R/reference/show_values.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/slice_head.data_request.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/taxonomic_searches.html</loc></url>
-<url><loc>https://galah.ala.org.au/R/reference/tidyverse_functions.html</loc></url>
+<url><loc>https://galah.ala.org.au/R/reference/unnest.html</loc></url>
 </urlset>
 

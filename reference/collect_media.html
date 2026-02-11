@@ -9,7 +9,7 @@ to a local directory using information from atlas_media()"><meta property="og:im
 
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,15 +20,13 @@ to a local directory using information from atlas_media()"><meta property="og:im
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/quick_start_guide.html">Quick start guide</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Get started</h6></li>
-    <li><a class="dropdown-item" href="../articles/choosing_an_atlas.html">Choosing an atlas</a></li>
-    <li><a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a></li>
-    <li><a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a></li>
-    <li><a class="dropdown-item" href="../articles/download_data.html">Download data</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
-    <li><a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Further information</h6></li>
+    <li><a class="dropdown-item" href="../articles/look_up_information.html">Looking up information</a></li>
+    <li><a class="dropdown-item" href="../articles/accessing_sensitive_data.html">Accessing sensitive data</a></li>
     <li><a class="dropdown-item" href="../articles/download-data-reproducibly.html">Reproduciblility</a></li>
+    <li><a class="dropdown-item" href="../articles/object-oriented-programming.html">Object oriented programming</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Filtering</h6></li>
     <li><a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a></li>
     <li><a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a></li>
     <li><a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a></li>
@@ -46,7 +44,7 @@ to a local directory using information from atlas_media()"><meta property="og:im
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Collect media files</h1>
-      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/v2.1.2/R/collect_media.R" class="external-link"><code>R/collect_media.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/main/R/collect_media.R" class="external-link"><code>R/collect_media.R</code></a></small>
       <div class="d-none name"><code>collect_media.Rd</code></div>
     </div>
 
@@ -57,7 +55,7 @@ to a local directory using information from <code><a href="atlas_.html">atlas_me
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">collect_media</span><span class="op">(</span><span class="va">df</span>, thumbnail <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">path</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">collect_media</span><span class="op">(</span><span class="va">df</span>, thumbnail <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -72,12 +70,6 @@ to a local directory using information from <code><a href="atlas_.html">atlas_me
 <dt id="arg-thumbnail">thumbnail<a class="anchor" aria-label="anchor" href="#arg-thumbnail"></a></dt>
 <dd><p>Default is <code>FALSE</code>. If <code>TRUE</code> will download small
 thumbnail-sized images, rather than full size images (default).</p></dd>
-
-
-<dt id="arg-path">path<a class="anchor" aria-label="anchor" href="#arg-path"></a></dt>
-<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>
-Use <code>galah_config(directory = "path-to-directory)"</code> instead. Supply a path
-to a local folder/directory where downloaded media will be saved to.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -127,11 +119,11 @@ downloading available image &amp; media files to a user local directory.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Martin Westgate, Dax Kellie, Matilda Stevenson, Peggy Newman.</p>
+  <p>Developed by Martin Westgate, Dax Kellie.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

@@ -5,7 +5,6 @@ users can investigate this information is by showing all the available
 options or categories for the type of information they are interested in.
 Functions prefixed with show_all_ do this, displaying all valid options
 for the information specified by the suffix.
-
 show_all() is a helper function that can display multiple types of
 information from show_all_ sub-functions."><meta property="og:description" content="The living atlases store a huge amount of information, above and beyond the
 occurrence records that are their main output. In galah, one way that
@@ -13,7 +12,6 @@ users can investigate this information is by showing all the available
 options or categories for the type of information they are interested in.
 Functions prefixed with show_all_ do this, displaying all valid options
 for the information specified by the suffix.
-
 show_all() is a helper function that can display multiple types of
 information from show_all_ sub-functions."><meta property="og:image" content="https://galah.ala.org.au/R/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -23,7 +21,7 @@ information from show_all_ sub-functions."><meta property="og:image" content="ht
 
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,15 +32,13 @@ information from show_all_ sub-functions."><meta property="og:image" content="ht
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/quick_start_guide.html">Quick start guide</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Get started</h6></li>
-    <li><a class="dropdown-item" href="../articles/choosing_an_atlas.html">Choosing an atlas</a></li>
-    <li><a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a></li>
-    <li><a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a></li>
-    <li><a class="dropdown-item" href="../articles/download_data.html">Download data</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
-    <li><a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Further information</h6></li>
+    <li><a class="dropdown-item" href="../articles/look_up_information.html">Looking up information</a></li>
+    <li><a class="dropdown-item" href="../articles/accessing_sensitive_data.html">Accessing sensitive data</a></li>
     <li><a class="dropdown-item" href="../articles/download-data-reproducibly.html">Reproduciblility</a></li>
+    <li><a class="dropdown-item" href="../articles/object-oriented-programming.html">Object oriented programming</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Filtering</h6></li>
     <li><a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a></li>
     <li><a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a></li>
     <li><a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a></li>
@@ -60,7 +56,7 @@ information from show_all_ sub-functions."><meta property="og:image" content="ht
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Show valid record information</h1>
-      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/v2.1.2/R/show_all.R" class="external-link"><code>R/show_all.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/main/R/show_all.R" class="external-link"><code>R/show_all.R</code></a></small>
       <div class="d-none name"><code>show_all.Rd</code></div>
     </div>
 
@@ -71,38 +67,39 @@ users can investigate this information is by showing all the available
 options or categories for the type of information they are interested in.
 Functions prefixed with <code>show_all_</code> do this, displaying all valid options
 for the information specified by the suffix.</p>
-<p><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="figures/lifecycle-stable.svg" alt="[Stable]"></a>
-<code>show_all()</code> is a helper function that can display multiple types of
+<p><code>show_all()</code> is a helper function that can display multiple types of
 information from <code>show_all_</code> sub-functions.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">show_all</span><span class="op">(</span><span class="va">...</span>, limit <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">show_all</span><span class="op">(</span><span class="va">...</span>, limit <span class="op">=</span> <span class="cn">NULL</span>, all_fields <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">show_all_apis</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">show_all_apis</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span>, all_fields <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">show_all_assertions</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">show_all_assertions</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span>, all_fields <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">show_all_atlases</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">show_all_atlases</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span>, all_fields <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">show_all_collections</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">show_all_collections</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span>, all_fields <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">show_all_datasets</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">show_all_config</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">show_all_fields</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">show_all_datasets</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span>, all_fields <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">show_all_licences</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">show_all_fields</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span>, all_fields <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">show_all_lists</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">show_all_licences</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span>, all_fields <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">show_all_profiles</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">show_all_lists</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span>, all_fields <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">show_all_providers</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">show_all_profiles</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span>, all_fields <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">show_all_ranks</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">show_all_providers</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span>, all_fields <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">show_all_reasons</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">show_all_ranks</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span>, all_fields <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">show_all_reasons</span><span class="op">(</span>limit <span class="op">=</span> <span class="cn">NULL</span>, all_fields <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -117,6 +114,12 @@ information from <code>show_all_</code> sub-functions.</p>
 <dt id="arg-limit">limit<a class="anchor" aria-label="anchor" href="#arg-limit"></a></dt>
 <dd><p>Optional number of values to return. Defaults to NULL, i.e. all records</p></dd>
 
+
+<dt id="arg-all-fields">all_fields<a class="anchor" aria-label="anchor" href="#arg-all-fields"></a></dt>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="figures/lifecycle-experimental.svg" alt="[Experimental]"></a> If <code>TRUE</code>,
+<code><a href="show_values.html">show_values()</a></code> also returns all columns available from the API, rather
+than the 'default' columns traditionally provided via galah.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -127,7 +130,7 @@ containing all data of interest.</p>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>There are five categories of information, each with their own
 specific sub-functions to look-up each type of information.
-The available types of information for <code>show_all_</code> are:</p><table class="table table"><tr><td><strong>Category</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td><td><strong>Sub-functions</strong></td></tr><tr><td>Configuration</td><td><code>atlases</code></td><td>Show what atlases are available</td><td><code>show_all_atlases()</code></td></tr><tr><td></td><td><code>apis</code></td><td>Show what APIs &amp; functions are available for each atlas</td><td><code>show_all_apis()</code></td></tr><tr><td></td><td><code>reasons</code></td><td>Show what values are acceptable as 'download reasons' for a specified atlas</td><td><code>show_all_reasons()</code></td></tr><tr><td>Data providers</td><td><code>providers</code></td><td>Show which institutions have provided data</td><td><code>show_all_providers()</code></td></tr><tr><td></td><td><code>collections</code></td><td>Show the specific collections within those institutions</td><td><code>show_all_collections()</code></td></tr><tr><td></td><td><code>datasets</code></td><td>Shows all the data groupings within those collections</td><td><code>show_all_datasets()</code></td></tr><tr><td>Filters</td><td><code>assertions</code></td><td>Show results of data quality checks run by each atlas</td><td><code>show_all_assertions()</code></td></tr><tr><td></td><td><code>fields</code></td><td>Show fields that are stored in an atlas</td><td><code>show_all_fields()</code></td></tr><tr><td></td><td><code>licenses</code></td><td>Show what copyright licenses are applied to media</td><td><code>show_all_licenses()</code></td></tr><tr><td></td><td><code>profiles</code></td><td>Show what data profiles are available</td><td><code>show_all_profiles()</code></td></tr><tr><td>Taxonomy</td><td><code>lists</code></td><td>Show what species lists are available</td><td><code>show_all_lists()</code></td></tr><tr><td></td><td><code>ranks</code></td><td>Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.)</td><td><code>show_all_ranks()</code></td></tr></table></div>
+The available types of information for <code>show_all_</code> are:</p><table class="table table"><tr><td><strong>Category</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td><td><strong>Sub-functions</strong></td></tr><tr><td>Configuration</td><td><code>atlases</code></td><td>Show what atlases are available</td><td><code>show_all_atlases()</code></td></tr><tr><td></td><td><code>apis</code></td><td>Show what APIs &amp; functions are available for each atlas</td><td><code>show_all_apis()</code></td></tr><tr><td></td><td><code>config</code></td><td>Show information necessary for authentication</td><td><code>show_all_config()</code></td></tr><tr><td></td><td><code>reasons</code></td><td>Show what values are acceptable as 'download reasons' for a specified atlas</td><td><code>show_all_reasons()</code></td></tr><tr><td>Data providers</td><td><code>providers</code></td><td>Show which institutions have provided data</td><td><code>show_all_providers()</code></td></tr><tr><td></td><td><code>collections</code></td><td>Show the specific collections within those institutions</td><td><code>show_all_collections()</code></td></tr><tr><td></td><td><code>datasets</code></td><td>Shows all the data groupings within those collections</td><td><code>show_all_datasets()</code></td></tr><tr><td>Filters</td><td><code>assertions</code></td><td>Show results of data quality checks run by each atlas</td><td><code>show_all_assertions()</code></td></tr><tr><td></td><td><code>fields</code></td><td>Show fields that are stored in an atlas</td><td><code>show_all_fields()</code></td></tr><tr><td></td><td><code>licenses</code></td><td>Show what copyright licenses are applied to media</td><td><code>show_all_licenses()</code></td></tr><tr><td></td><td><code>profiles</code></td><td>Show what data profiles are available</td><td><code>show_all_profiles()</code></td></tr><tr><td>Taxonomy</td><td><code>lists</code></td><td>Show what species lists are available</td><td><code>show_all_lists()</code></td></tr><tr><td></td><td><code>ranks</code></td><td>Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.)</td><td><code>show_all_ranks()</code></td></tr></table></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
 
@@ -159,6 +162,11 @@ search for information. These functions are used to pass valid arguments to
 <span class="r-in"><span><span class="co"># `show_all()` is synonymous with `request_metadata() |&gt; collect()`</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="galah_call.html">request_metadata</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"fields"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  </span></span>
+<span class="r-in"><span><span class="co"># using `all_fields = TRUE` is synonymous with `select(everything())`</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="galah_call.html">request_metadata</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"fields"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">everything</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
@@ -167,11 +175,11 @@ search for information. These functions are used to pass valid arguments to
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Martin Westgate, Dax Kellie, Matilda Stevenson, Peggy Newman.</p>
+  <p>Developed by Martin Westgate, Dax Kellie.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

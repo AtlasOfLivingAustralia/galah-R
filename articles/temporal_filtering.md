@@ -1,0 +1,238 @@
+# Temporal filtering
+
+Queries to the ALA will almost always require some form of temporal
+filtering. It is important to know how these types of data are stored in
+the ALA and how we can query them to obtain desired filters.
+
+The ALA database possesses numerous date and time fields that relate to
+each observation. Here we provide descriptions of each of these fields
+and how they are best used to obtain specific queries. Ultimately, there
+are two ways users can filter temporal queries:
+
+- filter using pre-existing/defined parameters, such as specific years
+  or months
+
+- filter within a bespoke date and/or time range
+
+All temporal filtering is conducted using
+[`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md).
+All temporal fields described below can be queried for exact matches
+(`==`), greater/less than (`>`, `<`) or greater/less than or equal to
+(`<=`, `>=`). Queries for multiple fields or multiple queries of the
+same field can be combined in a single
+[`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md)
+call to filter a time window.
+
+### Year, Month and Day
+
+The ALA contains in-built `year`, `month`, and `day` fields for every
+record. These are queried as numeric fields (i.e. July = `7`) and can be
+used for quick data exploration and filtering. These fields are most
+useful when the date limits of a query can be easily defined by year,
+month and/or day.
+
+For instance, we can get monthly counts of amphibians from 2021 using
+the `year` and `month` fields.
+
+``` r
+library(galah)
+library(tidyverse)
+library(gt)
+library(lubridate)
+```
+
+``` r
+galah_config(email = "your_email_here", verbose = FALSE)
+```
+
+``` r
+galah_call() |>
+  filter(class == "Amphibia", year == 2021) |>
+  group_by(month) |>
+  count() |>
+  collect()
+```
+
+    ## # A tibble: 12 × 2
+    ##    month count
+    ##    <chr> <int>
+    ##  1 11    83810
+    ##  2 10    38208
+    ##  3 12    36578
+    ##  4 9     27616
+    ##  5 1     22352
+    ##  6 8     18758
+    ##  7 3     17964
+    ##  8 2     16550
+    ##  9 7      8945
+    ## 10 4      7769
+    ## 11 6      6961
+    ## 12 5      5996
+
+It is also important to observe that the outputted `month` column is of
+type `character` even though the values are numeric. This is the case
+for each of the `year`, `month` and `day` fields. However, they can be
+queried as either numeric or character values within
+[`filter()`](https://dplyr.tidyverse.org/reference/filter.html).
+
+One limitation of using these fields for queries with
+[`filter()`](https://dplyr.tidyverse.org/reference/filter.html) is their
+independence; they cannot be used to query within windows bounded by two
+dates because the day and month filters are applied universally. For
+instance, consider the native perennial Australian wildflower
+*Chamaescilla corymbosa*, whose known growth and flowering times are
+from August–October. We might be interested in the number of records for
+this species in the first week of spring (i.e. September) in each of the
+last 10 years. The following query does not provide all results between
+1/9/2013 and 7/9/2023. Rather, it will only return results that fall
+within all 3 windows at once.
+
+``` r
+galah_call() |>
+  filter(species == "Chamaescilla corymbosa",
+         year >= 2013, 
+         year <= 2023, 
+         month == 9, 
+         day >= 1, 
+         day <= 7) |>
+  group_by(year) |>
+  count() |>
+  collect() |>
+  arrange(year)
+```
+
+    ## # A tibble: 11 × 2
+    ##    year  count
+    ##    <chr> <int>
+    ##  1 2013      8
+    ##  2 2014     13
+    ##  3 2015      8
+    ##  4 2016      7
+    ##  5 2017      1
+    ##  6 2018      9
+    ##  7 2019      6
+    ##  8 2020     20
+    ##  9 2021     36
+    ## 10 2022     26
+    ## 11 2023     54
+
+### Occurrence dates
+
+For a more bespoke way to query exact dates of records, users can use
+the `eventDate` field. This field contains the exact date and time
+information of records and enables specific time windows to be queried
+easily. The only caveat is that the time/date must be provided in a
+specific format to
+[`filter()`](https://dplyr.tidyverse.org/reference/filter.html) for the
+query to work.
+
+The required format of dates in `eventDate` is the [ISO 8601
+International Date Standard](https://en.wikipedia.org/wiki/ISO_8601)
+format. This requires dates and times to be of the form
+“YYYY-MM-DDTHH:MM:SSZ”. Note that the `T` in the middle should be the
+actual letter “T” to delimit the date and time components, while the “Z”
+officially denotes that the time should be queried as UTC (Greenwich
+Meridian) time. Timezones can be confusing at the best of times, however
+it is easiest to remember that all ALA records are recorded at the local
+time of their location, and all times are then treated as effectively
+being UTC times.
+
+The upshot of this specific formatting is that, for instance, the time I
+am writing this paragraph, 4:26pm on the 2nd of August 2023, would be
+represented as `"2023-08-02T16:26:44Z"` in the ALA, even though
+officially my timezone is `"+0930"`.
+
+Because `eventDate` specifies the time to seconds, it is recommended
+that greater or less than queries are used rather than exact matches.
+When used with
+[`filter()`](https://dplyr.tidyverse.org/reference/filter.html), we can
+easily identify how many records of the humpback whale (*Megaptera
+novaeangliae*) have occurred since the species was removed from the
+Australian threatened species list on 26/02/2022.
+
+``` r
+galah_call() |>
+  filter(species == "Megaptera novaeangliae", 
+         eventDate >= "2022-02-26T00:00:00Z") |>
+  count() |>
+  collect()
+```
+
+    ## # A tibble: 1 × 1
+    ##   count
+    ##   <int>
+    ## 1  1240
+
+It can be unintuitive to provide dates in this format. Luckily, it is
+very simple to convert standard R dates or {lubridate} dates into this
+format because they are already in the required “YYYY-MM-DD” form. If we
+took the above date (26/02/2022), it could be converted to this form
+using base R or lubridate as follows:
+
+``` r
+humpback_date <- "26/02/2022"
+# Base R
+paste0(as.Date(humpback_date, format = "%d/%m/%Y"), "T00:00:00Z")
+```
+
+    ## [1] "2022-02-26T00:00:00Z"
+
+``` r
+# lubridate
+paste0(dmy(humpback_date), "T00:00:00Z")
+```
+
+    ## [1] "2022-02-26T00:00:00Z"
+
+After sending a query, any outputted `eventDate` values returned by a
+`galah` query will be of date class `"POSIXct"`.
+
+### Upload dates
+
+The other important date field present in the ALA pertains to the date
+that the record was provided to the ALA. This field is called
+`firstLoadedDate` and is formatted in exactly the same manner as
+`eventDate`.
+
+Different data providers provide batches of records to the ALA at
+different intervals. iNaturalist Australia provide weekly uploads of
+data, while eBird provides yearly uploads. `firstLoadedDate` can be
+especially useful for finding new records to the ALA that have been
+provided since you last checked. For instance, we can use it to see how
+many observations of Sulphur-Crested Cockatoos recorded in the first
+week of 2023 were actually loaded into the ALA by the following week:
+
+``` r
+# Total records of Cactua galerita in Jan 1-7
+galah_call() |>
+  filter(species == "Cacatua galerita",
+         eventDate >= "2023-01-07T00:00:00Z", 
+         eventDate < "2023-01-08T00:00:00Z") |>
+  count() |>
+  collect()
+```
+
+    ## # A tibble: 1 × 1
+    ##   count
+    ##   <int>
+    ## 1   407
+
+``` r
+# Records of Cactua galerita uploaded in Jan 1-14
+galah_call() |>
+  filter(species == "Cacatua galerita",
+         eventDate >= "2023-01-07T00:00:00Z", 
+         eventDate < "2023-01-08T00:00:00Z",
+         firstLoadedDate < "2023-01-15T00:00:00Z") |>
+  count() |>
+  collect()
+```
+
+    ## # A tibble: 1 × 1
+    ##   count
+    ##   <int>
+    ## 1     5
+
+Note that no lower bound is required for `firstLoadedDate` because
+`eventDate` imposes that by proxy (records can’t be uploaded before
+they’ve occurred).
