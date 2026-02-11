@@ -14,14 +14,17 @@ search_values(df, query)
 \code{\link[=search_lists]{search_lists()}}.}
 
 \item{all_fields}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} If \code{TRUE},
-\code{show_values()} also returns all raw data columns
-(columns included prior to the dataset's ingestion into the ALA).
-For many lists, this will include raw scientific names and vernacular
-names.
-For conservation lists like the EPBC list, this also includes columns
-containing each species' conservation status information.
-Default is set to \code{FALSE}.
-Currently only implemented for metadata type \code{lists}.}
+\code{show_values()} also returns all columns available from the API, rather
+than the 'default' columns traditionally provided via galah.
+
+For lists, this will include 'raw' columns; columns included prior to the
+dataset's ingestion into the ALA, and will often include raw scientific
+names and vernacular names. For conservation lists like the EPBC list, this
+also includes columns containing each species' conservation status
+information.
+
+For other forms of metadata, setting this to \code{TRUE} may return more
+information than you want or need. Default is set to \code{FALSE}.}
 
 \item{query}{A string specifying a search term. Not case sensitive.}
 }
@@ -41,7 +44,7 @@ For example:
 \item The \code{field} "year" contains values 2021, 2020, 2019, etc.
 \item The \code{field} "stateProvince" contains values New South Wales, Victoria, Queensland, etc.
 These are used to narrow queries with
-\code{\link[=filter.data_request]{filter()}} or \code{\link[=galah_filter]{galah_filter()}}.
+\code{\link[=filter.data_request]{filter()}}.
 }
 
 Each \strong{Profile} consists of many individual quality filters.

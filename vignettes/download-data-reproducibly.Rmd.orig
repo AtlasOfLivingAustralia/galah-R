@@ -62,11 +62,9 @@ In galah, you can also add a DOI to your download query. You just need
 to add `mint_doi = TRUE` to `atlas_occurrences()`. A unique DOI will be
 assigned to the resulting object once the query is run.
 
-Please note that DOI generation and reload is currently supported only for 
-queries to the Atlas of Living Australia. GBIF provides a DOI with every 
-download, but at the time of writing, they don't provide an API to use 
-that DOI to download the dataset a second time. Other atlases don't support 
-DOIs at all (yet).
+Please note that as of version 2.2.0, DOI generation and reload is currently 
+supported for queries to the Atlas of Living Australia and GBIF. 
+Other atlases don't support DOIs at all (yet).
 
 
 ```{r}

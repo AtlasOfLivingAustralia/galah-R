@@ -116,20 +116,23 @@ test_that("search_all(taxa) works for Austria", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("show_values works for fields for Austria", {
+test_that("show_values works for Austria", {
   skip_if_offline(); skip_on_ci()
+  quiet_values <- function(...){
+    x <- purrr::quietly(show_values)
+    x(...)$result
+  }
+  # fields
   x <- try({search_all(fields, "basis_of_record") |> 
-    show_values()},
+    quiet_values()},
     silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-})
 
-test_that("show_values works for lists for Austria", {
-  skip_if_offline(); skip_on_ci()
+  # lists
   x <- try({search_all(lists, "dr30") |> 
-    show_values()},
+    quiet_values()},
     silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gte(nrow(x), 1)
@@ -139,7 +142,7 @@ test_that("show_values works for lists for Austria", {
 test_that("atlas_counts works with type = 'occurrences' for Austria", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
@@ -148,7 +151,7 @@ test_that("atlas_counts works with type = 'occurrences' for Austria", {
 test_that("atlas_counts works with type = 'species' for Austria", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
@@ -224,7 +227,7 @@ test_that("atlas_occurrences works for Austria", {
   skip_if(inherits(occ_collapse, "try-error"), message = "API not available")
   expect_s3_class(occ_collapse, "query")
   expect_equal(names(occ_collapse), 
-               c("type", "url", "headers", "filter"))
+               c("type", "url", "headers", "request"))
   expect_equal(occ_collapse$type, "data/occurrences")
   # compute
   occ_compute <- compute(occ_collapse)
@@ -250,33 +253,32 @@ test_that("atlas_media() works for Austria", {
     send_email = FALSE)
   x <- request_data() |>
     identify("Mammalia") |>
-    filter(year == 2010,
-           # !is.na(all_image_url)
-    ) |>
-    # count() |>
-    # collect()
+    filter(year == 2010) |> # !is.na(all_image_url)
     atlas_media() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gte(nrow(x), 1)
   expect_equal(colnames(x)[1:2],
-               c("media_id", "recordID"))
+               c("media_id", "media_type"))
   # download a subset
+   quiet_media <- function(...){
+    x <- purrr::quietly(collect_media)
+    x(...)$result
+  }
   n_downloads <- 5
-  collect_media(x[seq_len(n_downloads), ])
+  quiet_media(x[seq_len(n_downloads), ])
   expect_equal(length(list.files("temp", pattern = ".jpg$")),
                n_downloads)
   unlink("temp", recursive = TRUE)
 })
 
-## FIXME: atlas_taxonomy doesn't work
 test_that("atlas_taxonomy works for Austria", {
   skip_if_offline(); skip_on_ci()
   y <- galah_call() |>
     identify("Aves") |>
     filter(rank >= order) |>
-    atlas_taxonomy()|>
+    atlas_taxonomy() |>
     try(silent = TRUE)
   skip_if(inherits(y, "try-error"), message = "API not available")
   # add tests
@@ -286,4 +288,6 @@ test_that("atlas_taxonomy works for Austria", {
   expect_gte(nrow(y), 5)
 })
 
-galah_config(atlas = "Australia")
+quiet_config <- purrr::quietly(galah_config)
+quiet_config(atlas = "Australia")
+rm(quiet_config)

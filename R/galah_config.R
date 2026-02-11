@@ -1,30 +1,46 @@
-#' Get or set configuration options that control galah behaviour
-#'
-#' The `galah` package supports large data downloads, and also
-#' interfaces with the ALA which requires that users of some services
-#' provide a registered email address and reason for downloading data. The
-#' `galah_config` function provides a way to manage these issues as simply
-#' as possible.
-#'
-#' @param \dots Options can be defined using the form `name = "value"`.
-#' Valid arguments are:
+#' View or set package behaviour
 #' 
-#'   *  `api-key` string: A registered API key (currently unused). 
+#' @description
+#' The `galah` package supports queries to a number of different data providers,
+#' and once selected, it is desirable that all later queries are sent to that 
+#' organisation. Rather than supply this information separately in each 
+#' query, it is more parsimonious to cache it centrally 
+#' and call it as needed, which is what this function supports. 
+#' 
+#' Beyond choosing
+#' an organisation, there are several other use cases for caching. Many
+#' GBIF nodes require the user to supply a registered email address, 
+#' password, and (in some cases) a reason for downloading data, all stored via
+#' `galah_config()`. This function also provides a convenient place to control 
+#' optional package behaviours, such as checking queries to ensure they are 
+#' valid (`run_checks`), informing you via email when your downloads are ready 
+#' (`send_email`), or controlling whether galah will provide updates on your
+#' query as they are processed (`verbose`).
+#' @param \dots Options can be defined using the form `name = "value"`, or 
+#' as a (single) named list. See details for accepted fields.
+#' @details
+#' Valid arguments to this function are:
+#' 
 #'   *  `atlas` string: Living Atlas to point to, Australia by default. Can be 
-#'   an organisation name, acronym, or region (see [show_all_atlases()] for 
-#'   admissible values)
-#'   *  `directory` string: the directory to use for the cache.
+#'     an organisation name, acronym, or region (see [show_all_atlases()] for 
+#'     admissible values)
+#'   * `authenticate` logical: Should `galah` use authenticate your queries using 
+#'     JWT tokens? Defaults to `FALSE`. If `TRUE`, user credentials are 
+#'     verified prior to sending a query. This can allow users with special 
+#'     access to download additional information in `galah`.
+#'   * `caching` logical: should metadata query results be cached in `options()`?
+#'     Defaults to `TRUE` for improved stability and speed.
+#'   *  `directory` string: The directory to use for the disk cache.
 #'     By default this is a temporary directory, which means that results will
-#'     only be cached
-#'     within an R session and cleared automatically when the user exits R.
-#'     The user may wish to set this to a non-temporary directory for
+#'     only be cached within an R session and cleared automatically when the user 
+#'     exits R. The user may wish to set this to a non-temporary directory for
 #'     caching across sessions. The directory must exist on the file system.
 #'   *  `download_reason_id` numeric or string: the "download reason" required.
-#'   by some ALA services, either as a numeric ID (currently 0--13)
-#'   or a string (see `show_all(reasons)` for a list of valid ID codes and
-#'   names). By default this is NA. Some ALA services require a valid
-#'   download_reason_id code, either specified here or directly to the
-#'   associated R function.
+#'     by some ALA services, either as a numeric ID (currently 0--13)
+#'     or a string (see `show_all(reasons)` for a list of valid ID codes and
+#'     names). By default this is NA. Some ALA services require a valid
+#'     download_reason_id code, either specified here or directly to the
+#'     associated R function.
 #'   *  `email` string: An email address that has been registered with the chosen
 #'   atlas. For the ALA, you can register at
 #'   [this address](https://auth.ala.org.au/userdetails/registration/createAccount).
@@ -39,12 +55,9 @@
 #'     specific downloads for later citation.
 #'   *  `username` string: A registered username (GBIF only)
 #'   *  `verbose` logical: should `galah` give verbose such as progress bars?
-#'  Defaults to FALSE.
-#' 
-#' @return For `galah_config()`, a `list` of all options.
-#' When `galah_config(...)` is called with arguments, nothing is returned
-#' but the configuration is set.
-#' 
+#'  Defaults to `FALSE`.
+#' @return Returns an object with classes `galah_config` and `list`, invisibly
+#' if arguments are supplied.
 #' @examples \dontrun{
 #' # To download occurrence records, enter your email in `galah_config()`. 
 #' # This email should be registered with the atlas in question. 
@@ -62,115 +75,128 @@
 #' 
 #' # Make debugging in your session easier by setting `verbose = TRUE`
 #' galah_config(verbose = TRUE)
+#' 
+#' # Optionally supply arguments via a named list
+#' list(email = "your-email@email.com") |>
+#'   galah_config()
 #' }
-#' @importFrom lifecycle deprecate_warn
-#' @importFrom glue glue
-#' @importFrom rlang abort
-#' @importFrom potions brew
-#' @importFrom potions pour
-#' @export galah_config
-
+#' @export
 galah_config <- function(...) {
   
   # make sure dots are captured properly
   dots <- list(...)
 
   # set defaults, if this has not happened already
-  if(length(pour()) == 0) {
-    brew(default_config())
+  if(length(potions::pour()) == 0) {
+    potions::brew(default_config())
   }
   
   # add user-provided information
   if(length(dots) > 0){
     
-    # check for deprecated `cache_directory`
-    if(any(names(dots) == "cache_directory")){
-      dots_location <- which(names(dots) == "cache_directory")
-      value <- dots$cache_directory
-      deprecate_warn(when = "2.0.0",
-                     what = "galah_config(cache_directory)",
-                     details = glue("Use `galah_config(directory = \"{value}\")` instead.")
-      )
-      names(dots)[dots_location] <- "directory"
+    # add exception so that people can supply a named list to `galah_config()`
+    # this avoids calling things like:
+    # `x <- list(email = "something); do.call(galah_config, x)`
+    if(length(dots) == 1){
+      if(is.list(dots[[1]])){
+        dots <- dots[[1]]
+      }
     }
     
     # check all values in dots to ensure they are named
     if(length(dots) != length(names(dots))){
-      bullets <- c("All arguments to `galah_config() must be named.",
-                   i = "Did you use `==` instead of `=`?")
-      abort(bullets)
+      c("All arguments to `galah_config() must be named.",
+        i = "Did you use `==` instead of `=`?") |>
+      cli::cli_abort()
     }
     
     # check all values in dots to ensure they are valid
     result <- restructure_config(dots)
+    
+    # look up what information has been given, write specific callouts for unusual cases
+    supplied_names <- names(result)
 
     # add to `potions` object
-    if(any(names(result) == "atlas")){
-      brew(atlas = list(atlas = result$atlas))
+    if(any(supplied_names == "atlas")){
+      potions::brew(atlas = list(atlas = result$atlas))
       result <- result[names(result) != "atlas"]
-      result$atlas_config_called_by_user <- TRUE
     }
     
     if(length(result) > 0){
-      brew(result, method = "leaves")
+      potions::brew(result, method = "leaves")
     }
+    
+    # invisibly return
+    x <- potions::pour()
+    as_galah_config(x) |>
+      invisible()
   
   }else{
-    x <- pour()
-    class(x) <- c("galah_config", "list")
-    return(x)
+    # visibly return
+    x <- potions::pour()
+    as_galah_config(x)
   }
+}
+
+#' Internal function to convert lists to class `galah_config`
+#' @noRd
+#' @keywords Internal
+as_galah_config <- function(x){
+  structure(x,
+            class = c("galah_config", "list"))
 }
 
 #' Set a 'default' object for storing config in `galah`
 #' @noRd
 #' @keywords Internal
 default_config <- function(){
-  x <- list(
-    package = list( 
-      verbose = TRUE,
-      run_checks = TRUE,
-      send_email = FALSE,
-      directory = tempdir(),
-      atlas_config_called_by_user = FALSE),
-    user = list(
-      username = "",
-      email = "",
-      api_key = "",
-      password = "",
-      download_reason_id = 4),
-    atlas = list(
-      organisation = "Atlas of Living Australia",
-      acronym  = "ALA",
-      region = "Australia"))
-  class(x) <- c("galah_config", "list")
-  x
+  list(package = list(verbose = TRUE,
+                      run_checks = TRUE,
+                      send_email = FALSE,
+                      caching = TRUE,
+                      directory = tempdir()),
+       user = list(authenticate = FALSE,
+                   username = "",
+                   email = "",
+                   password = "",
+                   download_reason_id = 4),
+       atlas = list(organisation = "Atlas of Living Australia",
+                    acronym  = "ALA",
+                    region = "Australia")) |>
+    as_galah_config()
 }
 
 #' Place new options into correctly nested structure
 #' @noRd
 #' @keywords Internal
-restructure_config <- function(dots){
+restructure_config <- function(dots,
+                               error_call= rlang::caller_env()){
+  # NOTE: we use `lapply()` here rather than `purrr::map()` ON PURPOSE
+  # It prevents error messages being prefaced with:
+  # Error in `purrr::map()` at galah-R/R/galah_config.R:171:3:
+  # ℹ In index: 1.
+  # ...which is undesirable
   result <- lapply(names(dots),
-         function(a){validate_config(a, dots[[a]])})
+                   \(a){validate_config(a, 
+                                        dots[[a]],
+                                        error_call = error_call)})
   names(result) <- names(dots)
   result
 }
 
 #' Catch errors in user-provided config
-#' @importFrom rlang abort
-#' @importFrom glue glue
-#' @importFrom potions pour
 #' @noRd
 #' @keywords Internal
-validate_config <- function(name, value, error_call = caller_env()) {
-  result <- switch(name, 
-         "api_key"         = enforce_character(value),
+validate_config <- function(name, 
+                            value, 
+                            error_call = rlang::caller_env()) {
+  result <- switch(name,
          "atlas" = {
            value <- configure_atlas(value)
            # see whether atlases have changed, and if so, give a message
-           check_atlas(pour("atlas"), value)
+           check_atlas(potions::pour("atlas"), value)
          },
+         "authenticate"    = enforce_logical(value),
          "caching"         = enforce_logical(value),
          "directory"       = check_directory(value),
          "download_reason_id" = enforce_download_reason(value),
@@ -180,86 +206,86 @@ validate_config <- function(name, value, error_call = caller_env()) {
          "send_email"      = enforce_logical(value),
          "username"        = enforce_character(value),
          "verbose"         = enforce_logical(value),
-         enforce_invalid_name(name))
+         enforce_invalid_name(name,
+                              error_call = error_call))
   result
 }
 
 #' Ensure some arguments are logical
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-enforce_logical <- function(value, error_call = caller_env()){
+enforce_logical <- function(value, 
+                            error_call = rlang::caller_env()){
   if (!is.logical(value)) {
-    abort("Supplied value must be TRUE or FALSE.", call = error_call)
+    cli::cli_abort("Supplied value must be TRUE or FALSE.", 
+                   call = error_call)
   }else{
     value
   }
 }
 
 #' Ensure a file exists
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-enforce_exists <- function(value, error_call = caller_env()){
+enforce_exists <- function(value, 
+                           error_call = rlang::caller_env()){
   if (!dir.exists(value)) {
-    bullets <- c("Cache directory does not exist.",
-                 i = "Does the directory entered exist?")
-    abort(bullets, call = error_call)
+    c("Cache directory does not exist.",
+      i = "Does the directory entered exist?") |>
+    cli::cli_abort(call = error_call)
   }else{
     value
   }
 }
 
 #' Ensure provided value is a string
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-enforce_character <- function(value, error_call = caller_env()){
+enforce_character <- function(value,
+                              error_call = rlang::caller_env()){
   if (!is.character(value)) {
-    bullets <- c(
-      glue("Invalid type"),
-      i = "Value must be entered as a string."
-    )
-    abort(bullets, call = error_call)
+    c("Invalid type",
+      i = "Value must be entered as a string.") |>
+    cli::cli_abort(call = error_call)
   }else{
     value
   }
 }
 
 #' Ensure download reason is valid
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-enforce_download_reason <- function(value, error_call = caller_env()){
+enforce_download_reason <- function(value, 
+                                    error_call = rlang::caller_env()){
   # first ensure API is available. Currently missing for Brazil, for example.
   
-  reasons_api_available <- url_lookup("metadata/reasons") |> 
+  reasons_df <- show_all_reasons() |> 
     try(silent = TRUE)
-  if(inherits(reasons_api_available, "try-error")){
-    return(1)
+  if(inherits(reasons_df, "try-error")){
+    if(is.numeric(value)){
+      as.integer(value)
+    }else{
+      1
+    }
   }else{
-    if (is.numeric(value) & !(value %in% show_all_reasons()$id)) {
-      bullets <- c(
-        "Invalid download reason ID.",
+    if (is.numeric(value) & !(value %in% reasons_df$id)) {
+      c("Invalid download reason ID.",
         i = "Use `show_all(reasons)` to see all valid reasons.",
-        x = glue("{value} does not match an existing reason ID.")
-      )
-      abort(bullets, call = error_call)
-    } else if(is.character(value) & !(value %in% show_all_reasons()$name)) {
+        x = "{value} does not match an existing reason ID.") |>
+      cli::cli_abort(call = error_call)
+    } else if(is.character(value) & !(value %in% reasons_df$name)) {
       bullets <- c(
         "Invalid download reason name.",
         i = "Use `show_all(reasons)` to see all valid reasons.",
-        x = glue("\"{value}\" does not match an existing reason name.")
-      )
-      abort(bullets, call = error_call)
+        x = "\"{value}\" does not match an existing reason name.") |>
+      cli::cli_abort(call = error_call)
     }
-    if (is.character(value) & (value %in% show_all_reasons()$name)) {
-      valid_reasons <- show_all_reasons()
-      value_id <- valid_reasons |>
-        filter(valid_reasons$name == value) |>
-        select("id") |>
-        pull("id")
-      inform(c("v" = glue("Matched \"{value}\" to valid download reason ID {value_id}.")))
+    if (is.character(value) & (value %in% reasons_df$name)) {
+      value_id <- reasons_df |>
+        dplyr::filter(reasons_df$name == value) |>
+        dplyr::select("id") |>
+        dplyr::pull("id")
+      cli::cli_bullets(c("v" = "Matched \"{value}\" to valid download reason ID {value_id}."))
       value_id
     }else{
       value
@@ -268,36 +294,34 @@ enforce_download_reason <- function(value, error_call = caller_env()){
 }
 
 #' catch all failure for unknown names
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-enforce_invalid_name <- function(name, error_call = caller_env()){
-  bullets <- c(
-    "Invalid option name.",
+enforce_invalid_name <- function(name,
+                                 error_call = rlang::caller_env()){
+  c("Invalid option name.",
     i = "See `?galah_config()` for valid options.",
-    x = glue("\"{name}\" is not a valid option name.")
-  )
-  abort(bullets, call = error_call)
+    x = "\"{name}\" is not a valid option name.") |>
+  cli::cli_abort(call = error_call)
 }
 
 #' Set behaviour for deriving correct atlas information
-#' @importFrom rlang abort
-#' @importFrom glue glue
 #' @noRd
 #' @keywords Internal
-configure_atlas <- function(query){
+configure_atlas <- function(query,
+                            error_call = rlang::caller_env()){
   
   comparison <- do.call(c, node_metadata)
-  comparison <- comparison[!is.na(comparison)] |> as.character()
-  lookup <- utils::adist(query, comparison, ignore.case = TRUE)[1, ]
+  comparison <- comparison[!is.na(comparison)] |> 
+    as.character()
+  lookup <- utils::adist(query,
+                         comparison,
+                         ignore.case = TRUE)[1, ]
   
   if(all(lookup > 2)){
-    bullets <- c(
-      "Unsupported atlas provided.",
-      i = glue("Use `show_all(atlases)` to see supported atlases."),
-      x = glue("\"{query}\" is not a valid atlas.")
-    )
-    abort(bullets, call = caller_env())
+    c("Unsupported atlas provided.",
+      i = "Use `show_all(atlases)` to see supported atlases.",
+      x = "\"{query}\" is not a valid atlas.") |>
+    cli::cli_abort(call = error_call)
   }else{
     selected_entry <- comparison[which(lookup == min(lookup))][[1]]
     
@@ -315,14 +339,18 @@ configure_atlas <- function(query){
 }
 
 #' Provide a message if atlas is changed
-#' @importFrom glue glue
-#' @importFrom rlang inform
 #' @noRd
 #' @keywords Internal
 check_atlas <- function(current_data, new_data){
   if(new_data$region != current_data$region){
-    inform(glue(
-      "Atlas selected: {new_data$organisation} ({new_data$acronym}) [{new_data$region}]"))
+    current_url <- show_all_atlases() |>
+      dplyr::filter(.data$region == new_data$region) |>
+      dplyr::pull("url") 
+    cli::cli({
+      cli::cli_text("New organisation selected: {new_data$organisation} ({new_data$acronym})")
+      cli::col_magenta(current_url) |>
+      cli::cli_text()
+    })
   }
   new_data
 }

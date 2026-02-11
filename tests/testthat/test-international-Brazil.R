@@ -85,45 +85,49 @@ test_that("search_all(taxa) works for Brazil", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("show_values works for Brazil", {
+test_that("`show_values()` works for Brazil", {
   skip_if_offline(); skip_on_ci()
+  quiet_values <- function(...){
+    x <- purrr::quietly(show_values)
+    x(...)$result
+  }
   x <- search_fields("basis_of_record") |>
-    show_values() |>
+    quiet_values() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(nrow(x), 1)
   y <- search_lists("drt1565630923841") |>
-    show_values() |>
+    quiet_values() |>
     try(silent = TRUE)
   skip_if(inherits(y, "try-error"), message = "API not available")
   expect_gt(nrow(y), 1)
   search_profiles("profile") |>
-    show_values() |>
+    quiet_values() |>
     expect_error()
 })
 
-test_that("atlas_counts works for Brazil", {
+test_that("`atlas_counts()` works for Brazil", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
 })
 
-test_that("atlas_counts works with type = 'species' for Brazil", {
+test_that("`atlas_counts()` works with type = 'species' for Brazil", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
 })
 
-test_that("atlas_counts works with galah_identify for Brazil", {
+test_that("`atlas_counts()` works with `identify()` for Brazil", {
   skip_if_offline(); skip_on_ci()
   query1 <- galah_call() |>
-    galah_identify("Mammalia") |> 
+    identify("Mammalia") |> 
     count() |>
     collapse()  # note: this is set up differently for debugging
   result1 <- collect(query1) |>
@@ -131,7 +135,7 @@ test_that("atlas_counts works with galah_identify for Brazil", {
   skip_if(inherits(result1, "try-error"), message = "API not available")
   expect_gt(result1$count, 1)
   query2 <-  galah_call() |>
-    galah_filter(class == "Mammalia") |>
+    filter(class == "Mammalia") |>
     count() |>
     collapse()
   result2 <- collect(query2) |>
@@ -144,7 +148,7 @@ test_that("atlas_counts works with galah_identify for Brazil", {
   ## This isn't met for this atlas, for unknown reasons
 })
 
-test_that("atlas_counts works with group_by for Brazil", {
+test_that("`atlas_counts()` works with `group_by()` for Brazil", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     galah_filter(year >= 2020) |>
@@ -156,7 +160,7 @@ test_that("atlas_counts works with group_by for Brazil", {
   expect_equal(names(result), c("year", "count"))
 })
 
-test_that("atlas_species works for Brazil", {
+test_that("`atlas_species()` works for Brazil", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Brazil",
@@ -164,7 +168,7 @@ test_that("atlas_species works for Brazil", {
     run_checks = FALSE,
     send_email = FALSE)
   spp <- galah_call() |>
-    galah_identify("Carnivora") |>
+    identify("Carnivora") |>
     atlas_species() |>
     try(silent = TRUE)
   skip_if(inherits(spp, "try-error"), message = "API not available")
@@ -174,7 +178,7 @@ test_that("atlas_species works for Brazil", {
 })
 
 ## FIXME: Caused by taxonomic search issue
-test_that("atlas_occurrences works for Brazil", {
+test_that("`atlas_occurrences()` works for Brazil", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Brazil",
@@ -190,7 +194,7 @@ test_that("atlas_occurrences works for Brazil", {
   skip_if(inherits(occ_collapse, "try-error"), message = "API not available")
   expect_s3_class(occ_collapse, "query")
   expect_equal(names(occ_collapse), 
-               c("type", "url", "headers", "filter"))
+               c("type", "url", "headers", "request"))
   occ_compute <- compute(occ_collapse) |>
     try(silent = TRUE)
   skip_if(inherits(occ_compute, "try-error"), message = "API not available")
@@ -200,7 +204,7 @@ test_that("atlas_occurrences works for Brazil", {
     try(silent = TRUE)
   skip_if(inherits(occ, "try-error"), message = "API not available")
   expect_gt(nrow(occ), 0)
-  expect_equal(ncol(occ), 8)
+  expect_equal(ncol(occ), 9)
   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
 })
 
@@ -208,7 +212,7 @@ test_that("atlas_occurrences works for Brazil", {
   # "Ramphastos toco" # toucan
   # "Myrmecophaga tridactyla" # anteater
 
-test_that("atlas_media() works for Brazil", {
+test_that("`atlas_media()` works for Brazil", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Brazil",
@@ -217,11 +221,7 @@ test_that("atlas_media() works for Brazil", {
     send_email = FALSE)
   x <- request_data() |>
     identify("Mammalia") |>
-    filter(year == 2010
-          # !is.na(all_image_url)
-    ) |>
-    # count() |>
-    # collect()
+    filter(year == 2010) |>
     atlas_media() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -230,11 +230,17 @@ test_that("atlas_media() works for Brazil", {
   expect_equal(colnames(x)[1:2],
                c("media_id", "recordID"))
   # download a subset
+   quiet_media <- function(...){
+    x <- purrr::quietly(collect_media)
+    x(...)$result
+  }
   n_downloads <- 5
-  collect_media(x[seq_len(n_downloads), ])
+  quiet_media(x[seq_len(n_downloads), ])
   expect_equal(length(list.files("temp", pattern = ".jpg$")),
                n_downloads)
   unlink("temp", recursive = TRUE)
 })
 
-galah_config(atlas = "Australia")
+quiet_config <- purrr::quietly(galah_config)
+quiet_config(atlas = "Australia")
+rm(quiet_config)

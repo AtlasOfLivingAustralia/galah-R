@@ -1,3 +1,7 @@
+#' @importFrom dplyr add_count
+#' @export
+dplyr::add_count
+
 #' @importFrom dplyr arrange
 #' @export
 dplyr::arrange
@@ -14,33 +18,37 @@ dplyr::compute
 #' @export
 dplyr::collapse
 
-#' @importFrom graphics identify
+#' @importFrom dplyr count
 #' @export
-graphics::identify
+dplyr::count
+
+#' @importFrom dplyr distinct
+#' @export
+dplyr::distinct
 
 #' @importFrom dplyr filter
 #' @export
 dplyr::filter
 
-#' @importFrom dplyr select
+#' @importFrom dplyr glimpse
 #' @export
-dplyr::select
+dplyr::glimpse
 
 #' @importFrom dplyr group_by
 #' @export
 dplyr::group_by
 
+#' @importFrom dplyr select
+#' @export
+dplyr::select
+
 #' @importFrom dplyr slice_head
 #' @export
 dplyr::slice_head
 
-# @importFrom dplyr slice_tail
-# @export
-# dplyr::slice_tail
-
-#' @importFrom dplyr count
+#' @importFrom graphics identify
 #' @export
-dplyr::count
+graphics::identify
 
 #' @importFrom sf st_crop
 #' @export

@@ -6,9 +6,9 @@ citHeader("To cite galah in publications use:")
 bibentry(bibtype = "Manual",
     "title" = "galah: Biodiversity Data from the GBIF Node Network",
     author = c(person("Martin", "Westgate"),
-             person("Dax", "Kellie"),
-             person("Matilda", "Stevenson"),
-             person("Peggy", "Newman")),
+               person("Dax", "Kellie"),
+               person("Shandiya", "Balasubramaniam"),
+               person("Matilda", "Stevenson")),
      year = year,
      note = note,
      url = "https://CRAN.R-project.org/package=galah")

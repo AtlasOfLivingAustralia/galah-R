@@ -1,249 +1,138 @@
-#' Internal function to `collapse()` apis
-#' @noRd
-#' @keywords Internal
-collapse_apis <- function(){
-  result <- list(type = "metadata/apis",
-                 data = "galah:::node_config")
-  class(result) <- "query"
-  return(result)
-}
-
-#' Internal function to `collapse()` assertions
-#' NOTE: API doesn't accept any arguments - could post-filter for search
-#' @noRd
-#' @keywords Internal
-collapse_assertions <- function(){
-  if(is_gbif()){
-    result <- list(type = "metadata/assertions",
-                   data = "galah:::gbif_internal_archived$assertions")
-  }else{
-    update_needed <- internal_cache_update_needed("assertions")
-    if(update_needed){
-      result <- list(type = "metadata/assertions",
-                     url = url_lookup("metadata/assertions"),
-                     headers = build_headers())
-    }else{
-      result <- list(type = "metadata/assertions",
-                     data = "galah:::check_internal_cache()$assertions")      
-    }
-  }
-  class(result) <- "query"
-  return(result)
-}
-
-#' Internal function to `collapse()` atlases
-#' @noRd
-#' @keywords Internal
-collapse_atlases <- function(){
-  result <- list(type = "metadata/atlases",
-                 data = "galah:::node_metadata")
-  class(result) <- "query"
-  return(result)
-}
-
-#' Internal function to `collapse()` collections
-#' @importFrom httr2 url_parse
-#' @noRd
-#' @keywords Internal
-collapse_collections <- function(.query){
-  url <- url_lookup("metadata/collections") 
-  if(is_gbif() & !missing(.query)){
-    if(!is.null(.query$filter)){
-      url <- url_parse(url)
-      url$query <- list(q = .query$filter$value[1])
-      url <- url_build(url)
-    }
-  }
-  result <- list(type = "metadata/collections",
-                 url = url,
-                 headers = build_headers()) 
-  class(result) <- "query"
-  return(result)
-}
-# NOTE: LA collectory functions do not accept `max` or `offset`
-# Therefore they cannot be paginated. GBIF collectory funs can.
-
-#' Internal function to `collapse()` datasets
-#' @noRd
-#' @keywords Internal
-collapse_datasets <- function(.query){
-  url <- url_lookup("metadata/datasets") 
-  if(is_gbif() & !missing(.query)){
-    if(!is.null(.query$filter)){
-      url <- url_parse(url)
-      url$query <- list(q = .query$filter$value[1])
-      url <- url_build(url)
-    }
-  }
-  result <- list(type = "metadata/datasets",
-                 url = url,
-                 headers = build_headers()) 
-  class(result) <- "query"
-  return(result)
-}
-
-#' Internal function to `collapse()` distributions
-#' @noRd
-#' @keywords Internal
-collapse_distributions_metadata <- function(.query){
-  url <- url_lookup("metadata/distributions")
-  result <- list(type = "metadata/distributions",
-                 url = url,
-                 headers = build_headers()) 
-  class(result) <- "query"
-  return(result)
-}
-
-#' Internal function to `collapse()` fields
-#' Note that this is inconsistent with `show_all_fields()` which returns data
-#' from multiple APIs
-#' @noRd
-#' @keywords Internal
-collapse_fields <- function(){
-  if(is_gbif()){
-    result <- list(type = "metadata/fields",
-                   data = "galah:::gbif_internal_archived$fields")
-  }else{
-    update_needed <- internal_cache_update_needed("fields")
-    if(update_needed){
-      result <- list(type = "metadata/fields",
-                     url = url_lookup("metadata/fields"),
-                     headers = build_headers())
-    }else{
-      result <- list(type = "metadata/fields",
-                     data = "galah:::check_internal_cache()$fields")      
-    }
-  }
-  class(result) <- "query"
-  return(result) 
-}
-
-#' Internal function to `collapse()` identifiers
-#' @noRd
-#' @keywords Internal
-collapse_identifiers <- function(.query){
-  if(is.null(.query$filter)){
-    url_list <- url_lookup("metadata/identifiers")
-    names(url_list) <- "no-name-supplied"
-  }else{
-    base_url <- url_lookup("metadata/identifiers") |>
-      url_parse()
-    search_terms <- .query$filter$value
-    query <- as.list(search_terms)
-    # create query urls
-    urls <- lapply(query,
-                   function(a, base_url){
-                     names(a) <- "taxonID"
-                     base_url$query <- as.list(a)
-                     url_build(base_url)
-                   },
-                   base_url = base_url) |>
-      unlist()
-  }
-  # build object and return
-  result <- list(type = "metadata/identifiers",
-                 url = tibble(url = urls, 
-                              search_term = search_terms),
-                 headers = build_headers())
-  class(result) <- "query"
-  return(result)
-}
-
-#' Internal function to `collapse()` licences
-#' @noRd
-#' @keywords Internal
-collapse_licences <- function(){
-  result <- list(type = "metadata/licences",
-                 url = url_lookup("metadata/licences"),
-                 headers = build_headers())
-  class(result) <- "query"
-  return(result)
-}
-
 #' Internal function to `collapse()` lists
+#' Required for pagination
+#' Should run a query with `max = 0` to get total n
+#' Then use `max` and `offset` to paginate up to `n`
 #' @noRd
 #' @keywords Internal
 collapse_lists <- function(.query){
-  url <- url_lookup("metadata/lists") |>
-    url_parse()
-  url$query <- list(max = 10000)
-  if(!missing(.query)){
-    if(!is.null(.query$slice)){
-      url$query <- list(max = .query$slice$slice_n)
-    }    
-  }
-  result <- list(type = "metadata/lists",
-                 url = url_build(url),
-                 headers = build_headers(),
-                 slot_name = "lists")
-  class(result) <- "query"
-  return(result) 
-}
-
-#' Internal function to `collapse()` profiles
-#' @noRd
-#' @keywords Internal
-collapse_profiles <- function(){
-  update_needed <- internal_cache_update_needed("profiles")
-  if(update_needed){
-    result <- list(type = "metadata/profiles",
-                   url = url_lookup("metadata/profiles"),
-                   headers = build_headers())    
+  if(is.null(.query$url)){
+    .query
+  }else if(inherits(.query$url, "tbl_df")){
+    .query
+  }else if(stringr::str_detect(.query$url, "[:digit:]+$")){
+    .query
   }else{
-    result <- list(type = "metadata/profiles",
-                   data = "galah:::check_internal_cache()$profiles")
+    url <- httr2::url_parse(.query$url)
+    n_requested <- as.integer(url$query$max)
+    # make decisions about how much pagination is needed
+    if(n_requested <= 500){ # we haven't hit pagination limit
+      .query
+    }else{ # more lists are requested
+      n <- get_max_n(.query)
+      n_pages <- ceiling(n$max_requested / n$paginate)
+      offsets <- (seq_len(n_pages) - 1) * n$paginate
+      result <- tibble::tibble(
+        offset = offsets,
+        max = c(
+          rep(n$paginate, n_pages - 1),
+          n$max_requested - offsets[n_pages]))
+      result$url <- purrr::map(
+        split(result, seq_len(nrow(result))),
+        function(a){
+          url$query <- list(offset = a$offset, max = a$max)
+          httr2::url_build(url)
+        }) |>
+        unlist()
+      .query$url <- dplyr::select(result, "url")
+    }
+    .query
   }
-  class(result) <- "query"
-  return(result)
 }
 
-#' Internal function to `collapse()` providers
+#' Internal function to retrieve max number of entries for an API
 #' @noRd
 #' @keywords Internal
-collapse_providers <- function(.query){
-  url <- url_lookup("metadata/providers") 
-  if(is_gbif() & !missing(.query)){
-    if(!is.null(.query$filter)){
-      url <- url_parse(url)
-      url$query <- list(q = .query$filter$value[1])
-      url <- url_build(url)
+get_max_n <- function(.query){
+  url <- httr2::url_parse(.query$url)
+  if(is_gbif()){
+    count_field <- "count"
+  }else{
+    count_field <- "listCount"
+  }
+  n <- list(requested = as.integer(url$query$max), 
+            paginate = 500, 
+            max_available = {
+              url$query <- list(max = 0)
+              list(type = "metadata/list-count",
+                   url = httr2::url_build(url),
+                   headers = .query$headers) |>
+                query_API() |>
+                purrr::pluck(count_field) # NOTE: only tested for ALA                
+            })
+  n$max_requested <- min(c(n$requested, n$max_available))
+  n
+}
+
+
+#' Internal function to call `collapse` for `request_metadata(type = "profiles-unnest")`
+#' @noRd
+#' @keywords Internal
+collapse_profile_values <- function(.query,
+                                    error_call){
+  url <- .query |>
+    purrr::pluck("url") |>
+    httr2::url_parse()
+  profile_name <- extract_profile_name(url)
+  short_name <- profile_short_name(profile_name,
+                                   error_call = error_call)
+  if (!potions::pour("atlas", "region") == "Spain") {
+    path_name <- url |>
+      purrr::pluck("path") |>
+      dirname()
+    url$path <- glue::glue("{path_name}/{short_name}")
+  }
+  list(type = .query$type,
+       url = httr2::url_build(url)) |>
+    as_query()
+}
+# this doesn't print for some reason
+
+#' Internal function to convert between long and short names
+#' for data profiles. Only used by `collapse_profile_values()`
+#' @noRd
+#' @keywords Internal
+profile_short_name <- function(profile,
+                               error_call) {
+  valid_profiles <- show_all_profiles()
+  short_name <- NA
+  if (suppressWarnings(!is.na(as.numeric(profile)))) {
+    # assume a profile id has been provided
+    short_name <- valid_profiles[match(as.numeric(profile),
+                                       valid_profiles$id),]$short_name
+  } else {
+    # try to match a short name or a long name
+    if (profile %in% valid_profiles$name) {
+      short_name <- valid_profiles[match(profile,
+                                         valid_profiles$name), ]$short_name
+    } else {
+      if (profile %in% valid_profiles$short_name) {
+        short_name <- profile
+      }
     }
   }
-  result <- list(type = "metadata/providers",
-                 url = url,
-                 headers = build_headers())
-  class(result) <- "query"
-  return(result)
+  if (is.na(short_name)) {
+    c(
+      "Unknown profile detected.",
+      i = "See a listing of valid data quality profiles with `show_all_profiles()`.") |>
+    cli::cli_abort(call = error_call)
+  }else{
+    short_name
+  }
 }
 
-#' Internal function to `collapse()` reasons
+#' Internal function to extract profile name from url
+#' for data profiles. Only used by `compute_profile_values()`
 #' @noRd
 #' @keywords Internal
-collapse_reasons <- function(){
-  update_needed <- internal_cache_update_needed("reasons")
-  if(update_needed){
-    result <- list(type = "metadata/reasons",
-                   url = url_lookup("metadata/reasons"),
-                   headers = build_headers())
-  }else{
-    result <- list(type = "metadata/reasons",
-                   data = "galah:::check_internal_cache()$reasons")
+extract_profile_name <- function(url) {
+  atlas <- potions::pour("atlas", "region")
+  if (atlas == "Spain") {
+    profile_name <- url |>
+      purrr::pluck("query", "profileName")
+  } else {
+    profile_name <- url |>
+      purrr::pluck("path") |>
+      basename()
   }
-  class(result) <- "query"
-  return(result)
-}
-
-#' Internal function to `collapse()` ranks
-#' @noRd
-#' @keywords Internal
-collapse_ranks <- function(){
-  if(is_gbif()){
-    result <- list(type = "metadata/ranks",
-                   data = "galah:::gbif_internal_archived$ranks")
-  }else{
-    result <- list(type = "metadata/ranks",
-                   data = "galah:::galah_internal_archived$ranks")
-  }
-  class(result) <- "query"
-  return(result)
+  return(profile_name)
 }

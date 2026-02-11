@@ -1,0 +1,139 @@
+---
+title: "Object-Oriented Programming"
+author: "Martin Westgate & Dax Kellie"
+date: '`r Sys.Date()`'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Object-Oriented Programming}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r include = FALSE}
+galah_config(email = "ala4r@ala.org.au",
+             atlas = "Australia",
+             verbose = FALSE)
+```
+
+`galah` has some alot of functions that display object-oriented behaviour, 
+which are used for two purposes:
+
+ - building piped queries via `request` objects
+ - handling the parsing of those objects into `query` objects
+
+Below we'll go through each in turn.
+
+
+# `request` objects
+
+The default method for building queries in `galah` is to first use `galah_call()`
+to create a query object called a "`data_request`". When a piped object is of 
+class `data_request`, galah triggers functions to use specific methods for 
+this object class, e.g.
+
+```{r}
+galah_call() |> 
+  filter(genus == "Crinia", year == 2020) |>
+  group_by(species) |>
+  count() |>
+  collect()
+```
+
+Thanks to object-oriented programming, galah "masks" `filter()` and `group_by()` 
+functions to use methods defined for `data_request` objects instead. The full 
+list of masked functions is: 
+
+- `arrange()` (`{dplyr}`)
+- `count()` (`{dplyr}`)
+- `glimpse()` (`{dplyr}`)
+- `identify()` (`{graphics}`)
+- `select()` (`{dplyr}`)
+- `group_by()` (`{dplyr}`)
+- `slice_head()` (`{dplyr}`)
+- `st_crop()` (`{sf}`)
+
+Note that these functions are all evaluated lazily; they amend the underlying 
+object, but do not amend the nature of the data until the call is evaluated.
+
+# `query` objects
+
+A `request` object stores all the information needed to generate a query,
+but does not build or enact that query. To achieve this, galah has a second
+object-oriented workflow, consisting of the following stages
+
+- `capture()` identifies the url needed to execute the request. For complex
+   requests that require multiple API calls to evaluate, it returns a `prequery`
+   object. For simpler requests it returns a `query`.
+- `compund()` identifies the full set of queries necessary to properly evaluate
+   the specified request, returning them as a `query_set`.
+- `collapse()` converts a `query_set` to a `query`. This is the point in the 
+   pipeline where the final url is generated.
+- `compute()` is intended to send the query in question to the requested API 
+   for processing. This is particularly important for occurrences, where
+   it can be useful to submit a query and retrieve it at a later time. If the 
+   `compute()` stage is not required, however, `compute()` simply converts
+   the `query` to a new class (`computed_query`).
+- `collect()` retrieves the requested data into your workspace, returning a 
+  `tibble`.
+
+We can use these in sequence, or just leap ahead to the stage we want:
+
+```{r}
+x <- request_data() |>
+  filter(genus == "Crinia", year == 2020) |>
+  group_by(species) |>
+  arrange(species) |>
+  count()
+
+capture(x)
+compound(x)
+collapse(x)
+collect(x) |> head()
+```
+
+The benefit of this workflow is that it is highly modular. This is critical
+for debugging workflows that might have gone wrong for one reason or another, but it
+is also useful for handling large data requests in galah. Users can send their query 
+using `compute()`, and download data once the query has finished — downloading 
+with `collect()` later — rather than waiting for the request to finish within R.
+
+```{r, eval = FALSE}
+# Create and send query to be calculated server-side
+request <- request_data() |>
+  identify("perameles") |>
+  filter(year > 1900) |>
+  compute()
+  
+# Download data
+request |>
+  collect()
+```
+
+# metadata requests
+
+For the above workflow to be achivable, it is neccessary for every API call
+in `galah` to be written as a `request` object. This is because `compound()`
+must collect a range of different requests to evaluate a single query. 
+To this end, `galah` supports metadata requests, in addition to the data
+requests described above.
+
+
+```{r, eval = FALSE}
+request_metadata(type = "fields") |>
+  collect()
+```
+
+Or to show values for states and territories:
+
+```{r, eval = FALSE}
+request_metadata() |>
+  filter(field == "cl22") |>
+  unnest() |>
+  collect()
+```
+
+While `request_metadata()` is more modular than `show_all()`, there is 
+little benefit to using it for most applications. However, in some cases,
+larger databases like GBIF return huge `data.frame`s of metadata when called 
+via `show_all()`. Using `request_metdata()` allows users to specify a 
+`slice_head()` line within their pipe to get around this issue.

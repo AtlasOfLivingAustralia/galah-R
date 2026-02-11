@@ -15,38 +15,41 @@
 \alias{search_apis}
 \alias{search_identifiers}
 \alias{search_lists}
+\alias{search_media}
 \alias{search_taxa}
 \title{Search for record information}
 \usage{
-search_all(type, query)
+search_all(type, query, all_fields = FALSE)
 
-search_assertions(query)
+search_assertions(query, all_fields = FALSE)
 
-search_apis(query)
+search_apis(query, all_fields = FALSE)
 
-search_atlases(query)
+search_atlases(query, all_fields = FALSE)
 
-search_collections(query)
+search_collections(query, all_fields = FALSE)
 
-search_datasets(query)
+search_datasets(query, all_fields = FALSE)
 
-search_fields(query)
+search_fields(query, all_fields = FALSE)
 
-search_identifiers(...)
+search_identifiers(..., all_fields = FALSE)
 
-search_licences(query)
+search_licences(query, all_fields = FALSE)
 
-search_lists(query)
+search_lists(query, all_fields = FALSE)
 
-search_profiles(query)
+search_media(query, all_fields = FALSE)
 
-search_providers(query)
+search_profiles(query, all_fields = FALSE)
 
-search_ranks(query)
+search_providers(query, all_fields = FALSE)
 
-search_reasons(query)
+search_ranks(query, all_fields = FALSE)
 
-search_taxa(...)
+search_reasons(query, all_fields = FALSE)
+
+search_taxa(..., all_fields = FALSE)
 }
 \arguments{
 \item{type}{A string to specify what type of parameters should be searched.}
@@ -54,8 +57,12 @@ search_taxa(...)
 \item{query}{A string specifying a search term. Searches are not
 case-sensitive.}
 
-\item{...}{A set of strings or a tibble to be queried; see
-Details.}
+\item{all_fields}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} If \code{TRUE},
+\code{show_values()} also returns all columns available from the API, rather
+than the 'default' columns traditionally provided via galah.}
+
+\item{...}{One or more objects accepted by the taxonomic lookup services. See
+\link{taxonomic_searches} for details}
 }
 \value{
 An object of class \code{tbl_df} and \code{data.frame} (aka a tibble)
@@ -70,15 +77,15 @@ Functions prefixed with \code{search_} do this, displaying any matches to a
 search term within the valid options for the information specified by the
 suffix.
 
-\strong{For more information about taxonomic searches using \code{search_taxa()}, see \code{?taxonomic_searches}}.
+\strong{For more information about taxonomic searches using \code{search_taxa()}, see}
+\code{\link[=taxonomic_searches]{?taxonomic_searches}}.
 
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 \code{search_all()} is a helper function that can do searches for multiple
 types of information, acting as a wrapper around many \code{search_} sub-functions.
 See \code{Details} (below) for accepted values.
 }
 \details{
-There are five categories of information, each with their own
+There are six categories of information, each with their own
 specific sub-functions to look-up each type of information.
 The available types of information for \code{search_all()} are:\tabular{llll}{
    \strong{Category} \tab \strong{Type} \tab \strong{Description} \tab \strong{Sub-functions} \cr
@@ -96,6 +103,7 @@ The available types of information for \code{search_all()} are:\tabular{llll}{
    data providers \tab \code{providers} \tab Search for which institutions have provided data \tab \code{search_providers()} \cr
     \tab \code{collections} \tab Search for the specific collections within those institutions \tab \code{search_collections()} \cr
     \tab \code{datasets} \tab Search for the data groupings within those collections \tab \code{search_datasets()} \cr
+   media \tab \code{media} \tab Search for images or sounds using a vector of IDs \tab \code{search_media()} \cr
 }
 }
 \examples{

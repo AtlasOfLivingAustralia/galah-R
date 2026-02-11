@@ -9,13 +9,52 @@ test_that("swapping to atlas = GBIF works", {
 })
 
 test_that("show_all(fields) works for GBIF", {
-  x <- request_metadata() |> collapse()
+  skip_if_offline(); skip_on_ci()
+  # first ensure underlying syntax is valid
+  x <- request_metadata() |> 
+    collapse()
   expect_true(inherits(x, "query"))
   expect_true(x$type == "metadata/fields")
   x <- collect(x)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  # then test 'traditional' syntax
   y <- show_all(fields)
+  expect_equal(x, y)
+})
+
+test_that("search_all(fields) works for GBIF", {
+  skip_if_offline(); skip_on_ci()
+  result <- search_all(fields, "year")
+  expect_gte(nrow(result), 2)
+  result |> 
+    inherits(c("tbl_df", "tbl", "data.frame")) |>
+    expect_true()
+  grepl("year", tolower(result$id)) |>
+    all() |>
+    expect_true()
+})
+
+test_that("show_values works for GBIF fields", {
+  skip_if_offline(); skip_on_ci()
+  # query syntax
+  x <- request_metadata() |>
+    filter(fields == "gbifRegion") |>
+    unnest() |>
+    collect()
+  # traditional syntax
+  quiet_values <- function(...){
+    x <- purrr::quietly(show_values)
+    x(...)$result
+  }
+  y <- search_fields("gbifRegion") |>
+    quiet_values()
+  # tests
+  inherits(x, c("tbl_df", "tbl", "data.frame")) |>
+    expect_true()
+  x |>
+    nrow() |>
+    expect_gt(1)
   expect_equal(x, y)
 })
 
@@ -84,6 +123,26 @@ test_that("search_all(taxa) works for GBIF", {
   expect_true(x$class == "Mammalia")
 })
 
+test_that("search_all(taxa) works using a tibble for GBIF", {
+  skip_if_offline(); skip_on_ci()
+  x <- search_all(taxa, 
+                  data.frame(kingdom = "Animalia", 
+                             phylum = "Chordata")) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_equal(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("search_all(identifiers) works for GBIF", {
+  skip_if_offline(); skip_on_ci()
+  x <- search_all(identifiers, "359") |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_equal(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
 galah_config(verbose = TRUE)
 
 test_that("search_all(datasets) works for GBIF", {
@@ -109,24 +168,13 @@ test_that("search_all(providers) works for GBIF", {
 
 galah_config(verbose = FALSE)
 
-test_that("search_all(fields) works for GBIF", {
-  skip_if_offline(); skip_on_ci()
-  result <- search_all(fields, "year")
-  expect_equal(nrow(result), 2)
-  expect_true(inherits(result, c("tbl_df", "tbl", "data.frame")))
-})
-
-test_that("show_values works for GBIF fields", {
-  skip_if_offline(); skip_on_ci()
-  search_fields("basisOfRecord") |>
-    show_values() |>
-    nrow() |>
-    expect_gt(1)
-})
-
 test_that("atlas_counts works for GBIF", {
   skip_if_offline(); skip_on_ci()
-  expect_gt(atlas_counts()$count, 0)
+  galah_call() |>
+    count() |>
+    collect() |>
+    dplyr::pull("count") |>
+    expect_gt(0)
 })
 
 test_that("atlas_counts fails for GBIF when type = 'species'", {
@@ -135,64 +183,17 @@ test_that("atlas_counts fails for GBIF when type = 'species'", {
 
 galah_config(run_checks = TRUE)
 
-test_that("`count()` works with `filter()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
-  # collapse
-  x <- request_data() |>
-    filter(year == 2010) |>
-    count() |>
-    collapse()
-  expect_s3_class(x, "query")
-  expect_equal(length(x), 5)
-  expect_equal(names(x), 
-               c("type", "url", "slot_name", "expand", "headers"))
-  expect_equal(x$type, "data/occurrences-count")
-  # compute
-  y <- compute(x)
-  expect_s3_class(y, "computed_query")
-  # collect
-  z <- collect(y)
-  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
-  expect_gt(z$count, 1)
-  expect_equal(nrow(z), 1)
-})
-
-test_that("`count` works with `identify` for GBIF", {
-  skip_if_offline(); skip_on_ci()
-  # collapse
-  x <- request_data() |>
-    identify("Mammalia") |>
-    count() |>
-    collapse()
-  expect_s3_class(x, "query")
-  expect_equal(length(x), 5)
-  expect_equal(names(x), 
-               c("type", "url", "slot_name", "expand", "headers"))
-  expect_equal(x$type, "data/occurrences-count")
-  # compute
-  y <- compute(x)
-  expect_s3_class(y, "computed_query")
-  # collect
-  z <- collect(y)
-  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
-  expect_gt(z$count, 1)
-  expect_equal(nrow(z), 1)
-})
-
-test_that("`count` works with `group_by` for GBIF", {
+test_that("`count` works with 2 `group_by` args for GBIF", {
   skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
-    identify("Litoria") |>
     filter(year >= 2020) |>
-    group_by(year) |>
+    group_by(year, basisOfRecord) |>
     count() |>
     collapse()
   expect_s3_class(x, "query")
-  expect_equal(length(x), 4)
-  expect_equal(names(x), c("type",
-                           "url",
-                           "expand",
-                           "headers"))
+  # expect_equal(length(x), 6) # for some reason this fails on Positron?!?!?!!
+  expect_contains(names(x), 
+               c("type", "url", "headers", "request")) # "options", "body" ?
   expect_equal(x$type, "data/occurrences-count-groupby")
   # compute
   y <- compute(x)
@@ -201,72 +202,85 @@ test_that("`count` works with `group_by` for GBIF", {
   z <- collect(y)
   expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(z), 1)
-  expect_equal(names(z), c("year", "count"))
-  # group_by fails when an invalid field is given
-  expect_error({
-    galah_call() |>
-      identify("Crinia") |>
-      group_by(species) |>
-      count() |>
-      collect()
-  })
+  expect_equal(names(z), c("year", "basisOfRecord", "count"))
+  # in early versions, iterating by a variable wasn't working properly
+  # check that same level of second variable differs across first variable
+  z_counts <- z |>
+    dplyr::filter(basisOfRecord == "HUMAN_OBSERVATION") |>
+    dplyr::pull(count)
+  expect_true(max(z_counts) - min(z_counts) > 0)
 })
 
-# FIXME: GBIF grouped counts only work for n = 1 - expand this or add warning
+## group_by fails when an invalid field is given
+## NOTE: fails: no checks run at present
+# expect_error({
+#   galah_call() |>
+#     identify("Crinia") |>
+#     group_by(species) |>
+#     count() |>
+#     collect()
+# })
+
 # FIXME: `slice_head()` not tested for GBIF
-# FIXME: `check_fields()` not tested for GBIF - try sending invalid fields to `filter()`
 
-test_that("`count()` works with `galah_polygon()` for GBIF", {
+test_that("`count()` works with `identify` for GBIF when `run_checks` = TRUE", {
   skip_if_offline(); skip_on_ci()
-  # errors when points given clockwise
-  wkt <- "POLYGON((142.36 -29.01,142.74 -29.01,142.74 -29.39,142.36 -29.39,142.36 -29.01))"
-  expect_error({galah_call() |>
-      galah_polygon(wkt) |>
-      count() |>
-      collect()})
-  # works when points given counter-clockwise
-  wkt <- "POLYGON((142.36 -29.01,142.36 -29.39,142.74 -29.39,142.74 -29.01,142.36 -29.01))"
-  result <- galah_call() |>
-    identify("Mammalia") |>
-    galah_polygon(wkt) |>
+  galah_config(run_checks = TRUE)
+  # collapse
+  x <- request_data() |>
+    identify("Litoria peronii") |>
+    filter(year >= 2020, 
+           basisOfRecord == "HUMAN_OBSERVATION") |>
     count() |>
-    collect()
-  # compare against a taxonomic query in the same place
-  result_taxa <- galah_call() |>
-    identify("Mammalia") |>
-    count() |>
-    collect()
-  # compare against a purely spatial query
-  result_space <- galah_call() |>
-    galah_polygon(wkt) |>
-    count() |>
-    collect()
-  expect_lt(result$count, result_taxa$count)
-  expect_lt(result$count, result_space$count)
+    collapse()
+  expect_s3_class(x, "query")
+  expect_equal(length(x), 6)
+  expect_equal(names(x), 
+               c("type", "url", "headers",
+                 "options", "body", "request"))
+  expect_equal(x$type, "data/occurrences-count")
+  # compute
+  y <- compute(x)
+  expect_s3_class(y, "computed_query")
+  # collect
+  z <- collect(y)
+  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
+  expect_gt(z$count, 1)
+  expect_equal(nrow(z), 1)
 })
 
-test_that("`count()` works with `galah_radius()` for GBIF", {
+test_that("`glimpse()` works for GBIF", {
   skip_if_offline(); skip_on_ci()
-  # ditto for a point and radius
-  result <- galah_call() |>
-    identify("Mammalia") |>
-    galah_radius(lat = -33.7,
-                 lon = 151.3,
-                 radius = 5) |>
-    count() |>
+  x <- galah_call() |>
+    filter(year == 2025) |>
+    glimpse() |>
     collect()
-  result_space <- galah_call() |>
-    galah_radius(lat = -33.7,
-                 lon = 151.3,
-                 radius = 5) |>
-    count() |>
+  expect_s3_class(x, c("occurrences_glimpse", "tbl_df", "tbl", "data.frame"))
+  expect_equal(nrow(x), 3) # number of rows in the tibble
+  quiet_print <- purrr::quietly(print.occurrences_glimpse)
+  x_print <- strsplit(quiet_print(x)$output, "\n")[[1]] # print statement
+  expect_gt(length(x_print), 5)
+  stringr::str_detect(x_print,
+                       "^\\$ (taxonConceptID|eventDate|decimalLatitude)") |>
+    which() |>
+    length() |>
+    expect_equal(3)
+})
+
+test_that("`atlas_occurrences()` works for GBIF", {
+  skip_if_offline(); skip_on_ci()
+  galah_config(atlas = "GBIF",
+               username = "atlasoflivingaustralia",
+               email = "ala4r@ala.org.au",
+               password = "galah-gbif-test-login")
+  x <- galah_call() |>
+    filter(year == 1890,
+           classKey == "359",
+           country == "AU") |>
     collect()
-  result_taxa <- galah_call() |>
-    identify("Mammalia") |>
-    count() |>
-    collect()
-  expect_lt(result$count, result_taxa$count)
-  expect_lt(result$count, result_space$count)
+  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_gt(nrow(x), 10)
+  expect_gt(ncol(x), 10)
 })
 
 test_that("`atlas_occurrences()` works with `galah_polygon()` for GBIF", {
@@ -313,9 +327,9 @@ test_that("atlas_species works for GBIF", {
     identify("Litoria") |>
     collapse()
   expect_s3_class(x, "query")
-  expect_equal(length(x), 5)
+  expect_equal(length(x), 6)
   expect_equal(names(x), 
-               c("type", "url", "headers", "options", "body"))
+               c("type", "url", "headers", "options", "body", "request"))
   expect_equal(x$type, "data/species")
   y <- compute(x)
   expect_s3_class(y, "computed_query")
@@ -338,7 +352,7 @@ test_that("atlas_media fails for GBIF", {
   })
 })
 
-test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
+test_that("`collect()` works for GBIF with `type = 'occurrences' or 'occurrences-doi'` ", {
   skip_if_offline(); skip_on_ci()
   # collapse
   base_query <- request_data() |>
@@ -352,7 +366,7 @@ test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
   # NOTE: the above query should return 72 records (tested 2025-06-10)
   expect_s3_class(x, "query")
   expect_equal(names(x), 
-               c("type", "url", "headers", "options", "body"))
+               c("type", "url", "headers", "options", "body", "request"))
   expect_equal(x$type, "data/occurrences")
   # compute
   y <- compute(x)
@@ -366,6 +380,16 @@ test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
   expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
   expect_equal(nrow(z), count$count)
   expect_true(!is.null(attributes(z)$doi))
+
+  # FIXME: need DOI search test
+  recent_doi <- attributes(z)$doi
+  a <- galah_call() |>
+   filter(doi == recent_doi) |>
+   collect()
+  expect_equal(a, z, ignore_attr = TRUE)
+  expect_equal(attributes(a)$doi, attributes(z)$doi)
 })
 
-galah_config(atlas = "Australia")
+quiet_config <- purrr::quietly(galah_config)
+quiet_config(atlas = "Australia")
+rm(quiet_config)

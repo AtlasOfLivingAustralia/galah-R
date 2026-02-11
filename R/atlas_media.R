@@ -1,36 +1,20 @@
 #' @rdname atlas_
 #' @order 4
-#' @importFrom dplyr any_of
-#' @importFrom dplyr relocate
-#' @importFrom dplyr right_join
-#' @importFrom dplyr join_by
-#' @importFrom glue glue
-#' @importFrom httr2 url_build
-#' @importFrom httr2 url_parse
-#' @importFrom potions pour
-#' @importFrom purrr pluck
-#' @importFrom rlang abort
-#' @importFrom stringr str_remove
+#' @param all_fields `r lifecycle::badge("experimental")` If `TRUE`, 
+#'   `show_values()` also returns all columns available from the media metadata
+#'   API, rather than the 'default' columns traditionally provided via galah.
 #' @export
 atlas_media <- function(request = NULL, 
                         identify = NULL, 
                         filter = NULL, 
                         select = NULL,
                         geolocate = NULL,
-                        data_profile = NULL
+                        apply_profile = NULL,
+                        all_fields = FALSE
                         ) {
   
-  atlas <- pour("atlas", "region", .pkg = "galah")
-  supported_atlases <- c("Australia",
-                         "Austria", # not currently working
-                         "Brazil",
-                         "Guatemala",
-                         "Sweden", 
-                         "Spain", 
-                         "United Kingdom")
-  if(!(atlas %in% supported_atlases)){
-    abort(glue("`atlas_media` is not supported for atlas = {atlas}"))
-  }
+  # check media is available
+  media_supported()
 
   # capture supplied arguments
   args <- as.list(environment())
@@ -40,13 +24,13 @@ atlas_media <- function(request = NULL,
   
   # ensure a filter is present (somewhat redundant with `collapse`)
   if(is.null(.query$filter)){
-    abort("You must specify a valid `filter()` to use `atlas_media()`")
+    cli::cli_abort("You must specify a valid `filter()` to use `atlas_media()`")
   }
 
   # ensure media columns are present in `select`
   if(is.null(.query$select)){
-    .query <- update_data_request(.query, 
-                                  select = galah_select(group = c("basic", "media")))
+    .query <- .query |>
+      dplyr::select(group = c("basic", "media"))
     present_fields <- image_fields()
     present_fields <- present_fields[present_fields != "multimedia"] # check these fields for Spain
     query_collapse <- collapse(.query)
@@ -56,10 +40,10 @@ atlas_media <- function(request = NULL,
     
     # now check whether valid fields are present
     selected_fields <- x$url |>
-      url_parse() |>
-      pluck("query", "fields") |>
+      httr2::url_parse() |>
+      purrr::pluck("query", "fields") |>
       strsplit(split = ",") |>
-      pluck(!!!list(1))
+      purrr::pluck(!!!list(1))
     
     # `multimedia` should be in `select`, but not `filter`
     image_select <- image_fields()
@@ -67,10 +51,10 @@ atlas_media <- function(request = NULL,
     
     # abort if no fields are given to `select`
     if(!any(selected_fields %in% image_select)){
-      selected_text <- paste(selected_fields, collapse = ", ")
-      bullets <- c("No media fields requested by `select()`", 
-                   i = glue("try `galah_select({selected_text}, group = 'media')` instead"))
-      abort(bullets)
+      selected_text <- glue::glue_collapse(selected_fields, sep = ", ")
+      c("No media fields requested by `select()`", 
+        i = "try `galah_select({selected_text}, group = 'media')` instead") |>
+        cli::cli_abort()
     }else{
       present_fields <- selected_fields[selected_fields %in% image_select]
       query_collapse <- x
@@ -80,63 +64,59 @@ atlas_media <- function(request = NULL,
   # add media content to filters
   if(length(present_fields) > 0){
     # do region-specific filter parsing
-    media_fq <- parse_regional_media_filters(present_fields)
+    media_fq <- image_filters(present_fields)
     # add back to source object
     if(length(media_fq) > 1){
-      media_fq <- glue("({glue_collapse(media_fq, ' OR ')})") 
+      media_fq <- glue::glue("({glue::glue_collapse(media_fq, ' OR ')})") 
     }
-    url <- url_parse(query_collapse$url)
-    url$query$fq <- paste0(url$query$fq, " AND ", media_fq)
-    query_collapse$url <- url_build(url)
+    url <- httr2::url_parse(query_collapse$url)
+    url$query$fq <- glue::glue("{url$query$fq}AND{media_fq}")
+    query_collapse$url <- httr2::url_build(url)
   }
 
-  # get occurrences
+  # get occurrences, expand to one row per media entry
   occ <- query_collapse |> 
     collect(wait = TRUE) |>
-    tidyr::unnest_longer(col = any_of(present_fields))
-  
-  if(!any(colnames(occ) == "all_image_url")){
-    occ$media_id <- build_media_id(occ)
-  }
+    build_media_id(media_fields = present_fields)
 
   # collect media metadata
-  media <- request_metadata() |>
-    filter(media == occ) |>
-    collect()
+  media_query <- request_metadata() |>
+    filter(media == dplyr::pull(occ, "media_id"))
+  if(isTRUE(all_fields)){
+    media_query <- media_query |>
+      dplyr::select(tidyselect::everything())
+  }
+  media <- collect(media_query)
   
   # join and return
-  if(any(colnames(occ) == "all_image_url")){
-    occ <- rename(occ, "media_id" = "all_image_url")
-  }
-  occ_media <- right_join(occ,
-                          media, 
-                          by = join_by("media_id" == "image_id"))
-  relocate(occ_media, "media_id", 1)
+  dplyr::right_join(occ,
+                    media, 
+                    by = dplyr::join_by("media_id"))
 }
 
-#' Set filters that work for media in each atlas
-#' @importFrom glue glue
-#' @importFrom stringr str_remove
+#' Internal function to get media metadata, and create a valid file name
 #' @noRd
 #' @keywords Internal
-parse_regional_media_filters <- function(present_fields){
-  
-  atlas <- pour("atlas", "region")
-  switch(atlas,
-         "Austria" = "(all_image_url:*)",
-         "Australia" = glue("({present_fields}:*)"),
-         "Brazil" = "(all_image_url:*)",
-         "Guatemala" = "(all_image_url:*)",
-         "Portugal" = "(all_image_url:*)",
-         "Spain" = {filter_fields <- present_fields |>
-                       str_remove("s$") |>
-                       paste0("IDsCount")
-                     glue("{filter_fields}:[1 TO *]")},
-         "Sweden" = {filter_fields <- present_fields |>
-                       str_remove("s$") |>
-                       paste0("IDsCount")
-                     glue("{filter_fields}:[1 TO *]")},
-         "United Kingdom" = "(all_image_url:*)", # !is.na(all_image_url),
-         abort(glue("`atlas_media` is not supported for atlas = {atlas}"))
-  )
+build_media_id <- function(df, media_fields){
+  if(any(colnames(df) == "all_image_url")){
+    df |>
+      dplyr::mutate("media_id" = .data$all_image_url,
+                    "media_type" = "images",
+                  .before = 1) |>
+      dplyr::select(-"all_image_url")
+  }else{
+    purrr::map(media_fields, .f = \(a){
+     df |>
+       tidyr::unnest_longer(col = tidyselect::any_of(a)) |>
+       dplyr::mutate(media_id = as.character(.data[[a]]),
+                     media_type = as.character(a),
+                    .before = 1) |>
+       dplyr::filter(!is.na(.data$media_id)) |>
+       dplyr::select(- tidyselect::any_of(media_fields))
+        # break pipe at this point because tidyselect can't handle -any_of()
+       # keep_cols <- colnames(result)[!(colnames(result) %in% media_fields)]
+       # dplyr::select(result, tidyselect::any_of(keep_cols))
+    }) |>
+    dplyr::bind_rows()
+  }
 }

@@ -16,77 +16,79 @@ galah_polygon <- function(...){
   out_query <- parse_polygon(query)
   # if a data request was supplied, return one
   if(!is.null(dr)){
-    update_data_request(dr, geolocate = out_query)
+    update_request_object(dr,
+                          geolocate = out_query)
   }else{
     out_query
   }   
 }
 
 #' parser for polygons
-#' @importFrom rlang try_fetch
-#' @importFrom sf st_as_sfc 
-#' @importFrom sf st_is_valid 
-#' @importFrom stringr str_detect
-#' @importFrom stringr str_replace
 #' @noRd
 #' @keywords Internal
-parse_polygon <- function(query){
+parse_polygon <- function(query, 
+                          error_call = rlang::caller_env()){
   # make sure shapefiles are processed correctly
-  if (!inherits(query, "sf")) {query <- query[[1]]} else {query <- query}
+  if (!inherits(query, "sf")) {
+    query <- query[[1]]
+  } else {
+    query <- query
+  }
   
   # check object is accepted class
-  if (!inherits(query, c("character", "list", "matrix", "data.frame", "tbl", "sf", "sfc", "XY"))) {
+  accepted_classes <-  c("character",
+                         "list",
+                         "matrix",
+                         "data.frame",
+                         "tbl",
+                         "sf",
+                         "sfc",
+                         "XY")
+  if (!inherits(query, accepted_classes)) {
     
     unrecognised_class <- class(query)
-    bullets <- c(
-      "Invalid object detected.",
+    c("Invalid object detected.",
       i = "Did you provide a polygon or WKT in the right format?",
-      x = glue("`galah_polygon` cannot use object of class '{unrecognised_class}'.")
-    )
-    abort(bullets, call = caller_env())
+      x = "`galah_polygon` cannot use object of class '{unrecognised_class}'.") |>
+    cli::cli_abort(call = error_call)
   }
   
   # handle shapefiles
-  if (inherits(query, "XY")) query <- st_as_sfc(query) 
+  if (inherits(query, "XY")){
+    query <- sf::st_as_sfc(query) 
+  } 
   
   # make sure spatial object or wkt is valid
   if (!inherits(query, c("sf", "sfc"))) {
     check_wkt_length(query)
     
     # handle errors from converting impossible WKTs
-    query <- try_fetch(
-      query |> st_as_sfc(), 
+    query <- rlang::try_fetch(
+      query |> sf::st_as_sfc(), 
       error = function(cnd) {
-        bullets <- c(
-          "Invalid WKT detected.",
-          i = "Check that the spatial feature or WKT in `galah_polygon` is correct."
-        )
-        abort(bullets, call = caller_env())
+        c("Invalid WKT detected.",
+          i = "Check that the spatial feature or WKT in `galah_polygon` is correct.") |>
+        cli::cli_abort(call = error_call)
       })
-    
-    # validate that wkt/spatial object is real
-    valid <- query |> st_is_valid() }
-  else {
-    valid <- query |> st_is_valid()
   }
+  
+  # validate that wkt/spatial object is real
+  valid <- query |> sf::st_is_valid() 
+  
   if(any(is.na(valid))) {
-    bullets <- c(
-      "Invalid spatial object or WKT detected.",
-      i = "Check that the spatial feature or WKT in `galah_polygon` is correct."
-    )
-    abort(bullets, call = caller_env())
+    c("Invalid spatial object or WKT detected.",
+      i = "Check that the spatial feature or WKT in `galah_polygon` is correct.") |>
+    cli::cli_abort(call = error_call)
   }
   
   # check number of vertices of WKT
   if(any(n_points(query) > 500)) {
     n_verts <- n_points(query)
-    bullets <- c(
-      glue("Polygon has too many vertices."),
+    c("Polygon has too many vertices.",
       i = "`galah_polygon` only accepts simple polygons.",
       i = "See `?sf::st_simplify` for how to simplify geospatial objects.",
-      x = "Polygon must have 500 or fewer vertices, not {n_verts}."
-    )
-    abort(bullets, call = caller_env())
+      x = "Polygon must have 500 or fewer vertices, not {n_verts}.") |>
+    cli::cli_abort(call = error_call)
   }
   
   # currently a bug where the ALA doesn't accept some polygons
@@ -98,12 +100,10 @@ parse_polygon <- function(query){
     } else {
     # multiple polygons
       n_polygons <- length(query$geometry)
-      bullets <- c(
-        "Too many polygons.",
+      c("Too many polygons.",
         i = "`galah_polygon` cannot accept more than 1 polygon at a time.",
-        x = glue("{n_polygons} polygons detected in spatial object.")
-      )
-      abort(bullets, call = caller_env())
+        x = "{n_polygons} polygons detected in spatial object.") |>
+      cli::cli_abort(call = error_call)
       
       ## NOTE: Code below parses multiple polygons. 
       ##       Please do not remove!
@@ -120,14 +120,15 @@ parse_polygon <- function(query){
   } else {
     
     # remove space after "POLYGON" if present
-    if(str_detect(query, "POLYGON \\(\\("))
-      query <- str_replace(query, "POLYGON \\(\\(", "POLYGON\\(\\(")
+    if(stringr::str_detect(query, "POLYGON \\(\\("))
+      query <- stringr::str_replace(query, "POLYGON \\(\\(", "POLYGON\\(\\(")
     
-    if (str_detect(query, "POLYGON") & ! str_detect(query, "MULTIPOLYGON")) {
+    if (stringr::str_detect(query, "POLYGON") &
+        !stringr::str_detect(query, "MULTIPOLYGON")) {
       # change start of string
-      query <- str_replace(query, "POLYGON\\(\\(", "MULTIPOLYGON\\(\\(\\(")
+      query <- stringr::str_replace(query, "POLYGON\\(\\(", "MULTIPOLYGON\\(\\(\\(")
       # add an extra bracket
-      query <- paste0(query, ")")
+      query <- glue::glue("{query})")
     }
     out_query <- query
   }
@@ -135,26 +136,23 @@ parse_polygon <- function(query){
 }
 
 #' Internal function to `galah_polygon`
-#' @importFrom sf st_geometry
 #' @noRd
 #' @keywords Internal
 n_points <- function(x) {
-  count_vertices(st_geometry(x))
+  count_vertices(sf::st_geometry(x))
 }
 
 #' Internal function to `galah_polygon`
-#' @importFrom rlang caller_env
-#' @importFrom sf st_is_empty
 #' @noRd
 #' @keywords Internal
-count_vertices <- function(wkt_string, error_call = caller_env()) {
+count_vertices <- function(wkt_string) {
   out <- if (is.list(wkt_string)) 
     sapply(sapply(wkt_string, count_vertices), sum) 
   else {
     if (is.matrix(wkt_string))
         nrow(wkt_string)
     else {
-      if (!st_is_empty(wkt_string)) 1 else
+      if (!sf::st_is_empty(wkt_string)) 1 else
         0
       }
   }
@@ -162,30 +160,25 @@ count_vertices <- function(wkt_string, error_call = caller_env()) {
 }
 
 #' Internal function to `galah_polygon`
-#' @importFrom glue glue
-#' @importFrom rlang abort
-#' @importFrom rlang is_list
-#' @importFrom rlang is_string
 #' @noRd
 #' @keywords Internal
-check_wkt_length <- function(wkt, error_call = caller_env()) {
-  if (is_string(wkt) == TRUE |
-    is.matrix(wkt) == TRUE  | 
-    is_list(wkt) == TRUE | 
-    is.data.frame(wkt) == TRUE) {
+check_wkt_length <- function(wkt,
+                             error_call = rlang::caller_env()) {
+  if (rlang::is_string(wkt) == TRUE |
+      is.matrix(wkt) == TRUE  | 
+      rlang::is_list(wkt) == TRUE | 
+      is.data.frame(wkt) == TRUE) {
     # make sure strings aren't too long for API call
     if(!inherits(wkt, "character")){
-      abort("Argument `wkt` must be of class 'character'",
-            call = error_call)
+      cli::cli_abort("Argument `wkt` must be of class 'character'",
+                     call = error_call)
     }
     n_char_wkt <- nchar(wkt)
     max_char <- 10000
     if (n_char_wkt > max_char) {
-      bullets <- c(
-        "Invalid WKT detected.",
-        x = glue("WKT string can be maximum {max_char} characters. WKT supplied has {n_char_wkt}.")
-      )
-      abort(bullets, call = error_call)
+      c("Invalid WKT detected.",
+        x = "WKT string can be maximum {max_char} characters. WKT supplied has {n_char_wkt}.") |>
+      cli::cli_abort(call = error_call)
     }
   } 
 }

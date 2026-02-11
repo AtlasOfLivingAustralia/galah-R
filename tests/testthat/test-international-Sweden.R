@@ -1,11 +1,11 @@
 # set verbose to off
 galah_config(verbose = FALSE, run_checks = FALSE)
 
-test_that("swapping to atlas = Sweden works", {
+test_that("`galah_config(atlas = Sweden)` works", {
   expect_message(galah_config(atlas = "Sweden"))
 })
 
-test_that("show_all(collections) works for Sweden", {
+test_that("`show_all(collections)` works for Sweden", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(collections, limit = 10) |>
     try(silent = TRUE)
@@ -14,7 +14,7 @@ test_that("show_all(collections) works for Sweden", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("show_all(datasets) works for Sweden", {
+test_that("`show_all(datasets)` works for Sweden", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(datasets, limit = 10) |>
     try(silent = TRUE)
@@ -23,7 +23,7 @@ test_that("show_all(datasets) works for Sweden", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("show_all(fields) works for Sweden", {
+test_that("`show_all(fields)` works for Sweden", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(fields) |>
     try(silent = TRUE)
@@ -32,7 +32,7 @@ test_that("show_all(fields) works for Sweden", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("show_all(licences) works for Sweden", {
+test_that("`show_all(licences)` works for Sweden", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(licences, limit = 10) |>
     try(silent = TRUE)
@@ -60,12 +60,12 @@ test_that("show_all(providers) works for Sweden", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("show_all(reasons) fails for Sweden", {
+test_that("show_all(reasons) works for Sweden", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(reasons) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
-  expect_gte(nrow(x), 0) # no data at present
+  expect_gt(nrow(x), 0)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
@@ -85,6 +85,26 @@ test_that("show_all(profiles) works for Sweden", {
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  
+  # and values
+  y <- request_metadata() |>
+    filter(profiles == x$short_name[1]) |>
+    unnest() |>
+    collect() |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gt(nrow(y), 1)
+  expect_true(inherits(y, c("tbl_df", "tbl", "data.frame")))
+  
+  # and actually reduces record count
+  records_all <- galah_call() |>
+    count() |>
+    collect()
+  records_clean <- galah_call() |>
+    apply_profile(x$short_name[1]) |>
+    count() |>
+    collect()
+  expect_lt(records_clean$count, records_all$count)
 })
 
 test_that("search_all(fields) works for Sweden", {
@@ -138,28 +158,21 @@ test_that("`search_taxa()` works for multiple ranks in Sweden", {
   expect_true(all(grepl("^[[:digit:]]+$", taxa$taxon_concept_id)))
 })
 
-test_that("show_values works fields in Sweden", {
+test_that("s`how_values()` works fields in Sweden", {
   skip_if_offline(); skip_on_ci()
+  quiet_values <- function(...){
+    x <- purrr::quietly(show_values)
+    x(...)$result
+  }
+  # fields
   x <- search_fields("basisOfRecord") |>
-    show_values() |>
+    quiet_values() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(nrow(x), 1)
-})
 
-test_that("show_values works for lists in Sweden", {
-  skip_if_offline(); skip_on_ci()
+  # lists
   x <- try({search_all(lists, "dr156") |> 
-      show_values()},
-      silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
-  expect_gte(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-})
-
-test_that("show_values works for profiles in Sweden", {
-  skip_if_offline(); skip_on_ci()
-  x <- try({search_all(profiles, "SBDI") |> 
       show_values()},
       silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -170,7 +183,7 @@ test_that("show_values works for profiles in Sweden", {
 test_that("atlas_counts works with type = 'occurrences' for Sweden", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
@@ -179,7 +192,7 @@ test_that("atlas_counts works with type = 'occurrences' for Sweden", {
 test_that("atlas_counts works with type = 'species' for Sweden", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
@@ -259,15 +272,16 @@ test_that("atlas_occurrences works for Sweden", {
   skip_if(inherits(occ_collapse, "try-error"), message = "API not available")
   expect_s3_class(occ_collapse, "query")
   expect_equal(names(occ_collapse), 
-               c("type", "url", "headers", "filter"))
+               c("type", "url", "headers", "request"))
   expect_equal(occ_collapse$type, "data/occurrences")
   # compute
   occ_compute <- compute(occ_collapse)
+  skip_if(inherits(occ_compute, "try-error"), message = "API not available")
   expect_s3_class(occ_compute, "computed_query")
   # collect
   occ <- collect(occ_compute) |>
     try(silent = TRUE)
-  skip_if(inherits(occ_compute, "try-error"), message = "API not available")
+  skip_if(inherits(occ, "try-error"), message = "API not available")
   expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
   expect_equal(ncol(occ), length(default_columns()))
 })
@@ -288,7 +302,7 @@ test_that("atlas_media() works for Sweden", {
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gte(nrow(x), 1)
   expect_equal(colnames(x)[1:2],
-               c("media_id", "recordID"))
+               c("media_id", "media_type"))
 })
 
 test_that("collect_media() works for Sweden", {
@@ -330,10 +344,16 @@ test_that("collect_media() works for Sweden", {
                n_downloads)
   unlink("temp", recursive = TRUE)
   # try with collect_media()
-  collect_media(media_meta[seq_len(n_downloads), ])
+  quiet_media <- function(...){
+    x <- purrr::quietly(collect_media)
+    x(...)$result
+  }
+  quiet_media(x[seq_len(n_downloads), ])
   expect_equal(length(list.files("temp", pattern = ".jpg$")),
                n_downloads)
   unlink("temp", recursive = TRUE)
 })
 
-galah_config(atlas = "Australia")
+quiet_config <- purrr::quietly(galah_config)
+quiet_config(atlas = "Australia")
+rm(quiet_config)

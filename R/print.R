@@ -62,21 +62,23 @@ print.metadata_request <- function(x, ...){
 #' @noRd
 #' @keywords Internal
 format_request_text <- function(x, object_type){
-  filled_slots <- !unlist(lapply(x, is.null))
-  formatted_object <- galah_pink(glue("`{object_type}`"))
+  filled_slots <- !unlist(purrr::map(x, is.null))
   if(any(filled_slots)){
-    inform(glue("Object of type {formatted_object} containing:"))
+    cli::cli_text("Object of type {galah_pink(object_type)} containing:")
     x_names <- names(x)[filled_slots]
-    lapply(x_names, function(a){
-      slot_name <- galah_green(a)
-      slot_content <- switch_slot_text(x, a)
-      glue("{slot_name} {galah_grey(slot_content)}")
-    }) |>
-      unlist() |>
-      format_error_bullets() |>
-      cat()
+    purrr::map(x_names, 
+               function(a){
+                 slot_name <- galah_green(a)
+                 if(a == "filter"){
+                   slot_content <- utils::capture.output(print(x[[a]])) # calls `print.data_filter()` etc.
+                 }else{
+                   slot_content <- switch_slot_text(x, a)
+                 }
+                 glue::glue("{slot_name} {galah_grey(slot_content)}") 
+             }) |>
+      cli::cli_li()
   }else{
-    inform(glue("An empty object of type {formatted_object}"))
+    cli::cli_text("An empty object of type {galah_pink(object_type)}")
   }
 }
 
@@ -92,47 +94,33 @@ switch_slot_text <- function(x, a){
       first_entry <- x[[a]][[1]][1]
       n_entries <- nrow(x[[a]])
       if(n_entries > 1){
-        glue("{first_col}s: {first_entry} + {n_entries - 1} more")  
+        glue::glue("{first_col}s: {first_entry} + {n_entries - 1} more")  
       }else{
-        glue("{first_col}: {first_entry}")
+        glue::glue("{first_col}: {first_entry}")
       }
-    },
-    "filter" = {
-      if(ncol(x[[a]]) > 2){
-        df <- x[[a]][, 1:3]
-      }else{
-        df <- x[[a]]
-      }
-      if(nrow(df) > 1){
-        df <- df[1, ]  
-      }
-      glue_collapse(
-        apply(df, 1, function(b){paste(b, collapse = " ")}),
-        sep = " | ")
     },
     "select" = x[[a]]$summary,
-    "group_by" =  glue_collapse(x[[a]]$name, sep = " | "),
-    "data_profile" ={x[[a]][1]},
+    "group_by" =  glue::glue_collapse(x[[a]]$name, sep = " | "),
+    "apply_profile" ={x[[a]][1]},
     "mint_doi" = {x[[a]][1]},
     "")
 }
 
 #' @rdname print_galah_objects
-#' @importFrom crayon silver
 #' @export
 print.query <- function(x, ...){
   if(!is.null(x$arrange)){
-    arrange <- galah_pale_green(glue("\n
+    arrange <- galah_pale_green(glue::glue("\n
                               arrange: {x$arrange$variable} ({x$arrange$direction})"))
     if(x$arrange$slice_called == TRUE){
-      slice <- galah_pale_green(glue("\n
+      slice <- galah_pale_green(glue::glue("\n
                               slice: {x$arrange$slice_n}"))
     }else{
-      slice <- ""
+      slice <- NULL
     }
   }else{
-    arrange <-""
-    slice <- ""
+    arrange <- NULL
+    slice <- NULL
   }
   if(!is.null(x$url)){
     if(inherits(x$url, "data.frame")){
@@ -141,10 +129,10 @@ print.query <- function(x, ...){
         url_temp <- paste0(substr(url_temp, 1, 70), "...")
       }
       if(nrow(x$url) > 1){
-        url_text <- glue("\n
+        url_text <- glue::glue("\n
            url: {url_temp} + {nrow(x$url) - 1} more") 
       }else{
-        url_text <-glue("\n
+        url_text <- glue::glue("\n
            url: {url_temp}")
       }
     }else{
@@ -152,45 +140,62 @@ print.query <- function(x, ...){
       if(nchar(url_temp) > 70){
         url_temp <- paste0(substr(url_temp, 1, 70), "...")
       }
-      url_text <-glue("\n
+      url_text <- glue::glue("\n
            url: {url_temp}")
     }
     subtext <- galah_grey(url_text)
   }else if(!is.null(x$data)){
-    subtext <- galah_grey(glue("\n
+    subtext <- galah_grey(glue::glue("\n
                                data: {x$data[1]}"))
   }else if(!is.null(x$status)){
-    subtext <- galah_grey(glue("\n
+    subtext <- galah_grey(glue::glue("\n
                                status: {x$status[1]}"))
   }else{
-    subtext <- ""
+    subtext <- NULL
   }
-  cat(c(
-    silver("Object of class"),
-    galah_pink("query"),
-    silver("with type"),
-    galah_green(x$type),
-    subtext, # note: need code for url tibbles
-    arrange,
-    slice))
+  if(!is.null(x$select)){
+    select <- galah_grey(glue::glue("\n
+                               select: {x$select$summary}"))
+  }else{
+    select <- NULL
+  }
+  
+  # keep only populated levels
+  print_list <-  list(subtext, # note: need code for url tibbles
+                      select,
+                      arrange,
+                      slice)
+  print_list <- print_list[!unlist(purrr::map(print_list, is.null))]
+
+  # print
+  class_tr <- class(x)[1]
+  cli::cli_text("Object of class {galah_pink(class_tr)} with type {galah_green(x$type)}")
+  cli::cli_li(print_list)
 }
 
 #' @rdname print_galah_objects
 #' @export
+print.prequery <- print.query
+
+#' @rdname print_galah_objects
+#' @export
 print.computed_query <- function(x, ...){
+  # calculate arrange/slice info
   if(!is.null(x$arrange)){
-    arrange <- galah_pale_green(glue("\n
+    arrange <- galah_pale_green(glue::glue("\n
                               arrange: {x$arrange$variable} ({x$arrange$direction})"))
     if(x$arrange$slice_called == TRUE){
-      slice <- galah_pale_green(glue("\n
+      slice <- galah_pale_green(glue::glue("\n
                               slice: {x$arrange$slice_n}"))
     }else{
-      slice <- ""
+      slice <- NULL
     }
   }else{
-    arrange <-""
-    slice <- ""
+    arrange <- NULL
+    slice <- NULL
   }
+  
+  # add url
   if(!is.null(x$url)){
     if(inherits(x$url, "data.frame")){
       url_temp <- x$url$url[1]
@@ -198,10 +203,10 @@ print.computed_query <- function(x, ...){
         url_temp <- paste0(substr(url_temp, 1, 70), "...")
       }
       if(nrow(x$url) > 1){
-        url_text <- glue("\n
+        url_text <- glue::glue("\n
            url: {url_temp} + {nrow(x$url) - 1} more") 
       }else{
-        url_text <-glue("\n
+        url_text <- glue::glue("\n
            url: {url_temp}")
       }
     }else{
@@ -209,40 +214,53 @@ print.computed_query <- function(x, ...){
       if(nchar(url_temp) > 70){
         url_temp <- paste0(substr(url_temp, 1, 70), "...")
       }
-      url_text <-glue("\n
+      url_text <- glue::glue("\n
            url: {url_temp}")
     }
     subtext <- galah_grey(url_text)
   }else if(!is.null(x$data)){
-    subtext <- galah_grey(glue("\n
+    subtext <- galah_grey(glue::glue("\n
                                data: {x$data[1]}"))
   }else if(!is.null(x$status)){
-    subtext <- galah_grey(glue("\n
+    subtext <- galah_grey(glue::glue("\n
                                status: {x$status[1]}"))
   }else{
-    subtext <- ""
+    subtext <- NULL
   }
-  cat(c(
-    silver("Object of class"),
-    galah_pink("computed_query"),
-    silver("with type"),
-    galah_green(x$type),
-    subtext, # note: need code for url tibbles
-    arrange,
-    slice))
+  
+  # add a status ID
+  if(!is.null(x$status_url)){
+    split_url <- strsplit(x$status_url, "\\/")[[1]] 
+    id <- galah_grey(glue::glue("\n
+                                id: {split_url[[length(split_url)]]}"))
+  }else{
+    id <- NULL
+  }
+  
+  # keep only populated levels
+  print_list <-  list(id,
+                      subtext, # note: need code for url tibbles
+                      arrange,
+                      slice)
+  print_list <- print_list[!unlist(purrr::map(print_list, is.null))]
+  
+  # print
+  cli::cli_text("Object of class {galah_pink(\"computed query\")} with type {galah_green(x$type)}")
+  cli::cli_li(print_list)
 }
 
 #' @rdname print_galah_objects
 #' @export
 print.query_set <- function(x, ...){
   n_queries <- length(x)
-  message(c(silver("Object of class "),
-        galah_pink("`query_set` "),
-        silver(glue("containing ")),
-        ifelse(n_queries > 1, 
-               silver(glue("{n_queries} queries:")),
-               silver("1 query:"))))
-  lapply(x, function(a){
+  header_text <- c("Object of class ",
+                   galah_pink("query_set "),
+                   "containing ",
+                   ifelse(n_queries > 1, 
+                          "{n_queries} queries:",
+                          "1 query:"))
+  cli::cli_text(header_text)
+  purrr::map(x, function(a){
     type_text <- galah_green(a$type)
     if(!is.null(a$url)){
       url_temp <- a$url[1]
@@ -250,51 +268,58 @@ print.query_set <- function(x, ...){
       if(sum(c(pretext_length, nchar(url_temp))) > 80){
         url_temp <- paste0(substr(url_temp, 1, (80 - pretext_length - 3)), "...")
       }
-      subtext <- galah_grey(glue("url: {url_temp}"))
+      subtext <- galah_grey(glue::glue("url: {url_temp}"))
     }else if(!is.null(a$data)){
-      subtext <- galah_grey(glue("data: {a$data[1]}"))
+      subtext <- galah_grey(glue::glue("data: {a$data[1]}"))
     }else{
       subtext <- ""
     } 
-    glue("{type_text} {subtext}")
+    glue::glue("{type_text} {subtext}")
   }) |>
-    unlist() |>
-    format_error_bullets() |>
-    cat()
+    cli::cli_li()
 }
 
 #' @rdname print_galah_objects
-#' @importFrom rlang format_error_bullets
 #' @export
 print.galah_config <- function(x, ...){
-  inform(galah_pink("Package"))
-  package_settings <- galah_green(c("verbose", "run_checks", "send_email"))
-  package_lookup <- unlist(x$package[1:3]) |> as.integer() + 1
-  names(package_settings) <- c("x", "v")[package_lookup]
+  cli::cli_par()
+  cli::cli_text("`galah` package configuration")
+  cli::cli_end()
+  cli::cli_par()
+  # print package settings
+  cli::cli_text("{galah_pink(\"Package\")}")
+  package_info <- purrr::pluck(x, "package")
+  package_logical_check <- purrr::map(package_info, is.logical) |>
+    unlist()
+  logical_values <- package_info[package_logical_check] |>
+    unlist()
+  package_settings <- names(logical_values) |>
+    galah_green()
+  names(package_settings) <- c("x", "v")[as.integer(logical_values) + 1]
   package_settings <- c(package_settings,
-                        "i" = glue("{galah_green('directory')}: {galah_grey(x$package$directory)}")) |>
-    format_error_bullets() |>
-    cat()
-  cat("\n")
-  inform(galah_pink("User"))         
-  values <- c(
+                        "i" = glue::glue("{galah_green('directory')}: {galah_grey(x$package$directory)}")) |>
+    cli::cli_bullets()
+  cli::cli_end()
+  # print user settings
+  cli::cli_par()
+  cli::cli_text("{galah_pink(\"User\")}")
+  user_settings <- c(
+    "{galah_green('authentication')}",
     "{galah_green('username')} {galah_grey(hide_secrets(x$user$username))}",
     "{galah_green('email')}    {galah_grey(x$user$email)}",
     "{galah_green('password')} {galah_grey(hide_secrets(x$user$password))}",
-    "{galah_green('api_key')}  {galah_grey(hide_secrets(x$user$api_key))}",
     "{galah_green('download_reason_id')}   {galah_grey(x$user$download_reason_id)}")
-  password_settings <- lapply(values, 
-                              function(a, x){glue_data(x, a)}, x = x) |>
-    unlist() |>
-    format_error_bullets() |>
-    cat()
-  cat("\n")
-  inform(galah_pink("Atlas"))
+  names(user_settings)[1] <- purrr::pluck(x, "user", "authenticate") |>
+    isTRUE() |>
+    ifelse("v", "x")
+  cli::cli_bullets(user_settings)
+  cli::cli_end()
+  cli::cli_par()
+  cli::cli_text("{galah_pink(\"Atlas\")}")
   atlas_text <- galah_green(x$atlas$organisation)
-  atlas_subtext <- galah_grey(glue("({x$atlas$acronym}), {x$atlas$region}"))
-  atlas_settings <- glue("{atlas_text} {atlas_subtext}") |>
-    format_error_bullets() |>
-    cat()
+  atlas_subtext <- galah_grey(glue::glue("({x$atlas$acronym}), {x$atlas$region}"))
+  cli::cli_bullets("{atlas_text} {atlas_subtext}")
+  cli::cli_end()
 }
 
 #' Internal function to prevent showing secret information in the console
@@ -309,25 +334,23 @@ hide_secrets <- function(string){
 }
 
 #' Pink for printing primary text (e.g. object names) to the console
+#' Note: `@importFrom` here added to avoid CRAN checks flagging crayon as not required 
 #' @importFrom crayon make_style
 #' @noRd
 #' @keywords Internal
-galah_pink <- make_style("#bf2a6d")
+galah_pink <- crayon::make_style("#bf2a6d")
 
 #' Green for printing secondary text (e.g. object types) to the console
-#' @importFrom crayon make_style
 #' @noRd
 #' @keywords Internal
-galah_green <- make_style("#176666")
+galah_green <- crayon::make_style("#176666")
 
 #' Green for printing non-emphasized text to the console
-#' @importFrom crayon make_style
 #' @noRd
 #' @keywords Internal
-galah_pale_green <- make_style("#60a3a3")
+galah_pale_green <- crayon::make_style("#60a3a3")
 
 #' Grey for printing non-emphasized text (e.g. urls) to the console
-#' @importFrom crayon make_style
 #' @noRd
 #' @keywords Internal
-galah_grey <- make_style("#8c8c8c")
+galah_grey <- crayon::make_style("#8c8c8c")

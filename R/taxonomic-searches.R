@@ -3,7 +3,7 @@
 #' @title Look up taxon information
 #' 
 #' @description
-#' `search_taxa()` allows users to look up taxonomic names, and ensure they are
+#' [search_taxa()] allows users to look up taxonomic names, and ensure they are
 #' being matched correctly, before downloading data from the specified 
 #' organisation.
 #' 
@@ -16,7 +16,7 @@
 #' A more common use-case is to distinguish between homonyms by listing higher
 #' taxonomic units, by supplying columns like `kingdom`, `phylum` or `class`.
 #'
-#' `search_identifiers()` allows users to look up matching taxonomic names using 
+#' [search_identifiers()] allows users to look up matching taxonomic names using 
 #' their unique `taxonConceptID`. In the ALA, all records are associated with 
 #' an identifier that uniquely identifies the taxon to which that record belongs. 
 #' Once those identifiers are known, this function allows you to use them to 
@@ -25,13 +25,14 @@
 #' identifiers.
 #' 
 #' Note that when taxonomic look-up is required within a pipe, the equivalent
-#' to `search_taxa()` is \code{\link[=identify.data_request]{identify()}} (or
-#' [galah_identify()]). The equivalent to `search_identifiers()` is to use 
+#' to [search_taxa()] is \code{\link[=identify.data_request]{identify()}} (or
+#' [galah_identify()]). The equivalent to [search_identifiers()] is to use 
 #' \code{\link[=filter.data_request]{filter()}} to filter by `taxonConceptId`.
 #' 
 #' @details
 #' `search_taxa()` returns the taxonomic match of a supplied text string, along 
 #' with the following information:
+#' 
 #'   *  `search_term`: The search term used by the user. When multiple search 
 #'   terms are provided in a tibble, these are displayed in this column, 
 #'   concatenated using `_`.
@@ -48,6 +49,17 @@
 #'   *  `taxonomic names` (e.g. `kingdom`, `phylum`, `class`, `order`, 
 #'   `family`, `genus`)
 #' 
+#' When querying using [request_metadata()], you have the option to pass
+#' \code{\link[=select.metadata_request]{select()}} within the query. The 
+#' easiest way to do this is `select(everything())`, but for completeness, the
+#' following additional fields are available:
+#' 
+#' * `success`: Logical indicating success or failure of the search
+#' * `scientific_name_authorship`: Author and year for the name in question
+#' * `name_type`: Usually `"SCIENTIFIC"`
+#' * `lft` and `rgt`: Numeric indices for taxonomic lookups
+#' * `species_group` and `species_subgroup`: List-columns giving group names
+#' * `_id` fields for `rank` and any taxonomic rank fields (`kingdom_id`, `phylum_id` etc.)
 #' 
 #' @seealso [search_all()] for how to get names if taxonomic identifiers 
 #' are already known. \code{\link[=filter.data_request]{filter()}}, 
@@ -78,7 +90,26 @@
 #'   family = c("pardalotidae", "maluridae"), 
 #'   scientificName = c("Pardalotus striatus striatus", "malurus cyaneus")))
 #'
+#' # Use OOP for the same effect
+#' # `identify()` tells the code that we want to search for _taxonomic_ metadata.
+#' request_metadata() |>
+#'   identify("crinia") |>
+#'   collect()
+#' 
+#' # This approach has the advantage that we can call `select()`
+#' request_metadata() |>
+#'   identify("crinia") |>
+#'   select(everything()) |>
+#'   collect()
+#' 
 #' # Look up a unique taxon identifier
 #' search_identifiers(query = "https://id.biodiversity.org.au/node/apni/2914510")
+#' 
+#' # OOP process for identifiers uses `filter()`, not `identify()`
+#' # In these cases the `field` argument is used to specify `type`
+#' request_metadata() |>
+#'   filter(identifier = "https://id.biodiversity.org.au/node/apni/2914510") |>
+#'   select(everything()) |>
+#'   collect()
 #' }
 NULL

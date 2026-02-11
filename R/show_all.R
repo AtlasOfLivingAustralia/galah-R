@@ -9,12 +9,14 @@
 #' Functions prefixed with `show_all_` do this, displaying all valid options 
 #' for the information specified by the suffix. 
 #' 
-#' `r lifecycle::badge("stable")`
 #' `show_all()` is a helper function that can display multiple types of 
 #' information from `show_all_` sub-functions. 
 #' @param ... String showing what type of information is to be requested. See 
 #' `Details` (below) for accepted values.
 #' @param limit Optional number of values to return. Defaults to NULL, i.e. all records
+#' @param all_fields `r lifecycle::badge("experimental")` If `TRUE`, 
+#'   `show_values()` also returns all columns available from the API, rather
+#'   than the 'default' columns traditionally provided via galah.
 #' @details There are five categories of information, each with their own 
 #' specific sub-functions to look-up each type of information. 
 #' The available types of information for `show_all_` are:
@@ -23,6 +25,7 @@
 #' |---|---|---|---|
 #' | Configuration  |`atlases`| Show what atlases are available | `show_all_atlases()` |
 #' | |`apis`| Show what APIs & functions are available for each atlas | `show_all_apis()` |
+#' | |`config`| Show information necessary for authentication | `show_all_config()`|
 #' | |`reasons`| Show what values are acceptable as 'download reasons' for a specified atlas | `show_all_reasons()` |
 #' | Data providers|`providers`| Show which institutions have provided data | `show_all_providers()` |
 #' | |`collections`|Show the specific collections within those institutions| `show_all_collections()` |
@@ -58,36 +61,50 @@
 #' # `show_all()` is synonymous with `request_metadata() |> collect()`
 #' request_metadata(type = "fields") |>
 #'   collect()
+#'   
+#' # using `all_fields = TRUE` is synonymous with `select(everything())`
+#' request_metadata(type = "fields") |>
+#'   select(everything()) |>
+#'   collect()
 #' }
-#' @importFrom rlang as_label
 #' @export
-show_all <- function(..., limit = NULL){
-  dots <- enquos(..., .ignore_empty = "all")
+show_all <- function(...,
+                     limit = NULL,
+                     all_fields = FALSE){
+  dots <- rlang::enquos(..., .ignore_empty = "all")
   if(length(dots) < 1){
     type_text <- "fields"
   }else{
-    type_text <- gsub("\"", "", as_label(dots[[1]])) # handle case where type is quoted
+    type_text <- gsub("\"", 
+                      "", 
+                      rlang::as_label(dots[[1]])) # handle case where type is quoted
   }
-  show_all_generic(type = type_text, limit = limit)
+  show_all_generic(type = type_text, 
+                   limit = limit,
+                   all_fields = all_fields)
 }
 
 #' Internal function to handle `show_all` calls
 #' This is needed to handle slight differences between syntax of 
 #' `show_all()` and `collect()`
-#' @importFrom dplyr slice_head
 #' @noRd
 #' @keywords Internal
-show_all_generic <- function(type, limit){
+show_all_generic <- function(type,
+                             limit,
+                             all_fields){
   x <- request_metadata(type = type)
   if(!is.null(limit)){
-    x <- x |> slice_head(n = limit)
+    x <- x |> dplyr::slice_head(n = limit)
+  }
+  if(isTRUE(all_fields)){
+    x <- x |> dplyr::select(tidyselect::everything())
   }
   result <- collect(x)
   # `show_all()` always returns requested number of records
   # this differs from `collect()` which always returns what the API gives you
   if(!is.null(limit)){
     if(nrow(result) > limit){
-      result <- slice_head(result, n = limit)
+      result <- dplyr::slice_head(result, n = limit)
     }
   }
   result
@@ -95,79 +112,126 @@ show_all_generic <- function(type, limit){
 
 #' @rdname show_all
 #' @export
-show_all_apis <- function(limit = NULL){
-  show_all_generic(type = "apis", limit = limit)
+show_all_apis <- function(limit = NULL,
+                          all_fields = FALSE){
+  show_all_generic(type = "apis",
+                   limit = limit,
+                   all_fields = all_fields)
 }
 
 #' @rdname show_all
 #' @export
-show_all_assertions <- function(limit = NULL){
-  show_all_generic(type = "assertions", limit = limit)
+show_all_assertions <- function(limit = NULL,
+                                all_fields = FALSE){
+  show_all_generic(type = "assertions",
+                   limit = limit,
+                   all_fields = all_fields)
 }
 
 #' @rdname show_all
 #' @export
-show_all_atlases <- function(limit = NULL) {
-  show_all_generic(type = "atlases", limit = limit)
+show_all_atlases <- function(limit = NULL,
+                             all_fields = FALSE){
+  show_all_generic(type = "atlases",
+                   limit = limit,
+                   all_fields = all_fields)
 }
 
 #' @rdname show_all
 #' @export
-show_all_collections <- function(limit = NULL){
-  show_all_generic(type = "collections", limit = limit)
+show_all_collections <- function(limit = NULL,
+                                 all_fields = FALSE){
+  show_all_generic(type = "collections",
+                   limit = limit,
+                   all_fields = all_fields)
 }
 
 #' @rdname show_all
 #' @export
-show_all_datasets <- function(limit = NULL){
-  show_all_generic(type = "datasets", limit = limit)
+show_all_config <- function(){
+  show_all_generic(type = "config",
+                   limit = NULL,
+                   all_fields = TRUE)
+}
+
+#' @rdname show_all
+#' @export
+show_all_datasets <- function(limit = NULL,
+                              all_fields = FALSE){
+  show_all_generic(type = "datasets",
+                   limit = limit,
+                   all_fields = all_fields)
 }
 
 #' @rdname show_all
 #' @noRd
 #' @keywords Internal
-show_all_distributions <- function(limit = NULL){
-  show_all_generic(type = "distributions", limit = limit)
+show_all_distributions <- function(limit = NULL,
+                                   all_fields = FALSE){
+  show_all_generic(type = "distributions",
+                   limit = limit,
+                   all_fields = all_fields)
 }
 
 #' @rdname show_all
 #' @export
-show_all_fields <- function(limit = NULL){
-  show_all_generic(type = "fields", limit = limit)
+show_all_fields <- function(limit = NULL,
+                            all_fields = FALSE){
+  show_all_generic(type = "fields",
+                   limit = limit,
+                   all_fields = all_fields)
 }
 
 #' @rdname show_all
 #' @export
-show_all_licences <- function(limit = NULL){
-  show_all_generic(type = "licences", limit = limit)
+show_all_licences <- function(limit = NULL,
+                              all_fields = FALSE){
+  show_all_generic(type = "licences",
+                   limit = limit,
+                   all_fields = all_fields)
 }
 
 #' @rdname show_all
 #' @export
-show_all_lists <- function(limit = NULL){
-  show_all_generic(type = "lists", limit = limit)
+show_all_lists <- function(limit = NULL,
+                           all_fields = FALSE){
+  show_all_generic(type = "lists",
+                   limit = limit,
+                   all_fields = all_fields)
 }
 
 #' @rdname show_all
 #' @export
-show_all_profiles <- function(limit = NULL) {
-  show_all_generic(type = "profiles", limit = limit)
+show_all_profiles <- function(limit = NULL,
+                              all_fields = FALSE){
+  show_all_generic(type = "profiles",
+                   limit = limit,
+                   all_fields = all_fields)
 }
 
 #' @rdname show_all
 #' @export
-show_all_providers <- function(limit = NULL){
-  show_all_generic(type = "providers", limit = limit)
+show_all_providers <- function(limit = NULL,
+                               all_fields = FALSE){
+  show_all_generic(type = "providers",
+                   limit = limit,
+                   all_fields = all_fields)
 }
 
 #' @rdname show_all
 #' @export
-show_all_ranks <- function(limit = NULL) {
-  show_all_generic(type = "ranks", limit = limit)
+show_all_ranks <- function(limit = NULL,
+                           all_fields = FALSE){
+  show_all_generic(type = "ranks",
+                   limit = limit,
+                   all_fields = all_fields)
 }
 
 #' @rdname show_all
 #' @export
-show_all_reasons <- function(limit = NULL){
-  show_all_generic(type = "reasons", limit = limit)
+show_all_reasons <- function(limit = NULL,
+                             all_fields = FALSE){
+  show_all_generic(type = "reasons",
+                   limit = limit,
+                   all_fields = all_fields)
 }

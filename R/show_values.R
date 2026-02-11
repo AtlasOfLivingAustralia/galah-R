@@ -12,7 +12,7 @@
 #'   *  The `field` "year" contains values 2021, 2020, 2019, etc.
 #'   *  The `field` "stateProvince" contains values New South Wales, Victoria, Queensland, etc.
 #' These are used to narrow queries with 
-#' \code{\link[=filter.data_request]{filter()}} or [galah_filter()]. 
+#' \code{\link[=filter.data_request]{filter()}}. 
 #' 
 #' Each **Profile** consists of many individual quality filters. 
 #' For example, the "ALA" profile consists of values:
@@ -29,17 +29,18 @@
 #' @param df A search result from [search_fields()], [search_profiles()] or 
 #' [search_lists()].
 #' @param all_fields `r lifecycle::badge("experimental")` If `TRUE`, 
-#'   `show_values()` also returns all raw data columns 
-#'   (columns included prior to the dataset's ingestion into the ALA). 
-#'   For many lists, this will include raw scientific names and vernacular 
-#'   names. 
-#'   For conservation lists like the EPBC list, this also includes columns 
-#'   containing each species' conservation status information. 
-#'   Default is set to `FALSE`. 
-#'   Currently only implemented for metadata type `lists`.
+#'   `show_values()` also returns all columns available from the API, rather
+#'   than the 'default' columns traditionally provided via galah. 
+#'   
+#'   For lists, this will include 'raw' columns; columns included prior to the 
+#'   dataset's ingestion into the ALA, and will often include raw scientific 
+#'   names and vernacular names. For conservation lists like the EPBC list, this 
+#'   also includes columns containing each species' conservation status 
+#'   information. 
+#'   
+#'   For other forms of metadata, setting this to `TRUE` may return more 
+#'   information than you want or need. Default is set to `FALSE`. 
 #' @return A `tibble` of values for a specified field, profile or list.
-#' @importFrom tibble tibble
-#' @importFrom cli col_yellow
 #' @examples \dontrun{
 #' # Show values in field 'cl22'
 #' search_fields("cl22") |> 
@@ -70,46 +71,43 @@ show_values <- function(df,
   match_column <- switch(type,
                          "fields" = "id",
                          "lists" = "species_list_uid",
-                         "profiles" = "shortName",
+                         "profiles" = "short_name",
                          "taxa" = "taxon_concept_id",
                          "uid" # last option selected if above are exhausted
   )
   match_name <- df[[match_column]][1]
-  
-  # add_fields for lists only
-  if(isTRUE(all_fields) && type != "lists") {
-    cli::cli_warn("`all_fields` only applies to type `lists`. Ignoring `all_fields = TRUE`.")
-    all_fields <- FALSE
-  }
-  
+
   # specify the number matched fields
   # specify for which field the values are displayed
   if(nrow(df) > 1) {
     n_matches <- nrow(df)
     df <- df[1, ]
-    inform(
-      bullets <- c(
-        "!" = glue("Search returned {n_matches} matched {type}."),
-        "*" = glue("Showing values for '{match_name}'.")
-      ))
+    c("!" = "Search returned {n_matches} matched {type}.",
+      "*" = "Showing values for '{match_name}'.") |>
+        cli::cli_bullets()
   } else {
     if (is.na(match_name)) {
-      inform(cli::col_yellow(glue("`search_all()` returned no matched `{type}`.")))
-      tibble()
+      cli::col_yellow("`search_all()` returned no matched `{type}`.") |>
+        cli::cli_text()
+      tibble::tibble()
     } else {
-    inform(
-      bullets <- c(
-        # glue("Search returned 1 matched {type}."),
-        "*" = glue("Showing values for '{match_name}'.")
-      )
-    )
+      c("*" = "Showing values for '{match_name}'.") |>
+        cli::cli_bullets()
     }
   }
-  request_metadata() |>
-    filter({{type}} == {{match_name}}) |>
-    unnest() |>
-    `attr<-`("all_fields", all_fields) |>
-    collect()
+  
+  if(isTRUE(all_fields)){
+    request_metadata() |>
+      filter({{type}} == {{match_name}}) |>
+      select(tidyselect::everything()) |>
+      unnest() |>
+      collect()
+  }else{
+    request_metadata() |>
+      filter({{type}} == {{match_name}}) |>
+      unnest() |>
+      collect()
+  }
 }
 
 #' @param query A string specifying a search term. Not case sensitive.
@@ -127,35 +125,30 @@ search_values <- function(df, query) {
 #' Internal function to check inputs to `show_values()` & `search_values()` 
 #' @noRd
 #' @keywords Internal
-check_values_input <- function(df, error_call = caller_env()) {
+check_values_input <- function(df,
+                               error_call = rlang::caller_env()) {
   # Check if missing input
   if(missing(df) || is.null(df)) {
-    bullets <- c(
-      "Missing information for values lookup.",
+    c("Missing information for values lookup.",
       i = "Field, profile or list must be provided as a tibble created by `search_all()`.",
-      i = "e.g. `search_all(fields, \"year\") |> show_values()`."
-    )
-    abort(bullets, call = error_call)
+      i = "e.g. `search_all(fields, \"year\") |> show_values()`.") |>
+    cli::cli_abort(call = error_call)
   }
   
   # Check that original data.frame is from a `show_all` or `search_all`
   if(is.null(attr(df, "call"))) {
-    bullets <- c(
-      "Wrong input provided.",
+    c("Wrong input provided.",
       i = "Must supply a tibble created by `search_all()` or `show_all()`.",
-      i = "e.g. `search_all(fields, \"year\") |> show_values()`."
-    )
-    abort(bullets, call = error_call)
+      i = "e.g. `search_all(fields, \"year\") |> show_values()`.") |>
+    cli::cli_abort(call = error_call)
   }
   
   # Input must be from valid `show_all` or `search_all` tibble
   valid_calls <- c("fields", "lists", "profiles", "taxa")
   if(!any(valid_calls == attr(df, "call"))){
     type <- attr(df, "call")
-    bullets <- c(
-      glue("Can't lookup values for metadata type `{type}`."),
-      x = "Values lookup accepts `fields`, `lists`, `profiles` or `taxa`."
-    )
-    abort(bullets, call = error_call)
+    c("Can't lookup values for metadata type `{type}`.",
+      x = "Values lookup accepts `fields`, `lists`, `profiles` or `taxa`.") |>
+    cli::cli_abort(call = error_call)
   }
 }

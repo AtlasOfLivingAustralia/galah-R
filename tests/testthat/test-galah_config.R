@@ -1,10 +1,7 @@
-test_that("galah_config warns that `cache_directory` is deprecated", {
-  unlink("temp", recursive = TRUE)
-  dir.create("temp")
-  expect_warning(galah_config(cache_directory = "temp"))
-  expect_true(galah_config()$package$directory == "temp")
-  galah_config(directory = tempfile())
-  unlink("temp", recursive = TRUE)
+quiet_config <- purrr::quietly(galah_config)
+
+test_that("`galah_config()` gives nice error messages for incorrect arguments", {
+  expect_error(quiet_config(something = "nothing"))
 })
 
 test_that("galah_config creates nested folders where requested", {
@@ -37,7 +34,7 @@ test_that("galah_config checks inputs", {
   expect_error(galah_config(run_checks = "value"))
   expect_silent(galah_config(run_checks = TRUE))
   # reset defaults 
-  galah_config(run_checks = TRUE,
+  quiet_config(run_checks = TRUE,
                verbose = FALSE,
                download_reason_id = "testing")
 })
@@ -49,5 +46,7 @@ test_that("galah_config can swap between atlases", {
                list(organisation = "Global Biodiversity Information Facility",
                     acronym = "GBIF",
                     region = "Global"))
-  galah_config(atlas = "ALA")
+  quiet_config(atlas = "ALA")
 })
+
+rm(quiet_config)

@@ -1,16 +1,14 @@
 #' Internal function called by `check_login()`
 #' @noRd
 #' @keywords Internal
-abort_email_missing <- function(error_call = caller_env()){
-  bullets <- c(
+abort_email_missing <- function(error_call = rlang::caller_env()){
+  c(
     "No user email was found.",
-    i = glue(
-      "To download occurrence records or species lists you must provide a valid email \\
-      address registered with the selected atlas."
-    ),
-    i = glue("Provide your email address using `galah_config(email = )`.")
-  )
-  abort(bullets, call = error_call)
+    i = "To download occurrence records, species lists, or (for GBIF) occurrence
+      counts, \\
+      you must provide a valid email address registered with the selected atlas.",
+    i = "Provide your email address using `galah_config(email = )`.") |>
+  cli::cli_abort(call = error_call)
 }
 
 # Internal function called by `check_login()`
@@ -27,11 +25,12 @@ abort_email_missing <- function(error_call = caller_env()){
 #' System-wide, generic failure message
 #' @noRd
 #' @keywords Internal
-system_down_message <- function(function_name){
-  bullets <- c(
-    glue("Calling the API failed for `{function_name}`."),
+system_down_message <- function(function_name, 
+                                error_call = rlang::caller_env()){
+  c(
+    "Calling the API failed for `{function_name}`.",
     i = "This might mean that the API is down, or that you are not connected to the internet.",
     i = "Double check that your query is correct, or try again later."
-  )
-  inform(bullets)
+  ) |>
+  cli::cli_abort(call = error_call)
 }

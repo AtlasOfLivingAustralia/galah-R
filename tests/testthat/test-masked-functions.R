@@ -14,7 +14,7 @@ test_that("`filter` works identically to piped `galah_filter`", {
 test_that("`select` works identically to piped `galah_select`", {
   result1 <- galah_call() |> select(year, group = "basic")
   result2 <- galah_call() |> galah_select(year, group = "basic")
-  expect_equal(result1, result2)
+  expect_equal(result1, result2, ignore_attr = TRUE)
 })
 
 test_that("`group_by` works identically to piped `galah_group_by`", {

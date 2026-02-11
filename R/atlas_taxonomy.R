@@ -5,14 +5,6 @@
 #' authoritative sources. Default is `"biodiversity.org.au"` for Australia, 
 #' which is the infix common to National Species List IDs; use
 #' `NULL` to suppress source filtering. Regular expressions are supported.
-#' @importFrom dplyr bind_rows
-#' @importFrom dplyr filter
-#' @importFrom dplyr mutate
-#' @importFrom dplyr select
-#' @importFrom potions pour
-#' @importFrom purrr list_flatten
-#' @importFrom purrr pluck_depth
-#' @importFrom stringr str_to_title
 #' @keywords internal
 #' @export
 atlas_taxonomy <- function(request = NULL,
@@ -36,51 +28,47 @@ atlas_taxonomy <- function(request = NULL,
     identify(.query$identify$search_term) |>
     collect()
   start_row <- taxa_info |>
-    mutate(name = str_to_title(taxa_info$scientific_name),
-           parent_taxon_concept_id = NA) |>
-    select("name", 
-           "rank", 
-           "taxon_concept_id", 
-           "parent_taxon_concept_id") 
+    dplyr::mutate(name = stringr::str_to_title(taxa_info$scientific_name),
+                  parent_taxon_concept_id = NA) |>
+    dplyr::select("name", 
+                  "rank", 
+                  "taxon_concept_id", 
+                  "parent_taxon_concept_id") 
 
   # build then flatten a tree
   taxonomy_tree <- drill_down_taxonomy(start_row, 
                                        down_to = .query$filter$value,
                                        constrain_ids = constrain_ids)
-  for(i in seq_len(pluck_depth(taxonomy_tree))){
-    taxonomy_tree <- list_flatten(taxonomy_tree)
+  for(i in seq_len(purrr::pluck_depth(taxonomy_tree))){
+    taxonomy_tree <- purrr::list_flatten(taxonomy_tree)
   }
-  result <- bind_rows(taxonomy_tree)
+  result <- dplyr::bind_rows(taxonomy_tree)
   
   # remove rows with ranks that are too low
   index <- rank_index(result$rank)
   down_to_index <- rank_index(.query$filter$value)
   result |>
-    filter({{index}} <= {{down_to_index}} | is.na({{index}})) |>
-    select("name", 
-           "rank", 
-           "parent_taxon_concept_id", 
-           "taxon_concept_id")
+    dplyr::filter({{index}} <= {{down_to_index}} | is.na({{index}})) |>
+    dplyr::select("name", 
+                  "rank", 
+                  "parent_taxon_concept_id", 
+                  "taxon_concept_id")
 }
 
 #' Internal function to check whether constraints have been passed
-#' @importFrom potions pour
 #' @noRd
 #' @keywords Internal
 check_constraints <- function(args, call){
   if(any(names(call) == "constrain_ids")){ # i.e. if user specifies an argument
     call$constrain_ids
   }else{ # if NULL only occurs because no argument is set
-    if(pour("atlas", "region") == "Australia"){
+    if(potions::pour("atlas", "region") == "Australia"){
       "biodiversity.org.au"
     }
   }
 } 
 
 #' Internal recursive function to get child taxa
-#' @importFrom dplyr mutate
-#' @importFrom dplyr select
-#' @importFrom rlang .data
 #' @noRd
 #' @keywords Internal
 drill_down_taxonomy <- function(df, 
@@ -98,19 +86,16 @@ drill_down_taxonomy <- function(df,
   if(nrow(children) < 1){
     return(df)
   }else{
-    result <- children |> 
-      mutate(name = str_to_title(children$name),
-             taxon_concept_id = children$guid,
-             parent_taxon_concept_id = children$parentGuid) |>
-      select("name", "rank", "taxon_concept_id", "parent_taxon_concept_id")
-    if(!is.null(constrain_ids)){
-      result <- result |>
+    if(is.null(constrain_ids)){
+      result <- children
+    }else{
+      result <- children |>
         constrain_id(constrain_to = constrain_ids) 
     }
     if(nrow(result) < 1){
       return(df)
     }else{
-      result_list <- lapply(
+      result_list <- purrr::map(
         split(result, seq_len(nrow(result))), 
         function(a){drill_down_taxonomy(a, 
                                         down_to, 
@@ -122,70 +107,66 @@ drill_down_taxonomy <- function(df,
 }
 
 #' Internal function to check `identify` term is specified correctly
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-check_identify <- function(.query, error_call = caller_env()){
+check_identify <- function(.query,
+                           error_call = rlang::caller_env()){
   if(is.null(.query$identify)){
-    bullets <- c(
-      "Argument `identify` is missing, with no default.",
-      i = "Did you forget to specify a taxon?")
-    abort(bullets, call = error_call)
+    c("Argument `identify` is missing, with no default.",
+      i = "Did you forget to specify a taxon?") |>
+    cli::cli_abort(call = error_call)
   }
   
   if(nrow(.query$identify) > 1){
     number_of_taxa <- nrow(.query$identify)
-    bullets <- c(
-      "Can't provide tree more than one taxon to start with.",
+    c("Can't provide tree more than one taxon to start with.",
       i = "atlas_taxonomy` only accepts a single taxon at a time.",
-      x = glue("`identify` has length of {number_of_taxa}.")
-    )
-    abort(bullets, call = error_call)
+      x = "`identify` has length of {number_of_taxa}.") |>
+    cli::cli_abort(call = error_call)
   }
 }
 
 #' Internal function to check `identify` term is specified correctly
-#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-check_down_to <- function(.query, error_call = caller_env()){
+check_down_to <- function(.query,
+                          error_call = rlang::caller_env()){
   if (is.null(.query$filter$value)) {
-    bullets <- c(
-      "Argument `rank` is missing, with no default.",
+    c("Argument `rank` is missing, with no default.",
       i = "Use `show_all(ranks)` to display valid ranks",
       i = "Use `filter(rank == chosen_rank)` to specify a rank"
     )
-    abort(bullets, call = error_call)
+    cli::cli_abort(call = error_call)
   }
   
   down_to <- tolower(.query$filter$value) 
   if(!any(show_all_ranks()$name == down_to)){
-    bullets <- c(
-      "Invalid taxonomic rank provided.",
+    c("Invalid taxonomic rank provided.",
       i = "The rank provided to `rank` must be a valid taxonomic rank.",
-      x = glue("{down_to} is not a valid rank.")
-    )
-    abort(bullets, call = error_call)
+      x = "{down_to} is not a valid rank.") |>
+    cli::cli_abort(call = error_call)
   }  
 }
 
 #' Internal function to only return GUIDs that match particular criteria
-#' @importFrom purrr list_transpose
-#' @importFrom dplyr filter
 #' @noRd
 #' @keywords Internal
 constrain_id <- function(df, constrain_to){
-  check_list <- lapply(constrain_to, function(a){grepl(a, df$taxon_concept_id)})
-  check_result <- lapply(list_transpose(check_list), any) |>
+  check_list <- purrr::map(constrain_to, 
+                           function(a){grepl(a, df$taxon_concept_id)})
+  check_result <- purrr::map(purrr::list_transpose(check_list), any) |>
     unlist()
-  df |> filter(check_result)
+  df |> 
+    dplyr::filter(check_result)
 }
 
 # Return the index of a taxonomic rank- 
 # lower index corresponds to higher up the tree
+#' @noRd
+#' @keywords Internal
 rank_index <- function(x) {
   all_ranks <- show_all_ranks()
-  lapply(x, function(a){
+  purrr::map(x, function(a){
     if (a %in% all_ranks$name) {
       return(all_ranks$id[all_ranks$name == a])  
     }else{

@@ -108,16 +108,20 @@ test_that("search_taxa doesn't break with typos", {
 
 test_that("show_values works for UK", {
   skip_if_offline(); skip_on_ci()
-  x <- search_fields("basis_of_record") |>
+  quiet_values <- function(...){
+    x <- purrr::quietly(show_values)
+    x(...)$result
+  }
+  
+  # fields
+  x <- search_fields("basisOfRecord") |>
     show_values() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(nrow(x), 1)
-})
 
-test_that("show_list_values works for United Kingdom", {
-  skip_if_offline(); skip_on_ci()
-  x <- search_lists("dr556") |> 
+  # lists
+  x <- search_lists("dr1445") |> 
     show_values() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -127,7 +131,7 @@ test_that("show_list_values works for United Kingdom", {
 test_that("atlas_counts works with type = 'occurrences' for United Kingdom", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
@@ -136,13 +140,13 @@ test_that("atlas_counts works with type = 'occurrences' for United Kingdom", {
 test_that("atlas_counts works with type = 'species' for United Kingdom", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
 })
 
-test_that("atlas_counts works with galah_identify for United Kingdom", {
+test_that("atlas_counts works with `identify()` for United Kingdom", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     identify("Vulpes") |>
@@ -167,8 +171,8 @@ test_that("atlas_counts works with galah_identify for United Kingdom", {
 test_that("atlas_counts works with group_by for United Kingdom", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
-    galah_filter(year >= 2020) |>
-    galah_group_by(year) |>
+    filter(year >= 2020) |>
+    group_by(year) |>
     atlas_counts() |>
     try(silent = TRUE)
   skip_if(inherits(result, "try-error"), message = "API not available")
@@ -218,7 +222,7 @@ test_that("atlas_occurrences works for United Kingdom", {
   # with run checks, this gives n = 5. Without it's n = 2
   expect_s3_class(occ_collapse, "query")
   expect_equal(names(occ_collapse), 
-               c("type", "url", "headers", "filter"))
+               c("type", "url", "headers", "request"))
   expect_equal(occ_collapse$type, "data/occurrences")
   # compute
   # notes: 
@@ -256,13 +260,19 @@ test_that("atlas_media() works for UK", {
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gte(nrow(x), 1)
   expect_equal(colnames(x)[1:2],
-               c("media_id", "recordID"))
+               c("media_id", "media_type"))
   # download a subset
+  quiet_media <- function(...){
+    x <- purrr::quietly(collect_media)
+    x(...)$result
+  }
   n_downloads <- 5
-  collect_media(x[seq_len(n_downloads), ])
+  quiet_media(x[seq_len(n_downloads), ])
   expect_equal(length(list.files("temp", pattern = ".jpg$")),
                n_downloads)
   unlink("temp", recursive = TRUE)
 })
 
-galah_config(atlas = "Australia")
+quiet_config <- purrr::quietly(galah_config)
+quiet_config(atlas = "Australia")
+rm(quiet_config)

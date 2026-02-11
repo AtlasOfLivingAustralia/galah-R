@@ -66,7 +66,7 @@ test_that("show_all(profiles) fails for Guatemala", {
   expect_error(show_all(profiles))
 })
 
-test_that("show_all(lists) works for Guatemala", {
+test_that("show_all(profiles) fails for Guatemala", {
   expect_error(show_all(profiles))
 })
 
@@ -90,8 +90,12 @@ test_that("search_all(taxa) works for Guatemala", {
 
 test_that("show_values works for fields for Guatemala", {
   skip_if_offline(); skip_on_ci()
+  quiet_values <- function(...){
+    x <- purrr::quietly(show_values)
+    x(...)$result
+  }
   x <- search_all(fields, "basis_of_record") |> 
-    show_values() |>
+    quiet_values() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gte(nrow(x), 1)
@@ -101,7 +105,7 @@ test_that("show_values works for fields for Guatemala", {
 test_that("atlas_counts works for Guatemala", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
@@ -110,7 +114,7 @@ test_that("atlas_counts works for Guatemala", {
 test_that("atlas_counts works with type = 'species' for Guatemala", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
@@ -186,7 +190,7 @@ test_that("atlas_occurrences works for Guatemala", {
   skip_if(inherits(occ_collapse, "try-error"), message = "API not available")
   expect_s3_class(occ_collapse, "query")
   expect_equal(names(occ_collapse), 
-               c("type", "url", "headers", "filter"))
+               c("type", "url", "headers", "request"))
   occ_compute <- compute(occ_collapse) |>
     try(silent = TRUE)
   skip_if(inherits(occ_compute, "try-error"), message = "API not available")
@@ -196,7 +200,7 @@ test_that("atlas_occurrences works for Guatemala", {
     try(silent = TRUE)
   skip_if(inherits(occ, "try-error"), message = "API not available")
   expect_gt(nrow(occ), 0)
-  expect_equal(ncol(occ), 8)
+  expect_equal(ncol(occ), 9)
   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
 })
 
@@ -222,11 +226,17 @@ test_that("atlas_media() works for Guatemala", {
   expect_equal(colnames(x)[1:2],
                c("media_id", "recordID"))
   # download a subset
+  quiet_media <- function(...){
+    x <- purrr::quietly(collect_media)
+    x(...)$result
+  }
   n_downloads <- 5
-  collect_media(x[seq_len(n_downloads), ])
+  quiet_media(x[seq_len(n_downloads), ])
   expect_equal(length(list.files("temp", pattern = ".jpg$")),
                n_downloads)
   unlink("temp", recursive = TRUE)
 })
 
-galah_config(atlas = "Australia")
+quiet_config <- purrr::quietly(galah_config)
+quiet_config(atlas = "Australia")
+rm(quiet_config)

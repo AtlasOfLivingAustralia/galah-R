@@ -88,8 +88,12 @@ test_that("search_all(taxa) works for Portugal", {
 
 test_that("show_values works for fields for Portugal", {
   skip_if_offline(); skip_on_ci()
+  quiet_values <- function(...){
+    x <- purrr::quietly(show_values)
+    x(...)$result
+  }
   x <- search_all(fields, "basis_of_record") |> 
-    show_values() |>
+    quiet_values() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gte(nrow(x), 1)
@@ -99,7 +103,7 @@ test_that("show_values works for fields for Portugal", {
 test_that("atlas_counts works for Portugal", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
@@ -108,7 +112,7 @@ test_that("atlas_counts works for Portugal", {
 test_that("atlas_counts works with type = 'species' for Portugal", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
@@ -166,4 +170,6 @@ test_that("atlas_occurrences returns error for Portugal", {
 
 # Note: atlas_media() should also work, in theory, but again am unable to test
 
-galah_config(atlas = "Australia")
+quiet_config <- purrr::quietly(galah_config)
+quiet_config(atlas = "Australia")
+rm(quiet_config)

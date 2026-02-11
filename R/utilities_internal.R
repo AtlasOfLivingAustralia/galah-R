@@ -2,92 +2,246 @@
 ##                 Output formatting functions                 --
 ##---------------------------------------------------------------
 
-# Select column names to return
-# Subsets data returned by webservices to useful columns
-wanted_columns <- function(type) {
-    switch(type,
-           "taxa" = c("search_term", "scientific_name",
-                      "scientific_name_authorship", 
-                      "taxon_concept_id", # ALA
-                      "taxon_concept_lsid", # Austria, Guatemala
-                      "authority", # OpenObs
-                      "usage_key", # GBIF
-                      "guid", # species search
-                      "canonical_name", "status", 
-                      "rank",
-                      "match_type", "kingdom", "phylum", "class", "order",
-                      "family", "genus", "species", "vernacular_name",
-                      "issues","subkingdom", "superclass", "infraclass",
-                      "subclass", "subinfraclass", "suborder", "superorder",
-                      "infraorder", "infrafamily", "superfamily", "subfamily",
-                      "subtribe", "subgenus", "subspecies"),
-           "extended_taxa" = c("subkingdom", "superclass", "infraclass",
-                               "subclass", "subinfraclass", "suborder",
-                               "superorder", "infraorder", "infrafamily",
-                               "superfamily", "subfamily", "subtribe",
-                               "subgenus"),
-           "profile" = c("id", "shortName", "name", "description"),
-           "media" = c("image_id",
-                       "creator", "license",
-                       "data_resource_uid",
-                       "date_taken", "date_uploaded",
-                       "mime_type", "mimetype",
-                       "width", "height", "size_in_bytes",
-                       "image_url"
-                     ),
-           "layer" = c("id", "description", "source_link"),
-           "fields" = c("id", "description"),
-           "assertions" = c("id", "description", "category"),
-           "quality_filter" = c("description", "filter"),
-           "reasons" = c("id", "name"))
-}
-
-#' Internal function to rename specific columns, and convert to snake_case
+#' Internal function to run `eval_tidy()` on captured `select()` requests.
+#' This is the *enactment* phase and is usually called by `collect()`.
+#' Critically, this function is *NOT* called by `select()`. This matters because
+#' we have to eval `unnest()` before `select()` for it to work, and this can
+#' only happen at the end of a pipe.
 #' @noRd
 #' @keywords Internal
-rename_columns <- function(varnames, type) {
-  varnames <- camel_to_snake_case(varnames)
-  switch(type,
-    "media" = {
-      varnames[varnames %in% c("image_identifier")] <- "image_id"
-      varnames[varnames == "mime_type"] <- "mimetype"
-    },
-    "taxa" = {
-      varnames[varnames == "classs"] <- "class"
-      varnames[varnames %in% c("usage_key", "usageKey", "guid", "reference_id", "referenceId")] <- "taxon_concept_id"
-      varnames[varnames %in% c("genus_name", "genusName")] <- "genus"
-      varnames[varnames %in% c("family_name", "familyName")] <- "family"
-      varnames[varnames %in% c("order_name", "orderName")] <- "order"
-      varnames[varnames %in% c("class_name", "className")] <- "class"
-      varnames[varnames %in% c("phylum_name", "phylumName")] <- "phylum"
-      varnames[varnames %in% c("kingdom_name", "kingdomName")] <- "kingdom"
-      varnames[varnames %in% c("rank_name", "rankName")] <- "rank"
-      varnames[varnames %in% c("french_vernacular_name", "frenchVernacularName")] <- "vernacular_name"
-    },
-    "assertions" = {
-      varnames[varnames == "name"] <- "id"
-    },
-    "checklist" = {
-      varnames[1] <- "taxon_concept_id"
-      varnames[varnames %in% c("counts", "number_of_records")] <- "count"
-    }
-  )
-  varnames
+parse_select <- function(df, .query){
+  # get quosures captured by `select()`
+  quo_list <- purrr::pluck(.query, "request", "select", "quosure")
+  # map() over list of quosures
+  # honestly I don't know why `!!quo_list` fails here, but it does, so used this instead
+  pos <- purrr::map(quo_list, \(a){
+    tidyselect::eval_select(expr = a, data = df)
+  }) |>
+    unlist()
+  # apply tidy selection to `df`
+  # note: this code taken from `tidyselect` documentation; it could be argued that `df[pos]` is sufficient
+  rlang::set_names(df[pos], names(pos)) 
 }
+
+#' equivalent to `parse_select()` but for filter
+#' mainly called for delayed filter arugments on APIs that don't support `q`
+#' @noRd
+#' @keywords Internal
+parse_filter <- function(df, query){
+  filter_entry <- query$request$filter
+  if(!is.null(filter_entry) & ncol(df) > 0){
+    search_col <- switch(query$type, 
+                         "metadata/fields" = "id",
+                         "metadata/profiles" = "short_name", 
+                         colnames(df)[1])
+    value <- filter_entry$value
+    df |> dplyr::filter(.data[[search_col]] == value)
+  }else{
+    df
+  }
+}
+
+#' Internal function to rename specific columns. Note this is safer than calling
+#' `dplyr::rename()` directly, because it only seeks to rename columns that 
+#' are actually present, and so won't fail.
+#' @noRd
+#' @keywords Internal
+parse_rename <- function(df, .query){
+  cols <- colnames(df)
+  rename_vec <- .query$type |>
+    stringr::str_remove("^metadata/") |>
+    stringr::str_remove("-single$|-multiple$") |> # so that `taxa` args are matched
+    lookup_rename_columns()
+  # check whether renaming information is given
+  if(!is.null(rename_vec)){
+    # check whether these are actually present in the supplied `tibble`
+    col_lookup <- rename_vec %in% cols
+    # if they are, rename
+    if(any(col_lookup)){
+      rename_cols <- as.list(rename_vec[col_lookup])
+      dplyr::rename(df, !!!rename_cols)
+    # otherwise, return source `tibble`
+    }else{
+      df
+    }
+  # if no lookup information supplied, return source `tibble`
+  }else{
+    df
+  }
+}
+
+#' Simple internal function to `arrange()` by first column
+#' @noRd
+#' @keywords Internal
+parse_arrange <- function(df){
+  dplyr::arrange(df, dplyr::pull(df, 1))
+}
+
+#' Choose column names to pass to `select()`. 
+#' NOTE: this isn't especially subtle wrt different atlases
+#' NOTE: this assumes `dplyr::rename_with(camel_to_snake_case)` has been run
+#' @noRd
+#' @keywords Internal
+lookup_select_columns <- function(type) {
+    switch(type,
+           "assertions" = c("id",
+                            "description",
+                            "category",
+                            "type"),
+           "fields" = c("id",
+                        "description",
+                        "type"),
+           "identifiers" = lookup_select_columns_taxa(),
+           "licences" = c("id",
+                          "name",
+                          "acronym",
+                          "url"),
+           "lists" = c("species_list_uid",
+                       "list_name",
+                       "description",
+                       "list_type",
+                       "item_count"),
+           "lists-unnest" = c("scientific_name",
+                              "vernacular_name",
+                              "taxon_concept_id"),
+           "media" = c("media_id",
+                       "occurrence_id",
+                       "creator", 
+                       "license",
+                       "data_resource_uid",
+                       "date_taken",
+                       "date_uploaded",
+                       "mime_type",
+                       "size_in_bytes",
+                       "success"),
+           "profiles" = c("id",
+                         "short_name",
+                         "name",
+                         "description"),
+           "profiles-unnest" = c("id",
+                                 "description",
+                                 "filter",
+                                 "enabled"),
+           "reasons" = c("id",
+                         "name"),
+           "taxa" = lookup_select_columns_taxa(),
+           "taxa-unnest" = c("name",
+                             "taxon_concept_id",
+                             "parent_taxon_concept_id",
+                             "rank"),
+           NULL # When no defaults are set, sending NULL tells the code to call `everything()`
+           )
+}
+
+#' `lookup_select_columns()` but for taxa and identifier queries
+#' @noRd
+#' @keywords Internal
+lookup_select_columns_taxa <- function(){
+  c("search_term",
+    "scientific_name",
+    "scientific_name_authorship", 
+    "taxon_concept_id", # ALA
+    "taxon_concept_lsid", # Austria, Guatemala
+    "authority", # OpenObs
+    "key", # GBIF
+    "usage_key", # GBIF
+    "guid", # species search
+    "canonical_name", "status", 
+    "rank",
+    "match_type",
+    "confidence",
+    "time_taken",
+    "vernacular_name",
+    "issues",
+    # taxonomic ranks (basic only)
+    "kingdom",
+    "phylum",
+    "class",
+    "order",
+    "family",
+    "genus",
+    "species"
+    # if all are needed, use this instead
+    # {show_all_ranks() |> dplyr::pull("name")}
+  )
+}
+
+#' Choose which columns to rename
+#' @noRd
+#' @keywords Internal
+lookup_rename_columns <- function(type){
+  switch(type, 
+         "assertions" = c("id" = "name"),
+         "identifiers" = c("taxonConceptID" = "key"),
+         "lists" = c("species_list_uid" = "data_resource_uid"),
+         "lists-unnest" = c("taxon_concept_id" = "lsid"),
+         "media" = c("media_id" = "image_identifier"),
+         "taxa" = c("class" = "classs",
+                    "taxon_concept_id" = "usage_key",
+                    "taxon_concept_id" = "guid",
+                    "taxon_concept_id" = "reference_id",
+                    "taxon_concept_id" = "key",
+                    "genus" = "genus_name",
+                    "family" = "family_name",
+                    "order" = "order_name",
+                    "phylum" = "phylum_name",
+                    "kingdom" = "kingdom_name",
+                    "rank" = "rank_name",
+                    "vernacular_name" = "french_vernacular_name"),
+         "taxa-unnest" = c("taxon_concept_id" = "guid",
+                           "parent_taxon_concept_id" = "parent_guid"),
+         NULL
+  )
+}
+
+##---------------------------------------------------------------
+##                          Cases                              --
+##---------------------------------------------------------------
 
 #' Internal function to make text to snake case
 #' @noRd
 #' @keywords Internal
-camel_to_snake_case <- function(x){
-  x |>
+camel_to_snake_case <- function(string){
+  string |>
     gsub("([a-z])([A-Z])", "\\1_\\L\\2", x = _, perl = TRUE) |>
     trimws(which = "both") |> # end spaces
     gsub("\\.+|\\s+", "_", x = _) |> # internal dots or spaces
     tolower()
 }
 
+#' Internal function to handle conversion from camelCase to upper snake case
+#' @noRd
+#' @keywords internal
+gbif_upper_case <- function(string){
+  gsub("(?=[[:upper:]])", "_", string, perl = TRUE) |> 
+    toupper()
+}
+
+#' Internal function to handle conversion from upper snake case to camelCase
+#' Primarily for reversing the action of `gbif_upper_case()` (above)
+#' vectorized (kinda) 2026-02-05
+#' @noRd
+#' @keywords internal
+snake_to_camel_case <- function(string){
+  # first split into words
+  string_list <- string |>
+    tolower() |>
+    strsplit("_")
+  # then merge multi-word strings
+  n_words <- lengths(string_list)
+  if(any(n_words > 1)){
+    x <- purrr::map(string_list[n_words > 1],
+               \(a){
+                  c(a[[1]],  stringr::str_to_title(a[seq(2, length(a))])) |>
+                    paste0(collapse = "")
+               })
+    string_list[n_words > 1] <- x
+  }
+  unlist(string_list)
+}
+
 ##---------------------------------------------------------------
-##                   Other helpful functions                   --
+##                   Set API header arguments                  --
 ##---------------------------------------------------------------
 
 # Construct the user agent string, consisting of the galah version
@@ -97,41 +251,75 @@ galah_version_string <- function() {
   suppressWarnings(
     try(version_string <- utils::packageDescription("galah")[["Version"]],
         silent = TRUE)) ## get the galah version, if we can
-  paste0("galah-R ", version_string)
+  glue::glue("galah-R {version_string}")
 }
 
+#' @noRd
+#' @keywords Internal
+source_type_id_lookup <- function(region){
+  switch(region,
+         "Austria" = 1,
+         "United Kingdom" = 2001,
+         "2004") # ALA default for galah
+}
+
+##----------------------------------------------------------------
+##  Functions to add information to occurrence queries          --
+##----------------------------------------------------------------
+## Note these now follow `tidyverse` convention of accepting and
+## returning same object type
+
+#' Add a logical flag re: whether user should receive an email
+#' @param x a list
+#' @noRd
+#' @keywords Internal
+add_email_notify <- function(x) {
+  notify <- as.logical(potions::pour("package", "send_email"))
+  if(is.na(notify)) {
+    notify <- FALSE
+  }
+  x$emailNotify <- ifelse(notify, "true", "false")
+  x
+}
+
+#' Add an email address, but *only* when JWT tokens are not given
+#' @noRd
+#' @keywords Internal
+add_email_address <- function(x, query){
+  if(is.null(query$authenticate)){
+    x$email <- potions::pour("user", "email")
+  }
+  x
+}
+
+#' Add a DOI request
+#' @noRd
+#' @keywords Internal
+add_doi_request <- function(x, mint_doi = FALSE){
+  if(isTRUE(mint_doi) & 
+     potions::pour("atlas", "region") == "Australia"){
+    x$mintDoi <- TRUE 
+  }
+  x
+}
+
+##----------------------------------------------------------------
+##  Functions to change behaviour depending on selected `atlas` --
+##----------------------------------------------------------------
+
 #' Internal function for determining if we should call GBIF or not
-#' @importFrom potions pour
 #' @noRd
 #' @keywords Internal
 is_gbif <- function(){
-  pour("atlas", "region") == "Global"
+  potions::pour("atlas", "region") == "Global"
 }
 
-#' Internal function for determining whether a Living Atlas supports reasons API.
-#' This affects whether a reason is appended to a query in `collapse()` (and 
-#' checked in `compute()`)
-#' @importFrom potions pour
+#' Internal function for determining if we should call ALA or not
 #' @noRd
 #' @keywords Internal
-atlas_supports_reasons_api <- function(){
-  atlas <- pour("atlas", "region")
-  supports_reasons <- c("Australia", "Austria", "Guatemala", "Portugal", 
-                        "Spain", "Sweden", "United Kingdom")
-  atlas %in% supports_reasons
-  
-  ## List of atlases that support reasons can be checked by running:
-  # show_all(apis) |>
-  #   dplyr::filter(type == "metadata/reasons") |>
-  #   dplyr::pull(atlas)
+is_ala <- function(){
+  potions::pour("atlas", "region") == "Australia"
 }
-
-##---------------------------------------------------------------
-##                Data request helper functions                --
-##---------------------------------------------------------------
-
-
-## show_all_atlases / search_atlases --------------------------#
 
 #' Internal function to populate `groups` arg in `select()`
 #' @noRd
@@ -162,97 +350,108 @@ preset_groups <- function(group_name) {
 #' @noRd
 #' @keywords Internal
 default_columns <- function() {
-  atlas <- pour("atlas", "region")
-  switch (atlas,
-          "Austria" = c("id",
-                        "taxon_name",
-                        "taxon_concept_lsid",
-                        "latitude",
-                        "longitude",
-                        "occurrence_date",
-                        "occurrence_status",
-                        "data_resource_uid"),
-          "Brazil" = c("id",
-                       "taxon_name",
-                       "taxon_concept_lsid",
-                       "latitude",
-                       "longitude",
-                       "occurrence_date",
-                       "occurrence_status",
-                       "data_resource_uid"),
-          "France" = c("id",
-                       "scientificName",
-                       "taxonConceptID",
-                       "decimalLatitude",
-                       "decimalLongitude",
-                       "eventDate",
-                       "occurrenceStatus",
-                       "dataResourceUid"),
-          "Guatemala" = c("id",
-                          "taxon_name",
-                          "taxon_concept_lsid",
-                          "latitude",
-                          "longitude",
-                          "occurrence_date",
-                          "occurrence_status",
-                          "data_resource_uid"),
-          "Portugal" = c("id",
-                         "taxon_name",
-                         "taxon_concept_lsid",
-                         "latitude",
-                         "longitude",
-                         "occurrence_date",
-                         "occurrence_status",
-                         "data_resource_uid"),
-          "Spain" = c("recordID",
-                      "scientificName",
-                      "taxonConceptID",
-                      "decimalLatitude",
-                      "decimalLongitude",
-                      "eventDate",
-                      "occurrenceStatus",
-                      "dataResourceUid"),
-          "United Kingdom" = c("id",
-                               "taxon_name",
-                               "taxon_concept_lsid",
-                               "latitude",
-                               "longitude",
-                               "occurrence_date",
-                               "occurrence_status",
-                               "data_resource_uid"),
-          c("recordID", # note this requires that the ALA name (`id`) be corrected
-            "scientificName",
-            "taxonConceptID",
-            "decimalLatitude",
-            "decimalLongitude",
-            "eventDate",
-            "occurrenceStatus",
-            "dataResourceName")
-  )
+  atlas <- potions::pour("atlas", "region")
+  if(atlas %in% c("Austria", 
+                  "Brazil", 
+                  "Guatemala", 
+                  "Portugal")){
+    c("id",
+      "taxon_name",
+      "taxon_concept_lsid",
+      "latitude",
+      "longitude",
+      "occurrence_date",
+      "basis_of_record",
+      "occurrence_status",
+      "data_resource_uid")
+  }else if(atlas %in% c("France")){
+    c("id", # only difference from ALA
+      "scientificName",
+      "taxonConceptID",
+      "decimalLatitude",
+      "decimalLongitude",
+      "eventDate",
+      "basisOfRecord",
+      "occurrenceStatus",
+      "dataResourceName")
+  }else if(atlas %in% c("Australia",
+                        "Flanders",
+                        "Kew",
+                        "Spain",
+                        "Sweden",
+                        "United Kingdom")){
+    c("recordID", # note this requires that the ALA name (`id`) be corrected
+      "scientificName",
+      "taxonConceptID",
+      "decimalLatitude",
+      "decimalLongitude",
+      "eventDate",
+      "basisOfRecord",
+      "occurrenceStatus",
+      "dataResourceName")
+  }else{
+    cli::cli_abort("Unknown `atlas`")
+  }
 }
 
 #' @noRd
 #' @keywords Internal
 image_fields <- function() {
-  atlas <- pour("atlas", "region")
-  switch (atlas,
-          "Austria" = "all_image_url",
-          "Australia" = c("multimedia", "images", "sounds", "videos"),
-          "Brazil" = "all_image_url",
-          "Guatemala" = "all_image_url",
-          "Portugal" = "all_image_url",
-          "Spain" = c("multimedia", "images", "sounds", "videos"),
-          "Sweden" = c("multimedia", "images", "videos", "sounds"),
-          "United Kingdom" = "all_image_url"
-          # Guatemala ?
+  atlas <- potions::pour("atlas", "region")
+  if(atlas %in% c("Austria", 
+                  "Brazil", 
+                  "Guatemala", 
+                  "Portugal")){
+    "all_image_url"
+  }else if(atlas %in% c("Australia",
+                        "Flanders",
+                        "Spain",
+                        "Sweden",
+                        "United Kingdom")){
+    c("multimedia", "images", "sounds", "videos")
+  }else if(atlas %in% c("Kew")){
+    c("multimedia", "images")
+  }else{
+    cli::cli_abort("Unknown `atlas`")
+  }
+}
+
+#' Set filters that work for media in each atlas
+#' @noRd
+#' @keywords Internal
+image_filters <- function(present_fields,
+                          error_call = rlang::caller_env()){
+  
+  atlas <- potions::pour("atlas", "region")
+  switch(atlas,
+         "Austria" = "(all_image_url:*)",
+         "Australia" = glue::glue("({present_fields}:*)"),
+         "Brazil" = "(all_image_url:*)",
+         "Flanders" = "(images:*)",
+         "Guatemala" = "(all_image_url:*)",
+         "Kew" =  "(images:*)",
+         "Portugal" = "(all_image_url:*)",
+         "Spain" = "(multimedia:*)",
+         "Sweden" = {filter_fields <- present_fields |>
+                       stringr::str_remove("s$") |>
+                       paste0("IDsCount")
+                     glue::glue("{filter_fields}:[1 TO *]")},
+         "United Kingdom" = "(all_image_url:*)",
+         cli::cli_abort("`atlas_media` is not supported for atlas = {atlas}",
+                        call = error_call)
   )
 }
 
 #' @noRd
 #' @keywords Internal
 species_facets <- function(){
-  atlas <- pour("atlas", "region")
-  if(atlas %in% c("Australia", "France", "Spain", "Sweden")) {
+  atlas <- potions::pour("atlas", "region")
+  if(atlas %in% c("Australia",
+                  "Flanders",
+                  "France",
+                  "Spain",
+                  "Sweden",
+                  "United Kingdom")) {
     "speciesID"
   }else{
     "species_guid"
@@ -261,9 +460,39 @@ species_facets <- function(){
 
 #' @noRd
 #' @keywords Internal
-source_type_id_lookup <- function(region){
-  switch(region,
-         "Austria" = 1,
-         "United Kingdom" = 2001,
-         "2004") # ALA default for galah
+profiles_supported <- function(){
+  atlas <- potions::pour("atlas", "region")
+  if(atlas %in% c("Australia",
+                  "Flanders",
+                  "Sweden",
+                  "Spain")) {
+    TRUE
+  }else{
+    FALSE
+  }
+}
+
+#' Internal function for determining whether a Living Atlas supports reasons API.
+#' This affects whether a reason is appended to a query in `collapse()` (and 
+#' checked in `compute()`)
+#' @noRd
+#' @keywords Internal
+reasons_supported <- function(){
+  atlas <- potions::pour("atlas", "region")
+  supported_atlases <- request_metadata(type = "apis") |>
+    collect() |>
+    dplyr::filter(.data$type == "metadata/reasons") |>
+    dplyr::pull("atlas")
+  atlas %in% supported_atlases
+}
+
+#' @noRd
+#' @keywords Internal
+media_supported <- function(){
+  atlas <- potions::pour("atlas", "region",
+                         .pkg = "galah")
+  unsupported_atlases <- c("France", "Global")
+  if(atlas %in% unsupported_atlases){
+    cli::cli_abort("`atlas_media` is not supported for atlas = {atlas}")
+  }
 }

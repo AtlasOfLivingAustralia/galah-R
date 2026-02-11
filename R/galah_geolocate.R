@@ -21,7 +21,6 @@
 #' a shapefile. A bounding box can also be supplied as a `bbox` object 
 #' (via `sf::st_bbox()`) or a `tibble`/`data.frame`. 
 #'
-#' `r lifecycle::badge("experimental")`
 #' **Use a point radius**
 #' Alternatively, set `type = "radius"` to narrow queries to within a circular 
 #' area around a specific point location. Point coordinates can be supplied as 
@@ -155,5 +154,6 @@ galah_geolocate <- geolocate
 #' @param y A valid Well-Known Text string (wkt), a `POLYGON` or a `MULTIPOLYGON`
 #' @export
 st_crop.data_request <- function(x, y, ...){
-  update_data_request(x, geolocate = parse_polygon(y))
+  update_request_object(x,
+                        geolocate = parse_polygon(y))
 }

@@ -51,7 +51,7 @@ If you have any comments, questions or suggestions, please [contact us](mailto:s
 ## Getting started
 
 - The [quick start guide](https://galah.ala.org.au/R/articles/quick_start_guide.html) provides an introduction to the package functions.
-- For an outline of the package structure, and a list of all the available functions, run `?galah` or view the [reference page](https://galah.ala.org.au/R/index.html).
+- For an outline of the package structure, and a list of all the available functions, run `?galah` or view the [reference page](https://galah.ala.org.au/R/reference/index.html).
 
 
 

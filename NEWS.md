@@ -1,3 +1,35 @@
+# galah 2.2.0
+
+### Improved organisational support
+* Flemish living atlas and Kew Gardens Data Portal added (#256, #271).
+* Authentication supported for ALA users, with associated vignette (#189).
+* All GBIF data queries now use predicates. `filter()` builds predicate queries natively when atlas is set to `GBIF` using an object-oriented workflow (#272).
+* Re-downloading a file via its' DOI now supported for `GBIF` (#272).
+* `search_identifiers()` and `tibble`-based searching via `search_taxa()` now supported for `GBIF` 
+
+### New functions
+* `dplyr::distinct()` can be used to find grouped data and summaries, generalising `atlas_species()` (#284).
+* `dplyr::glimpse()` can be used to see what the resulting query will look like.
+* New functions `capture()` and `compound()` as prequels to `collapse()` (#278).
+
+## Changes to metadata functions
+* All metadata requests now accept `select()`.
+* Metadata types that support `unnest()` now also support `filter()`, even when `unnest()` is not supplied.
+* All `show_all()` and `search_all()` functions gain an `all_fields` argument.
+* Metadata now supports list-columns where the API returns nested data.
+* Metadata functions now return columns names in `snake_case` rather than `camelCase`.
+* All metadata functions support caching, and are affected by re-introduced `caching` argument in `galah_config()` (set to `TRUE` by default #282).
+* Media metadata now uses a different API to return more relevant information.
+
+### Minor improvements and bug fixes
+* `galah_call()` is now synonmous with `request_data()` rather than wrapping all `request_` functions; `method` argument is removed.
+* Move to `testthat` 3rd edition for improved test functionality.
+* Move to `{cli}` for `print()` calls, not `cat()`.
+* Reduce usage of `@importFrom` in favour of `pkg::fun()` syntax, as per R style guide.
+* `basisOfRecord` now included as default field (i.e. with `select(group = "basic")`). (#281)
+* `query` objects now have a `request` slot showing the request that generated them .
+
+
 # galah 2.1.2
 
 ### Minor improvements

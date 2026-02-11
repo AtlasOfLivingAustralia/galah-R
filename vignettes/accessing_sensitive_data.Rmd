@@ -1,0 +1,606 @@
+---
+title: "Accessing sensitive data"
+author: "Martin Westgate"
+date: "2026-02-11"
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Accessing sensitive data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+`galah` provides access to biodiversity information stored by GBIF and its' 
+partner nodes. While much of this information is shared freely and without 
+restriction, there are a number of cases where this is not appropriate, such
+as the locations of:
+
+ - threatened species, whose locations are protected by law in many jurisdictions
+ - species at risk from poachers, particularly for wildlife trade
+
+This leads to a problem: data that is more open helps scientists and policy-makers
+understand and conserve biodiversity, but also generates threats to those 
+species. To balance these concerns against one another, it is common to 
+'obfuscate' sensitive data, which consists of providing location information
+at a lower spatial resolution, making it harder to locate threatened species on
+the ground.
+
+# How ALA handles sensitive data
+
+While many data providers solve this problem themselves in a range of ways - 
+such as by not sharing data at all, randomising some locations, or reducing 
+the number of decimal places of their locations - others provide high-precision
+data on the understanding that it will only be made available to specific users,
+and then only by written agreement. In these cases, the ALA displays the 
+obfuscated data publicly, but retains the original data for use for specific 
+purposes. Researchers can request access to the original data via the National 
+Framework for the Sharing of Restricted Access Species Data in Australia, more 
+simply known as the 'RASD framework' (https://www.rasd.org.au). 
+
+If your access to sensitive data is approved by the provider(s) in question,
+you can use 'galah' to access that sensitive data. 
+
+# Using authentication
+
+You have two choices for how to call authentication in your queries. The 
+simplest way is to 'switch on' authentication using `galah_config()`:
+
+
+``` r
+galah_config(authenticate = TRUE)
+```
+
+This is straightforward, but you'll have to remember to switch
+`authentication` to `FALSE` again once you're done. A safer choice is to 
+use the `authenticate()` function in-pipe:
+
+
+``` r
+df <- galah_call() |>
+  identify("Mammalia") |>
+  filter(year == 2025) |>
+  authenticate() |>
+  collect()
+```
+
+It doesn't matter where in the pipe you place `authenticate()`, as it will only
+trigger your browser to open once you run `collect()`. Whichever method
+you use, you'll notice a page pop up in your default browser, encouraging 
+you to sign in. Once you have done so, you should be redirected back to your
+chosen IDE to continue working.
+
+
+# Deciding what sensitive data to access
+
+In the the ALA, sensitive data are stored in bespoke fields, which have an
+existing field name prefixed with `sensitive_`. They cannot be requested 
+directly. Instead, if you request a field that has a sensitive counterpart, both 
+the public and sensitive version of that field will be returned.
+
+<!--html_preserve--><div id="suepizzkgk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#suepizzkgk table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#suepizzkgk thead, #suepizzkgk tbody, #suepizzkgk tfoot, #suepizzkgk tr, #suepizzkgk td, #suepizzkgk th {
+  border-style: none;
+}
+
+#suepizzkgk p {
+  margin: 0;
+  padding: 0;
+}
+
+#suepizzkgk .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#suepizzkgk .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#suepizzkgk .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#suepizzkgk .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#suepizzkgk .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#suepizzkgk .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#suepizzkgk .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#suepizzkgk .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#suepizzkgk .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#suepizzkgk .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#suepizzkgk .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#suepizzkgk .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#suepizzkgk .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#suepizzkgk .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#suepizzkgk .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#suepizzkgk .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#suepizzkgk .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#suepizzkgk .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#suepizzkgk .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#suepizzkgk .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#suepizzkgk .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#suepizzkgk .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#suepizzkgk .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#suepizzkgk .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#suepizzkgk .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#suepizzkgk .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#suepizzkgk .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#suepizzkgk .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#suepizzkgk .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#suepizzkgk .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#suepizzkgk .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#suepizzkgk .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#suepizzkgk .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#suepizzkgk .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#suepizzkgk .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#suepizzkgk .gt_left {
+  text-align: left;
+}
+
+#suepizzkgk .gt_center {
+  text-align: center;
+}
+
+#suepizzkgk .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#suepizzkgk .gt_font_normal {
+  font-weight: normal;
+}
+
+#suepizzkgk .gt_font_bold {
+  font-weight: bold;
+}
+
+#suepizzkgk .gt_font_italic {
+  font-style: italic;
+}
+
+#suepizzkgk .gt_super {
+  font-size: 65%;
+}
+
+#suepizzkgk .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#suepizzkgk .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#suepizzkgk .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#suepizzkgk .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#suepizzkgk .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#suepizzkgk .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#suepizzkgk .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#suepizzkgk .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#suepizzkgk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="public_field">public_field</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="restricted_field">restricted_field</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="public_field" class="gt_row gt_left">eventID</td>
+<td headers="restricted_field" class="gt_row gt_left">sensitive_eventID</td></tr>
+    <tr><td headers="public_field" class="gt_row gt_left">eventDate</td>
+<td headers="restricted_field" class="gt_row gt_left">sensitive_eventDate</td></tr>
+    <tr><td headers="public_field" class="gt_row gt_left">eventTime</td>
+<td headers="restricted_field" class="gt_row gt_left">sensitive_eventTime</td></tr>
+    <tr><td headers="public_field" class="gt_row gt_left">month</td>
+<td headers="restricted_field" class="gt_row gt_left">sensitive_month</td></tr>
+    <tr><td headers="public_field" class="gt_row gt_left">day</td>
+<td headers="restricted_field" class="gt_row gt_left">sensitive_day</td></tr>
+    <tr><td headers="public_field" class="gt_row gt_left">locality</td>
+<td headers="restricted_field" class="gt_row gt_left">sensitive_locality</td></tr>
+    <tr><td headers="public_field" class="gt_row gt_left">locationRemarks</td>
+<td headers="restricted_field" class="gt_row gt_left">sensitive_locationRemarks</td></tr>
+    <tr><td headers="public_field" class="gt_row gt_left">decimalLatitude</td>
+<td headers="restricted_field" class="gt_row gt_left">sensitive_decimalLatitude</td></tr>
+    <tr><td headers="public_field" class="gt_row gt_left">decimalLongitude</td>
+<td headers="restricted_field" class="gt_row gt_left">sensitive_decimalLongitude</td></tr>
+    <tr><td headers="public_field" class="gt_row gt_left">footprintWKT</td>
+<td headers="restricted_field" class="gt_row gt_left">sensitive_footprintWKT</td></tr>
+    <tr><td headers="public_field" class="gt_row gt_left">verbatimEventDate</td>
+<td headers="restricted_field" class="gt_row gt_left">sensitive_verbatimEventDate</td></tr>
+    <tr><td headers="public_field" class="gt_row gt_left">verbatimLocality</td>
+<td headers="restricted_field" class="gt_row gt_left">sensitive_verbatimLocality</td></tr>
+    <tr><td headers="public_field" class="gt_row gt_left">verbatimCoordinates</td>
+<td headers="restricted_field" class="gt_row gt_left">sensitive_verbatimCoordinates</td></tr>
+    <tr><td headers="public_field" class="gt_row gt_left">verbatimLatitude</td>
+<td headers="restricted_field" class="gt_row gt_left">sensitive_verbatimLatitude</td></tr>
+    <tr><td headers="public_field" class="gt_row gt_left">verbatimLongitude</td>
+<td headers="restricted_field" class="gt_row gt_left">sensitive_verbatimLongitude</td></tr>
+  </tbody>
+  
+</table>
+</div><!--/html_preserve-->
+
+
+So to download data, we might try something like:
+
+```
+result <- galah_call() |>
+    filter(species_list_uid == "dr491") |>
+    collect()
+
+> result
+# A tibble: 487 × 12
+   recordID   scientificName taxonConceptID decimalLatitude sensitive_decimalLat…¹ decimalLongitude
+   <chr>      <chr>          <chr>                    <dbl>                  <dbl>            <dbl>
+ 1 00825ab0-… Caladenia vul… https://id.bi…           -37.8                     NA             145.
+ 2 0094e7df-… Caladenia vul… https://id.bi…           -37.7                     NA             141.
+ 3 00d3a4e3-… Caladenia vul… https://id.bi…           -39.6                     NA             147.
+ 4 02305849-… Caladenia vul… https://id.bi…           -38.0                     NA             145.
+ 5 02e28dc1-… Caladenia vul… https://id.bi…           -37.7                     NA             145.
+ 6 068b4c68-… Caladenia vul… https://id.bi…           -37.7                     NA             141.
+ 7 07b5356b-… Caladenia vul… https://id.bi…           -37.0                     NA             143.
+ 8 0807fcbe-… Caladenia vul… https://id.bi…           -37.9                     NA             145.
+ 9 093df7f4-… Caladenia vul… https://id.bi…           -37.9                     NA             145.
+10 0942b709-… Caladenia vul… https://id.bi…           -38.4                     NA             145.
+# ℹ 477 more rows
+# ℹ abbreviated name: ¹​sensitive_decimalLatitude
+# ℹ 6 more variables: sensitive_decimalLongitude <dbl>, eventDate <dttm>,
+#   sensitive_eventDate <lgl>, basisOfRecord <chr>, occurrenceStatus <chr>, dataResourceName <chr>
+# ℹ Use `print(n = ...)` to see more rows
+
+> colnames(result)
+ [1] "recordID"                   "scientificName"             "taxonConceptID"            
+ [4] "decimalLatitude"            "sensitive_decimalLatitude"  "decimalLongitude"          
+ [7] "sensitive_decimalLongitude" "eventDate"                  "sensitive_eventDate"       
+[10] "basisOfRecord"              "occurrenceStatus"           "dataResourceName" 
+```

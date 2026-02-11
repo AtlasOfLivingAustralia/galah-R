@@ -1,7 +1,7 @@
 ---
 title: "Quick start guide"
 author: "Martin Westgate & Dax Kellie"
-date: '2024-11-19'
+date: '2026-02-11'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -9,7 +9,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-galah is an R interface to biodiversity data hosted by the Global Biodiversity 
+`galah` is an R interface to biodiversity data hosted by the Global Biodiversity 
 Information Facility ([GBIF](https://www.gbif.org)) and its subsidiary node
 organisations. GBIF and its partner nodes collate and store observations of 
 individual life forms using the ['Darwin Core'](https://dwc.tdwg.org) data 
@@ -37,38 +37,8 @@ library(galah)
 ```
 
 # Configuration
-By default, galah downloads information from the Atlas of Living Australia 
-(ALA). To show the full list of organisations currently supported by galah, 
-use  `show_all(atlases)`.
-
-
-``` r
-show_all(atlases)
-```
-
-```
-## # A tibble: 10 × 4
-##    region         institution                                                             acronym url                    
-##    <chr>          <chr>                                                                   <chr>   <chr>                  
-##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au 
-##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityat…
-##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br   
-##  4 France         Portail français d'accès aux données d'observation sur les espèces      OpenObs https://openobs.mnhn.fr
-##  5 Global         Global Biodiversity Information Facility                                GBIF    https://gbif.org       
-##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob…
-##  7 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt    
-##  8 Spain          GBIF Spain                                                              GBIF.es https://gbif.es        
-##  9 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversityda…
-## 10 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
-```
-
-Use `galah_config()` to set the node organisation using its region, name, or 
-acronym. Once set, `galah` will automatically populate the server configuration for your 
-selected GBIF node. To download occurrence records from your chosen 
-GBIF node, you will need to register an account with them (using their website), 
-then provide your registration email to galah. 
-To download from GBIF, you will need to provide the email, username, and 
-password.
+Begin by choosing which organisation you would like `galah` to query,
+and providing your registration information for that organisation.
 
 
 ``` r
@@ -77,106 +47,55 @@ galah_config(atlas = "GBIF",
              email = "email@email.com",
              password = "my_password")
 ```
-You can find a full list of configuration options by running `?galah_config`.
 
-# Basic syntax
-The standard method to construct queries in `{galah}` is via piped functions. 
-Pipes in `galah` start with the `galah_call()` function, and typically end with 
-`collect()`, though `collapse()` and `compute()` are also supported. The 
-development team use the base pipe by default (`|>`), but the `{magrittr}` pipe 
-(`%>%`) should work too.
-  
+The full list of supported queries by organisation is as follows:
 
-``` r
-galah_config(atlas = "ALA",
-             verbose = FALSE)
-galah_call() |>
-  count() |>
-  collect()
-```
+<div class="figure">
+<img src="../man/figures/atlases_plot.png" alt="Fig 1: Organisations and APIs supported by galah" width="100%" />
+<p class="caption">Fig 1: Organisations and APIs supported by galah</p>
+</div>
 
-```
-## # A tibble: 1 × 1
-##       count
-##       <int>
-## 1 146185520
-```
+# Getting data
+`galah` is a `dplyr` extension package; rather than using pipes to amend 
+a `tibble` in your workspace, you amend a query, which is then sent to your
+chosen organisation. These pipes differ from traditional syntax in two ways:
 
-To pass more complex queries, you can use additional `{dplyr}` functions such as
-`filter()`, `select()`, and `group_by()`.
+- they begin with a function - usually `galah_call()` - instead of a `tibble`
+- they end with one of `dplyr`'s evaluation functions, usually `collect()`
+
+So an example query might be to find the number of records per year:
 
 
 ``` r
-galah_call() |> 
-  filter(year >= 2020) |> 
-  count() |>
-  collect()
+galah_config(atlas = "Australia")
+
+galah_call() |>            # open a pipe
+  filter(year >= 2020) |>  # choose rows to keep
+  count(year) |>           # count the number of rows
+  collect()                # retrieve query from the server
 ```
 
 ```
-## # A tibble: 1 × 1
-##      count
-##      <int>
-## 1 40200358
+## # A tibble: 7 × 2
+##   year     count
+##   <chr>    <int>
+## 1 2024  11889930
+## 2 2023  11007491
+## 3 2022   9430065
+## 4 2025   9142677
+## 5 2021   8695248
+## 6 2020   7311836
+## 7 2026    309836
 ```
 
-Each GBIF node allows you to query using their own set of in-built fields. You 
-can investigate which fields are available using `show_all()` and `search_all()`:
+Or to find the number of categories present in a dataset, for example how many 
+species are present:
 
-
-``` r
-search_all(fields, "australian states")
-```
-
-```
-## # A tibble: 2 × 3
-##   id     description                            type  
-##   <chr>  <chr>                                  <chr> 
-## 1 cl2013 ASGS Australian States and Territories fields
-## 2 cl22   Australian States and Territories      fields
-```
-
-# Taxonomic searches
-To narrow your search to a particular taxonomic group, use `identify()`. Note 
-that this function only accepts scientific names and is not case sensitive. 
-It's good practice to first use `search_taxa()` to check that the taxa you 
-provide returns the correct taxonomic results.
-
-
-``` r
-search_taxa("reptilia") # Check whether taxonomic info is correct
-```
-
-```
-## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                               rank  match_type kingdom phylum class issues
-##   <chr>       <chr>           <chr>                                          <chr> <chr>      <chr>   <chr>  <chr> <chr> 
-## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228… class exactMatch Animal… Chord… Rept… noIss…
-```
 
 ``` r
 galah_call() |>
-  identify("reptilia") |> 
-  filter(year >= 2020) |> 
-  count() |>
-  collect()
-```
-
-```
-## # A tibble: 1 × 1
-##    count
-##    <int>
-## 1 338434
-```
-
-If you want to query something other than the number of records, modify the 
-`type` argument in `galah_call()`. Here we'll query the number of species:
-
-
-``` r
-galah_call(type = "species") |>
-  identify("reptilia") |> 
-  filter(year >= 2020) |> 
+  identify("Crinia") |>   # filters by taxonomic names
+  distinct(speciesID) |>  # keep only unique values
   count() |>
   collect()
 ```
@@ -185,41 +104,240 @@ galah_call(type = "species") |>
 ## # A tibble: 1 × 1
 ##   count
 ##   <int>
-## 1   883
+## 1    17
 ```
 
-# Download
-To download records---rather than find how many records are available---simply
-remove the `count()` function from your pipe.
+You can 'glimpse' a data download before you run it, to check all the data 
+you need is included:
 
 
 ``` r
-result <- galah_call() |>
-  identify("Litoria") |>
-  filter(year >= 2020, cl22 == "Tasmania") |>
-  select(basisOfRecord, group = "basic") |>
+galah_call() |>
+  identify("Eolophus roseicapilla") |> 
+  filter(year == 2010) |>
+  glimpse() |>
   collect()
 ```
 
 ```
-## Retrying in 1 seconds.
+## Rows: 21,984
+## Columns: 8
+## $ taxonConceptID   <chr> "https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea", "https://biodiversity.org.au…
+## $ eventDate        <dbl> 1.272672e+12, 1.289002e+12, 1.291014e+12
+## $ scientificName   <chr> "Eolophus roseicapilla", "Eolophus roseicapilla", "Eolophus roseicapilla"
+## $ decimalLatitude  <dbl> -25.98833, -37.83032, -35.41707
+## $ decimalLongitude <dbl> 152.0442, 144.9812, 138.6868
+## $ basisOfRecord    <chr> "HUMAN_OBSERVATION", "HUMAN_OBSERVATION", "HUMAN_OBSERVATION"
+## $ dataResourceName <chr> "BirdLife Australia, Birdata", "eBird Australia", "eBird Australia"
+## $ occurrenceStatus <chr> "PRESENT", "ABSENT", "ABSENT"
 ```
+
+And, once satisfied that your parameters are correct, download the records 
+themselves:
+
+
+
 
 ``` r
-result |> head()
+galah_call() |>
+  identify("Eolophus roseicapilla") |> 
+  filter(year == 2010) |>
+  select(eventDate, decimalLatitude, species) |>
+  collect()
 ```
 
 ```
-## # A tibble: 6 × 9
-##   recordID            scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           occurrenceStatus
-##   <chr>               <chr>          <chr>                    <dbl>            <dbl> <dttm>              <chr>           
-## 1 00052544-d943-42e9… Litoria ewing… https://biodi…           -42.9             147. 2022-09-19 00:00:00 PRESENT         
-## 2 00168ca6-84d0-4af1… Litoria ranif… https://biodi…           -41.2             146. 2023-12-21 10:20:19 PRESENT         
-## 3 001a43fe-8586-4064… Litoria ewing… https://biodi…           -43.0             147. 2021-08-07 00:00:00 PRESENT         
-## 4 00250163-ec50-4eda… Litoria ranif… https://biodi…           -41.2             147. 2023-08-23 11:49:28 PRESENT         
-## 5 003e0f63-9f95-4af9… Litoria ewing… https://biodi…           -42.9             148. 2022-12-24 06:27:00 PRESENT         
-## 6 0070521f-bb45-46fb… Litoria ewing… https://biodi…           -43.1             147. 2023-12-20 14:29:23 PRESENT         
-## # ℹ 2 more variables: dataResourceName <chr>, basisOfRecord <chr>
+## # A tibble: 21,984 × 3
+##    eventDate decimalLatitude species              
+##    <dttm>              <dbl> <chr>                
+##  1 NA                  -36.5 Eolophus roseicapilla
+##  2 NA                  -38.2 Eolophus roseicapilla
+##  3 NA                  -37.0 Eolophus roseicapilla
+##  4 NA                  -37.7 Eolophus roseicapilla
+##  5 NA                  -35.6 Eolophus roseicapilla
+##  6 NA                  -31.1 Eolophus roseicapilla
+##  7 NA                  -38.2 Eolophus roseicapilla
+##  8 NA                  -38.2 Eolophus roseicapilla
+##  9 NA                  -38.2 Eolophus roseicapilla
+## 10 NA                  -38.2 Eolophus roseicapilla
+## # ℹ 21,974 more rows
 ```
 
-Check out our other vignettes for more detail on how to use these functions.
+This works because many of the functions in `dplyr` are "generic", meaning
+it is possible to write extensions that apply them to new object classes. 
+In our case, `galah_call()` creates a new object class called a 
+`data_request` for which we have written new extensions. This means that galah 
+will not interfere with your use of `filter()` and friends on your tibbles.
+Supported `dplyr` verbs that modify queries are as follows:
+
+- `arrange.data_request()`
+- `count.data_request()`
+- `distinct.data_request()`
+- `filter.data_request()`
+- `glimpse.data_request()`
+- `group_by.data_request()`
+- `select.data_request()`
+- `slice_head.data_request()`
+
+Additional verbs are: 
+
+- `apply_profile()`
+- `geolocate()` or `st_crop.data_request()`
+- `identify.data_request()`
+- `unnest()`
+
+It is good practice to download your data in as few steps as possible,
+to minimize impacts on the server, and to ensure you can get a single
+DOI for your data. See the 
+[download data reproducibly](download-data-reproducibly.html) vignette 
+for details.
+
+# Finding information
+
+Building queries using `filter()` requires that you know two things:
+
+- what **fields** (columns) are present in the dataset you are searching
+- what **values** exist for those fields
+
+Finding this information requires looking for metadata:
+
+
+``` r
+request_metadata(type = "fields") |>
+  collect()
+```
+
+```
+## # A tibble: 639 × 3
+##    id                  description               type  
+##    <chr>               <chr>                     <chr> 
+##  1 abcdTypeStatus      <NA>                      fields
+##  2 acceptedNameUsage   Accepted name             fields
+##  3 acceptedNameUsageID Accepted name             fields
+##  4 accessRights        Access rights             fields
+##  5 annotationsDoi      <NA>                      fields
+##  6 annotationsUid      Referenced by publication fields
+##  7 assertionUserId     Assertions by user        fields
+##  8 assertions          Record issues             fields
+##  9 assertionsCount     <NA>                      fields
+## 10 associatedMedia     Associated Media          fields
+## # ℹ 629 more rows
+```
+
+You can browser this tibble using `View()` or search it using `filter()`.
+Once you have found a field that you want to include in your query, you 
+can find values for that field using `unnest()`:
+
+
+``` r
+request_metadata() |>
+  filter(fields == "cl22") |>
+  unnest() |>
+  collect()
+```
+
+```
+## # A tibble: 11 × 1
+##    cl22                        
+##    <chr>                       
+##  1 New South Wales             
+##  2 Victoria                    
+##  3 Queensland                  
+##  4 South Australia             
+##  5 Western Australia           
+##  6 Northern Territory          
+##  7 Tasmania                    
+##  8 Australian Capital Territory
+##  9 Macquarie Island            
+## 10 Coral Sea Islands           
+## 11 Ashmore and Cartier Islands
+```
+
+Different types of metadata are available; see `?request_metadata` for
+a full list.
+
+# Wrapper functions
+
+While `dplyr` syntax is very flexible, there are cases where it is easier 
+to simply say the sort of data you want, rather than create a database
+query to implement it. For this reason, several common use cases have
+their own wrapper functions.
+
+The `atlas_` family of functions act like `collect()`, but enforce
+a particular type of data to be returned, such as record counts:
+
+
+``` r
+galah_call() |>
+  filter(year == 2025) |>
+  atlas_counts()   # note no need for a `count()` function
+```
+
+```
+## # A tibble: 1 × 1
+##     count
+##     <int>
+## 1 9142677
+```
+
+Or occurrences:
+
+
+``` r
+galah_call() |>
+  identify("Eolophus roseicapilla") |>
+  filter(year == 2000,
+         cl22 == "Australian Capital Territory") |>
+  atlas_occurrences() |>
+  print(n = 6)
+```
+
+```
+## # A tibble: 2,032 × 9
+##   recordID         scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           basisOfRecord occurrenceStatus
+##   <chr>            <chr>          <chr>                    <dbl>            <dbl> <dttm>              <chr>         <chr>           
+## 1 0026d29f-b6ab-4… Eolophus rose… https://biodi…           -35.4             149. 2000-08-07 00:00:00 HUMAN_OBSERV… PRESENT         
+## 2 0062d446-007b-4… Eolophus rose… https://biodi…           -35.3             149. 2000-03-10 00:00:00 HUMAN_OBSERV… PRESENT         
+## 3 00a62ee0-1e08-4… Eolophus rose… https://biodi…           -35.2             149. 2000-01-29 00:00:00 HUMAN_OBSERV… PRESENT         
+## 4 00ab2f4d-326f-4… Eolophus rose… https://biodi…           -35.4             149. 2000-09-25 00:00:00 HUMAN_OBSERV… PRESENT         
+## 5 00ae4631-ea59-4… Eolophus rose… https://biodi…           -35.3             149. 2000-02-12 00:00:00 HUMAN_OBSERV… PRESENT         
+## 6 00b6c8ec-e7b9-4… Eolophus rose… https://biodi…           -35.2             149. 2000-02-05 00:00:00 HUMAN_OBSERV… PRESENT         
+## # ℹ 2,026 more rows
+## # ℹ 1 more variable: dataResourceName <chr>
+```
+
+`atlas_species()` replaces the need for `distinct()` call, while `atlas_media()`
+is a shortcut to a complex workflow that incorporates both data and metadata
+calls; see the [downloading images and sounds](downloading_images_and_sounds.html)
+vignette for details.
+
+Finally, metadata calls can be made more efficiently using the `show_all()` 
+and `show_values()` functions. These take the same arguments as the `type`
+argument in `request_metadata()`, but use non-standard evaluation, so they
+don't require quotes. They are also evaluated immediately rather than lazily:
+
+
+``` r
+show_all(fields)
+```
+
+```
+## # A tibble: 639 × 3
+##    id                  description               type  
+##    <chr>               <chr>                     <chr> 
+##  1 abcdTypeStatus      <NA>                      fields
+##  2 acceptedNameUsage   Accepted name             fields
+##  3 acceptedNameUsageID Accepted name             fields
+##  4 accessRights        Access rights             fields
+##  5 annotationsDoi      <NA>                      fields
+##  6 annotationsUid      Referenced by publication fields
+##  7 assertionUserId     Assertions by user        fields
+##  8 assertions          Record issues             fields
+##  9 assertionsCount     <NA>                      fields
+## 10 associatedMedia     Associated Media          fields
+## # ℹ 629 more rows
+```
+
+You can check the [look up information](lookup_up_information.html) vignette 
+for further details.
+

@@ -5,78 +5,60 @@
 \alias{request_data}
 \alias{request_metadata}
 \alias{request_files}
-\title{Start building a query}
+\title{Start building a request}
 \usage{
-galah_call(method = c("data", "metadata", "files"), type, ...)
+galah_call(
+  type = c("occurrences", "occurrences-count", "occurrences-doi", "species",
+    "species-count")
+)
 
 request_data(
   type = c("occurrences", "occurrences-count", "occurrences-doi", "species",
-    "species-count"),
-  ...
+    "species-count")
 )
 
 request_metadata(
-  type = c("fields", "apis", "assertions", "atlases", "collections", "datasets",
-    "licences", "lists", "media", "profiles", "providers", "ranks", "reasons", "taxa",
-    "identifiers")
+  type = c("fields", "apis", "assertions", "atlases", "collections", "config",
+    "datasets", "licences", "lists", "media", "profiles", "providers", "ranks",
+    "reasons", "taxa", "identifiers")
 )
 
 request_files(type = "media")
 }
 \arguments{
-\item{method}{string: what \code{request} function should be called. Should be one
-of \code{"data"} (default), \code{"metadata"} or \code{"files"}}
-
 \item{type}{string: what form of data should be returned? Acceptable values
 are specified by the corresponding \code{request} function}
-
-\item{...}{Zero or more arguments passed to
-\code{\link[=collapse.data_request]{collapse()}} to alter a query. Currently
-only \code{mint.doi} (for occurrences) and \code{thumbnail} (for media downloads) are
-supported. Both are logical.}
 }
 \value{
-Each sub-function returns a different object class: \code{request_data()}
-returns \code{data_request}. \code{request_metadata} returns \code{metadata_request},
-\code{request_files()} returns \code{files_request}. These objects are list-like and
-contain the following slots:
+Each sub-function returns a different object class:
 \itemize{
-\item \code{filter}: edit by piping \code{\link[=filter.data_request]{filter()}} or \code{\link[=galah_filter]{galah_filter()}}.
-\item \code{select}: edit by piping \code{\link[=filter.data_request]{select}} or \code{\link[=galah_select]{galah_select()}}.
-\item \code{group_by}: edit by piping \code{\link[=group_by.data_request]{group_by()}} or \code{\link[=galah_group_by]{galah_group_by()}}.
-\item \code{identify}: edit by piping \code{\link[=identify.data_request]{identify()}} or \code{\link[=galah_identify]{galah_identify()}}.
-\item \code{geolocate}: edit by piping \code{\link[=st_crop.data_request]{st_crop()}},
-\code{\link[=galah_geolocate]{galah_geolocate()}}, \code{\link[=galah_polygon]{galah_polygon()}} or \code{\link[=galah_bbox]{galah_bbox()}}.
-\item \code{limit}: edit by piping \code{\link[=slice_head.data_request]{slice_head()}}.
-\item \code{doi}: edit by piping \code{\link[=filter.data_request]{filter(doi == "my-doi-here")}}.
+\item \code{\link[=request_data]{request_data()}}  and \code{\link[=galah_call]{galah_call()}} return class \code{"data_request"}
+\item \code{\link[=request_metadata]{request_metadata()}} returns class \code{"metadata_request"}
+\item \code{\link[=request_files]{request_files()}} returns class \code{"files_request"}
 }
+
+These objects are list-like and store later dplyr verbs in the order
+they are provided.
 }
 \description{
 To download data from the selected atlas, one must construct a query. This
 query tells the atlas API what data to download and return, as well as how it
-should be filtered. Using \code{galah_call()} allows you to build a piped query to
+should be filtered. Using \code{\link[=galah_call]{galah_call()}} allows you to build a piped query to
 download data, in the same way that you would wrangle data with \code{dplyr} and
-the \code{tidyverse}.
+the \code{tidyverse}. It is synonymous with \code{\link[=request_data]{request_data()}}; to query other
+data types call \code{\link[=request_metadata]{request_metadata()}} or \code{\link[=request_files]{request_files()}}.
 }
 \details{
-In practice, \code{galah_call()} is a wrapper to a group of underlying
-\code{request_} functions, selected using the \code{method} argument.
-Each of these functions can begin a piped query and end with \code{collapse()},
-\code{compute()} or \code{collect()}, or optionally one of the \code{atlas_} family of
-functions. For more details see the object-oriented programming vignette:
-\code{vignette("object_oriented_programming", package = "galah")}
+\code{\link[=galah_call]{galah_call()}} and any of the \code{request_} functions are used to begin a
+piped query, which is then actioned using
+\code{\link[=collect.data_request]{collect()}}, or optionally one of the
+\code{\link[=atlas_occurrences]{atlas_}} family of functions.
 
-Accepted values of the \code{type} argument are set by the underlying \code{request_}
-functions. While all accepted types can be set directly, some are affected
-by later functions. The most common example is that adding
-\code{\link[=count.data_request]{count()}} to a pipe updates \code{type},
-converting \code{type = "occurrences"} to \code{type = "occurrences-count"} (and ditto
-for \code{type = "species"}).
-
-The underlying \code{request_} functions are useful because they allow \code{galah}
-to separate different types of requests to perform better. For example,
-\code{filter.data_request} translates filters in R to \code{solr}, whereas
-\code{filter.metadata_request} searches using a search term.
+Having distinct functions for different types of request is useful because
+it allows \code{galah} to separate different types of requests to perform better.
+For example, \code{\link[=filter.data_request]{filter.data_request()}}translates filters
+to \code{solr} syntax for the living atlases, or to predicates for GBIF, whereas
+\code{\link[=filter.metadata_request]{filter.metadata_request()}} adds a search term to your metadata query.
 }
 \examples{
 \dontrun{ 
@@ -87,12 +69,14 @@ galah_call() |>
   identify("Aves") |>
   filter(year > 2000 & year < 2005) |>
   group_by(year) |>
-  atlas_counts()
+  count() |>
+  collect()
   
 # Get information for all species in *Cacatuidae* family
 galah_call() |>
   identify("Cacatuidae") |>
-  atlas_species()
+  distinct("speciesID", .keep_all = TRUE) |>
+  collect()
   
 # Download records of genus *Eolophus* from 2001 to 2004
 galah_config(email = "your-email@email.com")
@@ -100,31 +84,24 @@ galah_config(email = "your-email@email.com")
 galah_call() |>
   identify("Eolophus") |>
   filter(year > 2000 & year < 2005) |>
-  atlas_occurrences() # synonymous with `collect()`
-
-
-# galah_call() is a wrapper to various `request_` functions.
-# These can be called directly for greater specificity.
-
-# Get number of records of *Aves* from 2001 to 2004 by year
-request_data() |>
-  identify("Aves") |>
-  filter(year > 2000 & year < 2005) |>
-  group_by(year) |>
-  count() |>
   collect()
-
-# Get information for all species in *Cacatuidae* family
-request_data(type = "species") |>
-  identify("Cacatuidae") |>
-  collect()
-  
-# Get metadata information about supported atlases in galah
-request_metadata(type = "atlases") |>
-  collect()
-
 }
 }
 \seealso{
-\code{\link[=collapse.data_request]{collapse.data_request()}}, \code{\link[=compute.data_request]{compute.data_request()}}, \code{\link[=collect.data_request]{collect.data_request()}}
+To amend a request object, use \code{\link[=apply_profile]{apply_profile()}},
+\code{\link[=arrange.data_request]{arrange()}},
+\code{\link[=count.data_request]{count()}},
+\code{\link[=distinct.data_request]{distinct()}},
+\code{\link[=filter.data_request]{filter()}},
+\code{\link[=glimpse.data_request]{glimpse()}},
+\code{\link[=group_by.data_request]{group_by()}},
+\code{\link[=identify.data_request]{identify()}},
+\code{\link[=select.data_request]{select}},
+\code{\link[=slice_head.data_request]{slice_head()}} or \code{\link[=unnest]{unnest()}}.
+For operations on \verb{_request} objects, see
+\code{\link[=capture]{capture()}},
+\code{\link[=compound]{compound()}},
+\code{\link[=collapse.data_request]{collapse()}},
+\code{\link[=compute.data_request]{compute()}} or
+\code{\link[=collect.data_request]{collect()}}.
 }

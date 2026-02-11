@@ -6,6 +6,7 @@
 \alias{show_all_assertions}
 \alias{show_all_atlases}
 \alias{show_all_collections}
+\alias{show_all_config}
 \alias{show_all_datasets}
 \alias{show_all_fields}
 \alias{show_all_licences}
@@ -16,37 +17,43 @@
 \alias{show_all_reasons}
 \title{Show valid record information}
 \usage{
-show_all(..., limit = NULL)
+show_all(..., limit = NULL, all_fields = FALSE)
 
-show_all_apis(limit = NULL)
+show_all_apis(limit = NULL, all_fields = FALSE)
 
-show_all_assertions(limit = NULL)
+show_all_assertions(limit = NULL, all_fields = FALSE)
 
-show_all_atlases(limit = NULL)
+show_all_atlases(limit = NULL, all_fields = FALSE)
 
-show_all_collections(limit = NULL)
+show_all_collections(limit = NULL, all_fields = FALSE)
 
-show_all_datasets(limit = NULL)
+show_all_config()
 
-show_all_fields(limit = NULL)
+show_all_datasets(limit = NULL, all_fields = FALSE)
 
-show_all_licences(limit = NULL)
+show_all_fields(limit = NULL, all_fields = FALSE)
 
-show_all_lists(limit = NULL)
+show_all_licences(limit = NULL, all_fields = FALSE)
 
-show_all_profiles(limit = NULL)
+show_all_lists(limit = NULL, all_fields = FALSE)
 
-show_all_providers(limit = NULL)
+show_all_profiles(limit = NULL, all_fields = FALSE)
 
-show_all_ranks(limit = NULL)
+show_all_providers(limit = NULL, all_fields = FALSE)
 
-show_all_reasons(limit = NULL)
+show_all_ranks(limit = NULL, all_fields = FALSE)
+
+show_all_reasons(limit = NULL, all_fields = FALSE)
 }
 \arguments{
 \item{...}{String showing what type of information is to be requested. See
 \code{Details} (below) for accepted values.}
 
 \item{limit}{Optional number of values to return. Defaults to NULL, i.e. all records}
+
+\item{all_fields}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} If \code{TRUE},
+\code{show_values()} also returns all columns available from the API, rather
+than the 'default' columns traditionally provided via galah.}
 }
 \value{
 An object of class \code{tbl_df} and \code{data.frame} (aka a tibble)
@@ -60,7 +67,6 @@ options or categories for the type of information they are interested in.
 Functions prefixed with \code{show_all_} do this, displaying all valid options
 for the information specified by the suffix.
 
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 \code{show_all()} is a helper function that can display multiple types of
 information from \code{show_all_} sub-functions.
 }
@@ -71,6 +77,7 @@ The available types of information for \code{show_all_} are:\tabular{llll}{
    \strong{Category} \tab \strong{Type} \tab \strong{Description} \tab \strong{Sub-functions} \cr
    Configuration \tab \code{atlases} \tab Show what atlases are available \tab \code{show_all_atlases()} \cr
     \tab \code{apis} \tab Show what APIs & functions are available for each atlas \tab \code{show_all_apis()} \cr
+    \tab \code{config} \tab Show information necessary for authentication \tab \code{show_all_config()} \cr
     \tab \code{reasons} \tab Show what values are acceptable as 'download reasons' for a specified atlas \tab \code{show_all_reasons()} \cr
    Data providers \tab \code{providers} \tab Show which institutions have provided data \tab \code{show_all_providers()} \cr
     \tab \code{collections} \tab Show the specific collections within those institutions \tab \code{show_all_collections()} \cr
@@ -99,6 +106,11 @@ show_all(ranks)
 
 # `show_all()` is synonymous with `request_metadata() |> collect()`
 request_metadata(type = "fields") |>
+  collect()
+  
+# using `all_fields = TRUE` is synonymous with `select(everything())`
+request_metadata(type = "fields") |>
+  select(everything()) |>
   collect()
 }
 }

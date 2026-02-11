@@ -1,4 +1,4 @@
-test_that("atlas_taxonomy 'identify' must be specified", {
+test_that("`atlas_taxonomy()` 'identify' must be specified", {
   expect_error({
     galah_call() |>
       filter(rank == "kingdom") |>
@@ -6,7 +6,7 @@ test_that("atlas_taxonomy 'identify' must be specified", {
   })
 })
 
-test_that("atlas_taxonomy 'filter' must be specified", {
+test_that("`atlas_taxonomy()` 'filter' must be specified", {
   expect_error({
     galah_call() |>
       identify("Animalia") |>
@@ -14,7 +14,7 @@ test_that("atlas_taxonomy 'filter' must be specified", {
   })
 })
 
-test_that("atlas_taxonomy requires a single taxon", {
+test_that("`atlas_taxonomy()` requires a single taxon", {
   expect_error({
     galah_call() |>
       identify("Animalia", "Plantae") |>
@@ -23,22 +23,22 @@ test_that("atlas_taxonomy requires a single taxon", {
   })
 })
 
-test_that("atlas_taxonomy makes a tree when piped", {
+test_that("`atlas_taxonomy()` makes a `tibble` when piped", {
   skip_if_offline(); skip_on_ci()
   tree <- galah_call() |>
     identify("fungi") |>
     filter(rank >= phylum) |>
-    atlas_taxonomy() 
+    atlas_taxonomy()
   expect_s3_class(tree, c("tbl_df", "tbl", "data.frame"))
   expect_equal(ncol(tree), 4)
   expect_gte(nrow(tree), 1)
 })
 
-test_that("atlas_taxonomy example runs", {
+test_that("`atlas_taxonomy()` example runs", {
   skip_if_offline(); skip_on_ci()
   df <- galah_call() |> 
-    galah_identify("chordata") |>
-    galah_filter(rank == class) |>
+    identify("chordata") |>
+    filter(rank == class) |>
     atlas_taxonomy()
   expect_s3_class(df, c("tbl_df", "tbl", "data.frame"))
   expect_equal(ncol(df), 4)

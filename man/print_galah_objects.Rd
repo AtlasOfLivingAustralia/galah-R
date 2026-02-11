@@ -6,6 +6,7 @@
 \alias{print.files_request}
 \alias{print.metadata_request}
 \alias{print.query}
+\alias{print.prequery}
 \alias{print.computed_query}
 \alias{print.query_set}
 \alias{print.galah_config}
@@ -18,6 +19,8 @@
 \method{print}{metadata_request}(x, ...)
 
 \method{print}{query}(x, ...)
+
+\method{print}{prequery}(x, ...)
 
 \method{print}{computed_query}(x, ...)
 

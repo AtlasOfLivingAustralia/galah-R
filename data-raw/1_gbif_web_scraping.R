@@ -7,32 +7,34 @@ library(tibble) # generate tibbles
 library(dplyr) # data manipulation
 library(purrr) # extraction from lists
 library(rvest) # web scraping assertions from gbif.org
+library(stringr)
 
-# tibble of available fields: 
-gbif_parameters_url <- "https://www.gbif.org/developer/occurrence#parameters"
-data_raw <- read_html(gbif_parameters_url) |> 
-  html_node("body")|> 
-  html_nodes("table")
+# Legacy code: this is now available via API
+# # tibble of available fields: 
+# gbif_parameters_url <- "https://www.gbif.org/developer/occurrence#parameters"
+# data_raw <- read_html(gbif_parameters_url) |> 
+#   html_node("body")|> 
+#   html_nodes("table")
+# 
+# data_text <- data_raw |>
+#   pluck(7) |> # poor practice to hard-code this; checks may be needed
+#   html_nodes("tr") |> 
+#   html_text()
+# 
+# purrr::map(strsplit(data_text, "\n"), function(a){
+#   tibble(
+#     id = trimws(a[[1]]),
+#     description = trimws(paste(a[-1], collapse = "")))
+# }) |>
+#   bind_rows() |>
+#   slice(-1) |> # header row gets imported as a row by mistake
+#   mutate(type = "fields") |>
+#   filter(
+#     !grepl("^facet", id), 
+#     !(id %in% c("geometry", "geodistance", "q", "hl", "format"))) |>
+#   write_csv("./data-raw/gbif_fields.csv")
 
-data_text <- data_raw |>
-  pluck(7) |> # poor practice to hard-code this; checks may be needed
-  html_nodes("tr") |> 
-  html_text()
-
-lapply(strsplit(data_text, "\n"), function(a){
-  tibble(
-    id = trimws(a[[1]]),
-    description = trimws(paste(a[-1], collapse = "")))
-}) |>
-  bind_rows() |>
-  slice(-1) |> # header row gets imported as a row by mistake
-  mutate(type = "fields") |>
-  filter(
-    !grepl("^facet", id), 
-    !(id %in% c("geometry", "geodistance", "q", "hl", "format"))) |>
-  write_csv("./data-raw/gbif_fields.csv")
-
-
+# Assertions, however, don't appear to have an API (yet)
 # tibble of assertions, scraped from gbif developer docs:
 gbif_assertions_url <- "https://gbif.github.io/gbif-api/apidocs/org/gbif/api/vocabulary/OccurrenceIssue.html"
 data_raw <- read_html(gbif_assertions_url) |> html_node("body")
@@ -53,3 +55,21 @@ lapply(assertions_list, function(a){
   bind_rows() |>
   mutate(type = "assertions") |>
   write_csv("./data-raw/gbif_assertions.csv")
+
+## Also, fields that exist are *not* the same as those that 
+## can be used for search or faceting.
+## Download and store these separately
+
+gbif_search_url <- "https://raw.githubusercontent.com/gbif/gbif-api/refs/heads/dev/src/main/java/org/gbif/api/model/occurrence/search/OccurrenceSearchParameter.java"
+data_raw <- readLines(gbif_search_url)
+field_strings <- data_raw[str_detect(data_raw, "^\\s+public final static")] |>
+  str_replace("^\\s+public final static OccurrenceSearchParameter ", "") |>
+  str_extract("^\\s*[:graph:]+") |>
+  trimws() |>
+  sort()
+# can be compared to:
+# https://gbif.github.io/gbif-api/apidocs/org/gbif/api/model/occurrence/search/OccurrenceSearchParameter.html
+
+tibble::tibble(id = snake_to_camel_case(field_strings)) |>
+  write_csv("./data-raw/gbif_search_fields.csv")
+

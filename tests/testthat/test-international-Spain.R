@@ -71,13 +71,33 @@ test_that("show_all(assertions) works for Spain", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("show_all(profiles) works for Spain", {
+test_that("show_all(profiles) works for Flanders", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(profiles) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
-  expect_gt(nrow(x), 1)
+  expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  
+  # and values
+  y <- request_metadata() |>
+    filter(profiles == x$short_name[1]) |>
+    unnest() |>
+    collect() |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gt(nrow(y), 1)
+  expect_true(inherits(y, c("tbl_df", "tbl", "data.frame")))
+  
+  # and actually reduces record count
+  records_all <- galah_call() |>
+    count() |>
+    collect()
+  records_clean <- galah_call() |>
+    apply_profile(x$short_name[1]) |>
+    count() |>
+    collect()
+  expect_lt(records_clean$count, records_all$count)
 })
 
 test_that("show_all(lists) works for Spain", {
@@ -129,18 +149,12 @@ test_that("search_all(identifiers) works for Spain", {
 
 test_that("show_values works for fields for Spain", {
   skip_if_offline(); skip_on_ci()
+  quiet_values <- function(...){
+    x <- purrr::quietly(show_values)
+    x(...)$result
+  }
   x <- search_all(fields, "basisOfRecord") |> 
-    show_values() |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
-  expect_gte(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-})
-
-test_that("show_values works for profiles for Spain", {
-  skip_if_offline(); skip_on_ci()
-  x <- search_all(profiles, "LA") |> 
-    show_values() |>
+    quiet_values() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gte(nrow(x), 1)
@@ -150,7 +164,7 @@ test_that("show_values works for profiles for Spain", {
 test_that("atlas_counts works for Spain", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
@@ -159,7 +173,7 @@ test_that("atlas_counts works for Spain", {
 test_that("atlas_counts works with type = 'species' for Spain", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
-    pull(count) |>
+    dplyr::pull(count) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(x, 0)
@@ -203,28 +217,14 @@ test_that("atlas_counts works with group_by for Spain", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     filter(year >= 2000) |>
-    group_by(basis_of_record) |>
+    group_by(basisOfRecord) |>
     count() |>
     collect() |>
     try(silent = TRUE)
   skip_if(inherits(result, "try-error"), message = "API not available")
   expect_gt(nrow(result), 1)
-  expect_equal(names(result), c("basis_of_record", "count"))
+  expect_equal(names(result), c("basisOfRecord", "count"))
   })
-
-test_that("atlas_counts works with apply_profile for Spain", {
-  skip_if_offline(); skip_on_ci()
-  without_profile <- galah_call() |>
-    count() |>
-    collect()
-  with_profile <- galah_call() |>
-    apply_profile(LA) |>
-    count() |>
-    collect()
-  expect_gt(with_profile$count, 0)
-  expect_equal(class(without_profile), class(with_profile))
-  expect_lt(with_profile$count, without_profile$count)
-})
 
 test_that("atlas_species works for Spain", {
   skip_if_offline(); skip_on_ci()
@@ -233,7 +233,7 @@ test_that("atlas_species works for Spain", {
     email = "test@ala.org.au",
     send_email = FALSE)
   spp <- galah_call() |>
-    galah_identify("Carnivora") |>
+    identify("Carnivora") |>
     atlas_species() |>
     try(silent = TRUE)
   skip_if(inherits(spp, "try-error"), message = "API not available")
@@ -246,15 +246,15 @@ test_that("galah_select works for Spain", {
   skip_if_offline(); skip_on_ci()
   x <- galah_select()
   y <- galah_select(basisOfRecord)
-  expect_equal(length(x), 2)
+  expect_equal(length(x), 3)
   expect_equal(x$summary, "group = basic")
   expect_equal(x$group, "basic")
   expect_true(inherits(x, c("list"))) 
   expect_equal(length(y), 3)
-  expect_equal(y$summary, "basisOfRecord")
+  expect_equal(y$summary, "~basisOfRecord")
   expect_equal(y$group, character(0))
   expect_true(inherits(y, c("list"))) 
-  expect_true(inherits(y[[1]], c("quosure", "formula"))) 
+  expect_true(inherits(y$quosure[[1]], c("quosure", "formula"))) 
 })
 
 test_that("atlas_occurrences works for Spain", {
@@ -286,24 +286,26 @@ test_that("atlas_media() works for Spain", {
     send_email = FALSE)
   x <- request_data() |>
     identify("Mammalia") |>
-    filter(year >= 2023
-           # imageIDsCount > 0
-           ) |>
-    # count() |>
-    # collect()
+    filter(year >= 2023) |>
     atlas_media() |>
     try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+  skip_if(inherits(x, "try-error"), message = "API not available") # FIXME: failing here
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gte(nrow(x), 1)
   expect_equal(colnames(x)[1:2],
-               c("media_id", "recordID"))
+               c("media_id", "media_type"))
   # download a subset
+  quiet_media <- function(...){
+    x <- purrr::quietly(collect_media)
+    x(...)$result
+  }
   n_downloads <- 5
-  collect_media(x[seq_len(n_downloads), ])
+  quiet_media(x[seq_len(n_downloads), ])
   expect_equal(length(list.files("temp", pattern = ".jpg$")),
                n_downloads)
   unlink("temp", recursive = TRUE)
 })
 
-galah_config(atlas = "Australia")
+quiet_config <- purrr::quietly(galah_config)
+quiet_config(atlas = "Australia")
+rm(quiet_config)

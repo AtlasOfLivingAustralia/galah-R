@@ -17,7 +17,6 @@
 #' atlas_citation(x)
 #' }
 #' @export
-
 atlas_citation <- function(data) {
   # get basic information from file
   modified_date <- attributes(data)$modified_date
@@ -34,15 +33,15 @@ atlas_citation <- function(data) {
   r_citation <- citation() |>
     print(style = 'text') |> 
     utils::capture.output() |>
-    glue_collapse(sep = " ")
+    glue::glue_collapse(sep = " ")
   galah_citation <- c("Westgate M, Kellie D, Stevenson M & Newman P (2025):",
                       "_galah: Biodiversity Data from the GBIF Node Network_.",
-                      "R package version 2.1.1.",
+                      "R package version 2.2.0.",
                       "doi: 10.32614/CRAN.package.galah") |>
-    glue_collapse(sep = " ")
+    glue::glue_collapse(sep = " ")
   
   # ask users to cite galah and R
-  suffix_text <-  glue("
+  suffix_text <-  glue::glue("
   
   Please consider citing R & galah, in addition to your dataset:
        
@@ -54,8 +53,8 @@ atlas_citation <- function(data) {
   # set case when DOI is missing
   if(!is.null(doi)) {
     # ALA
-    if(grepl("10.26197/ala.", doi)){
-      result <- glue("
+    if(stringr::str_detect(doi, "10.26197/ala.")){
+      result <- glue::glue("
       The citation for this dataset is:
       
          Atlas of Living Australia ({modified_date}) Occurrence download {doi}
@@ -66,8 +65,8 @@ atlas_citation <- function(data) {
       cli::cli_text(result)
       invisible(result)
     # GBIF
-    }else if(grepl("10.15468/dl.", doi)){
-      result <- glue("
+    }else if(stringr::str_detect(doi, "10.15468/dl.")){
+      result <- glue::glue("
       The citation for this dataset is:
       
          GBIF.org ({modified_date}) GBIF Occurrence Download {doi}
@@ -88,7 +87,7 @@ atlas_citation <- function(data) {
     }
   }else{
     if(!is.null(citation)){
-      result <- glue("
+      result <- glue::glue("
       The citation for this dataset is:
       
                         {citation}

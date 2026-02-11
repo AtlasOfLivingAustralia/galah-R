@@ -11,8 +11,6 @@ read_zip(file)
 \code{.zip}.}
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 Living atlases supply data downloads as zip files. This function reads these
 data efficiently, i.e. without unzipping them first, using the \code{readr}
 package. Although this function has been part of galah for some time, it was

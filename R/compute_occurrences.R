@@ -2,9 +2,8 @@
 #' @noRd
 #' @keywords Internal
 compute_occurrences <- function(.query){
-  switch(pour("atlas", "region"),
+  switch(potions::pour("atlas", "region"),
          "Austria" = compute_occurrences_la_direct(.query),
-         "United Kingdom" = compute_occurrences_la_direct(.query),
          "Global" = compute_occurrences_gbif(.query),
          compute_occurrences_la(.query))
 }
@@ -14,10 +13,9 @@ compute_occurrences <- function(.query){
 #' @noRd
 #' @keywords Internal
 compute_occurrences_la_direct <- function(.query){
-  result <- c(.query,
-              list(fields = extract_fields(.query)))
-  class(result) <- "computed_query"
-  result  
+  c(.query,
+    list(fields = extract_fields(.query))) |>
+    structure(class = "computed_query")
 }
 
 #' Internal function to `compute()` for `type = "occurrences"` for GBIF
@@ -28,15 +26,12 @@ compute_occurrences_gbif <- function(.query){
   post_result <- query_API(.query) # returns an id
   status_code <- list(
     type = "data/occurrences",
-    url = paste0("https://api.gbif.org/v1/occurrence/download/", 
-                 post_result)) |>
+    url = glue::glue("https://api.gbif.org/v1/occurrence/download/{post_result}")) |>
     query_API() |>
     check_occurrence_response()
-  result <- c(
-    list(type = "data/occurrences"),
-    status_code)
-  class(result) <- "computed_query"
-  return(result)
+  c(list(type = "data/occurrences"),
+    status_code) |>
+    structure(class = "computed_query")
 }
 
 #' Internal function to `compute()` for `type = "occurrences"` for ALA
@@ -47,29 +42,48 @@ compute_occurrences_la <- function(.query){
   status_code <- query_API(.query) |>
     as.list() |>
     check_occurrence_response()
-  if(pour("package", "verbose")){
+  if(potions::pour("package", "verbose")){
     n_records <- status_code$total_records
-    inform(glue("Request for {n_records} occurrences placed in queue"))
+    if(!is.null(.query$request$authenticate)){
+      cli::cli_text("Query sent including JWT token")
+    }
+    cli::cli_text("Request for {n_records} occurrences placed in queue.")
   }
   # return a useful object
-  result <- c(
-    list(type = "data/occurrences"),
+  c(list(type = "data/occurrences"),
     status_code, 
-    list(fields = extract_fields(.query)))
-  class(result) <- "computed_query"
-  result
+    list(fields = extract_fields(.query))) |>
+  add_request(.query) |>
+  structure(class = "computed_query")
 }
 
 #' Internal function to get the `fields` vector from a url
-#' @importFrom httr2 url_parse
-#' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
 extract_fields <- function(.query){
   .query |>
-    pluck("url") |>
-    url_parse() |>
-    pluck("query", "fields") |>
+    purrr::pluck("url") |>
+    httr2::url_parse() |>
+    purrr::pluck("query", "fields") |>
     strsplit(split = ",") |>
-    pluck(!!!list(1))
+    purrr::pluck(!!!list(1))
+}
+
+#' Internal function to retrieve a GBIF DOI
+#' @noRd
+#' @keywords Internal
+compute_occurrences_doi <- function(.query){
+  if(stringr::str_detect(.query$url, "api.gbif.org")){
+    .query$download <- NULL
+    result <- query_API(.query)
+    c(list(type = "data/occurrences-doi",
+           url = result$downloadLink,
+           download = TRUE),
+      result[!(names(result) %in% c("request", "downloadLink"))]) |>
+    add_request(.query) |>
+    structure(class = "computed_query")
+  }else{
+    # living atlases just need passing onward
+    as_computed_query(.query)
+  }
 }

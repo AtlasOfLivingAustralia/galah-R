@@ -25,36 +25,56 @@ navbar:
     articles:
       text: Articles
       menu:
-      - text: Get started
-      - text: Choosing an atlas
-        href: articles/choosing_an_atlas.html
-      - text: Look up information
+      - text: Further information
+      - text: Looking up information
         href: articles/look_up_information.html
-      - text: Narrow your results
-        href: articles/narrow_your_results.html
-      - text: Download data
-        href: articles/download_data.html
-      - text: ---
-      - text: Advanced
-      - text: Object-oriented programming
-        href: articles/object_oriented_programming.html
+      - text: Accessing sensitive data
+        href: articles/accessing_sensitive_data.html
       - text: Reproduciblility
         href: articles/download-data-reproducibly.html
+      - text: Object oriented programming
+        href: articles/object-oriented-programming.html
+      - text: ---
+      - text: Filtering
       - text: Taxonomic filtering
         href: articles/taxonomic_filtering.html
       - text: Spatial filtering
         href: articles/spatial_filtering.html
       - text: Temporal filtering
-        href: articles/temporal_filtering.html
-          
+        href: articles/temporal_filtering.html         
     news:
       text: News
       href: news/index.html
 reference:
 - title: Getting started
   contents: 
-  - galah_call
   - galah_config
+  - galah_call
+- title: Update a request object
+  contents:
+  - apply_profile
+  - arrange.data_request
+  - authenticate
+  - count.data_request
+  - distinct.data_request
+  - filter.data_request
+  - geolocate
+  - glimpse.data_request
+  - group_by.data_request
+  - identify.data_request
+  - select.data_request
+  - slice_head.data_request
+  - reexports
+  - unnest
+- title: Create and execute a query
+  contents:
+  - capture
+  - compound
+  - collapse.data_request
+  - compute.data_request
+  - collect.data_request
+- title: Wrappers for accessing data
+  contents:
   - show_all
   - search_all
   - search_taxa
@@ -67,24 +87,6 @@ reference:
   - show_all_reasons
   - show_all_ranks
   - show_values
-- title: Amend a query
-  contents:
-  - apply_profile
-  - arrange.data_request
-  - count.data_request
-  - desc
-  - filter.data_request
-  - geolocate
-  - group_by.data_request
-  - identify.data_request
-  - select.data_request
-  - slice_head.data_request
-  - reexports
-- title: Execute a query via API
-  contents:
-  - collapse.data_request
-  - compute.data_request
-  - collect.data_request
   - atlas_occurrences
   - atlas_counts
   - atlas_species
@@ -94,7 +96,7 @@ reference:
 - title: Miscellaneous functions
   contents:
   - taxonomic_searches
-  - print_galah_objects
   - read_zip
   - atlas_citation
-- title: internal
+  - as_data_filter
+  - print_galah_objects

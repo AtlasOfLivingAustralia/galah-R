@@ -1,64 +1,109 @@
-#' Build predicates
-#' 
-#' predicates are JSON scripts for passing to GBIF offline downloads API.
-#' https://www.gbif.org/developer/occurrence
-#' @importFrom potions pour
-#' @importFrom jsonlite toJSON 
-#' @importFrom jsonlite unbox
+#' join all queries
+#' NOTE: There is a maximum of 101k entries in total. Should be possible to enforce that here
+#' @param an object of class `query_set`
 #' @noRd
 #' @keywords Internal
-build_predicates <- function(
-  df, # where df is returned by galah_filter()
-  location,
-  format = "SIMPLE_CSV"
-){ 
-  if(nrow(df) < 1){
-    return(NULL)
-  }
+build_predicates <- function(x){
+  x$filter |>
+    join_predicates(parse_predicates_identify(x$identify)) |>
+    join_predicates(parse_predicates_location(x$geolocate))
 
-  predicates_list <- c(
-    parse_predicates(df),
-    parse_predicates_spatial(location))
-  
-  if(length(predicates_list) > 1){
-     predicates_list <- list(
-      type = unbox("and"),
-      predicates = predicates_list
-    )
-  }
-  
-  data_list <- list(
-    creator = unbox(pour("user", "username", .pkg = "galah")),
-    notificationAddresses = pour("user", "email", .pkg = "galah"),
-    sendNotification = unbox(pour("package", "send_email", .pkg = "galah")),
-    format = unbox(format),
-    predicate = predicates_list
-  )
-
-  toJSON(data_list)
 }
 
-#' most code borrowed from `build_query_gbif()`
+#' Internal function to join predicates together
+#' @param a predicate
+#' @param ... two or more predicates to join to x
+#' @noRd 
+#' @keywords Internal
+join_predicates <- function(x, y = NULL){
+
+  if(is.null(y)){
+    x
+  }else{
+    # for `and` queries, we extract everything, add new content, then rebuild
+
+    if(is_and_query(x)){
+      x <- x$predicates
+    }
+
+    # add content together
+    filters_list <- c(check_predicate_wrapping(x), 
+                      check_predicate_wrapping(y))
+    names(filters_list) <- NULL
+    list(type = "and",
+         predicates = filters_list)
+  }
+}
+
+#' simple check for whether predicates begin with `and`
 #' @noRd
 #' @keywords Internal
-parse_predicates_spatial <- function(location){
+is_and_query <- function(x){
+  if(purrr::pluck_exists(x, "type")){
+    if(purrr::pluck(x, "type") == "and"){
+      TRUE
+    }else{
+      FALSE
+    }
+  }else{
+    FALSE
+  }
+}
+
+#' simple check to ensure lists are joined correctly
+#' @noRd
+#' @keywords Internal
+check_predicate_wrapping <- function(x){
+  if(length(x) > 2 &
+     any(names(x) %in% c("in", "key", "value"))){
+    list(x)
+  }else{
+    x
+  }
+}
+
+#' handle taxonomic queries
+#' @noRd
+#' @keywords Internal
+parse_predicates_identify <- function(x){
+  if(!is.null(x)){
+    result <- purrr::map(x$taxon_concept_id,
+               \(a){list(type = "equals",
+                         key = "TAXON_KEY",
+                         value = a)})
+    if(length(result) > 1){
+      list(type = "or",
+           result)
+    }else{
+      result
+    }
+  }else{
+    NULL
+  }
+}
+
+#' handle spatial queries
+#' NOTE: There is a limit of 10k points in geometry; should be possible to enforce that here
+#' @noRd
+#' @keywords Internal
+parse_predicates_location <- function(location){
   if(!is.null(location)) {
     # if location is for a point radius vs polygon/bbox
     if(!is.null(names(location))){
       if(all(!is.null(location$radius))) { # `galah_radius()` will always pass radius argument
-        list(type = unbox("geoDistance"),
-             latitude = unbox(location$lat),
-             longitude = unbox(location$lon),
-             distance = unbox(paste0(location$radius, "km"))) |>
+        list(type = "geoDistance",
+             latitude = location$lat,
+             longitude = location$lon,
+             distance = glue::glue("{location$radius} km")) |>
           list()
       }else{
-        list(type = unbox("within"), 
-             geometry = unbox(location)) |>
+        list(type = "within", 
+             geometry = location) |>
           list()
       }
     }else{
-      list(type = unbox("within"), 
-           geometry = unbox(location)) |>
+      list(type = "within", 
+           geometry = location) |>
         list()
     }
   }else{
@@ -66,36 +111,26 @@ parse_predicates_spatial <- function(location){
   }
 }
 
-#' parse galah_filter result into predicate format
-#' @importFrom jsonlite unbox
+#' handle `group_by` in predicates
 #' @noRd
 #' @keywords Internal
-parse_predicates <- function(df){
-  json_text <- lapply(
-    split(df, seq_len(nrow(df))),
-    function(a){
-      list(
-        type = unbox(switch(a$logical,
-                      "==" = "equals",
-                      "<" = "lessThan",
-                      "<=" = "lessThanOrEquals",
-                      ">" = "greaterThan",
-                      ">=" = "greaterThanOrEquals",
-                      "!=" = "not"
-                      )),
-        key = unbox(gbif_upper_case(a$variable)),
-        value = unbox(a$value)
-      ) 
-    })
-    names(json_text) <- NULL
-    return(json_text)
+parse_predicates_groupby <- function(groupby){
+  if(!is.null(groupby)){
+    array(data = gbif_upper_case(groupby$name),
+          dim = length(groupby$name),
+          dimnames = NULL)
+  }else{
+    NULL
+  }
 }
-# NOTE: currently missing: `or`, `in`, `isNull`, `isNotNull`
 
-# test object:
-# df <- galah_filter(year == 1850)
-# df <- galah_filter(catalogNumber == 217880)
-
-gbif_upper_case <- function(string){
-  gsub("(?=[[:upper:]])", "_", string, perl = TRUE) |> toupper()
+#' clean up a list
+#' @noRd
+#' @keywords Internal
+remove_nulls_from_list <- function(x){
+  if(length(x) < 1){
+    NULL
+  }else{
+    x[!unlist(purrr::map(x, is.null))]  
+  }
 }
