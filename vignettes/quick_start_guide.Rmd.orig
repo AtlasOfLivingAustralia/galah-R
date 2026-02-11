@@ -194,10 +194,7 @@ galah_call() |>
 
 `atlas_species()` replaces the need for `distinct()` call, while `atlas_media()`
 is a shortcut to a complex workflow that incorporates both data and metadata
-calls; see the [downloading images and sounds](downloading_images_and_sounds.html)
-vignette for details.
-
-Finally, metadata calls can be made more efficiently using the `show_all()` 
+calls. Finally, metadata calls can be made more efficiently using the `show_all()` 
 and `show_values()` functions. These take the same arguments as the `type`
 argument in `request_metadata()`, but use non-standard evaluation, so they
 don't require quotes. They are also evaluated immediately rather than lazily:
@@ -206,6 +203,7 @@ don't require quotes. They are also evaluated immediately rather than lazily:
 show_all(fields)
 ```
 
-You can check the [look up information](lookup_up_information.html) vignette 
-for further details.
+You can check the 
+[look up information](https://galah.ala.org.au/R/articles/look_up_information.html) 
+vignette for further details.
 
