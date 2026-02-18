@@ -63,10 +63,15 @@
 #'   filter(doi = "a-long-doi-string") |> 
 #'   collect()}
 #' 
-#' For taxonomic metadata, the `taxa` field is valid:
+#' For metadata that support [unnest()], the lhs of the equation sets the `type`,
+#' while the rhs sets the value: 
 #' \preformatted{request_metadata() |> 
-#'   filter(taxa == "Chordata") |> 
-#'   unnest()}
+#'   filter(field == "basisOfRecord") |> 
+#'   unnest() |>
+#'   collect()}
+#' This can be used for types `list`, `field`, `profile` and `taxa`,
+#' noting that for `taxa` it requires a valid `taxonConceptID`; if
+#' you have a taxonomic name, use [identify()] instead.
 #'  
 #' For building taxonomic trees, the `rank` field is valid:
 #' \preformatted{request_data() |>

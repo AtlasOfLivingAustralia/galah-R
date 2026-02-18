@@ -80,10 +80,15 @@ When requesting a data download from a DOI, the field \code{doi} is valid, i.e.:
   filter(doi = "a-long-doi-string") |> 
   collect()}
 
-For taxonomic metadata, the \code{taxa} field is valid:
+For metadata that support \code{\link[=unnest]{unnest()}}, the lhs of the equation sets the \code{type},
+while the rhs sets the value:
 \preformatted{request_metadata() |> 
-  filter(taxa == "Chordata") |> 
-  unnest()}
+  filter(field == "basisOfRecord") |> 
+  unnest() |>
+  collect()}
+This can be used for types \code{list}, \code{field}, \code{profile} and \code{taxa},
+noting that for \code{taxa} it requires a valid \code{taxonConceptID}; if
+you have a taxonomic name, use \code{\link[=identify]{identify()}} instead.
 
 For building taxonomic trees, the \code{rank} field is valid:
 \preformatted{request_data() |>

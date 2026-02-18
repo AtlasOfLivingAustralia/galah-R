@@ -12,7 +12,7 @@
 * `dplyr::glimpse()` can be used to see what the resulting query will look like.
 * New functions `capture()` and `compound()` as prequels to `collapse()` (#278).
 
-## Changes to metadata functions
+### Changes to metadata functions
 * All metadata requests now accept `select()`.
 * Metadata types that support `unnest()` now also support `filter()`, even when `unnest()` is not supplied.
 * All `show_all()` and `search_all()` functions gain an `all_fields` argument.
