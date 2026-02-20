@@ -46,16 +46,16 @@ print.data_request <- function(x, # NOTE: use of `x` arg here is for consistency
 
 #' @rdname print_galah_objects
 #' @export
-print.files_request <- function(x, ...){
+print.metadata_request <- function(x, ...){
   format_request_text(x, 
-                      object_type = "files_request")
+                      object_type = "metadata_request")
 }
 
 #' @rdname print_galah_objects
 #' @export
-print.metadata_request <- function(x, ...){
+print.files_request <- function(x, ...){
   format_request_text(x, 
-                      object_type = "metadata_request")
+                      object_type = "files_request")
 }
 
 #' Internal function to format text in `print()`

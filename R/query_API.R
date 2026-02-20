@@ -135,10 +135,19 @@ add_headers <- function(req, headers){
 #' @keywords Internal
 add_body <- function(req, body){
   if(!is.null(body)){
-    req <- req |> httr2::req_body_raw(body)
-    # note: this is not `req_body_json()` because 
-    # we have already converted our list to json text
-    # by this point
+    # event datasets have to be structured differently
+    if(stringr::str_detect(req$url, "^https://api.ala.org.au/event")){
+      req <- req |>
+        httr2::req_body_json(data = list(query = body))
+      # this looks weird because it stores a JSON-like string (actually a graphQL query)
+      # within *another* JSON query. But it runs, so never mind.
+    }else{
+      req <- req |> 
+        httr2::req_body_raw(body)
+      # note: this is not `req_body_json()` because 
+      # we have already converted our list to json text
+      # by this point
+    }
   }
   req
 }

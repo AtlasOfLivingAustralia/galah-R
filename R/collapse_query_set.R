@@ -5,6 +5,8 @@
 collapse_query_set <- function(x,
                                error_call = rlang::caller_env()){
   switch(x$type,
+         "data/events" = collapse_events(x),
+         "data/events-count" = collapse_events_count(x),
          "data/occurrences" = collapse_occurrences(x),
          "data/occurrences-count" = {
            if(is_gbif()){

@@ -73,19 +73,21 @@
 #' }
 #' @export
 galah_call <- function(type = c("occurrences", 
-                                  "occurrences-count",
-                                  "occurrences-doi",
-                                  # "distributions",
-                                  "species",
-                                  "species-count"
-                                  )){
+                                "occurrences-count",
+                                "occurrences-doi",
+                                # "distributions",
+                                "species",
+                                "species-count",
+                                "events",
+                                "events-count"
+                                )){
   if(!missing(type)){
     type <- match.arg(type)
   }else{
     type <- "occurrences"
   }
   list(type = type) |>
-    structure(class = "data_request")
+    structure(class = c("data_request", "list"))
 }
 
 #' @rdname galah_call
@@ -121,7 +123,7 @@ request_metadata <- function(type = c("fields",
     cli::cli_abort()   
   }
   list(type = type_checked) |>
-    structure(class = "metadata_request")
+    structure(class = c("metadata_request", "list"))
 }
 
 #' @rdname galah_call
@@ -131,5 +133,5 @@ request_files <- function(
     # note: option to add `...` here for consistency with `request_data()`
 ){
   list(type = match.arg(type)) |>
-    structure(class = "files_request")
+    structure(class = c("files_request", "list"))
 }

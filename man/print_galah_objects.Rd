@@ -3,8 +3,8 @@
 \name{print_galah_objects}
 \alias{print_galah_objects}
 \alias{print.data_request}
-\alias{print.files_request}
 \alias{print.metadata_request}
+\alias{print.files_request}
 \alias{print.query}
 \alias{print.prequery}
 \alias{print.computed_query}
@@ -14,9 +14,9 @@
 \usage{
 \method{print}{data_request}(x, ...)
 
-\method{print}{files_request}(x, ...)
-
 \method{print}{metadata_request}(x, ...)
+
+\method{print}{files_request}(x, ...)
 
 \method{print}{query}(x, ...)
 

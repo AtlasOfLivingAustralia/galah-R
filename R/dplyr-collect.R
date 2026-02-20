@@ -112,6 +112,8 @@ collect.computed_query <- function(x,
   }else{
     switch(x$type,
            "data/distributions" = collect_distributions(x),
+           "data/events" = collect_events(x, wait = wait, file = file),
+           "data/events-count" = collect_events_count(x),
            "data/occurrences" = collect_occurrences(x, wait = wait, file = file),
            "data/occurrences-count" = collect_occurrences_count(x),
            "data/occurrences-count-groupby" = collect_occurrences_count(x),

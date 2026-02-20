@@ -77,6 +77,8 @@ capture.data_request <- function(x,
          "species" = capture_species(x),
          "species-count" = capture_species_count(x),
          "distributions" = capture_distributions_data(x),
+         "events" = capture_events(x),
+         "events-count" = capture_events_count(x),
          cli::cli_abort("Unrecognised 'type'")) |>
   add_request(x)
 }
@@ -293,6 +295,8 @@ count_switch <- function(x){
                    "occurrences-count" = "occurrences-count",
                    "species" = "species-count",
                    "species-count" = "species-count",
+                   "events" = "events-count",
+                   "events-count" = "events-count",
                    "media" = cli::cli_abort("type = 'media' is not supported by `count()`"),
                    cli::cli_abort("`count()` only supports `type = 'occurrences' or` `'species'`"))
   x

@@ -20,12 +20,12 @@ capture_occurrences_count <- function(.query){
 #' @keywords Internal
 #' @noRd
 capture_occurrences_count_atlas <- function(identify = NULL, 
-                                             filter = NULL, 
-                                             geolocate = NULL,
-                                             apply_profile = NULL,
-                                             group_by = NULL,
-                                             distinct = NULL,
-                                             slice_arrange = NULL
+                                            filter = NULL, 
+                                            geolocate = NULL,
+                                            apply_profile = NULL,
+                                            group_by = NULL,
+                                            distinct = NULL,
+                                            slice_arrange = NULL
 ){
   query <- build_query(identify, 
                        filter, 

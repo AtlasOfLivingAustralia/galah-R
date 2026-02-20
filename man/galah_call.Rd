@@ -9,12 +9,12 @@
 \usage{
 galah_call(
   type = c("occurrences", "occurrences-count", "occurrences-doi", "species",
-    "species-count")
+    "species-count", "events", "events-count")
 )
 
 request_data(
   type = c("occurrences", "occurrences-count", "occurrences-doi", "species",
-    "species-count")
+    "species-count", "events", "events-count")
 )
 
 request_metadata(
