@@ -56,6 +56,7 @@ reference:
   - arrange.data_request
   - authenticate
   - count.data_request
+  - describe
   - distinct.data_request
   - filter.data_request
   - geolocate

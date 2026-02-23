@@ -59,21 +59,60 @@ chosen organisation. These pipes differ from traditional syntax in two ways:
 - they begin with a function - usually `galah_call()` - instead of a `tibble`
 - they end with one of `dplyr`'s evaluation functions, usually `collect()`
 
-So an example query might be to find the number of records per year:
+So an example query might be to find the number of records:
 
 ```{r, count-example}
 galah_config(atlas = "Australia")
 
 galah_call() |>            # open a pipe
-  filter(year >= 2020) |>  # choose rows to keep
-  count(year) |>           # count the number of rows
+  count() |>               # count the number of rows
   collect()                # retrieve query from the server
 ```
+You can further narrow this to a single taxonomic group with `identify()`:
 
-Or to find the number of categories present in a dataset, for example how many 
-species are present:
+```{r, identify-example}
+galah_call() |>
+  identify("Eolophus roseicapilla") |>
+  count() |>
+  collect()
+```
+
+To choose records using non-taxonomic criteria, you'll need to use `filter()`.
+This reqires that you find out:
+
+- what **fields** (columns) are present in the dataset you are searching
+- what **values** exist for those fields
+
+You can answer the first question with `describe()`:
+
+```{r, describe-example}
+galah_call() |>
+  describe() |>
+  collect()
+```
+
+Once you find a variable you are interested in, see what values it contains
+using `distinct()`:
 
 ```{r, distinct-example}
+galah_call() |>
+  distinct(basisOfRecord) |>
+  collect()
+```
+
+Then you can combine these within a `filter()` query:
+
+```{r, count-filter-example}
+galah_call() |>
+  filter(basisOfRecord == "PRESERVED_SPECIMEN") |>
+  count() |> 
+  collect()
+```
+
+These functions can be combined in a number of ways, for example to
+learn how many species are present within the genus 'Crinia':
+
+```{r, species-count-example}
 galah_call() |>
   identify("Crinia") |>   # filters by taxonomic names
   distinct(speciesID) |>  # keep only unique values
@@ -81,7 +120,7 @@ galah_call() |>
   collect()
 ```
 
-You can 'glimpse' a data download before you run it, to check all the data 
+You can `glimpse()` a data download before you run it, to check all the data 
 you need is included:
 
 ```{r, glimpse-example}
@@ -127,6 +166,7 @@ Supported `dplyr` verbs that modify queries are as follows:
 Additional verbs are: 
 
 - `apply_profile()`
+- `describe()`
 - `geolocate()` or `st_crop.data_request()`
 - `identify.data_request()`
 - `unnest()`
@@ -136,34 +176,6 @@ to minimize impacts on the server, and to ensure you can get a single
 DOI for your data. See the 
 [download data reproducibly](download-data-reproducibly.html) vignette 
 for details.
-
-# Finding information
-
-Building queries using `filter()` requires that you know two things:
-
-- what **fields** (columns) are present in the dataset you are searching
-- what **values** exist for those fields
-
-Finding this information requires looking for metadata:
-
-```{r, metadata-fields}
-request_metadata(type = "fields") |>
-  collect()
-```
-
-You can browser this tibble using `View()` or search it using `filter()`.
-Once you have found a field that you want to include in your query, you 
-can find values for that field using `unnest()`:
-
-```{r, metadata-fields-unnest}
-request_metadata() |>
-  filter(fields == "cl22") |>
-  unnest() |>
-  collect()
-```
-
-Different types of metadata are available; see `?request_metadata` for
-a full list.
 
 # Wrapper functions
 
@@ -196,7 +208,7 @@ galah_call() |>
 is a shortcut to a complex workflow that incorporates both data and metadata
 calls. Finally, metadata calls can be made more efficiently using the `show_all()` 
 and `show_values()` functions. These take the same arguments as the `type`
-argument in `request_metadata()`, but use non-standard evaluation, so they
+argument in `request_metadata()`, but us non-standard evaluation, so they
 don't require quotes. They are also evaluated immediately rather than lazily:
 
 ```{r, show-all-fields}

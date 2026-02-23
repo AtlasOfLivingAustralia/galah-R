@@ -287,7 +287,7 @@ collect_fields <- function(.query){
       }
       # now mutate to required format
       result_df <- result_df |>
-        dplyr::mutate(id = result_df$name,
+        dplyr::mutate(id = .data$name,
                       type = "fields") |>
         dplyr::rename_with(camel_to_snake_case) |>
         dplyr::bind_rows(galah_internal_archived$media,

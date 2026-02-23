@@ -172,6 +172,49 @@ collect_occurrences_glimpse_la <- function(.query){
   }
 }
 
+#' collect type `data/occurrences-describe`
+#' @noRd
+#' @keywords Internal
+collect_occurrences_describe <- function(.query){
+
+  if(!is.null(.query$data)){
+    result <- retrieve_internal_data(.query) |>
+      dplyr::filter(!is.na(.data$id))
+  }else{
+    result <- query_API(.query) |>
+      dplyr::bind_rows() |>
+      dplyr::filter(!is.na(.data$name)) |>
+      # below here for consistency with `collect_fields()`
+      dplyr::filter(.data$stored == TRUE) |>
+      dplyr::mutate(id = .data$name) |>
+      dplyr::rename_with(camel_to_snake_case) |>
+      dplyr::bind_rows(galah_internal_archived$media,
+                       galah_internal_archived$other) |>
+      dplyr::distinct(.data$id, .keep_all = TRUE)
+     
+    # add caching here
+    result_df <- update_attributes(result, type = "fields")
+    update_cache(fields = result_df)
+  }
+
+  # create a 'fake' data.frame to run .query$select on
+  df <- matrix(data = NA, 
+               nrow = 0,
+               ncol = nrow(result),
+               dimnames = list(c(), 
+                               dplyr::pull(result, .data$id))) |>
+    as.data.frame()
+
+  # use this df to parse user-requested `select()` function`
+  keep_names <- parse_select_occurrences(.query, df)
+    
+  # keep only those rows that correspond to user-requested names
+  result |>
+    dplyr::filter(.data$id %in% keep_names) |>
+    dplyr::select("id", "description", "data_type")
+
+}
+
 #' Download failed message
 #' @noRd
 #' @keywords Internal

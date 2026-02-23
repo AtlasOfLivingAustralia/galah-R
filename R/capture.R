@@ -65,6 +65,7 @@ capture.data_request <- function(x,
   x <- x |> 
     check_authentication() |>
     check_doi() |>
+    check_describe() |>
     check_distinct_count_groupby() |>
     check_glimpse() |>
     check_slice_arrange() |>
@@ -72,6 +73,7 @@ capture.data_request <- function(x,
   switch(x$type,
          "occurrences" = capture_occurrences(x, mint_doi = mint_doi),
          "occurrences-count" = capture_occurrences_count(x),
+         "occurrences-describe" = capture_occurrences_describe(x),
          "occurrences-doi" = capture_occurrences_doi(x),
          "occurrences-glimpse" = capture_occurrences_glimpse(x),
          "species" = capture_species(x),
@@ -183,13 +185,30 @@ check_doi <- function(x){
   x
 }
 
+#' Internal function to check for `describe()`
+#' @noRd
+#' @keywords Internal
+check_describe <- function(x){
+  if(!is.null(x$describe)){
+    if(x$type == "occurrences"){
+      x$type <- "occurrences-describe"
+      x
+    }else{
+      cli::cli_inform("`describe()` is only supported for `type =\"occurrences\"")
+      x
+    }
+  }else{
+    x
+  }
+}
+
 #' Internal function to check behaviour of `distinct()`, `group_by()` etc.
 #' called by `capture()`
 #' @noRd
 #' @keywords Internal
 check_distinct_count_groupby <- function(x){
 
-  if(x$type == "occurrences-doi"){
+  if(x$type %in% c("occurrences-doi", "occurrences-describe")){
     return(x)
   }
 

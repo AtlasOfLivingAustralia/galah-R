@@ -444,7 +444,7 @@ check_identifiers_la <- function(.query,
   if(inherits(.query$url, "data.frame")){
     url <- httr2::url_parse(.query$url$url[1])
   }else{
-    url <- httr2::url_parse(.query$url[1]) 
+    url <- httr2::url_parse(.query$url[1])
   }
   queries <- url$query
   if(!is.null(queries$fq)){
@@ -767,82 +767,20 @@ check_select <- function(.query,
                    dimnames = list(NULL, valid_any)) |>
         as.data.frame()
 
-      # 2. parse groups
-      group_initial <- .query$request$select$group
-      # new step to avoid calling `show_all_assertions()` internally
-      group <- group_initial[group_initial != "assertions"]
-      if(length(group) > 0){
-        group_cols <- purrr::map(group, preset_groups) |> 
-          unlist()
-        group_names <- tidyselect::eval_select(dplyr::all_of(group_cols), 
-                                               data = df) |> 
-          names()
-        # note: technically `group_names` and `group_cols` are identical
-        # BUT `eval_select()` will fail if invalid columns are given
-      }else{
-        group_names <- NULL
-      }
-
-      # 3. parse quosures to get list of field names
-      if(length(.query$request$select$quosure) > 0){
-        dot_names <- purrr::map(.query$request$select$quosure, 
-                                function(a){
-                                  tidyselect::eval_select(a,
-                                                          data = df,
-                                                          error_call = error_call) |>
-                                    names()
-                                }) |>
-          unlist()
-      }else{
-        dot_names <- c()
-      }
-
-      # 3a: set 'identifier' column name
-      id_col <- default_columns()[1]
+      # handle supplied `select()`
+      field_values <- parse_select_occurrences(.query, df, error_call = error_call)
       
-      # 4: set behaviour depending on what names are given
-      # NOTE:
-      ## because assertions aren't fields, leaving `fields` empty means default fields are returned
-      ## but only when `group = assertions` and no other requests are made
-      ## this adds a single field (recordID) to the query to avoid this problem.
-      ## This problem also occurs when a single field is requested
-      ## under some circumstances (e.g. "images"), even when that field is 
-      ## fully populated.
-      if(length(dot_names) > 1){
-        individual_cols <- dot_names
-      }else{ 
-        if(length(dot_names) == 1){ # i.e. a single field selected
-          if(length(group_names) == 0){
-            individual_cols <- unique(c(id_col, dot_names))
-          }else{
-            individual_cols <- dot_names
-          }
-        }else{ # i.e. length(dot_names) == 0, meaning no fields selected
-          if(length(group_initial) <= 1 & !any(group_names == id_col)){
-            individual_cols <- id_col
-          }else{
-            individual_cols <- NULL
-          }
-        }
-      }
-      
-      # 5. merge to create output object
-      # NOTE: placing `recordID` first is critical;
-      # having e.g. media columns _before_ `recordID` causes the download to fail 
-      field_values <- unique(c(group_names, individual_cols))
+      # warn
       if(is.null(field_values)){
         c("No fields selected",
           i = "Please specify a valid set of fields in `select()`",
           i = "You can look up valid fields using `show_all(fields)`") |>
           cli::cli_abort(call = error_call)
       }
-      if(any(field_values == id_col)){
-        field_values <- c(id_col, field_values[field_values != id_col]) # recordID needs to be first
-      }
-      
+
       # 6. handle assertions
       is_assertion <- field_values %in% valid_assertions
-      if(any(group_initial == "assertions")){
+      if(any(.query$request$select$group == "assertions")){
         assertion_text <- "includeall"
       }else{
         if(any(is_assertion)){
@@ -865,6 +803,85 @@ check_select <- function(.query,
   }
   .query
 }
+
+#' Internal function to parse out `select()` queries for occurrences
+#' Called both by `check_select()` (above) and by `collect_occurrences_describe()`
+#' @noRd
+#' @keywords Internal
+parse_select_occurrences <- function(.query,
+                                     df,
+                                     error_call = rlang::caller_env()){
+
+  # 2. parse groups
+  group_initial <- .query$request$select$group
+  # new step to avoid calling `show_all_assertions()` internally
+  group <- group_initial[group_initial != "assertions"]
+  if(length(group) > 0){
+    group_cols <- purrr::map(group, preset_groups) |> 
+      unlist()
+    group_names <- tidyselect::eval_select(dplyr::any_of(group_cols), 
+                                           data = df) |> 
+      names()
+    # note: technically `group_names` and `group_cols` are identical
+    # BUT `eval_select()` will fail if invalid columns are given
+  }else{
+    group_names <- NULL
+  }
+
+  # 3. parse quosures to get list of field names
+  if(length(.query$request$select$quosure) > 0){
+    dot_names <- purrr::map(.query$request$select$quosure, 
+                            function(a){
+                              tidyselect::eval_select(a,
+                                                      data = df,
+                                                      error_call = error_call) |>
+                                names()
+                            }) |>
+      unlist()
+  }else{
+    dot_names <- c()
+  }
+
+  # 3a: set 'identifier' column name
+  id_col <- default_columns()[1]
+  
+  # 4: set behaviour depending on what names are given
+  # NOTE:
+  ## because assertions aren't fields, leaving `fields` empty means default fields are returned
+  ## but only when `group = assertions` and no other requests are made
+  ## this adds a single field (recordID) to the query to avoid this problem.
+  ## This problem also occurs when a single field is requested
+  ## under some circumstances (e.g. "images"), even when that field is 
+  ## fully populated.
+  if(length(dot_names) > 1){
+    individual_cols <- dot_names
+  }else{ 
+    if(length(dot_names) == 1){ # i.e. a single field selected
+      if(length(group_names) == 0){
+        individual_cols <- unique(c(id_col, dot_names))
+      }else{
+        individual_cols <- dot_names
+      }
+    }else{ # i.e. length(dot_names) == 0, meaning no fields selected
+      if(length(group_initial) <= 1 & !any(group_names == id_col)){
+        individual_cols <- id_col
+      }else{
+        individual_cols <- NULL
+      }
+    }
+  }
+  
+  # 5. merge to create output object
+  # NOTE: placing `recordID` first is critical;
+  # having e.g. media columns _before_ `recordID` causes the download to fail 
+  field_values <- unique(c(group_names, individual_cols))
+
+  if(any(field_values == id_col)){
+    field_values <- c(id_col, field_values[field_values != id_col]) # recordID needs to be first
+  }
+  field_values
+}
+
 
 #' Check for valid `type`
 #' @noRd

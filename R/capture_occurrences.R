@@ -160,3 +160,11 @@ capture_occurrences_glimpse <- function(.query){
     as_prequery(result)
   }
 }
+
+#' Internal function to convert `data_request` with `type = "occurrences-decribe"` to a `query`
+#' @noRd
+#' @keywords Internal
+capture_occurrences_describe <- function(.query){
+  x <- request_metadata(type = "fields") |> capture()
+  update_request_object(x, type = "data/occurrences-describe")
+}

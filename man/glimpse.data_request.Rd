@@ -36,3 +36,7 @@ galah_call() |>
   collect()
 }
 }
+\seealso{
+\code{\link[=describe]{describe()}} for a different way to see fields returned by a query;
+\code{\link[=show_all_fields]{show_all_fields()}} to see all available fields.
+}

@@ -1,7 +1,7 @@
 ---
 title: "Quick start guide"
 author: "Martin Westgate & Dax Kellie"
-date: '2026-02-11'
+date: '2026-02-23'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -63,33 +63,116 @@ chosen organisation. These pipes differ from traditional syntax in two ways:
 - they begin with a function - usually `galah_call()` - instead of a `tibble`
 - they end with one of `dplyr`'s evaluation functions, usually `collect()`
 
-So an example query might be to find the number of records per year:
+So an example query might be to find the number of records:
 
 
 ``` r
 galah_config(atlas = "Australia")
 
 galah_call() |>            # open a pipe
-  filter(year >= 2020) |>  # choose rows to keep
-  count(year) |>           # count the number of rows
+  count() |>               # count the number of rows
   collect()                # retrieve query from the server
 ```
 
 ```
-## # A tibble: 7 × 2
-##   year     count
-##   <chr>    <int>
-## 1 2024  11889930
-## 2 2023  11007491
-## 3 2022   9430065
-## 4 2025   9142677
-## 5 2021   8695248
-## 6 2020   7311836
-## 7 2026    309836
+## # A tibble: 1 × 1
+##       count
+##       <int>
+## 1 167207256
+```
+You can further narrow this to a single taxonomic group with `identify()`:
+
+
+``` r
+galah_call() |>
+  identify("Eolophus roseicapilla") |>
+  count() |>
+  collect()
 ```
 
-Or to find the number of categories present in a dataset, for example how many 
-species are present:
+```
+## # A tibble: 1 × 1
+##     count
+##     <int>
+## 1 1410911
+```
+
+To choose records using non-taxonomic criteria, you'll need to use `filter()`.
+This reqires that you find out:
+
+- what **fields** (columns) are present in the dataset you are searching
+- what **values** exist for those fields
+
+You can answer the first question with `describe()`:
+
+
+``` r
+galah_call() |>
+  describe() |>
+  collect()
+```
+
+```
+## # A tibble: 639 × 3
+##    id                  description               data_type
+##    <chr>               <chr>                     <chr>    
+##  1 abcdTypeStatus      <NA>                      string   
+##  2 acceptedNameUsage   Accepted name             string   
+##  3 acceptedNameUsageID Accepted name             string   
+##  4 accessRights        Access rights             string   
+##  5 annotationsDoi      <NA>                      string   
+##  6 annotationsUid      Referenced by publication string   
+##  7 assertionUserId     Assertions by user        string   
+##  8 assertions          Record issues             string   
+##  9 assertionsCount     <NA>                      int      
+## 10 associatedMedia     Associated Media          string   
+## # ℹ 629 more rows
+```
+
+Once you find a variable you are interested in, see what values it contains
+using `distinct()`:
+
+
+``` r
+galah_call() |>
+  distinct(basisOfRecord) |>
+  collect()
+```
+
+```
+## # A tibble: 9 × 1
+##   basisOfRecord      
+##   <chr>              
+## 1 HUMAN_OBSERVATION  
+## 2 PRESERVED_SPECIMEN 
+## 3 OCCURRENCE         
+## 4 MACHINE_OBSERVATION
+## 5 OBSERVATION        
+## 6 MATERIAL_SAMPLE    
+## 7 LIVING_SPECIMEN    
+## 8 FOSSIL_SPECIMEN    
+## 9 MATERIAL_CITATION
+```
+
+Then you can combine these within a `filter()` query:
+
+
+``` r
+galah_call() |>
+  filter(basisOfRecord == "PRESERVED_SPECIMEN") |>
+  count() |> 
+  collect()
+```
+
+```
+## # A tibble: 1 × 1
+##      count
+##      <int>
+## 1 18055082
+```
+
+These functions can be combined in a number of ways, for example to
+learn how many species are present within the genus 'Crinia':
 
 
 ``` r
@@ -107,7 +190,7 @@ galah_call() |>
 ## 1    17
 ```
 
-You can 'glimpse' a data download before you run it, to check all the data 
+You can `glimpse()` a data download before you run it, to check all the data 
 you need is included:
 
 
@@ -122,14 +205,14 @@ galah_call() |>
 ```
 ## Rows: 21,984
 ## Columns: 8
-## $ taxonConceptID   <chr> "https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea", "https://biodiversity.org.au…
-## $ eventDate        <dbl> 1.272672e+12, 1.289002e+12, 1.291014e+12
+## $ taxonConceptID   <chr> "https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea", "https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea", "https://biodiversity.org.au/afd/taxa/9b4ad5…
+## $ eventDate        <dbl> 1.285459e+12, 1.280189e+12, 1.287533e+12
 ## $ scientificName   <chr> "Eolophus roseicapilla", "Eolophus roseicapilla", "Eolophus roseicapilla"
-## $ decimalLatitude  <dbl> -25.98833, -37.83032, -35.41707
-## $ decimalLongitude <dbl> 152.0442, 144.9812, 138.6868
-## $ basisOfRecord    <chr> "HUMAN_OBSERVATION", "HUMAN_OBSERVATION", "HUMAN_OBSERVATION"
-## $ dataResourceName <chr> "BirdLife Australia, Birdata", "eBird Australia", "eBird Australia"
-## $ occurrenceStatus <chr> "PRESENT", "ABSENT", "ABSENT"
+## $ decimalLatitude  <dbl> -37.1500, -18.6998, -32.6300
+## $ decimalLongitude <dbl> 143.7500, 127.6872, 138.0900
+## $ basisOfRecord    <chr> "HUMAN_OBSERVATION", "MATERIAL_SAMPLE", "HUMAN_OBSERVATION"
+## $ dataResourceName <chr> "BirdLife Australia, Birdata", "Australian National Wildlife Collection provider for OZCAM", "BirdLife Australia, Birdata"
+## $ occurrenceStatus <chr> "PRESENT", "PRESENT", "PRESENT"
 ```
 
 And, once satisfied that your parameters are correct, download the records 
@@ -152,13 +235,13 @@ galah_call() |>
 ##    <dttm>              <dbl> <chr>                
 ##  1 NA                  -36.5 Eolophus roseicapilla
 ##  2 NA                  -38.2 Eolophus roseicapilla
-##  3 NA                  -37.0 Eolophus roseicapilla
-##  4 NA                  -37.7 Eolophus roseicapilla
-##  5 NA                  -35.6 Eolophus roseicapilla
-##  6 NA                  -31.1 Eolophus roseicapilla
+##  3 NA                  -36.1 Eolophus roseicapilla
+##  4 NA                  -38.3 Eolophus roseicapilla
+##  5 NA                  -38.2 Eolophus roseicapilla
+##  6 NA                  -38.3 Eolophus roseicapilla
 ##  7 NA                  -38.2 Eolophus roseicapilla
 ##  8 NA                  -38.2 Eolophus roseicapilla
-##  9 NA                  -38.2 Eolophus roseicapilla
+##  9 NA                  -38.3 Eolophus roseicapilla
 ## 10 NA                  -38.2 Eolophus roseicapilla
 ## # ℹ 21,974 more rows
 ```
@@ -182,6 +265,7 @@ Supported `dplyr` verbs that modify queries are as follows:
 Additional verbs are: 
 
 - `apply_profile()`
+- `describe()`
 - `geolocate()` or `st_crop.data_request()`
 - `identify.data_request()`
 - `unnest()`
@@ -191,70 +275,6 @@ to minimize impacts on the server, and to ensure you can get a single
 DOI for your data. See the 
 [download data reproducibly](download-data-reproducibly.html) vignette 
 for details.
-
-# Finding information
-
-Building queries using `filter()` requires that you know two things:
-
-- what **fields** (columns) are present in the dataset you are searching
-- what **values** exist for those fields
-
-Finding this information requires looking for metadata:
-
-
-``` r
-request_metadata(type = "fields") |>
-  collect()
-```
-
-```
-## # A tibble: 639 × 3
-##    id                  description               type  
-##    <chr>               <chr>                     <chr> 
-##  1 abcdTypeStatus      <NA>                      fields
-##  2 acceptedNameUsage   Accepted name             fields
-##  3 acceptedNameUsageID Accepted name             fields
-##  4 accessRights        Access rights             fields
-##  5 annotationsDoi      <NA>                      fields
-##  6 annotationsUid      Referenced by publication fields
-##  7 assertionUserId     Assertions by user        fields
-##  8 assertions          Record issues             fields
-##  9 assertionsCount     <NA>                      fields
-## 10 associatedMedia     Associated Media          fields
-## # ℹ 629 more rows
-```
-
-You can browser this tibble using `View()` or search it using `filter()`.
-Once you have found a field that you want to include in your query, you 
-can find values for that field using `unnest()`:
-
-
-``` r
-request_metadata() |>
-  filter(fields == "cl22") |>
-  unnest() |>
-  collect()
-```
-
-```
-## # A tibble: 11 × 1
-##    cl22                        
-##    <chr>                       
-##  1 New South Wales             
-##  2 Victoria                    
-##  3 Queensland                  
-##  4 South Australia             
-##  5 Western Australia           
-##  6 Northern Territory          
-##  7 Tasmania                    
-##  8 Australian Capital Territory
-##  9 Macquarie Island            
-## 10 Coral Sea Islands           
-## 11 Ashmore and Cartier Islands
-```
-
-Different types of metadata are available; see `?request_metadata` for
-a full list.
 
 # Wrapper functions
 
@@ -277,7 +297,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 9142677
+## 1 9238597
 ```
 
 Or occurrences:
@@ -294,23 +314,22 @@ galah_call() |>
 
 ```
 ## # A tibble: 2,032 × 9
-##   recordID         scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           basisOfRecord occurrenceStatus
-##   <chr>            <chr>          <chr>                    <dbl>            <dbl> <dttm>              <chr>         <chr>           
-## 1 0026d29f-b6ab-4… Eolophus rose… https://biodi…           -35.4             149. 2000-08-07 00:00:00 HUMAN_OBSERV… PRESENT         
-## 2 0062d446-007b-4… Eolophus rose… https://biodi…           -35.3             149. 2000-03-10 00:00:00 HUMAN_OBSERV… PRESENT         
-## 3 00a62ee0-1e08-4… Eolophus rose… https://biodi…           -35.2             149. 2000-01-29 00:00:00 HUMAN_OBSERV… PRESENT         
-## 4 00ab2f4d-326f-4… Eolophus rose… https://biodi…           -35.4             149. 2000-09-25 00:00:00 HUMAN_OBSERV… PRESENT         
-## 5 00ae4631-ea59-4… Eolophus rose… https://biodi…           -35.3             149. 2000-02-12 00:00:00 HUMAN_OBSERV… PRESENT         
-## 6 00b6c8ec-e7b9-4… Eolophus rose… https://biodi…           -35.2             149. 2000-02-05 00:00:00 HUMAN_OBSERV… PRESENT         
+##   recordID                             scientificName        taxonConceptID                                                  decimalLatitude decimalLongitude eventDate           basisOfRecord occurrenceStatus dataResourceName
+##   <chr>                                <chr>                 <chr>                                                                     <dbl>            <dbl> <dttm>              <chr>         <chr>            <chr>           
+## 1 0026d29f-b6ab-4a1d-9c57-6ee12cfde3a0 Eolophus roseicapilla https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-9…           -35.4             149. 2000-08-07 00:00:00 HUMAN_OBSERV… PRESENT          Garden Bird Sur…
+## 2 0062d446-007b-4164-ac4f-ae84297e2578 Eolophus roseicapilla https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-9…           -35.3             149. 2000-03-10 00:00:00 HUMAN_OBSERV… PRESENT          BirdLife Austra…
+## 3 00a62ee0-1e08-4114-b0d8-9b7905472d53 Eolophus roseicapilla https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-9…           -35.2             149. 2000-01-29 00:00:00 HUMAN_OBSERV… PRESENT          Garden Bird Sur…
+## 4 00ab2f4d-326f-4b01-9a8a-1a10c1f77e3c Eolophus roseicapilla https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-9…           -35.4             149. 2000-09-25 00:00:00 HUMAN_OBSERV… PRESENT          Garden Bird Sur…
+## 5 00ae4631-ea59-44ec-b8f8-4377b6b3b3ef Eolophus roseicapilla https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-9…           -35.3             149. 2000-02-12 00:00:00 HUMAN_OBSERV… PRESENT          BirdLife Austra…
+## 6 00b6c8ec-e7b9-4d9f-9638-d962b1b4acfa Eolophus roseicapilla https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-9…           -35.2             149. 2000-02-05 00:00:00 HUMAN_OBSERV… PRESENT          Garden Bird Sur…
 ## # ℹ 2,026 more rows
-## # ℹ 1 more variable: dataResourceName <chr>
 ```
 
 `atlas_species()` replaces the need for `distinct()` call, while `atlas_media()`
 is a shortcut to a complex workflow that incorporates both data and metadata
 calls. Finally, metadata calls can be made more efficiently using the `show_all()` 
 and `show_values()` functions. These take the same arguments as the `type`
-argument in `request_metadata()`, but use non-standard evaluation, so they
+argument in `request_metadata()`, but us non-standard evaluation, so they
 don't require quotes. They are also evaluated immediately rather than lazily:
 
 
