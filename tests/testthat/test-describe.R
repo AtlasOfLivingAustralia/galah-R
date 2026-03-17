@@ -1,4 +1,5 @@
 test_that("`describe()` amends a query to type = 'occurrences-describe'", {
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     describe() |>
     capture()
@@ -7,6 +8,7 @@ test_that("`describe()` amends a query to type = 'occurrences-describe'", {
 })
 
 test_that("`describe()` ignores `count()`", {
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     describe() |>
     count() |>
@@ -16,6 +18,7 @@ test_that("`describe()` ignores `count()`", {
 })
 
 test_that("`describe()` returns all fields by default", {
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     describe() |>
     collect()
@@ -24,6 +27,7 @@ test_that("`describe()` returns all fields by default", {
 })
 
 test_that("`describe()` adheres to user-provided `select()`", {
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     select(group = "basic") |>
     describe() |>
@@ -34,6 +38,7 @@ test_that("`describe()` adheres to user-provided `select()`", {
 })
 
 test_that("`describe()` works for `select(type = 'media')`", {
+  skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     select(group = "media") |>
     describe() |>

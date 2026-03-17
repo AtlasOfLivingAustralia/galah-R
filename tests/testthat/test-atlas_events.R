@@ -1,4 +1,5 @@
 test_that("`galah_call(type = 'events')` works", {
+  skip_if_offline(); skip_on_ci()
    x <- galah_call(type = "events")
   expect_equal(names(x), "type")
   expect_equal(x$type, "events")
@@ -6,6 +7,7 @@ test_that("`galah_call(type = 'events')` works", {
 })
 
 test_that("`count()` works for type = 'events'", {
+  skip_if_offline(); skip_on_ci()
   x <- galah_call(type = "events") |>
     count() |>
     collect()
@@ -15,6 +17,7 @@ test_that("`count()` works for type = 'events'", {
 })
 
 test_that("`describe()` works for type = 'events'", {
+  skip_if_offline(); skip_on_ci()
   x <- galah_call(type = "events") |>
     describe() |>
     collect()
