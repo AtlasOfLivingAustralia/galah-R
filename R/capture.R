@@ -81,6 +81,7 @@ capture.data_request <- function(x,
          "distributions" = capture_distributions_data(x),
          "events" = capture_events(x),
          "events-count" = capture_events_count(x),
+         "events-describe" = capture_events_describe(x),
          cli::cli_abort("Unrecognised 'type'")) |>
   add_request(x)
 }
@@ -190,11 +191,11 @@ check_doi <- function(x){
 #' @keywords Internal
 check_describe <- function(x){
   if(!is.null(x$describe)){
-    if(x$type == "occurrences"){
-      x$type <- "occurrences-describe"
+    if(x$type %in% c("occurrences", "events")){
+      x$type <- glue::glue("{x$type}-describe")
       x
     }else{
-      cli::cli_inform("`describe()` is only supported for `type =\"occurrences\"")
+      cli::cli_inform("`describe()` is only supported for `type` \"occurrences\" or \"events\" ")
       x
     }
   }else{

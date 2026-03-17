@@ -8,7 +8,8 @@ collapse_build_checks <- function(.query){
   names_vec <- purrr::map(.query,
                           \(a){purrr::pluck(a, "type")}) |>
     unlist()
-  data_lookup <- stringr::str_detect(names_vec, "^data")
+  data_lookup <- stringr::str_detect(names_vec, "^data") &
+    names_vec != "data/occurrences-describe"
   if(any(data_lookup)){
     data_names <- names_vec[data_lookup]
     # parse any `metadata`
@@ -45,7 +46,8 @@ collapse_run_checks <- function(.query,
                                 error_call = rlang::caller_env()){
   
   # "data/" functions require pre-processing of metadata,
-  if(stringr::str_detect(.query$type, "^data/") & .query$type != "data/occurrences-doi"){
+  if(stringr::str_detect(.query$type, "^data/") & 
+    !(.query$type %in% c("data/occurrences-doi", "data/occurrences-describe"))){
     # taxon concept ID must always be evaluated
     .query <- check_identifiers(.query, error_call) 
     # login should only be evaluated for species and occurrence
@@ -72,8 +74,13 @@ collapse_run_checks <- function(.query,
 
     # run remaining checks, if requested by the user
     if(potions::pour("package", "run_checks")) {
+      # events doesn't need a reason, but others do
+      if(.query$type %in% c("data/occurrences", "data/species")){
+        .query <- .query |>
+          check_reason(error_call) 
+      }
+      # all need fields and profiles
       .query <- .query |>
-        check_reason(error_call) |>
         check_fields(error_call) |>
         check_profiles(error_call)
     }
@@ -84,6 +91,17 @@ collapse_run_checks <- function(.query,
       check_identifiers() |>
       check_fields()
   }
+
+  # add an exception to retain to user-supplied taxon for child taxa queries
+  # this is useful because it allows us to retain parent-child relations 
+  # in the resulting tibble
+  if(.query$type == "metadata/taxa-unnest"){
+    supplied_taxon <- names(.query) == "metadata/taxa-single"
+    if(any(supplied_taxon)){
+      names(.query)[supplied_taxon] <- "supplied_taxon"
+    }
+  }
+
   collapse_remove_metadata(.query)
   # special cases:
   # distributions

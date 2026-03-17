@@ -4,6 +4,7 @@ collapse_events <- function(x){
   browser()
 }
 
+#' Internal function to run `capture()` for type = "events"
 #' @noRd
 #' @keywords Internal
 collapse_events_count <- function(x){

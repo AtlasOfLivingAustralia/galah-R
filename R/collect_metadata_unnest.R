@@ -123,4 +123,9 @@ collect_taxa_unnest <- function(.query){
     dplyr::rename_with(camel_to_snake_case) |>
     parse_rename(.query) |>
     parse_select(.query)
+
+  ## if useful to retain supplied taxon, do so here
+  # supplied_df <- .query$supplied_taxon |>
+  #  dplyr::select(tidyselect::any_of(colnames(result_df)))
+  # dplyr::bind_rows(supplied_df, result_df)
 }

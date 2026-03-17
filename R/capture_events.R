@@ -1,8 +1,14 @@
+#' Internal function to run `capture()` for type = "events"
+#' @noRd
+#' @keywords Internal
 capture_events <- function(x,
                            error_call = rlang::caller_env()){
   browser()
 }
 
+#' Internal function to run `capture()` for type = "events-count"
+#' @noRd
+#' @keywords Internal
 capture_events_count <- function(x,
                                  error_call = rlang::caller_env()){
   
@@ -25,4 +31,17 @@ capture_events_count <- function(x,
                     `Content-Type` = "application/json"),
        body = predicates_info) |>
     as_prequery()
+}
+
+#' Internal function to run `capture()` for type = "events-describe"
+#' @noRd
+#' @keywords Internal
+capture_events_describe <- function(x,
+                                    error_call = rlang::caller_env()){
+    list(type = "data/events-describe",
+       url = url_lookup("data/events-count"),
+       headers =  c(build_headers(),
+                    `Content-Type` = "application/json"),
+       body =  "query { __schema { types { name kind description } } }") |>
+    as_query()
 }
