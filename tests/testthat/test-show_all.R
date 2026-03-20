@@ -58,3 +58,16 @@ test_that("`show_all_lists()` functions work correctly", {
   expect_equal(attributes(syntax1)$region, "Australia")
   expect_equal(nrow(limit_test), 3)
 })
+
+test_that("show_all(lists) returns additional metadata columns", {
+  skip_if_offline(); skip_on_ci()
+  quiet_lists <- function(...){
+    list_fun <- purrr::quietly(show_all_lists)
+    list_fun(...) |>
+      purrr::pluck("result")
+  }
+  syntax1 <- quiet_lists()
+  limit_test <- quiet_lists(limit = 3)
+  expected_cols <- c("is_authoritative", "is_threatened")
+  expect_in(expected_cols, colnames(limit_test))
+})
