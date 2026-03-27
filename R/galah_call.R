@@ -7,8 +7,11 @@
 #' download data, in the same way that you would wrangle data with `dplyr` and 
 #' the `tidyverse`. It is synonymous with [request_data()]; to query other
 #' data types call [request_metadata()] or [request_files()].
-#' @param type string: what form of data should be returned? Acceptable values
+#' @param type string: What form of data should be returned? Acceptable values
 #' are specified by the corresponding `request` function
+#' @param from string: Which organisation should be queried. Accepts an 
+#' organisation name, acronym, or region (see [show_all_atlases()] for 
+#' admissible values)
 #' @details
 #' [galah_call()] and any of the `request_` functions are used to begin a 
 #' piped query, which is then actioned using
@@ -80,13 +83,25 @@ galah_call <- function(type = c("occurrences",
                                 "species-count",
                                 "events",
                                 "events-count"
-                                )){
+                                ),
+                       from = NULL){
+  # set type
   if(!missing(type)){
     type <- match.arg(type)
   }else{
     type <- "occurrences"
   }
-  list(type = type) |>
+
+  # set atlas
+  if(!is.null(from)){
+    atlas <- configure_atlas(from)$region
+  }else{
+    atlas <- potions::pour("atlas", "region", .pkg = "galah")
+  }
+
+  # create object
+  list(type = type,
+       atlas = atlas) |>
     structure(class = c("data_request", "list"))
 }
 
@@ -112,7 +127,9 @@ request_metadata <- function(type = c("fields",
                                       "ranks",
                                       "reasons",
                                       "taxa",
-                                      "identifiers")){
+                                      "identifiers"),
+                               from = NULL){
+  # set tupe
   type_checked <- try(match.arg(type),
                       silent = TRUE)
   if(inherits(type_checked, "try-error")){
@@ -122,16 +139,35 @@ request_metadata <- function(type = c("fields",
       x = "Can't find metadata type `{type}`.") |>
     cli::cli_abort()   
   }
-  list(type = type_checked) |>
+
+  # set atlas
+  if(!is.null(from)){
+    atlas <- configure_atlas(from)$region
+  }else{
+    atlas <- potions::pour("atlas", "region", .pkg = "galah")
+  }
+
+  # create object
+  list(type = type_checked,
+       atlas = atlas) |>
     structure(class = c("metadata_request", "list"))
 }
 
 #' @rdname galah_call
 #' @export
 request_files <- function(
-    type = "media"
+    type = "media",
+    from = NULL
     # note: option to add `...` here for consistency with `request_data()`
 ){
-  list(type = match.arg(type)) |>
+  # set atlas
+  if(!is.null(from)){
+    atlas <- configure_atlas(from)$region
+  }else{
+    atlas <- potions::pour("atlas", "region", .pkg = "galah")
+  }
+
+  list(type = match.arg(type), 
+       atlas = atlas) |>
     structure(class = c("files_request", "list"))
 }

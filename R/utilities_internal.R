@@ -297,9 +297,10 @@ add_email_address <- function(x, query){
 #' Add a DOI request
 #' @noRd
 #' @keywords Internal
-add_doi_request <- function(x, mint_doi = FALSE){
-  if(isTRUE(mint_doi) & 
-     potions::pour("atlas", "region") == "Australia"){
+add_doi_request <- function(x,
+                            mint_doi = FALSE,
+                            atlas = "Australia"){
+  if(isTRUE(mint_doi) & atlas == "Australia"){
     x$mintDoi <- TRUE 
   }
   x
@@ -309,33 +310,22 @@ add_doi_request <- function(x, mint_doi = FALSE){
 ##  Functions to change behaviour depending on selected `atlas` --
 ##----------------------------------------------------------------
 
-#' Internal function for determining if we should call GBIF or not
-#' @noRd
-#' @keywords Internal
-is_gbif <- function(){
-  potions::pour("atlas", "region") == "Global"
-}
-
-#' Internal function for determining if we should call ALA or not
-#' @noRd
-#' @keywords Internal
-is_ala <- function(){
-  potions::pour("atlas", "region") == "Australia"
-}
-
 #' Internal function to populate `groups` arg in `select()`
 #' @noRd
 #' @keywords Internal
-preset_groups <- function(group_name) {
+preset_groups <- function(group_name, atlas = NULL) {
+  if(is.null(atlas)){
+    atlas <- potions::pour("atlas", "region", .pkg = "galah")
+  }
   cols <- switch(group_name,
-                 "basic" = default_columns(),
+                 "basic" = default_columns(atlas),
                  "event" = c("eventRemarks",
                              "eventTime",
                              "eventID",
                              "eventDate",
                              "samplingEffort",
                              "samplingProtocol"),
-                 "media" = image_fields(),
+                 "media" = image_fields(atlas),
                  "taxonomy" = c("kingdom",
                                 "phylum",
                                 "class", 
@@ -351,8 +341,10 @@ preset_groups <- function(group_name) {
 #' Internal function to specify 'basic' columns in `select()`
 #' @noRd
 #' @keywords Internal
-default_columns <- function() {
-  atlas <- potions::pour("atlas", "region")
+default_columns <- function(atlas = NULL) {
+  if(is.null(atlas)){
+    atlas <- potions::pour("atlas", "region", .pkg = "galah")
+  }
   if(atlas %in% c("Austria", 
                   "Brazil", 
                   "Guatemala", 
@@ -398,8 +390,10 @@ default_columns <- function() {
 
 #' @noRd
 #' @keywords Internal
-image_fields <- function() {
-  atlas <- potions::pour("atlas", "region")
+image_fields <- function(atlas = NULL) {
+  if(is.null(atlas)){
+    atlas <- potions::pour("atlas", "region", .pkg = "galah")
+  }
   if(atlas %in% c("Austria", 
                   "Brazil", 
                   "Guatemala", 
@@ -422,9 +416,11 @@ image_fields <- function() {
 #' @noRd
 #' @keywords Internal
 image_filters <- function(present_fields,
+                          atlas = NULL,
                           error_call = rlang::caller_env()){
-  
-  atlas <- potions::pour("atlas", "region")
+  if(is.null(atlas)){
+    atlas <- potions::pour("atlas", "region", .pkg = "galah")
+  }
   switch(atlas,
          "Austria" = "(all_image_url:*)",
          "Australia" = glue::glue("({present_fields}:*)"),
@@ -446,14 +442,14 @@ image_filters <- function(present_fields,
 
 #' @noRd
 #' @keywords Internal
-species_facets <- function(){
-  atlas <- potions::pour("atlas", "region")
-  if(atlas %in% c("Australia",
-                  "Flanders",
-                  "France",
-                  "Spain",
-                  "Sweden",
-                  "United Kingdom")) {
+species_facets <- function(.query){
+  if(.query$atlas %in% 
+     c("Australia",
+       "Flanders",
+       "France",
+       "Spain",
+       "Sweden",
+       "United Kingdom")) {
     "speciesID"
   }else{
     "species_guid"
@@ -462,12 +458,12 @@ species_facets <- function(){
 
 #' @noRd
 #' @keywords Internal
-profiles_supported <- function(){
-  atlas <- potions::pour("atlas", "region")
-  if(atlas %in% c("Australia",
-                  "Flanders",
-                  "Sweden",
-                  "Spain")) {
+profiles_supported <- function(atlas){
+  if(atlas %in% 
+     c("Australia",
+       "Flanders",
+       "Sweden",
+       "Spain")) {
     TRUE
   }else{
     FALSE
@@ -479,8 +475,10 @@ profiles_supported <- function(){
 #' checked in `compute()`)
 #' @noRd
 #' @keywords Internal
-reasons_supported <- function(){
-  atlas <- potions::pour("atlas", "region")
+reasons_supported <- function(atlas = NULL){
+  if(is.null(atlas)){
+    atlas <- potions::pour("atlas", "region", .pkg = "galah")
+  }
   supported_atlases <- request_metadata(type = "apis") |>
     collect() |>
     dplyr::filter(.data$type == "metadata/reasons") |>
@@ -490,9 +488,10 @@ reasons_supported <- function(){
 
 #' @noRd
 #' @keywords Internal
-media_supported <- function(){
-  atlas <- potions::pour("atlas", "region",
-                         .pkg = "galah")
+media_supported <- function(atlas = NULL){
+  if(is.null(atlas)){
+    atlas <- potions::pour("atlas", "region", .pkg = "galah")
+  }
   unsupported_atlases <- c("France", "Global")
   if(atlas %in% unsupported_atlases){
     cli::cli_abort("`atlas_media` is not supported for atlas = {atlas}")

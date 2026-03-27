@@ -11,19 +11,15 @@
 #' internally.
 #' @noRd
 #' @keywords internal
-url_lookup <- function(type,
-                       ..., 
+url_lookup <- function(.query,
+                       ...,
                        quiet = FALSE, 
                        error_call = rlang::caller_env()){
   dots <- list(...)
-  current_atlas <- potions::pour("atlas", "region")
   # get requested url
-  if(missing(type)){
-    type <- dots$type
-  }
   url_string <- node_config |>
-    dplyr::filter(.data$type == {{type}} &
-                  .data$atlas == {{current_atlas}}) |>
+    dplyr::filter(.data$type == .query$type &
+                  .data$atlas == .query$atlas) |>
     dplyr::pull(url)
   # parse as needed
   if(length(url_string) > 0){
@@ -39,8 +35,8 @@ url_lookup <- function(type,
     if(quiet){
       return(NULL)
     }else{
-      c("No API is available for type `{type}`",
-        i = "Selected atlas: {current_atlas}",
+      c("No API is available for type `{.query$type}`",
+        i = "Selected atlas: {.query$atlas}",
         i = "Use `show_all_apis()` to list valid API calls") |>
       cli::cli_abort(call = error_call)
     }

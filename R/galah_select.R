@@ -4,14 +4,14 @@ galah_select <- function(..., group = NULL){
   dots <- rlang::enquos(..., .ignore_empty = "all") |>
     detect_request_object() |>
     as.list()
-  if(is_gbif()){
-    cli::cli_text("`select()` is not supported for GBIF occurrence downloads API v1: skipping")
-    if(inherits(dots[[1]], "data_request")){
-      dots[[1]]
-    }else{
-      NULL
-    }
-  }else{
+  # if(is_gbif()){
+  #  cli::cli_text("`select()` is not supported for GBIF occurrence downloads API v1: skipping")
+  #  if(inherits(dots[[1]], "data_request")){
+  #    dots[[1]]
+  #  }else{
+  #    NULL
+  #  }
+  # }else{
     if(length(dots) < 1){
       list(quosure = c(), summary = "") |>
         add_group(group)
@@ -27,5 +27,5 @@ galah_select <- function(..., group = NULL){
            summary = generate_summary(dots)) |>
         add_group(group)
     } 
-  }
+  # }
 }

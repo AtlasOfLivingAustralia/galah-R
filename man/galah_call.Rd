@@ -9,25 +9,32 @@
 \usage{
 galah_call(
   type = c("occurrences", "occurrences-count", "occurrences-doi", "species",
-    "species-count", "events", "events-count")
+    "species-count", "events", "events-count"),
+  from = NULL
 )
 
 request_data(
   type = c("occurrences", "occurrences-count", "occurrences-doi", "species",
-    "species-count", "events", "events-count")
+    "species-count", "events", "events-count"),
+  from = NULL
 )
 
 request_metadata(
   type = c("fields", "apis", "assertions", "atlases", "collections", "config",
     "datasets", "licences", "lists", "media", "profiles", "providers", "ranks",
-    "reasons", "taxa", "identifiers")
+    "reasons", "taxa", "identifiers"),
+  from = NULL
 )
 
-request_files(type = "media")
+request_files(type = "media", from = NULL)
 }
 \arguments{
-\item{type}{string: what form of data should be returned? Acceptable values
+\item{type}{string: What form of data should be returned? Acceptable values
 are specified by the corresponding \code{request} function}
+
+\item{from}{string: Which organisation should be queried. Accepts an
+organisation name, acronym, or region (see \code{\link[=show_all_atlases]{show_all_atlases()}} for
+admissible values)}
 }
 \value{
 Each sub-function returns a different object class:

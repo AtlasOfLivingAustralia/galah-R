@@ -1,5 +1,5 @@
 test_that("`galah_call()` builds objects of class 'data_request' by default", {
-  expect_equal(length(galah_call()), 1)
+  expect_equal(length(galah_call()), 2)
   expect_s3_class(galah_call(), "data_request")
 })
 
@@ -12,7 +12,27 @@ test_that("`request_` functions build correct object classes", {
   expect_true(y$type == "media")
 })
 
-test_that("`galah_call()` works with all `galah_` functions", {
+test_that("request_data(from = X) sets `atlas` slot in later objects", {
+  query_initial <- request_data(from = "GBIF") |> 
+    filter(year == 2010) |>
+    count()
+  expect_equal(query_initial$atlas, "Global")
+  query_capture <- capture(query_initial)
+  expect_equal(query_capture$atlas, "Global")
+  query_compound <- compound(query_capture)
+  compound_atlases <- purrr::map(query_compound, 
+                                \(a){purrr::pluck(a, "atlas")}) |>
+    unlist()
+  expect_true(all(compound_atlases == "Global"))
+  query_collapse <- collapse(query_compound)
+  expect_equal(query_collapse$atlas, "Global")
+  query_compute <- compute(query_collapse)
+  expect_equal(query_compute$atlas, "Global")
+  collect(query_compute)
+  # add test to ensure that galah_config() hasn't been updated to GBIF
+})
+
+test_that("`galah_call()` works with all `dplyr` functions", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |> 
     identify("Litoria") |>
@@ -30,20 +50,20 @@ test_that("`galah_call()` works with all `galah_` functions", {
   # ensure content is added in same order as supplied
   expect_equal(
     names(result),
-    c("type", "identify", "filter", "select", "apply_profile",
+    c("type", "atlas", "identify", "filter", "select", "apply_profile",
       "geolocate", "group_by", "arrange"))
 })
 
 test_that("`galah_call()` works irrespective of `galah_` function order", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |> 
-    galah_apply_profile(ALA) |>
-    galah_group_by(year, basisOfRecord) |>
+    apply_profile(ALA) |>
+    group_by(year, basisOfRecord) |>
     arrange(basisOfRecord) |>
-    galah_geolocate("POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))") |>
-    galah_select(year) |>
-    galah_filter(year == 2021, cl22 == "Tasmania") |>
-    galah_identify("Litoria")
+    geolocate("POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))") |>
+    select(year) |>
+    filter(year == 2021, cl22 == "Tasmania") |>
+    identify("Litoria")
   expect_false(any(unlist(lapply(result, is.null))))   
 })
   

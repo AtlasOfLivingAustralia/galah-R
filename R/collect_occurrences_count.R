@@ -2,7 +2,7 @@
 #' @noRd
 #' @keywords Internal
 collect_occurrences_count <- function(.query){
- {if(is_gbif()){
+ {if(.query$atlas == "Global"){
     collect_occurrences_count_gbif(.query)
   }else{
     collect_occurrences_count_la(.query)

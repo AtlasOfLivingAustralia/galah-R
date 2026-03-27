@@ -3,7 +3,8 @@
 #' @keywords Internal
 capture_taxa <- function(.query){
   if(is.null(.query$identify)){
-    result <- list(type = "metadata/taxa")
+    result <- list(type = "metadata/taxa",
+                   atlas = .query$atlas)
   }else{
     if(ncol(.query$identify) > 1 | 
        colnames(.query$identify)[1] != "search_term"){
@@ -20,10 +21,11 @@ capture_taxa <- function(.query){
 #' @noRd
 #' @keywords Internal
 capture_taxa_single <- function(.query){
+  .query$type <- "metadata/taxa-single"
   terms <- .query$identify$search_term
-  list(type = "metadata/taxa-single",
-       url = tibble::tibble(url = url_lookup("metadata/taxa-single",
-                                             name = terms), 
+  list(type = .query$type,
+       atlas = .query$atlas,
+       url = tibble::tibble(url = url_lookup(.query, name = terms), 
                             search_term = terms),
        headers = build_headers())
 }
@@ -32,17 +34,18 @@ capture_taxa_single <- function(.query){
 #' @noRd
 #' @keywords Internal
 capture_taxa_multiple <- function(.query){
+  .query$type <- "metadata/taxa-multiple"
   # get a data.frame, enforce use of accepted taxon levels
   identify_df <- .query$identify
   colnames(identify_df) <- colnames(identify_df) |>
     tolower()
   identify_df <- identify_df |>
-    dplyr::select(dplyr::any_of(accepted_ranks()))
+    dplyr::select(dplyr::any_of(accepted_ranks(.query)))
   
   # split into one query per row
   split_list <- split(.query$identify, 
                       seq_len(nrow(.query$identify)))
-  base_url <- url_lookup("metadata/taxa-multiple") |>
+  base_url <- url_lookup(.query) |>
     httr2::url_parse()
   urls <- purrr::map(split_list,
                      function(a, base_url){
@@ -56,7 +59,8 @@ capture_taxa_multiple <- function(.query){
     unlist()
   
   # build object and return
-  list(type = "metadata/taxa-multiple",
+  list(type = .query$type,
+       atlas = .query$atlas,
        url = tibble::tibble(url = urls, 
                             search_term = search_terms),
        headers = build_headers())
@@ -66,15 +70,16 @@ capture_taxa_multiple <- function(.query){
 #' @noRd
 #' @keywords Internal
 capture_identifiers <- function(.query){
+  .query$type <- "metadata/identifiers"
   if(is.null(.query$filter)){
-    url_list <- url_lookup("metadata/identifiers")
+    url_list <- url_lookup(.query)
     names(url_list) <- "no-name-supplied"
   }else{
     search_terms <- .query$filter$value
     query <- as.list(search_terms)
-    base_url <- url_lookup("metadata/identifiers")
+    base_url <- url_lookup(.query)
     # create query urls
-    if(grepl("api.gbif.org", base_url)){
+    if(grepl("api.gbif.org", base_url)){ # NOTE: This is not `.query$atlas == "GBIF"` because other atlases use this API
       base_url <- utils::URLdecode(base_url)
       urls <- glue::glue(base_url, id = query) |>
         unlist()
@@ -91,7 +96,8 @@ capture_identifiers <- function(.query){
     }
   }
   # build object and return
-  list(type = "metadata/identifiers",
+  list(type = .query$type,
+       atlas = .query$atlas,
        url = tibble::tibble(url = urls, 
                             search_term = search_terms),
        headers = build_headers()) |>
@@ -101,8 +107,8 @@ capture_identifiers <- function(.query){
 #' Internal function to accept only specific taxon ranks for searching
 #' @noRd
 #' @keywords Internal
-accepted_ranks <- function(){
-  if(is_gbif()){
+accepted_ranks <- function(.query){
+  if(.query$atlas == "Global"){
     # https://techdocs.gbif.org/en/openapi/v1/species#/Searching%20names/matchNames
     c("kingdom",
       "phylum",

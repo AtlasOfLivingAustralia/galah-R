@@ -166,7 +166,7 @@ as_prequery <- function(x){
 #' @keywords Internal
 check_doi <- function(x){
   if(x$type == "occurrences"){
-    if(is_gbif()){
+    if(x$atlas == "Global"){
       variables <- unlist(x$filter)
       if(any(variables == "DOI")){
         x$type <- "occurrences-doi"
@@ -223,9 +223,9 @@ check_distinct_count_groupby <- function(x){
   # this is clunky, but backwards compatible
   if(x$type == "species" & !has_distinct){
     if(has_count){
-      x <- x |> distinct(species_facets(), .keep_all = FALSE)
+      x <- x |> distinct(species_facets(x), .keep_all = FALSE)
     }else{
-      x <- x |> distinct(species_facets(), .keep_all = TRUE)
+      x <- x |> distinct(species_facets(x), .keep_all = TRUE)
     }
     has_distinct <- TRUE
   }

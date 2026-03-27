@@ -139,14 +139,8 @@ search_all <- function(type,
     request <- request_metadata() |>
       filter("media" == query)
   }else{
-    if(is_gbif() & 
-       type %in% c("collections", "datasets", "providers")){ # these support `q` arg in API
-      request <- request_metadata() |>
-        filter({{type}} == query)
-    }else{
-      request <- request_metadata(type = type)
-      run_subsequent_query <- TRUE
-    }
+    request <- request_metadata(type = type)
+    run_subsequent_query <- TRUE
   }
   
   # add all_fields if requested

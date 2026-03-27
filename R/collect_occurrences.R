@@ -12,7 +12,7 @@ collect_occurrences <- function(.query,
                                 wait, 
                                 file = NULL,
                                 error_call = rlang::caller_env()){
-  switch(potions::pour("atlas", "region"),
+  switch(.query$atlas,
          "Austria" = collect_occurrences_direct(.query,
                                                 file = file,
                                                 call = error_call),
@@ -112,7 +112,7 @@ collect_occurrences_doi <- function(.query,
 #' @noRd
 #' @keywords Internal
 collect_occurrences_glimpse <- function(.query){
-  if(is_gbif()){
+  if(.query$atlas == "Global"){
     collect_occurrences_glimpse_gbif(.query)
   }else{
     collect_occurrences_glimpse_la(.query)

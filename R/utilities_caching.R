@@ -53,14 +53,13 @@ retrieve_cache <- function(slot_name){
 #' Internal function to decide whether to update the internal cache
 #' @noRd
 #' @keywords Internal
-check_if_cache_update_needed <- function(function_name){
-  # get data for checking
-  df <- retrieve_cache(function_name)
-  current_atlas <- potions::pour("atlas", "region", .pkg = "galah")
+check_if_cache_update_needed <- function(x, # where x is a query object
+                                         function_name
+                                         ){
   # build some checks
   caching_disabled <- !potions::pour("package", "caching", .pkg = "galah")
   is_local <- !is.null(attr(df, "ARCHIVED"))
-  is_wrong_atlas <- attr(df, "region") != current_atlas
+  is_wrong_atlas <- attr(df, "region") != x$atlas
   is_too_short <- nrow(df) < 1 # somewhat arbitrary, but catches empty tibbles
   # evaluate those checks
   # if any are TRUE, update is needed

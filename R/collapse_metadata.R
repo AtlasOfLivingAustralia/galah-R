@@ -44,7 +44,7 @@ collapse_lists <- function(.query){
 #' @keywords Internal
 get_max_n <- function(.query){
   url <- httr2::url_parse(.query$url)
-  if(is_gbif()){
+  if(.query$atlas == "Global"){
     count_field <- "count"
   }else{
     count_field <- "listCount"
@@ -72,16 +72,17 @@ collapse_profile_values <- function(.query,
   url <- .query |>
     purrr::pluck("url") |>
     httr2::url_parse()
-  profile_name <- extract_profile_name(url)
+  profile_name <- extract_profile_name(.query, url)
   short_name <- profile_short_name(profile_name,
                                    error_call = error_call)
-  if (!potions::pour("atlas", "region") == "Spain") {
+  if (.query$atlas != "Spain") {
     path_name <- url |>
       purrr::pluck("path") |>
       dirname()
     url$path <- glue::glue("{path_name}/{short_name}")
   }
   list(type = .query$type,
+       atlas = .query$atlas,
        url = httr2::url_build(url)) |>
     as_query()
 }
@@ -124,9 +125,8 @@ profile_short_name <- function(profile,
 #' for data profiles. Only used by `compute_profile_values()`
 #' @noRd
 #' @keywords Internal
-extract_profile_name <- function(url) {
-  atlas <- potions::pour("atlas", "region")
-  if (atlas == "Spain") {
+extract_profile_name <- function(.query, url) {
+  if (.query$atlas == "Spain") {
     profile_name <- url |>
       purrr::pluck("query", "profileName")
   } else {

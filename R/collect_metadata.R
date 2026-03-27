@@ -4,9 +4,9 @@
 #' as per `galah` requirements
 #' @noRd
 #' @keywords Internal
-update_attributes <- function(df, type){
+update_attributes <- function(df, type, atlas){
   attr(df, "call") <- type # needed for `show_values()` to work
-  attr(df, "region") <- potions::pour("atlas", "region") # needed for caching to work
+  attr(df, "region") <- atlas # needed for caching to work
   df
 }
 
@@ -76,7 +76,8 @@ make_nulls_safe <- function(x){
 #' @keywords Internal
 collect_apis <- function(.query){
   retrieve_internal_data(.query) |>
-    update_attributes(type = "apis") |>
+    update_attributes(type = "apis",
+                      atlas = .query$atlas) |>
     parse_select(.query)
 }
 
@@ -96,7 +97,8 @@ collect_assertions <- function(.query){
       dplyr::rename_with(camel_to_snake_case) |>
       parse_rename(.query) |>
       dplyr::mutate(type = "assertions") |> # for consistency with `collect_fields()`
-      update_attributes(type = "assertions")
+      update_attributes(type = "assertions",
+                        atlas = .query$atlas)
     update_cache(assertions = result_df)
   }
   parse_select(result_df, .query) # always evaluate `select()` last
@@ -108,7 +110,8 @@ collect_assertions <- function(.query){
 #' @keywords Internal
 collect_atlases <- function(.query){
   retrieve_internal_data(.query) |>
-    update_attributes(type = "atlases") |>
+    update_attributes(type = "atlases",
+                      atlas = .query$atlas) |>
     parse_select(.query)
 }
 
@@ -120,7 +123,7 @@ collect_collections <- function(.query){
     result_df <- retrieve_internal_data(.query)
   }else{
     # Handle GBIF first
-    if(is_gbif()){
+    if(.query$atlas == "Global"){
       result <- query_API(.query)
       if(any(names(result) == "results")){ # happens when `filter()` not specified
         # Note: This assumes only one API call; will need more potentially
@@ -130,7 +133,7 @@ collect_collections <- function(.query){
         purrr::map(tidy_list_columns) |>
         dplyr::bind_rows()
     # Then France
-    }else if(potions::pour("atlas", "region", .pkg = "galah") == "France"){
+    }else if(.query$atlas == "France"){
       result <- .query |>
         query_API() |>
         purrr::pluck("_embedded", "producers") |>
@@ -153,7 +156,8 @@ collect_collections <- function(.query){
       result_df <- result_df |>
         dplyr::rename_with(camel_to_snake_case) |>
         parse_arrange() |>
-        update_attributes(type = "collections")
+        update_attributes(type = "collections",
+                          atlas = .query$atlas)
       update_cache(collections = result_df)
     }
 
@@ -180,7 +184,8 @@ collect_config <- function(.query){
   }else{
     result <- query_API(.query) |>
       tibble::as_tibble() |>
-      update_attributes(type = "config")
+      update_attributes(type = "config",
+                        atlas = .query$atlas)
     update_cache(config = result)
   }
   result
@@ -194,7 +199,7 @@ collect_datasets <- function(.query){
     result_df <- retrieve_internal_data(.query)
   }else{
     result <- query_API(.query)
-    if(is_gbif()){
+    if(.query$atlas == "Global"){
       if(any(names(result) == "results")){ # happens when `filter()` not specified
         # Note: This assumes only one API call; will need more potentially
         result <- purrr::pluck(result, "results")
@@ -202,7 +207,7 @@ collect_datasets <- function(.query){
       result_df <- result |>
         purrr::map(tidy_list_columns) |>
         dplyr::bind_rows()
-    }else if(potions::pour("atlas", "region", .pkg = "galah") == "France"){
+    }else if(.query$atlas == "France"){
       result_df <- result |> 
         purrr::pluck("_embedded", "datasets") |>
         dplyr::bind_rows()
@@ -215,7 +220,8 @@ collect_datasets <- function(.query){
     result_df <- result_df |>
       dplyr::rename_with(camel_to_snake_case) |>
       parse_arrange() |>
-      update_attributes(type = "datasets")
+      update_attributes(type = "datasets",
+                        atlas = .query$atlas)
     update_cache(datasets = result_df)
   }
   parse_select(result_df, .query)
@@ -247,7 +253,9 @@ collect_distributions_metadata <- function(.query){
       "label" = "area_name",
       "common_name" = "common_nam")  |>
     dplyr::mutate("common_name" = trimws(.data$common_name)) # remove leading or trailing spaces
-  result <- update_attributes(result, type = "distributions")
+  result <- update_attributes(result, 
+                              type = "distributions",
+                              atlas = .query$atlas)
   update_cache(distributions = result)
   result 
 }
@@ -262,7 +270,7 @@ collect_fields <- function(.query){
     result <- query_API(.query) |>
       dplyr::bind_rows() 
     
-    if(is_gbif()){
+    if(.query$atlas == "Global"){
       # we need to join some local metadata to GBIF info
       df <- gbif_internal_archived$search_fields |>
         dplyr::mutate(search_field = TRUE)
@@ -298,7 +306,9 @@ collect_fields <- function(.query){
         # Using `distinct()` is a safe way to ensure they are always present 
         # but **not** duplicated.
     }
-    result_df <- update_attributes(result_df, type = "fields")
+    result_df <- update_attributes(result_df, 
+                                   type = "fields",
+                                   atlas = .query$atlas)
     update_cache(fields = result_df)
   }
   result_df |>
@@ -328,7 +338,9 @@ collect_licences <- function(.query){
                                   acronym = character(),
                                   url = character())
     }
-    result_df <- update_attributes(result_df, type = "licences")
+    result_df <- update_attributes(result_df,
+                                   type = "licences",
+                                   atlas = .query$atlas)
     update_cache(licences = result_df)
   }
   parse_select(result_df, .query)
@@ -376,7 +388,8 @@ collect_lists <- function(.query){
       dplyr::rename_with(camel_to_snake_case) |>
       parse_rename(.query) |>
       parse_arrange() |>
-      update_attributes(type = "lists")
+      update_attributes(type = "lists",
+                        atlas = .query$atlas)
     
     if(should_update_cache){
       update_cache(lists = result_df)   
@@ -421,7 +434,8 @@ collect_profiles <- function(.query){
       dplyr::filter(!duplicated(.data$id)) |>
       dplyr::rename_with(camel_to_snake_case) |>
       parse_arrange() |>
-      update_attributes(type = "profiles")
+      update_attributes(type = "profiles",
+                        atlas = .query$atlas)
     update_cache(profiles = result_df)
   }
   result_df |>
@@ -437,7 +451,7 @@ collect_providers <- function(.query){
     result_df <- retrieve_internal_data(.query)
   }else{
     result <- query_API(.query)
-    if(is_gbif()){
+    if(.query$atlas == "Global"){
       if(any(names(result) == "results")){ # happens when `filter()` not specified
         # Note: This assumes only one API call; will need more potentially
         result <- purrr::pluck(result, "results")
@@ -445,7 +459,7 @@ collect_providers <- function(.query){
       result_df <- result |>
         purrr::map(tidy_list_columns) |>
         dplyr::bind_rows()
-    }else if(potions::pour("atlas", "region", .pkg = "galah") == "France"){
+    }else if(.query$atlas == "France"){
       result_df <- tibble::tibble(name = {
         purrr::pluck(result, "_embedded", "providers") |> 
           unlist()
@@ -462,7 +476,8 @@ collect_providers <- function(.query){
     result_df <- result_df |>
       dplyr::rename_with(camel_to_snake_case) |>
       parse_arrange() |>
-      update_attributes(type = "providers")
+      update_attributes(type = "providers",
+                        atlas = .query$atlas)
     update_cache(providers = result_df)
   }
   parse_select(result_df, .query)
@@ -473,7 +488,8 @@ collect_providers <- function(.query){
 #' @keywords Internal
 collect_ranks <- function(.query){
   retrieve_internal_data(.query) |>
-    update_attributes(type = "ranks") |>
+    update_attributes(type = "ranks",
+                      atlas = .query$atlas) |>
     parse_select(.query)
 }
 
@@ -490,7 +506,8 @@ collect_reasons <- function(.query){
       dplyr::filter(!.data$deprecated) |>
       dplyr::relocate("id", "name") |>
       parse_arrange() |>
-      update_attributes(type = "reasons")
+      update_attributes(type = "reasons",
+                        atlas = .query$atlas)
     update_cache(reasons = result_df)
   }
   parse_select(result_df, .query)

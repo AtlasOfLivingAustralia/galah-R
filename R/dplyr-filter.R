@@ -119,7 +119,7 @@
 filter.data_request <- function(.data, ...){
   dots <- rlang::enquos(..., .ignore_empty = "all")
   check_named_input(dots)
-  if(is_gbif()){
+  if(.data$atlas == "Global"){
     filters <- parse_quosures_data_gbif(dots)  # `handle_quosures_GBIF.R`
   }else{
     filters <- parse_quosures_data(dots) # `handle_quosures.R`

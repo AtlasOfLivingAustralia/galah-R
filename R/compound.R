@@ -86,7 +86,7 @@ compound.prequery <- function(x, mint_doi = FALSE, ...){
   }else if(stringr::str_detect(x$type, "^files")){
     list(capture_media_files(x, ...)) |>
       as_query_set()
-  }else if(x$type == "data/distribtions"){
+  }else if(x$type == "data/distributions"){
     build_query_set_distributions(x)
   }else{
     build_query_set_data(x, mint_doi = mint_doi, ...)
@@ -126,15 +126,15 @@ build_query_set_metadata <- function(x){
   # handle authentication
   if(!is.null(x$request$authenticate)){
     result <- append(result,
-                     list(request_metadata("config") |> capture()))
+                     list(request_metadata("config", from = x$atlas) |> capture()))
   }
 
   # add checks if required
   if(potions::pour("package", "run_checks")){
     result <- append(result,
                      switch(x$request$type, 
-                            "fields-unnest" = list(request_metadata("fields") |> capture()),
-                            "profiles-unnest" = list(request_metadata("profiles") |> capture()),
+                            "fields-unnest" = list(request_metadata("fields", from = x$atlas) |> capture()),
+                            "profiles-unnest" = list(request_metadata("profiles", from = x$atlas) |> capture()),
                             NULL))
   }
   
@@ -144,8 +144,9 @@ build_query_set_metadata <- function(x){
       # identify() calls must be parsed, irrespective of `run_checks` (which is parsed above)
       if(!is.null(x$request$identify)){
         result[[(length(result) + 1)]] <- list(type = "taxa",
-             identify = x$request$identify) |>
-          structure(class = "metadata_request") |>
+                                               atlas = x$atlas,
+                                               identify = x$request$identify) |>
+          structure(class = c("metadata_request", "list")) |>
           capture()
       }
       if(is.null(x$request$identify) & is.null(x$request$filter)){
@@ -181,10 +182,10 @@ build_query_set_data <- function(x, mint_doi, ...){
   # handle authentication
   if(
     !is.null(x$request$authenticate) &
-    potions::pour("atlas", "region") == "Australia"
+    x$atlas == "Australia"
   ){
     result <- append(result,
-                     list(request_metadata("config") |> capture()))
+                     list(request_metadata("config", from = x$atlas) |> capture()))
   }
   
   # handle `run_checks`
@@ -201,44 +202,44 @@ build_query_set_data <- function(x, mint_doi, ...){
     if(any(!fields_absent) | 
         x_type %in% c("species-count", "species")) {
       result <- c(result,
-                  list(request_metadata("fields") |> 
+                  list(request_metadata("fields", from = x$atlas) |> 
                         select(tidyselect::everything()) |> # needed to ensure GBIF works
                         capture(),
-                       request_metadata("assertions") |> capture()))
+                       request_metadata("assertions", from = x$atlas) |> capture()))
     }else{
       # for living atlases, we need `collapse_fields()` to check the `lsid` field
       # this isn't required for GBIF which doesn't use `fq` for taxon queries
       if(!is.null(x$request$identify) &
-         !is_gbif()){
+         x$atlas != "Global"){
         result <- c(result,
-                    list(request_metadata("fields") |> capture()))
+                    list(request_metadata("fields", from = x$atlas) |> capture()))
       }
     }
     if(x_type %in% c("occurrences", "media", "species") &
-       reasons_supported()) {
-      result[[(length(result) + 1)]] <- request_metadata("reasons") |> 
+       reasons_supported(atlas = x$atlas)) {
+      result[[(length(result) + 1)]] <- request_metadata("reasons", from = x$atlas) |> 
         capture()
     }
   }else{ # if select is required, we need fields even if `run_checks == FALSE`
     if(!fields_absent[["select"]] | 
        x_type %in% c("occurrences", "species")){
       result <- c(result,
-                  list(request_metadata("fields") |> capture(),
-                       request_metadata("assertions") |> capture()))
+                  list(request_metadata("fields", from = x$atlas) |> capture(),
+                       request_metadata("assertions", from = x$atlas) |> capture()))
     }
   }
   
   # handle `identify()`
   if(!is.null(x$request$identify) & 
      x_type != "occurrences-doi"){
-    result[[(length(result) + 1)]] <- request_metadata() |>
+    result[[(length(result) + 1)]] <- request_metadata(from = x$atlas) |>
       identify(x$request$identify) |>
       capture()
   }
   
   # handle `apply_profile()`
   if(!is.null(x$request$apply_profile)){
-    result[[(length(result) + 1)]] <- request_metadata("profiles") |> 
+    result[[(length(result) + 1)]] <- request_metadata("profiles", from = x$atlas) |> 
       capture()
   }
   

@@ -2,7 +2,7 @@
 #' @noRd
 #' @keywords Internal
 capture_species <- function(.query){
-  if(is_gbif()){
+  if(.query$atlas == "Global"){
     result <- capture_occurrences_gbif(.query, 
                                        format = "SPECIES_LIST")
     result$type <- "data/species"
@@ -16,6 +16,8 @@ capture_species <- function(.query){
 #' @noRd
 #' @keywords Internal
 capture_species_atlas <- function(.query){
+  .query$type <- "data/species"
+
   # set default columns
   if(is.null(.query$select)){
     .query <- .query |> select(group = "taxonomy")
@@ -23,7 +25,7 @@ capture_species_atlas <- function(.query){
   
   # determine whether to use `distinct()` or `species_facets()`
   if(is.null(.query$distinct)){
-    .query$distinct <- tibble::tibble(name = species_facets(),
+    .query$distinct <- tibble::tibble(name = species_facets(.query),
                                       type = "field")
   }else{
     if(is.na(.query$distinct$name)){
@@ -37,10 +39,11 @@ capture_species_atlas <- function(.query){
   
   # build a query
   query <- c(
-    build_query(.query$identify, 
-                .query$filter, 
-                .query$geolocate, 
-                .query$apply_profile),
+    build_query(identify = .query$identify, 
+                filter = .query$filter, 
+                geolocate = .query$geolocate, 
+                apply_profile = .query$apply_profile,
+                atlas = .query$atlas),
     sourceTypeId = 2004,
     reasonTypeId = potions::pour("user", "download_reason_id"),
     facets = .query$distinct$name,
@@ -49,11 +52,12 @@ capture_species_atlas <- function(.query){
     add_email_notify()
   
   # build url
-  url <- url_lookup("data/species") |> 
+  url <- url_lookup(.query) |> 
     httr2::url_parse()
   url$query <- query
   # build output
-  list(type = "data/species",
+  list(type = .query$type,
+       atlas = .query$atlas,
        url = httr2::url_build(url),
        headers = build_headers(),
        download = TRUE) |>

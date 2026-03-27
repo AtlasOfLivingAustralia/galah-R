@@ -47,7 +47,8 @@ collect_taxa_namematching <- function(.query,
   check_homonyms(result, error_call = error_call)
   # Check for invalid search terms
   if (galah_config()$package$verbose) {
-    check_search_terms(result)
+    check_search_terms(result,
+                       atlas = .query$atlas)
   }
   result |>
     dplyr::rename_with(camel_to_snake_case) |>
@@ -61,10 +62,11 @@ collect_taxa_namematching <- function(.query,
 collect_taxa_la <- function(.query){
   search_terms <- .query$url$search_term
   result <- query_API(.query) |>
-    clean_la_taxa(search_terms = search_terms) |>
+    clean_la_taxa(search_terms = search_terms,
+                  atlas = .query$atlas) |>
     dplyr::bind_rows()
   if(ncol(result) > 1){
-    name <- switch(potions::pour("atlas", "region"),
+    name <- switch(.query$atlas,
                    "France" = "referenceID",
                    "Portugal" = "usageKey",
                    "guid")
@@ -118,7 +120,9 @@ clean_gbif_taxa <- function(result){
 #' @param result a list from a taxonomic web service
 #' @noRd
 #' @keywords Internal
-clean_la_taxa <- function(result, search_terms){
+clean_la_taxa <- function(result,
+                          search_terms,
+                          atlas){
   purrr::map(result, function(a){
 
     # capture results
@@ -162,7 +166,6 @@ clean_la_taxa <- function(result, search_terms){
     }
     
     # unlist if necessary
-    atlas <- potions::pour("atlas", "region")
     if (any(atlas %in% c("France", "Portugal"))) {
       list_of_results <- list_of_results |> 
         unlist()
@@ -186,7 +189,7 @@ collect_identifiers <- function(.query){
   }
 
   if(!any(colnames(result) == "success")){ # GBIF doesn't indicate success
-    # we avoid `is_gbif()` here because other atlases use GBIF APIs
+    # we avoid `.query$atlas == "Global"` here because other atlases use GBIF APIs
     result$success <- TRUE
     result <- result |>
       dplyr::relocate("success", .before = 1) |>
@@ -212,7 +215,6 @@ collect_identifiers <- function(.query){
 #' @keywords Internal
 check_search_terms <- function(result, atlas) {
   if (!all(result$success)) {
-    atlas <- potions::pour("atlas", "region")
     
     d <- cli::cli_div(theme = list(span.bold = list("font-weight" = "bold"),
                                    span.yellow = list(color = "yellow")))

@@ -10,8 +10,9 @@ build_headers <- function(){
 #' @keywords Internal
 build_query <- function(identify = NULL, 
                         filter = NULL, 
-                        location = NULL, 
-                        apply_profile = NULL) {
+                        geolocate = NULL, 
+                        apply_profile = NULL,
+                        atlas = NULL) {
   if(is.null(identify)) {
     taxa_query <- NULL
   } else { # assumes a tibble or data.frame has been given
@@ -38,22 +39,22 @@ build_query <- function(identify = NULL,
   # merge
   query <- list(fq = c(filter_query, taxa_query)) 
   # geographic stuff
-  if (!is.null(location)) {
-    # if location is for a point radius vs polygon/bbox
-    if(!is.null(names(location))){
-      if(all(!is.null(location$radius))) { # `galah_radius()` will always pass radius argument
+  if (!is.null(geolocate)) {
+    # if `geolocate` is for a point radius vs polygon/bbox
+    if(!is.null(names(geolocate))){
+      if(all(!is.null(geolocate$radius))) { # `galah_radius()` will always pass radius argument
         query$q <- paste0("*:*")
-        query$lon <- location$lon
-        query$lat <- location$lat
-        query$radius <- location$radius      
+        query$lon <- geolocate$lon
+        query$lat <- geolocate$lat
+        query$radius <- geolocate$radius      
     }else
-      query$wkt <- location
+      query$wkt <- geolocate
     } else {
-    query$wkt <- location
+    query$wkt <- geolocate
     }
   }
   # add profiles information (ALA only) 
-  if(profiles_supported()){
+  if(profiles_supported(atlas)){
     if(!is.null(apply_profile)) {
       query$qualityProfile <- apply_profile
     } else {
@@ -115,9 +116,9 @@ build_filter_query <- function(filters) {
 #' Sub-function to `build_query()` for taxa
 #' @noRd
 #' @keywords Internal
-build_taxa_query <- function(ids) {
+build_taxa_query <- function(ids, atlas) {
   ids <- ids[order(ids)]
-  if(is_gbif()){
+  if(atlas == "Global"){
     list(taxonKey = ids)
   }else{
     wrapped_ids <- paste0("\"", ids, "\"")

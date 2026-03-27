@@ -3,9 +3,10 @@
 #' @noRd
 #' @keywords Internal
 capture_fields_unnest <- function(.query){
-  url <- url_lookup("metadata/fields-unnest") |> 
+  .query$type <- "metadata/fields-unnest"
+  url <- url_lookup(.query) |> 
     httr2::url_parse()
-  if(is_gbif()){
+  if(.query$atlas == "Global"){
     url$query <- list(limit = 0,
                       facet = .query$filter$value[1], # note: facet (singular), not facets (plural)
                       facetLimit = 10^4)    
@@ -13,7 +14,8 @@ capture_fields_unnest <- function(.query){
     url$query <- list(facets = .query$filter$value[1],
                       flimit = 10^4)
   }
-  list(type = "metadata/fields-unnest",
+  list(type = .query$type,
+       atlas = .query$atlas,
        url = httr2::url_build(url)) |>
     as_prequery()
 }
@@ -23,15 +25,17 @@ capture_fields_unnest <- function(.query){
 #' @noRd
 #' @keywords Internal
 capture_lists_unnest <- function(.query){
+  .query$type <- "metadata/lists-unnest"
   # get list lookup url
-  url <- url_lookup("metadata/lists-unnest",
+  url <- url_lookup(.query,
                     list_id = .query$filter$value[1]) |>
     httr2::url_parse()
   # set a default query
   url$query <-  list(max = -1,           # remove max limit
                      includeKVP = TRUE)  # add name & status columns
   # create object
-  list(type = "metadata/lists-unnest",
+  list(type = .query$type,
+       atlas = .query$atlas,
        url = httr2::url_build(url))  |>
     as_query()
 }
@@ -41,8 +45,10 @@ capture_lists_unnest <- function(.query){
 #' @noRd
 #' @keywords Internal
 capture_profiles_unnest <- function(.query){
-  list(type = "metadata/profiles-unnest",
-       url = url_lookup("metadata/profiles-unnest", 
+  .query$type <- "metadata/profiles-unnest"
+  list(type = .query$type,
+       atlas = .query$atlas,
+       url = url_lookup(.query, 
                         profile = .query$filter$value[1]))  |>
     as_prequery()
 }
@@ -52,13 +58,15 @@ capture_profiles_unnest <- function(.query){
 #' @noRd
 #' @keywords Internal
 capture_taxa_unnest <- function(.query){
+  .query$type <- "metadata/taxa-unnest"
   if(!is.null(.query$filter)){
     id <- .query$filter$value[1]
   }else if(!is.null(.query$identify)){
     id <- "`TAXON_PLACEHOLDER`"
   }
-  list(type = "metadata/taxa-unnest",
-       url = url_lookup("metadata/taxa-unnest", id = id),
+  list(type = .query$type,
+       atlas = .query$atlas,
+       url = url_lookup(.query, id = id),
        headers = build_headers()) |>
     as_prequery()
 }

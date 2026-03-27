@@ -3,53 +3,43 @@
 #' @param .query an object of class `data_request`
 #' @noRd
 capture_occurrences_count <- function(.query){
-  # NOTE: This is quite weird syntax; consider revising
-  if(is_gbif()){
-    function_name <- "capture_occurrences_count_gbif"
-    arg_names <- names(formals(capture_occurrences_count_gbif))
-  }else{
-    function_name <- "capture_occurrences_count_atlas"
-    arg_names <- names(formals(capture_occurrences_count_atlas))
+  switch(.query$atlas,
+         "Global" = capture_occurrences_count_gbif(.query),
+         capture_occurrences_count_atlas(.query))
   }
-  custom_call <- .query[names(.query) %in% arg_names]
-  class(custom_call) <- "data_request"
-  do.call(function_name, custom_call)
-}
 
 #' capture() for counts on LAs
 #' @keywords Internal
 #' @noRd
-capture_occurrences_count_atlas <- function(identify = NULL, 
-                                            filter = NULL, 
-                                            geolocate = NULL,
-                                            apply_profile = NULL,
-                                            group_by = NULL,
-                                            distinct = NULL,
-                                            slice_arrange = NULL
-){
-  query <- build_query(identify, 
-                       filter, 
-                       geolocate, 
-                       apply_profile = apply_profile) 
+capture_occurrences_count_atlas <- function(.query){
+  query <- build_query(identify = .query$identify, 
+                       filter = .query$filter, 
+                       geolocate = .query$geolocate, 
+                       apply_profile = .query$apply_profile,
+                       atlas = .query$atlas) 
   # set behaviour depending on `group_by()`
-  if(is.null(group_by) & is.null(distinct)){
-    url <- url_lookup("data/occurrences-count") |> 
+  if(is.null(.query$group_by) & is.null(.query$distinct)){
+    .query$type <- "data/occurrences-count"
+    url <- url_lookup(.query) |> 
       httr2::url_parse()
     url$query <- c(query, pageSize = 0)
-    result <- list(type = "data/occurrences-count",
+    result <- list(type = .query$type,
+                   atlas = .query$atlas,
                    url = httr2::url_build(url),
                    headers = build_headers())
   }else{
-    url <- url_lookup("data/occurrences-count-groupby") |> 
+    .query$type <- "data/occurrences-count-groupby"
+    url <- url_lookup(.query) |> 
       httr2::url_parse()
-    if(!is.null(group_by)){
-      facets <- group_by$name
+    if(!is.null(.query$group_by)){
+      facets <- .query$group_by$name
     }else{
-      facets <- distinct$name
+      facets <- .query$distinct$name
     }
     names(facets) <- rep("facets", length(facets))
-    url$query <- c(query, facets, parse_slice_arrange(slice_arrange))
-    result <- list(type = "data/occurrences-count-groupby",
+    url$query <- c(query, facets, parse_slice_arrange(.query$slice_arrange))
+    result <- list(type = .query$type,
+                   atlas = .query$atlas,
                    url = httr2::url_build(url),
                    headers = build_headers())
   }
@@ -78,23 +68,18 @@ parse_slice_arrange <- function(df){
 #' capture() for counts on GBIF
 #' @keywords Internal
 #' @noRd
-capture_occurrences_count_gbif <- function(identify = NULL, 
-                                           filter = NULL,
-                                           geolocate = NULL,
-                                           group_by = NULL,
-                                           slice = NULL # probably broken
-                                           ){
+capture_occurrences_count_gbif <- function(.query){
   # compile supplied arguments into a list
   # honestly this is a little messy, but the alternative is to call 
   # [build_predicates()], which is messier as taxonomic info hasn't yet been 
   # parsed. Instead we call [build_predicates()] during [collapse_query()].
-  predicates_info <- list(identify = identify, 
-                          filter = filter, 
-                          geolocate = geolocate,
-                          group_by = group_by,
-                          slice = ifelse(is.null(slice),
+  predicates_info <- list(identify = .query$identify, 
+                          filter = .query$filter, 
+                          geolocate = .query$geolocate,
+                          group_by = .query$group_by,
+                          slice = ifelse(is.null(.query$slice),
                                          tibble::tibble(slice_n = 30, slice_called = FALSE),
-                                         slice), 
+                                         .query$slice), 
                           limit = 0)
   
   # get strings
@@ -103,17 +88,18 @@ capture_occurrences_count_gbif <- function(identify = NULL,
   user_string <- glue::glue("{username}:{password}")
   
   # handle type
-  if(is.null(group_by)){
-    data_type <- "data/occurrences-count"
+  if(is.null(.query$group_by)){
+    .query$type <- "data/occurrences-count"
   }else{
-    data_type <- "data/occurrences-count-groupby"
+    .query$type <- "data/occurrences-count-groupby"
   }
   
   # build object
   ## Note that unlike with other atlases, parsing of `group_by` is handled
   ## by `collapse()` rather than here.
-  list(type = data_type,
-       url = url_lookup("data/occurrences-count"),
+  list(type = .query$type,
+       atlas = .query$atlas,
+       url = url_lookup(.query),
        headers =  list(
          `User-Agent` = galah_version_string(), 
          `X-USER-AGENT` = galah_version_string(),

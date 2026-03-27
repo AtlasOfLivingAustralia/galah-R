@@ -6,30 +6,32 @@
 #' @param query_type the sting used to define that query type; see `show_all_apis()`
 #' @noRd
 #' @keywords Internal
-default_query <- function(query_type){
-  list(type = query_type,
-       url = url_lookup(query_type),
+default_query <- function(x){
+  list(type = x$type,
+       atlas = x$atlas,
+       url = url_lookup(x),
        headers = build_headers())
 }
 
 #' Ditto for cache
 #' @noRd
 #' @keywords Internal
-default_cache <- function(query_type){
-  specific_type <- stringr::str_remove(query_type, "^metadata/")
-  list(type = query_type,
+default_cache <- function(x){
+  specific_type <- stringr::str_remove(x$type, "^metadata/")
+  list(type = x$type,
+       atlas = x$atlas,
        data = glue::glue("galah:::retrieve_cache(\"{specific_type}\")")) 
 }
 
 #' Modified version of `default_query()` that supports filtering
 #' @noRd
 #' @keywords Internal
-filtered_query <- function(query_type, .query){
-  url <- query_type |>
-    url_lookup() |>
+filtered_query <- function(x){
+  url <- url_lookup(x) |>
     httr2::url_parse()
-  url$query <- list(q = .query$filter$value[1])
-  list(type = query_type,
+  url$query <- list(q = x$filter$value[1])
+  list(type = x$type,
+       atlas = x$atlas,
        url = httr2::url_build(url),
        headers = build_headers()) 
 }
@@ -41,6 +43,7 @@ filtered_query <- function(query_type, .query){
 #' @keywords Internal
 capture_apis <- function(x){
   list(type = "metadata/apis",
+       atlas = x$atlas,
        data = "galah:::node_config") |>
     as_query()
 }
@@ -50,15 +53,16 @@ capture_apis <- function(x){
 #' @noRd
 #' @keywords Internal
 capture_assertions <- function(x){
-  query_type <- "metadata/assertions"
-  if(is_gbif()){
-    result <- list(type = query_type,
+  x$type <- "metadata/assertions"
+  if(x$atlas == "Global"){
+    result <- list(type = x$type,
+                   atlas = x$atlas,
                    data = "galah:::gbif_internal_archived$assertions")
   }else{
-    if(check_if_cache_update_needed("assertions")){
-      result <- default_query(query_type)
+    if(check_if_cache_update_needed(x, "assertions")){
+      result <- default_query(x)
     }else{
-      result <- default_cache(query_type)
+      result <- default_cache(x)
     }
   }
   result |>
@@ -69,7 +73,9 @@ capture_assertions <- function(x){
 #' @noRd
 #' @keywords Internal
 capture_atlases <- function(x){
-  list(type = "metadata/atlases",
+  x$type <- "metadata/atlases"
+  list(type = x$type,
+       atlas = x$atlas,
        data = "galah:::node_metadata") |>
     as_query()
 }
@@ -79,20 +85,20 @@ capture_atlases <- function(x){
 #' @keywords Internal
 capture_collections <- function(x){
   # set `type`
-  query_type <- "metadata/collections"
+  x$type <- "metadata/collections"
   # If `filter()` is supplied, we always need a query
-  if(is_gbif() & !missing(x)){
+  if(x$atlas == "Global" & !missing(x)){
     if(!is.null(x$filter)){
-      result <- filtered_query(query_type, x)
+      result <- filtered_query(x)
     }else{
-      result <- default_query(query_type)
+      result <- default_query(x)
     }
   # If no `filter()`, check cache instead
   }else{
-    if(check_if_cache_update_needed("collections")){
-      result <- default_query(query_type)
+    if(check_if_cache_update_needed(x, "collections")){
+      result <- default_query(x)
     }else{
-      result <- default_cache(query_type)
+      result <- default_cache(x)
     }
   }
   result |>
@@ -105,11 +111,11 @@ capture_collections <- function(x){
 #' @noRd
 #' @keywords Internal
 capture_config <- function(x){
-  query_type <- "metadata/config"
-  if(check_if_cache_update_needed("config")){
-    result <- default_query(query_type)
+  x$type <- "metadata/config"
+  if(check_if_cache_update_needed(x, "config")){
+    result <- default_query(x)
   }else{
-    result <- default_cache(query_type)     
+    result <- default_cache(x)     
   }
   result |>
     as_query()
@@ -120,20 +126,20 @@ capture_config <- function(x){
 #' @keywords Internal
 capture_datasets <- function(x){
   # set `type`
-  query_type <- "metadata/datasets"
+  x$type <- "metadata/datasets"
   # If `filter()` is supplied, we always need a query
-  if(is_gbif() & !missing(x)){
+  if(x$atlas == "Global" & !missing(x)){
     if(!is.null(x$filter)){
-      result <- filtered_query(query_type, x)
+      result <- filtered_query(x)
     }else{
-      result <- default_query(query_type)
+      result <- default_query(x)
     }
     # If no `filter()`, check cache instead
   }else{
-    if(check_if_cache_update_needed("datasets")){
-      result <- default_query(query_type)
+    if(check_if_cache_update_needed(x, "datasets")){
+      result <- default_query(x)
     }else{
-      result <- default_cache(query_type)
+      result <- default_cache(x)
     }
   }
   result |>
@@ -144,11 +150,11 @@ capture_datasets <- function(x){
 #' @noRd
 #' @keywords Internal
 capture_fields <- function(x){
-  query_type <- "metadata/fields"
-  if(check_if_cache_update_needed("fields")){
-    default_query(query_type) |> as_query()
+  x$type <- "metadata/fields"
+  if(check_if_cache_update_needed(x, "fields")){
+    default_query(x) |> as_query()
   }else{
-    default_cache(query_type) |> as_query()  
+    default_cache(x) |> as_query()  
   }
 }
 
@@ -156,11 +162,11 @@ capture_fields <- function(x){
 #' @noRd
 #' @keywords Internal
 capture_licences <- function(x){
-  query_type <- "metadata/licences"
-  if(check_if_cache_update_needed("licences")){
-    default_query(query_type) |> as_query()
+  x$type <- "metadata/licences"
+  if(check_if_cache_update_needed(x, "licences")){
+    default_query(x) |> as_query()
   }else{
-    default_cache(query_type) |> as_query()  
+    default_cache(x) |> as_query()  
   }
 }
 
@@ -169,20 +175,22 @@ capture_licences <- function(x){
 #' @keywords Internal
 capture_lists <- function(x,
                            error_call = rlang::caller_env()){
-  query_type <- "metadata/lists"
+  x$type <- "metadata/lists"
   # if filter is supplied, lookup a specified list by dr number
   if(!is.null(x$filter)){
     dr_lookup <- stringr::str_detect(x$filter$value, "^dr")
     if(any(dr_lookup)){
       dr_values <- x$filter$value[dr_lookup]
-      base_url <- url_lookup(query_type)
+      base_url <- url_lookup(x)
       url <- glue::glue("{base_url}/{dr_values}")
       if(length(url) > 1){
-        result <- list(type = query_type,
+        result <- list(type = x$type,
+                       atlas = x$atlas,
                        url = tibble::tibble(url = url), # note: tibbles are used to skip pagination in `collapse()`
                        headers = build_headers())
       }else{
-        result <- list(type = query_type,
+        result <- list(type = x$type,
+                       atlas = x$atlas,
                        url = url,
                        headers = build_headers())
       }
@@ -193,8 +201,8 @@ capture_lists <- function(x,
     }
   # if filter isn't supplied, check cache etc
   }else{
-    if(check_if_cache_update_needed("lists")){
-      url <- url_lookup(query_type) |>
+    if(check_if_cache_update_needed(x, "lists")){
+      url <- url_lookup(x) |>
         httr2::url_parse()
       url$query <- list(max = 10000)
       if(!missing(x)){
@@ -202,11 +210,12 @@ capture_lists <- function(x,
           url$query <- list(max = x$slice$slice_n)
         }    
       }
-      result <- list(type = query_type,
+      result <- list(type = x$type,
+                     atlas = x$atlas,
                      url = httr2::url_build(url),
                      headers = build_headers())
     }else{
-      result <- default_cache(query_type)
+      result <- default_cache(x)
     } 
   }
   result |>
@@ -246,8 +255,10 @@ capture_media_metadata <- function(.query,
   #   cli::cli_abort("Media metadata not found in supplied tibble",
   #                  call = error_call)
   # }
-  list(type = "metadata/media",
-       url = tibble::tibble(url = url_lookup("metadata/media",
+  .query$type <- "metadata/media"
+  list(type = .query$type,
+       atlas = .query$atlas,
+       url = tibble::tibble(url = url_lookup(.query,
                                              id = .query$filter$value)),
        headers = build_headers()) |>
     as_query()
@@ -258,11 +269,11 @@ capture_media_metadata <- function(.query,
 #' @noRd
 #' @keywords Internal
 capture_profiles <- function(x){
-  query_type <- "metadata/profiles"
-  if(check_if_cache_update_needed("profiles")){
-    result <- default_query(query_type)
+  x$type <- "metadata/profiles"
+  if(check_if_cache_update_needed(x, "profiles")){
+    result <- default_query(x)
   }else{
-    result <- default_cache(query_type)     
+    result <- default_cache(x)     
   }
   result |>
     as_query()
@@ -273,20 +284,20 @@ capture_profiles <- function(x){
 #' @keywords Internal
 capture_providers <- function(x){
   # set `type`
-  query_type <- "metadata/providers"
+  x$type <- "metadata/providers"
   # If `filter()` is supplied, we always need a query
-  if(is_gbif() & !missing(x)){
+  if(x$atlas == "Global" & !missing(x)){
     if(!is.null(x$filter)){
-      result <- filtered_query(query_type, x)
+      result <- filtered_query(x)
     }else{
-      result <- default_query(query_type)
+      result <- default_query(x)
     }
     # If no `filter()`, check cache instead
   }else{
-    if(check_if_cache_update_needed("providers")){
-      result <- default_query(query_type)
+    if(check_if_cache_update_needed(x, "providers")){
+      result <- default_query(x)
     }else{
-      result <- default_cache(query_type)
+      result <- default_cache(x)
     }
   }
   result |>
@@ -297,11 +308,11 @@ capture_providers <- function(x){
 #' @noRd
 #' @keywords Internal
 capture_reasons <- function(x){
-  query_type <- "metadata/reasons"
-  if(check_if_cache_update_needed("reasons")){
-    result <- default_query(query_type)
+  x$type <- "metadata/reasons"
+  if(check_if_cache_update_needed(x, "reasons")){
+    result <- default_query(x)
   }else{
-    result <- default_cache(query_type)     
+    result <- default_cache(x)     
   }
   result |>
     as_query()
@@ -311,13 +322,10 @@ capture_reasons <- function(x){
 #' @noRd
 #' @keywords Internal
 capture_ranks <- function(x){
-  if(is_gbif()){
-    result <- list(type = "metadata/ranks",
-                   data = "galah:::gbif_internal_archived$ranks")
-  }else{
-    result <- list(type = "metadata/ranks",
-                   data = "galah:::galah_internal_archived$ranks")
-  }
-  result |>
+  list(type = "metadata/ranks",
+       atlas = x$atlas,
+       data = ifelse(x$atlas == "Global",
+                     "galah:::gbif_internal_archived$ranks",
+                     "galah:::galah_internal_archived$ranks")) |>
     as_query()
 }

@@ -9,14 +9,14 @@ collapse_query_set <- function(x,
          "data/events-count" = collapse_events_count(x),
          "data/occurrences" = collapse_occurrences(x),
          "data/occurrences-count" = {
-           if(is_gbif()){
+           if(x$atlas == "Global"){
              collapse_occurrences_count_gbif(x)
            }else{
              collapse_occurrences_count_atlas_basic(x)   
            }
          },
          "data/occurrences-count-groupby" = {
-           if(is_gbif()){
+           if(x$atlas == "Global"){
              if(nrow(x$body$group_by) > 1){
                collapse_occurrences_count_gbif_groupby_crossed(x)
              }else{
@@ -34,7 +34,7 @@ collapse_query_set <- function(x,
            }
          },
          "data/occurrences-glimpse" = {
-           if(is_gbif()){
+           if(x$atlas == "Global"){
             collapse_occurrences_count_gbif(x, limit = 3)
            }else{
              x

@@ -4,11 +4,14 @@
 \alias{read_zip}
 \title{Read downloaded data from a zip file}
 \usage{
-read_zip(file)
+read_zip(file, source = c("LA", "GBIF"))
 }
 \arguments{
 \item{file}{(character) A file name. Must be a length-1 character ending in
 \code{.zip}.}
+
+\item{source}{(character) Where was this file sourced from? Should be one
+of \code{"LA"} (for 'Living Atlas'; the default) or \code{"GBIF"}.}
 }
 \description{
 Living atlases supply data downloads as zip files. This function reads these

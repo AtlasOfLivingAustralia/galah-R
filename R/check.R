@@ -32,13 +32,14 @@ check_atlas_inputs <- function(args,
 #' @noRd
 #' @keywords Internal
 check_authentication <- function(x){
+  # if authentication not passed in pipe, check `galah_config()`
   if(is.null(x$authenticate) & 
      isTRUE(potions::pour("user", "authenticate", .pkg = "galah")) & 
      x$type %in% c("occurrences")){
       x <- x |> authenticate()
   }
-  atlas <- potions::pour("atlas", "region", .pkg = "galah")
-  if(atlas != "Australia" &
+  # reset authentication to `NULL` if requested for a non-supported atlas
+  if(x$atlas != "Australia" &
      !is.null(x$authenticate)){
       cli::cli_warn("Authentication not supported for atlas {atlas}: skipping")
       x$authenticate <- NULL
@@ -102,7 +103,7 @@ check_download_filename <- function(file,
 #' @keywords Internal
 check_email <- function(.query, 
                         call = rlang::caller_env()){
-  if(is_gbif()){
+  if(.query$atlas == "Global"){
     # actually we check the userpwd entry here
     email_text <- .query$options$userpwd
     if(email_text == ":"){
@@ -122,7 +123,7 @@ check_email <- function(.query,
       FALSE
     }
     # authentication only acceptable alternative to email for ALA
-    if(is_ala()){
+    if(.query$atlas == "Australia"){
       authentication_missing <- is.null(.query$authenticate)
       if(email_text_missing & authentication_missing){
         abort_email_missing(error_call = call)
@@ -186,7 +187,7 @@ check_fields <- function(.query,
                          error_call = rlang::caller_env()) {
   
   if(potions::pour("package", "run_checks")){
-    if(is_gbif()){
+    if(.query$atlas == "Global"){
       if(.query$type == "data/occurrences"){
         check_result <- check_fields_gbif_predicates(.query)  
       }else{
@@ -228,7 +229,7 @@ check_field_identities <- function(df,
                                    error_call = rlang::caller_env()){
   if(!is.null(.query$fields) & 
      potions::pour("package", "run_checks", .pkg = "galah") & 
-     potions::pour("atlas", "region", .pkg = "galah") %in% c("Australia", "Spain", "Sweden")
+     .query$atlas %in% c("Australia", "Spain", "Sweden")
      # NOTE: last line included because the remaining atlases use different 
      # architecture which tends to mean queries are sent with non-DwC terms,
      # but return DwC terms. This triggers warnings that are technically
@@ -426,7 +427,7 @@ check_groups <- function(group, n){
 check_identifiers <- function(.query,
                               error_call = rlang::caller_env()){
   # For GBIF, which uses predicates, we 'promote' taxonomic queries to 'predicates'
-  if(is_gbif()){
+  if(.query$atlas == "Global"){
     .query$body$identify <- .query$`metadata/taxa-single`
     .query
   # otherwise we replace "(`TAXON_PLACEHOLDER`)"
@@ -459,7 +460,8 @@ check_identifiers_la <- function(.query,
                          call = error_call)
         }
         
-        taxa_ids <- build_taxa_query(identifiers$taxon_concept_id)
+        taxa_ids <- build_taxa_query(ids = identifiers$taxon_concept_id,
+                                     atlas = .query$atlas)
         queries$fq <- stringr::str_replace_all(queries$fq, 
                                                "\\(`TAXON_PLACEHOLDER`\\)", 
                                                taxa_ids)
@@ -496,7 +498,7 @@ check_identifiers_la <- function(.query,
 check_login <- function(.query, 
                         error_call = rlang::caller_env()) {
   # Check for valid email for occurrences or species queries for all providers
-  if(is_gbif()){
+  if(.query$atlas == "Global"){
     if(grepl("^data", .query$type)){
       check_email(.query, call = error_call)
       check_password(.query, call = error_call)
@@ -505,7 +507,7 @@ check_login <- function(.query,
     if(.query$type %in% c("data/occurrences", "data/species") & 
       is.null(.query$request$authenticate) # i.e. only validate if authenticate = FALSE
       ){
-      switch(potions::pour("atlas", "region"), 
+      switch(.query$atlas, 
              "United Kingdom" = {},
              check_email(.query, call = error_call))
     }
@@ -546,13 +548,13 @@ check_media_cols_present <- function(.query,
     strsplit(",") |>
     purrr::pluck(1)
   fields_check <- image_fields() %in% fields
-  if(!any(fields_check)){
+  if(!any(fields_check)){atlas = .query$atlas
     c("No media fields requested.",
       i = "Use `select()` to specify which media fields are required.",
       i = "Valid fields are 'images', 'videos' and 'sounds'.") |>
     cli::cli_abort(call = error_call)
   }else{
-    image_fields()[fields_check]
+    image_fields(atlas = .query$atlas)[fields_check]
   }
 }
 
@@ -722,7 +724,7 @@ check_profiles <- function(.query,
 #' @keywords Internal
 check_reason <- function(.query, 
                          error_call = rlang::caller_env()){
-  if(reasons_supported()) {
+  if(reasons_supported(atlas = .query$atlas)) {
     if(.query$type %in% c("data/occurrences", "data/species")){
       query <- httr2::url_parse(.query$url)$query
       if(is.null(query$reasonTypeId)){
@@ -753,7 +755,7 @@ check_reason <- function(.query,
 check_select <- function(.query,
                          error_call = rlang::caller_env()){
   if(any(names(.query$request) == "select")){
-    if(!(is_gbif() & stringr::str_detect(.query$type, "^data"))){
+    if(!(.query$atlas == "Global" & stringr::str_detect(.query$type, "^data"))){
       # cli::cli({
       #  cli::cli_text("Skipping `select()`.")
       #  cli::cli_bullets(c(i = "This function is not supported by the GBIF occurrences downloads API v1."))
@@ -817,7 +819,10 @@ parse_select_occurrences <- function(.query,
   # new step to avoid calling `show_all_assertions()` internally
   group <- group_initial[group_initial != "assertions"]
   if(length(group) > 0){
-    group_cols <- purrr::map(group, preset_groups) |> 
+    group_cols <- purrr::map(group, 
+      \(a){
+        preset_groups(a, atlas = .query$atlas)
+      }) |> 
       unlist()
     group_names <- tidyselect::eval_select(dplyr::any_of(group_cols), 
                                            data = df) |> 
@@ -843,7 +848,7 @@ parse_select_occurrences <- function(.query,
   }
 
   # 3a: set 'identifier' column name
-  id_col <- default_columns()[1]
+  id_col <- default_columns(.query$atlas)[1]
   
   # 4: set behaviour depending on what names are given
   # NOTE:

@@ -7,7 +7,7 @@ galah_filter <- function(...){
   check_named_input(dots)
   switch(class(dots[[1]])[1],
          "data_request" = {
-           if(is_gbif()){
+           if(dots[[1]]$atlas == "Global"){
              filters <- parse_quosures_data_gbif(dots[-1])  # `handle_quosures_GBIF.R`
            }else{
              filters <- parse_quosures_data(dots[-1]) # `handle_quosures.R`
@@ -25,7 +25,10 @@ galah_filter <- function(...){
            input$type <- parsed_dots$variable
            input
          },
-         if(is_gbif()){
+         # NOTE: below here is triggered if user calls `galah_filter()` without
+         # `galah_call()`/`request_data()` first. In this case we only have
+         # global settings to go on.
+         if(potions::pour("atlas", "region", .pkg = "galah") == "Global"){
            parse_quosures_data_gbif(dots)
          }else{
            parse_quosures_data(dots)  

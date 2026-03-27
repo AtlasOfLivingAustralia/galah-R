@@ -101,14 +101,18 @@ switch_slot_text <- function(x, a){
     },
     "select" = x[[a]]$summary,
     "group_by" =  glue::glue_collapse(x[[a]]$name, sep = " | "),
-    "apply_profile" ={x[[a]][1]},
-    "mint_doi" = {x[[a]][1]},
-    "")
+    # "apply_profile" ={x[[a]][1]},
+    # "mint_doi" = {x[[a]][1]},
+    x[[a]][1] # default is return slot content
+  )
 }
 
 #' @rdname print_galah_objects
 #' @export
 print.query <- function(x, ...){
+  atlas <- glue::glue("\n
+           atlas: {x$atlas}") |>
+    galah_grey()
   if(!is.null(x$arrange)){
     arrange <- galah_pale_green(glue::glue("\n
                               arrange: {x$arrange$variable} ({x$arrange$direction})"))
@@ -161,7 +165,8 @@ print.query <- function(x, ...){
   }
   
   # keep only populated levels
-  print_list <-  list(subtext, # note: need code for url tibbles
+  print_list <-  list(atlas,
+                      subtext, # note: need code for url tibbles
                       select,
                       arrange,
                       slice)
@@ -180,6 +185,9 @@ print.prequery <- print.query
 #' @rdname print_galah_objects
 #' @export
 print.computed_query <- function(x, ...){
+    atlas <- glue::glue("\n
+           atlas: {x$atlas}") |>
+    galah_grey()
   # calculate arrange/slice info
   if(!is.null(x$arrange)){
     arrange <- galah_pale_green(glue::glue("\n
@@ -238,10 +246,11 @@ print.computed_query <- function(x, ...){
   }
   
   # keep only populated levels
-  print_list <-  list(id,
-                      subtext, # note: need code for url tibbles
-                      arrange,
-                      slice)
+  print_list <- list(atlas,
+                     id,
+                     subtext, # note: need code for url tibbles
+                     arrange,
+                     slice)
   print_list <- print_list[!unlist(purrr::map(print_list, is.null))]
   
   # print

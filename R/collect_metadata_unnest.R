@@ -8,7 +8,7 @@ collect_fields_unnest <- function(.query,
     purrr::pluck("url") |>
     httr2::url_parse()
   
-  if(is_gbif()){
+  if(.query$atlas == "Global"){
     # get name of facet in question
     facet <-  purrr::pluck(facet, "query", "facet") # NOTE: "facet" (singular)
     check_missing_fields(facet, call = error_call)
