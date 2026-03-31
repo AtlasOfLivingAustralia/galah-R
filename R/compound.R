@@ -182,7 +182,7 @@ build_query_set_data <- function(x, mint_doi, ...){
   # handle authentication
   if(
     !is.null(x$request$authenticate) &
-    x$atlas == "Australia"
+    authentication_supported(x$atlas)
   ){
     result <- append(result,
                      list(request_metadata("config", from = x$atlas) |> capture()))

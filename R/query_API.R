@@ -77,16 +77,16 @@ query_API_internal <- function(.query,
   if(!is.null(.query$request$authenticate) & 
      .query$type != "metadata/config" # necessary to prevent circular problems
      ){
-    
+
     # check whether config data is available
-    auth_info <- get_auth_info()
+    auth_info <- get_auth_info(.query)
     query <- query |>
       httr2::req_oauth_auth_code(
         client = auth_info$client,
         auth_url = dplyr::pull(auth_info$config, "authorize_url"),
         scope = dplyr::pull(auth_info$config, "scopes"),
         pkce = TRUE,
-        cache_disk = FALSE) # purrr::pluck(.query, "authenticate", "cache_disk"))
+        cache_disk = .query$request$authenticate$cache_disk)
   }
 
   # then handle downloads
@@ -102,7 +102,7 @@ query_API_internal <- function(.query,
     } else {
       query |> 
         httr2::req_perform(path = .query$file,
-                           verbosity = 0)
+                           verbosity = 3)
     }
   # then other pings, which should resolve quickly 
   # and can be allowed to fail otherwise
@@ -165,31 +165,49 @@ add_options <- function(req, options){
 #' get a client, and if it doesn't exist, make one
 #' @noRd
 #' @keywords Internal
-get_auth_info <- function(error_call = rlang::caller_env()){
-  x <- retrieve_cache("client") # this is cached by build_auth_client()
-  auth_config <- show_all_config() # handle download /retrieval of config info
-  if(is.null(x)){
-    x <- build_auth_client(auth_config)
-  }
+get_auth_info <- function(.query,
+                          error_call = rlang::caller_env()){
+  # get config info
+  auth_config <- request_metadata(type = "config",
+                                  from = .query$atlas) |>
+    collect()
+  # use this to get a client
+  auth_client <- build_auth_client(auth_config,
+                                   atlas = .query$atlas)
+  # note that both of the above functions check caches first, so it's not
+  # inefficient to run both
+
   # if still can't get a client, you might be offline
-  if(is.null(x)){
+  if(is.null(auth_client)){
     cli::cli_abort(c("Unable to generate an authentication client",
                      i = "You might be offline"),
                    call = error_call)
   }
+  # otherwise, return the requested information
   list(config = auth_config,
-       client = x)
+       client = auth_client)
 }
 
 #' create a client object
 #' @noRd
 #' @keywords Internal
-build_auth_client <- function(config){
+build_auth_client <- function(config, atlas){
+
+  # check whether a client has been previously cached for this atlas
+  cache_check <- retrieve_cache("client")
+  if(!is.null(cache_check)){
+    if(attr(cache_check, "region") == atlas){
+      cache_check
+    }
+  }
+  # otherwise, build new client
   result <- httr2::oauth_client(
     id = dplyr::pull(config, "client_id"),
     token_url = dplyr::pull(config, "token_url"),
     auth = "body",
-    name = "galah")
+    name = "galah") |>
+    update_attributes(type = "client",
+                      atlas = atlas)
   update_cache(client = result)
   result
 }

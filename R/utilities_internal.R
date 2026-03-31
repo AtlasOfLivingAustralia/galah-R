@@ -456,6 +456,20 @@ species_facets <- function(.query){
   }
 }
 
+#' Internal function to test whether authentication is supported
+#' @noRd
+#' @keywords Internal
+authentication_supported <- function(atlas){
+  if(atlas %in% 
+    c("Australia",
+      "Flanders")){
+  TRUE
+}else{
+  FALSE
+}
+}
+
+#' Internal function to test whether profiles are supported
 #' @noRd
 #' @keywords Internal
 profiles_supported <- function(atlas){

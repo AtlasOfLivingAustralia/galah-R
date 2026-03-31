@@ -248,6 +248,20 @@ test_that("`atlas_species()` works for Flanders", {
   expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
 })
 
+test_that("`authenticate()` works for Flanders", {
+  skip_if_offline(); skip_on_ci()
+  galah_config(
+    download_reason_id = 10,
+    send_email = FALSE)
+  x <- request_data(from = "Flanders") |>
+    authenticate() |>
+    identify("Canis") |>
+    filter(year == 2020) |>
+    compound()
+  y <- collapse(x)
+  z <- collect(y)
+})
+
 test_that("`atlas_occurrences()` works for Flanders", {
   skip_if_offline(); skip_on_ci()
   galah_config(

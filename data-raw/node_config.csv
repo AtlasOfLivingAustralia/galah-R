@@ -86,6 +86,7 @@ Flanders,data/species-count,https://natuurdata.inbo.be/biocache-service/occurren
 Flanders,files/media,https://natuurdata.inbo.be/image-service/image/{id}/{size},TRUE
 Flanders,metadata/assertions,https://natuurdata.inbo.be/biocache-service/assertions/codes,TRUE
 Flanders,metadata/collections,https://natuurdata.inbo.be/collectory/ws/collection,TRUE
+Flanders,metadata/config,https://natuurdata.inbo.be/galah/config,TRUE
 Flanders,metadata/datasets,https://natuurdata.inbo.be/collectory/ws/dataResource,TRUE
 Flanders,metadata/fields,https://natuurdata.inbo.be/biocache-service/index/fields,TRUE
 Flanders,metadata/fields-unnest,https://natuurdata.inbo.be/biocache-service/occurrence/facets,TRUE

@@ -39,9 +39,9 @@ check_authentication <- function(x){
       x <- x |> authenticate()
   }
   # reset authentication to `NULL` if requested for a non-supported atlas
-  if(x$atlas != "Australia" &
+  if(!authentication_supported(x$atlas) &
      !is.null(x$authenticate)){
-      cli::cli_warn("Authentication not supported for atlas {atlas}: skipping")
+      cli::cli_warn("Authentication not supported for atlas {x$atlas}: skipping")
       x$authenticate <- NULL
   }
   x
