@@ -4,21 +4,17 @@
 \alias{read_zip}
 \title{Read downloaded data from a zip file}
 \usage{
-read_zip(file, source = c("LA", "GBIF"))
+read_zip(file)
 }
 \arguments{
 \item{file}{(character) A file name. Must be a length-1 character ending in
 \code{.zip}.}
-
-\item{source}{(character) Where was this file sourced from? Should be one
-of \code{"LA"} (for 'Living Atlas'; the default) or \code{"GBIF"}.}
 }
 \description{
 Living atlases supply data downloads as zip files. This function reads these
 data efficiently, i.e. without unzipping them first, using the \code{readr}
-package. Although this function has been part of galah for some time, it was
-previously internal to \code{\link[=atlas_occurrences]{atlas_occurrences()}}. It has been exported now to
-support easy re-importing of downloaded files, without the need to re-run
+package. Although this function is mostly called internally, it is exported
+to allow easy re-importing of downloaded files, without the need to re-run
 a query.
 }
 \examples{

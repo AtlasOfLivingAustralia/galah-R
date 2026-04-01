@@ -102,7 +102,7 @@ query_API_internal <- function(.query,
     } else {
       query |> 
         httr2::req_perform(path = .query$file,
-                           verbosity = 3)
+                           verbosity = 0)
     }
   # then other pings, which should resolve quickly 
   # and can be allowed to fail otherwise

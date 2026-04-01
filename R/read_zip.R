@@ -3,14 +3,11 @@
 #' @description
 #' Living atlases supply data downloads as zip files. This function reads these
 #' data efficiently, i.e. without unzipping them first, using the `readr` 
-#' package. Although this function has been part of galah for some time, it was 
-#' previously internal to [atlas_occurrences()]. It has been exported now to 
-#' support easy re-importing of downloaded files, without the need to re-run
+#' package. Although this function is mostly called internally, it is exported
+#' to allow easy re-importing of downloaded files, without the need to re-run
 #' a query.
 #' @param file (character) A file name. Must be a length-1 character ending in
 #' `.zip`.
-#' @param source (character) Where was this file sourced from? Should be one 
-#' of `"LA"` (for 'Living Atlas'; the default) or `"GBIF"`.
 #' @examples \dontrun{
 #' # set a working directory
 #' galah_config(directory = "data-raw",
@@ -26,20 +23,27 @@
 #' x <- read_zip("./data-raw/burrowing_frog_data.zip")
 #' }
 #' @export
-read_zip <- function(file, source = c("LA", "GBIF")){
+read_zip <- function(file){
 
   # FIXME: should be possible to autodetect GBIF files somehow
   # Ideally we shouldn't need the user to specify this.
 
-  # check type, file
-  source <- match.arg(source)
+  # check file
   check_zip_filename(file)
  
-  # import file without unzipping
+  # find data files _within_ the zip file
   data_files <- zip_data_file_names(file)
-  result <- switch(source, 
-                   "GBIF" = read_zip_gbif(file, data_files),
-                   "LA" = read_zip_la(file, data_files))
+
+  # if none, abort
+  if(length(data_files) < 1){
+    cli::cli_abort("No data files detected")
+  }
+
+  # import correctly depending on the delimiter
+  delim <- check_delimiter(file, data_files[1])
+  result <- switch(delim, 
+                   "tsv" = read_zip_gbif(file, data_files),
+                   "csv" = read_zip_la(file, data_files))
 
   # add formatted date
   attr(result, "modified_date") <- file.info(file)$mtime |> 
@@ -81,6 +85,23 @@ zip_data_file_names <- function(file){
   valid_check <- stringr::str_detect(all_files, ".csv$") &
                  !(all_files %in% c("citation.csv", "headings.csv"))
   all_files[valid_check]
+}
+
+#' get the delimiter for this file type
+#' @noRd
+#' @keywords Internal
+check_delimiter <- function(file, data_file){
+  # get header row of first file *only*
+  x <- unz(description = file, 
+      filename = data_file) |>
+      readr::read_lines(n_max = 1)
+  n_tabs <- stringr::str_count(x, "\t")
+  n_commas <- stringr::str_count(x, ",")
+  if(n_tabs > n_commas){
+    "tsv"
+  }else{
+    "csv"
+  }
 }
 
 #' Internal function to read a zip file from GBIF
