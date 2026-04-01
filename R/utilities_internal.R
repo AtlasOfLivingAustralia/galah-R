@@ -383,6 +383,16 @@ default_columns <- function(atlas = NULL) {
       "basisOfRecord",
       "occurrenceStatus",
       "dataResourceName")
+  }else if(atlas == "Global"){
+    c("occurrenceId",
+      "scientificName",
+      "taxonConceptID",
+      "decimalLatitude",
+      "decimalLongitude",
+      "eventDate",
+      "basisOfRecord",
+      "occurrenceStatus",
+      "datasetName")
   }else{
     cli::cli_abort("Unknown `atlas`")
   }

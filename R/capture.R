@@ -300,7 +300,12 @@ check_distinct_count_groupby <- function(x){
           count_switch() |>
           dplyr::select(-dplyr::any_of(c("label", "i18nCode", "fq")))
       }else{
-        dplyr::select(x, group = "basic") # assumes type = "occurrences"
+        # assumes type = "occurrences"
+        if(x$atlas == "Global"){
+          dplyr::select(x, tidyselect::everything()) # for backwards-compatibility
+        }else{
+          dplyr::select(x, group = "basic")
+        }
       }
     } # end has_select
   } # end has_distinct
@@ -416,7 +421,15 @@ enforce_select_query_metadata <- function(x){
 enforce_select_query_data <- function(x){
   if(is.null(x$select)){
     switch(x$type, 
-      "occurrences" = dplyr::select(x, group = "basic"),
+      # This section _should_ be handled above by check_distinct_count_groupby()
+      # probably needs better integration
+      "occurrences" = {
+        if(x$atlas == "Global"){
+          dplyr::select(x, tidyselect::everything()) # for backwards-compatibility
+        }else{
+          dplyr::select(x, group = "basic")
+        }
+      },
       "occurrences-count" = dplyr::select(x, -dplyr::any_of(c("label", "i18nCode", "fq"))),
       "species" = dplyr::select(x, group = "taxonomy"),
       # NOTE: further exceptions may be needed for type = "species"

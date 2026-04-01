@@ -41,6 +41,7 @@ collect_occurrences_direct <- function(.query, file, call){
 #' @noRd
 #' @keywords Internal
 collect_occurrences_default <- function(.query, wait, file, call){
+
   # check queue
   download_response <- check_queue(.query, wait = wait)
   if(is.null(download_response)){
@@ -73,6 +74,12 @@ collect_occurrences_default <- function(.query, wait, file, call){
     result <- result |>
       check_field_identities(.query, error_call = call) |>
       check_media_cols()  # check for, and then clean, media info
+
+    # exception for GBIF to post-process `select()`
+    if(.query$atlas == "Global"){
+      result <- parse_select(result, .query)
+    }
+
     # exception for GBIF to ensure DOIs are preserved
     if(!is.null(download_response$doi)){
       # NOTE: GBIF documents DOIs in download response status url (it used to be automatically appended)
@@ -129,7 +136,8 @@ collect_occurrences_glimpse_gbif <- function(.query){
   df <- result |>
     purrr::pluck("results") |>
     purrr::map(tidy_list_columns) |>
-    dplyr::bind_rows()
+    dplyr::bind_rows() |>
+    parse_select(.query)
   attr(df, "total_n") <- result$count
 
    # assign new object for bespoke printing

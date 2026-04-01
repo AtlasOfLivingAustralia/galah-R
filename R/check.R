@@ -749,18 +749,13 @@ check_reason <- function(.query,
 }
 
 #' Check that `select()` quosures can be parsed correctly
-#' NOTE: much of this content was previously in `parse_select()` (defunct)
 #' @noRd
 #' @keywords Internal
 check_select <- function(.query,
                          error_call = rlang::caller_env()){
   if(any(names(.query$request) == "select")){
+    # NOTE: GBIF occurrence queries are excluded because they are parsed elsewhere
     if(!(.query$atlas == "Global" & stringr::str_detect(.query$type, "^data"))){
-      # cli::cli({
-      #  cli::cli_text("Skipping `select()`.")
-      #  cli::cli_bullets(c(i = "This function is not supported by the GBIF occurrences downloads API v1."))
-     # })
-    # }else{
       # 1. build df to `select` from
       valid_fields <- .query[["metadata/fields"]]$id
       valid_assertions <- .query[["metadata/assertions"]]$id

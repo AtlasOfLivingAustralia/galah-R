@@ -295,21 +295,27 @@ print.galah_config <- function(x, ...){
   cli::cli_text("`galah` package configuration")
   cli::cli_end()
   cli::cli_par()
-  # print package settings
-  cli::cli_text("{galah_pink(\"Package\")}")
-  package_info <- purrr::pluck(x, "package")
-  package_logical_check <- purrr::map(package_info, is.logical) |>
-    unlist()
-  logical_values <- package_info[package_logical_check] |>
-    unlist()
-  package_settings <- names(logical_values) |>
-    galah_green()
-  names(package_settings) <- c("x", "v")[as.integer(logical_values) + 1]
-  package_settings <- c(package_settings,
-                        "i" = glue::glue("{galah_green('directory')}: {galah_grey(x$package$directory)}")) |>
-    cli::cli_bullets()
+  print_config_atlas(x)
+  print_config_user(x)
+  print_config_package(x)
+}
+
+#' Internal function to print current atlas within galah_config()
+#' @noRd
+#' @keywords Internal
+print_config_atlas <- function(x){
+  cli::cli_par()
+  cli::cli_text("{galah_pink(\"Atlas\")}")
+  atlas_text <- galah_green(x$atlas$organisation)
+  atlas_subtext <- galah_grey(glue::glue("({x$atlas$acronym}), {x$atlas$region}"))
+  cli::cli_bullets("{atlas_text} {atlas_subtext}")
   cli::cli_end()
-  # print user settings
+}
+
+#' Internal function to print current user settings within galah_config()
+#' @noRd
+#' @keywords Internal
+print_config_user <- function(x){
   cli::cli_par()
   cli::cli_text("{galah_pink(\"User\")}")
   user_settings <- c(
@@ -323,11 +329,24 @@ print.galah_config <- function(x, ...){
     ifelse("v", "x")
   cli::cli_bullets(user_settings)
   cli::cli_end()
-  cli::cli_par()
-  cli::cli_text("{galah_pink(\"Atlas\")}")
-  atlas_text <- galah_green(x$atlas$organisation)
-  atlas_subtext <- galah_grey(glue::glue("({x$atlas$acronym}), {x$atlas$region}"))
-  cli::cli_bullets("{atlas_text} {atlas_subtext}")
+}
+
+#' Internal function to print current package settings within galah_config()
+#' @noRd
+#' @keywords Internal
+print_config_package <- function(x){
+  cli::cli_text("{galah_pink(\"Package\")}")
+  package_info <- purrr::pluck(x, "package")
+  package_logical_check <- purrr::map(package_info, is.logical) |>
+    unlist()
+  logical_values <- package_info[package_logical_check] |>
+    unlist()
+  package_settings <- names(logical_values) |>
+    galah_green()
+  names(package_settings) <- c("x", "v")[as.integer(logical_values) + 1]
+  package_settings <- c(package_settings,
+                        "i" = glue::glue("{galah_green('directory')}: {galah_grey(x$package$directory)}")) |>
+    cli::cli_bullets()
   cli::cli_end()
 }
 

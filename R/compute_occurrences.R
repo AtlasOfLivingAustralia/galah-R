@@ -31,7 +31,8 @@ compute_occurrences_gbif <- function(.query){
     check_occurrence_response()
   c(list(type = "data/occurrences",
          atlas = .query$atlas),
-    status_code) |>
+    status_code[names(status_code) != "request"],
+    list(request = .query$request)) |>
     structure(class = "computed_query")
 }
 

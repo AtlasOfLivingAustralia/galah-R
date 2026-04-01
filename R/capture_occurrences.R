@@ -144,13 +144,14 @@ capture_occurrences_doi <- function(.query,
 #' @noRd
 #' @keywords Internal
 capture_occurrences_glimpse <- function(.query){
-  .query$type <- "data/occurrences-glimpse"
 
   if(.query$atlas == "Global"){
     result <- capture_occurrences_count(.query)
+    result$type <- "data/occurrences-glimpse"
     result$body$limit <- 3
     as_prequery(result)
   }else{
+    .query$type <- "data/occurrences-glimpse"
     result <- capture_occurrences_la(.query)
     url <- httr2::url_parse(result$url)
 

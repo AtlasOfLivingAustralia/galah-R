@@ -234,9 +234,9 @@ test_that("`count()` works with `identify` for GBIF when `run_checks` = TRUE", {
     count() |>
     collapse()
   expect_s3_class(x, "query")
-  expect_equal(length(x), 6)
+  expect_equal(length(x), 7)
   expect_equal(names(x), 
-               c("type", "url", "headers",
+               c("type", "atlas", "url", "headers",
                  "options", "body", "request"))
   expect_equal(x$type, "data/occurrences-count")
   # compute
@@ -251,7 +251,11 @@ test_that("`count()` works with `identify` for GBIF when `run_checks` = TRUE", {
 
 test_that("`glimpse()` works for GBIF", {
   skip_if_offline(); skip_on_ci()
-  x <- galah_call() |>
+  galah_config(atlas = "GBIF",
+              username = "atlasoflivingaustralia",
+              email = "ala4r@ala.org.au",
+              password = "galah-gbif-test-login")
+  x <- request_data(from = "GBIF") |>
     filter(year == 2025) |>
     glimpse() |>
     collect()
@@ -267,13 +271,11 @@ test_that("`glimpse()` works for GBIF", {
     expect_equal(3)
 })
 
+# FIXME: add test for `select()` paired with `glimpse()`
+
 test_that("`atlas_occurrences()` works for GBIF", {
   skip_if_offline(); skip_on_ci()
-  galah_config(atlas = "GBIF",
-               username = "atlasoflivingaustralia",
-               email = "ala4r@ala.org.au",
-               password = "galah-gbif-test-login")
-  x <- galah_call() |>
+  x <- galah_call(from = "GBIF") |>
     filter(year == 1890,
            classKey == "359",
            country == "AU") |>
@@ -281,6 +283,31 @@ test_that("`atlas_occurrences()` works for GBIF", {
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(x), 10)
   expect_gt(ncol(x), 10)
+})
+
+test_that("`atlas_occurrences()` works with `select()` for GBIF", {
+  skip_if_offline(); skip_on_ci()
+  x <- galah_call(from = "GBIF") |>
+    filter(year == 1890,
+           classKey == "359",
+           country == "AU") |>
+    select(countryCode, species, eventDate) |>
+    collect()
+  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_gt(nrow(x), 10)
+  expect_equal(ncol(x), 3)
+})
+
+# FIXME: test not implemented yet
+test_that("invalid fields are caught from `select()` for GBIF", {
+  skip_if_offline(); skip_on_ci()
+  galah_call(from = "GBIF") |>
+    filter(year == 1890,
+           classKey == "359",
+           country == "AU") |> # this uses `check_fields_gbif_predicates()`
+    select(country, species, eventDate) |> # this uses `check_fields_gbif_counts()`
+    collect() |>
+    expect_error()
 })
 
 test_that("`atlas_occurrences()` works with `galah_polygon()` for GBIF", {
@@ -315,21 +342,16 @@ test_that("`atlas_occurences()` works with `galah_radius()` for GBIF", {
   expect_equal(nrow(result), count$count)
 })
 
-test_that("`galah_select()` returns message for GBIF", {
-  expect_message({x <- galah_select(galah_call())})
-  expect_true(is.null(x$select))
-})
-
-test_that("atlas_species works for GBIF", {
+test_that("`atlas_species()` works for GBIF", {
   skip_if_offline(); skip_on_ci()
   x <- request_data(type = "species") |>
     filter(year == 2010) |>
     identify("Litoria") |>
     collapse()
   expect_s3_class(x, "query")
-  expect_equal(length(x), 6)
+  expect_equal(length(x), 7)
   expect_equal(names(x), 
-               c("type", "url", "headers", "options", "body", "request"))
+               c("type", "atlas", "url", "headers", "options", "body", "request"))
   expect_equal(x$type, "data/species")
   y <- compute(x)
   expect_s3_class(y, "computed_query")
@@ -344,7 +366,7 @@ test_that("atlas_species works for GBIF", {
   # expect_equal(z, species)
 })
 
-test_that("atlas_media fails for GBIF", {
+test_that("`atlas_media()` fails for GBIF", {
   skip_if_offline(); skip_on_ci()
   expect_error({galah_call() |>
     galah_identify("perameles") |>
@@ -366,7 +388,7 @@ test_that("`collect()` works for GBIF with `type = 'occurrences' or 'occurrences
   # NOTE: the above query should return 72 records (tested 2025-06-10)
   expect_s3_class(x, "query")
   expect_equal(names(x), 
-               c("type", "url", "headers", "options", "body", "request"))
+               c("type", "atlas", "url", "headers", "options", "body", "request"))
   expect_equal(x$type, "data/occurrences")
   # compute
   y <- compute(x)
