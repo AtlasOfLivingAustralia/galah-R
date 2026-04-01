@@ -1,4 +1,5 @@
-#' @rdname group_by.data_request
+#' @rdname superseded_functions
+#' @order 4
 #' @export
 galah_group_by <- function(...){
   dots <- rlang::enquos(..., .ignore_empty = "all") |>

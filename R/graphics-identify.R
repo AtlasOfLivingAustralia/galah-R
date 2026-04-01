@@ -65,8 +65,8 @@ identify.metadata_request <- function(x, ...){
   x
 }
 
-#' @rdname identify.data_request
-#' @order 3
+#' @rdname superseded_functions
+#' @order 5
 #' @export
 galah_identify <- function(...) {
   dots_initial <- list(...)

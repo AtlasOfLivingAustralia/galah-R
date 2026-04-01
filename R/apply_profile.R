@@ -39,7 +39,8 @@ apply_profile <- function(.data, ...){
                         apply_profile = result)
 }
 
-#' @rdname apply_profile
+#' @rdname superseded_functions
+#' @order 1
 #' @export
 galah_apply_profile <- function(...){
   dots <- rlang::enquos(..., .ignore_empty = "all") |>

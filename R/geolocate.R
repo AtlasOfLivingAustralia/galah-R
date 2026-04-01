@@ -143,8 +143,8 @@ geolocate <- function(..., type = c("polygon", "bbox", "radius")) {
   )
 }
 
-#' @rdname geolocate
-#' @order 2
+#' @rdname superseded_functions
+#' @order 3
 #' @export
 galah_geolocate <- geolocate
 

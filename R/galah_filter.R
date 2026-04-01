@@ -1,5 +1,5 @@
-#' @rdname filter.data_request
-#' @order 4
+#' @rdname superseded_functions
+#' @order 2
 #' @export
 galah_filter <- function(...){
   dots <- rlang::enquos(..., .ignore_empty = "all") |>
