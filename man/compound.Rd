@@ -8,7 +8,7 @@
 \alias{compound.prequery}
 \alias{compound.query}
 \alias{compound.query_set}
-\title{Force evaluation of a database query}
+\title{Create a list of all API calls needed to evaluate a request}
 \usage{
 compound(x, ...)
 
@@ -40,13 +40,11 @@ listed in the order in which they will be evaluated, meaning the query
 that the user has actually requested will be placed last.
 }
 \description{
-\code{\link[=compound]{compound()}} shows the full set of queries
-required to properly evaluate the user's request, run prior to \code{\link[=collapse]{collapse()}}.
-
-The number of total queries to send for a single data request is often broader
-than the single query returned by \code{\link[=collapse]{collapse()}}. If, for example,
-the user's query includes a call to
-\code{\link[=identify.data_request]{identify()}}, then a taxonomic query
+\code{\link[=compound]{compound()}} shows the full set of queries required to properly evaluate
+the user's request, run prior to \code{\link[=collapse]{collapse()}}. The number of total queries
+to send for a single data request is often greater than the single query
+returned by \code{\link[=collapse]{collapse()}}. If, for example, the user's query includes a call
+to \code{\link[=identify.data_request]{identify()}}, then a taxonomic query
 is required to run \emph{before} the 'final' query is attempted. In relation to
 other functions that manipulate \verb{_request} objects, \code{\link[=compound]{compound()}} is called
 within \code{\link[=collapse.data_request]{collapse()}}, and itself

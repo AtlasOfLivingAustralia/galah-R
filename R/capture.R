@@ -1,4 +1,4 @@
-#' Capture a request
+#' Convert a request into a query
 #'
 #' @description
 #' The first step in evaluating a request is to capture and parse the 

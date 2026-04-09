@@ -6,7 +6,7 @@
 \alias{capture.metadata_request}
 \alias{capture.files_request}
 \alias{capture.list}
-\title{Capture a request}
+\title{Convert a request into a query}
 \usage{
 capture(x, ...)
 

@@ -1,13 +1,11 @@
-#' Force evaluation of a database query
+#' Create a list of all API calls needed to evaluate a request
 #' 
 #' @description
-#' [compound()] shows the full set of queries 
-#' required to properly evaluate the user's request, run prior to [collapse()]. 
-#' 
-#' The number of total queries to send for a single data request is often broader 
-#' than the single query returned by [collapse()]. If, for example,
-#' the user's query includes a call to 
-#' \code{\link[=identify.data_request]{identify()}}, then a taxonomic query
+#' [compound()] shows the full set of queries required to properly evaluate 
+#' the user's request, run prior to [collapse()]. The number of total queries 
+#' to send for a single data request is often greater than the single query 
+#' returned by [collapse()]. If, for example, the user's query includes a call
+#' to \code{\link[=identify.data_request]{identify()}}, then a taxonomic query
 #' is required to run _before_ the 'final' query is attempted. In relation to
 #' other functions that manipulate `_request` objects, [compound()] is called
 #' within \code{\link[=collapse.data_request]{collapse()}}, and itself 
