@@ -26,27 +26,6 @@ check_atlas_inputs <- function(args,
   request_obj
 }
 
-#' Internal function to lookup requests for authentication
-#' Note this is currently only called on `data_request` objects, and 
-#' then only before parsing
-#' @noRd
-#' @keywords Internal
-check_authentication <- function(x){
-  # if authentication not passed in pipe, check `galah_config()`
-  if(is.null(x$authenticate) & 
-     isTRUE(potions::pour("user", "authenticate", .pkg = "galah")) & 
-     x$type %in% c("occurrences")){
-      x <- x |> authenticate()
-  }
-  # reset authentication to `NULL` if requested for a non-supported atlas
-  if(!authentication_supported(x$atlas) &
-     !is.null(x$authenticate)){
-      cli::cli_warn("Authentication not supported for atlas {x$atlas}: skipping")
-      x$authenticate <- NULL
-  }
-  x
-}
-
 #' Internal function to check that the specified path exists, and if not,
 #' to create it. Called by `galah_config()`
 #' @param x a path to a directory, or NULL
@@ -96,45 +75,6 @@ check_download_filename <- function(file,
     glue::glue("{cache_directory}/{file}") |>
       as.character()
     # check_path()? # currently commented out in check.R
-}
-
-#' Subfunction to `check_login()`
-#' @noRd
-#' @keywords Internal
-check_email <- function(.query, 
-                        call = rlang::caller_env()){
-  if(.query$atlas == "Global"){
-    # actually we check the userpwd entry here
-    email_text <- .query$options$userpwd
-    if(email_text == ":"){
-      abort_email_missing(error_call = call)
-    }
-  }else{
-    # use purrr::pluck() to search for named slots
-    # base parsing captures `email_notify` and is therefore unrelable
-    email_text <- httr2::url_parse(.query$url) |>
-      purrr::pluck("query", "email")
-    # set criteria for missingness
-    email_text_missing <- if(is.null(email_text)){
-      TRUE
-    }else if(email_text == ""){
-      TRUE
-    }else{
-      FALSE
-    }
-    # authentication only acceptable alternative to email for ALA
-    if(.query$atlas == "Australia"){
-      authentication_missing <- is.null(.query$authenticate)
-      if(email_text_missing & authentication_missing){
-        abort_email_missing(error_call = call)
-      }      
-    }else{
-      if(email_text_missing){
-        abort_email_missing(error_call = call)
-      }     
-    }
-  }
-  .query
 }
 
 #' Check files are filtered properly
@@ -491,30 +431,6 @@ check_identifiers_la <- function(.query,
   .query
 }
 
-#' Internal function to confirm requisite login information has been provided
-#' Called by `compute()`
-#' @noRd
-#' @keywords Internal
-check_login <- function(.query, 
-                        error_call = rlang::caller_env()) {
-  # Check for valid email for occurrences or species queries for all providers
-  if(.query$atlas == "Global"){
-    if(grepl("^data", .query$type)){
-      check_email(.query, call = error_call)
-      check_password(.query, call = error_call)
-    }
-  }else{
-    if(.query$type %in% c("data/occurrences", "data/species") & 
-      is.null(.query$request$authenticate) # i.e. only validate if authenticate = FALSE
-      ){
-      switch(.query$atlas, 
-             "United Kingdom" = {},
-             check_email(.query, call = error_call))
-    }
-  }
-  .query
-}
-
 #' Internal function to convert multi-value media fields to list-columns
 #' @param .query A tibble() returned by atlas_occurrences
 #' @noRd
@@ -653,46 +569,6 @@ check_occurrence_status <- function(.query){
     as.list() |>
     check_occurrence_response()
 }
-
-#' Internal function to expand a url
-#' Proposed to spin out multiple urls to paginate when n is high
-#'  
-#' Note: this needs to be in the compute stage of multiple APIs: ie. from `request_data()` and `request_metadata()`
-#' Also requires something like `check_facet_count()` to know what the max value is.
-#' @noRd
-#' @keywords Internal
-# check_pagination <- function(){}
-
-#' Subfunction to `check_login()`
-#' @noRd
-#' @keywords Internal
-check_password <- function(.query, 
-                           call = rlang::caller_env()){
-  if (.query$options$userpwd == ":") {
-    cli::cli_abort("GBIF requires a username and password to download occurrences or species.",
-          call = call)
-  }
-}
-
-# Internal function to create a valid filename for download
-# Note this is most commonly used when galah defaults are in place; i.e. 
-# downloads are sent to a temporary directory.
-# Called by `query_API()`
-# check_path <- function(.query){
-#   if(is.null(.query$path)){
-#     if(.query$type == "species"){
-#       ext <- "csv"
-#     }else{
-#       ext <- "zip"
-#     }
-#     cache_file <- pour("package", "directory")
-#     .query$path <- paste0(cache_dir, "/temp_file.", ext)    
-#   } else {
-#     dirname(x) |> check_directory() # errors if path doesn't exist
-#     # NOTE: it might make sense here to check that a supplied filename is valid
-#   }
-#   .query
-# }
 
 #' Internal function to check a supplied profile is valid
 #' @noRd

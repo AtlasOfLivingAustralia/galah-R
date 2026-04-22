@@ -288,8 +288,8 @@ add_email_notify <- function(x) {
 #' @noRd
 #' @keywords Internal
 add_email_address <- function(x, query){
-  if(is.null(query$authenticate)){
-    x$email <- potions::pour("user", "email")
+  if(isFALSE(query$authenticate$use_jwt)){
+    x$email <- query$authenticate$email
   }
   x
 }
@@ -473,10 +473,22 @@ authentication_supported <- function(atlas){
   if(atlas %in% 
     c("Australia",
       "Flanders")){
-  TRUE
-}else{
-  FALSE
+    TRUE
+  }else{
+    FALSE
+  }
 }
+
+#' Internal function to test whether authentication is required
+#' @noRd
+#' @keywords Internal
+authentication_required <- function(type){
+  if(type %in% 
+    c("occurrences", "species")){
+    TRUE
+  }else{
+    FALSE
+  }
 }
 
 #' Internal function to test whether profiles are supported

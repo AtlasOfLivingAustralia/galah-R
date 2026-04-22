@@ -91,7 +91,6 @@ capture.data_request <- function(x,
 #' @export
 capture.metadata_request <- function(x, ...){
   x <- x |>
-    check_authentication() |>
     enforce_select_query()
   switch(x$type,
          "apis" = capture_apis(x),
@@ -159,6 +158,30 @@ as_query <- function(x){
 #' @keywords Internal
 as_prequery <- function(x){
   structure(x, class = c("prequery", "list"))
+}
+
+# Below here are check functions that are specific to `capture()`
+
+#' Internal function to lookup requests for authentication
+#' This is necessary, because only in `capture()` can we assess what to do when
+#' `authenticate()` hasn't been previously called. This is important for e.g.
+#' enforcing `authenticate()` where it is required, or pulling information from
+#' `galah_config()` to supply that information
+#' @noRd
+#' @keywords Internal
+check_authentication <- function(x){
+  if(!is.null(x$authenticate)){
+    x
+  }else{
+    if(authentication_required(x$type)){
+      config_options <- c(list(x),
+                          potions::pour("user", .pkg = "galah"))
+      names(config_options)[c(1, 2)] <- c(".data", "use_jwt")
+      do.call(authenticate, config_options)
+    }else{
+      x
+    }
+  }
 }
 
 #' Internal function to ensure that DOIs are parsed properly

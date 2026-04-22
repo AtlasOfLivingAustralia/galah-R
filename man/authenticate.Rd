@@ -4,24 +4,43 @@
 \alias{authenticate}
 \title{Set up authentication}
 \usage{
-authenticate(.data, cache_disk = FALSE)
+authenticate(
+  .data,
+  email = NULL,
+  username = NULL,
+  password = NULL,
+  use_jwt = FALSE,
+  cache_jwt = FALSE,
+  ...
+)
 }
 \arguments{
 \item{.data}{An object of class \code{data_request} or \code{metadata_request}}
 
-\item{cache_disk}{(logical) Should JWT tokens be cached to disk? Defaults
+\item{email}{(string) Email address registered with the selected organisation}
+
+\item{username}{(string) Registered username (GBIF only)}
+
+\item{password}{(string) Registered password (GBIF only)}
+
+\item{use_jwt}{(logical) Should an OAuth workflow be used for authentication?
+Only supported for Flemish and Australian atlases. Defaults to \code{FALSE}}
+
+\item{cache_jwt}{(logical) Should JWT tokens be cached to disk? Defaults
 to \code{FALSE}}
+
+\item{...}{Other arguments, currently ignored}
 }
 \value{
 An object of the same class as supplied, but with an added
 \code{authenticate} slot.
 }
 \description{
-Add an authentication slot to a query. That slot is then used by later
-code to determine whether to add an OAuth workflow. It is triggered
-automatically within \code{\link[=capture]{capture()}} if the \code{authenticate} argument
-of \code{\link[=galah_config]{galah_config()}} is set to \code{TRUE}, but only for occurrence queries
-to the Atlas of Living Australia.
+Authenticate a request, either by sending a registered email address
+(and, for GBIF, password and username); or by loggin in via the
+browser to generate a JWT token. Note that while handling this manually
+in-pipe is the most transparent approach, this function is also used to
+pass cached information stored via \code{\link[=galah_config]{galah_config()}} to a query.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}.
 }
 \examples{

@@ -243,13 +243,19 @@ enforce_exists <- function(value,
 #' @keywords Internal
 enforce_character <- function(value,
                               error_call = rlang::caller_env()){
+  # check type
   if (!is.character(value)) {
     c("Invalid type",
       i = "Value must be entered as a string.") |>
     cli::cli_abort(call = error_call)
-  }else{
-    value
   }
+  # check length
+  if(nchar(value) < 1){
+    c("Invalid type",
+      i = "Strings must contain one or more characters") |>
+    cli::cli_abort(call = error_call)
+  }
+  value
 }
 
 #' Ensure download reason is valid

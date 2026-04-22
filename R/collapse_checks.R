@@ -50,10 +50,6 @@ collapse_run_checks <- function(.query,
     !(.query$type %in% c("data/occurrences-doi", "data/occurrences-describe"))){
     # taxon concept ID must always be evaluated
     .query <- check_identifiers(.query, error_call) 
-    # login should only be evaluated for species and occurrence
-    if(.query$type %in% c("data/occurrences", "data/species")){
-      .query <- check_login(.query, error_call)
-    }
 
     # check_select() is specifically for parsing fields into urls,
     # should only be called for occurrences

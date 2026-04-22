@@ -74,7 +74,7 @@ query_API_internal <- function(.query,
     add_body(.query$body)  # NOTE: adding `body` converts from GET to POST
 
   # set authentication behaviour
-  if(!is.null(.query$request$authenticate) & 
+  if(isTRUE(.query$request$authenticate$use_jwt) & 
      .query$type != "metadata/config" # necessary to prevent circular problems
      ){
 
