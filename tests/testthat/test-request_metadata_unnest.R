@@ -74,7 +74,7 @@ test_that("request_metadata() |> unnest() works for type = 'lists'", {
   expect_s3_class(x, "query")
   expect_equal(x$type, "metadata/lists-unnest")
   expect_equal(names(x), 
-               c("type", "url", "request"))
+               c("type", "atlas", "url", "request"))
   y <- compute(x)
   expect_s3_class(y, "computed_query")
   z <- collect(y)
@@ -114,7 +114,7 @@ test_that("`request_metadata() |> unnest() |> collapse()` works for type = profi
   expect_s3_class(x, "query")
   expect_equal(x$type, "metadata/profiles-unnest")
   expect_equal(names(x), 
-               c("type", "url", "request"))
+               c("type", "atlas", "url", "request"))
 })
 
 test_that("request_metadata() |> unnest() works for type = 'profiles'", {
@@ -156,8 +156,8 @@ test_that("request_metadata() |> unnest() works for type = 'taxa' using `identif
     unnest() |>
     collapse()
   expect_s3_class(x, "query")
-  expect_equal(length(x), 4)
-  expect_equal(names(x), c("type", "url", "headers", "request"))
+  expect_equal(length(x), 6)
+  expect_equal(names(x), c("type", "atlas", "url", "headers", "request", "supplied_taxon"))
   expect_equal(x$type, "metadata/taxa-unnest")
   y <- compute(x)
   expect_s3_class(y, "computed_query")
@@ -175,8 +175,8 @@ test_that("request_metadata() |> unnest() works for type = 'taxa' using `filter(
     unnest() |>
     collapse()
   expect_s3_class(x, "query")
-  expect_equal(length(x), 4)
-  expect_equal(names(x), c("type", "url", "headers", "request"))
+  expect_equal(length(x), 5)
+  expect_equal(names(x), c("type", "atlas", "url", "headers", "request"))
   expect_equal(x$type, "metadata/taxa-unnest")
   y <- compute(x)
   expect_s3_class(y, "computed_query")

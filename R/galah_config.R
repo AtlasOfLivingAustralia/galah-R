@@ -204,7 +204,7 @@ validate_config <- function(name,
          "password"        = enforce_character(value, call = call),
          "run_checks"      = enforce_logical(value, call = call),
          "send_email"      = enforce_logical(value, call = call),
-         "username"        = enforce_character(valu, call = calle),
+         "username"        = enforce_character(value, call = call),
          "verbose"         = enforce_logical(value, call = call),
          enforce_invalid_name(name,
                               call = call))

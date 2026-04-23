@@ -9,7 +9,12 @@
 #' only happen at the end of a pipe.
 #' @noRd
 #' @keywords Internal
-parse_select <- function(df, .query){
+parse_select <- function(df, 
+                         .query,
+                         call = rlang::caller_env()){
+  if(is.null(df)){
+    cli::cli_abort("Unable to call `select()` without supplying a `tibble`", call = call)
+  }
   # get quosures captured by `select()`
   quo_list <- purrr::pluck(.query, "request", "select", "quosure")
   # map() over list of quosures
@@ -482,13 +487,13 @@ authentication_supported <- function(atlas){
 #' Internal function to test whether authentication is required
 #' @noRd
 #' @keywords Internal
-authentication_required <- function(type){
-  if(type %in% 
-    c("occurrences", "species")){
-    TRUE
-  }else{
-    FALSE
-  }
+authentication_required <- function(x){
+  # only required for downloads (in current version)
+  x$type %in% c("occurrences", "species") &
+  # only required when not generating counts
+  is.null(x$group_by) &
+  is.null(x$count) & 
+  is.null(x$glimpse)
 }
 
 #' Internal function to test whether profiles are supported

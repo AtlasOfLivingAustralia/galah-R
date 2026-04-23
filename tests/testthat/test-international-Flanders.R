@@ -203,7 +203,7 @@ test_that("`count()` works with galah_identify for Flanders", {
 
 test_that("`glimpse()` works for Flanders", {
   skip_if_offline(); skip_on_ci()
-  x <- galah_call() |>
+  x <- galah_call(from = "Flanders") |>
     filter(year == 2025) |>
     glimpse() |>
     collect()

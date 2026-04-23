@@ -201,7 +201,7 @@ collect_identifiers <- function(.query){
 
   # Check for invalid search terms
   if (galah_config()$package$verbose) {
-    check_search_terms(result)
+    check_search_terms(result, atlas = .query$atlas)
   }
   
   result |>

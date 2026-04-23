@@ -56,14 +56,15 @@ retrieve_cache <- function(slot_name){
 check_if_cache_update_needed <- function(x, # where x is a query object
                                          function_name
                                          ){
+  # first get df from cached slot
+  df <- retrieve_cache(function_name)
   # build some checks
   caching_disabled <- !potions::pour("package", "caching", .pkg = "galah")
-  is_local <- !is.null(attr(df, "ARCHIVED"))
   is_wrong_atlas <- attr(df, "region") != x$atlas
   is_too_short <- nrow(df) < 1 # somewhat arbitrary, but catches empty tibbles
   # evaluate those checks
   # if any are TRUE, update is needed
-  result <- is_local | is_wrong_atlas | is_too_short | caching_disabled
+  result <- is_wrong_atlas | is_too_short | caching_disabled
   if(length(result) < 1){ # bug catcher
     TRUE
   }else{

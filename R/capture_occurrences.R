@@ -3,12 +3,12 @@
 #' @keywords Internal
 capture_occurrences <- function(.query,
                                  ...,
-                                 error_call = rlang::caller_env()){
+                                 call = rlang::caller_env()){
   if(is.null(.query$filter) & 
      is.null(.query$identify) & 
      is.null(.query$geolocate)){
     cli::cli_abort("No filters supplied to `capture()` with `type = \"occurrences\"`",
-                   call = error_call)
+                   call = call)
   }
   switch(.query$atlas,
          "Global" = capture_occurrences_gbif(.query, ...),
@@ -19,14 +19,14 @@ capture_occurrences <- function(.query,
 #' @noRd
 #' @keywords Internal
 capture_occurrences_gbif <- function(.query, 
-                                      format = "SIMPLE_CSV", 
+                                      format = "SIMPLE_CSV",
                                       ...){
   # get user string
-  username <- potions::pour("user", "username", .pkg = "galah")
-  password <- potions::pour("user", "password", .pkg = "galah")
-  user_string <- glue::glue("{username}:{password}")
   .query$type <- "data/occurrences"
-
+  username <- .query$authenticate$username
+  password <- .query$authenticate$password
+  user_string <- glue::glue("{username}:{password}")
+  
   # build object
   list(type = .query$type,
        atlas = .query$atlas,
@@ -51,7 +51,7 @@ capture_occurrences_gbif <- function(.query,
 #' @noRd
 #' @keywords Internal
 capture_occurrences_la <- function(.query,
-                                    mint_doi = FALSE){
+                                   mint_doi = FALSE){
   .query$type <- "data/occurrences"
   # build a query
   query <- c(build_query(identify = .query$identify,
@@ -63,7 +63,7 @@ capture_occurrences_la <- function(.query,
              qa = "`ASSERTIONS_PLACEHOLDER`",
              facet = "false",
              sourceTypeId = source_type_id_lookup(.query$atlas),
-             reasonTypeId = potions::pour("user", "download_reason_id"),
+             reasonTypeId = .query$authenticate$download_reason_id,
              dwcHeaders = "true") |>
     add_email_notify() |>
     add_email_address(query = .query) |>

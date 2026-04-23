@@ -60,7 +60,7 @@ atlas_media <- function(request = NULL,
   # add media content to filters
   if(length(present_fields) > 0){
     # do region-specific filter parsing
-    media_fq <- image_filters(present_fields, atlas = atlas)
+    media_fq <- image_filters(present_fields, atlas = .query$atlas)
     # add back to source object
     if(length(media_fq) > 1){
       media_fq <- glue::glue("({glue::glue_collapse(media_fq, ' OR ')})") 
@@ -73,10 +73,12 @@ atlas_media <- function(request = NULL,
   # get occurrences, expand to one row per media entry
   occ <- query_collapse |> 
     collect(wait = TRUE) |>
-    build_media_id(media_fields = present_fields)
+    build_media_id(media_fields = present_fields[present_fields != "multimedia"])
+  # NOTE: `multimedia` field contains a description of which field has IDs
+  # _not_ IDs themselves; hence removal in above processing stage
 
   # collect media metadata
-  media_query <- request_metadata() |>
+  media_query <- request_metadata(from = .query$atlas) |>
     filter(media == dplyr::pull(occ, "media_id"))
   if(isTRUE(all_fields)){
     media_query <- media_query |>

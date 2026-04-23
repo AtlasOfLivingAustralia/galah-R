@@ -27,8 +27,8 @@ test_that("atlas_media fails when no filters are provided", {
 
 test_that("`atlas_media()` works", {
   skip_if_offline(); skip_on_ci()
-  capture_config <- purrr_config(email = "ala4r@ala.org.au")
   media_data <- galah_call() |>
+    authenticate(email = "ala4r@ala.org.au") |>
     identify("Microseris lanceolata") |>
     filter(year == 2019) |>
     quiet_media()
@@ -37,6 +37,7 @@ test_that("`atlas_media()` works", {
   expect_gte(ncol(media_data), 3)
   # set `all_fields` = TRUE
   all_media_data <- galah_call() |>
+    authenticate(email = "ala4r@ala.org.au") |>
     identify("Microseris lanceolata") |>
     filter(year == 2019) |>
     quiet_media(all_fields = TRUE)
@@ -92,9 +93,10 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
     filter(media == unlist(dplyr::pull(occ_collect, "images"))) |>
     quiet_collapse()
   expect_true(inherits(media_collapse, "query"))
-  expect_equal(length(media_collapse), 4)
+  expect_equal(length(media_collapse), 5)
   expect_equal(names(media_collapse), 
-               c("type", 
+               c("type",
+                 "atlas",
                  "url",
                  "headers",
                  "request"))
@@ -102,9 +104,10 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
   # compute
   media_compute <- quiet_compute(media_collapse)
   expect_true(inherits(media_compute, "computed_query"))
-  expect_equal(length(media_compute), 4)
+  expect_equal(length(media_compute), 5)
   expect_equal(names(media_compute), 
-               c("type", 
+               c("type",
+                 "atlas",
                  "url",
                  "headers",
                  "request"))
@@ -126,16 +129,24 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
     filter(media == df) |>
     quiet_collapse(thumbnail = TRUE)
   expect_true(inherits(files_collapse, "query"))
-  expect_equal(length(files_collapse), 4)
+  expect_equal(length(files_collapse), 5)
   expect_equal(names(files_collapse), 
-               c("type", "url", "headers", "request"))
+               c("type",
+                 "atlas",
+                 "url",
+                 "headers",
+                 "request"))
   expect_equal(files_collapse$type, "files/media")
   # compute
   files_compute <- quiet_compute(files_collapse)
   expect_true(inherits(files_compute, "computed_query"))
-  expect_equal(length(files_compute), 4)
+  expect_equal(length(files_compute), 5)
   expect_equal(names(files_compute), 
-               c("type", "url", "headers", "request"))
+               c("type",
+                 "atlas",
+                 "url",
+                 "headers",
+                 "request"))
   # collect
   files_collect <- quiet_collect(files_compute)
   expect_s3_class(files_collect, c("tbl_df", "tbl", "data.frame"))

@@ -158,7 +158,7 @@ test_that("`search_taxa()` works for multiple ranks in Sweden", {
   expect_true(all(grepl("^[[:digit:]]+$", taxa$taxon_concept_id)))
 })
 
-test_that("s`how_values()` works fields in Sweden", {
+test_that("`show_values()` works fields in Sweden", {
   skip_if_offline(); skip_on_ci()
   quiet_values <- function(...){
     x <- purrr::quietly(show_values)

@@ -52,6 +52,7 @@ test_that("object of class `query_set` formats correctly", {
   # prevent earlier caching (or lack thereof) affecting the result
   reset_cache()
   galah_call() |>
+    authenticate(email = "ala4r@ala.org.au") |>
     filter(basisOfRecord == "HUMAN_OBSERVATION") |>
     compound() |>
     expect_snapshot()

@@ -67,7 +67,14 @@ print.predicates_filter <- function(x, ...){
 #' @order 7
 #' @export
 print.metadata_filter <- function(x, ...){
-  glue::glue("Object of class `metadata_filter` with type `{x$variable}` (n = {length(x$data)} entries)") |>
+  if(!is.null(x$data)){
+    size_text <- glue::glue("(n = {length(x$data)} entries)")
+  }else if(!is.null(x$filter$value)){ # type = "media"
+    size_text <- glue::glue("(n = {length(x$filter$value)} entries)")
+  }else{
+    size_text <- ""
+  }
+  glue::glue("Object of class `metadata_filter` with type `{x$variable}` {size_text}") |>
     cat()
 }
 

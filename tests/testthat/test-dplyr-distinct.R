@@ -10,7 +10,8 @@ test_that("`group_by()` without `distinct()` returns occurrences, not species", 
   skip_if_offline(); skip_on_ci()
   query <- galah_call() |>
     filter(year == 2024,
-           genus == "Crinia")
+           genus == "Crinia") |>
+    authenticate(email = "ala4r@ala.org.au") 
   expected_n <- query |> 
     count() |>
     quiet_collect() 

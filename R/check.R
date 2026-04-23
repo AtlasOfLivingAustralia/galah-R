@@ -598,21 +598,21 @@ check_profiles <- function(.query,
 #' Internal function to check that a reason code is valid
 #' @noRd
 #' @keywords Internal
-check_reason <- function(.query, 
+check_reason <- function(.query,
                          error_call = rlang::caller_env()){
   if(reasons_supported(atlas = .query$atlas)) {
     if(.query$type %in% c("data/occurrences", "data/species")){
       query <- httr2::url_parse(.query$url)$query
       if(is.null(query$reasonTypeId)){
         c("Missing a valid download reason.",
-          i = "See `show_all(reasons)`.",
-          i = "Use `galah_config(download_reason_id = ...)` to set a download reason.") |>
-        cli::cli_abort(call = error_call) 
+            i = "See `show_all(reasons)`.",
+            i = "You can set {.arg download_reason_id} globally using `{.fn galah::galah_config}`, or in-pipe using {.fn galah::authenticate}.") |>
+         cli::cli_abort(call = error_call)
       }else{
         user_reason <- query$reasonTypeId
         valid_reasons <- .query[["metadata/reasons"]]$id
         if(!(user_reason %in% valid_reasons)){
-           c(
+          c(
             "Invalid download reason ID.",
             i = "Use `show_all(reasons)` to see all valid reasons.",
             x = "\"{user_reason}\" does not match an existing reason ID.") |>

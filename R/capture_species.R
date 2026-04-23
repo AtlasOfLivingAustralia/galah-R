@@ -45,7 +45,7 @@ capture_species_atlas <- function(.query){
                 apply_profile = .query$apply_profile,
                 atlas = .query$atlas),
     sourceTypeId = 2004,
-    reasonTypeId = potions::pour("user", "download_reason_id"),
+    reasonTypeId = .query$authenticate$download_reason_id,
     facets = .query$distinct$name,
     parse_select_species(.query$select)) |>
     add_email_address(query = .query) |>

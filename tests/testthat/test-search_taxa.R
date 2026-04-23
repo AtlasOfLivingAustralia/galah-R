@@ -144,11 +144,11 @@ test_that("`request_metadata()` works for `type = 'taxa'`", {
   x <- request_metadata() |>
     identify("crinia") 
   expect_s3_class(x, "metadata_request")
-  expect_equal(names(x), c("type", "identify"))
+  expect_equal(names(x), c("type", "atlas", "identify"))
   expect_equal(x$identify$search_term, "crinia")
   y <- collapse(x)
   expect_s3_class(y, "query")
-  expect_equal(names(y), c("type", "url", "headers", "request"))
+  expect_equal(names(y), c("type", "atlas", "url", "headers", "request"))
   z <- collect(y)
   expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(z), 1)

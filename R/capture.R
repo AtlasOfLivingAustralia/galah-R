@@ -173,7 +173,7 @@ check_authentication <- function(x){
   if(!is.null(x$authenticate)){
     x
   }else{
-    if(authentication_required(x$type)){
+    if(authentication_required(x)){
       config_options <- c(list(x),
                           potions::pour("user", .pkg = "galah"))
       names(config_options)[c(1, 2)] <- c(".data", "use_jwt")
