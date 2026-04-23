@@ -3,7 +3,7 @@
 #' @keywords Internal
 capture_events <- function(x,
                            error_call = rlang::caller_env()){
-  browser()
+  x # placeholder, obvs
 }
 
 #' Internal function to run `capture()` for type = "events-count"

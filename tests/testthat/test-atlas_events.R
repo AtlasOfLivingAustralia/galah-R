@@ -1,13 +1,18 @@
+test_that("`galah_call(type = 'events') is deactivated", {
+  expect_error(galah_call(type = "events"))
+})
+
+
 test_that("`galah_call(type = 'events')` works", {
-  skip_if_offline(); skip_on_ci()
+  skip("Not yet enabled")
    x <- galah_call(type = "events")
-  expect_equal(names(x), "type")
+  expect_equal(names(x), c("type", "atlas"))
   expect_equal(x$type, "events")
   expect_s3_class(x, "data_request")
 })
 
 test_that("`count()` works for type = 'events'", {
-  skip_if_offline(); skip_on_ci()
+  skip("Not yet enabled")
   x <- galah_call(type = "events") |>
     count() |>
     collect()
@@ -17,7 +22,7 @@ test_that("`count()` works for type = 'events'", {
 })
 
 test_that("`describe()` works for type = 'events'", {
-  skip_if_offline(); skip_on_ci()
+  skip("Not yet enabled")
   x <- galah_call(type = "events") |>
     describe() |>
     collect()

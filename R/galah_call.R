@@ -81,8 +81,8 @@ galah_call <- function(type = c("occurrences",
                                 # "distributions",
                                 "species",
                                 "species-count",
-                                "events",
-                                "events-count"
+                                # "events",
+                                # "events-count"
                                 ),
                        from = NULL){
   # set type
