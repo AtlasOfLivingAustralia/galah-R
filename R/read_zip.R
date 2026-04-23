@@ -45,16 +45,13 @@ read_zip <- function(file){
                    "tsv" = read_zip_gbif(file, data_files),
                    "csv" = read_zip_la(file, data_files))
 
-  # add formatted date
-  attr(result, "modified_date") <- file.info(file)$mtime |> 
-    format("%e %B %Y") |>
-    trimws()
-
   # exit safely
   if(is.null(result)){
     cli::cli_abort("No data loaded")
   }else{
-    result
+    result |>
+      append_citation(file) |>
+      append_date(file)
   }
 }
 
@@ -112,6 +109,7 @@ read_zip_gbif <- function(file, data_files){
       filename = data_files) |> 
     readr::read_tsv(col_types = readr::cols()) |>
     suppressWarnings()
+  # FIXME: check whether possible to support DOIs here (currently in `collect_occurrences()`)
 }
 
 #' Internal function to read a zip file from living atlases
@@ -119,32 +117,40 @@ read_zip_gbif <- function(file, data_files){
 #' @keywords Internal
 read_zip_la <- function(file, data_files){
   # read data
-  result <- purrr::map(data_files, 
-                        function(a, x){
-                          # create connection to a specific file within zip
-                          conn <- unz(description = x, 
-                                      filename = a, 
-                                      open = "rb")
-                          out <- readr::read_csv(conn, 
-                                                col_types = readr::cols()) |>
-                            suppressWarnings()
-                          close(conn)
-                          return(out)
-                        }, x = file) |>
+  purrr::map(data_files, 
+             function(a, x){
+               # create connection to a specific file within zip
+               conn <- unz(description = x, 
+                           filename = a, 
+                           open = "rb")
+               out <- readr::read_csv(conn, 
+                                      col_types = readr::cols()) |>
+                 suppressWarnings()
+               close(conn)
+               return(out)
+             }, x = file) |>
     dplyr::bind_rows()
+}
 
-  # # add doi when mint_doi = TRUE
-  if(any(data_files == "doi.txt")){
+#' Internal function add doi and/or citation
+#' @noRd
+#' @keywords Internal
+append_citation <- function(df, file){
+  all_files <- utils::unzip(file, list = TRUE) |>
+    dplyr::pull(.data$Name)
+
+  # add doi when mint_doi = TRUE
+  if(any(all_files == "doi.txt")){
     conn <- unz(description = file, 
                 filename = "doi.txt", 
                 open = "rb")
-    attr(result, "doi") <- readr::read_file(conn) |>
+    attr(df, "doi") <- readr::read_file(conn) |>
       sub("\\n$", "", x = _)
     close(conn)
   }
-
-  # look for citation in README.html
-  if(any(data_files == "README.html")){
+  
+  # then add citation
+  if(any(all_files == "README.html")){
     conn <- unz(description = file, 
                 filename = "README.html", 
                 open = "rb")
@@ -154,9 +160,20 @@ read_zip_la <- function(file, data_files){
     close(conn)
     cite_check <- grepl("cite", names(readme))
     if(any(cite_check)){
-      attr(result, "citation") <- readme[cite_check] |>
+      attr(df, "citation") <- readme[cite_check] |>
         glue::glue_collapse(sep = "")
     }
   }
-  result
+
+  df # return df
+}
+
+#' Internal function add formatted download datetime
+#' @noRd
+#' @keywords Internal
+append_date <- function(df, file){
+  attr(df, "modified_date") <- file.info(file)$mtime |> 
+    format("%e %B %Y") |>
+    trimws()
+  df
 }

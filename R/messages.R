@@ -1,14 +1,14 @@
 #' Internal function called by `authenticate()`
 #' @noRd
 #' @keywords Internal
-abort_email_missing <- function(error_call = rlang::caller_env()){
+abort_email_missing <- function(call = rlang::caller_env()){
   c(
     "No user email was found.",
     i = "To download occurrence records, species lists, or (for GBIF) occurrence
       counts, \\
       you must provide a valid email address registered with the selected atlas.",
     i = "Provide your email address using `galah_config(email = )` or `authenticate(email = )`.") |>
-  cli::cli_abort(call = error_call)
+  cli::cli_abort(call = call)
 }
 # generalise this to discuss API keys, use of `authenticate()` as in-pipe alternative
 # to `galah_config()`

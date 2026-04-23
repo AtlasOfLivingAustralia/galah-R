@@ -84,7 +84,7 @@ authenticate_with_email <- function(.data,
   if(is.null(email)){
     email <- potions::pour("user", "email", .pkg = "galah")
   }
-  if(is.null(email)){
+  if(any(is.null(email) | nchar(email) < 1 | is.na(email))){
     abort_email_missing(call = call)
   }
   update_request_object(.data,
@@ -108,7 +108,7 @@ authenticate_with_email_gbif <- function(.data,
   }
   # run some checks
   email_args <- enforce_character(email_args)
-  if(any(is.null(email_args))){
+  if(any(is.null(email_args) | nchar(email_args) < 1 | is.na(email_args), na.rm = TRUE)){
     cli::cli_abort("atlas `GBIF` requires email, username, and password for occurrence queries",
                    call = call)
   }

@@ -21,7 +21,7 @@ quiet_occurrences <- function(...){
 }
 
 test_that("`atlas_occurrences()` fails nicely if no email is provided", {
-  galah_config(email = "", run_checks = FALSE)
+  galah_config(email = NA, run_checks = FALSE)
   expect_error({
     galah_call() |>
       filter(year == 1900) |>
@@ -51,7 +51,6 @@ test_that("collapse(type = 'occurrences') creates an object", {
   result <- galah_call() |> 
     identify("Perameles") |>
     collapse()
-  # expect_equal(length(result), 4)
   expect_true(inherits(result, "query"))
   expect_equal(result$type, "data/occurrences")
 })
@@ -66,7 +65,7 @@ test_that("`compute(type = 'occurrences')` works", {
   # collapse
   query_collapse <- collapse(base_query)
   expect_true(inherits(query_collapse, "query"))
-  expect_equal(length(query_collapse), 4)
+  expect_equal(length(query_collapse), 5)
   expect_equal(query_collapse$type, "data/occurrences")
   # compute
   response <- quiet_compute(base_query)
@@ -74,6 +73,7 @@ test_that("`compute(type = 'occurrences')` works", {
   expect_true(response$type == "data/occurrences")
   expect_equal(names(response),
                c("type",
+                 "atlas",
                  "status",
                  "total_records",
                  "queue_size",
@@ -103,6 +103,7 @@ test_that("`atlas_occurrences()` accepts all narrowing functions inline", {
   x <- quiet_compute(base_query)
   expect_equal(names(x),
                c("type",
+                 "atlas",
                  "status",
                  "total_records",
                  "queue_size",
@@ -161,6 +162,9 @@ test_that("`atlas_occurrences()`() and friends accept a file name", {
   expect_true(any(list.files(directory) == "crinia_file.zip"))
   # test `collect`
   occ2 <- base_query |> quiet_collect(file = "crinia_collect")
+  # these should be the same, except for citations, which will have slightly different times
+  attr(occ1, "citation") <- NULL
+  attr(occ2, "citation") <- NULL
   expect_equal(occ1, occ2)
   expect_true(any(list.files(directory) == "crinia_collect.zip"))
   # test DOIs
@@ -199,9 +203,9 @@ test_that("`atlas_occurrences()` downloads data from a DOI", {
   result2 <- request_data() |>
     filter(doi == doi) |>
     quiet_collapse()
-  expect_equal(length(result2), 5)
+  expect_equal(length(result2), 6)
   expect_equal(names(result2),
-               c("type", "url", "headers", "download", "request"))
+               c("type", "atlas", "url", "headers", "download", "request"))
   expect_s3_class(result2, "query")
   expect_equal(result2$type, "data/occurrences-doi")
   result3 <- quiet_collect(result2)

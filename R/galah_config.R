@@ -170,7 +170,7 @@ default_config <- function(){
 #' @noRd
 #' @keywords Internal
 restructure_config <- function(dots,
-                               error_call= rlang::caller_env()){
+                               call = rlang::caller_env()){
   # NOTE: we use `lapply()` here rather than `purrr::map()` ON PURPOSE
   # It prevents error messages being prefaced with:
   # Error in `purrr::map()` at galah-R/R/galah_config.R:171:3:
@@ -179,7 +179,7 @@ restructure_config <- function(dots,
   result <- lapply(names(dots),
                    \(a){validate_config(a, 
                                         dots[[a]],
-                                        error_call = error_call)})
+                                        call = call)})
   names(result) <- names(dots)
   result
 }
@@ -189,25 +189,25 @@ restructure_config <- function(dots,
 #' @keywords Internal
 validate_config <- function(name, 
                             value, 
-                            error_call = rlang::caller_env()) {
+                            call = rlang::caller_env()) {
   result <- switch(name,
          "atlas" = {
            value <- configure_atlas(value)
            # see whether atlases have changed, and if so, give a message
            check_atlas(potions::pour("atlas"), value)
          },
-         "authenticate"    = enforce_logical(value),
-         "caching"         = enforce_logical(value),
+         "authenticate"    = enforce_logical(value, call = call),
+         "caching"         = enforce_logical(value, call = call),
          "directory"       = check_directory(value),
-         "download_reason_id" = enforce_download_reason(value),
-         "email"           = enforce_character(value),
-         "password"        = enforce_character(value),
-         "run_checks"      = enforce_logical(value),
-         "send_email"      = enforce_logical(value),
-         "username"        = enforce_character(value),
-         "verbose"         = enforce_logical(value),
+         "download_reason_id" = enforce_download_reason(value, call = call),
+         "email"           = enforce_character(value, call = call),
+         "password"        = enforce_character(value, call = call),
+         "run_checks"      = enforce_logical(value, call = call),
+         "send_email"      = enforce_logical(value, call = call),
+         "username"        = enforce_character(valu, call = calle),
+         "verbose"         = enforce_logical(value, call = call),
          enforce_invalid_name(name,
-                              error_call = error_call))
+                              call = call))
   result
 }
 
@@ -215,10 +215,10 @@ validate_config <- function(name,
 #' @noRd
 #' @keywords Internal
 enforce_logical <- function(value, 
-                            error_call = rlang::caller_env()){
+                            call = rlang::caller_env()){
   if (!is.logical(value)) {
     cli::cli_abort("Supplied value must be TRUE or FALSE.", 
-                   call = error_call)
+                   call = call)
   }else{
     value
   }
@@ -228,11 +228,11 @@ enforce_logical <- function(value,
 #' @noRd
 #' @keywords Internal
 enforce_exists <- function(value, 
-                           error_call = rlang::caller_env()){
+                           call = rlang::caller_env()){
   if (!dir.exists(value)) {
     c("Cache directory does not exist.",
       i = "Does the directory entered exist?") |>
-    cli::cli_abort(call = error_call)
+    cli::cli_abort(call = call)
   }else{
     value
   }
@@ -242,18 +242,12 @@ enforce_exists <- function(value,
 #' @noRd
 #' @keywords Internal
 enforce_character <- function(value,
-                              error_call = rlang::caller_env()){
+                              call = rlang::caller_env()){
   # check type
-  if (!is.character(value)) {
+  if (!(is.character(value) | is.na(value))) {
     c("Invalid type",
-      i = "Value must be entered as a string.") |>
-    cli::cli_abort(call = error_call)
-  }
-  # check length
-  if(nchar(value) < 1){
-    c("Invalid type",
-      i = "Strings must contain one or more characters") |>
-    cli::cli_abort(call = error_call)
+      i = "Value must be entered as a string or `NA`") |>
+    cli::cli_abort(call = call)
   }
   value
 }
@@ -262,7 +256,7 @@ enforce_character <- function(value,
 #' @noRd
 #' @keywords Internal
 enforce_download_reason <- function(value, 
-                                    error_call = rlang::caller_env()){
+                                    call = rlang::caller_env()){
   # first ensure API is available. Currently missing for Brazil, for example.
   
   reasons_df <- show_all_reasons() |> 
@@ -278,7 +272,7 @@ enforce_download_reason <- function(value,
       c("Invalid download reason ID.",
         i = "Use `show_all(reasons)` to see all valid reasons.",
         x = "{value} does not match an existing reason ID.") |>
-      cli::cli_abort(call = error_call)
+      cli::cli_abort(call = call)
     } else if(is.character(value) & !(value %in% reasons_df$name)) {
       bullets <- c(
         "Invalid download reason name.",
@@ -303,18 +297,18 @@ enforce_download_reason <- function(value,
 #' @noRd
 #' @keywords Internal
 enforce_invalid_name <- function(name,
-                                 error_call = rlang::caller_env()){
+                                 call = rlang::caller_env()){
   c("Invalid option name.",
     i = "See `?galah_config()` for valid options.",
     x = "\"{name}\" is not a valid option name.") |>
-  cli::cli_abort(call = error_call)
+  cli::cli_abort(call = call)
 }
 
 #' Set behaviour for deriving correct atlas information
 #' @noRd
 #' @keywords Internal
 configure_atlas <- function(query,
-                            error_call = rlang::caller_env()){
+                            call = rlang::caller_env()){
   
   comparison <- do.call(c, node_metadata)
   comparison <- comparison[!is.na(comparison)] |> 
@@ -327,7 +321,7 @@ configure_atlas <- function(query,
     c("Unsupported atlas provided.",
       i = "Use `show_all(atlases)` to see supported atlases.",
       x = "\"{query}\" is not a valid atlas.") |>
-    cli::cli_abort(call = error_call)
+    cli::cli_abort(call = call)
   }else{
     selected_entry <- comparison[which(lookup == min(lookup))][[1]]
     
