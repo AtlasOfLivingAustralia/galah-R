@@ -488,12 +488,19 @@ authentication_supported <- function(atlas){
 #' @noRd
 #' @keywords Internal
 authentication_required <- function(x){
-  # only required for downloads (in current version)
-  x$type %in% c("occurrences", "species") &
-  # only required when not generating counts
-  is.null(x$group_by) &
-  is.null(x$count) & 
-  is.null(x$glimpse)
+    # only required for downloads (in current version)
+  download_check <- x$type %in% c("occurrences", "species") &
+    # only required when not generating counts
+    # is.null(x$group_by) & # <- not needed, as group_by() can preface count() or distinct()
+    is.null(x$count) & 
+    is.null(x$glimpse)
+
+  # does distinct require authentication? Only if present and keep_all = TRUE
+  if(is.null(x$distinct)){
+    download_check
+  }else{
+    (x$distinct$keep_all | is.null(x$group_by)) & download_check
+  }
 }
 
 #' Internal function to test whether profiles are supported

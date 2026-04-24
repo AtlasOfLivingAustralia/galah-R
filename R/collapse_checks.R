@@ -70,8 +70,9 @@ collapse_run_checks <- function(.query,
 
     # run remaining checks, if requested by the user
     if(potions::pour("package", "run_checks")) {
-      # events doesn't need a reason, but others do
-      if(.query$type %in% c("data/occurrences", "data/species")){
+      # events doesn't need a reason, but others do, unless they have `-glimpse`
+      if(.query$type %in% c("data/occurrences", "data/species") &
+         .query$request$type != "occurrences-glimpse"){
         .query <- .query |>
           check_reason(error_call) 
       }

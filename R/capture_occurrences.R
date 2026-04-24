@@ -164,6 +164,7 @@ capture_occurrences_glimpse <- function(.query){
       purrr::pluck("path") 
     url$query$pageSize <- 3 # add a pageSize arg
     result$url <- httr2::url_build(url) # rebuild
+    result$type <- "data/occurrences-glimpse"
 
     # return
     as_prequery(result)

@@ -65,11 +65,12 @@ authenticate <- function(.data,
     # 1. user has specifically requested it, or 
     # 2. no email is provided
   }else{
-    # get and check the download reason
+    # get the download reason, if not supplied
     if(is.null(download_reason_id)){
       download_reason_id <- potions::pour("user", "download_reason_id")
     }
-    check_reason(download_reason_id)
+    # NOTE: We don't _check_ the reason here, because that has to happen 
+    # at `collapse()`, because we need to ping an API first
     
     if(
       (isTRUE(use_jwt) | is.null(email)) & authentication_supported(.data$atlas)
