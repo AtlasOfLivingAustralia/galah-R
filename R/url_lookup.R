@@ -35,8 +35,13 @@ url_lookup <- function(.query,
     if(quiet){
       return(NULL)
     }else{
-      c("No API is available for type `{.query$type}`",
-        i = "Selected atlas: {.query$atlas}",
+      # write message
+      type <- .query$type
+      atlas <- .query$atlas
+      # this syntax is cumbersome, but necessary, as cli >3.4.0 doesn't accect
+      # {.query$type} (no leading dots)
+      c("No API is available for type `{type}`",
+        i = "Selected atlas: {atlas}",
         i = "Use `show_all_apis()` to list valid API calls") |>
       cli::cli_abort(call = error_call)
     }

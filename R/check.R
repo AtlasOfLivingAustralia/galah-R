@@ -512,10 +512,10 @@ check_occurrence_response <- function(.query,
     
     error_type <- sub("\\:.*", "", .query$message) |> 
       stringr::str_trim()
-    
+    message <- .query$message
     bullets <- c(
       "There was a problem with your query.",
-      "*" = glue::glue("message: {.query$message}"))
+      "*" = glue::glue("message: {message}"))
     
     switch(as.character(error_type),
            "500" = {cli::cli_abort(bullets,
@@ -549,7 +549,8 @@ check_occurrence_response <- function(.query,
   }
   # convert `key` to `status_url`
   if(is.null(.query$status_url) & !is.null(.query$key)){
-    .query$status_url <- glue::glue("https://api.gbif.org/v1/occurrence/download/{.query$key}")
+    key_value <- .query$key
+    .query$status_url <- glue::glue("https://api.gbif.org/v1/occurrence/download/{key_value}")
   }
   # add `queue_size`
   if(is.null(.query$queue_size)){
