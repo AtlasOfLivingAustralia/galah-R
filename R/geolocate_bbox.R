@@ -1,7 +1,7 @@
 #' @rdname geolocate
 #' @order 4
 #' @export
-galah_bbox <- function(...) {
+geolocate_bbox <- function(...) {
 
   # check to see if any of the inputs are a data request
   query <- list(...)

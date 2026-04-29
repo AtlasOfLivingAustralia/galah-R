@@ -39,25 +39,6 @@ apply_profile <- function(.data, ...){
                         apply_profile = result)
 }
 
-#' @rdname superseded_functions
-#' @order 1
-#' @export
-galah_apply_profile <- function(...){
-  dots <- rlang::enquos(..., .ignore_empty = "all") |>
-    detect_request_object()
-  switch(class(dots[[1]])[1],
-         "data_request" = {
-           result <- parse_quosures_basic(dots[-1]) |>
-             parse_profile()
-           update_request_object(dots[[1]],
-                                 apply_profile = result)
-         },
-         {
-           parse_quosures_basic(dots) |>
-             parse_profile()
-         })
-}
-
 #' Internal parsing of `profile` args
 #' @noRd
 #' @keywords Internal

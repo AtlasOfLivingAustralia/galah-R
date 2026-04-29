@@ -1,7 +1,7 @@
 #' @rdname geolocate
 #' @order 3
 #' @export
-galah_polygon <- function(...){
+geolocate_polygon <- function(...){
   # check to see if any of the inputs are a data request
   query <- list(...)
   if(length(query) > 1 & inherits(query[[1]], "data_request")){

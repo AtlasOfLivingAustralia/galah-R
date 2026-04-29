@@ -64,21 +64,3 @@ identify.metadata_request <- function(x, ...){
   }
   x
 }
-
-#' @rdname superseded_functions
-#' @order 5
-#' @export
-galah_identify <- function(...) {
-  dots_initial <- list(...)
-  if (length(dots_initial) < 1) {
-    cli::cli_warn("No query passed to `identify()`.")
-    tibble::tibble("search_term" = character())
-  }else{
-    if(inherits(dots_initial[[1]], "data_request")){
-      do.call(identify.data_request, dots_initial)
-    }else{
-      search_terms <- identify(galah_call(), ...)$identify
-      return(search_terms)
-    }
-  }
-}

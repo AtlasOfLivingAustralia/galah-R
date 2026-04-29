@@ -1,7 +1,7 @@
 #' @rdname geolocate
 #' @order 5
 #' @export
-galah_radius <- function(...){
+geolocate_radius <- function(...){
   
   # check to see if any of the inputs are a data request
   query <- list(...)

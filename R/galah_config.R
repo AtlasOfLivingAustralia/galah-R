@@ -278,7 +278,7 @@ enforce_download_reason <- function(value,
         "Invalid download reason name.",
         i = "Use `show_all(reasons)` to see all valid reasons.",
         x = "\"{value}\" does not match an existing reason name.") |>
-      cli::cli_abort(call = error_call)
+      cli::cli_abort(call = call)
     }
     if (is.character(value) & (value %in% reasons_df$name)) {
       value_id <- reasons_df |>
