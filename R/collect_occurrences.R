@@ -201,7 +201,9 @@ collect_occurrences_describe <- function(.query){
       dplyr::distinct(.data$id, .keep_all = TRUE)
      
     # add caching here
-    result_df <- update_attributes(result, type = "fields")
+    result_df <- update_attributes(result,
+                                   type = "fields",
+                                   atlas = .query$atlas)
     update_cache(fields = result_df)
   }
 

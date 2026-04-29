@@ -80,7 +80,7 @@ galah_call <- function(type = c("occurrences",
                                 "occurrences-doi",
                                 # "distributions",
                                 "species",
-                                "species-count",
+                                "species-count"
                                 # "events",
                                 # "events-count"
                                 ),

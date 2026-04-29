@@ -56,6 +56,11 @@ collapse_run_checks <- function(.query,
     if(.query$type %in% c("data/occurrences", "data/occurrences-glimpse")){
       .query <- check_select(.query, error_call)
     }
+    # browser()
+    if(.query$type %in% c("data/species") & .query$atlas == "Global"){ # NOTE: require this for occurrences too? Do LA species queries require it?
+      parse_select_occurrences(.query, build_select_df_from_query(.query)) # OK this works, just need to update select() now
+      # probably best to move this to check_select_GBIF or similar
+    }
     # NOTE: the naming convention here is misleading; should probably be `parse_select()`
 
     # after checking, for type = "glimpse", we need to rename the fields query

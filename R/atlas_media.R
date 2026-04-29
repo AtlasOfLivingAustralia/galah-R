@@ -52,7 +52,7 @@ atlas_media <- function(request = NULL,
         i = "try `galah_select({selected_text}, group = 'media')` instead") |>
         cli::cli_abort()
     }else{
-      present_fields <- selected_fields[selected_fields %in% image_select]
+      present_fields <- selected_fields[selected_fields %in% present_fields]
       query_collapse <- x
     }
   } # end `select` checks

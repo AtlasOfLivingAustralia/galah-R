@@ -19,7 +19,7 @@ capture_occurrences <- function(.query,
 #' @noRd
 #' @keywords Internal
 capture_occurrences_gbif <- function(.query, 
-                                      format = "SIMPLE_CSV",
+                                      format = "SIMPLE_CSV", # or "SPECIES_LIST"
                                       ...){
   # get user string
   .query$type <- "data/occurrences"
@@ -42,7 +42,7 @@ capture_occurrences_gbif <- function(.query,
        body = list(filter = .query$filter, 
                    identify = .query$identify,
                    geolocate = .query$geolocate,
-                   format = "SIMPLE_CSV")) |>
+                   format = format)) |>
     as_prequery()
 }
 

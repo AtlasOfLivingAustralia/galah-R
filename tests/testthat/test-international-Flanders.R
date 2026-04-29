@@ -249,12 +249,10 @@ test_that("`atlas_species()` works for Flanders", {
 })
 
 test_that("`authenticate()` works for Flanders", {
-  skip_if_offline(); skip_on_ci()
-  galah_config(
-    download_reason_id = 10,
-    send_email = FALSE)
+  skip("authentication requires interactivity")
   x <- request_data(from = "Flanders") |>
-    authenticate() |>
+    authenticate(use_jwt = TRUE, 
+                 download_reason_id = 10) |>
     identify("Canis") |>
     filter(year == 2020) |>
     compound()

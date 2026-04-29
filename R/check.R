@@ -642,7 +642,9 @@ check_select <- function(.query,
         as.data.frame()
 
       # handle supplied `select()`
-      field_values <- parse_select_occurrences(.query, df, error_call = error_call)
+      field_values <- .query |>
+        parse_select_occurrences(build_select_df_from_query(.query),
+                                 error_call = error_call)
       
       # warn
       if(is.null(field_values)){
@@ -676,6 +678,20 @@ check_select <- function(.query,
     }
   }
   .query
+}
+
+#' internal function to build a select-able df from a .query
+#' @noRd
+#' @keywords Internal
+build_select_df_from_query <- function(.query){
+  valid_fields <- .query[["metadata/fields"]]$id
+  valid_assertions <- .query[["metadata/assertions"]]$id
+  valid_any <- c(valid_fields, valid_assertions)
+  matrix(data = NA,
+         nrow = 0,
+         ncol = length(valid_any),
+         dimnames = list(NULL, valid_any)) |>
+    tibble::as_tibble()
 }
 
 #' Internal function to parse out `select()` queries for occurrences

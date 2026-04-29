@@ -9,13 +9,13 @@
 \usage{
 galah_call(
   type = c("occurrences", "occurrences-count", "occurrences-doi", "species",
-    "species-count", "events", "events-count"),
+    "species-count", ),
   from = NULL
 )
 
 request_data(
   type = c("occurrences", "occurrences-count", "occurrences-doi", "species",
-    "species-count", "events", "events-count"),
+    "species-count", ),
   from = NULL
 )
 

@@ -249,7 +249,7 @@ test_that("atlas_species works for Sweden", {
     email = "martinjwestgate@gmail.com",
     send_email = FALSE)
   spp <- galah_call() |>
-    galah_identify("Carnivora") |>
+    identify("Carnivora") |>
     atlas_species() |>
     try(silent = TRUE)
   skip_if(inherits(spp, "try-error"), message = "API not available")
@@ -265,14 +265,14 @@ test_that("atlas_occurrences works for Sweden", {
     email = "martinjwestgate@gmail.com",
     send_email = FALSE)
   occ_collapse <- galah_call() |>
-    galah_identify("Mammalia") |>
-    galah_filter(year < 1850) |>
-    galah_select(group = "basic") |> # use defaults
+    identify("Mammalia") |>
+    filter(year < 1850) |>
+    select(group = "basic") |> # use defaults
     collapse()
   skip_if(inherits(occ_collapse, "try-error"), message = "API not available")
   expect_s3_class(occ_collapse, "query")
   expect_equal(names(occ_collapse), 
-               c("type", "url", "headers", "request"))
+               c("type", "atlas", "url", "headers", "request"))
   expect_equal(occ_collapse$type, "data/occurrences")
   # compute
   occ_compute <- compute(occ_collapse)

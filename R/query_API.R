@@ -86,6 +86,7 @@ query_API_internal <- function(.query,
         auth_url = dplyr::pull(auth_info$config, "authorize_url"),
         scope = dplyr::pull(auth_info$config, "scopes"),
         pkce = TRUE,
+        redirect_uri = "http://localhost:27231/",
         cache_disk = .query$request$authenticate$cache_disk)
   }
 

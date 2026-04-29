@@ -25,11 +25,11 @@ compute_occurrences_la_direct <- function(.query){
 compute_occurrences_gbif <- function(.query){
   post_result <- query_API(.query) # returns an id
   status_code <- list(
-    type = "data/occurrences",
+    type = .query$type,
     url = glue::glue("https://api.gbif.org/v1/occurrence/download/{post_result}")) |>
     query_API() |>
     check_occurrence_response()
-  c(list(type = "data/occurrences",
+  c(list(type = .query$type,
          atlas = .query$atlas),
     status_code[names(status_code) != "request"],
     list(request = .query$request)) |>

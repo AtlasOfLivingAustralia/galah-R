@@ -17,15 +17,20 @@ parse_select <- function(df,
   }
   # get quosures captured by `select()`
   quo_list <- purrr::pluck(.query, "request", "select", "quosure")
-  # map() over list of quosures
-  # honestly I don't know why `!!quo_list` fails here, but it does, so used this instead
-  pos <- purrr::map(quo_list, \(a){
-    tidyselect::eval_select(expr = a, data = df)
-  }) |>
-    unlist()
-  # apply tidy selection to `df`
-  # note: this code taken from `tidyselect` documentation; it could be argued that `df[pos]` is sufficient
-  rlang::set_names(df[pos], names(pos)) 
+
+  if(length(quo_list) > 0){
+    # map() over list of quosures
+    # honestly I don't know why `!!quo_list` fails here, but it does, so used this instead
+    pos <- purrr::map(quo_list, \(a){
+      tidyselect::eval_select(expr = a, data = df)
+    }) |>
+      unlist()
+    # apply tidy selection to `df`
+    # note: this code taken from `tidyselect` documentation; it could be argued that `df[pos]` is sufficient
+    rlang::set_names(df[pos], names(pos))
+  }else{
+    df
+  }
 }
 
 #' equivalent to `parse_select()` but for filter
@@ -488,14 +493,16 @@ authentication_supported <- function(atlas){
 #' @noRd
 #' @keywords Internal
 authentication_required <- function(x){
-    # only required for downloads (in current version)
+  # only required for downloads (in current version)
   download_check <- x$type %in% c("occurrences", "species") &
-    # only required when not generating counts
-    # is.null(x$group_by) & # <- not needed, as group_by() can preface count() or distinct()
-    is.null(x$count) & 
-    is.null(x$glimpse)
+    # downloads never happen for `glimpse()` or `describe()` 
+    is.null(x$glimpse) &
+    is.null(x$describe) &
+    # downloads only happen for GBIF counts, otherwise count invalidates need for auth
+    (is.null(x$count) | (!is.null(x$count) & x$atlas == "Global")) 
+  # is.null(x$group_by) & # <- not needed, as group_by() can preface count() or distinct()
 
-  # does distinct require authentication? Only if present and keep_all = TRUE
+  # `distinct()` only requires authentication if 1. it is present and 2. keep_all = TRUE
   if(is.null(x$distinct)){
     download_check
   }else{

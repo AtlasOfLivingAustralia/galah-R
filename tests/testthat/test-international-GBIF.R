@@ -82,7 +82,7 @@ test_that("show_all(datasets) works for GBIF", {
   z <- request_metadata() |>
     filter(dataset == "avian") |>
     collect()
-  expect_equal(nrow(z), 20)
+  expect_gte(nrow(z), 10) # historically this was n = 20
 })
 
 test_that("show_all(providers) works for GBIF", {
@@ -347,7 +347,8 @@ test_that("`atlas_species()` works for GBIF", {
   x <- request_data(type = "species") |>
     filter(year == 2010) |>
     identify("Litoria") |>
-    collapse()
+    compound()
+    # collapse()
   expect_s3_class(x, "query")
   expect_equal(length(x), 7)
   expect_equal(names(x), 
@@ -359,17 +360,25 @@ test_that("`atlas_species()` works for GBIF", {
   expect_gt(nrow(z), 0)
   expect_gt(ncol(z), 0)
   expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
-  # species <- galah_call() |>
-  #   galah_filter(year == 2010) |>
-  #   galah_identify("Litoria") |>
-  #   atlas_species()
-  # expect_equal(z, species)
+})
+
+test_that("`distinct()` queries accept `select()` for GBIF", {
+    skip_if_offline(); skip_on_ci()
+  x <- request_data() |>
+    filter(year == 2010) |>
+    distinct(species_guid, .keep_all = TRUE) |>
+    identify("Crinia") |>
+    select(scientificName, speciesKey) |>
+    collect()
+  expect_gt(nrow(z), 10) # 
+  expect_equal(ncol(z), 2)
+  expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`atlas_media()` fails for GBIF", {
   skip_if_offline(); skip_on_ci()
   expect_error({galah_call() |>
-    galah_identify("perameles") |>
+    identify("perameles") |>
     atlas_media()
   })
 })

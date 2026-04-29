@@ -9,27 +9,31 @@ authenticate(
   email = NULL,
   username = NULL,
   password = NULL,
+  download_reason_id = NULL,
   use_jwt = FALSE,
   cache_jwt = FALSE,
   ...
 )
 }
 \arguments{
-\item{.data}{An object of class \code{data_request} or \code{metadata_request}}
+\item{.data}{An object of class \code{data_request} or \code{metadata_request}.}
 
-\item{email}{(string) Email address registered with the selected organisation}
+\item{email}{(string) Email address registered with the selected organisation.}
 
-\item{username}{(string) Registered username (GBIF only)}
+\item{username}{(string) Registered username (GBIF only).}
 
-\item{password}{(string) Registered password (GBIF only)}
+\item{password}{(string) Registered password (GBIF only).}
+
+\item{download_reason_id}{(integer) ID for the download reason.
+See \code{show_all_reasons()} for accepted values.}
 
 \item{use_jwt}{(logical) Should an OAuth workflow be used for authentication?
 Only supported for Flemish and Australian atlases. Defaults to \code{FALSE}}
 
 \item{cache_jwt}{(logical) Should JWT tokens be cached to disk? Defaults
-to \code{FALSE}}
+to \code{FALSE}.}
 
-\item{...}{Other arguments, currently ignored}
+\item{...}{Other arguments, currently ignored.}
 }
 \value{
 An object of the same class as supplied, but with an added

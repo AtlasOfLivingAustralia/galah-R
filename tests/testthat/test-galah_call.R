@@ -13,23 +13,26 @@ test_that("`request_` functions build correct object classes", {
 })
 
 test_that("request_data(from = X) sets `atlas` slot in later objects", {
-  query_initial <- request_data(from = "GBIF") |> 
+  chosen_atlas <- "Spain"
+  query_initial <- request_data(from = chosen_atlas) |> 
     filter(year == 2010) |>
     count()
-  expect_equal(query_initial$atlas, "Global")
+  expect_equal(query_initial$atlas, chosen_atlas)
   query_capture <- capture(query_initial)
-  expect_equal(query_capture$atlas, "Global")
+  expect_equal(query_capture$atlas, chosen_atlas)
   query_compound <- compound(query_capture)
   compound_atlases <- purrr::map(query_compound, 
                                 \(a){purrr::pluck(a, "atlas")}) |>
     unlist()
-  expect_true(all(compound_atlases == "Global"))
+  expect_true(all(compound_atlases == chosen_atlas))
   query_collapse <- collapse(query_compound)
-  expect_equal(query_collapse$atlas, "Global")
+  expect_equal(query_collapse$atlas, chosen_atlas)
   query_compute <- compute(query_collapse)
-  expect_equal(query_compute$atlas, "Global")
-  collect(query_compute)
+  expect_equal(query_compute$atlas, chosen_atlas)
+  result <- collect(query_compute)
   # add test to ensure that galah_config() hasn't been updated to GBIF
+  expect_gte(result$count, 10)
+  expect_false(galah_config()$atlas$region == chosen_atlas)
 })
 
 test_that("`galah_call()` works with all `dplyr` functions", {
