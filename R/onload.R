@@ -47,9 +47,11 @@
       "\n", # note: glue wipes newlines, so have to be outside
       cli::col_magenta(glue::glue('This package is currently configured to query {current_node} ({current_url}).\n')),
       "\n",
-      i = cli::col_magenta('- You can change this at any time using e.g. `galah_config(atlas = \"GBIF\")`.'),
+      i = cli::col_magenta('- You can change this setting globally using using e.g. `galah_config(atlas = \"GBIF\")`.'),
       "\n",
-      i = cli::col_magenta('- To see all supported organisations, run `show_all(atlases)`.')
+      i = cli::col_magenta('- Or for a single query by opening your pipe with e.g. `galah_call(from = "Spain")`.'),
+      "\n",
+      i = cli::col_magenta('- To see *all* supported organisations, run `show_all(atlases)`.')
     ) |>
       packageStartupMessage()
   }

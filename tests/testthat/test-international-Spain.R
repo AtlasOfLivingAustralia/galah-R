@@ -161,7 +161,7 @@ test_that("show_values works for fields for Spain", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("atlas_counts works for Spain", {
+test_that("`atlas_counts()` works for Spain", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
     dplyr::pull(count) |>
@@ -170,7 +170,7 @@ test_that("atlas_counts works for Spain", {
   expect_gt(x, 0)
 })
 
-test_that("atlas_counts works with type = 'species' for Spain", {
+test_that("`atlas_counts()` works with type = 'species' for Spain", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
     dplyr::pull(count) |>
@@ -179,7 +179,7 @@ test_that("atlas_counts works with type = 'species' for Spain", {
   expect_gt(x, 0)
 })
 
-test_that("atlas_counts works with galah_identify for Spain", {
+test_that("`atlas_counts()` works with galah_identify for Spain", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     identify("Mammalia") |>
@@ -199,7 +199,7 @@ test_that("atlas_counts works with galah_identify for Spain", {
     0.1) # i.e. <1% margin of error
 })
 
-test_that("atlas_counts works with apply_profile for Spain", {
+test_that("`atlas_counts()` works with apply_profile for Spain", {
   skip_if_offline(); skip_on_ci()
   without_profile <- galah_call() |>
     count() |>
@@ -213,7 +213,7 @@ test_that("atlas_counts works with apply_profile for Spain", {
   expect_lt(with_profile$count, without_profile$count)
 })
 
-test_that("atlas_counts works with group_by for Spain", {
+test_that("`atlas_counts()` works with group_by for Spain", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     filter(year >= 2000) |>
@@ -226,7 +226,7 @@ test_that("atlas_counts works with group_by for Spain", {
   expect_equal(names(result), c("basisOfRecord", "count"))
   })
 
-test_that("atlas_species works for Spain", {
+test_that("`atlas_species()` works for Spain", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Spain",
@@ -242,7 +242,7 @@ test_that("atlas_species works for Spain", {
   expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
 })
 
-test_that("galah_select works for Spain", {
+test_that("`galah_select()` works for Spain", {
   skip_if_offline(); skip_on_ci()
   x <- galah_select()
   y <- galah_select(basisOfRecord)
@@ -257,7 +257,7 @@ test_that("galah_select works for Spain", {
   expect_true(inherits(y$quosure[[1]], c("quosure", "formula"))) 
 })
 
-test_that("atlas_occurrences works for Spain", {
+test_that("`atlas_occurrences()` works for Spain", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Spain",
@@ -276,7 +276,7 @@ test_that("atlas_occurrences works for Spain", {
   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("atlas_media() works for Spain", {
+test_that("`atlas_media()` works for Spain", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Spain",

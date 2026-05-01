@@ -450,12 +450,9 @@ image_filters <- function(present_fields,
          "Kew" =  "(images:*)",
          "Portugal" = "(all_image_url:*)",
          "Spain" = "(multimedia:*)",
-         "Sweden" = {filter_fields <- present_fields |>
-                       stringr::str_remove("s$") |>
-                       paste0("IDsCount")
-                     glue::glue("{filter_fields}:[1 TO *]")},
+         "Sweden" = "(multimedia:*)",
          "United Kingdom" = "(all_image_url:*)",
-         cli::cli_abort("`atlas_media` is not supported for atlas = {atlas}",
+         cli::cli_abort("`atlas_media()` is not supported for atlas = {atlas}",
                         call = error_call)
   )
 }
@@ -467,6 +464,7 @@ species_facets <- function(.query){
      c("Australia",
        "Flanders",
        "France",
+       "Kew",
        "Spain",
        "Sweden",
        "United Kingdom")) {

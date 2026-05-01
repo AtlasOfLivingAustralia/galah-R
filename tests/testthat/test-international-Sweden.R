@@ -314,7 +314,7 @@ test_that("collect_media() works for Sweden", {
   x <- request_data() |>
     identify("Amphibia") |>
     filter(year == 2010,
-           imageIDsCount > 0) # |> # multimediaCount
+           !is.na(multimedia))
   # get counts
   media_count <- x |>
     count() |>
@@ -329,7 +329,7 @@ test_that("collect_media() works for Sweden", {
   skip_if(inherits(media_occ, "try-error"), message = "API not available")
   # get metadata
   media_meta <- request_metadata() |>
-    filter(media == media_occ) |>
+    filter(media == unlist(media_occ$images)) |>
     collect() |>
     try(silent = TRUE)
   skip_if(inherits(media_meta, "try-error"), message = "API not available")
@@ -348,7 +348,7 @@ test_that("collect_media() works for Sweden", {
     x <- purrr::quietly(collect_media)
     x(...)$result
   }
-  quiet_media(x[seq_len(n_downloads), ])
+  quiet_media(media_meta[seq_len(n_downloads), ])
   expect_equal(length(list.files("temp", pattern = ".jpg$")),
                n_downloads)
   unlink("temp", recursive = TRUE)
