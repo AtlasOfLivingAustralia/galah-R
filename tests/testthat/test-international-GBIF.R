@@ -8,7 +8,7 @@ test_that("swapping to atlas = GBIF works", {
                               password = "galah-gbif-test-login"))
 })
 
-test_that("show_all(fields) works for GBIF", {
+test_that("`show_all(fields)` works for GBIF", {
   skip_if_offline(); skip_on_ci()
   # first ensure underlying syntax is valid
   x <- request_metadata() |> 
@@ -23,7 +23,7 @@ test_that("show_all(fields) works for GBIF", {
   expect_equal(x, y)
 })
 
-test_that("search_all(fields) works for GBIF", {
+test_that("`search_all(fields)` works for GBIF", {
   skip_if_offline(); skip_on_ci()
   result <- search_all(fields, "year")
   expect_gte(nrow(result), 2)
@@ -35,7 +35,7 @@ test_that("search_all(fields) works for GBIF", {
     expect_true()
 })
 
-test_that("show_values works for GBIF fields", {
+test_that("`show_values()` works for GBIF fields", {
   skip_if_offline(); skip_on_ci()
   # query syntax
   x <- request_metadata() |>
@@ -58,7 +58,7 @@ test_that("show_values works for GBIF fields", {
   expect_equal(x, y)
 })
 
-test_that("show_all(collections) works for GBIF", {
+test_that("`show_all(collections)` works for GBIF", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(collections, limit = 10)
   expect_equal(nrow(x), 10)
@@ -74,7 +74,7 @@ test_that("show_all(collections) works for GBIF", {
   expect_equal(nrow(z), 20)
 })
 
-test_that("show_all(datasets) works for GBIF", {
+test_that("`show_all(datasets)` works for GBIF", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(datasets, limit = 10)
   expect_equal(nrow(x), 10)
@@ -85,7 +85,7 @@ test_that("show_all(datasets) works for GBIF", {
   expect_gte(nrow(z), 10) # historically this was n = 20
 })
 
-test_that("show_all(providers) works for GBIF", {
+test_that("`show_all(providers)` works for GBIF", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(providers, limit = 10)
   expect_equal(nrow(x), 10)
@@ -96,25 +96,25 @@ test_that("show_all(providers) works for GBIF", {
   expect_equal(nrow(z), 20)
 })
 
-test_that("show_all(reasons) fails for GBIF", {
+test_that("`show_all(reasons)` fails for GBIF", {
   expect_error(show_all(reasons))
 })
 
-test_that("show_all(assertions) works for GBIF", {
+test_that("`show_all(assertions)` works for GBIF", {
   x <- show_all(assertions)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("show_all(profiles) fails for GBIF", {
+test_that("`show_all(profiles)` fails for GBIF", {
   expect_error(show_all(profiles))
 })
 
-test_that("show_all(lists) fails for GBIF", {
+test_that("`show_all(lists)` fails for GBIF", {
   expect_error(show_all(lists))
 })
 
-test_that("search_all(taxa) works for GBIF", {
+test_that("`search_all(taxa)` works for GBIF", {
   skip_if_offline(); skip_on_ci()
   x <- search_taxa("Mammalia")
   expect_equal(nrow(x), 1)
@@ -123,7 +123,7 @@ test_that("search_all(taxa) works for GBIF", {
   expect_true(x$class == "Mammalia")
 })
 
-test_that("search_all(taxa) works using a tibble for GBIF", {
+test_that("`search_all(taxa)` works using a tibble for GBIF", {
   skip_if_offline(); skip_on_ci()
   x <- search_all(taxa, 
                   data.frame(kingdom = "Animalia", 
@@ -134,7 +134,7 @@ test_that("search_all(taxa) works using a tibble for GBIF", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("search_all(identifiers) works for GBIF", {
+test_that("`search_all(identifiers)` works for GBIF", {
   skip_if_offline(); skip_on_ci()
   x <- search_all(identifiers, "359") |>
     try(silent = TRUE)
@@ -145,21 +145,21 @@ test_that("search_all(identifiers) works for GBIF", {
 
 galah_config(verbose = TRUE)
 
-test_that("search_all(datasets) works for GBIF", {
+test_that("`search_all(datasets)` works for GBIF", {
   skip_if_offline(); skip_on_ci()
   x <- search_all(datasets, "Mammals")
   expect_lte(nrow(x), 20)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("search_all(collections) works for GBIF", {
+test_that("`search_all(collections)` works for GBIF", {
   skip_if_offline(); skip_on_ci()
   x <- search_all(collections, "Museum")
   expect_lte(nrow(x), 20)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("search_all(providers) works for GBIF", {
+test_that("`search_all(providers)` works for GBIF", {
   skip_if_offline(); skip_on_ci()
   x <- search_all(providers, "Frog")
   expect_lte(nrow(x), 20)
@@ -168,7 +168,7 @@ test_that("search_all(providers) works for GBIF", {
 
 galah_config(verbose = FALSE)
 
-test_that("atlas_counts works for GBIF", {
+test_that("`count()` works for GBIF", {
   skip_if_offline(); skip_on_ci()
   galah_call() |>
     count() |>
@@ -177,13 +177,13 @@ test_that("atlas_counts works for GBIF", {
     expect_gt(0)
 })
 
-test_that("atlas_counts fails for GBIF when type = 'species'", {
+test_that("`atlas_counts()` fails for GBIF when `type = 'species'`", {
   expect_error(atlas_counts(type = "species"))
 })
 
 galah_config(run_checks = TRUE)
 
-test_that("`count` works with 2 `group_by` args for GBIF", {
+test_that("`count()` works with 2 `group_by` args for GBIF", {
   skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
     filter(year >= 2020) |>
@@ -310,12 +310,12 @@ test_that("invalid fields are caught from `select()` for GBIF", {
     expect_error()
 })
 
-test_that("`atlas_occurrences()` works with `galah_polygon()` for GBIF", {
+test_that("`atlas_occurrences()` works with `geolocate_polygon()` for GBIF", {
   skip_if_offline(); skip_on_ci()
   wkt <- "POLYGON((142.36 -29.01,142.36 -29.39,142.74 -29.39,142.74 -29.01,142.36 -29.01))"
   base_query <- galah_call() |>
     identify("Mammalia") |>
-    galah_polygon(wkt) 
+    geolocate_polygon(wkt) 
   count <- base_query |>
     count() |>
     collect()
@@ -325,11 +325,11 @@ test_that("`atlas_occurrences()` works with `galah_polygon()` for GBIF", {
   expect_equal(nrow(result), count$count)
 })
 
-test_that("`atlas_occurences()` works with `galah_radius()` for GBIF", {
+test_that("`atlas_occurences()` works with `geolocate_radius()` for GBIF", {
   skip_if_offline(); skip_on_ci()
   base_query <- galah_call() |>
     identify("Mammalia") |>
-    galah_radius(lat = -33.7,
+    geolocate_radius(lat = -33.7,
                  lon = 151.3,
                  radius = 0.5)
   count <- base_query |>
@@ -344,11 +344,14 @@ test_that("`atlas_occurences()` works with `galah_radius()` for GBIF", {
 
 test_that("`atlas_species()` works for GBIF", {
   skip_if_offline(); skip_on_ci()
-  x <- request_data(type = "species") |>
+  x <- request_data(type = "species",
+                    from = "GBIF") |>
+    authenticate(username = "atlasoflivingaustralia",
+                 email = "ala4r@ala.org.au",
+                 password = "galah-gbif-test-login") |>
     filter(year == 2010) |>
-    identify("Litoria") |>
-    compound()
-    # collapse()
+    identify("Crinia") |>
+    collapse()
   expect_s3_class(x, "query")
   expect_equal(length(x), 7)
   expect_equal(names(x), 
@@ -357,14 +360,17 @@ test_that("`atlas_species()` works for GBIF", {
   y <- compute(x)
   expect_s3_class(y, "computed_query")
   z <- collect(y)
-  expect_gt(nrow(z), 0)
-  expect_gt(ncol(z), 0)
+  expect_gt(nrow(z), 10) # n = 14
+  expect_gt(ncol(z), 5)  # n = 22
   expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`distinct()` queries accept `select()` for GBIF", {
     skip_if_offline(); skip_on_ci()
-  x <- request_data() |>
+  x <- request_data(from = "GBIF") |>
+    authenticate(username = "atlasoflivingaustralia",
+                 email = "ala4r@ala.org.au",
+                 password = "galah-gbif-test-login") |>
     filter(year == 2010) |>
     distinct(species_guid, .keep_all = TRUE) |>
     identify("Crinia") |>
