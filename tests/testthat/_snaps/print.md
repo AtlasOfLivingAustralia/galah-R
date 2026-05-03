@@ -75,6 +75,19 @@
       * atlas: Australia
       * url: https://api.ala.org.au/namematching/api/search?q=Crinia
 
+# object of class `query_set` formats correctly
+
+    Code
+      compound(filter(authenticate(galah_call(), email = "ala4r@ala.org.au"),
+      basisOfRecord == "HUMAN_OBSERVATION"))
+    Message
+      Object of class query_set containing 4 queries:
+      * metadata/config url: https://api.ala.org.au/common/api/getAuthConfig
+      * metadata/fields url: https://api.ala.org.au/occurrences/index/fields
+      * metadata/assertions url: https://api.ala.org.au/occurrences/assertions/codes
+      * data/occurrences url:
+      https://api.ala.org.au/occurrences/occurrences/offline/...
+
 # `galah_config()` formats correctly
 
     Code
@@ -87,9 +100,9 @@
       
       User
       x authentication
-      username [Not Provided]
-      email
-      password [Not Provided]
+      username [Provided]
+      email ala4r@ala.org.au
+      password [Provided]
       download_reason_id 10
       
       Package
@@ -99,18 +112,4 @@
       v caching
       i directory: something
       
-
-# object of class `query_set` formats correctly
-
-    Code
-      compound(filter(authenticate(galah_call(), email = "ala4r@ala.org.au"),
-      basisOfRecord == "HUMAN_OBSERVATION"))
-    Message
-      Object of class query_set containing 5 queries:
-      * metadata/config url: https://api.ala.org.au/common/api/getAuthConfig
-      * metadata/fields url: https://api.ala.org.au/occurrences/index/fields
-      * metadata/assertions url: https://api.ala.org.au/occurrences/assertions/codes
-      * metadata/reasons url: https://api.ala.org.au/logger/service/logger/reasons
-      * data/occurrences url:
-      https://api.ala.org.au/occurrences/occurrences/offline/...
 

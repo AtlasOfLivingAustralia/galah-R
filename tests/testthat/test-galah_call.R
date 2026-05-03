@@ -13,6 +13,7 @@ test_that("`request_` functions build correct object classes", {
 })
 
 test_that("request_data(from = X) sets `atlas` slot in later objects", {
+  skip_if_offline(); skip_on_ci()
   chosen_atlas <- "Spain"
   query_initial <- request_data(from = chosen_atlas) |> 
     filter(year == 2010) |>
