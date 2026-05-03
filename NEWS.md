@@ -1,3 +1,20 @@
+# galah 2.3.0
+
+### New functions and options
+* `request_data()` and friends gain a `from` argument, allowing in-pipe atlas specification (#297).
+* `authenticate()` gains arguments to allow in-pipe email- or JWT-based authentication. Support added for JWT-based authentication on VBP (#296).
+* New function `describe()` to check what fields are available (#291).
+* New names for spatial functions: `geolocate_polygon()`, `geolocate_bbox()` and `geolocate_radius()`.
+* Now possible to call `select()` on GBIF occurrence queries.
+
+### Bug fixes
+* `isAuthoritative` and `isThreatened` returned by default by `search_all()` (#293).
+* Calling functions using `pkg::fun()` syntax work without first calling `library(galah)` (#294).
+
+### Lifecycle
+* `galah_` prefix functions for piping formally superseded by their `dplyr` alternatives.
+* Using `filter`, `select` etc as arguments to the `atlas_` family formally superseded in favor of piping.
+
 # galah 2.2.0
 
 ### Improved organisational support
@@ -27,7 +44,7 @@
 * Move to `{cli}` for `print()` calls, not `cat()`.
 * Reduce usage of `@importFrom` in favour of `pkg::fun()` syntax, as per R style guide.
 * `basisOfRecord` now included as default field (i.e. with `select(group = "basic")`). (#281)
-* `query` objects now have a `request` slot showing the request that generated them .
+* `query` objects now have a `request` slot showing the request that generated them.
 
 
 # galah 2.1.2

@@ -1,8 +1,8 @@
 atlas,type,url,functional
 Australia,data/distributions-id,https://api.ala.org.au/spatial-service/distribution/{id},FALSE
 Australia,data/distributions-taxa,https://api.ala.org.au/spatial-service/distribution/lsids/{lsid}?nowkt=false,FALSE
-Australia,data/events,https://api.ala.org.au/event/download,TRUE
-Australia,data/events-count,https://api.ala.org.au/event/graphql,TRUE
+Australia,data/events,https://api.ala.org.au/event/download,FALSE
+Australia,data/events-count,https://api.ala.org.au/event/graphql,FALSE
 Australia,data/occurrences,https://api.ala.org.au/occurrences/occurrences/offline/download,TRUE
 Australia,data/occurrences-count,https://api.ala.org.au/occurrences/occurrences/search,TRUE
 Australia,data/occurrences-count-groupby,https://api.ala.org.au/occurrences/occurrences/facets,TRUE

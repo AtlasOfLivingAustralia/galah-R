@@ -49,7 +49,7 @@
       "\n",
       i = cli::col_magenta('- You can change this setting globally using using e.g. `galah_config(atlas = \"GBIF\")`.'),
       "\n",
-      i = cli::col_magenta('- Or for a single query by opening your pipe with e.g. `galah_call(from = "Spain")`.'),
+      i = cli::col_magenta('- Or for a single query by opening your pipe with e.g. `request_data(from = "Spain")`.'),
       "\n",
       i = cli::col_magenta('- To see *all* supported organisations, run `show_all(atlases)`.')
     ) |>
