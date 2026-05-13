@@ -15,7 +15,8 @@
 #' @order 1
 #' @returns A `tibble` showing the `id`, `description` and `data_type`
 #' for all fields, or if `select()` is called, then those fields
-#' requested by the user.
+#' requested by the user. See [galah_select()] for other examples of valid 
+#' `group` values.
 #' @examples \dontrun{
 #' # By default, this shows all fields in the source system
 #' galah_call() |>
