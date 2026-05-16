@@ -83,8 +83,8 @@ capture_occurrences_count_gbif <- function(.query){
                           limit = 0)
   
   # get strings
-  username <- potions::pour("user", "username", .pkg = "galah")
-  password <- potions::pour("user", "password", .pkg = "galah")
+  username <- .query$authenticate$username
+  password <- .query$authenticate$password
   user_string <- glue::glue("{username}:{password}")
   
   # handle type
