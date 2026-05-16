@@ -17,7 +17,8 @@ describe(x, ...)
 \value{
 A \code{tibble} showing the \code{id}, \code{description} and \code{data_type}
 for all fields, or if \code{select()} is called, then those fields
-requested by the user.
+requested by the user. See \code{\link[=select.data_request]{select()}}
+for other examples of valid \code{group} values.
 }
 \description{
 Unlike a local \code{tibble}, where printing to the console shows what fields

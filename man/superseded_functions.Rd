@@ -46,9 +46,9 @@ include. Valid options are \code{"basic"}, \code{"event"} \code{"taxonomy"}, \co
 }
 \description{
 These functions are still valid, but have been superseded by more recent
-versions. They are designed to be used to supply arguments within
-functions from the \link{atlas_} family. Instead you should consider using
-piped functions for this same functionality.
+versions. They were designed to be used to supply arguments within
+functions from the \link{atlas_} family. Instead you should use piped
+functions for this same functionality.
 }
 \details{
 Replacements are as follows:

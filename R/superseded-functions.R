@@ -1,9 +1,9 @@
 #' Superseded functions
 #' 
 #' These functions are still valid, but have been superseded by more recent
-#' versions. They are designed to be used to supply arguments within 
-#' functions from the [atlas_] family. Instead you should consider using
-#' piped functions for this same functionality.
+#' versions. They were designed to be used to supply arguments within 
+#' functions from the [atlas_] family. Instead you should use piped
+#' functions for this same functionality.
 #' @name superseded_functions
 #' @rdname superseded_functions
 #' @param ... Arguments passed to the function in question, usually (but 
@@ -44,7 +44,6 @@ NULL
 #' @order 1
 #' @export
 galah_apply_profile <- function(...){
-  lifecycle::deprecate_warn("2.3.0", "galah_apply_profile()", "apply_profile()")
   dots <- rlang::enquos(..., .ignore_empty = "all") |>
     detect_request_object()
   switch(class(dots[[1]])[1],
@@ -64,7 +63,6 @@ galah_apply_profile <- function(...){
 #' @order 2
 #' @export
 galah_filter <- function(...){
-  lifecycle::deprecate_warn("2.3.0", "galah_filter()", "filter()")
   dots <- rlang::enquos(..., .ignore_empty = "all") |>
     detect_request_object()
   check_named_input(dots)
@@ -102,40 +100,27 @@ galah_filter <- function(...){
 #' @rdname superseded_functions
 #' @order 3
 #' @export
-galah_geolocate <- function(...) {
-  lifecycle::deprecate_warn("2.3.0", "galah_geolocate()", "geolocate()")
-  geolocate(...)
-}
+galah_geolocate <- geolocate
 
 #' @rdname superseded_functions
 #' @order 4
 #' @export
-galah_polygon <- function(...) {
-  lifecycle::deprecate_warn("2.3.0", "galah_polygon()", "geolocate_polygon()")
-  geolocate_polygon(...)
-}
+galah_polygon <- geolocate_polygon
 
 #' @rdname superseded_functions
 #' @order 5
 #' @export
-galah_bbox <- function(...) {
-  lifecycle::deprecate_warn("2.3.0", "galah_bbox()", "geolocate_bbox()")
-  geolocate_bbox(...)
-}
+galah_bbox <- geolocate_bbox
 
 #' @rdname superseded_functions
 #' @order 6
 #' @export
-galah_radius <- function(...) {
-  lifecycle::deprecate_warn("2.3.0", "galah_radius()", "geolocate_radius()")
-  geolocate_radius(...)
-}
+galah_radius <- geolocate_radius
 
 #' @rdname superseded_functions
 #' @order 7
 #' @export
 galah_group_by <- function(...){
-  lifecycle::deprecate_warn("2.3.0", "galah_group_by()", "group_by()")
   dots <- rlang::enquos(..., .ignore_empty = "all") |>
     detect_request_object()
   switch(class(dots[[1]])[1],
@@ -155,7 +140,6 @@ galah_group_by <- function(...){
 #' @order 8
 #' @export
 galah_identify <- function(...) {
-  lifecycle::deprecate_warn("2.3.0", "galah_identify()", "identify()")
   dots_initial <- list(...)
   if (length(dots_initial) < 1) {
     cli::cli_warn("No query passed to `identify()`.")
@@ -174,7 +158,6 @@ galah_identify <- function(...) {
 #' @order 9
 #' @export
 galah_select <- function(..., group = NULL){
-  lifecycle::deprecate_warn("2.3.0", "galah_select()", "select()")
   dots <- rlang::enquos(..., .ignore_empty = "all") |>
     detect_request_object() |>
     as.list()

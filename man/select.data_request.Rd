@@ -68,9 +68,8 @@ GBIF nodes store content in hundreds of different fields, and users often
 require thousands or millions of records at a time. To reduce time taken to
 download data, and limit complexity of the resulting \code{tibble}, it is sensible
 to restrict the fields returned by occurrence queries. The full list of
-available fields can be viewed with \code{show_all(fields)}. Note that \code{select()}
-and \code{galah_select()} are supported for all atlases that allow downloads, with
-the exception of GBIF, for which all columns are returned.
+available fields can be viewed with \code{show_all(fields)}. \code{select()}
+is supported for all atlases that allow downloads.
 
 Calling the argument \code{group = "basic"} returns the following columns:
 \itemize{
@@ -144,8 +143,8 @@ galah_call() |>
 # When used in a pipe, `galah_select()` and `select()` are synonymous.
 # Hence the previous example can be rewritten as:
 galah_call() |>
-  galah_identify("perameles") |>
-  galah_select(basisOfRecord, group = "basic") |>
+  identify("perameles") |>
+  select(basisOfRecord, group = "basic") |>
   collect()
 }
 }
