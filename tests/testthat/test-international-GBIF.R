@@ -365,6 +365,20 @@ test_that("`atlas_species()` works for GBIF", {
   expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
 })
 
+test_that("`count()` queries work with `authenticate()` for GBIF", {
+  skip_if_offline(); skip_on_ci()
+  x <- request_data(from = "GBIF") |>
+    authenticate(username = "atlasoflivingaustralia",
+                 email = "ala4r@ala.org.au",
+                 password = "galah-gbif-test-login") |>
+    filter(year == 2010) |>
+    count() |>
+    collect()
+  expect_equal(nrow(x), 1)
+  expect_equal(ncol(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
 test_that("`distinct()` queries accept `select()` for GBIF", {
     skip_if_offline(); skip_on_ci()
   x <- request_data(from = "GBIF") |>
