@@ -494,10 +494,11 @@ authentication_required <- function(x){
   # only required for downloads (in current version)
   download_check <- x$type %in% c("occurrences", "species") &
     # downloads never happen for `glimpse()` or `describe()` 
-    is.null(x$glimpse) &
     is.null(x$describe) &
     # downloads only happen for GBIF counts, otherwise count invalidates need for auth
-    (is.null(x$count) | (!is.null(x$count) & x$atlas == "Global")) 
+    (is.null(x$count) | (!is.null(x$count) & x$atlas == "Global")) &
+    # ditto glimpse
+    (is.null(x$glimpse) | (!is.null(x$glimpse) & x$atlas == "Global")) 
   # is.null(x$group_by) & # <- not needed, as group_by() can preface count() or distinct()
 
   # `distinct()` only requires authentication if 1. it is present and 2. keep_all = TRUE

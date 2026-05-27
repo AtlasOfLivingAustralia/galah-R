@@ -58,6 +58,13 @@ test_that("`show_values()` works for GBIF fields", {
   expect_equal(x, y)
 })
 
+test_that("`show_values()` fails for unsearchable GBIF fields", {
+  skip_if_offline(); skip_on_ci()
+  search_all(fields, "accessRights") |>
+    show_values() |>
+    expect_error()
+})
+
 test_that("`show_all(collections)` works for GBIF", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(collections, limit = 10)
@@ -259,6 +266,29 @@ test_that("`glimpse()` works for GBIF", {
     filter(year == 2025) |>
     glimpse() |>
     collect()
+  expect_s3_class(x, c("occurrences_glimpse", "tbl_df", "tbl", "data.frame"))
+  expect_equal(nrow(x), 3) # number of rows in the tibble
+  quiet_print <- purrr::quietly(print.occurrences_glimpse)
+  x_print <- strsplit(quiet_print(x)$output, "\n")[[1]] # print statement
+  expect_gt(length(x_print), 5)
+  stringr::str_detect(x_print,
+                       "^\\$ (taxonConceptID|eventDate|decimalLatitude)") |>
+    which() |>
+    length() |>
+    expect_equal(3)
+})
+
+test_that("`glimpse()` works with `identify()` for GBIF", {
+  skip_if_offline(); skip_on_ci()
+  galah_config(atlas = "GBIF",
+              username = "atlasoflivingaustralia",
+              email = "ala4r@ala.org.au",
+              password = "galah-gbif-test-login")
+  x <- request_data(from = "GBIF") |>
+    identify("Eolophus roseicapilla") |>
+    filter(year == 2010) |>
+    glimpse() |>
+    collapse()
   expect_s3_class(x, c("occurrences_glimpse", "tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(x), 3) # number of rows in the tibble
   quiet_print <- purrr::quietly(print.occurrences_glimpse)

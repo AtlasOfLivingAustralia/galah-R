@@ -234,13 +234,21 @@ check_fields_gbif_counts <- function(.query){
       filter_invalid <- glue::glue_collapse(invalid_fields, sep = ", ")
     }
   }
-
+  
   # then facets  
-  # first extract facets
+  # noting this differs between using this for it's original purpose (generating counts),
+  # and it's more recent purpose of getting field values
   group_by_invalid <- NA
-  if(!is.null(.query$body$group_by)){
+  if(.query$type == "data/occurrences-count" & !is.null(.query$body$group_by)){
     facets <- .query$body$group_by$name
-    # check for invalid facets
+  }else if(.query$type == "metadata/fields-unnest" & !is.null(.query$request$filter$value)){
+    facets <- .query$request$filter$value[1]
+  }else{
+    facets <- NULL
+  }
+
+  # if a facet is supplied, check its' validity
+  if(!is.null(facets)){
     valid_search_fields <- .query[["metadata/fields"]] |>
       dplyr::filter(.data$search_field == TRUE) |>
       dplyr::pull("id")

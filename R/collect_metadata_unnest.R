@@ -7,20 +7,26 @@ collect_fields_unnest <- function(.query,
   facet <- .query |>
     purrr::pluck("url") |>
     httr2::url_parse()
-  
+
   if(.query$atlas == "Global"){
     # get name of facet in question
     facet <-  purrr::pluck(facet, "query", "facet") # NOTE: "facet" (singular)
     check_missing_fields(facet, call = error_call)
     # get result from API
-    .query |>
+    result <- .query |>
       query_API() |>
-      purrr::pluck(!!!list("facets", 1, "counts")) |>
+      purrr::pluck(!!!list("facets", 1, "counts")) 
+    # add an error catcher here, as next step is sensitive to column missingness
+    # this should be caught because `pluck()` generates NULL for missing data
+    if(is.null(result)){
+      tibble::tibble()
+    }else{
+      result |>
       dplyr::bind_rows() |>
       dplyr::rename_with(camel_to_snake_case) |>
       dplyr::rename({{facet}} := "name") |>
       parse_select(.query)
-    
+    }
   }else{ 
     facet <-  purrr::pluck(facet, "query", "facets") # NOTE: "facets" (plural)
     check_missing_fields(facet, call = error_call)

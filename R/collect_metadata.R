@@ -269,7 +269,7 @@ collect_fields <- function(.query){
   }else{
     result <- query_API(.query) |>
       dplyr::bind_rows() 
-    
+
     if(.query$atlas == "Global"){
       # we need to join some local metadata to GBIF info
       df <- gbif_internal_archived$search_fields |>

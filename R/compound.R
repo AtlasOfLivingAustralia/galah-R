@@ -131,8 +131,13 @@ build_query_set_metadata <- function(x){
   if(potions::pour("package", "run_checks")){
     result <- append(result,
                      switch(x$request$type, 
-                            "fields-unnest" = list(request_metadata("fields", from = x$atlas) |> capture()),
-                            "profiles-unnest" = list(request_metadata("profiles", from = x$atlas) |> capture()),
+                            "fields-unnest" = list(
+                              request_metadata(type = "fields", from = x$atlas) |> 
+                                select(tidyselect::everything()) |> 
+                                capture()),
+                            "profiles-unnest" = list(
+                              request_metadata("profiles", from = x$atlas) |> 
+                                capture()),
                             NULL))
   }
   
