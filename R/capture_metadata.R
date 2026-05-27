@@ -174,7 +174,7 @@ capture_licences <- function(x){
 #' @noRd
 #' @keywords Internal
 capture_lists <- function(x,
-                           error_call = rlang::caller_env()){
+                          error_call = rlang::caller_env()){
   x$type <- "metadata/lists"
   # if filter is supplied, lookup a specified list by dr number
   if(!is.null(x$filter)){
@@ -202,24 +202,31 @@ capture_lists <- function(x,
   # if filter isn't supplied, check cache etc
   }else{
     if(check_if_cache_update_needed(x, "lists")){
-      url <- url_lookup(x) |>
-        httr2::url_parse()
-      url$query <- list(max = 10000)
+      url <- url_lookup(x)
       if(!missing(x)){
+        url <- url |> httr2::url_parse()
         if(!is.null(x$slice)){
-          url$query <- list(max = x$slice$slice_n)
-        }    
+          max_value <- x$slice$slice_n
+          switch(x$atlas, 
+                 "Australia" = {url$query <- list(pageSize = x$slice$slice_n)},
+                url$query <- list(max = x$slice$slice_n))
+        }else{
+          switch(x$atlas, 
+                 "Australia" = {url$query <- list(pageSize = 1)},
+                 url$query <- list(max = 10000))
+        }
+        url <- httr2::url_build(url)
       }
       result <- list(type = x$type,
                      atlas = x$atlas,
-                     url = httr2::url_build(url),
+                     url = url,
                      headers = build_headers())
     }else{
       result <- default_cache(x)
     } 
   }
   result |>
-    as_query()
+    as_prequery()
 }
 
 #' Internal version of `capture()` for `request_metadata(type = "media")`

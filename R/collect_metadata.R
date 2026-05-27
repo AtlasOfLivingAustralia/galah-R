@@ -353,7 +353,7 @@ collect_lists <- function(.query){
   # NOTE: this function has some quite versatile behaviour, so we need to 
   # explicitly control when caching does (and does not) happen.
   should_update_cache <- FALSE
-  
+
   # requests for cached data use the `data` slot; check this first
   if(!is.null(.query$data)){
     result_df <- retrieve_internal_data(.query)
@@ -364,8 +364,13 @@ collect_lists <- function(.query){
     # if(length(result) > 1 & is.null(names(result))){ # this old code is risky
     # test for pagination requests in .query instead
     if(inherits(.query$url, "data.frame")){
-      result_df <- purrr::map(query_API(.query), 
-                              \(a){a$lists}) |>
+      # FIXME: haven't checked whether this breaks other living atlases
+      result_df <- purrr::map(result, \(a){a |>
+        purrr::pluck("lists") |>
+        purrr::map(tidy_list_columns) |>
+        dplyr::bind_rows()},
+        .progress = potions::pour("package", "verbose", .pkg = "galah")
+      ) |>
         dplyr::bind_rows()
       should_update_cache <- TRUE
     }else{

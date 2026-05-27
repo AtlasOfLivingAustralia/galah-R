@@ -6,17 +6,35 @@
 #' @keywords Internal
 collapse_lists <- function(.query){
   if(is.null(.query$url)){
-    .query
+    as_query(.query)
   }else if(inherits(.query$url, "tbl_df")){
-    .query
-  }else if(stringr::str_detect(.query$url, "[:digit:]+$")){
-    .query
+    as_query(.query)
+  }else if(stringr::str_detect(.query$url, "[:digit:]+$") & .query$atlas != "Australia"){
+    as_query(.query)
+  # set up 'new' lists code (May 2026)
+  # rationale here is that we run a query to get the number of levels
+  }else if(stringr::str_detect(.query$url, "[:digit:]+$") & .query$atlas == "Australia"){
+    # first handle case where levels are pre-specified
+    if(!is.null(x$request$slice)){
+      # FIXME: This assumes that n requested is <25, which is a false assumption
+      # need to explicitly check this number and paginate etc accordingly
+      as_query(.query)
+    }else{
+      n_lists <- .query |> 
+        query_API() |>
+        purrr::pluck("listCount")
+      n_pages <- ceiling(n_lists * 0.04) # (i.e. 1/25)
+      base_url <- stringr::str_remove(.query$url, "pageSize=1$")
+      .query$url <- tibble::tibble(url = glue::glue("{base_url}page={seq_len(n_pages)}&pageSize=25"))
+      as_query(.query)
+    }
+  # below is legacy, probably still important/used, but hard to be sure
   }else{
     url <- httr2::url_parse(.query$url)
     n_requested <- as.integer(url$query$max)
     # make decisions about how much pagination is needed
     if(n_requested <= 500){ # we haven't hit pagination limit
-      .query
+      as_query(.query)
     }else{ # more lists are requested
       n <- get_max_n(.query)
       n_pages <- ceiling(n$max_requested / n$paginate)
@@ -34,8 +52,8 @@ collapse_lists <- function(.query){
         }) |>
         unlist()
       .query$url <- dplyr::select(result, "url")
+      as_query(.query)
     }
-    .query
   }
 }
 
