@@ -372,7 +372,9 @@ collect_lists <- function(.query){
         .progress = potions::pour("package", "verbose", .pkg = "galah")
       ) |>
         dplyr::bind_rows()
-      should_update_cache <- TRUE
+      should_update_cache <- TRUE # FIXME: this is only true when `slice_head()` ISN'T called
+      # this isn't even checked at present
+      # former reliance on tibbles etc is bad practice
     }else{
       lists_slot <- purrr::pluck(result, "lists")
       # single-list queries that use `filter()` don't have a `lists` slot

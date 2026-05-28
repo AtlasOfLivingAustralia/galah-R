@@ -205,16 +205,11 @@ capture_lists <- function(x,
       url <- url_lookup(x)
       if(!missing(x)){
         url <- url |> httr2::url_parse()
-        if(!is.null(x$slice)){
-          max_value <- x$slice$slice_n
-          switch(x$atlas, 
-                 "Australia" = {url$query <- list(pageSize = x$slice$slice_n)},
-                url$query <- list(max = x$slice$slice_n))
-        }else{
-          switch(x$atlas, 
-                 "Australia" = {url$query <- list(pageSize = 1)},
-                 url$query <- list(max = 10000))
-        }
+        # note: page size is set in `collapse()` rather than here
+        # as it allows more sensible assessment of pagination requirements
+        url$query <- switch(x$atlas, 
+                "Australia" = {list(pageSize = 1)},
+                list(max = 10000))
         url <- httr2::url_build(url)
       }
       result <- list(type = x$type,

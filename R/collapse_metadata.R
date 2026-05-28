@@ -15,17 +15,25 @@ collapse_lists <- function(.query){
   # rationale here is that we run a query to get the number of levels
   }else if(stringr::str_detect(.query$url, "[:digit:]+$") & .query$atlas == "Australia"){
     # first handle case where levels are pre-specified
-    if(!is.null(x$request$slice)){
-      # FIXME: This assumes that n requested is <25, which is a false assumption
-      # need to explicitly check this number and paginate etc accordingly
-      as_query(.query)
+    if(!is.null(.query$request$slice)){
+      n_lists <- .query$request$slice$slice_n
+    # otherwise calculate it
     }else{
       n_lists <- .query |> 
         query_API() |>
         purrr::pluck("listCount")
-      n_pages <- ceiling(n_lists * 0.04) # (i.e. 1/25)
+    }
+    # calculate urls
+    if(is.null(n_lists)){
+      as_query(.query)
+    }else{
+      n_pages <- ceiling(n_lists * 0.01) # (i.e. 1/100)
       base_url <- stringr::str_remove(.query$url, "pageSize=1$")
-      .query$url <- tibble::tibble(url = glue::glue("{base_url}page={seq_len(n_pages)}&pageSize=25"))
+      if(n_pages < 2){
+        .query$url <- tibble::tibble(url = glue::glue("{base_url}pageSize={n_lists}"))
+      }else{
+        .query$url <- tibble::tibble(url = glue::glue("{base_url}page={seq_len(n_pages)}&pageSize=100"))
+      }      
       as_query(.query)
     }
   # below is legacy, probably still important/used, but hard to be sure
