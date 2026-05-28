@@ -92,6 +92,12 @@ check_delimiter <- function(file, data_file){
   x <- unz(description = file, 
       filename = data_file) |>
       readr::read_lines(n_max = 1)
+  if(length(x) < 1){
+    c("Supplied file appears to be empty",
+      i = glue::glue("Zip file: {file}"),
+      i = glue::glue("Data file: {data_file}")) |>
+    cli::cli_abort(call = rlang::caller_env())
+  }
   n_tabs <- stringr::str_count(x, "\t")
   n_commas <- stringr::str_count(x, ",")
   if(n_tabs > n_commas){

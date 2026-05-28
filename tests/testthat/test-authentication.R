@@ -1,5 +1,10 @@
 quiet_config <- purrr::quietly(galah_config)
 
+test_that("checking authentication host works", {
+  authentication_host("https://auth.ala.org.au/some/paths/here", "Flanders") |>
+    expect_error()
+})
+
 test_that("`request_metadata()` works for type = `config`", {
   skip_if_offline(); skip_on_ci()
   result <- request_metadata(type = "config") |>
@@ -44,7 +49,7 @@ test_that("`authenticate()` works in-pipe for occurrences", {
   skip("authentication requires interactivity")
   
    query <- galah_call() |>
-    authenticate() |>
+    authenticate(use_jwt = TRUE) |>
     identify("Litoria dentata") |>
     filter(year == 2025) |>
     compound()

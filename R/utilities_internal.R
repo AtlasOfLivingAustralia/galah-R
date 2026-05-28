@@ -487,6 +487,30 @@ authentication_supported <- function(atlas){
   }
 }
 
+#' Internal function to test whether authentication is provided by the expected host
+#' 
+#' This is a security check to prevent someone intercepting the request from the network,
+#' and replacing it with their own credentials. Apparently this is a 'severe' risk. I am
+#' sceptical of that, but it's cheap to implement, so here we are.
+#' @noRd
+#' @keywords Internal
+authentication_host <- function(url,
+                                atlas,
+                                error_call = rlang::caller_env()){
+  supplied_host <- url |>
+    httr2::url_parse() |>
+    purrr::pluck("hostname")
+  accepted_host <- switch(atlas,
+                          "Australia" = "auth.ala.org.au",
+                          "Flanders" = "auth.inbo.be")
+  if(supplied_host != accepted_host){
+    c("OAuth request returned unexpected domain",
+      i = glue::glue("expected: {accepted_host}"),
+      i = glue::glue("observed: {supplied_host}")) |>
+    cli::cli_abort(call = error_call)
+  }
+}
+
 #' Internal function to test whether authentication is required
 #' @noRd
 #' @keywords Internal

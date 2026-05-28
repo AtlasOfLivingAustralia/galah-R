@@ -71,16 +71,18 @@ authenticate <- function(.data,
     }
     # NOTE: We don't _check_ the reason here, because that has to happen 
     # at `collapse()`, because we need to ping an API first
-    
-    if(
-      (isTRUE(use_jwt) | is.null(email)) & authentication_supported(.data$atlas)
-    ){
-      update_request_object(.data, 
-                            authenticate = list(email = NULL,
-                                                download_reason_id = download_reason_id,
-                                                use_jwt = TRUE,
-                                                use_apikey = FALSE, # not supported yet
-                                                cache_disk = cache_jwt))
+    if(isTRUE(use_jwt) | is.null(email)){
+      if(authentication_supported(.data$atlas)){
+        update_request_object(.data, 
+                              authenticate = list(email = NULL,
+                                                  download_reason_id = download_reason_id,
+                                                  use_jwt = TRUE,
+                                                  use_apikey = FALSE, # not supported yet
+                                                  cache_disk = cache_jwt))
+      }else{
+        atlas <- .data$atlas
+        cli::cli_abort("JWT-based authentication is not supported for atlas {atlas}")
+      }
     }else{
       authenticate_with_email(.data,
                               email = email,
