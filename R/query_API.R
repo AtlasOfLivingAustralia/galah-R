@@ -80,16 +80,19 @@ query_API_multiple_url <- function(.query,
   if(all(!is.na(paths))){
     # purrr::map(unique(paths), check_directory) # necessary?
     check_directory(paths[[1]]) # just check first path instead
-    httr2::req_perform_parallel(requests,
-                                paths = paths,
-                                on_error = "continue",
-                                progress = progress_object)
+    result <- httr2::req_perform_parallel(requests,
+                                          paths = paths,
+                                          on_error = "continue",
+                                          progress = progress_object)
   }else{ # if no path, just run all queries
     result <- httr2::req_perform_parallel(requests,
                                           on_error = "continue",
                                           progress = progress_object)
-    purrr::map(result, httr2::resp_body_json)
   }
+
+  # return multiquery
+  purrr::map(result, httr2::resp_body_json) |>
+    structure(class = c("multiquery", "list"))
 }
 
 #' Internal function to run multiple body-based API calls using httr2
@@ -106,11 +109,12 @@ query_API_multiple_body <- function(.query,
                  data_tr$body <- a$predicate[[1]]
                  build_API_call(data_tr)
                })
-  progress_object <- set_progress_bar_behaviour(nrow(.query$url) > 1)
+  progress_object <- set_progress_bar_behaviour(nrow(.query$body) > 1)
   result <- httr2::req_perform_parallel(requests,
                                         on_error = "continue",
                                         progress = progress_object)
-  purrr::map(result, httr2::resp_body_json)
+  purrr::map(result, httr2::resp_body_json) |>
+    structure(class = c("multiquery", "list"))
 }
 
 #' Internal function to run an API call using httr2
@@ -131,12 +135,14 @@ query_API_once <- function(.query,
   # and can be allowed to fail otherwise
   }else{
     result <- query |>
-      httr2::req_timeout(seconds = 20) |>
+      httr2::req_timeout(seconds = 60) |>
       httr2::req_perform(verbosity = 0)
     if(grepl("^https://api.gbif.org/v1/occurrence/download/request", .query$url)){
-      httr2::resp_body_string(result)
+      httr2::resp_body_string(result) |>
+        structure(class = c("singlequery", "list"))
     }else{
-      httr2::resp_body_json(result) # may not work for invalid URLs 
+      httr2::resp_body_json(result)|>  # may not work for invalid URLs 
+        structure(class = c("singlequery", "list")) 
     }
   }
 }

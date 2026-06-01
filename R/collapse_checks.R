@@ -90,8 +90,8 @@ collapse_run_checks <- function(.query,
   }else if(stringr::str_detect(.query$type, "-unnest$")){
     # FIXME: decide which checks should be subject to `if(potions::pour("package", "run_checks"))`
     .query <- .query |>
-      check_identifiers() |>
-      check_fields()
+      check_identifiers(error_call) |>
+      check_fields(error_call)
   }
 
   # add an exception to retain to user-supplied taxon for child taxa queries

@@ -152,10 +152,9 @@ check_fields <- function(.query,
         i = "Use `search_all(fields)` to find a valid field ID.",
         x = glue::glue("Can't find field(s) in"),
         glue::glue("  ", 
-                   rlang::format_error_bullets(invalid_fields_message),
-                   call = error_call)
+                   rlang::format_error_bullets(invalid_fields_message))
       )
-      cli::cli_abort(bullets)
+      cli::cli_abort(bullets, call = error_call)
     }
   }
   .query
@@ -239,7 +238,8 @@ check_fields_gbif_counts <- function(.query){
   # noting this differs between using this for it's original purpose (generating counts),
   # and it's more recent purpose of getting field values
   group_by_invalid <- NA
-  if(.query$type == "data/occurrences-count" & !is.null(.query$body$group_by)){
+  if(stringr::str_detect(.query$type, "^data/occurrences-count") & # stringr used because type can end in `-groupby`
+     !is.null(.query$body$group_by)){
     facets <- .query$body$group_by$name
   }else if(.query$type == "metadata/fields-unnest" & !is.null(.query$request$filter$value)){
     facets <- .query$request$filter$value[1]

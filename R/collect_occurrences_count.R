@@ -1,16 +1,17 @@
 #' `collect()` for `type = "data/occurrences-count"`
 #' @noRd
 #' @keywords Internal
-collect_occurrences_count <- function(.query){
+collect_occurrences_count <- function(.query,
+                                      error_call = rlang::caller_env()){
  {if(.query$atlas == "Global"){
-    collect_occurrences_count_gbif(.query)
+    collect_occurrences_count_gbif(.query, error_call = error_call)
   }else{
     collect_occurrences_count_la(.query)
   }} |>
    parse_select(.query)
 }
 
-#' `collect()` for `type = "data/occurrences-count"` for gbif
+#' collect a single count query
 #' @noRd
 #' @keywords Internal
 collect_occurrences_count_gbif <- function(.query,
@@ -18,41 +19,33 @@ collect_occurrences_count_gbif <- function(.query,
   # get response from GBIF
   result <- query_API(.query)
   
-  # first handle case when there are multiple queries in a tibble
-  if(inherits(result, "data.frame")){
-    split(result, seq_len(nrow(result))) |>
-      purrr::map(.f = \(a){
-        tibble::tibble(
-          dplyr::select(a, -"predicate", -"result"),
-          collect_occurrences_count_gbif_single(a$result[[1]], 
-                                                error_on_null = FALSE))
-      }) |>
-      dplyr::bind_rows()
-  # then handle 'simple' queries
+  # parse results
+  if(inherits(result, "singlequery")){
+    collect_occurrences_count_gbif_single(result)
+  }else if(inherits(result, "multiquery")){
+    # first pull out list of filter-like facets
+    list1 <- .query$body |>
+      select(-tidyselect::last_col()) |>
+      split(f = seq_len(nrow(.query$body)))
+    # then final facets
+    list2 <- purrr::map(result, 
+                        collect_occurrences_count_gbif_single)
+    # then bind across 1. lists and 2. rows
+    purrr::map2(list1, list2, dplyr::bind_cols) |>
+      dplyr::bind_rows() 
   }else{
-    collect_occurrences_count_gbif_single(result,
-                                          error_on_null = TRUE)
+    cli::cli_abort("Unknown result class", call = error_call)
   }
 }
-
-#' collect a single count query
+      
+#' Internal function to pick out facets where needed
 #' @noRd
 #' @keywords Internal
-collect_occurrences_count_gbif_single <- function(result,
-                                                  error_on_null = TRUE,
-                                                  error_call = rlang::caller_env()){
-  # handle obvious errors
-  if(is.null(result$count) & error_on_null){
-    cli::cli_abort("API returned a NULL result", 
-                   call = error_call)
-  }
-  
-  # parse results
+collect_occurrences_count_gbif_single <- function(result){
   if(length(result$facets) < 1){ # first handle single values
     tibble::tibble(count = result$count)
   }else{
-    purrr::map(
-      purrr::pluck(result, "facets"),
+    purrr::map(purrr::pluck(result, "facets"),
       \(a){
         df <- a |>
           purrr::pluck("counts") |>

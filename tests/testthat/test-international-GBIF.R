@@ -37,6 +37,7 @@ test_that("`search_all(fields)` works for GBIF", {
 
 test_that("`show_values()` works for GBIF fields", {
   skip_if_offline(); skip_on_ci()
+  galah_config(atlas = "GBIF")
   # query syntax
   x <- request_metadata() |>
     filter(fields == "gbifRegion") |>
@@ -60,8 +61,10 @@ test_that("`show_values()` works for GBIF fields", {
 
 test_that("`show_values()` fails for unsearchable GBIF fields", {
   skip_if_offline(); skip_on_ci()
-  search_all(fields, "accessRights") |>
-    show_values() |>
+  request_metadata(from = "GBIF") |>
+    filter(field == "accessRights") |>
+    unnest() |>
+    collapse() |>
     expect_error()
 })
 
@@ -288,7 +291,7 @@ test_that("`glimpse()` works with `identify()` for GBIF", {
     identify("Eolophus roseicapilla") |>
     filter(year == 2010) |>
     glimpse() |>
-    collapse()
+    collect()
   expect_s3_class(x, c("occurrences_glimpse", "tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(x), 3) # number of rows in the tibble
   quiet_print <- purrr::quietly(print.occurrences_glimpse)
@@ -420,9 +423,9 @@ test_that("`distinct()` queries accept `select()` for GBIF", {
     identify("Crinia") |>
     select(scientificName, speciesKey) |>
     collect()
-  expect_gt(nrow(z), 10) # 
-  expect_equal(ncol(z), 2)
-  expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
+  expect_gt(nrow(x), 10) # 
+  expect_equal(ncol(x), 2)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`atlas_media()` fails for GBIF", {
