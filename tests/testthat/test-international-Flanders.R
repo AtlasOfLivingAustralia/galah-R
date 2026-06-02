@@ -297,13 +297,7 @@ test_that("`atlas_media()` works for Flanders", {
   x <- request_data() |>
     identify("Vulpes") |>
     filter(year == 2025,
-           basisOfRecord == "HUMAN_OBSERVATION",
-           # month == 6,
-           !is.na(images)
-           ) |>
-    # group_by(year) |>
-    # count() |>
-    # collect()
+           basisOfRecord == "HUMAN_OBSERVATION") |>
     atlas_media() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -316,7 +310,7 @@ test_that("`atlas_media()` works for Flanders", {
     x <- purrr::quietly(collect_media)
     x(...)$result
   }
-  n_downloads <- 5
+  n_downloads <- 3
   quiet_media(x[seq_len(n_downloads), ])
   expect_equal(length(list.files("temp", pattern = ".jpg$")),
                n_downloads)

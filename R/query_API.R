@@ -57,6 +57,7 @@ build_API_call <- function(.query,
 #' @keywords Internal
 query_API_multiple_url <- function(.query,
                                    error_call = rlang::caller_env()){
+  
   # get a list of requests
   requests <- purrr::map(.x = seq_len(nrow(.query$url)), 
       .f = \(a){
@@ -75,8 +76,11 @@ query_API_multiple_url <- function(.query,
       }) |>
     unlist()
 
-  # first look for paths; if present, download
+  # set progress bar behaviour
+  # note this is pretty basic rn
   progress_object <- set_progress_bar_behaviour(nrow(.query$url) > 1)
+
+  # first look for paths; if present, download
   if(all(!is.na(paths))){
     # purrr::map(unique(paths), check_directory) # necessary?
     check_directory(paths[[1]]) # just check first path instead
@@ -84,15 +88,17 @@ query_API_multiple_url <- function(.query,
                                           paths = paths,
                                           on_error = "continue",
                                           progress = progress_object)
-  }else{ # if no path, just run all queries
+    # no `return()` call needed here
+
+  # if no `path`, just run all queries
+  }else{
     result <- httr2::req_perform_parallel(requests,
                                           on_error = "continue",
                                           progress = progress_object)
+    # return multiquery
+    purrr::map(result, httr2::resp_body_json) |>
+      structure(class = c("multiquery", "list"))
   }
-
-  # return multiquery
-  purrr::map(result, httr2::resp_body_json) |>
-    structure(class = c("multiquery", "list"))
 }
 
 #' Internal function to run multiple body-based API calls using httr2

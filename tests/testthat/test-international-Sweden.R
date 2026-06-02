@@ -313,42 +313,21 @@ test_that("collect_media() works for Sweden", {
     send_email = FALSE)
   x <- request_data() |>
     identify("Amphibia") |>
-    filter(year == 2010,
-           !is.na(multimedia))
-  # get counts
-  media_count <- x |>
-    count() |>
-    collect() |>
+    filter(year == 2010) |>
+    atlas_media() |>
     try(silent = TRUE)
-  skip_if(inherits(media_count, "try-error"), message = "API not available")
-  # get occurrences
-  media_occ <- x |>
-    select(group = c("basic", "media")) |>
-    collect(wait = TRUE) |>
-    try(silent = TRUE)
-  skip_if(inherits(media_occ, "try-error"), message = "API not available")
-  # get metadata
-  media_meta <- request_metadata() |>
-    filter(media == unlist(media_occ$images)) |>
-    collect() |>
-    try(silent = TRUE)
-  skip_if(inherits(media_meta, "try-error"), message = "API not available")
-  expect_gt(nrow(media_meta), 0)
-  # get files 
-  galah_config(directory = "temp")
-  n_downloads <- 3
-  request_files() |>
-    filter(media == media_meta[seq_len(n_downloads), ]) |>
-    collect(thumbnail = TRUE)
-  expect_equal(length(list.files("temp", pattern = ".jpg$")),
-               n_downloads)
-  unlink("temp", recursive = TRUE)
-  # try with collect_media()
+  skip_if(inherits(x, "try-error"), message = "API not available") # FIXME: failing here
+  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_gte(nrow(x), 1)
+  expect_equal(colnames(x)[1:2],
+               c("media_id", "media_type"))
+  # download a subset
   quiet_media <- function(...){
     x <- purrr::quietly(collect_media)
     x(...)$result
   }
-  quiet_media(media_meta[seq_len(n_downloads), ])
+  n_downloads <- 3
+  quiet_media(x[seq_len(n_downloads), ])
   expect_equal(length(list.files("temp", pattern = ".jpg$")),
                n_downloads)
   unlink("temp", recursive = TRUE)

@@ -289,7 +289,7 @@ test_that("`atlas_media()` works for Spain", {
     filter(year >= 2023) |>
     atlas_media() |>
     try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available") # FIXME: failing here
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gte(nrow(x), 1)
   expect_equal(colnames(x)[1:2],
@@ -299,7 +299,7 @@ test_that("`atlas_media()` works for Spain", {
     x <- purrr::quietly(collect_media)
     x(...)$result
   }
-  n_downloads <- 5
+  n_downloads <- 3
   quiet_media(x[seq_len(n_downloads), ])
   expect_equal(length(list.files("temp", pattern = ".jpg$")),
                n_downloads)

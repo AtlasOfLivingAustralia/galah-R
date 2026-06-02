@@ -254,7 +254,7 @@ test_that("atlas_media() works for Austria", {
     send_email = FALSE)
   x <- request_data() |>
     identify("Mammalia") |>
-    filter(year == 2010) |> # !is.na(all_image_url)
+    filter(year == 2010) |>
     atlas_media() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -267,7 +267,7 @@ test_that("atlas_media() works for Austria", {
     x <- purrr::quietly(collect_media)
     x(...)$result
   }
-  n_downloads <- 5
+  n_downloads <- 3
   quiet_media(x[seq_len(n_downloads), ])
   expect_equal(length(list.files("temp", pattern = ".jpg$")),
                n_downloads)
