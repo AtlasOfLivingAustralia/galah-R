@@ -58,10 +58,10 @@ collapse_run_checks <- function(.query,
     }
 
     if(.query$type %in% c("data/species") & .query$atlas == "Global"){ # NOTE: require this for occurrences too? Do LA species queries require it?
-      parse_select_occurrences(.query, build_select_df_from_query(.query)) # OK this works, just need to update select() now
+      parse_select_occurrences(.query, 
+                               build_select_df_from_query(.query)) # OK this works, just need to update select() now
       # probably best to move this to check_select_GBIF or similar
     }
-    # NOTE: the naming convention here is misleading; should probably be `parse_select()`
 
     # after checking, for type = "glimpse", we need to rename the fields query
     if(.query$type == "data/occurrences-glimpse"){
@@ -88,7 +88,6 @@ collapse_run_checks <- function(.query,
     }
   # as do `unnest()`/`show_values()` functions
   }else if(stringr::str_detect(.query$type, "-unnest$")){
-    # FIXME: decide which checks should be subject to `if(potions::pour("package", "run_checks"))`
     .query <- .query |>
       check_identifiers(error_call) |>
       check_fields(error_call)
@@ -105,6 +104,7 @@ collapse_run_checks <- function(.query,
   }
 
   collapse_remove_metadata(.query)
+
   # special cases:
   # distributions
   # if(.query$type == "data/distributions" & 

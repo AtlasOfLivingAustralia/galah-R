@@ -13,6 +13,7 @@ build_query <- function(identify = NULL,
                         geolocate = NULL, 
                         apply_profile = NULL,
                         atlas = NULL) {
+  # get a taxonomic query
   if(is.null(identify)) {
     taxa_query <- NULL
   } else { # assumes a tibble or data.frame has been given
@@ -22,6 +23,7 @@ build_query <- function(identify = NULL,
       taxa_query <- "`TAXON_PLACEHOLDER`"
     }
   }
+
   # validate filters
   if (is.null(filter)) {
     filter_query <- NULL
@@ -32,12 +34,22 @@ build_query <- function(identify = NULL,
     if (nrow(filter) == 0) {
       filter_query <- NULL
     } else {
-      queries <- unique(filter$query)
-      filter_query <- paste0(queries, collapse = " AND ")
+      filter_query <- unique(filter$query)
     }
   }
+
   # merge
-  query <- list(fq = c(filter_query, taxa_query)) 
+  combined_query <- c(filter_query, taxa_query)
+  n_queries <- length(combined_query) 
+  if(n_queries < 1L){
+    query <- list(q = "*:*")
+  }else if(n_queries == 1L){
+    query <- list(q = combined_query)
+  }else{
+    query <- list(q = combined_query[1],
+                  fq = glue::glue_collapse(combined_query[-1], sep = " AND "))
+  }
+
   # geographic stuff
   if (!is.null(geolocate)) {
     # if `geolocate` is for a point radius vs polygon/bbox
@@ -47,12 +59,14 @@ build_query <- function(identify = NULL,
         query$lon <- geolocate$lon
         query$lat <- geolocate$lat
         query$radius <- geolocate$radius      
-    }else
-      query$wkt <- geolocate
+      } else {
+        query$wkt <- geolocate
+      }
     } else {
-    query$wkt <- geolocate
+      query$wkt <- geolocate
     }
   }
+
   # add profiles information (ALA only) 
   if(profiles_supported(atlas)){
     if(!is.null(apply_profile)) {
@@ -61,6 +75,8 @@ build_query <- function(identify = NULL,
       query$disableAllQualityFilters <- "true"
     }    
   }
+
+  # clean and return
   build_single_fq(query)
 }
 
@@ -69,7 +85,7 @@ build_query <- function(identify = NULL,
 #' @noRd
 build_single_fq <- function(query){
   if(any(names(query) == "fq")){
-    # ensure all arguments from galah_filter are enclosed in brackets
+    # ensure all arguments from `filter()` are enclosed in brackets
     # EXCEPT for assertions
     fq <- query$fq
     missing_brackets <- 
@@ -79,14 +95,16 @@ build_single_fq <- function(query){
     if(any(missing_brackets)){
       fq[missing_brackets] <- glue::glue("({fq[missing_brackets]})")
     }
-    # add brackets to non-negative AND statements
+    # add brackets to non-negative 'AND' statements
     # (adding additional brackets to negative statements breaks them)
     if(any(!grepl("^-\\(", fq))) {
       fq_single <- glue::glue_collapse(glue::glue("{fq}"), "AND")
     } else {
-      fq_single <- glue::glue_collapse(glue::glue("({fq})"), "AND")
+      fq_single <- glue::glue_collapse(glue::glue("{fq}"), "AND")
     }
-    c(fq = fq_single, query[names(query) != "fq"])
+    c(query[names(query) == "q"],
+      fq = fq_single,
+      query[!(names(query) %in% c("fq", "q"))])
   }else{
     query
   }
