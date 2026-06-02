@@ -360,10 +360,8 @@ collect_lists <- function(.query){
   }else{
     # here we run and parse an API call
     result <- query_API(.query) # this when `url` is a single value or a tibble
-    # pagination returns long lists - handle using `map()`
-    # if(length(result) > 1 & is.null(names(result))){ # this old code is risky
-    # test for pagination requests in .query instead
-    if(inherits(.query$url, "data.frame")){
+
+    if(inherits(result, "multiquery")){
       # FIXME: haven't checked whether this breaks other living atlases
       result_df <- purrr::map(result, \(a){a |>
         purrr::pluck("lists") |>
@@ -380,8 +378,7 @@ collect_lists <- function(.query){
       # single-list queries that use `filter()` don't have a `lists` slot
       if(is.null(lists_slot)){
         result_df <- result |>
-          make_nulls_safe() |>
-          tibble::as_tibble()
+          tidy_list_columns()
       # but some queries do
       }else{
         result_df <- lists_slot |>

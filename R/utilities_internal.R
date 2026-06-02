@@ -108,14 +108,17 @@ lookup_select_columns <- function(type) {
                           "url"),
            "lists" = c("species_list_uid",
                        "list_name",
+                       "title", # ALA v2
                        "description",
                        "list_type",
                        "item_count",
+                       "row_count", # ALA v2
                        "is_authoritative",
                        "is_threatened"),
            "lists-unnest" = c("scientific_name",
                               "vernacular_name",
-                              "taxon_concept_id"),
+                              "taxon_concept_id",
+                              "taxon_id"), # ALA v2
            "media" = c("media_id",
                        "occurrence_id",
                        "creator", 

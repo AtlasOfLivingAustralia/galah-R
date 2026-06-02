@@ -158,9 +158,18 @@ test_that("`request_metadata()` works with `select()` for remote APIs *with* def
     result_everything |>
       ncol() |>
       expect_gt(expected_n)
-    result_everything |>
-      colnames() |>
-      expect_contains(expected_columns)
+
+    # lists contains some entries for different atlases; so not all are present together
+    if(a == "lists"){
+      which(colnames(result_everything) %in% expected_columns) |>
+        length() |>
+        expect_equal(7)
+    }else{
+      result_everything |>
+        colnames() |>
+        expect_contains(expected_columns)
+    }
+
     result_cached <- retrieve_cache(a)
     expect_equal(colnames(result_everything), 
                  colnames(result_cached))
