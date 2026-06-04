@@ -106,7 +106,6 @@ test_that("`request_metadata()` works with `select()` for remote APIs *with* def
   type_list <- c("assertions",
                  "fields",
                  "licences",
-                 "lists",
                  "profiles",
                  "reasons")
   reset_cache()
@@ -158,17 +157,9 @@ test_that("`request_metadata()` works with `select()` for remote APIs *with* def
     result_everything |>
       ncol() |>
       expect_gt(expected_n)
-
-    # lists contains some entries for different atlases; so not all are present together
-    if(a == "lists"){
-      which(colnames(result_everything) %in% expected_columns) |>
-        length() |>
-        expect_equal(7)
-    }else{
-      result_everything |>
-        colnames() |>
-        expect_contains(expected_columns)
-    }
+    result_everything |>
+      colnames() |>
+      expect_contains(expected_columns)
 
     result_cached <- retrieve_cache(a)
     expect_equal(colnames(result_everything), 
@@ -180,6 +171,27 @@ test_that("`request_metadata()` works with `select()` for remote APIs *with* def
     reset_cache()
     return(a) # probably pointless, but neater than returning nothing
   })
+})
+
+# implement a smaller test for lists, given how slow it is
+test_that("`request_metdata()` works with `select()` for `type = 'lists'`", {
+  skip_if_offline(); skip_on_ci()
+  x <- request_metadata(type = "lists") |>
+    slice_head(n = 10) |>
+    collect()
+  
+  # lists contains some entries for different atlases; so not all are present together
+  expected_columns <- lookup_select_columns("lists")
+  which(colnames(x) %in% expected_columns) |>
+    length() |>
+    expect_equal(7)
+
+  y <- request_metadata(type = "lists") |>
+    slice_head(n = 10) |>
+    select(everything()) |>
+    collect()
+  
+  expect_gt(ncol(y), ncol(x))
 })
 
 test_that("`request_metdata()` works with `select()` for `type = 'taxa'`", {

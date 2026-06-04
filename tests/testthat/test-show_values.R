@@ -36,13 +36,7 @@ test_that("`show_values()` accepts search & show_all inputs from profiles", {
   expect_gt(nrow(values_search), 0)
 })
 
-test_that("`show_values()` accepts search & show_all inputs from lists", {
-  skip_if_offline(); skip_on_ci()
-  values_search <- search_all(lists, "dr650") |>
-    quiet_values()
-  expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
-  expect_gt(nrow(values_search), 0)
-})
+## NOTE: search_lists() tests removed 2026-06-04 because v2 specieslist API has become too slow to test adequately
 
 test_that("`search_values()` returns helpful error when missing query", {
   skip_if_offline(); skip_on_ci()
@@ -71,20 +65,6 @@ test_that("`search_values()` returns filtered results for profiles", {
   values_show <- search |> quiet_values()
   search_result_check <- all(grepl(pattern = "kingdom", 
                                    paste(values_search$description),
-                                   ignore.case = TRUE))
-  expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(names(values_search), names(values_show))
-  expect_lt(nrow(values_search), nrow(values_show))
-  expect_true(search_result_check)
-})
-
-test_that("`search_values()` returns filtered results for lists", {
-  skip_if_offline(); skip_on_ci()
-  base_df <- search_all(lists, "dr650")
-  values_search <- base_df |> quiet_search("frog")
-  values_show <- base_df |> quiet_values()
-  search_result_check <- all(grepl(pattern = "frog", 
-                                   paste(values_search$vernacular_name, values_search$scientific_name),
                                    ignore.case = TRUE))
   expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
   expect_equal(names(values_search), names(values_show))

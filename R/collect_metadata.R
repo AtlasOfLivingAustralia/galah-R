@@ -378,10 +378,12 @@ collect_lists <- function(.query){
       # single-list queries that use `filter()` don't have a `lists` slot
       if(is.null(lists_slot)){
         result_df <- result |>
-          tidy_list_columns()
+          purrr::map(tidy_list_columns) |>
+          dplyr::bind_rows()
       # but some queries do
       }else{
         result_df <- lists_slot |>
+          purrr::map(tidy_list_columns) |>
           dplyr::bind_rows()
         should_update_cache <- TRUE
       }
@@ -395,7 +397,8 @@ collect_lists <- function(.query){
       update_attributes(type = "lists",
                         atlas = .query$atlas)
     
-    if(should_update_cache){
+    if(should_update_cache & 
+       potions::pour("package", "caching", .pkg = "galah")){
       update_cache(lists = result_df)   
     }
   }

@@ -51,23 +51,11 @@ test_that("`show_all_lists()` functions work correctly", {
     list_fun(...) |>
       purrr::pluck("result")
   }
-  syntax1 <- quiet_lists()
-  limit_test <- quiet_lists(limit = 3)
-  expect_s3_class(syntax1, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(attributes(syntax1)$call, "lists")
-  expect_equal(attributes(syntax1)$region, "Australia")
-  expect_equal(nrow(limit_test), 3)
-})
-
-test_that("show_all(lists) returns additional metadata columns", {
-  skip_if_offline(); skip_on_ci()
-  quiet_lists <- function(...){
-    list_fun <- purrr::quietly(show_all_lists)
-    list_fun(...) |>
-      purrr::pluck("result")
-  }
-  syntax1 <- quiet_lists()
-  limit_test <- quiet_lists(limit = 3)
+  result <- quiet_lists(limit = 3)
+  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(attributes(result)$call, "lists")
+  expect_equal(attributes(result)$region, "Australia")
+  expect_equal(nrow(result), 3)
   expected_cols <- c("is_authoritative", "is_threatened")
-  expect_in(expected_cols, colnames(limit_test))
+  expect_in(expected_cols, colnames(result))
 })

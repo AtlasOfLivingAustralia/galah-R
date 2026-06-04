@@ -163,8 +163,24 @@ test_that("`search_licenses()` returns a filtered result", {
     expect_true()
 })
 
+# implement a smaller test for search_lists() to make tests faster
+# this relies on a 'fake' query to `show_all_lists()` for testing purposes
+# this is bad practice in production, but useful here
 test_that("`search_lists()` returns a filtered result", {
   skip_if_offline(); skip_on_ci()
+
+  # manually override cached lists with something (much) smaller,
+  # but still contains the term 'threatened'.
+  galah_config(caching = FALSE)
+  x <- request_metadata("lists") |>
+    slice_head(n = 10) |>
+    collapse()
+  x$url <- "https://api.ala.org.au/specieslist/v2/speciesList?isAuthoritative=true&pageSize=10"
+  y <- collect(x)
+  galah_config(caching = TRUE)
+  update_cache(lists = y) 
+
+  # now resume earlier code
   search_string <- "threatened"
   quiet_lists_search <- purrr::quietly(search_lists)
   result <- quiet_lists_search(search_string) |>

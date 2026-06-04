@@ -9,6 +9,7 @@ collapse_lists <- function(.query){
     as_query(.query)
   }else if(inherits(.query$url, "tbl_df")){
     as_query(.query)
+  # in non-Australian atlases, ending in a digit means that pageSize or similar is set already
   }else if(stringr::str_detect(.query$url, "[:digit:]+$") & .query$atlas != "Australia"){
     as_query(.query)
   # set up 'new' lists code (May 2026)
