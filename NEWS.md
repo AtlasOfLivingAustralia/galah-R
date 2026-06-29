@@ -1,15 +1,19 @@
 # galah 2.3.0
 
 ### New functions and options
-* `request_data()` and friends gain a `from` argument, allowing in-pipe atlas specification (#297).
-* `authenticate()` gains arguments to allow in-pipe email- or JWT-based authentication. Support added for JWT-based authentication on VBP (#296).
 * New function `describe()` to check what fields are available (#291).
+* `authenticate()` gains arguments to allow in-pipe email- or JWT-based authentication. Support added for JWT-based authentication on VBP (#296).
+* `request_data()` and friends gain a `from` argument, allowing in-pipe atlas specification (#297).
 * New names for spatial functions: `geolocate_polygon()`, `geolocate_bbox()` and `geolocate_radius()`.
-* Now possible to call `select()` on GBIF occurrence queries.
+* Now possible to call `select()` on GBIF occurrence queries, though they are applied post-hoc.
 
-### Bug fixes
+### Bug fixes & performance improvements
 * `isAuthoritative` and `isThreatened` returned by default by `search_all()` (#293).
-* Calling functions using `pkg::fun()` syntax work without first calling `library(galah)` (#294).
+* Calling functions using `pkg::fun()` syntax work without first calling `library(galah)` (#294, #298).
+* `query_API()` now uses `cli::cli_progress_step()`, `httr2::req_retry()` and `httr::req_perform_parallel()` for improved performance. Timeout is now 60 seconds, rather than 20.
+* Misc bug fixes for `atlas_occurrences()`, `glimpse()` and `show_values()` for GBIF (#299).
+* Upgraded to v2 of specieslist API for ALA (#300).
+* `galah` now auto-populates the `q` parameter for living atlas API calls for server-side performance reasons (#301).
 
 ### Lifecycle
 * `galah_` prefix functions for piping formally superseded by their `dplyr` alternatives.

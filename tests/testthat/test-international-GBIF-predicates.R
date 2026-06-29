@@ -131,7 +131,10 @@ test_that("`filter()` handles `OR` and `%in%` for GBIF", {
     filter(basisOfRecord %in% c("HUMAN_OBSERVATION", "PRESERVED_SPECIMEN")) |>
     count() |>
     collect()
-  expect_equal(y$count, z$count)
+
+  # check difference is <1%
+  # sometimes get slight bugs with code like this due to server-side estimation error
+  expect_lte(abs(y$count - z$count) / y$count, 0.01)
 })
 
 test_that("`filter()` handles multiple queries including != for GBIF", {

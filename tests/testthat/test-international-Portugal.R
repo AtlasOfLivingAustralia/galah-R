@@ -100,7 +100,7 @@ test_that("show_values works for fields for Portugal", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("atlas_counts works for Portugal", {
+test_that("`atlas_counts()` works for Portugal", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
     dplyr::pull(count) |>
@@ -109,7 +109,7 @@ test_that("atlas_counts works for Portugal", {
   expect_gt(x, 0)
 })
 
-test_that("atlas_counts works with type = 'species' for Portugal", {
+test_that("`atlas_counts()` works with type = 'species' for Portugal", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
     dplyr::pull(count) |>
@@ -118,7 +118,7 @@ test_that("atlas_counts works with type = 'species' for Portugal", {
   expect_gt(x, 0)
 })
 
-test_that("`atlas_counts()` works with galah_identify for Portugal", {
+test_that("`count()` works with `identify()` for Portugal", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     identify("Mammalia") |>
@@ -138,7 +138,7 @@ test_that("`atlas_counts()` works with galah_identify for Portugal", {
     0.1) # i.e. <1% margin of error
 })
 
-test_that("`atlas_counts()` works with group_by for Portugal", {
+test_that("`count()` works with `group_by()` for Portugal", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     filter(year >= 2000) |>
