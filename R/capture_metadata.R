@@ -195,8 +195,8 @@ capture_lists <- function(x,
                        headers = build_headers())
       }
     }else{
-      cli::cli_abort(c("`filter()` arguments to `lists` only accept a data resource number",
-                       i = "e.g. request_metadata() |> filter(lists == 'dr656')"),
+      cli::cli_abort(c("`filter()` arguments to `lists` only accept a data resource number.",
+                       i = "e.g. {.code request_metadata() |> filter(lists == 'dr656')}"),
                      call = error_call)
     }
   # if filter isn't supplied, check cache etc
@@ -208,7 +208,7 @@ capture_lists <- function(x,
         # note: page size is set in `collapse()` rather than here
         # as it allows more sensible assessment of pagination requirements
         url$query <- switch(x$atlas, 
-                "Australia" = {list(pageSize = 1)},
+                "Australia" = {list(pageSize = 1)}, # placeholder
                 list(max = 10000))
         url <- httr2::url_build(url)
       }

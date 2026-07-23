@@ -28,12 +28,12 @@ collapse_lists <- function(.query){
     if(is.null(n_lists)){
       as_query(.query)
     }else{
-      n_pages <- ceiling(n_lists * 0.01) # (i.e. 1/100)
+      n_pages <- ceiling(n_lists * 0.001) # (i.e. 1/1000) Note that 1000 is the maximum
       base_url <- stringr::str_remove(.query$url, "pageSize=1$")
       if(n_pages < 2){
         .query$url <- tibble::tibble(url = glue::glue("{base_url}pageSize={n_lists}"))
       }else{
-        .query$url <- tibble::tibble(url = glue::glue("{base_url}page={seq_len(n_pages)}&pageSize=100"))
+        .query$url <- tibble::tibble(url = glue::glue("{base_url}page={seq_len(n_pages)}&pageSize=1000"))
       }      
       as_query(.query)
     }

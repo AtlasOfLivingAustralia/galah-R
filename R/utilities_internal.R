@@ -34,7 +34,7 @@ parse_select <- function(df,
 }
 
 #' equivalent to `parse_select()` but for filter
-#' mainly called for delayed filter arugments on APIs that don't support `q`
+#' mainly called for delayed filter arguments on APIs that don't support `q`
 #' @noRd
 #' @keywords Internal
 parse_filter <- function(df, query){

@@ -89,20 +89,123 @@ collect_lists_unnest <- function(.query){
     }
     df
   }
-
+  
   # get data
   result <- query_API(.query)
+  
+  # browser()
+  
+  if(stringr::str_detect(.query$url, "/v1/")) { # version 1 API
+    # old
+    # process
+    result |>
+      purrr::list_transpose() |>
+      tibble::as_tibble() |>
+      clean_common_names() |>
+      clean_kvp_values() |>
+      dplyr::rename_with(camel_to_snake_case) |>
+      parse_rename(.query) |>
+      parse_select(.query)
+  } else {
+    # new
+    # process
+    
+    # first, add `classification` which captures ALA-matched information
+    x <- result |>
+      purrr::list_transpose() |>
+      tibble::as_tibble() |>
+      clean_common_names() |>
+      parse_classification() |>
+      dplyr::rename_with(camel_to_snake_case) |>
+      parse_rename(.query)
+    
+    # second, `properties` contains status information and other raw fields
+    raw_columns <- x |>
+      select(taxon_concept_id, supplied_name, scientific_name, properties) |>
+      
+      tidyr::unnest(cols = properties) |>
+      tidyr::unnest_wider(properties) |>
+      dplyr::mutate(key = camel_to_snake_case(key)) |>
+      dplyr::mutate(key = dplyr::if_else(key %in% colnames(x), glue::glue("{key}_raw"), key)) |> # rename prior to pivot to avoid name conflicts
+      tidyr::pivot_wider(names_from = "key",
+                         values_from = "value",
+                         names_repair = "minimal",
+                         values_fn = list) |>
+      tidyr::unnest(cols = everything())
+    
+    # merge
+    result_final <- x |>
+      dplyr::left_join(raw_columns, 
+                       dplyr::join_by(taxon_concept_id, supplied_name, scientific_name)) |>
+      dplyr::select(-properties) |>
+      parse_rename(.query) 
+      # parse_select(.query) # this is limiting output
+    
+    # inform user about duplicated taxon_concept_ids
+    duplicate_taxa <- result_final |> filter(dplyr::n() > 1, .by = taxon_concept_id) |> distinct(taxon_concept_id) |> nrow()
+    bullets <- c("List contains {duplicate_taxa} taxon_concept_id(s) with > 1 row.",
+                 "i" = "This happens because {.field taxon_concept_id} can match to multiple {.field supplied_name} values.",
+                 "i" = "To see duplicated rows, save list as object then run: {.code {{your_object}} |> dplyr::filter(dplyr::n() > 1, .by = taxon_concept_id)}")
+    cli::cli_warn(bullets)
+    
+    return(result_final)
+  }
 
-  # process
-  result |>
-    purrr::list_transpose() |>
-    tibble::as_tibble() |>
-    clean_common_names() |>
-    clean_kvp_values() |>
-    dplyr::rename_with(camel_to_snake_case) |>
-    parse_rename(.query) |>
-    parse_select(.query)
 }
+
+clean_raw_fields <- function(df){
+  
+  if(any(colnames(df) == "properties")){
+    if(any(lengths(df$properties) > 0)){
+      df <- df |>
+        tidyr::unnest(cols = properties) |>
+        tidyr::unnest_wider(properties) |>
+        tidyr::pivot_wider(names_from = "key",
+                           values_from = "value",
+                           names_repair = "minimal")
+    }
+  }
+  df
+  
+}
+
+parse_classification <- function(df){
+  
+  if(any(colnames(df) == "classification")){
+      df <- df |>
+        tidyr::unnest_wider(classification, 
+                                   names_repair = "minimal", 
+                                   names_sep = "_") |> 
+        # select ALA-matched columns
+        select(speciesListID, 
+               classification_taxonConceptID, 
+               suppliedName,
+               # scientific_name,
+               classification_scientificName, # ALA-matched name
+               classification_scientificNameAuthorship, 
+               classification_vernacularName,
+               classification_rank, 
+               classification_kingdom, 
+               classification_phylum, 
+               classification_class, 
+               classification_order, 
+               classification_family, 
+               classification_genus, 
+               classification_species,
+               properties # keep properties for raw fields
+               ) |>
+        # remove prefix
+        dplyr::rename_with( 
+          ~ stringr::str_remove(., "classification_"), 
+          classification_taxonConceptID:classification_species
+        )
+  }
+  df
+  
+
+}
+
+
 
 #' Internal function to run `compute()` for 
 #' `request_metadata(type = "profiles") |> unnest()`
