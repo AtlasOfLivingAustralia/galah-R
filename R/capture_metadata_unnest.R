@@ -30,7 +30,7 @@ capture_lists_unnest <- function(.query){
   url <- url_lookup(.query,
                     list_id = .query$filter$value[1]) |>
     httr2::url_parse()
-  browser()
+  
   # set a default query
   url$query <- list(
     pageSize = 30000,      # 30000 is the max, a few lists have >30000 items
@@ -49,7 +49,6 @@ capture_lists_unnest <- function(.query){
   
   # if list is long, add more queries to match required page number for list row_count
   if(.query$filter$value %in% lists_gt_max_page) {
-    # browser()
     row_count <- retrieve_cache("lists") |>
       dplyr::filter(species_list_uid == .query$filter$value) |>
       dplyr::pull(row_count)
@@ -58,12 +57,11 @@ capture_lists_unnest <- function(.query){
     # add additional urls to reach required number of pages to return all items
     x$url <- tibble::tibble(url = glue::glue("{x$url}&page={seq_len(n_pages)}"))
   }
-  # browser()
   # create query
   x |> as_query()
   
-  # I thought this would work but it doesn't
   
+  # old code
   # create object
   # list(type = .query$type,
   #      atlas = .query$atlas,

@@ -93,11 +93,8 @@ collect_lists_unnest <- function(.query){
   # get data
   result <- query_API(.query)
   
-  # browser()
-  
   if(stringr::str_detect(.query$url, "/v1/")) { # version 1 API
     # old
-    # process
     result |>
       purrr::list_transpose() |>
       tibble::as_tibble() |>
@@ -108,13 +105,14 @@ collect_lists_unnest <- function(.query){
       parse_select(.query)
   } else {
     # new
-    # process
-    
     # first, add `classification` which captures ALA-matched information
     x <- result |>
       purrr::list_transpose() |>
       tibble::as_tibble() |>
       clean_common_names() |>
+      # species_list_uid is no longer retained in v2 API results.
+      # this adds info again as column (which matches old v1 output)
+      dplyr::mutate(species_list_uid = .query$request$filter$value) |> 
       parse_classification() |>
       dplyr::rename_with(camel_to_snake_case) |>
       parse_rename(.query)
@@ -122,7 +120,6 @@ collect_lists_unnest <- function(.query){
     # second, `properties` contains status information and other raw fields
     raw_columns <- x |>
       select(taxon_concept_id, supplied_name, scientific_name, properties) |>
-      
       tidyr::unnest(cols = properties) |>
       tidyr::unnest_wider(properties) |>
       dplyr::mutate(key = camel_to_snake_case(key)) |>
@@ -139,7 +136,7 @@ collect_lists_unnest <- function(.query){
                        dplyr::join_by(taxon_concept_id, supplied_name, scientific_name)) |>
       dplyr::select(-properties) |>
       parse_rename(.query) 
-      # parse_select(.query) # this is limiting output
+      # parse_select(.query) # FIXME: this is limiting output in an unexpected way
     
     # inform user about duplicated taxon_concept_ids
     duplicate_taxa <- result_final |> filter(dplyr::n() > 1, .by = taxon_concept_id) |> distinct(taxon_concept_id) |> nrow()
@@ -153,22 +150,10 @@ collect_lists_unnest <- function(.query){
 
 }
 
-clean_raw_fields <- function(df){
-  
-  if(any(colnames(df) == "properties")){
-    if(any(lengths(df$properties) > 0)){
-      df <- df |>
-        tidyr::unnest(cols = properties) |>
-        tidyr::unnest_wider(properties) |>
-        tidyr::pivot_wider(names_from = "key",
-                           values_from = "value",
-                           names_repair = "minimal")
-    }
-  }
-  df
-  
-}
-
+#' Internal function to parse ALA-matched taxonomic information of species lists 
+#' via `show_values()` / `request_metadata(type = "lists") |> unnest()`
+#' @noRd
+#' @keywords Internal
 parse_classification <- function(df){
   
   if(any(colnames(df) == "classification")){
@@ -177,7 +162,7 @@ parse_classification <- function(df){
                                    names_repair = "minimal", 
                                    names_sep = "_") |> 
         # select ALA-matched columns
-        select(speciesListID, 
+        select(species_list_uid, 
                classification_taxonConceptID, 
                suppliedName,
                # scientific_name,
