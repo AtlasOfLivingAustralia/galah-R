@@ -37,19 +37,25 @@ build_query <- function(identify = NULL,
       filter_query <- unique(filter$query)
     }
   }
-
+  
   # merge
   combined_query <- c(filter_query, taxa_query)
   n_queries <- length(combined_query) 
   if(n_queries < 1L){
     query <- list(q = "*:*")
-  }else if(n_queries == 1L){
+  }else if(n_queries == 1L & is.null(geolocate)){
     query <- list(q = combined_query)
-  }else{
+  }else if(n_queries > 1L & is.null(geolocate)){
+    query <- list(q = combined_query[1],
+                  fq = glue::glue_collapse(combined_query[-1], sep = " AND "))
+  } else if(n_queries == 1L & !is.null(geolocate)) {
+    # single taxa queries must be formatted using fq format if geolocate is present
+    query <- list(q = glue::glue_collapse(combined_query[1], sep = " AND "))
+  } else {
     query <- list(q = combined_query[1],
                   fq = glue::glue_collapse(combined_query[-1], sep = " AND "))
   }
-
+  
   # geographic stuff
   if (!is.null(geolocate)) {
     # if `geolocate` is for a point radius vs polygon/bbox
