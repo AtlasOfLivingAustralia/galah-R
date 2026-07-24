@@ -66,10 +66,15 @@ geolocate_bbox <- function(...) {
           log <<- cnd
           ""
         })
+    check_crs(query)  # check whether crs is epsg:4326
   } 
   else {
     valid <- query |> 
       sf::st_is_valid()
+    
+    check_crs(query)  # check whether crs is epsg:4326
+   
+
   }
   
   if (valid != TRUE) {

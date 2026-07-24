@@ -117,6 +117,12 @@ test_that("`geolocate_bbox()` converts to multipolygon", {
   expect_match(quiet_bbox(sf_wkt), "MULTIPOLYGON")
 })
 
+test_that("`geolocate_bbox()` warns when CRS isn't EPSG:4326", { # FIXME: not backwards compatible with bbox coords?
+  bbox <- sf::st_bbox(c(xmin = 143, xmax = 148, ymin = -29, ymax = -28), 
+                      crs = sf::st_crs(4283))
+  expect_warning(suppressMessages(geolocate_bbox(bbox)), "Spatial object CRS")
+})
+
 # TODO: test that geolocate_bbox unnests sf object & shapefiles correctly 
 # after converting from dots
 

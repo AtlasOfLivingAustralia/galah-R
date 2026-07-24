@@ -578,3 +578,20 @@ media_supported <- function(atlas = NULL){
     cli::cli_abort("`atlas_media` is not supported for atlas = {atlas}")
   }
 }
+
+#' Internal function for checking whether spatial objects passed to 
+#' `geolocate_polygon()` and `geolocate_bbox()` use correct CRS (EPSG:4326) 
+#' for Living Atlas data
+#' @noRd
+#' @keywords Internal
+check_crs <- function(query) {
+  crs <- st_crs(query)$epsg
+  if(crs != 4326) {
+    selected_atlas <- potions::pour("atlas")$acronym
+    c("Spatial object CRS is not WGS 84 (EPSG:4326).",
+      i = "Results of this query may be incorrect because geolocate object uses different CRS to data.",
+      x = "Occurrence data in {selected_atlas} uses EPSG:4326, not EPSG:{crs}." # NOTE: All supported LAs use EPSG:4326
+    )  |>
+      cli::cli_warn()
+  } 
+}

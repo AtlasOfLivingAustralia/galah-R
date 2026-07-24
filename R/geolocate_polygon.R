@@ -91,17 +91,7 @@ parse_polygon <- function(query,
     cli::cli_abort(call = error_call)
   }
   
-  # check whether crs of polygon is epsg:4326
-  crs <- st_crs(query)$epsg
-  if(crs != 4326) {
-    selected_atlas <- potions::pour("atlas")$acronym
-    c("Spatial object CRS is not WGS 84 (EPSG:4326).",
-      i = "Results of this query may be incorrect because polygon uses different CRS to data.",
-      x = "Occurrence data in {selected_atlas} uses EPSG:4326, not EPSG:{crs}." # NOTE: All supported LAs use EPSG:4326
-      )  |>
-      cli::cli_warn()
-  } 
-  # browser()
+  check_crs(query)  # check whether crs is epsg:4326
   
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons are converted to multipolygons
