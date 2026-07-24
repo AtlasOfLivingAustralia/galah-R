@@ -88,5 +88,12 @@ test_that("`geolocate_polygon()` counts n vertices correctly", {
   expect_equal(n_points(sf_wkt), 4)
 })
 
+test_that("`geolocate_polygon()` warns when CRS isn't EPSG:4326", {
+  wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
+  obj_sf_gda94 <- obj_sf |> st_transform(crs = 4283) # wrong GDA94
+  
+  expect_warning(geolocate(obj_sf_gda94), "Polygon CRS")
+})
+
 
 # Future: test that geolocate_polygon accepts nothing as an input and ignores
