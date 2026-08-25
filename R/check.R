@@ -396,8 +396,10 @@ check_identifiers_la <- function(.query,
     url <- httr2::url_parse(.query$url[1])
   }
   queries <- url$query
-  if(!is.null(queries$fq)){
-    if(grepl("(`TAXON_PLACEHOLDER`)", queries$fq)){
+  
+  # either q or fq can have taxonomic queries
+  if(!is.null(queries$fq) | !is.null(queries$q)){
+    if(has_taxon(queries$fq) | has_taxon(queries$q)){
       metadata_lookup <- grepl("^metadata/taxa", names(.query))
       if(any(metadata_lookup)){
         identifiers <- .query[[which(metadata_lookup)[1]]]
@@ -410,9 +412,19 @@ check_identifiers_la <- function(.query,
         
         taxa_ids <- build_taxa_query(ids = identifiers$taxon_concept_id,
                                      atlas = .query$atlas)
+        
+        # q and fq format taxonomic placeholder slightly differently
+        if(has_taxon(queries$fq)) {
         queries$fq <- stringr::str_replace_all(queries$fq, 
                                                "\\(`TAXON_PLACEHOLDER`\\)", 
                                                taxa_ids)
+        }
+        if(has_taxon(queries$q)) {
+        queries$q <- stringr::str_replace_all(queries$q, 
+                                               "`TAXON_PLACEHOLDER`", 
+                                               taxa_ids)
+        }
+        
         url$query <- queries
         .query$url[1] <- httr2::url_build(url)
       }else{
@@ -796,4 +808,13 @@ check_type_valid <- function(type,
       x = "Can't find metadata type `{type}`.") |>
       cli::cli_abort(call = error_call)   
   }
+}
+
+#' Check whether query contains a taxonomic placeholder to pass to namematching 
+#' (eg `collect_taxa_namematching()`) in order to construct complete query
+#' @noRd
+#' @keywords Internal
+has_taxon <- function(x, pattern = "`TAXON_PLACEHOLDER`") {
+  if (is.null(x)) return(FALSE)
+  any(grepl(pattern, x))
 }

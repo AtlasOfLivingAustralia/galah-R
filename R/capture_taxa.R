@@ -23,9 +23,18 @@ capture_taxa <- function(.query){
 capture_taxa_single <- function(.query){
   .query$type <- "metadata/taxa-single"
   terms <- .query$identify$search_term
+  
+  # Match parsing of search term to ALA API formatting
+  # Formats RFC 3986 reserved characters (eg. `(`, `)`, `+`)
+  # Spaces are reformatted to "+"
+  terms_formatted <- terms |>
+    utils::URLencode(reserved = TRUE) |>
+    gsub("%20", "+", x = _, fixed = TRUE)
+  
+  # build object and return
   list(type = .query$type,
        atlas = .query$atlas,
-       url = tibble::tibble(url = url_lookup(.query, name = terms), 
+       url = tibble::tibble(url = url_lookup(.query, name = terms_formatted), 
                             search_term = terms),
        headers = build_headers())
 }
@@ -58,11 +67,18 @@ capture_taxa_multiple <- function(.query){
                              function(a){glue::glue_collapse(a, sep = "_")}) |>
     unlist()
   
+  # Match parsing of search term to ALA API formatting
+  # Formats all RFC 3986 reserved characters (eg. `(`, `)`, `+`)
+  # Spaces are reformatted to "+"
+  terms_formatted <- search_terms |>
+    utils::URLencode(reserved = TRUE) |>
+    gsub("%20", "+", x = _, fixed = TRUE)
+  
   # build object and return
   list(type = .query$type,
        atlas = .query$atlas,
        url = tibble::tibble(url = urls, 
-                            search_term = search_terms),
+                            search_term = terms_formatted),
        headers = build_headers())
 }
 
