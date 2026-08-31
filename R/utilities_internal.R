@@ -585,8 +585,15 @@ media_supported <- function(atlas = NULL){
 #' @noRd
 #' @keywords Internal
 check_crs <- function(query) {
-  crs <- st_crs(query)$epsg
-  if(crs != 4326) {
+  crs <- sf::st_crs(query)$epsg
+  crs_check <- if(is.na(crs)){
+    FALSE  # this allows situations where crs is not set at all, e.g. from wkt strings
+  }else if(is.integer(crs)){ # I'm assuming here that valid crs are classed as `integer` and not `numeric`
+    crs != 4326L
+  }else{
+    TRUE
+  }
+  if(crs_check) {
     selected_atlas <- potions::pour("atlas")$acronym
     c("Spatial object CRS is not WGS 84 (EPSG:4326).",
       i = "Results of this query may be incorrect because geolocate object uses different CRS to data.",
