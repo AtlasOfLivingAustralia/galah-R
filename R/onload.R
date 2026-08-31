@@ -3,10 +3,20 @@
 #' @keywords Internal
 .onLoad <- function(libname, pkgname) {
   if (pkgname == "galah") {
+    set_up_potions()
+  }
+}
+
+#' Internal function to set up potions storage. 
+#' Called by `.onLoad`, but also by `galah_config()` when `galah` not previously called by `library()` 
+#' (Issue 298)
+#' @noRd
+#' @keywords Internal
+set_up_potions <- function(){
+  stored_options <- getOption("potions-pkg")
+  if(is.null(stored_options)){
     # set up storage of standard information via {potions}
-    potions::brew(.pkg = "galah") # set up caching of behaviour
-    quiet_config <- purrr::quietly(galah_config)
-    config_info <- quiet_config() # to cache defaults without raising a message
+    potions::brew(default_config(), .pkg = "galah") # set up caching of behaviour
   }
 }
 
@@ -22,6 +32,8 @@
 #' @keywords Internal
 .onAttach <- function(libname, pkgname) {
   if (pkgname == "galah") {
+
+    set_up_potions()
 
     # get information to display to the user
     ## get the galah version, if we can

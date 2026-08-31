@@ -87,9 +87,7 @@ galah_config <- function(...) {
   dots <- list(...)
 
   # set defaults, if this has not happened already
-  if(length(potions::pour()) == 0) {
-    potions::brew(default_config())
-  }
+  set_up_potions() # defined in `.onLoad()`
   
   # add user-provided information
   if(length(dots) > 0){
