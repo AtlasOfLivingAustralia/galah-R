@@ -586,19 +586,19 @@ media_supported <- function(atlas = NULL){
 #' @keywords Internal
 check_crs <- function(query) {
   crs <- sf::st_crs(query)$epsg
-  crs_check <- if(is.na(crs)){
-    FALSE  # this allows situations where crs is not set at all, e.g. from wkt strings
-  }else if(is.integer(crs)){ # I'm assuming here that valid crs are classed as `integer` and not `numeric`
-    crs != 4326L
+  # allow situations where crs is not set at all, e.g. from wkt strings
+  if(is.na(crs)){
+    c("No CRS given, assuming WGS84 (EPSG:4326)") |>
+    cli::cli_inform()
+  # otherwise set error when CRS is set to anything other than 4326, or is not an integer
   }else{
-    TRUE
-  }
-  if(crs_check) {
-    selected_atlas <- potions::pour("atlas")$acronym
-    c("Spatial object CRS is not WGS 84 (EPSG:4326).",
-      i = "Results of this query may be incorrect because geolocate object uses different CRS to data.",
-      x = "Occurrence data in {selected_atlas} uses EPSG:4326, not EPSG:{crs}." # NOTE: All supported LAs use EPSG:4326
-    )  |>
-      cli::cli_warn()
+    crs_check <- ifelse(is.integer(crs), crs != 4326L, TRUE)
+    if(crs_check) {
+      c("Spatial object CRS is not WGS 84 (EPSG:4326).",
+        i = "Results of this query may be incorrect because geolocate object uses different CRS to data.",
+        x = "Occurrence data in GBIF nodes uses EPSG:4326, not EPSG:{crs}." # NOTE: All supported LAs use EPSG:4326
+      )  |>
+        cli::cli_warn()
+    }
   } 
 }

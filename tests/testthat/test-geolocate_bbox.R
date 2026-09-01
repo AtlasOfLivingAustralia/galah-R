@@ -82,7 +82,9 @@ test_that("`geolocate_bbox()` checks number of inputs, uses first argument", { #
   result <- purrr_bbox(wkt_1, wkt_2)
   grepl("More than 1 spatial area provided", result$warnings) |>
     expect_true()
-  grepl("Data returned for bounding box:", result$messages) |>
+  grepl("No CRS given, assuming WGS84", result$messages[1]) |>
+    expect_true()
+  grepl("Data returned for bounding box:", result$messages[2]) |>
     expect_true()
   expect_identical(as.character(result$result), 
                    as.character(quiet_bbox(wkt_1)[1]), 
