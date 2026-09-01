@@ -38,35 +38,11 @@ capture_lists_unnest <- function(.query){
     )  
   
   # create object
-  x <- list(type = .query$type,
+  list(type = .query$type,
        atlas = .query$atlas,
-       url = httr2::url_build(url))
-  
-  # return lists longer than max pageSize
-  lists_gt_max_page <- retrieve_cache("lists") |>
-    dplyr::filter(row_count > 30000) |>
-    dplyr::pull(species_list_uid)
-  
-  # if list is long, add more queries to match required page number for list row_count
-  if(.query$filter$value %in% lists_gt_max_page) {
-    row_count <- retrieve_cache("lists") |>
-      dplyr::filter(species_list_uid == .query$filter$value) |>
-      dplyr::pull(row_count)
-    n_pages <- ceiling(row_count * (1/30000)) # (i.e. 1/1000)
-    
-    # add additional urls to reach required number of pages to return all items
-    x$url <- tibble::tibble(url = glue::glue("{x$url}&page={seq_len(n_pages)}"))
-  }
-  # create query
-  x |> as_query()
-  
-  
-  # old code
-  # create object
-  # list(type = .query$type,
-  #      atlas = .query$atlas,
-  #      url = httr2::url_build(url))  |>
-  #   as_query()
+       url = httr2::url_build(url)) |>
+    as_prequery()
+  # note: class prequery is necessary to ensure checking of list length
 }
 
 #' Internal function to run `capture()` for 

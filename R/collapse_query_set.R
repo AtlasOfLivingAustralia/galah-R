@@ -45,6 +45,8 @@ collapse_query_set <- function(x,
          "metadata/profiles-unnest" = collapse_profile_values(x,
                                                               error_call = error_call) |> 
            add_request(x$request),
+         "metadata/lists-unnest" = collapse_lists_unnest(x,
+                                                         error_call = error_call),
          # some "metadata/" functions require pagination under some circumstances
          "metadata/lists" = collapse_lists(x), # always paginates
          x # remaining "metadata/" functions and "data/occurrences-doi" are passed as-is 

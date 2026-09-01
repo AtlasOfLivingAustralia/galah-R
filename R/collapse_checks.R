@@ -4,7 +4,6 @@
 #' @keywords Internal
 collapse_build_checks <- function(.query){
   # get basic description of `query_set` object
-  n <- length(.query)
   names_vec <- purrr::map(.query,
                           \(a){purrr::pluck(a, "type")}) |>
     unlist()
@@ -19,6 +18,7 @@ collapse_build_checks <- function(.query){
     .query[[which(data_lookup)]] |>
       collapse_add_metadata(metadata_results)
   }else if(any(names_vec %in% c("metadata/fields-unnest", 
+                                "metadata/lists-unnest",
                                 "metadata/profiles-unnest",
                                 "metadata/taxa-unnest"))){
     # this code accounts for `unnest` functions that require lookups
@@ -144,7 +144,8 @@ collapse_add_metadata <- function(query, meta){
 #' @noRd
 #' @keywords Internal
 collapse_remove_metadata <- function(.query){
-  names_lookup <- stringr::str_detect( names(.query), "^metadata/")
+  names_lookup <- stringr::str_detect(names(.query), "^metadata/") & 
+                  names(.query) != "metadata/lists" # exception to retain metadata/lists until collapse() stage
   if(any(names_lookup)){
     as_query(.query[!names_lookup])
   }else{

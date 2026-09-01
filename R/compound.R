@@ -114,10 +114,11 @@ as_query_set <- function(x){
 }
 
 #' Internal function to build a `query_set` object 
-#' for object of class `data_request`
+#' for object of class `metadata_request`
 #' @noRd
 #' @keywords Internal
 build_query_set_metadata <- function(x){
+
   # create an empty object to store results
   result <- list()
   
@@ -155,6 +156,13 @@ build_query_set_metadata <- function(x){
       if(is.null(x$request$identify) & is.null(x$request$filter)){
         cli::cli_abort("Requests of type `taxa-unnest` must also supply one of `filter()` or `identify()`.")
       }
+    # lists-unnest requires a single-row lists query first, to determine how many rows are expected in the output
+    # (and paginate accordingly)
+    }else if(x$request$type == "lists-unnest"){
+      result <- append(result,
+                      list(request_metadata(from = x$atlas) |> 
+                           filter(list == x$request$filter$value[1]) |>
+                           capture()))
     }else if(is.null(x$request$filter)){
       current_type <- x$request$type
       cli::cli_abort("Requests of type `{current_type}` must supply `filter()`.")

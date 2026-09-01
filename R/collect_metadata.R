@@ -40,7 +40,9 @@ tidy_list_columns <- function(x){
     list_names <- names(x)[list_check]
     list_tibbles <- purrr::map(list_names,
                               \(a){
-                                tibble::tibble({{a}} == list(x[[a]]))
+                                aa <- tibble::tibble(list(x[[a]]))
+                                colnames(aa) <- a
+                                aa
                               })
   }else{
     list_tibbles <- NULL
@@ -378,8 +380,7 @@ collect_lists <- function(.query){
       # single-list queries that use `filter()` don't have a `lists` slot
       if(is.null(lists_slot)){
         result_df <- result |>
-          purrr::map(tidy_list_columns) |>
-          dplyr::bind_rows()
+          tidy_list_columns()
       # but some queries do
       }else{
         result_df <- lists_slot |>
