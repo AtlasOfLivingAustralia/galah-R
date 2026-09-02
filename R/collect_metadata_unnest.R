@@ -66,34 +66,10 @@ check_missing_fields <- function(x, call){
 #' @keywords Internal
 collect_lists_unnest <- function(.query){
 
-  clean_common_names <- function(df){
-    if(any(colnames(df) == "commonName")){
-      df$commonName <- as.character(df$commonName)
-      if(any(df$commonName == "NULL")){
-        df$commonName[df$commonName == "NULL"] <- NA
-      }
-    }
-    df
-  }
-
-  # extract additional raw fields columns
-  clean_kvp_values <- function(df){
-    if(any(colnames(df) == "kvpValues")){
-      if(any(lengths(df$kvpValues) > 0)){
-        df <- df |>
-          tidyr::unnest(cols = "kvpValues") |>
-          tidyr::unnest_wider("kvpValues") |>
-          tidyr::pivot_wider(names_from = "key",
-                             values_from = "value")
-      }
-    }
-    df
-  }
-  
   # get data
   result <- query_API(.query)
   
-  if(stringr::str_detect(.query$url, "/v1/")) { # version 1 API
+  if(stringr::str_detect(.query$url, "/v1/") | .query$atlas != "Australia") { # version 1 API
     # old
     result |>
       purrr::list_transpose() |>
@@ -117,29 +93,46 @@ collect_lists_unnest <- function(.query){
       dplyr::rename_with(camel_to_snake_case) |>
       parse_rename(.query)
     
-    # second, `properties` contains status information and other raw fields
-    raw_columns <- x |>
-      select(taxon_concept_id, supplied_name, scientific_name, properties) |>
-      tidyr::unnest(cols = properties) |>
-      tidyr::unnest_wider(properties) |>
-      dplyr::mutate(key = camel_to_snake_case(key)) |>
-      dplyr::mutate(key = dplyr::if_else(key %in% colnames(x), glue::glue("{key}_raw"), key)) |> # rename prior to pivot to avoid name conflicts
-      tidyr::pivot_wider(names_from = "key",
-                         values_from = "value",
-                         names_repair = "minimal",
-                         values_fn = list) |>
-      tidyr::unnest(cols = everything())
+    # second, `properties` contains status information and other raw fields.
+    simple_columns <- x |>
+     select(taxon_concept_id, supplied_name, scientific_name, properties)
+
+    # where `properties` contains multipe key:value pairs per row, we have to unnest
+    # or the code breaks.
+    single_properties_check <- purrr::map(x$properties, 
+      \(a){length(a) == 2 & all(names(a)[1:2] == c("key", "value"))}) |>
+      unlist() |>
+      all()
+    if(!single_properties_check){
+      raw_columns <- simple_columns |> tidyr::unnest(cols = .data$properties)
+    }else{
+      raw_columns <- simple_columns
+    }
+
+    # resume pipe
+    raw_columns <- raw_columns |>
+     tidyr::unnest_wider(properties, names_sep = "_") |>
+     dplyr::mutate(key = camel_to_snake_case(properties_key)) |>
+     dplyr::mutate(key = dplyr::if_else(key %in% colnames(x), glue::glue("{key}_raw"), key)) |> # rename prior to pivot to avoid name conflicts
+     tidyr::pivot_wider(names_from = "key",
+                        values_from = "properties_value",
+                        names_repair = "minimal",
+                        values_fn = list) |>
+     tidyr::unnest(cols = everything())
     
     # merge
     result_final <- x |>
       dplyr::left_join(raw_columns, 
                        dplyr::join_by(taxon_concept_id, supplied_name, scientific_name)) |>
       dplyr::select(-properties) |>
-      parse_rename(.query) 
-      # parse_select(.query) # FIXME: this is limiting output in an unexpected way
+      parse_rename(.query) |>
+      parse_select(.query)
     
     # inform user about duplicated taxon_concept_ids
-    duplicate_taxa <- result_final |> filter(dplyr::n() > 1, .by = taxon_concept_id) |> distinct(taxon_concept_id) |> nrow()
+    duplicate_taxa <- result_final |> 
+      filter(dplyr::n() > 1, .by = taxon_concept_id) |> 
+      distinct(taxon_concept_id) |> 
+      nrow()
     bullets <- c("List contains {duplicate_taxa} taxon_concept_id(s) with > 1 row.",
                  "i" = "This happens because {.field taxon_concept_id} can match to multiple {.field supplied_name} values.",
                  "i" = "To see duplicated rows, save list as object then run: {.code {{your_object}} |> dplyr::filter(dplyr::n() > 1, .by = taxon_concept_id)}")
@@ -147,7 +140,35 @@ collect_lists_unnest <- function(.query){
     
     return(result_final)
   }
+}
 
+#' Internal function for cleaning common names
+#' @noRd
+#' @keywords Internal
+clean_common_names <- function(df){
+  if(any(colnames(df) == "commonName")){
+    df$commonName <- as.character(df$commonName)
+    if(any(df$commonName == "NULL")){
+      df$commonName[df$commonName == "NULL"] <- NA
+    }
+  }
+  df
+}
+
+#' Internal function to extract additional raw fields columns
+#' @noRd
+#' @keywords Internal
+clean_kvp_values <- function(df){
+  if(any(colnames(df) == "kvpValues")){
+    if(any(lengths(df$kvpValues) > 0)){
+      df <- df |>
+        tidyr::unnest(cols = "kvpValues") |>
+        tidyr::unnest_wider("kvpValues") |>
+        tidyr::pivot_wider(names_from = "key",
+                            values_from = "value")
+    }
+  }
+  df
 }
 
 #' Internal function to parse ALA-matched taxonomic information of species lists 
@@ -186,11 +207,7 @@ parse_classification <- function(df){
         )
   }
   df
-  
-
 }
-
-
 
 #' Internal function to run `compute()` for 
 #' `request_metadata(type = "profiles") |> unnest()`

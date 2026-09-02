@@ -95,10 +95,17 @@ get_max_n <- function(.query){
 #' @keywords Internal
 collapse_lists_unnest <- function(.query, error_call){
   # get row length
-  n_rows <- .query$`metadata/lists`$row_count[1]
+  list_metadata <- .query$`metadata/lists`
+  if(any(colnames(list_metadata) == "row_count")){ # ALA lists API v2
+    n_rows <- list_metadata$row_count[1]
+  }else if(any(colnames(list_metadata) == "item_count")){ # legacy API
+    n_rows <- list_metadata$item_count[1]
+  }else{
+    n_rows <- 1 # placeholder so code doesn't break. Suppresses pagination.
+  }
   # if >30000, paginate
   if(n_rows > 30000){
-    n_pages <- ceiling(row_count * (1/30000))
+    n_pages <- ceiling(n_rows * (1/30000))
     # add additional urls to reach required number of pages to return all items
     initial_url <- .query$url
     url_tibble <- tibble::tibble(url = glue::glue("{initial_url}&page={seq_len(n_pages)}"))

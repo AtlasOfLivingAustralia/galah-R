@@ -419,12 +419,14 @@ enforce_select_query_metadata <- function(x){
       purrr::pluck("type") |>
       stringr::str_remove("^metadata/")
     # see whether `lookup_select_columns()` returns anything
-    chosen_columns <- lookup_select_columns(specific_type)  
+    chosen_columns <- lookup_select_columns(specific_type) 
     # some `unnest` queries internally rename the lead column to the name of the supplied field
     if(is.null(chosen_columns) & 
-       stringr::str_detect(specific_type, "-unnest$")){
-         chosen_columns <- x$filter |>
-           purrr::pluck("value")
+       stringr::str_detect(specific_type, "-unnest$") &
+       specific_type != "lists-unnest"
+    ){
+      chosen_columns <- x$filter |>
+        purrr::pluck("value")
     }
     # if we have, after 2 attempts, found some chosen_columns, use them
     if(!is.null(chosen_columns)){

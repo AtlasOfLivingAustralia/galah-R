@@ -70,6 +70,7 @@ test_that("request_metadata() |> unnest() works for type = 'lists'", {
   x <- request_metadata() |> 
     filter(list == "dr947") |> 
     unnest() |>
+    select(taxon_concept_id, supplied_name, rank) |>
     collapse()
   expect_s3_class(x, "query")
   expect_equal(x$type, "metadata/lists-unnest")
@@ -80,7 +81,7 @@ test_that("request_metadata() |> unnest() works for type = 'lists'", {
   z <- collect(y)
   expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
   expect_gte(nrow(z), 10)
-  expect_gte(ncol(z), 3)
+  expect_equal(ncol(z), 3)
   # now check `everything()`
   xx <- request_metadata() |> 
     filter(list == "dr947") |> 

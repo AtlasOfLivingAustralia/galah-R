@@ -115,10 +115,6 @@ lookup_select_columns <- function(type) {
                        "row_count", # ALA v2
                        "is_authoritative",
                        "is_threatened"),
-           "lists-unnest" = c("scientific_name",
-                              "vernacular_name",
-                              "taxon_concept_id",
-                              "taxon_id"), # ALA v2
            "media" = c("media_id",
                        "occurrence_id",
                        "creator", 
