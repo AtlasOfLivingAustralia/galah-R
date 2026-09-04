@@ -371,7 +371,7 @@ galah_pink <- crayon::make_style("#bf2a6d")
 #' Green for printing secondary text (e.g. object types) to the console
 #' @noRd
 #' @keywords Internal
-galah_green <- crayon::make_style("#176666")
+galah_green <- crayon::make_style("#31a6a6")
 
 #' Green for printing non-emphasized text to the console
 #' @noRd

@@ -81,10 +81,11 @@
       compound(filter(authenticate(galah_call(), email = "ala4r@ala.org.au"),
       basisOfRecord == "HUMAN_OBSERVATION"))
     Message
-      Object of class query_set containing 4 queries:
+      Object of class query_set containing 5 queries:
       * metadata/config url: https://api.ala.org.au/common/api/getAuthConfig
       * metadata/fields url: https://api.ala.org.au/occurrences/index/fields
       * metadata/assertions url: https://api.ala.org.au/occurrences/assertions/codes
+      * metadata/reasons url: https://api.ala.org.au/logger/service/logger/reasons
       * data/occurrences url:
       https://api.ala.org.au/occurrences/occurrences/offline/...
 
