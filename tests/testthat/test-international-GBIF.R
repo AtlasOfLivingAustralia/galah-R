@@ -1,6 +1,11 @@
 # set verbose to off
 galah_config(verbose = FALSE, run_checks = FALSE)
 
+# This script includes a delay between successive GBIF occurrence queries.
+# This is needed because GBIF appears to limit the number of queries allowed
+# per unit time. The delay (in seconds) is set here:
+pause_time <- 2
+
 test_that("swapping to atlas = GBIF works", {
   expect_message(galah_config(atlas = "GBIF",
                               username = "atlasoflivingaustralia",
@@ -195,6 +200,7 @@ galah_config(run_checks = TRUE)
 
 test_that("`count()` works with 2 `group_by` args for GBIF", {
   skip_if_offline(); skip_on_ci()
+  Sys.sleep(pause_time)
   x <- galah_call() |>
     filter(year >= 2020) |>
     group_by(year, basisOfRecord) |>
@@ -235,6 +241,7 @@ test_that("`count()` works with 2 `group_by` args for GBIF", {
 
 test_that("`count()` works with `identify` for GBIF when `run_checks` = TRUE", {
   skip_if_offline(); skip_on_ci()
+  Sys.sleep(pause_time)
   galah_config(run_checks = TRUE)
   # collapse
   x <- request_data() |>
@@ -261,6 +268,7 @@ test_that("`count()` works with `identify` for GBIF when `run_checks` = TRUE", {
 
 test_that("`glimpse()` works for GBIF", {
   skip_if_offline(); skip_on_ci()
+  Sys.sleep(pause_time)
   galah_config(atlas = "GBIF",
               username = "atlasoflivingaustralia",
               email = "ala4r@ala.org.au",
@@ -283,6 +291,7 @@ test_that("`glimpse()` works for GBIF", {
 
 test_that("`glimpse()` works with `identify()` for GBIF", {
   skip_if_offline(); skip_on_ci()
+  Sys.sleep(pause_time)
   galah_config(atlas = "GBIF",
               username = "atlasoflivingaustralia",
               email = "ala4r@ala.org.au",
@@ -308,6 +317,7 @@ test_that("`glimpse()` works with `identify()` for GBIF", {
 
 test_that("`atlas_occurrences()` works for GBIF", {
   skip_if_offline(); skip_on_ci()
+  Sys.sleep(pause_time)
   x <- galah_call(from = "GBIF") |>
     filter(year == 1890,
            classKey == "359",
@@ -320,6 +330,7 @@ test_that("`atlas_occurrences()` works for GBIF", {
 
 test_that("`atlas_occurrences()` works with `select()` for GBIF", {
   skip_if_offline(); skip_on_ci()
+  Sys.sleep(pause_time)
   x <- galah_call(from = "GBIF") |>
     filter(year == 1890,
            classKey == "359",
@@ -331,9 +342,9 @@ test_that("`atlas_occurrences()` works with `select()` for GBIF", {
   expect_equal(ncol(x), 3)
 })
 
-# FIXME: test not implemented yet
 test_that("invalid fields are caught from `select()` for GBIF", {
   skip_if_offline(); skip_on_ci()
+  Sys.sleep(pause_time)
   galah_call(from = "GBIF") |>
     filter(year == 1890,
            classKey == "359",
@@ -343,40 +354,36 @@ test_that("invalid fields are caught from `select()` for GBIF", {
     expect_error()
 })
 
-test_that("`atlas_occurrences()` works with `geolocate_polygon()` for GBIF", {
+test_that("`count()` works with `geolocate_()` functions for GBIF", {
+  # NOTE: `atlas_occurrences()` call removed due to high time taken
   skip_if_offline(); skip_on_ci()
-  wkt <- "POLYGON((142.36 -29.01,142.36 -29.39,142.74 -29.39,142.74 -29.01,142.36 -29.01))"
-  base_query <- galah_call() |>
+  Sys.sleep(pause_time)
+  count_total <- request_data(from = "GBIF") |>
     identify("Mammalia") |>
-    geolocate_polygon(wkt) 
-  count <- base_query |>
     count() |>
     collect()
-  result <- base_query |> collect()
-  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
-  expect_gt(ncol(result), 30)
-  expect_equal(nrow(result), count$count)
-})
-
-test_that("`atlas_occurences()` works with `geolocate_radius()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
-  base_query <- galah_call() |>
+  Sys.sleep(pause_time)
+  count_radius <- request_data(from = "GBIF") |>
     identify("Mammalia") |>
     geolocate_radius(lat = -33.7,
-                 lon = 151.3,
-                 radius = 0.5)
-  count <- base_query |>
+                     lon = 151.3,
+                     radius = 0.5) |>
     count() |>
     collect()
-  result <- base_query |>
+  Sys.sleep(pause_time)
+  wkt <- "POLYGON((142.36 -29.01,142.36 -29.39,142.74 -29.39,142.74 -29.01,142.36 -29.01))"
+  count_polygon <- request_data(from = "GBIF") |>
+    identify("Mammalia") |>
+    geolocate_polygon(wkt) |>
+    count() |>
     collect()
-  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
-  expect_gt(ncol(result), 30)
-  expect_equal(nrow(result), count$count)
+  expect_lt(count_radius$count, count_total$count)
+  expect_lt(count_polygon$count, count_total$count)
 })
 
 test_that("`atlas_species()` works for GBIF", {
   skip_if_offline(); skip_on_ci()
+  Sys.sleep(pause_time)
   x <- request_data(type = "species",
                     from = "GBIF") |>
     authenticate(username = "atlasoflivingaustralia",
@@ -400,6 +407,7 @@ test_that("`atlas_species()` works for GBIF", {
 
 test_that("`count()` queries work with `authenticate()` for GBIF", {
   skip_if_offline(); skip_on_ci()
+  Sys.sleep(pause_time)
   x <- request_data(from = "GBIF") |>
     authenticate(username = "atlasoflivingaustralia",
                  email = "ala4r@ala.org.au",
@@ -413,7 +421,8 @@ test_that("`count()` queries work with `authenticate()` for GBIF", {
 })
 
 test_that("`distinct()` queries accept `select()` for GBIF", {
-    skip_if_offline(); skip_on_ci()
+  skip_if_offline(); skip_on_ci()
+  Sys.sleep(pause_time)
   x <- request_data(from = "GBIF") |>
     authenticate(username = "atlasoflivingaustralia",
                  email = "ala4r@ala.org.au",
@@ -438,6 +447,7 @@ test_that("`atlas_media()` fails for GBIF", {
 
 test_that("`collect()` works for GBIF with `type = 'occurrences' or 'occurrences-doi'` ", {
   skip_if_offline(); skip_on_ci()
+  Sys.sleep(pause_time)
   # collapse
   base_query <- request_data() |>
     identify("Vulpes vulpes") |>
@@ -445,6 +455,7 @@ test_that("`collect()` works for GBIF with `type = 'occurrences' or 'occurrences
   count <- base_query |> 
     count() |> 
     collect()
+  Sys.sleep(pause_time)
   x <- base_query |>
     collapse()
   # NOTE: the above query should return 72 records (tested 2025-06-10)
@@ -466,6 +477,7 @@ test_that("`collect()` works for GBIF with `type = 'occurrences' or 'occurrences
   expect_true(!is.null(attributes(z)$doi))
 
   # FIXME: need DOI search test
+  Sys.sleep(pause_time)
   recent_doi <- attributes(z)$doi
   a <- galah_call() |>
    filter(doi == recent_doi) |>
@@ -476,4 +488,4 @@ test_that("`collect()` works for GBIF with `type = 'occurrences' or 'occurrences
 
 quiet_config <- purrr::quietly(galah_config)
 quiet_config(atlas = "Australia")
-rm(quiet_config)
+rm(quiet_config, pause_time)

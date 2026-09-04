@@ -32,7 +32,6 @@ test_that("show_all(datasets) works for Portugal", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-## FIXME: No data returned
 test_that("show_all(providers) works for Portugal", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(providers, limit = 10) |>

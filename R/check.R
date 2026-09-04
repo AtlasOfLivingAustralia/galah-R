@@ -415,14 +415,14 @@ check_identifiers_la <- function(.query,
         
         # q and fq format taxonomic placeholder slightly differently
         if(has_taxon(queries$fq)) {
-        queries$fq <- stringr::str_replace_all(queries$fq, 
-                                               "\\(`TAXON_PLACEHOLDER`\\)", 
-                                               taxa_ids)
+          queries$fq <- stringr::str_replace_all(queries$fq, 
+                                                 "`TAXON_PLACEHOLDER`", 
+                                                 taxa_ids)
         }
         if(has_taxon(queries$q)) {
-        queries$q <- stringr::str_replace_all(queries$q, 
-                                               "`TAXON_PLACEHOLDER`", 
-                                               taxa_ids)
+          queries$q <- stringr::str_replace_all(queries$q, 
+                                                "`TAXON_PLACEHOLDER`", 
+                                                taxa_ids)
         }
         
         url$query <- queries

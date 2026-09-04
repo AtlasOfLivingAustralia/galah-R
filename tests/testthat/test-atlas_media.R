@@ -81,12 +81,16 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
   
   ## PART 1: request occurrence data
   capture_config <- purrr_config(email = "ala4r@ala.org.au")
-  occ_collect <- request_data() |>
+  occ_collect <- request_data(from = "ALA") |>
     identify("Litoria peronii") |>
     filter(year == 2010, !is.na(images)) |>
-    select(group = "media") |>
+    select(species, group = "media") |>
+    glimpse() |>
     quiet_collect(wait = TRUE)
   
+  # basic test to ensure taxon matching is working
+  expect_all_equal(occ_collect$species, "Litoria peronii") # test
+
   ## PART 2: request media metadata
   # collapse
   media_collapse <- request_metadata() |>
@@ -190,20 +194,42 @@ test_that("atlas_media gives a warning when old arguments are used", {
 
 test_that("collect_media handles different file formats", {
   skip_if_offline(); skip_on_ci()
-  
+  # setup
   media_dir <- "test_media"
   galah_config(email = "ala4r@ala.org.au", 
                directory = media_dir)
-  media_data <- galah_call() |>
+  
+  # 'safe' way to query data that might be large: use `glimpse()` rather than 
+  # `atlas_media()`
+  sound_data <- galah_call() |>
     identify("Regent Honeyeater") |>
-    filter(multimedia %in% c("Sound", "Image"), year == 2024) |>
-    quiet_media() 
+    filter(multimedia == "Sound") |>
+    select(occurrenceID, species, taxonConceptID, multimedia, images, sounds) |>
+    glimpse() |>
+    collect()
+
+  # reproduce media unnesting
+  sound_data <- sound_data |>
+    dplyr::mutate(media_id = purrr::map2(sound_data$images, 
+      sound_data$sounds, \(a, b){c(a, b)})) |>
+    tidyr::unnest_longer(col = media_id)
+
+  # get metadata
+  media_metadata <- request_metadata() |>
+    filter(media == sound_data$media_id) |>
+    collect()
+
+  # join
+  media_data <- dplyr::left_join(sound_data,
+                                 media_metadata,
+                                 by = "media_id")
+
   # sample one of each multimedia type to shorten testing time
   media_summary <- media_data |>
-    dplyr::group_by(media_type) |>
+    dplyr::group_by(mime_type) |>
     dplyr::sample_n(size = 2)
-  expect_equal(sort(unique(media_data$multimedia)),
-               c("Image", "Image | Sound"))
+
+  # now run test
   result <- purrr_collect_media(media_summary, thumbnail = TRUE)
   downloads <- list.files(path = media_dir)
   expect_true(any(grepl(".mpg$", downloads))) # sounds

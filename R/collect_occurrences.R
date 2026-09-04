@@ -159,17 +159,21 @@ collect_occurrences_glimpse_la <- function(.query){
   # pull required info from API into a tibble
   df <- result |>
     purrr::pluck("occurrences") |>
-    # non-standard fields are nested within `otherProperties`
-    # extract these
-    purrr::map(\(a){
-      if(any(names(a) == "otherProperties")){
-        c(a[names(a) != "otherProperties"],
-          a[["otherProperties"]])
-      }else{
-        a
-      }
-    }) |>
+    purrr::map(build_tibble_from_nested_list) |>
     dplyr::bind_rows()
+
+   ## OLD CODE
+   ## non-standard fields are nested within `otherProperties`
+   ## extract these
+   # purrr::map(\(a){
+   #   if(any(names(a) == "otherProperties")){
+   #     c(a[names(a) != "otherProperties"],
+   #       a[["otherProperties"]])
+   #   }else{
+   #     a
+   #   }
+   # })
+  
   attr(df, "total_n") <- result$totalRecords
 
   # assign new object for bespoke printing
