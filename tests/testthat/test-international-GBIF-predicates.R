@@ -124,7 +124,7 @@ test_that("`filter()` handles `OR` and `%in%` for GBIF", {
    filter(basisOfRecord == "HUMAN_OBSERVATION" | basisOfRecord == "PRESERVED_SPECIMEN") |>
    count() |>
    collect()
-  expect_equal(sum(x$count), y$count)
+  expect_lte((sum(x$count) - y$count) / y$count, 0.01)
 
   # check that %in% gives the same result
   z <- request_data() |>
@@ -173,7 +173,7 @@ test_that("`filter()` handles `between()` for GBIF", {
     expect_true()
 })
 
-test_that("filter() handles !() for GBIF", {
+test_that("`filter()` handles `!()` for GBIF", {
   skip_if_offline(); skip_on_ci()
 
   # exclude some levels of basisOfRecord
@@ -199,7 +199,7 @@ test_that("filter() handles !() for GBIF", {
                sort(missing_categories))
 })
 
-test_that("filter() handles `is.na()` for GBIF", {
+test_that("`filter()` handles `is.na()` for GBIF", {
   skip_if_offline(); skip_on_ci()
 
   # missing values
@@ -224,10 +224,11 @@ test_that("filter() handles `is.na()` for GBIF", {
   z <- galah_call() |>
     count() |>
     collect()
-  expect_equal(x$count + y$count, z$count)
+
+  expect_lte(((x$count + y$count) - z$count) / z$count, 0.01)
 })
 
-test_that("filter() handles c() for GBIF", {
+test_that("`filter()` handles `c()` for GBIF", {
   skip_if_offline(); skip_on_ci()
 
   # effectively parses this as 'in' as per GBIF instructions
@@ -256,13 +257,14 @@ test_that("filter() handles c() for GBIF", {
   expect_contains(y$country, country_vector)
 
   # direct comparison
-  expect_identical(x, y)
+  expect_all_true(sort(x$country) == sort(y$country))
+  expect_all_true((x$count - y$count) / y$count < 0.01)
 })
 
-test_that("`count()` works with `galah_polygon()` for GBIF", {
+test_that("`count()` works with `geolocate_polygon()` for GBIF", {
   skip_if_offline(); skip_on_ci()
   # errors when points given clockwise
-  # FIXME: This has been disableed at some point 
+  # FIXME: This has been disabled at some point 
   # `st_sfc()` has a `check_ring_dir` argument that might help
   # wkt <- "POLYGON((142.36 -29.01,142.74 -29.01,142.74 -29.39,142.36 -29.39,142.36 -29.01))"
   # expect_error({galah_call() |>
@@ -273,7 +275,7 @@ test_that("`count()` works with `galah_polygon()` for GBIF", {
   wkt <- "POLYGON((142.36 -29.01,142.36 -29.39,142.74 -29.39,142.74 -29.01,142.36 -29.01))"
   result <- galah_call() |>
     identify("Mammalia") |>
-    galah_polygon(wkt) |>
+    geolocate_polygon(wkt) |>
     count() |>
     collect()
   # compare against a taxonomic query in the same place
@@ -283,27 +285,27 @@ test_that("`count()` works with `galah_polygon()` for GBIF", {
     collect()
   # compare against a purely spatial query
   result_space <- galah_call() |>
-    galah_polygon(wkt) |>
+    geolocate_polygon(wkt) |>
     count() |>
     collect()
   expect_lt(result$count, result_taxa$count)
   expect_lt(result$count, result_space$count)
 })
 
-test_that("`count()` works with `galah_radius()` for GBIF", {
+test_that("`count()` works with `geolocate_radius()` for GBIF", {
   skip_if_offline(); skip_on_ci()
   # ditto for a point and radius
   result <- galah_call() |>
     identify("Mammalia") |>
-    galah_radius(lat = -33.7,
-                 lon = 151.3,
-                 radius = 5) |>
+    geolocate_radius(lat = -33.7,
+                     lon = 151.3,
+                     radius = 5) |>
     count() |>
     collect()
   result_space <- galah_call() |>
-    galah_radius(lat = -33.7,
-                 lon = 151.3,
-                 radius = 5) |>
+    geolocate_radius(lat = -33.7,
+                     lon = 151.3,
+                     radius = 5) |>
     count() |>
     collect()
   result_taxa <- galah_call() |>

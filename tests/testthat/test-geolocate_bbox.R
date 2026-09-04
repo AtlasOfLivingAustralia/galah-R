@@ -19,7 +19,8 @@ test_that("`geolocate_bbox()` returns bbox for sf", {
 
 test_that("`geolocate_bbox()` returns bbox for shapefile", {
   poly_path <- test_path("testdata", "act_state_polygon_shp", "ACT_STATE_POLYGON_shp.shp")
-  shapefile <- sf::st_read(poly_path, quiet = TRUE)
+  shapefile <- sf::st_read(poly_path, quiet = TRUE) |>
+    sf::st_transform(sf::st_crs(4326))
   shapefile_bbox <- quiet_bbox(shapefile)
   expected_bbox <- attributes(shapefile_bbox)$bbox
   expect_message(geolocate_bbox(shapefile), "Data returned for bounding box:")

@@ -354,33 +354,6 @@ test_that("invalid fields are caught from `select()` for GBIF", {
     expect_error()
 })
 
-test_that("`count()` works with `geolocate_()` functions for GBIF", {
-  # NOTE: `atlas_occurrences()` call removed due to high time taken
-  skip_if_offline(); skip_on_ci()
-  Sys.sleep(pause_time)
-  count_total <- request_data(from = "GBIF") |>
-    identify("Mammalia") |>
-    count() |>
-    collect()
-  Sys.sleep(pause_time)
-  count_radius <- request_data(from = "GBIF") |>
-    identify("Mammalia") |>
-    geolocate_radius(lat = -33.7,
-                     lon = 151.3,
-                     radius = 0.5) |>
-    count() |>
-    collect()
-  Sys.sleep(pause_time)
-  wkt <- "POLYGON((142.36 -29.01,142.36 -29.39,142.74 -29.39,142.74 -29.01,142.36 -29.01))"
-  count_polygon <- request_data(from = "GBIF") |>
-    identify("Mammalia") |>
-    geolocate_polygon(wkt) |>
-    count() |>
-    collect()
-  expect_lt(count_radius$count, count_total$count)
-  expect_lt(count_polygon$count, count_total$count)
-})
-
 test_that("`atlas_species()` works for GBIF", {
   skip_if_offline(); skip_on_ci()
   Sys.sleep(pause_time)
