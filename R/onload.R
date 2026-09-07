@@ -54,17 +54,20 @@ set_up_potions <- function(){
     # NOTE: This message *must* have the following classes to enable them
     # to be controlled programmatically.
     # see ?packageStartupMessage (required by `check()`)
-    c(
-      glue::glue("galah version {galah_version}"),
-      "\n", # note: glue wipes newlines, so have to be outside
-      cli::col_magenta(glue::glue('This package is currently configured to query {current_node} ({current_url}).\n')),
-      "\n",
-      i = cli::col_magenta('- You can change this setting globally using using e.g. `galah_config(atlas = \"GBIF\")`.'),
-      "\n",
-      i = cli::col_magenta('- Or for a single query by opening your pipe with e.g. `request_data(from = "Spain")`.'),
-      "\n",
-      i = cli::col_magenta('- To see *all* supported organisations, run `show_all(atlases)`.')
-    ) |>
+    startup_message <- function() {
+      lines <- cli::cli_fmt({
+        cli::cli_text("galah version {galah_version}")
+        cli::cli_bullets(c(
+          "*" = cli::col_magenta("This package is currently configured to query {current_node} ({current_url})."),
+          "i" = cli::col_magenta('Change this setting globally by using e.g. `galah_config(atlas = \"GBIF\")`.'),
+          " " = cli::col_magenta('Or for a single query by opening your pipe with e.g. `galah_call(from = "Spain")`.'),
+          "i" = cli::col_magenta('See {.strong all} supported organisations with `show_all(atlases)`.')
+          ))
+      })
+      paste(lines, collapse = "\n")
+    }
+    
+    startup_message() |>  
       packageStartupMessage()
   }
 }
