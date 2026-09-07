@@ -20,6 +20,12 @@
 #' @returns An object of the same class as supplied, but with an added
 #' `authenticate` slot.
 #' @examples \dontrun{
+#' # Authenticate occurrence queries within a pipe without using `galah_config()`
+#' galah_call() |>
+#'   authenticate(email = "your-email@email.com") |>
+#'   identify("Wollemia nobilis") |>
+#'   collect()
+#' 
 #' # use `galah_config()` to set for all occurrence queries
 #' galah_config(authenticate = TRUE)
 #' 
