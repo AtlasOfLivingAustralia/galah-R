@@ -14,10 +14,13 @@
 * Misc bug fixes for `atlas_occurrences()`, `glimpse()` and `show_values()` for GBIF (#299).
 * Upgraded to v2 of specieslist API for ALA (#300).
 * `galah` now auto-populates the `q` parameter for living atlas API calls for server-side performance reasons (#301).
+* Added check that object has correct Coordinate Reference System when using `geolocate()` (#302)
+* Improved query parsing for more complex text strings (#303)
 
 ### Lifecycle
 * `galah_` prefix functions for piping formally superseded by their `dplyr` alternatives.
 * Using `filter`, `select` etc as arguments to the `atlas_` family formally superseded in favor of piping.
+* `all_fields` argument in `show_values()` used to return all columns in a specified list superseded to supplying all columns by default.
 
 # galah 2.2.0
 
