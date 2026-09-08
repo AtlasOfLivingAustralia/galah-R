@@ -100,10 +100,13 @@ collect_lists_unnest <- function(.query){
       filter(dplyr::n() > 1, .by = .data$taxon_concept_id) |> 
       distinct(.data$taxon_concept_id) |> 
       nrow()
-    bullets <- c("List contains {duplicate_taxa} taxon_concept_id(s) with > 1 row.",
-                 "i" = "This happens because {.field taxon_concept_id} can match to multiple {.field supplied_name} values.",
-                 "i" = "To see duplicated rows, save list as object then run: {.code {{your_object}} |> dplyr::filter(dplyr::n() > 1, .by = taxon_concept_id)}")
-    cli::cli_warn(bullets)
+    
+    if(duplicate_taxa > 0) {
+      bullets <- c("List contains {duplicate_taxa} taxon_concept_id(s) with > 1 row.",
+                   "i" = "This happens because {.field taxon_concept_id} can match multiple {.field supplied_name} values with unique metadata",
+                   "i" = "To see duplicated rows, save list as object then run: {.code {{your_object}} |> dplyr::filter(dplyr::n() > 1, .by = taxon_concept_id)}")
+      cli::cli_warn(bullets)
+    }
     
     return(x)
   }
@@ -143,14 +146,15 @@ clean_kvp_values <- function(df){
 #' @noRd
 #' @keywords Internal
 parse_properties <- function(df, .query){
-
+  
+  # second, `properties` contains status information and other raw fields.
   if(any(colnames(df) == "properties")){
-    # second, `properties` contains status information and other raw fields.
+    
     simple_columns <- df |>
      dplyr::select(tidyselect::any_of(
       c("taxon_concept_id", "supplied_name", "scientific_name", "properties")))
 
-    # where `properties` contains multipe key:value pairs per row, we have to unnest
+    # where `properties` contains multiple key:value pairs per row, we have to unnest
     # or the code breaks.
     single_properties_check <- purrr::map(df$properties, 
       \(a){length(a) == 2 & all(names(a)[1:2] == c("key", "value"))}) |>
@@ -161,26 +165,36 @@ parse_properties <- function(df, .query){
     }else{
       raw_columns <- simple_columns
     }
-
-    # resume pipe
-    raw_columns <- raw_columns |>
-     tidyr::unnest_wider(.data$properties, names_sep = "_") |>
-     dplyr::mutate(key = camel_to_snake_case(.data$properties_key)) |>
-     dplyr::mutate(key = dplyr::if_else(.data$key %in% colnames(df), glue::glue("{key}_raw"), .data$key)) |> # rename prior to pivot to avoid name conflicts
-     tidyr::pivot_wider(names_from = "key",
-                        values_from = "properties_value",
-                        names_repair = "minimal",
-                        values_fn = list) |>
-     tidyr::unnest(cols = tidyselect::everything())
     
-    # merge
-    result_final <- df |>
-      dplyr::left_join(raw_columns, 
-                       dplyr::join_by("taxon_concept_id", "supplied_name", "scientific_name")) |>
-      dplyr::select(-tidyselect::starts_with("properties")) |> # also excludes `properties_key`
-      parse_rename(.query)
-
+    # if unnested properties column is not empty, reformat
+    if(nrow(raw_columns) > 0) {
+      # resume pipe
+      raw_columns <- raw_columns |>
+        tidyr::unnest_wider(.data$properties, names_sep = "_") |>
+        dplyr::mutate(key = camel_to_snake_case(.data$properties_key)) |>
+        dplyr::mutate(key = dplyr::if_else(.data$key %in% colnames(df), glue::glue("{key}_raw"), .data$key)) |> # rename prior to pivot to avoid name conflicts
+        tidyr::pivot_wider(names_from = "key",
+                           values_from = "properties_value",
+                           names_repair = "minimal",
+                           values_fn = list) |>
+        tidyr::unnest(cols = tidyselect::everything())
+      
+      # merge
+      result_final <- df |>
+        dplyr::left_join(raw_columns, 
+                         dplyr::join_by("taxon_concept_id", "supplied_name", "scientific_name")) |>
+        dplyr::select(-tidyselect::starts_with("properties")) |> # also excludes `properties_key`
+        parse_rename(.query)
+      
+      # if unnested properties column is empty, remove it
+    } else {
+      result_final <- simple_columns |>
+        dplyr::select(-tidyselect::starts_with("properties")) |> # also excludes `properties_key`
+        parse_rename(.query)
+    }
+    
     return(result_final)
+    
   }else{
     return(df)
   }

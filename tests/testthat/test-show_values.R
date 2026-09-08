@@ -124,4 +124,33 @@ test_that("`show_values()` all_fields = TRUE works for lists", {
     expect_true()
 })
 
+test_that("`show_values()` returns message when there are duplicated taxon concept ids", {
+  skip_if_offline(); skip_on_ci()
+  # simple, fake version for testing `show_values()`
+  df <- tibble::tibble(species_list_uid = "dr650")
+  attr(df, "call") <- "lists"
+  show_values_query <- purrr_values(df)
+  # NOTE: above is same as following code, but much faster  
+  # search <- search_all(lists, "dr650") |>
+  #   show_values(all_fields = TRUE)
+  
+  # warning expected
+  expect_match(show_values_query$warnings,
+               "^List contains")
+})
+
+test_that("`show_values()` doesn't return message when there are no duplicated taxon concept ids", {
+  skip_if_offline(); skip_on_ci()
+  # simple, fake version for testing `show_values()`
+  df <- tibble::tibble(species_list_uid = "dr30561")
+  attr(df, "call") <- "lists"
+  show_values_query <- purrr_values(df)
+  # NOTE: above is same as following code, but much faster  
+  # search <- search_all(lists, "dr650") |>
+  #   show_values(all_fields = TRUE)
+  
+  # warning not expected
+  expect_length(show_values_query$warnings, 0)
+})
+
 rm(purrr_values, quiet_values, purrr_search, quiet_search)
