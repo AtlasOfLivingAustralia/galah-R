@@ -85,6 +85,14 @@ test_that("`search_taxa()` errors nicely when piped in `galah_call()`", {
   expect_error(galah_call() |> search_taxa("perameles"), "Can't pipe `search_taxa()")
 })
 
+test_that("`search_taxa()` handles complex strings", {
+  skip_if_offline(); skip_on_ci()
+  taxa <- search_taxa("Commelina sp. (Lakefield NP P.I.Forster+ PIF12943)")
+  expect_s3_class(taxa, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(taxa$scientific_name, "Commelina sp. Lakefield NP (P.I.Forster+ PIF12943)")
+  expect_equal(nrow(taxa), 1)
+})
+
 test_that("`search_identifiers()` searches using identifier", {
   skip_if_offline(); skip_on_ci()
   # check different types of id
