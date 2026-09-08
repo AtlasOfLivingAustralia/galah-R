@@ -28,18 +28,10 @@
 #' 
 #' @param df A search result from [search_fields()], [search_profiles()] or 
 #' [search_lists()].
-#' @param all_fields `r lifecycle::badge("experimental")` If `TRUE`, 
-#'   `show_values()` also returns all columns available from the API, rather
-#'   than the 'default' columns traditionally provided via galah. 
-#'   
-#'   For lists, this will include 'raw' columns; columns included prior to the 
-#'   dataset's ingestion into the ALA, and will often include raw scientific 
-#'   names and vernacular names. For conservation lists like the EPBC list, this 
-#'   also includes columns containing each species' conservation status 
-#'   information. 
-#'   
-#'   For other forms of metadata, setting this to `TRUE` may return more 
-#'   information than you want or need. Default is set to `FALSE`. 
+#' @param all_fields `r lifecycle::badge("deprecated")` 
+#'   By default all columns available from the API are returned as of v2.3.0. 
+#'   Use `request_metadata()` with `select()` to refine which columns are 
+#'   returned in your query instead. 
 #' @return A `tibble` of values for a specified field, profile or list.
 #' @examples \dontrun{
 #' # Show values in field 'cl22'
@@ -60,6 +52,14 @@
 #' # See items within species list "dr19257"
 #' search_lists("dr19257") |> 
 #'   show_values()
+#'
+#' # Refine which columns are returned with `request_metadata()` and `select()`.
+#' # This example is synonymous to the previous example, but with `select()`:
+#' request_metadata() |>
+#'   filter(list == "dr19257") |>
+#'   unnest() |>
+#'   select(taxon_concept_id, supplied_name, scientific_name) |>
+#'   collect() 
 #' }
 #' @export
 show_values <- function(df,
@@ -96,18 +96,10 @@ show_values <- function(df,
     }
   }
   
-  if(isTRUE(all_fields)){
-    request_metadata() |>
-      filter({{type}} == {{match_name}}) |>
-      select(tidyselect::everything()) |>
-      unnest() |>
-      collect()
-  }else{
-    request_metadata() |>
-      filter({{type}} == {{match_name}}) |>
-      unnest() |>
-      collect()
-  }
+  request_metadata() |>
+    filter({{type}} == {{match_name}}) |>
+    unnest() |>
+    collect()
 }
 
 #' @param query A string specifying a search term. Not case sensitive.
