@@ -102,23 +102,25 @@ test_that("`show_values()` returns unformatted names", {
                expected)
 })
 
-test_that("`show_values()` all_fields = TRUE works for lists", {
+test_that("`show_values()` returns nested columns within 'properties'", {
   skip_if_offline(); skip_on_ci()
   # simple, fake version for testing `show_values()`
   df <- tibble::tibble(species_list_uid = "dr650")
   attr(df, "call") <- "lists"
-  show_values_query <- quiet_values(df, all_fields = TRUE)
+  show_values_query <- quiet_values(df)
   # NOTE: above is same as following code, but much faster  
   # search <- search_all(lists, "dr650") |>
-  #   show_values(all_fields = TRUE)
+  #   show_values()
+  
   extra_cols <- c("raw_scientificName", "status", "sourceStatus", "IUCN_equivalent_status")
   expect_s3_class(show_values_query, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(show_values_query), 0)
   expect_true(any(colnames(show_values_query) %in% extra_cols))
   expect_gt(ncol(show_values_query), 6) # adds additional columns
+  
   # doesn't work for fields
   x <- search_all(fields, "cl22") |>
-    purrr_values(all_fields = TRUE)
+    purrr_values()
   stringr::str_detect(x$messages, "cl22") |>
     any() |>
     expect_true()
@@ -132,7 +134,7 @@ test_that("`show_values()` returns message when there are duplicated taxon conce
   show_values_query <- purrr_values(df)
   # NOTE: above is same as following code, but much faster  
   # search <- search_all(lists, "dr650") |>
-  #   show_values(all_fields = TRUE)
+  #   show_values()
   
   # warning expected
   expect_match(show_values_query$warnings,
@@ -147,7 +149,7 @@ test_that("`show_values()` doesn't return message when there are no duplicated t
   show_values_query <- purrr_values(df)
   # NOTE: above is same as following code, but much faster  
   # search <- search_all(lists, "dr650") |>
-  #   show_values(all_fields = TRUE)
+  #   show_values()
   
   # warning not expected
   expect_length(show_values_query$warnings, 0)
