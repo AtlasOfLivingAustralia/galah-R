@@ -17,6 +17,12 @@ set_up_potions <- function(){
   if(is.null(stored_options)){
     # set up storage of standard information via {potions}
     potions::brew(default_config(), .pkg = "galah") # set up caching of behaviour
+  }else if(length(stored_options$packages$galah) < 1L){
+    # this is necessary because `drain_package()` often leaves the *name*
+    # of the package, but not the *content*. In which case we need to replace it.
+    # This particularly hits the test suite, which calls 
+    # `pkgload:::run_pkg_hook(package, "attach")` internally
+    potions::brew(default_config(), .pkg = "galah") 
   }
 }
 
@@ -49,26 +55,27 @@ set_up_potions <- function(){
       dplyr::filter(.data$acronym == current_node) |>
       dplyr::pull("url") |>
       stringr::str_replace("^https://", "")
-
-    # display a message
-    # NOTE: This message *must* have the following classes to enable them
-    # to be controlled programmatically.
-    # see ?packageStartupMessage (required by `check()`)
-    startup_message <- function() {
-      lines <- cli::cli_fmt({
-        cli::cli_text("galah version {galah_version}")
-        cli::cli_bullets(c(
-          "*" = cli::col_magenta("This package is currently configured to query {current_node} ({current_url})."),
-          "i" = cli::col_magenta('Change this setting globally by using e.g. `galah_config(atlas = \"GBIF\")`.'),
-          " " = cli::col_magenta('Or for a single query by opening your pipe with e.g. `galah_call(from = "Spain")`.'),
-          "i" = cli::col_magenta('See {.strong all} supported organisations with `show_all(atlases)`.')
-          ))
-      })
-      paste(lines, collapse = "\n")
-    }
     
-    startup_message() |>  
-      packageStartupMessage()
+    # run start-up message
+    startup_message(node = current_node, 
+                    url = current_url,
+                    version = galah_version) |>  
+      packageStartupMessage() # Mandatory: see `?packageStartupMessage` (required by `check()`)
   }
 }
   
+#' Display a startup message
+#' @noRd
+#' @keywords Internal
+startup_message <- function(node, url, version) {
+  lines <- cli::cli_fmt({
+    cli::cli_text("galah version {version}")
+    cli::cli_bullets(c(
+      "*" = cli::col_magenta("This package is currently configured to query {node} ({url})."),
+      "i" = cli::col_magenta('Change this setting globally by using e.g. `galah_config(atlas = \"GBIF\")`.'),
+      " " = cli::col_magenta('Or for a single query by opening your pipe with e.g. `galah_call(from = "Spain")`.'),
+      "i" = cli::col_magenta('See {.strong all} supported organisations with `show_all(atlases)`.')
+      ))
+  })
+  paste(lines, collapse = "\n")
+}
