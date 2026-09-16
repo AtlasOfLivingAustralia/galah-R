@@ -92,6 +92,13 @@ galah_call() |>
   identify("Eolophus") |>
   filter(year > 2000 & year < 2005) |>
   collect()
+  
+# Use `from` argument to change query organisation
+galah_call(from = "Spain") |>
+  identify("Aves") |>
+  filter(year > 2000 & year < 2005) |>
+  count() |>
+  collect()
 }
 }
 \seealso{
