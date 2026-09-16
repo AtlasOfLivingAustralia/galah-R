@@ -1,7 +1,7 @@
 ---
 title: "Quick start guide"
 author: "Martin Westgate & Dax Kellie"
-date: '2026-05-02'
+date: '2026-09-16'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -42,14 +42,14 @@ library(galah)
 a `tibble` in your workspace, you amend a query, which is then sent to your
 chosen organisation. These pipes differ from traditional syntax in two ways:
 
-- they begin with a function - usually `request_data()` - instead of a `tibble`
+- they begin with a function - usually `galah_call()` - instead of a `tibble`
 - they end with one of `dplyr`'s evaluation functions, usually `collect()`
 
 So an example query might be to find the number of records:
 
 
 ``` r
-request_data() |>    # open a pipe
+galah_call() |>    # open a pipe
   count() |>       # count the number of rows
   collect()        # retrieve query from the server
 ```
@@ -58,7 +58,7 @@ request_data() |>    # open a pipe
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 179728084
+## 1 184796858
 ```
 
 By default, queries are sent to the Atlas of Living Australia, but this can
@@ -66,16 +66,16 @@ be changed using the `from` argument:
 
 
 ``` r
-request_data(from = "Sweden") |>
+galah_call(from = "Spain") |>
   count() |>
   collect()
 ```
 
 ```
 ## # A tibble: 1 × 1
-##       count
-##       <int>
-## 1 173135256
+##      count
+##      <int>
+## 1 59852882
 ```
 
 The `from` argument accepts the `acronym`, `region`, or `institution` fields from 
@@ -92,7 +92,7 @@ You can pass taxonomic filters to your query with `identify()`:
 
 
 ``` r
-request_data() |>
+galah_call() |>
   identify("Eolophus roseicapilla") |>
   count() |>
   collect()
@@ -102,7 +102,7 @@ request_data() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 1594059
+## 1 1593848
 ```
 
 To choose records using non-taxonomic criteria, you'll need to use `filter()`.
@@ -115,13 +115,13 @@ You can answer the first question with `describe()`:
 
 
 ``` r
-request_data() |>
+galah_call() |>
   describe() |>
   collect()
 ```
 
 ```
-## # A tibble: 581 × 3
+## # A tibble: 582 × 3
 ##    id                    description               data_type
 ##    <chr>                 <chr>                     <chr>    
 ##  1 acceptedNameUsage     Accepted name             string   
@@ -134,7 +134,7 @@ request_data() |>
 ##  8 assertionsCount       <NA>                      int      
 ##  9 associatedMedia       Associated Media          string   
 ## 10 associatedOccurrences Associated Occurrences    string   
-## # ℹ 571 more rows
+## # ℹ 572 more rows
 ```
 
 Once you find a variable you are interested in, see what values it contains
@@ -142,7 +142,7 @@ using `distinct()`:
 
 
 ``` r
-request_data() |>
+galah_call() |>
   distinct(basisOfRecord) |>
   collect()
 ```
@@ -154,8 +154,8 @@ request_data() |>
 ## 1 HUMAN_OBSERVATION  
 ## 2 PRESERVED_SPECIMEN 
 ## 3 OCCURRENCE         
-## 4 MACHINE_OBSERVATION
-## 5 OBSERVATION        
+## 4 OBSERVATION        
+## 5 MACHINE_OBSERVATION
 ## 6 MATERIAL_SAMPLE    
 ## 7 LIVING_SPECIMEN    
 ## 8 FOSSIL_SPECIMEN    
@@ -166,7 +166,7 @@ Then you can combine these within a `filter()` query:
 
 
 ``` r
-request_data() |>
+galah_call() |>
   filter(basisOfRecord == "PRESERVED_SPECIMEN") |>
   count() |> 
   collect()
@@ -176,26 +176,32 @@ request_data() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 18189911
+## 1 18419249
 ```
 
 These functions can be combined in a number of ways, for example to
-learn how many species are present within the genus 'Crinia':
+learn how many species from the genus 'Crinia' have records from 
+each country with records in the ALA:
 
 
 ``` r
-request_data() |>
+galah_call() |>
   identify("Crinia") |>   # filters by taxonomic names
-  distinct(speciesID) |>  # keep only unique values
+  group_by(country) |>    # grouping variable
+  distinct(species) |>    # keep only unique values
   count() |>
   collect()
 ```
 
 ```
-## # A tibble: 1 × 1
-##   count
-##   <int>
-## 1    17
+## # A tibble: 5 × 2
+##   country          count
+##   <chr>            <int>
+## 1 Australia           17
+## 2 Papua New Guinea     2
+## 3 New Zealand          1
+## 4 Indonesia            0
+## 5 Solomon Islands      1
 ```
 
 You can `glimpse()` a data download before you run it, to check all the data 
@@ -203,7 +209,7 @@ you need is included:
 
 
 ``` r
-request_data() |>
+galah_call() |>
   identify("Eolophus roseicapilla") |> 
   filter(year == 2010) |>
   glimpse() |>
@@ -211,16 +217,16 @@ request_data() |>
 ```
 
 ```
-## Rows: 27,556
+## Rows: 26,430
 ## Columns: 8
-## $ taxonConceptID   <chr> "https://biodiversity.org.au/afd/taxa/a586dca0-4717-451a-90da-b65518a52ee3", "https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea", "https://biodiversity.org.au/afd/taxa/a38ac5ac-3049-4fde-8391-faf8bf7aeb7f"
-## $ eventDate        <dbl> 1.267402e+12, 1.272586e+12, 1.282781e+12
-## $ scientificName   <chr> "Eolophus roseicapilla roseicapilla", "Eolophus roseicapilla", "Eolophus roseicapilla albiceps"
-## $ decimalLatitude  <dbl> -30.91667, -36.42500, -20.52361
-## $ decimalLongitude <dbl> 150.2500, 144.6583, 145.3958
+## $ taxonConceptID   <chr> "https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea", "https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea", "https://biodiversity.org.au/afd/taxa/a38ac5ac-3049-4fde-8391-faf8bf7aeb7f"
+## $ eventDate        <dbl> 1.278833e+12, 1.286170e+12, 1.292803e+12
+## $ scientificName   <chr> "Eolophus roseicapilla", "Eolophus roseicapilla", "Eolophus roseicapilla albiceps"
+## $ decimalLatitude  <dbl> -27.57463, -16.06593, -35.88444
+## $ decimalLongitude <dbl> 153.4350, 136.3067, 145.9089
 ## $ basisOfRecord    <chr> "HUMAN_OBSERVATION", "HUMAN_OBSERVATION", "HUMAN_OBSERVATION"
-## $ dataResourceName <chr> "New South Wales Bird Atlassers", "Victorian Biodiversity Atlas", "BirdLife Australia, Birdata"
-## $ occurrenceStatus <chr> "PRESENT", "PRESENT", "PRESENT"
+## $ dataResourceName <chr> "eBird Australia", "eBird Australia", "BirdLife Australia, Birdata"
+## $ otherProperties  <list> ["PRESENT"], ["PRESENT"], ["PRESENT"]
 ```
 
 And, once satisfied that your parameters are correct, download the records 
@@ -229,7 +235,7 @@ themselves:
 
 
 ``` r
-request_data() |>
+galah_call() |>
   authenticate(email = "registered_email@wherever.com") |>
   identify("Eolophus roseicapilla") |> 
   filter(year == 2010) |>
@@ -239,7 +245,7 @@ request_data() |>
 
 
 ```
-## Request for 27556 occurrences placed in queue.
+## Request for 26430 occurrences placed in queue.
 ```
 
 ```
@@ -247,24 +253,32 @@ request_data() |>
 ```
 
 ```
-## ---
+## --
 ```
 
 ```
-## # A tibble: 27,556 × 3
+## ℹ Downloading
+```
+
+```
+## ✔ Downloading [253ms]
+```
+
+```
+## # A tibble: 26,430 × 3
 ##    eventDate decimalLatitude species              
 ##    <dttm>              <dbl> <chr>                
-##  1 NA                  -36.3 Eolophus roseicapilla
-##  2 NA                  -38.2 Eolophus roseicapilla
-##  3 NA                  -37.0 Eolophus roseicapilla
-##  4 NA                  -37.7 Eolophus roseicapilla
-##  5 NA                  -35.6 Eolophus roseicapilla
-##  6 NA                  -31.1 Eolophus roseicapilla
-##  7 NA                  -38.2 Eolophus roseicapilla
-##  8 NA                  -36.8 Eolophus roseicapilla
-##  9 NA                  -38.2 Eolophus roseicapilla
-## 10 NA                  -38.2 Eolophus roseicapilla
-## # ℹ 27,546 more rows
+##  1 NA                  -37.1 Eolophus roseicapilla
+##  2 NA                  -37.0 Eolophus roseicapilla
+##  3 NA                  -37.1 Eolophus roseicapilla
+##  4 NA                  -37.1 Eolophus roseicapilla
+##  5 NA                  -37.2 Eolophus roseicapilla
+##  6 NA                  -37.0 Eolophus roseicapilla
+##  7 NA                  -37.0 Eolophus roseicapilla
+##  8 NA                  -37.0 Eolophus roseicapilla
+##  9 NA                  -37.0 Eolophus roseicapilla
+## 10 NA                  -37.1 Eolophus roseicapilla
+## # ℹ 26,420 more rows
 ```
 
 # Architecture
@@ -318,9 +332,9 @@ galah_call() |>
 
 ```
 ## # A tibble: 1 × 1
-##     count
-##     <int>
-## 1 9913135
+##      count
+##      <int>
+## 1 10781991
 ```
 
 Or occurrences:
@@ -336,7 +350,11 @@ galah_call() |>
 ```
 
 ```
-## --# A tibble: 2,318 × 9
+## -----
+```
+
+```
+## # A tibble: 2,318 × 9
 ##   recordID                             scientificName        taxonConceptID                                                            decimalLatitude decimalLongitude eventDate           basisOfRecord     occurrenceStatus dataResourceName   
 ##   <chr>                                <chr>                 <chr>                                                                               <dbl>            <dbl> <dttm>              <chr>             <chr>            <chr>              
 ## 1 0026d29f-b6ab-4a1d-9c57-6ee12cfde3a0 Eolophus roseicapilla https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea           -35.4             149. 2000-08-07 00:00:00 HUMAN_OBSERVATION PRESENT          Garden Bird Surveys
@@ -361,7 +379,7 @@ show_all(fields)
 ```
 
 ```
-## # A tibble: 581 × 3
+## # A tibble: 582 × 3
 ##    id                    description               type  
 ##    <chr>                 <chr>                     <chr> 
 ##  1 acceptedNameUsage     Accepted name             fields
@@ -374,7 +392,7 @@ show_all(fields)
 ##  8 assertionsCount       <NA>                      fields
 ##  9 associatedMedia       Associated Media          fields
 ## 10 associatedOccurrences Associated Occurrences    fields
-## # ℹ 571 more rows
+## # ℹ 572 more rows
 ```
 
 You can check the 

@@ -39,13 +39,13 @@ library(galah)
 a `tibble` in your workspace, you amend a query, which is then sent to your
 chosen organisation. These pipes differ from traditional syntax in two ways:
 
-- they begin with a function - usually `request_data()` - instead of a `tibble`
+- they begin with a function - usually `galah_call()` - instead of a `tibble`
 - they end with one of `dplyr`'s evaluation functions, usually `collect()`
 
 So an example query might be to find the number of records:
 
 ```{r, count-example}
-request_data() |>    # open a pipe
+galah_call() |>    # open a pipe
   count() |>       # count the number of rows
   collect()        # retrieve query from the server
 ```
@@ -53,8 +53,8 @@ request_data() |>    # open a pipe
 By default, queries are sent to the Atlas of Living Australia, but this can
 be changed using the `from` argument:
 
-```{r, sbdi-example}
-request_data(from = "Sweden") |>
+```{r, spain-example}
+galah_call(from = "Spain") |>
   count() |>
   collect()
 ```
@@ -71,7 +71,7 @@ knitr::include_graphics('../man/figures/atlases_plot.png')
 You can pass taxonomic filters to your query with `identify()`:
 
 ```{r, identify-example}
-request_data() |>
+galah_call() |>
   identify("Eolophus roseicapilla") |>
   count() |>
   collect()
@@ -86,7 +86,7 @@ This reqires that you find out:
 You can answer the first question with `describe()`:
 
 ```{r, describe-example}
-request_data() |>
+galah_call() |>
   describe() |>
   collect()
 ```
@@ -95,7 +95,7 @@ Once you find a variable you are interested in, see what values it contains
 using `distinct()`:
 
 ```{r, distinct-example}
-request_data() |>
+galah_call() |>
   distinct(basisOfRecord) |>
   collect()
 ```
@@ -103,19 +103,21 @@ request_data() |>
 Then you can combine these within a `filter()` query:
 
 ```{r, count-filter-example}
-request_data() |>
+galah_call() |>
   filter(basisOfRecord == "PRESERVED_SPECIMEN") |>
   count() |> 
   collect()
 ```
 
 These functions can be combined in a number of ways, for example to
-learn how many species are present within the genus 'Crinia':
+learn how many species from the genus 'Crinia' have records from 
+each country with records in the ALA:
 
 ```{r, species-count-example}
-request_data() |>
+galah_call() |>
   identify("Crinia") |>   # filters by taxonomic names
-  distinct(speciesID) |>  # keep only unique values
+  group_by(country) |>    # grouping variable
+  distinct(species) |>    # keep only unique values
   count() |>
   collect()
 ```
@@ -124,7 +126,7 @@ You can `glimpse()` a data download before you run it, to check all the data
 you need is included:
 
 ```{r, glimpse-example}
-request_data() |>
+galah_call() |>
   identify("Eolophus roseicapilla") |> 
   filter(year == 2010) |>
   glimpse() |>
@@ -136,7 +138,7 @@ themselves:
 
 
 ```{r, occurrence-example, eval = FALSE}
-request_data() |>
+galah_call() |>
   authenticate(email = "registered_email@wherever.com") |>
   identify("Eolophus roseicapilla") |> 
   filter(year == 2010) |>
@@ -145,7 +147,7 @@ request_data() |>
 ```
 
 ```{r, cache-email, echo = FALSE}
-request_data() |>
+galah_call() |>
   authenticate(email = "ala4r@ala.org.au") |>
   identify("Eolophus roseicapilla") |> 
   filter(year == 2010) |>
