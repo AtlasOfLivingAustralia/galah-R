@@ -94,20 +94,23 @@ collect_lists_unnest <- function(.query){
       parse_rename(.query) |>
       parse_properties(.query) |>
       parse_select(.query)
-    
-    # inform user about duplicated taxon_concept_ids
-    duplicate_taxa <- x |> 
-      filter(dplyr::n() > 1, .by = .data$taxon_concept_id) |> 
-      distinct(.data$taxon_concept_id) |> 
-      nrow()
-    
-    if(duplicate_taxa > 0) {
-      bullets <- c("List contains {duplicate_taxa} taxon_concept_id(s) with > 1 row.",
-                   "i" = "This happens because {.field taxon_concept_id} can match multiple {.field supplied_name} values with unique metadata",
-                   "i" = "To see duplicated rows, save list as object then run: {.code {{your_object}} |> dplyr::filter(dplyr::n() > 1, .by = taxon_concept_id)}")
-      cli::cli_warn(bullets)
+
+    verbose <- potions::pour("package", "verbose", .pkg = "galah")
+    if(verbose){
+      # inform user about duplicated taxon_concept_ids
+      duplicate_taxa <- x |> 
+        filter(dplyr::n() > 1, .by = "taxon_concept_id") |>
+        distinct(.data$taxon_concept_id) |> 
+        nrow()
+
+      if(duplicate_taxa > 0) {
+        bullets <- c("List contains {duplicate_taxa} taxon_concept_id(s) with > 1 row.",
+                    "i" = "This happens because {.field taxon_concept_id} can match multiple {.field supplied_name} values with unique metadata",
+                    "i" = "To see duplicated rows, save list as object then run: {.code {{your_object}} |> dplyr::filter(dplyr::n() > 1, .by = taxon_concept_id)}")
+        cli::cli_inform(bullets)
+      }
     }
-    
+
     return(x)
   }
 }
@@ -161,7 +164,7 @@ parse_properties <- function(df, .query){
       unlist() |>
       all()
     if(!single_properties_check){
-      raw_columns <- simple_columns |> tidyr::unnest(cols = .data$properties)
+      raw_columns <- simple_columns |> tidyr::unnest(cols = "properties")
     }else{
       raw_columns <- simple_columns
     }
@@ -170,7 +173,7 @@ parse_properties <- function(df, .query){
     if(nrow(raw_columns) > 0) {
       # resume pipe
       raw_columns <- raw_columns |>
-        tidyr::unnest_wider(.data$properties, names_sep = "_") |>
+        tidyr::unnest_wider("properties", names_sep = "_") |>
         dplyr::mutate(key = camel_to_snake_case(.data$properties_key)) |>
         dplyr::mutate(key = dplyr::if_else(.data$key %in% colnames(df), glue::glue("{key}_raw"), .data$key)) |> # rename prior to pivot to avoid name conflicts
         tidyr::pivot_wider(names_from = "key",
@@ -208,7 +211,7 @@ parse_classification <- function(df){
   
   if(any(colnames(df) == "classification")){
     df <- df |>
-      tidyr::unnest_wider(.data$classification, 
+      tidyr::unnest_wider("classification", 
                           names_repair = "minimal", 
                           names_sep = "_") |> 
       # select ALA-matched columns
