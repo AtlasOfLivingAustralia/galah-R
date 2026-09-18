@@ -20,7 +20,7 @@ atlas_taxonomy <- function(request = NULL,
   .query$type <- "taxonomy" # default, but in case supplied otherwise
   check_identify(.query)
   check_down_to(.query)
-  constrain_ids <- check_constraints(args = args, 
+  constrain_ids <- check_constraints(.query,
                                      call = as.list(sys.call()))
 
   # extract required information from `identify` 
@@ -58,11 +58,11 @@ atlas_taxonomy <- function(request = NULL,
 #' Internal function to check whether constraints have been passed
 #' @noRd
 #' @keywords Internal
-check_constraints <- function(args, call){
+check_constraints <- function(.query, call){
   if(any(names(call) == "constrain_ids")){ # i.e. if user specifies an argument
     call$constrain_ids
   }else{ # if NULL only occurs because no argument is set
-    if(potions::pour("atlas", "region") == "Australia"){
+    if(.query$atlas == "Australia"){
       "biodiversity.org.au"
     }
   }

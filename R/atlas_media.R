@@ -12,27 +12,27 @@ atlas_media <- function(request = NULL,
                         apply_profile = NULL,
                         all_fields = FALSE
                         ) {
-  
-  # check media is available
-  media_supported()
-
   # capture supplied arguments
   args <- as.list(environment())
   # convert to `data_request` object
   .query <- check_atlas_inputs(args)
   .query$type <- "occurrences" # default, but in case supplied otherwise
   
+  # check media is available
+  media_supported(atlas = .query$atlas)
+
   # ensure a filter is present (somewhat redundant with `collapse`)
   if(is.null(.query$filter)){
     cli::cli_abort("You must specify a valid `filter()` to use `atlas_media()`")
   }
 
+  # work out which fields are most available for this atlas
+  present_fields <- image_fields(atlas = .query$atlas)
+
   # ensure media columns are present in `select`
   if(is.null(.query$select)){
     .query <- .query |>
       dplyr::select(group = c("basic", "media"))
-    present_fields <- image_fields()
-    present_fields <- present_fields[present_fields != "multimedia"] # check these fields for Spain
     query_collapse <- collapse(.query)
     # if `select` is present, ensure that at least one 'media' field is requested
   }else{
@@ -45,18 +45,14 @@ atlas_media <- function(request = NULL,
       strsplit(split = ",") |>
       purrr::pluck(!!!list(1))
     
-    # `multimedia` should be in `select`, but not `filter`
-    image_select <- image_fields()
-    image_select <- image_select[image_select != "multimedia"] 
-    
     # abort if no fields are given to `select`
-    if(!any(selected_fields %in% image_select)){
+    if(!any(selected_fields %in% present_fields)){
       selected_text <- glue::glue_collapse(selected_fields, sep = ", ")
       c("No media fields requested by `select()`", 
         i = "try `galah_select({selected_text}, group = 'media')` instead") |>
         cli::cli_abort()
     }else{
-      present_fields <- selected_fields[selected_fields %in% image_select]
+      present_fields <- selected_fields[selected_fields %in% present_fields]
       query_collapse <- x
     }
   } # end `select` checks
@@ -64,23 +60,34 @@ atlas_media <- function(request = NULL,
   # add media content to filters
   if(length(present_fields) > 0){
     # do region-specific filter parsing
-    media_fq <- image_filters(present_fields)
+    media_fq <- image_filters(present_fields, atlas = .query$atlas)
     # add back to source object
     if(length(media_fq) > 1){
       media_fq <- glue::glue("({glue::glue_collapse(media_fq, ' OR ')})") 
     }
     url <- httr2::url_parse(query_collapse$url)
-    url$query$fq <- glue::glue("{url$query$fq}AND{media_fq}")
+    # NOTE: since v 2.3.0, we need to adapt to whether there are `q` or `fq filters`
+    if(is.null(url$query$q)){
+      url$query$fq <- media_fq
+    }else{
+      if(is.null(url$query$fq)){
+        url$query$fq <- media_fq  
+      }else{
+        url$query$fq <- glue::glue("{url$query$fq}AND{media_fq}")
+      }
+    }
     query_collapse$url <- httr2::url_build(url)
   }
 
   # get occurrences, expand to one row per media entry
   occ <- query_collapse |> 
     collect(wait = TRUE) |>
-    build_media_id(media_fields = present_fields)
+    build_media_id(media_fields = present_fields[present_fields != "multimedia"])
+  # NOTE: `multimedia` field contains a description of which field has IDs
+  # _not_ IDs themselves; hence removal in above processing stage
 
   # collect media metadata
-  media_query <- request_metadata() |>
+  media_query <- request_metadata(from = .query$atlas) |>
     filter(media == dplyr::pull(occ, "media_id"))
   if(isTRUE(all_fields)){
     media_query <- media_query |>

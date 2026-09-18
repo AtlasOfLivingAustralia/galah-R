@@ -26,8 +26,8 @@ inverse function to \code{\link[=search_taxa]{search_taxa()}}, which takes names
 identifiers.
 
 Note that when taxonomic look-up is required within a pipe, the equivalent
-to \code{\link[=search_taxa]{search_taxa()}} is \code{\link[=identify.data_request]{identify()}} (or
-\code{\link[=galah_identify]{galah_identify()}}). The equivalent to \code{\link[=search_identifiers]{search_identifiers()}} is to use
+to \code{\link[=search_taxa]{search_taxa()}} is \code{\link[=identify.data_request]{identify()}}. The
+equivalent to \code{\link[=search_identifiers]{search_identifiers()}} is to use
 \code{\link[=filter.data_request]{filter()}} to filter by \code{taxonConceptId}.
 }
 \details{

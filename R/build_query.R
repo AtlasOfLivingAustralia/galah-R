@@ -10,8 +10,10 @@ build_headers <- function(){
 #' @keywords Internal
 build_query <- function(identify = NULL, 
                         filter = NULL, 
-                        location = NULL, 
-                        apply_profile = NULL) {
+                        geolocate = NULL, 
+                        apply_profile = NULL,
+                        atlas = NULL) {
+  # get a taxonomic query
   if(is.null(identify)) {
     taxa_query <- NULL
   } else { # assumes a tibble or data.frame has been given
@@ -21,6 +23,7 @@ build_query <- function(identify = NULL,
       taxa_query <- "`TAXON_PLACEHOLDER`"
     }
   }
+
   # validate filters
   if (is.null(filter)) {
     filter_query <- NULL
@@ -31,35 +34,55 @@ build_query <- function(identify = NULL,
     if (nrow(filter) == 0) {
       filter_query <- NULL
     } else {
-      queries <- unique(filter$query)
-      filter_query <- paste0(queries, collapse = " AND ")
+      filter_query <- unique(filter$query)
     }
   }
+  
   # merge
-  query <- list(fq = c(filter_query, taxa_query)) 
+  combined_query <- c(filter_query, taxa_query)
+  n_queries <- length(combined_query) 
+  if(n_queries < 1L){
+    query <- list(q = "*:*")
+  }else if(n_queries == 1L & is.null(geolocate)){
+    query <- list(q = combined_query)
+  }else if(n_queries > 1L & is.null(geolocate)){
+    query <- list(q = combined_query[1],
+                  fq = glue::glue_collapse(combined_query[-1], sep = " AND "))
+  } else if(n_queries == 1L & !is.null(geolocate)) {
+    # single taxa queries must be formatted using fq format if geolocate is present
+    query <- list(q = glue::glue_collapse(combined_query[1], sep = " AND "))
+  } else {
+    query <- list(q = combined_query[1],
+                  fq = glue::glue_collapse(combined_query[-1], sep = " AND "))
+  }
+  
   # geographic stuff
-  if (!is.null(location)) {
-    # if location is for a point radius vs polygon/bbox
-    if(!is.null(names(location))){
-      if(all(!is.null(location$radius))) { # `galah_radius()` will always pass radius argument
+  if (!is.null(geolocate)) {
+    # if `geolocate` is for a point radius vs polygon/bbox
+    if(!is.null(names(geolocate))){
+      if(all(!is.null(geolocate$radius))) { # `galah_radius()` will always pass radius argument
         query$q <- paste0("*:*")
-        query$lon <- location$lon
-        query$lat <- location$lat
-        query$radius <- location$radius      
-    }else
-      query$wkt <- location
+        query$lon <- geolocate$lon
+        query$lat <- geolocate$lat
+        query$radius <- geolocate$radius      
+      } else {
+        query$wkt <- geolocate
+      }
     } else {
-    query$wkt <- location
+      query$wkt <- geolocate
     }
   }
+
   # add profiles information (ALA only) 
-  if(profiles_supported()){
+  if(profiles_supported(atlas)){
     if(!is.null(apply_profile)) {
       query$qualityProfile <- apply_profile
     } else {
       query$disableAllQualityFilters <- "true"
     }    
   }
+
+  # clean and return
   build_single_fq(query)
 }
 
@@ -68,7 +91,7 @@ build_query <- function(identify = NULL,
 #' @noRd
 build_single_fq <- function(query){
   if(any(names(query) == "fq")){
-    # ensure all arguments from galah_filter are enclosed in brackets
+    # ensure all arguments from `filter()` are enclosed in brackets
     # EXCEPT for assertions
     fq <- query$fq
     missing_brackets <- 
@@ -78,14 +101,16 @@ build_single_fq <- function(query){
     if(any(missing_brackets)){
       fq[missing_brackets] <- glue::glue("({fq[missing_brackets]})")
     }
-    # add brackets to non-negative AND statements
+    # add brackets to non-negative 'AND' statements
     # (adding additional brackets to negative statements breaks them)
     if(any(!grepl("^-\\(", fq))) {
       fq_single <- glue::glue_collapse(glue::glue("{fq}"), "AND")
     } else {
-      fq_single <- glue::glue_collapse(glue::glue("({fq})"), "AND")
+      fq_single <- glue::glue_collapse(glue::glue("{fq}"), "AND")
     }
-    c(fq = fq_single, query[names(query) != "fq"])
+    c(query[names(query) == "q"],
+      fq = fq_single,
+      query[!(names(query) %in% c("fq", "q"))])
   }else{
     query
   }
@@ -115,9 +140,9 @@ build_filter_query <- function(filters) {
 #' Sub-function to `build_query()` for taxa
 #' @noRd
 #' @keywords Internal
-build_taxa_query <- function(ids) {
+build_taxa_query <- function(ids, atlas) {
   ids <- ids[order(ids)]
-  if(is_gbif()){
+  if(atlas == "Global"){
     list(taxonKey = ids)
   }else{
     wrapped_ids <- paste0("\"", ids, "\"")

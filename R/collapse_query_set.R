@@ -5,16 +5,18 @@
 collapse_query_set <- function(x,
                                error_call = rlang::caller_env()){
   switch(x$type,
+         "data/events" = collapse_events(x),
+         "data/events-count" = collapse_events_count(x),
          "data/occurrences" = collapse_occurrences(x),
          "data/occurrences-count" = {
-           if(is_gbif()){
+           if(x$atlas == "Global"){
              collapse_occurrences_count_gbif(x)
            }else{
              collapse_occurrences_count_atlas_basic(x)   
            }
          },
          "data/occurrences-count-groupby" = {
-           if(is_gbif()){
+           if(x$atlas == "Global"){
              if(nrow(x$body$group_by) > 1){
                collapse_occurrences_count_gbif_groupby_crossed(x)
              }else{
@@ -32,7 +34,7 @@ collapse_query_set <- function(x,
            }
          },
          "data/occurrences-glimpse" = {
-           if(is_gbif()){
+           if(x$atlas == "Global"){
             collapse_occurrences_count_gbif(x, limit = 3)
            }else{
              x
@@ -43,6 +45,8 @@ collapse_query_set <- function(x,
          "metadata/profiles-unnest" = collapse_profile_values(x,
                                                               error_call = error_call) |> 
            add_request(x$request),
+         "metadata/lists-unnest" = collapse_lists_unnest(x,
+                                                         error_call = error_call),
          # some "metadata/" functions require pagination under some circumstances
          "metadata/lists" = collapse_lists(x), # always paginates
          x # remaining "metadata/" functions and "data/occurrences-doi" are passed as-is 

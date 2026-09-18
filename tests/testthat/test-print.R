@@ -51,7 +51,10 @@ test_that("object of class `computed_query` formats correctly", {
 test_that("object of class `query_set` formats correctly", {
   # prevent earlier caching (or lack thereof) affecting the result
   reset_cache()
+  galah_config(run_checks = TRUE) # necessary status affects whether `logger` is run,
+  # which affects the test below
   galah_call() |>
+    authenticate(email = "ala4r@ala.org.au") |>
     filter(basisOfRecord == "HUMAN_OBSERVATION") |>
     compound() |>
     expect_snapshot()
@@ -59,6 +62,7 @@ test_that("object of class `query_set` formats correctly", {
 
 test_that("`galah_config()` formats correctly", {
   galah_config(atlas = "ALA",
+               email = "random_email_for_testing@email.com",
                directory = "something",
                verbose = FALSE,
                caching = TRUE,

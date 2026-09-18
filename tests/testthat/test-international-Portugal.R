@@ -32,7 +32,6 @@ test_that("show_all(datasets) works for Portugal", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-## FIXME: No data returned
 test_that("show_all(providers) works for Portugal", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(providers, limit = 10) |>
@@ -92,7 +91,7 @@ test_that("show_values works for fields for Portugal", {
     x <- purrr::quietly(show_values)
     x(...)$result
   }
-  x <- search_all(fields, "basis_of_record") |> 
+  x <- search_all(fields, "basisOfRecord") |> 
     quiet_values() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -100,7 +99,7 @@ test_that("show_values works for fields for Portugal", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("atlas_counts works for Portugal", {
+test_that("`atlas_counts()` works for Portugal", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
     dplyr::pull(count) |>
@@ -109,7 +108,7 @@ test_that("atlas_counts works for Portugal", {
   expect_gt(x, 0)
 })
 
-test_that("atlas_counts works with type = 'species' for Portugal", {
+test_that("`atlas_counts()` works with type = 'species' for Portugal", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
     dplyr::pull(count) |>
@@ -118,7 +117,7 @@ test_that("atlas_counts works with type = 'species' for Portugal", {
   expect_gt(x, 0)
 })
 
-test_that("atlas_counts works with galah_identify for Portugal", {
+test_that("`count()` works with `identify()` for Portugal", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     identify("Mammalia") |>
@@ -138,30 +137,30 @@ test_that("atlas_counts works with galah_identify for Portugal", {
     0.1) # i.e. <1% margin of error
 })
 
-test_that("atlas_counts works with group_by for Portugal", {
+test_that("`count()` works with `group_by()` for Portugal", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     filter(year >= 2000) |>
-    group_by(basis_of_record) |>
+    group_by(basisOfRecord) |>
     count() |>
     collect() |>
     try(silent = TRUE)
   skip_if(inherits(result, "try-error"), message = "API not available")
   expect_gt(nrow(result), 1)
-  expect_equal(names(result), c("basis_of_record", "count"))
+  expect_equal(names(result), c("basisOfRecord", "count"))
 })
 
 # NOTE: I've so far been unable to register for this atlas,
 # so we can't test downloads. This affects `atlas_occurrences()` and 
 # `atlas_species()`
-test_that("atlas_species returns error for Portugal", {
+test_that("`atlas_species()` returns error for Portugal", {
   skip_if_offline(); skip_on_ci()
   expect_error({galah_call(type = "species") |>
                   identify("Carnivora") |>
                   collect()
     })
 })
-test_that("atlas_occurrences returns error for Portugal", {
+test_that("`atlas_occurrences()` returns error for Portugal", {
   skip_if_offline(); skip_on_ci()
   expect_error(atlas_occurrences(
     filter = galah_filter(year == 2020)

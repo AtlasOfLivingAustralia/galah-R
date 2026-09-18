@@ -2,7 +2,7 @@
 #' @keywords Internal
 #' @noRd
 collect_species <- function(.query, file = NULL){
-  if(is_gbif()){
+  if(.query$atlas == "Global"){
     collect_occurrences(.query, wait = TRUE)
   }else{
     .query$file <- check_download_filename(file, ext = "csv")

@@ -85,6 +85,14 @@ test_that("`search_taxa()` errors nicely when piped in `galah_call()`", {
   expect_error(galah_call() |> search_taxa("perameles"), "Can't pipe `search_taxa()")
 })
 
+test_that("`search_taxa()` handles complex strings", {
+  skip_if_offline(); skip_on_ci()
+  taxa <- search_taxa("Commelina sp. (Lakefield NP P.I.Forster+ PIF12943)")
+  expect_s3_class(taxa, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(taxa$scientific_name, "Commelina sp. Lakefield NP (P.I.Forster+ PIF12943)")
+  expect_equal(nrow(taxa), 1)
+})
+
 test_that("`search_identifiers()` searches using identifier", {
   skip_if_offline(); skip_on_ci()
   # check different types of id
@@ -144,11 +152,11 @@ test_that("`request_metadata()` works for `type = 'taxa'`", {
   x <- request_metadata() |>
     identify("crinia") 
   expect_s3_class(x, "metadata_request")
-  expect_equal(names(x), c("type", "identify"))
+  expect_equal(names(x), c("type", "atlas", "identify"))
   expect_equal(x$identify$search_term, "crinia")
   y <- collapse(x)
   expect_s3_class(y, "query")
-  expect_equal(names(y), c("type", "url", "headers", "request"))
+  expect_equal(names(y), c("type", "atlas", "url", "headers", "request"))
   z <- collect(y)
   expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(z), 1)

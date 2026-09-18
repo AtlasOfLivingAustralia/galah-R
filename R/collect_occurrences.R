@@ -12,7 +12,7 @@ collect_occurrences <- function(.query,
                                 wait, 
                                 file = NULL,
                                 error_call = rlang::caller_env()){
-  switch(potions::pour("atlas", "region"),
+  switch(.query$atlas,
          "Austria" = collect_occurrences_direct(.query,
                                                 file = file,
                                                 call = error_call),
@@ -41,6 +41,7 @@ collect_occurrences_direct <- function(.query, file, call){
 #' @noRd
 #' @keywords Internal
 collect_occurrences_default <- function(.query, wait, file, call){
+
   # check queue
   download_response <- check_queue(.query, wait = wait)
   if(is.null(download_response)){
@@ -50,11 +51,12 @@ collect_occurrences_default <- function(.query, wait, file, call){
   # get data
   if(potions::pour("package", "verbose", .pkg = "galah") &
      download_response$status == "complete") {
-    scrolly_dots_message("Downloading")
+    cli::cli_progress_step("Downloading")
   }
   # sometimes lookup info critical, but not others - unclear when/why!
   if(any(names(download_response) == "download_url")){
     new_object <- list(type = "data/occurrences",
+                       atlas = .query$atlas,
                        url = download_response$download_url,
                        download = TRUE,
                        file = check_download_filename(file)) |>
@@ -73,6 +75,12 @@ collect_occurrences_default <- function(.query, wait, file, call){
     result <- result |>
       check_field_identities(.query, error_call = call) |>
       check_media_cols()  # check for, and then clean, media info
+
+    # exception for GBIF to post-process `select()`
+    if(.query$atlas == "Global"){
+      result <- parse_select(result, .query)
+    }
+
     # exception for GBIF to ensure DOIs are preserved
     if(!is.null(download_response$doi)){
       # NOTE: GBIF documents DOIs in download response status url (it used to be automatically appended)
@@ -112,7 +120,7 @@ collect_occurrences_doi <- function(.query,
 #' @noRd
 #' @keywords Internal
 collect_occurrences_glimpse <- function(.query){
-  if(is_gbif()){
+  if(.query$atlas == "Global"){
     collect_occurrences_glimpse_gbif(.query)
   }else{
     collect_occurrences_glimpse_la(.query)
@@ -129,7 +137,8 @@ collect_occurrences_glimpse_gbif <- function(.query){
   df <- result |>
     purrr::pluck("results") |>
     purrr::map(tidy_list_columns) |>
-    dplyr::bind_rows()
+    dplyr::bind_rows() |>
+    parse_select(.query)
   attr(df, "total_n") <- result$count
 
    # assign new object for bespoke printing
@@ -150,17 +159,21 @@ collect_occurrences_glimpse_la <- function(.query){
   # pull required info from API into a tibble
   df <- result |>
     purrr::pluck("occurrences") |>
-    # non-standard fields are nested within `otherProperties`
-    # extract these
-    purrr::map(\(a){
-      if(any(names(a) == "otherProperties")){
-        c(a[names(a) != "otherProperties"],
-          a[["otherProperties"]])
-      }else{
-        a
-      }
-    }) |>
+    purrr::map(build_tibble_from_nested_list) |>
     dplyr::bind_rows()
+
+   ## OLD CODE
+   ## non-standard fields are nested within `otherProperties`
+   ## extract these
+   # purrr::map(\(a){
+   #   if(any(names(a) == "otherProperties")){
+   #     c(a[names(a) != "otherProperties"],
+   #       a[["otherProperties"]])
+   #   }else{
+   #     a
+   #   }
+   # })
+  
   attr(df, "total_n") <- result$totalRecords
 
   # assign new object for bespoke printing
@@ -172,6 +185,51 @@ collect_occurrences_glimpse_la <- function(.query){
   }
 }
 
+#' collect type `data/occurrences-describe`
+#' @noRd
+#' @keywords Internal
+collect_occurrences_describe <- function(.query){
+
+  if(!is.null(.query$data)){
+    result <- retrieve_internal_data(.query) |>
+      dplyr::filter(!is.na(.data$id))
+  }else{
+    result <- query_API(.query) |>
+      dplyr::bind_rows() |>
+      dplyr::filter(!is.na(.data$name)) |>
+      # below here for consistency with `collect_fields()`
+      dplyr::filter(.data$stored == TRUE) |>
+      dplyr::mutate(id = .data$name) |>
+      dplyr::rename_with(camel_to_snake_case) |>
+      dplyr::bind_rows(galah_internal_archived$media,
+                       galah_internal_archived$other) |>
+      dplyr::distinct(.data$id, .keep_all = TRUE)
+     
+    # add caching here
+    result_df <- update_attributes(result,
+                                   type = "fields",
+                                   atlas = .query$atlas)
+    update_cache(fields = result_df)
+  }
+
+  # create a 'fake' data.frame to run .query$select on
+  df <- matrix(data = NA, 
+               nrow = 0,
+               ncol = nrow(result),
+               dimnames = list(c(), 
+                               dplyr::pull(result, .data$id))) |>
+    as.data.frame()
+
+  # use this df to parse user-requested `select()` function`
+  keep_names <- parse_select_occurrences(.query, df)
+    
+  # keep only those rows that correspond to user-requested names
+  result |>
+    dplyr::filter(.data$id %in% keep_names) |>
+    dplyr::select("id", "description", "data_type")
+
+}
+
 #' Download failed message
 #' @noRd
 #' @keywords Internal
@@ -180,31 +238,4 @@ download_failed_message <- function(call){
     i = "This usually suggests a problem with the download itself, rather than the API.",
     i = "Consider checking that a file has been created in the expected location.") |>
     cli::cli_abort(call = call)
-}
-
-#' Theatrics
-#' @noRd
-#' @keywords Internal
-scrolly_dots_message <- function(message) {
-  
-  spinny <- cli::make_spinner(
-    which = "simpleDotsScrolling",
-    template = paste0(message, " {spin}")
-  )
-  
-  # update the spinner 100 times
-  lapply(1:100, function(x) {
-    spinny$spin()
-    wait(.001)
-  })
-  
-  # clear the spinner from the status bar
-  # spinny$finish()
-}
-
-#' Wait time
-#' @noRd
-#' @keywords Internal
-wait <- function(seconds = 1) {
-  Sys.sleep(seconds)
 }

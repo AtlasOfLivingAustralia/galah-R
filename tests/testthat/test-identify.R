@@ -80,8 +80,8 @@ test_that("`identify()` warns when identifiers are partially returned", {
 test_that("`identify()` truncates unmatched list of taxa at 3 ", {
   skip_if_offline(); skip_on_ci()
   x <- galah_call() |>
-    galah_identify("Litoria", "blarghy", "blorp", "florp", "skorp") |>
-    galah_filter(year == 2020) |>
+    identify("Litoria", "blarghy", "blorp", "florp", "skorp") |>
+    filter(year == 2020) |>
     count() |>
     purrr_compute()
   expected_messages <- c(

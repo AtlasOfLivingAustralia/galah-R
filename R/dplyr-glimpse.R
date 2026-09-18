@@ -12,6 +12,8 @@
 #' sent to the server, then returning a novel object class with it's own 
 #' [print()] method.
 #' @name glimpse.data_request
+#' @seealso [describe()] for a different way to see fields returned by a query;
+#' [show_all_fields()] to see all available fields.
 #' @examples \dontrun{
 #' galah_call() |>
 #'   filter(year >= 2019,

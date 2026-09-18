@@ -1,26 +1,17 @@
-#' Internal function called by `check_login()`
+#' Internal function called by `authenticate()`
 #' @noRd
 #' @keywords Internal
-abort_email_missing <- function(error_call = rlang::caller_env()){
+abort_email_missing <- function(call = rlang::caller_env()){
   c(
     "No user email was found.",
     i = "To download occurrence records, species lists, or (for GBIF) occurrence
       counts, \\
       you must provide a valid email address registered with the selected atlas.",
-    i = "Provide your email address using `galah_config(email = )`.") |>
-  cli::cli_abort(call = error_call)
+    i = "This can be supplied globally via {.fn galah::galah_config}, or in-pipe via {.fn galah::authenticate}.") |>
+  cli::cli_abort(call = call)
 }
-
-# Internal function called by `check_login()`
-# @noRd
-# @keywords Internal
-# abort_api_key_missing <- function(error_call = caller_env()){
-#   bullets <- c("API key has not been specified for the ALA",
-#                i = "log on to your profile at `https://ala.org.au` to retrieve one",
-#                i = "use `galah_config(api_key = 'my_key_here') to fix this problem"
-#   )
-#   abort(bullets, call = error_call)
-# }
+# generalise this to discuss API keys, use of `authenticate()` as in-pipe alternative
+# to `galah_config()`
 
 #' System-wide, generic failure message
 #' @noRd

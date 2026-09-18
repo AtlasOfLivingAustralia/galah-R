@@ -4,11 +4,11 @@
 #' @keywords Internal
 collapse_build_checks <- function(.query){
   # get basic description of `query_set` object
-  n <- length(.query)
   names_vec <- purrr::map(.query,
                           \(a){purrr::pluck(a, "type")}) |>
     unlist()
-  data_lookup <- stringr::str_detect(names_vec, "^data")
+  data_lookup <- stringr::str_detect(names_vec, "^data") &
+    names_vec != "data/occurrences-describe"
   if(any(data_lookup)){
     data_names <- names_vec[data_lookup]
     # parse any `metadata`
@@ -18,6 +18,7 @@ collapse_build_checks <- function(.query){
     .query[[which(data_lookup)]] |>
       collapse_add_metadata(metadata_results)
   }else if(any(names_vec %in% c("metadata/fields-unnest", 
+                                "metadata/lists-unnest",
                                 "metadata/profiles-unnest",
                                 "metadata/taxa-unnest"))){
     # this code accounts for `unnest` functions that require lookups
@@ -45,20 +46,22 @@ collapse_run_checks <- function(.query,
                                 error_call = rlang::caller_env()){
   
   # "data/" functions require pre-processing of metadata,
-  if(stringr::str_detect(.query$type, "^data/") & .query$type != "data/occurrences-doi"){
+  if(stringr::str_detect(.query$type, "^data/") & 
+    !(.query$type %in% c("data/occurrences-doi", "data/occurrences-describe"))){
     # taxon concept ID must always be evaluated
     .query <- check_identifiers(.query, error_call) 
-    # login should only be evaluated for species and occurrence
-    if(.query$type %in% c("data/occurrences", "data/species")){
-      .query <- check_login(.query, error_call)
-    }
 
     # check_select() is specifically for parsing fields into urls,
     # should only be called for occurrences
     if(.query$type %in% c("data/occurrences", "data/occurrences-glimpse")){
       .query <- check_select(.query, error_call)
     }
-    # NOTE: the naming convention here is misleading; should probably be `parse_select()`
+
+    if(.query$type %in% c("data/species") & .query$atlas == "Global"){ # NOTE: require this for occurrences too? Do LA species queries require it?
+      parse_select_occurrences(.query, 
+                               build_select_df_from_query(.query)) # OK this works, just need to update select() now
+      # probably best to move this to check_select_GBIF or similar
+    }
 
     # after checking, for type = "glimpse", we need to rename the fields query
     if(.query$type == "data/occurrences-glimpse"){
@@ -72,19 +75,36 @@ collapse_run_checks <- function(.query,
 
     # run remaining checks, if requested by the user
     if(potions::pour("package", "run_checks")) {
+      # events doesn't need a reason, but others do, unless they have `-glimpse`
+      if(.query$type %in% c("data/occurrences", "data/species") &
+         .query$request$type != "occurrences-glimpse"){
+        .query <- .query |>
+          check_reason(error_call) 
+      }
+      # all need fields and profiles
       .query <- .query |>
-        check_reason(error_call) |>
         check_fields(error_call) |>
         check_profiles(error_call)
     }
   # as do `unnest()`/`show_values()` functions
   }else if(stringr::str_detect(.query$type, "-unnest$")){
-    # FIXME: decide which checks should be subject to `if(potions::pour("package", "run_checks"))`
     .query <- .query |>
-      check_identifiers() |>
-      check_fields()
+      check_identifiers(error_call) |>
+      check_fields(error_call)
   }
+
+  # add an exception to retain to user-supplied taxon for child taxa queries
+  # this is useful because it allows us to retain parent-child relations 
+  # in the resulting tibble
+  if(.query$type == "metadata/taxa-unnest"){
+    supplied_taxon <- names(.query) == "metadata/taxa-single"
+    if(any(supplied_taxon)){
+      names(.query)[supplied_taxon] <- "supplied_taxon"
+    }
+  }
+
   collapse_remove_metadata(.query)
+
   # special cases:
   # distributions
   # if(.query$type == "data/distributions" & 
@@ -124,7 +144,8 @@ collapse_add_metadata <- function(query, meta){
 #' @noRd
 #' @keywords Internal
 collapse_remove_metadata <- function(.query){
-  names_lookup <- stringr::str_detect( names(.query), "^metadata/")
+  names_lookup <- stringr::str_detect(names(.query), "^metadata/") & 
+                  names(.query) != "metadata/lists" # exception to retain metadata/lists until collapse() stage
   if(any(names_lookup)){
     as_query(.query[!names_lookup])
   }else{

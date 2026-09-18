@@ -15,3 +15,4 @@ docs
 SECRETS.txt
 .secure-credentials
 /TEST-SENSITIVE-DATA
+.positai

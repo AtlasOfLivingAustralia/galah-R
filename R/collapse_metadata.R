@@ -6,17 +6,44 @@
 #' @keywords Internal
 collapse_lists <- function(.query){
   if(is.null(.query$url)){
-    .query
+    as_query(.query)
   }else if(inherits(.query$url, "tbl_df")){
-    .query
-  }else if(stringr::str_detect(.query$url, "[:digit:]+$")){
-    .query
+    as_query(.query)
+  # in non-Australian atlases, ending in a digit means that pageSize or similar is set already
+  }else if(stringr::str_detect(.query$url, "[:digit:]+$") & .query$atlas != "Australia"){
+    as_query(.query)
+  # set up 'new' lists code (May 2026)
+  # rationale here is that we run a query to get the number of levels
+  }else if(stringr::str_detect(.query$url, "[:digit:]+$") & .query$atlas == "Australia"){
+    # first handle case where levels are pre-specified
+    if(!is.null(.query$request$slice)){
+      n_lists <- .query$request$slice$slice_n
+    # otherwise calculate it
+    }else{
+      n_lists <- .query |> 
+        query_API() |>
+        purrr::pluck("listCount")
+    }
+    # calculate urls
+    if(is.null(n_lists)){
+      as_query(.query)
+    }else{
+      n_pages <- ceiling(n_lists * 0.001) # (i.e. 1/1000) Note that 1000 is the maximum
+      base_url <- stringr::str_remove(.query$url, "pageSize=1$")
+      if(n_pages < 2){
+        .query$url <- tibble::tibble(url = glue::glue("{base_url}pageSize={n_lists}"))
+      }else{
+        .query$url <- tibble::tibble(url = glue::glue("{base_url}page={seq_len(n_pages)}&pageSize=1000"))
+      }      
+      as_query(.query)
+    }
+  # below is legacy, probably still important/used, but hard to be sure
   }else{
     url <- httr2::url_parse(.query$url)
     n_requested <- as.integer(url$query$max)
     # make decisions about how much pagination is needed
     if(n_requested <= 500){ # we haven't hit pagination limit
-      .query
+      as_query(.query)
     }else{ # more lists are requested
       n <- get_max_n(.query)
       n_pages <- ceiling(n$max_requested / n$paginate)
@@ -34,8 +61,8 @@ collapse_lists <- function(.query){
         }) |>
         unlist()
       .query$url <- dplyr::select(result, "url")
+      as_query(.query)
     }
-    .query
   }
 }
 
@@ -44,7 +71,7 @@ collapse_lists <- function(.query){
 #' @keywords Internal
 get_max_n <- function(.query){
   url <- httr2::url_parse(.query$url)
-  if(is_gbif()){
+  if(.query$atlas == "Global"){
     count_field <- "count"
   }else{
     count_field <- "listCount"
@@ -63,6 +90,30 @@ get_max_n <- function(.query){
   n
 }
 
+#' Internal function to ensure that list values are paginated properly
+#' @noRd
+#' @keywords Internal
+collapse_lists_unnest <- function(.query, error_call){
+  # get row length
+  list_metadata <- .query$`metadata/lists`
+  if(any(colnames(list_metadata) == "row_count")){ # ALA lists API v2
+    n_rows <- list_metadata$row_count[1]
+  }else if(any(colnames(list_metadata) == "item_count")){ # legacy API
+    n_rows <- list_metadata$item_count[1]
+  }else{
+    n_rows <- 1 # placeholder so code doesn't break. Suppresses pagination.
+  }
+  # if >30000, paginate
+  if(n_rows > 30000){
+    n_pages <- ceiling(n_rows * (1/30000))
+    # add additional urls to reach required number of pages to return all items
+    initial_url <- .query$url
+    url_tibble <- tibble::tibble(url = glue::glue("{initial_url}&page={seq_len(n_pages)}"))
+    .query$url <- url_tibble
+  }
+  # return cleaned object
+  as_query(.query[names(.query) != "metadata/lists"])  
+}
 
 #' Internal function to call `collapse` for `request_metadata(type = "profiles-unnest")`
 #' @noRd
@@ -72,16 +123,17 @@ collapse_profile_values <- function(.query,
   url <- .query |>
     purrr::pluck("url") |>
     httr2::url_parse()
-  profile_name <- extract_profile_name(url)
+  profile_name <- extract_profile_name(.query, url)
   short_name <- profile_short_name(profile_name,
                                    error_call = error_call)
-  if (!potions::pour("atlas", "region") == "Spain") {
+  if (.query$atlas != "Spain") {
     path_name <- url |>
       purrr::pluck("path") |>
       dirname()
     url$path <- glue::glue("{path_name}/{short_name}")
   }
   list(type = .query$type,
+       atlas = .query$atlas,
        url = httr2::url_build(url)) |>
     as_query()
 }
@@ -124,9 +176,8 @@ profile_short_name <- function(profile,
 #' for data profiles. Only used by `compute_profile_values()`
 #' @noRd
 #' @keywords Internal
-extract_profile_name <- function(url) {
-  atlas <- potions::pour("atlas", "region")
-  if (atlas == "Spain") {
+extract_profile_name <- function(.query, url) {
+  if (.query$atlas == "Spain") {
     profile_name <- url |>
       purrr::pluck("query", "profileName")
   } else {

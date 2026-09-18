@@ -26,26 +26,6 @@ check_atlas_inputs <- function(args,
   request_obj
 }
 
-#' Internal function to lookup requests for authentication
-#' Note this is currently only called on `data_request` objects, and 
-#' then only before parsing
-#' @noRd
-#' @keywords Internal
-check_authentication <- function(x){
-  if(is.null(x$authenticate) & 
-     isTRUE(potions::pour("user", "authenticate", .pkg = "galah")) & 
-     x$type %in% c("occurrences")){
-      x <- x |> authenticate()
-  }
-  atlas <- potions::pour("atlas", "region", .pkg = "galah")
-  if(atlas != "Australia" &
-     !is.null(x$authenticate)){
-      cli::cli_warn("Authentication not supported for atlas {atlas}: skipping")
-      x$authenticate <- NULL    
-  }
-  x
-}
-
 #' Internal function to check that the specified path exists, and if not,
 #' to create it. Called by `galah_config()`
 #' @param x a path to a directory, or NULL
@@ -95,45 +75,6 @@ check_download_filename <- function(file,
     glue::glue("{cache_directory}/{file}") |>
       as.character()
     # check_path()? # currently commented out in check.R
-}
-
-#' Subfunction to `check_login()`
-#' @noRd
-#' @keywords Internal
-check_email <- function(.query, 
-                        call = rlang::caller_env()){
-  if(is_gbif()){
-    # actually we check the userpwd entry here
-    email_text <- .query$options$userpwd
-    if(email_text == ":"){
-      abort_email_missing(error_call = call)
-    }
-  }else{
-    # use purrr::pluck() to search for named slots
-    # base parsing captures `email_notify` and is therefore unrelable
-    email_text <- httr2::url_parse(.query$url) |>
-      purrr::pluck("query", "email")
-    # set criteria for missingness
-    email_text_missing <- if(is.null(email_text)){
-      TRUE
-    }else if(email_text == ""){
-      TRUE
-    }else{
-      FALSE
-    }
-    # authentication only acceptable alternative to email for ALA
-    if(is_ala()){
-      authentication_missing <- is.null(.query$authenticate)
-      if(email_text_missing & authentication_missing){
-        abort_email_missing(error_call = call)
-      }      
-    }else{
-      if(email_text_missing){
-        abort_email_missing(error_call = call)
-      }     
-    }
-  }
-  .query
 }
 
 #' Check files are filtered properly
@@ -186,7 +127,7 @@ check_fields <- function(.query,
                          error_call = rlang::caller_env()) {
   
   if(potions::pour("package", "run_checks")){
-    if(is_gbif()){
+    if(.query$atlas == "Global"){
       if(.query$type == "data/occurrences"){
         check_result <- check_fields_gbif_predicates(.query)  
       }else{
@@ -211,10 +152,9 @@ check_fields <- function(.query,
         i = "Use `search_all(fields)` to find a valid field ID.",
         x = glue::glue("Can't find field(s) in"),
         glue::glue("  ", 
-                   rlang::format_error_bullets(invalid_fields_message),
-                   call = error_call)
+                   rlang::format_error_bullets(invalid_fields_message))
       )
-      cli::cli_abort(bullets)
+      cli::cli_abort(bullets, call = error_call)
     }
   }
   .query
@@ -228,7 +168,7 @@ check_field_identities <- function(df,
                                    error_call = rlang::caller_env()){
   if(!is.null(.query$fields) & 
      potions::pour("package", "run_checks", .pkg = "galah") & 
-     potions::pour("atlas", "region", .pkg = "galah") %in% c("Australia", "Spain", "Sweden")
+     .query$atlas %in% c("Australia", "Spain", "Sweden")
      # NOTE: last line included because the remaining atlases use different 
      # architecture which tends to mean queries are sent with non-DwC terms,
      # but return DwC terms. This triggers warnings that are technically
@@ -293,13 +233,22 @@ check_fields_gbif_counts <- function(.query){
       filter_invalid <- glue::glue_collapse(invalid_fields, sep = ", ")
     }
   }
-
+  
   # then facets  
-  # first extract facets
+  # noting this differs between using this for it's original purpose (generating counts),
+  # and it's more recent purpose of getting field values
   group_by_invalid <- NA
-  if(!is.null(.query$body$group_by)){
+  if(stringr::str_detect(.query$type, "^data/occurrences-count") & # stringr used because type can end in `-groupby`
+     !is.null(.query$body$group_by)){
     facets <- .query$body$group_by$name
-    # check for invalid facets
+  }else if(.query$type == "metadata/fields-unnest" & !is.null(.query$request$filter$value)){
+    facets <- .query$request$filter$value[1]
+  }else{
+    facets <- NULL
+  }
+
+  # if a facet is supplied, check its' validity
+  if(!is.null(facets)){
     valid_search_fields <- .query[["metadata/fields"]] |>
       dplyr::filter(.data$search_field == TRUE) |>
       dplyr::pull("id")
@@ -426,7 +375,7 @@ check_groups <- function(group, n){
 check_identifiers <- function(.query,
                               error_call = rlang::caller_env()){
   # For GBIF, which uses predicates, we 'promote' taxonomic queries to 'predicates'
-  if(is_gbif()){
+  if(.query$atlas == "Global"){
     .query$body$identify <- .query$`metadata/taxa-single`
     .query
   # otherwise we replace "(`TAXON_PLACEHOLDER`)"
@@ -444,11 +393,13 @@ check_identifiers_la <- function(.query,
   if(inherits(.query$url, "data.frame")){
     url <- httr2::url_parse(.query$url$url[1])
   }else{
-    url <- httr2::url_parse(.query$url[1]) 
+    url <- httr2::url_parse(.query$url[1])
   }
   queries <- url$query
-  if(!is.null(queries$fq)){
-    if(grepl("(`TAXON_PLACEHOLDER`)", queries$fq)){
+  
+  # either q or fq can have taxonomic queries
+  if(!is.null(queries$fq) | !is.null(queries$q)){
+    if(has_taxon(queries$fq) | has_taxon(queries$q)){
       metadata_lookup <- grepl("^metadata/taxa", names(.query))
       if(any(metadata_lookup)){
         identifiers <- .query[[which(metadata_lookup)[1]]]
@@ -459,10 +410,21 @@ check_identifiers_la <- function(.query,
                          call = error_call)
         }
         
-        taxa_ids <- build_taxa_query(identifiers$taxon_concept_id)
-        queries$fq <- stringr::str_replace_all(queries$fq, 
-                                               "\\(`TAXON_PLACEHOLDER`\\)", 
-                                               taxa_ids)
+        taxa_ids <- build_taxa_query(ids = identifiers$taxon_concept_id,
+                                     atlas = .query$atlas)
+        
+        # q and fq format taxonomic placeholder slightly differently
+        if(has_taxon(queries$fq)) {
+          queries$fq <- stringr::str_replace_all(queries$fq, 
+                                                 "`TAXON_PLACEHOLDER`", 
+                                                 taxa_ids)
+        }
+        if(has_taxon(queries$q)) {
+          queries$q <- stringr::str_replace_all(queries$q, 
+                                                "`TAXON_PLACEHOLDER`", 
+                                                taxa_ids)
+        }
+        
         url$query <- queries
         .query$url[1] <- httr2::url_build(url)
       }else{
@@ -484,30 +446,6 @@ check_identifiers_la <- function(.query,
         cli::cli_abort("The query has a taxonomic placeholder, but no taxon search has been run.",
                        call = error_call)
       }
-    }
-  }
-  .query
-}
-
-#' Internal function to confirm requisite login information has been provided
-#' Called by `compute()`
-#' @noRd
-#' @keywords Internal
-check_login <- function(.query, 
-                        error_call = rlang::caller_env()) {
-  # Check for valid email for occurrences or species queries for all providers
-  if(is_gbif()){
-    if(grepl("^data", .query$type)){
-      check_email(.query, call = error_call)
-      check_password(.query, call = error_call)
-    }
-  }else{
-    if(.query$type %in% c("data/occurrences", "data/species") & 
-      is.null(.query$request$authenticate) # i.e. only validate if authenticate = FALSE
-      ){
-      switch(potions::pour("atlas", "region"), 
-             "United Kingdom" = {},
-             check_email(.query, call = error_call))
     }
   }
   .query
@@ -546,13 +484,13 @@ check_media_cols_present <- function(.query,
     strsplit(",") |>
     purrr::pluck(1)
   fields_check <- image_fields() %in% fields
-  if(!any(fields_check)){
+  if(!any(fields_check)){atlas = .query$atlas
     c("No media fields requested.",
       i = "Use `select()` to specify which media fields are required.",
       i = "Valid fields are 'images', 'videos' and 'sounds'.") |>
     cli::cli_abort(call = error_call)
   }else{
-    image_fields()[fields_check]
+    image_fields(atlas = .query$atlas)[fields_check]
   }
 }
 
@@ -594,10 +532,10 @@ check_occurrence_response <- function(.query,
     
     error_type <- sub("\\:.*", "", .query$message) |> 
       stringr::str_trim()
-    
+    message <- .query$message
     bullets <- c(
       "There was a problem with your query.",
-      "*" = glue::glue("message: {.query$message}"))
+      "*" = glue::glue("message: {message}"))
     
     switch(as.character(error_type),
            "500" = {cli::cli_abort(bullets,
@@ -631,7 +569,8 @@ check_occurrence_response <- function(.query,
   }
   # convert `key` to `status_url`
   if(is.null(.query$status_url) & !is.null(.query$key)){
-    .query$status_url <- glue::glue("https://api.gbif.org/v1/occurrence/download/{.query$key}")
+    key_value <- .query$key
+    .query$status_url <- glue::glue("https://api.gbif.org/v1/occurrence/download/{key_value}")
   }
   # add `queue_size`
   if(is.null(.query$queue_size)){
@@ -651,46 +590,6 @@ check_occurrence_status <- function(.query){
     as.list() |>
     check_occurrence_response()
 }
-
-#' Internal function to expand a url
-#' Proposed to spin out multiple urls to paginate when n is high
-#'  
-#' Note: this needs to be in the compute stage of multiple APIs: ie. from `request_data()` and `request_metadata()`
-#' Also requires something like `check_facet_count()` to know what the max value is.
-#' @noRd
-#' @keywords Internal
-# check_pagination <- function(){}
-
-#' Subfunction to `check_login()`
-#' @noRd
-#' @keywords Internal
-check_password <- function(.query, 
-                           call = rlang::caller_env()){
-  if (.query$options$userpwd == ":") {
-    cli::cli_abort("GBIF requires a username and password to download occurrences or species.",
-          call = call)
-  }
-}
-
-# Internal function to create a valid filename for download
-# Note this is most commonly used when galah defaults are in place; i.e. 
-# downloads are sent to a temporary directory.
-# Called by `query_API()`
-# check_path <- function(.query){
-#   if(is.null(.query$path)){
-#     if(.query$type == "species"){
-#       ext <- "csv"
-#     }else{
-#       ext <- "zip"
-#     }
-#     cache_file <- pour("package", "directory")
-#     .query$path <- paste0(cache_dir, "/temp_file.", ext)    
-#   } else {
-#     dirname(x) |> check_directory() # errors if path doesn't exist
-#     # NOTE: it might make sense here to check that a supplied filename is valid
-#   }
-#   .query
-# }
 
 #' Internal function to check a supplied profile is valid
 #' @noRd
@@ -720,21 +619,21 @@ check_profiles <- function(.query,
 #' Internal function to check that a reason code is valid
 #' @noRd
 #' @keywords Internal
-check_reason <- function(.query, 
+check_reason <- function(.query,
                          error_call = rlang::caller_env()){
-  if(reasons_supported()) {
+  if(reasons_supported(atlas = .query$atlas)) {
     if(.query$type %in% c("data/occurrences", "data/species")){
       query <- httr2::url_parse(.query$url)$query
       if(is.null(query$reasonTypeId)){
         c("Missing a valid download reason.",
-          i = "See `show_all(reasons)`.",
-          i = "Use `galah_config(download_reason_id = ...)` to set a download reason.") |>
-        cli::cli_abort(call = error_call) 
+            i = "See `show_all(reasons)`.",
+            i = "You can set {.arg download_reason_id} globally using `{.fn galah::galah_config}`, or in-pipe using {.fn galah::authenticate}.") |>
+         cli::cli_abort(call = error_call)
       }else{
         user_reason <- query$reasonTypeId
         valid_reasons <- .query[["metadata/reasons"]]$id
         if(!(user_reason %in% valid_reasons)){
-           c(
+          c(
             "Invalid download reason ID.",
             i = "Use `show_all(reasons)` to see all valid reasons.",
             x = "\"{user_reason}\" does not match an existing reason ID.") |>
@@ -747,18 +646,13 @@ check_reason <- function(.query,
 }
 
 #' Check that `select()` quosures can be parsed correctly
-#' NOTE: much of this content was previously in `parse_select()` (defunct)
 #' @noRd
 #' @keywords Internal
 check_select <- function(.query,
                          error_call = rlang::caller_env()){
   if(any(names(.query$request) == "select")){
-    if(!(is_gbif() & stringr::str_detect(.query$type, "^data"))){
-      # cli::cli({
-      #  cli::cli_text("Skipping `select()`.")
-      #  cli::cli_bullets(c(i = "This function is not supported by the GBIF occurrences downloads API v1."))
-     # })
-    # }else{
+    # NOTE: GBIF occurrence queries are excluded because they are parsed elsewhere
+    if(!(.query$atlas == "Global" & stringr::str_detect(.query$type, "^data"))){
       # 1. build df to `select` from
       valid_fields <- .query[["metadata/fields"]]$id
       valid_assertions <- .query[["metadata/assertions"]]$id
@@ -767,82 +661,22 @@ check_select <- function(.query,
                    dimnames = list(NULL, valid_any)) |>
         as.data.frame()
 
-      # 2. parse groups
-      group_initial <- .query$request$select$group
-      # new step to avoid calling `show_all_assertions()` internally
-      group <- group_initial[group_initial != "assertions"]
-      if(length(group) > 0){
-        group_cols <- purrr::map(group, preset_groups) |> 
-          unlist()
-        group_names <- tidyselect::eval_select(dplyr::all_of(group_cols), 
-                                               data = df) |> 
-          names()
-        # note: technically `group_names` and `group_cols` are identical
-        # BUT `eval_select()` will fail if invalid columns are given
-      }else{
-        group_names <- NULL
-      }
-
-      # 3. parse quosures to get list of field names
-      if(length(.query$request$select$quosure) > 0){
-        dot_names <- purrr::map(.query$request$select$quosure, 
-                                function(a){
-                                  tidyselect::eval_select(a,
-                                                          data = df,
-                                                          error_call = error_call) |>
-                                    names()
-                                }) |>
-          unlist()
-      }else{
-        dot_names <- c()
-      }
-
-      # 3a: set 'identifier' column name
-      id_col <- default_columns()[1]
+      # handle supplied `select()`
+      field_values <- .query |>
+        parse_select_occurrences(build_select_df_from_query(.query),
+                                 error_call = error_call)
       
-      # 4: set behaviour depending on what names are given
-      # NOTE:
-      ## because assertions aren't fields, leaving `fields` empty means default fields are returned
-      ## but only when `group = assertions` and no other requests are made
-      ## this adds a single field (recordID) to the query to avoid this problem.
-      ## This problem also occurs when a single field is requested
-      ## under some circumstances (e.g. "images"), even when that field is 
-      ## fully populated.
-      if(length(dot_names) > 1){
-        individual_cols <- dot_names
-      }else{ 
-        if(length(dot_names) == 1){ # i.e. a single field selected
-          if(length(group_names) == 0){
-            individual_cols <- unique(c(id_col, dot_names))
-          }else{
-            individual_cols <- dot_names
-          }
-        }else{ # i.e. length(dot_names) == 0, meaning no fields selected
-          if(length(group_initial) <= 1 & !any(group_names == id_col)){
-            individual_cols <- id_col
-          }else{
-            individual_cols <- NULL
-          }
-        }
-      }
-      
-      # 5. merge to create output object
-      # NOTE: placing `recordID` first is critical;
-      # having e.g. media columns _before_ `recordID` causes the download to fail 
-      field_values <- unique(c(group_names, individual_cols))
+      # warn
       if(is.null(field_values)){
         c("No fields selected",
           i = "Please specify a valid set of fields in `select()`",
           i = "You can look up valid fields using `show_all(fields)`") |>
           cli::cli_abort(call = error_call)
       }
-      if(any(field_values == id_col)){
-        field_values <- c(id_col, field_values[field_values != id_col]) # recordID needs to be first
-      }
-      
+
       # 6. handle assertions
       is_assertion <- field_values %in% valid_assertions
-      if(any(group_initial == "assertions")){
+      if(any(.query$request$select$group == "assertions")){
         assertion_text <- "includeall"
       }else{
         if(any(is_assertion)){
@@ -866,6 +700,102 @@ check_select <- function(.query,
   .query
 }
 
+#' internal function to build a select-able df from a .query
+#' @noRd
+#' @keywords Internal
+build_select_df_from_query <- function(.query){
+  valid_fields <- .query[["metadata/fields"]]$id
+  valid_assertions <- .query[["metadata/assertions"]]$id
+  valid_any <- c(valid_fields, valid_assertions)
+  matrix(data = NA,
+         nrow = 0,
+         ncol = length(valid_any),
+         dimnames = list(NULL, valid_any)) |>
+    tibble::as_tibble()
+}
+
+#' Internal function to parse out `select()` queries for occurrences
+#' Called both by `check_select()` (above) and by `collect_occurrences_describe()`
+#' @noRd
+#' @keywords Internal
+parse_select_occurrences <- function(.query,
+                                     df,
+                                     error_call = rlang::caller_env()){
+
+  # 2. parse groups
+  group_initial <- .query$request$select$group
+  # new step to avoid calling `show_all_assertions()` internally
+  group <- group_initial[group_initial != "assertions"]
+  if(length(group) > 0){
+    group_cols <- purrr::map(group, 
+      \(a){
+        preset_groups(a, atlas = .query$atlas)
+      }) |> 
+      unlist()
+    group_names <- tidyselect::eval_select(dplyr::any_of(group_cols), 
+                                           data = df) |> 
+      names()
+    # note: technically `group_names` and `group_cols` are identical
+    # BUT `eval_select()` will fail if invalid columns are given
+  }else{
+    group_names <- NULL
+  }
+
+  # 3. parse quosures to get list of field names
+  if(length(.query$request$select$quosure) > 0){
+    dot_names <- purrr::map(.query$request$select$quosure, 
+                            function(a){
+                              tidyselect::eval_select(a,
+                                                      data = df,
+                                                      error_call = error_call) |>
+                                names()
+                            }) |>
+      unlist()
+  }else{
+    dot_names <- c()
+  }
+
+  # 3a: set 'identifier' column name
+  id_col <- default_columns(.query$atlas)[1]
+  
+  # 4: set behaviour depending on what names are given
+  # NOTE:
+  ## because assertions aren't fields, leaving `fields` empty means default fields are returned
+  ## but only when `group = assertions` and no other requests are made
+  ## this adds a single field (recordID) to the query to avoid this problem.
+  ## This problem also occurs when a single field is requested
+  ## under some circumstances (e.g. "images"), even when that field is 
+  ## fully populated.
+  if(length(dot_names) > 1){
+    individual_cols <- dot_names
+  }else{ 
+    if(length(dot_names) == 1){ # i.e. a single field selected
+      if(length(group_names) == 0){
+        individual_cols <- unique(c(id_col, dot_names))
+      }else{
+        individual_cols <- dot_names
+      }
+    }else{ # i.e. length(dot_names) == 0, meaning no fields selected
+      if(length(group_initial) <= 1 & !any(group_names == id_col)){
+        individual_cols <- id_col
+      }else{
+        individual_cols <- NULL
+      }
+    }
+  }
+  
+  # 5. merge to create output object
+  # NOTE: placing `recordID` first is critical;
+  # having e.g. media columns _before_ `recordID` causes the download to fail 
+  field_values <- unique(c(group_names, individual_cols))
+
+  if(any(field_values == id_col)){
+    field_values <- c(id_col, field_values[field_values != id_col]) # recordID needs to be first
+  }
+  field_values
+}
+
+
 #' Check for valid `type`
 #' @noRd
 #' @keywords Internal
@@ -878,4 +808,13 @@ check_type_valid <- function(type,
       x = "Can't find metadata type `{type}`.") |>
       cli::cli_abort(call = error_call)   
   }
+}
+
+#' Check whether query contains a taxonomic placeholder to pass to namematching 
+#' (eg `collect_taxa_namematching()`) in order to construct complete query
+#' @noRd
+#' @keywords Internal
+has_taxon <- function(x, pattern = "`TAXON_PLACEHOLDER`") {
+  if (is.null(x)) return(FALSE)
+  any(grepl(pattern, x))
 }

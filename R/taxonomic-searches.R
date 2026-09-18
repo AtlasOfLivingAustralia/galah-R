@@ -25,8 +25,8 @@
 #' identifiers.
 #' 
 #' Note that when taxonomic look-up is required within a pipe, the equivalent
-#' to [search_taxa()] is \code{\link[=identify.data_request]{identify()}} (or
-#' [galah_identify()]). The equivalent to [search_identifiers()] is to use 
+#' to [search_taxa()] is \code{\link[=identify.data_request]{identify()}}. The 
+#' equivalent to [search_identifiers()] is to use 
 #' \code{\link[=filter.data_request]{filter()}} to filter by `taxonConceptId`.
 #' 
 #' @details

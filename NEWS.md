@@ -1,3 +1,27 @@
+# galah 2.3.0
+
+### New functions and options
+* New function `describe()` to check what fields are available (#291).
+* `authenticate()` gains arguments to allow in-pipe email- or JWT-based authentication. Support added for JWT-based authentication on VBP (#296).
+* `request_data()` and friends gain a `from` argument, allowing in-pipe atlas specification (#297).
+* New names for spatial functions: `geolocate_polygon()`, `geolocate_bbox()` and `geolocate_radius()`.
+* Now possible to call `select()` on GBIF occurrence queries, though they are applied post-hoc.
+
+### Bug fixes & performance improvements
+* `isAuthoritative` and `isThreatened` returned by default by `search_all()` (#293).
+* Calling functions using `pkg::fun()` syntax work without first calling `library(galah)` (#294, #298).
+* `query_API()` now uses `cli::cli_progress_step()`, `httr2::req_retry()` and `httr::req_perform_parallel()` for improved performance. Timeout is now 60 seconds, rather than 20.
+* Misc bug fixes for `atlas_occurrences()`, `glimpse()` and `show_values()` for GBIF (#299).
+* Upgraded to v2 of specieslist API for ALA (#300).
+* `galah` now auto-populates the `q` parameter for living atlas API calls for server-side performance reasons (#301).
+* Added check that object has correct Coordinate Reference System when using `geolocate()` (#302)
+* Improved query parsing for more complex text strings (#303)
+
+### Lifecycle
+* `galah_` prefix functions for piping formally superseded by their `dplyr` alternatives.
+* Using `filter`, `select` etc as arguments to the `atlas_` family formally superseded in favor of piping.
+* `all_fields` argument in `show_values()` used to return all columns in a specified list superseded to supplying all columns by default.
+
 # galah 2.2.0
 
 ### Improved organisational support
@@ -12,7 +36,7 @@
 * `dplyr::glimpse()` can be used to see what the resulting query will look like.
 * New functions `capture()` and `compound()` as prequels to `collapse()` (#278).
 
-## Changes to metadata functions
+### Changes to metadata functions
 * All metadata requests now accept `select()`.
 * Metadata types that support `unnest()` now also support `filter()`, even when `unnest()` is not supplied.
 * All `show_all()` and `search_all()` functions gain an `all_fields` argument.
@@ -27,7 +51,7 @@
 * Move to `{cli}` for `print()` calls, not `cat()`.
 * Reduce usage of `@importFrom` in favour of `pkg::fun()` syntax, as per R style guide.
 * `basisOfRecord` now included as default field (i.e. with `select(group = "basic")`). (#281)
-* `query` objects now have a `request` slot showing the request that generated them .
+* `query` objects now have a `request` slot showing the request that generated them.
 
 
 # galah 2.1.2

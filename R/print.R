@@ -46,16 +46,16 @@ print.data_request <- function(x, # NOTE: use of `x` arg here is for consistency
 
 #' @rdname print_galah_objects
 #' @export
-print.files_request <- function(x, ...){
+print.metadata_request <- function(x, ...){
   format_request_text(x, 
-                      object_type = "files_request")
+                      object_type = "metadata_request")
 }
 
 #' @rdname print_galah_objects
 #' @export
-print.metadata_request <- function(x, ...){
+print.files_request <- function(x, ...){
   format_request_text(x, 
-                      object_type = "metadata_request")
+                      object_type = "files_request")
 }
 
 #' Internal function to format text in `print()`
@@ -101,14 +101,18 @@ switch_slot_text <- function(x, a){
     },
     "select" = x[[a]]$summary,
     "group_by" =  glue::glue_collapse(x[[a]]$name, sep = " | "),
-    "apply_profile" ={x[[a]][1]},
-    "mint_doi" = {x[[a]][1]},
-    "")
+    # "apply_profile" ={x[[a]][1]},
+    # "mint_doi" = {x[[a]][1]},
+    x[[a]][1] # default is return slot content
+  )
 }
 
 #' @rdname print_galah_objects
 #' @export
 print.query <- function(x, ...){
+  atlas <- glue::glue("\n
+           atlas: {x$atlas}") |>
+    galah_grey()
   if(!is.null(x$arrange)){
     arrange <- galah_pale_green(glue::glue("\n
                               arrange: {x$arrange$variable} ({x$arrange$direction})"))
@@ -161,7 +165,8 @@ print.query <- function(x, ...){
   }
   
   # keep only populated levels
-  print_list <-  list(subtext, # note: need code for url tibbles
+  print_list <-  list(atlas,
+                      subtext, # note: need code for url tibbles
                       select,
                       arrange,
                       slice)
@@ -180,6 +185,9 @@ print.prequery <- print.query
 #' @rdname print_galah_objects
 #' @export
 print.computed_query <- function(x, ...){
+    atlas <- glue::glue("\n
+           atlas: {x$atlas}") |>
+    galah_grey()
   # calculate arrange/slice info
   if(!is.null(x$arrange)){
     arrange <- galah_pale_green(glue::glue("\n
@@ -238,10 +246,11 @@ print.computed_query <- function(x, ...){
   }
   
   # keep only populated levels
-  print_list <-  list(id,
-                      subtext, # note: need code for url tibbles
-                      arrange,
-                      slice)
+  print_list <- list(atlas,
+                     id,
+                     subtext, # note: need code for url tibbles
+                     arrange,
+                     slice)
   print_list <- print_list[!unlist(purrr::map(print_list, is.null))]
   
   # print
@@ -286,21 +295,27 @@ print.galah_config <- function(x, ...){
   cli::cli_text("`galah` package configuration")
   cli::cli_end()
   cli::cli_par()
-  # print package settings
-  cli::cli_text("{galah_pink(\"Package\")}")
-  package_info <- purrr::pluck(x, "package")
-  package_logical_check <- purrr::map(package_info, is.logical) |>
-    unlist()
-  logical_values <- package_info[package_logical_check] |>
-    unlist()
-  package_settings <- names(logical_values) |>
-    galah_green()
-  names(package_settings) <- c("x", "v")[as.integer(logical_values) + 1]
-  package_settings <- c(package_settings,
-                        "i" = glue::glue("{galah_green('directory')}: {galah_grey(x$package$directory)}")) |>
-    cli::cli_bullets()
+  print_config_atlas(x)
+  print_config_user(x)
+  print_config_package(x)
+}
+
+#' Internal function to print current atlas within galah_config()
+#' @noRd
+#' @keywords Internal
+print_config_atlas <- function(x){
+  cli::cli_par()
+  cli::cli_text("{galah_pink(\"Atlas\")}")
+  atlas_text <- galah_green(x$atlas$organisation)
+  atlas_subtext <- galah_grey(glue::glue("({x$atlas$acronym}), {x$atlas$region}"))
+  cli::cli_bullets("{atlas_text} {atlas_subtext}")
   cli::cli_end()
-  # print user settings
+}
+
+#' Internal function to print current user settings within galah_config()
+#' @noRd
+#' @keywords Internal
+print_config_user <- function(x){
   cli::cli_par()
   cli::cli_text("{galah_pink(\"User\")}")
   user_settings <- c(
@@ -314,11 +329,24 @@ print.galah_config <- function(x, ...){
     ifelse("v", "x")
   cli::cli_bullets(user_settings)
   cli::cli_end()
-  cli::cli_par()
-  cli::cli_text("{galah_pink(\"Atlas\")}")
-  atlas_text <- galah_green(x$atlas$organisation)
-  atlas_subtext <- galah_grey(glue::glue("({x$atlas$acronym}), {x$atlas$region}"))
-  cli::cli_bullets("{atlas_text} {atlas_subtext}")
+}
+
+#' Internal function to print current package settings within galah_config()
+#' @noRd
+#' @keywords Internal
+print_config_package <- function(x){
+  cli::cli_text("{galah_pink(\"Package\")}")
+  package_info <- purrr::pluck(x, "package")
+  package_logical_check <- purrr::map(package_info, is.logical) |>
+    unlist()
+  logical_values <- package_info[package_logical_check] |>
+    unlist()
+  package_settings <- names(logical_values) |>
+    galah_green()
+  names(package_settings) <- c("x", "v")[as.integer(logical_values) + 1]
+  package_settings <- c(package_settings,
+                        "i" = glue::glue("{galah_green('directory')}: {galah_grey(x$package$directory)}")) |>
+    cli::cli_bullets()
   cli::cli_end()
 }
 
@@ -343,7 +371,7 @@ galah_pink <- crayon::make_style("#bf2a6d")
 #' Green for printing secondary text (e.g. object types) to the console
 #' @noRd
 #' @keywords Internal
-galah_green <- crayon::make_style("#176666")
+galah_green <- crayon::make_style("#31a6a6")
 
 #' Green for printing non-emphasized text to the console
 #' @noRd

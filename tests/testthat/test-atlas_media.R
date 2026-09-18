@@ -27,8 +27,8 @@ test_that("atlas_media fails when no filters are provided", {
 
 test_that("`atlas_media()` works", {
   skip_if_offline(); skip_on_ci()
-  capture_config <- purrr_config(email = "ala4r@ala.org.au")
   media_data <- galah_call() |>
+    authenticate(email = "ala4r@ala.org.au") |>
     identify("Microseris lanceolata") |>
     filter(year == 2019) |>
     quiet_media()
@@ -37,6 +37,7 @@ test_that("`atlas_media()` works", {
   expect_gte(ncol(media_data), 3)
   # set `all_fields` = TRUE
   all_media_data <- galah_call() |>
+    authenticate(email = "ala4r@ala.org.au") |>
     identify("Microseris lanceolata") |>
     filter(year == 2019) |>
     quiet_media(all_fields = TRUE)
@@ -80,21 +81,26 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
   
   ## PART 1: request occurrence data
   capture_config <- purrr_config(email = "ala4r@ala.org.au")
-  occ_collect <- request_data() |>
+  occ_collect <- request_data(from = "ALA") |>
     identify("Litoria peronii") |>
     filter(year == 2010, !is.na(images)) |>
-    select(group = "media") |>
+    select(species, group = "media") |>
+    glimpse() |>
     quiet_collect(wait = TRUE)
   
+  # basic test to ensure taxon matching is working
+  expect_all_equal(occ_collect$species, "Litoria peronii") # test
+
   ## PART 2: request media metadata
   # collapse
   media_collapse <- request_metadata() |>
     filter(media == unlist(dplyr::pull(occ_collect, "images"))) |>
     quiet_collapse()
   expect_true(inherits(media_collapse, "query"))
-  expect_equal(length(media_collapse), 4)
+  expect_equal(length(media_collapse), 5)
   expect_equal(names(media_collapse), 
-               c("type", 
+               c("type",
+                 "atlas",
                  "url",
                  "headers",
                  "request"))
@@ -102,9 +108,10 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
   # compute
   media_compute <- quiet_compute(media_collapse)
   expect_true(inherits(media_compute, "computed_query"))
-  expect_equal(length(media_compute), 4)
+  expect_equal(length(media_compute), 5)
   expect_equal(names(media_compute), 
-               c("type", 
+               c("type",
+                 "atlas",
                  "url",
                  "headers",
                  "request"))
@@ -126,16 +133,24 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
     filter(media == df) |>
     quiet_collapse(thumbnail = TRUE)
   expect_true(inherits(files_collapse, "query"))
-  expect_equal(length(files_collapse), 4)
+  expect_equal(length(files_collapse), 5)
   expect_equal(names(files_collapse), 
-               c("type", "url", "headers", "request"))
+               c("type",
+                 "atlas",
+                 "url",
+                 "headers",
+                 "request"))
   expect_equal(files_collapse$type, "files/media")
   # compute
   files_compute <- quiet_compute(files_collapse)
   expect_true(inherits(files_compute, "computed_query"))
-  expect_equal(length(files_compute), 4)
+  expect_equal(length(files_compute), 5)
   expect_equal(names(files_compute), 
-               c("type", "url", "headers", "request"))
+               c("type",
+                 "atlas",
+                 "url",
+                 "headers",
+                 "request"))
   # collect
   files_collect <- quiet_collect(files_compute)
   expect_s3_class(files_collect, c("tbl_df", "tbl", "data.frame"))
@@ -179,20 +194,42 @@ test_that("atlas_media gives a warning when old arguments are used", {
 
 test_that("collect_media handles different file formats", {
   skip_if_offline(); skip_on_ci()
-  
+  # setup
   media_dir <- "test_media"
   galah_config(email = "ala4r@ala.org.au", 
                directory = media_dir)
-  media_data <- galah_call() |>
+  
+  # 'safe' way to query data that might be large: use `glimpse()` rather than 
+  # `atlas_media()`
+  sound_data <- galah_call() |>
     identify("Regent Honeyeater") |>
-    filter(multimedia %in% c("Sound", "Image"), year == 2024) |>
-    quiet_media() 
+    filter(multimedia == "Sound") |>
+    select(occurrenceID, species, taxonConceptID, multimedia, images, sounds) |>
+    glimpse() |>
+    collect()
+
+  # reproduce media unnesting
+  sound_data <- sound_data |>
+    dplyr::mutate(media_id = purrr::map2(sound_data$images, 
+      sound_data$sounds, \(a, b){c(a, b)})) |>
+    tidyr::unnest_longer(col = media_id)
+
+  # get metadata
+  media_metadata <- request_metadata() |>
+    filter(media == sound_data$media_id) |>
+    collect()
+
+  # join
+  media_data <- dplyr::left_join(sound_data,
+                                 media_metadata,
+                                 by = "media_id")
+
   # sample one of each multimedia type to shorten testing time
   media_summary <- media_data |>
-    dplyr::group_by(media_type) |>
+    dplyr::group_by(mime_type) |>
     dplyr::sample_n(size = 2)
-  expect_equal(sort(unique(media_data$multimedia)),
-               c("Image", "Image | Sound"))
+
+  # now run test
   result <- purrr_collect_media(media_summary, thumbnail = TRUE)
   downloads <- list.files(path = media_dir)
   expect_true(any(grepl(".mpg$", downloads))) # sounds

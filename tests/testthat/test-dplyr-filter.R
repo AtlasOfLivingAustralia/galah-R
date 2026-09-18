@@ -1,14 +1,10 @@
 # set up quiet functions for testing reasons
 purrr_collect <- purrr::quietly(collect.data_request)
 
-test_that("`filter()` works for a single 'equals' argument", {  
-  filters <- galah_filter(year == 2010)
-  expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(nrow(filters), 1)
-})
-
 test_that("`filter()` gives an error for single equals sign", {
-  expect_error(galah_filter(year = 2010))
+  galah_call() |> 
+    filter(year = 2010) |>
+    expect_error()
 })
 
 test_that("`filter()` works with assertions", {
@@ -99,63 +95,72 @@ test_that("`filter()` handles assertions and taxa", {
   expect_equal(problem_families$result$count[1], top_family$count)
 })
 
-test_that("`filter()` returns empty tibble when no arguments specified", {
-  filters <- galah_filter()
-  expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(nrow(filters), 0)
-})
-
 test_that("`filter()` works for two 'equals' arguments", {  
-  filters <- galah_filter(year == 2010, basisOfRecord == "HUMAN_OBSERVATION")
-  expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
+  filters <- request_data() |>
+    filter(year == 2010, basisOfRecord == "HUMAN_OBSERVATION") |>
+    purrr::pluck("filter")
+  expect_s3_class(filters, c("data_filter", "tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(filters), 2)
   expect_equal(filters$variable, c("year", "basisOfRecord"))
 })
 
 test_that("`filter()` works for two arguments of the same variable", {  
-  filters <- galah_filter(year >= 2010, year <= 2015)
-  expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
+  filters <- request_data() |>
+    filter(year >= 2010, year <= 2015) |>
+    purrr::pluck("filter")
+  expect_s3_class(filters, c("data_filter", "tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(filters), 2)
   expect_equal(">=", filters$logical[1])
 })
 
 test_that("`filter()` works with urls", {
-  filters <- galah_filter(
-    taxonConceptID == "https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd")
+  filters <- request_data() |>
+    filter(taxonConceptID == "https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd") |>
+    purrr::pluck("filter")
   expect_true(nchar(filters$query) > 70)
 })
 
 test_that("`filter()` parses '&' correctly", {
-  filters <- galah_filter(year >= 2010 & year < 2020)
+  filters <- request_data() |> 
+    filter(year >= 2010 & year < 2020) |>
+    purrr::pluck("filter")
   expect_equal(nrow(filters), 1)
   expect_equal(filters$value, "2010&2020")
   expect_equal(filters$query, "year:[2010 TO *] AND year:[* TO 2020] AND -(year:\"2020\")")
 })
 
 test_that("`filter()` handles numeric queries for text fields", {             
-  filters <- galah_filter(cl22 >= "Tasmania")
+  filters <- request_data() |> 
+    filter(cl22 >= "Tasmania") |>
+    purrr::pluck("filter")
   expect_equal(filters$query, "cl22:[Tasmania TO *]")
 })
 
 test_that("`filter()` handles OR statements", {    
-  filters <- galah_filter(year == 2010 | year == 2020)
+  filters <-  request_data() |> 
+    filter(year == 2010 | year == 2020) |>
+    purrr::pluck("filter")
   expect_equal(nrow(filters), 1)
   expect_equal(filters$value, "2010|2020")
   expect_equal(filters$query, "((year:\"2010\") OR (year:\"2020\"))")
 })
 
 test_that("`filter()` handles OR statements", {   
-  filters <- galah_filter(raw_scientificName == "Litoria jervisiensis" | 
-                          raw_scientificName == "Litoria peronii")
+  filters <- request_data() |>
+    filter(raw_scientificName == "Litoria jervisiensis" | 
+           raw_scientificName == "Litoria peronii") |>
+    purrr::pluck("filter")
   expect_equal(nrow(filters), 1)
   expect_equal(filters$query, 
                "((raw_scientificName:\"Litoria jervisiensis\") OR (raw_scientificName:\"Litoria peronii\"))")
 })
 
 test_that("`filter()` works with 3 OR statements", {
-  filters <- galah_filter(basisOfRecord == "HumanObservation" | 
-                          basisOfRecord == "MachineObservation" | 
-                          basisOfRecord == "PreservedSpecimen")
+  filters <- request_data() |>
+    filter(basisOfRecord == "HumanObservation" | 
+           basisOfRecord == "MachineObservation" | 
+           basisOfRecord == "PreservedSpecimen") |>
+    purrr::pluck("filter")
   expect_equal(nrow(filters), 1)
   expect_equal(filters$value, "HumanObservation|MachineObservation|PreservedSpecimen")
   expect_equal(filters$query, 
@@ -163,57 +168,74 @@ test_that("`filter()` works with 3 OR statements", {
 })
 
 test_that("`filter()` handles exclusion", {   
-  filters <- galah_filter(year >= 2010, year != 2021)
+  filters <- request_data() |>
+    filter(year >= 2010, year != 2021) |>
+    purrr::pluck("filter")
   expect_equal(nrow(filters), 2)
   expect_equal(filters$query, c("year:[2010 TO *]", "-(year:\"2021\")"))
 })
 
 test_that("`filter()` handles multiple exclusions", {
-  filters <- galah_filter(!(stateProvince == "Victoria" & year == 2021)) 
+  filters <- request_data() |>
+    filter(!(stateProvince == "Victoria" & year == 2021)) |>
+    purrr::pluck("filter")
   expect_equal(nrow(filters), 1)
   expect_equal(filters$query, "-(stateProvince:\"Victoria\") AND -(year:\"2021\")")
 })
 
 test_that("`filter()` handles three terms at once", {    
-  filters <- galah_filter(
-    basisOfRecord == "HumanObservation",
-    year >= 2010,
-    stateProvince == "New South Wales")
+  filters <- request_data() |>
+    filter(basisOfRecord == "HumanObservation",
+           year >= 2010,
+           stateProvince == "New South Wales") |>
+    purrr::pluck("filter")
   expect_equal(nrow(filters),3)
   expect_equal(filters$query, c("(basisOfRecord:\"HumanObservation\")","year:[2010 TO *]","(stateProvince:\"New South Wales\")"))
 })
 
 test_that("`filter()` treats `c()` as an OR for numerics", {
-  filters <- galah_filter(year == c(2010, 2021))
+  filters <- request_data() |>
+    filter(year == c(2010, 2021)) |>
+    purrr::pluck("filter")
   expect_equal(nrow(filters), 1)
 })
 
 test_that("`filter()` treats `c()` as an OR for strings", {
-  filters <- galah_filter(multimedia == c("Image", "Sound", "Video"))
+  filters <- request_data() |>
+    filter(multimedia == c("Image", "Sound", "Video")) |>
+    purrr::pluck("filter")
   expect_equal(nrow(filters), 1)
   expect_true(grepl("multimedia:\"Image\"", filters$query))
 })
 
 test_that("`filter()` can take an object as a value", { 
   value <- "2010"
-  filters <- galah_filter(year == value)
+  filters <- request_data() |>
+    filter(year == value) |>
+    purrr::pluck("filter")
   expect_equal(nrow(filters), 1)
   expect_match(filters$query, "(year:\"2010\")")
 })
 
 test_that("`filter()` returns error when equations are passed as a string", {
-  expect_error(galah_filter("year == 2010"))
+  request_data() |>
+    filter("year == 2010") |>
+    expect_error()
 })
 
 test_that("`filter()` handles taxonomic queries", {
   skip_if_offline(); skip_on_ci()
-  filters <- galah_filter(taxonConceptID == search_taxa("Animalia")$taxon_concept_id)
+  filters <- request_data() |>
+    filter(taxonConceptID == search_taxa("Animalia")$taxon_concept_id) |>
+    purrr::pluck("filter")
   expect_equal(nrow(filters), 1)
   expect_false(grepl("search_taxa", filters$query))
 })
 
 test_that("`filter()` handles taxonomic queries when passed as a string", {
-  filters <- galah_filter(taxonConceptID == "https://biodiversity.org.au/afd/taxa/012a1234")
+  filters <- request_data() |> 
+    filter(taxonConceptID == "https://biodiversity.org.au/afd/taxa/012a1234") |>
+    purrr::pluck("filter")
   expect_equal(nrow(filters), 1)
   expect_false(grepl("search_taxa", filters$query))
   expect_true(grepl("taxonConceptID", filters$query))
@@ -221,9 +243,10 @@ test_that("`filter()` handles taxonomic queries when passed as a string", {
 
 test_that("`filter()` handles taxonomic exclusions", {
   skip_if_offline(); skip_on_ci()
-  filters <- galah_filter(
-    taxonConceptID == search_taxa("Animalia")$taxon_concept_id,
-    taxonConceptID != search_taxa("Chordata")$taxon_concept_id)
+  filters <- request_data() |>
+    filter(taxonConceptID == search_taxa("Animalia")$taxon_concept_id,
+           taxonConceptID != search_taxa("Chordata")$taxon_concept_id) |>
+    purrr::pluck("filter")
   expect_equal(nrow(filters), 2)
   expect_false(any(grepl("search_taxa", filters$query)))
 })
@@ -239,52 +262,76 @@ test_that("`filter()` handles lsid as an input", {
     count() |>
     collapse()
   expect_s3_class(query, "query")
-  expect_equal(length(query), 4)
-  expect_equal(names(query), c("type", 
+  expect_equal(length(query), 5)
+  expect_equal(names(query), c("type",
+                               "atlas",
                                "url", 
                                "headers",
                                "request"))
 })
 
 test_that("`filter()` handles different fields separated by OR", {
-  filters <- galah_filter(phylum == "Chordata" | kingdom == "Plantae")
+  filters <- request_data() |>
+    filter(phylum == "Chordata" | kingdom == "Plantae") |>
+    purrr::pluck("filter")
   expect_equal(filters$query, "((phylum:\"Chordata\") OR (kingdom:\"Plantae\"))")
 })
 
 test_that("`filter()` fails when given invalid AND syntax", {
-  expect_error(galah_filter(year >= 2020 & 2021))
+  request_data() |>
+    filter(year >= 2020 & 2021) |>
+    expect_error()
 })
 
 test_that("`filter()` fails when given invalid OR syntax", {
-  expect_error(galah_filter(year == 2020 | 2021))
+  request_data() |>
+    filter(year == 2020 | 2021) |>
+    expect_error()
 })
 
 # TODOL test that `filter()` handles between() even with multiple filters
 # NOTE: not implemented yet
 
 test_that("`filter()` accepts an OR statement for different fields", {
-  filters <- galah_filter(year == 2010 | basisOfRecord == "PRESERVED_SPECIMEN")
+  filters <- request_data() |>
+    filter(year == 2010 | basisOfRecord == "PRESERVED_SPECIMEN") |>
+    purrr::pluck("filter")
   expect_true(grepl("year", filters$query) & 
               grepl("basisOfRecord", filters$query))
 })
 
-test_that("`filter()` handles is.na() even with multiple filters", {
-  filter_single <- galah_filter(is.na(eventDate))
-  filter_multiple <- galah_filter(is.na(eventDate), year > 2010)
-  expect_equal(nrow(filter_single), 1)
-  expect_equal(nrow(filter_multiple), 2)
-  expect_true(grepl("(*:* AND -eventDate:*)", filter_single$query))
-  expect_true(grepl("(*:* AND -eventDate:*)", filter_multiple$query[[1]]))
+test_that("`filter()` handles is.na()", {
+  filters <- request_data() |>
+    filter(is.na(eventDate)) |>
+    purrr::pluck("filter")
+  expect_equal(nrow(filters), 1)
+  expect_true(grepl("(*:* AND -eventDate:*)", filters$query))
 })
 
-test_that("`filter()` handles %in% even with multiple filters", {
+test_that("`filter()` handles is.na() with multiple filters", {
+  filters <- request_data() |>
+    filter(is.na(eventDate), year > 2010) |>
+    purrr::pluck("filter")
+  expect_equal(nrow(filters), 2)
+  expect_true(grepl("(*:* AND -eventDate:*)", filters$query[[1]]))
+})
+
+test_that("`filter()` handles %in%", {
   list_of_years <- 2020:2022
-  filter_single <- galah_filter(year %in% list_of_years)
-  filter_multiple <- galah_filter(year %in% list_of_years, cl22 == "Tasmania")
-  expect_equal(nrow(filter_single), 1)
-  expect_equal(nrow(filter_multiple), 2)
-  expect_equal("((year:\"2020\") OR (year:\"2021\") OR (year:\"2022\"))", filter_single$query[[1]])
-  expect_equal("((year:\"2020\") OR (year:\"2021\") OR (year:\"2022\"))", filter_multiple$query[[1]])
+  filters <- request_data() |>
+    filter(year %in% list_of_years) |>
+    purrr::pluck("filter")
+  expect_equal(nrow(filters), 1)
+  expect_equal("((year:\"2020\") OR (year:\"2021\") OR (year:\"2022\"))", filters$query[[1]])
+})
+
+test_that("`filter()` handles %in% with multiple filters", {
+  list_of_years <- 2020:2022
+  filters <- request_data() |>
+    filter(year %in% list_of_years, cl22 == "Tasmania") |>
+    purrr::pluck("filter")
+  expect_equal(nrow(filters), 2)
+  expect_equal("((year:\"2020\") OR (year:\"2021\") OR (year:\"2022\"))", filters$query[[1]])
 })
 
 test_that("`filter()` parses fields correctly with is.na()", {
@@ -327,34 +374,35 @@ test_that("`filter()` handles apostrophes (') correctly", {
   names <- c("Australia's Virtual Herbarium", 
              "iNaturalist observations",
              "iNaturalist research-grade observations")
-  filter <- galah_filter(datasetName %in% names)$query
-  query <- galah_call() |>
-    galah_filter(datasetName %in% names) |>
-    atlas_counts()
-  expect_equal(nrow(query), 1) # returns result
-  expect_gte(query$count[1], 1)
-  expect_match(filter, "\\(datasetName:\\\"Australia's Virtual Herbarium\\\"")
+  query <- request_data() |>
+    filter(datasetName %in% names) |>
+    count()
+  filters <- purrr::pluck(query, "filter")
+  result <- collect(query)
+  expect_equal(nrow(result), 1) # returns result
+  expect_gte(result$count[1], 1)
+  expect_match(filters$query, "\\(datasetName:\\\"Australia's Virtual Herbarium\\\"")
 })
 
 test_that("`filter()` handles multiple values with brackets correctly", {
   skip_if_offline(); skip_on_ci()
-  filter <- galah_filter(
-    scientificName == c("Aviceda (Aviceda) subcristata", 
-                        "Todiramphus (Todiramphus) sanctus"))$query
-  query <- galah_call() |>
-    galah_filter(scientificName == c("Aviceda (Aviceda) subcristata", 
-                                     "Todiramphus (Todiramphus) sanctus")) |>
-    atlas_counts()
-  expect_equal(nrow(query), 1) # returns result
-  expect_gte(query$count[1], 1)
-  expect_match(filter, "\\(scientificName:\\\"Aviceda \\(Aviceda\\) subcristata\\\"\\)")
+  query <- request_data() |>
+    filter(scientificName == c("Aviceda (Aviceda) subcristata", 
+                               "Todiramphus (Todiramphus) sanctus")) |>
+    count()
+  filters <- purrr::pluck(query, "filter")
+  result <- collect(query)
+  expect_equal(nrow(result), 1) # returns result
+  expect_gte(result$count[1], 1)
+  expect_match(filters$query, "\\(scientificName:\\\"Aviceda \\(Aviceda\\) subcristata\\\"\\)")
 })
 
 test_that("`filter()` builds correct query with `!`, `%in%`, `c()` and `identify()`", {    
   ibra_subset <- c("Brigalow Belt North", "Brigalow Belt South", "Central Mackay Coast")
-  query <- request_data(type = "occurrences-count") |> 
+  query <- request_data() |> 
     identify("Crinia signifera") |>
-    filter(!cl1048 %in% ibra_subset)
+    filter(!cl1048 %in% ibra_subset) |>
+    count()
   expect_equal(query$filter$query, c("-(cl1048:\"Brigalow Belt North\") OR -(cl1048:\"Brigalow Belt South\") OR -(cl1048:\"Central Mackay Coast\")"))
 })
 
@@ -362,46 +410,33 @@ test_that("`filter()` accepts {{}} on lhs of formula", {
   skip_if_offline(); skip_on_ci()
   field <- "species"
   result <- galah_call() |>
-    galah_filter({{field}} == "Eolophus roseicapilla") |>
-    atlas_counts()
-  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(nrow(result), 1)
-  expect_gte(result$count[1], 100)
-  result2 <- request_data() |>
     filter({{field}} == "Eolophus roseicapilla") |>
     count() |>
     collect()
-  expect_equal(result, result2)
+  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(nrow(result), 1)
+  expect_gte(result$count[1], 100)
 })
 
-test_that("`filter()` handles `method = 'data'` correctly", {
-  x <- request_data() |>
-    filter(year == 2010)
-  expect_s3_class(x, "data_request")
-  expect_false(is.null(x$filter))
-  expect_equal(colnames(x$filter), c("variable", "logical", "value", "query"))
-  y <- request_data() |> filter(year == 2010)
-  expect_equal(x, y)
-})
 
-test_that("`filter() handles `method = 'metadata'` correctly", {
+test_that("`filter() works for class `metadata_request`", {
   x <- request_metadata() |>
     filter(field == cl22)
   expect_s3_class(x, "metadata_request")
-  expect_equal(length(x), 2)
-  expect_equal(names(x), c("type", "filter"))
+  expect_equal(length(x), 3)
+  expect_equal(names(x), c("type", "atlas", "filter"))
   expect_equal(names(x$filter), c("variable", "value"))
 })
 
-test_that("`filter() handles `method = 'files'` correctly", {
+test_that("`filter()` works for class `files_request`", {
   x <- tibble::tibble(
     id = c(1, 2),
     images = c("1234", "5678"))
   y <- request_files() |>
     filter(media == x)
   expect_s3_class(y, "files_request")
-  expect_equal(length(y), 2)
-  expect_equal(names(y), c("type", "filter"))
+  expect_equal(length(y), 3)
+  expect_equal(names(y), c("type", "atlas", "filter"))
   expect_equal(y$filter$data, x)
 })
 

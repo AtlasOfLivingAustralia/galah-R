@@ -17,14 +17,25 @@
 #'   filter(field == basisOfRecord) |> 
 #'   collect()
 #'   
-#' # Using `galah::unnest()` in this way is equivalent to:
+#' # This is equivalent to:
+#' galah_call() |>
+#'   distinct(basisOfRecord) |>
+#'   collect()
+#' 
+#' # and also to:
 #' show_all(fields, "basisOfRecord") |> 
 #'   show_values()
 #'   
-#' # to add information to a species list:
+#' # Add information to a species list
 #' request_metadata() |>
 #'   filter(list == "dr650") |>
 #'   select(everything()) |>
+#'   unnest() |>
+#'   collect()
+#' 
+#' # Find 'child' taxa
+#' request_metadata() |>
+#'   identify("Crinia")
 #'   unnest() |>
 #'   collect()
 #' }

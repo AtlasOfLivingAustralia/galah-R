@@ -2,7 +2,7 @@
 #' @noRd
 #' @keywords Internal
 compute_occurrences <- function(.query){
-  switch(potions::pour("atlas", "region"),
+  switch(.query$atlas,
          "Austria" = compute_occurrences_la_direct(.query),
          "Global" = compute_occurrences_gbif(.query),
          compute_occurrences_la(.query))
@@ -25,12 +25,14 @@ compute_occurrences_la_direct <- function(.query){
 compute_occurrences_gbif <- function(.query){
   post_result <- query_API(.query) # returns an id
   status_code <- list(
-    type = "data/occurrences",
+    type = .query$type,
     url = glue::glue("https://api.gbif.org/v1/occurrence/download/{post_result}")) |>
     query_API() |>
     check_occurrence_response()
-  c(list(type = "data/occurrences"),
-    status_code) |>
+  c(list(type = .query$type,
+         atlas = .query$atlas),
+    status_code[names(status_code) != "request"],
+    list(request = .query$request)) |>
     structure(class = "computed_query")
 }
 
@@ -44,13 +46,14 @@ compute_occurrences_la <- function(.query){
     check_occurrence_response()
   if(potions::pour("package", "verbose")){
     n_records <- status_code$total_records
-    if(!is.null(.query$request$authenticate)){
+    if(isTRUE(.query$request$authenticate$use_jwt)){
       cli::cli_text("Query sent including JWT token")
     }
     cli::cli_text("Request for {n_records} occurrences placed in queue.")
   }
   # return a useful object
-  c(list(type = "data/occurrences"),
+  c(list(type = "data/occurrences",
+         atlas = .query$atlas),
     status_code, 
     list(fields = extract_fields(.query))) |>
   add_request(.query) |>
@@ -77,6 +80,7 @@ compute_occurrences_doi <- function(.query){
     .query$download <- NULL
     result <- query_API(.query)
     c(list(type = "data/occurrences-doi",
+           atlas = .query$atlas,
            url = result$downloadLink,
            download = TRUE),
       result[!(names(result) %in% c("request", "downloadLink"))]) |>

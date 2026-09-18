@@ -1,4 +1,4 @@
-#' Capture a request
+#' Convert a request into a query
 #'
 #' @description
 #' The first step in evaluating a request is to capture and parse the 
@@ -65,6 +65,7 @@ capture.data_request <- function(x,
   x <- x |> 
     check_authentication() |>
     check_doi() |>
+    check_describe() |>
     check_distinct_count_groupby() |>
     check_glimpse() |>
     check_slice_arrange() |>
@@ -72,11 +73,15 @@ capture.data_request <- function(x,
   switch(x$type,
          "occurrences" = capture_occurrences(x, mint_doi = mint_doi),
          "occurrences-count" = capture_occurrences_count(x),
+         "occurrences-describe" = capture_occurrences_describe(x),
          "occurrences-doi" = capture_occurrences_doi(x),
          "occurrences-glimpse" = capture_occurrences_glimpse(x),
          "species" = capture_species(x),
          "species-count" = capture_species_count(x),
          "distributions" = capture_distributions_data(x),
+         "events" = capture_events(x),
+         "events-count" = capture_events_count(x),
+         "events-describe" = capture_events_describe(x),
          cli::cli_abort("Unrecognised 'type'")) |>
   add_request(x)
 }
@@ -86,7 +91,6 @@ capture.data_request <- function(x,
 #' @export
 capture.metadata_request <- function(x, ...){
   x <- x |>
-    check_authentication() |>
     enforce_select_query()
   switch(x$type,
          "apis" = capture_apis(x),
@@ -156,12 +160,36 @@ as_prequery <- function(x){
   structure(x, class = c("prequery", "list"))
 }
 
+# Below here are check functions that are specific to `capture()`
+
+#' Internal function to lookup requests for authentication
+#' This is necessary, because only in `capture()` can we assess what to do when
+#' `authenticate()` hasn't been previously called. This is important for e.g.
+#' enforcing `authenticate()` where it is required, or pulling information from
+#' `galah_config()` to supply that information
+#' @noRd
+#' @keywords Internal
+check_authentication <- function(x){
+  if(!is.null(x$authenticate)){
+    x
+  }else{
+    if(authentication_required(x)){
+      config_options <- c(list(x),
+                          potions::pour("user", .pkg = "galah"))
+      names(config_options)[c(1, 2)] <- c(".data", "use_jwt")
+      do.call(authenticate, config_options)
+    }else{
+      x
+    }
+  }
+}
+
 #' Internal function to ensure that DOIs are parsed properly
 #' @noRd
 #' @keywords Internal
 check_doi <- function(x){
   if(x$type == "occurrences"){
-    if(is_gbif()){
+    if(x$atlas == "Global"){
       variables <- unlist(x$filter)
       if(any(variables == "DOI")){
         x$type <- "occurrences-doi"
@@ -181,13 +209,30 @@ check_doi <- function(x){
   x
 }
 
+#' Internal function to check for `describe()`
+#' @noRd
+#' @keywords Internal
+check_describe <- function(x){
+  if(!is.null(x$describe)){
+    if(x$type %in% c("occurrences", "events")){
+      x$type <- glue::glue("{x$type}-describe")
+      x
+    }else{
+      cli::cli_inform("`describe()` is only supported for `type` \"occurrences\" or \"events\" ")
+      x
+    }
+  }else{
+    x
+  }
+}
+
 #' Internal function to check behaviour of `distinct()`, `group_by()` etc.
 #' called by `capture()`
 #' @noRd
 #' @keywords Internal
 check_distinct_count_groupby <- function(x){
 
-  if(x$type == "occurrences-doi"){
+  if(x$type %in% c("occurrences-doi", "occurrences-describe")){
     return(x)
   }
 
@@ -201,9 +246,9 @@ check_distinct_count_groupby <- function(x){
   # this is clunky, but backwards compatible
   if(x$type == "species" & !has_distinct){
     if(has_count){
-      x <- x |> distinct(species_facets(), .keep_all = FALSE)
+      x <- x |> distinct(species_facets(x), .keep_all = FALSE)
     }else{
-      x <- x |> distinct(species_facets(), .keep_all = TRUE)
+      x <- x |> distinct(species_facets(x), .keep_all = TRUE)
     }
     has_distinct <- TRUE
   }
@@ -278,7 +323,12 @@ check_distinct_count_groupby <- function(x){
           count_switch() |>
           dplyr::select(-dplyr::any_of(c("label", "i18nCode", "fq")))
       }else{
-        dplyr::select(x, group = "basic") # assumes type = "occurrences"
+        # assumes type = "occurrences"
+        if(x$atlas == "Global"){
+          dplyr::select(x, tidyselect::everything()) # for backwards-compatibility
+        }else{
+          dplyr::select(x, group = "basic")
+        }
       }
     } # end has_select
   } # end has_distinct
@@ -293,6 +343,8 @@ count_switch <- function(x){
                    "occurrences-count" = "occurrences-count",
                    "species" = "species-count",
                    "species-count" = "species-count",
+                   "events" = "events-count",
+                   "events-count" = "events-count",
                    "media" = cli::cli_abort("type = 'media' is not supported by `count()`"),
                    cli::cli_abort("`count()` only supports `type = 'occurrences' or` `'species'`"))
   x
@@ -367,12 +419,14 @@ enforce_select_query_metadata <- function(x){
       purrr::pluck("type") |>
       stringr::str_remove("^metadata/")
     # see whether `lookup_select_columns()` returns anything
-    chosen_columns <- lookup_select_columns(specific_type)  
+    chosen_columns <- lookup_select_columns(specific_type) 
     # some `unnest` queries internally rename the lead column to the name of the supplied field
     if(is.null(chosen_columns) & 
-       stringr::str_detect(specific_type, "-unnest$")){
-         chosen_columns <- x$filter |>
-           purrr::pluck("value")
+       stringr::str_detect(specific_type, "-unnest$") &
+       specific_type != "lists-unnest"
+    ){
+      chosen_columns <- x$filter |>
+        purrr::pluck("value")
     }
     # if we have, after 2 attempts, found some chosen_columns, use them
     if(!is.null(chosen_columns)){
@@ -392,7 +446,15 @@ enforce_select_query_metadata <- function(x){
 enforce_select_query_data <- function(x){
   if(is.null(x$select)){
     switch(x$type, 
-      "occurrences" = dplyr::select(x, group = "basic"),
+      # This section _should_ be handled above by check_distinct_count_groupby()
+      # probably needs better integration
+      "occurrences" = {
+        if(x$atlas == "Global"){
+          dplyr::select(x, tidyselect::everything()) # for backwards-compatibility
+        }else{
+          dplyr::select(x, group = "basic")
+        }
+      },
       "occurrences-count" = dplyr::select(x, -dplyr::any_of(c("label", "i18nCode", "fq"))),
       "species" = dplyr::select(x, group = "taxonomy"),
       # NOTE: further exceptions may be needed for type = "species"

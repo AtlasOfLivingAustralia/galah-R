@@ -13,18 +13,10 @@ search_values(df, query)
 \item{df}{A search result from \code{\link[=search_fields]{search_fields()}}, \code{\link[=search_profiles]{search_profiles()}} or
 \code{\link[=search_lists]{search_lists()}}.}
 
-\item{all_fields}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} If \code{TRUE},
-\code{show_values()} also returns all columns available from the API, rather
-than the 'default' columns traditionally provided via galah.
-
-For lists, this will include 'raw' columns; columns included prior to the
-dataset's ingestion into the ALA, and will often include raw scientific
-names and vernacular names. For conservation lists like the EPBC list, this
-also includes columns containing each species' conservation status
-information.
-
-For other forms of metadata, setting this to \code{TRUE} may return more
-information than you want or need. Default is set to \code{FALSE}.}
+\item{all_fields}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+By default all columns available from the API are returned as of v2.3.0.
+Use \code{request_metadata()} with \code{select()} to refine which columns are
+returned in your query instead.}
 
 \item{query}{A string specifying a search term. Not case sensitive.}
 }
@@ -83,5 +75,13 @@ search_fields("cl22") |>
 # See items within species list "dr19257"
 search_lists("dr19257") |> 
   show_values()
+
+# Refine which columns are returned with `request_metadata()` and `select()`.
+# This example is synonymous to the previous example, but with `select()`:
+request_metadata() |>
+  filter(list == "dr19257") |>
+  unnest() |>
+  select(taxon_concept_id, supplied_name, scientific_name) |>
+  collect() 
 }
 }

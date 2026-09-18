@@ -1,7 +1,7 @@
 #' @rdname geolocate
 #' @order 4
 #' @export
-galah_bbox <- function(...) {
+geolocate_bbox <- function(...) {
 
   # check to see if any of the inputs are a data request
   query <- list(...)
@@ -66,10 +66,15 @@ galah_bbox <- function(...) {
           log <<- cnd
           ""
         })
+    check_crs(query)  # check whether crs is epsg:4326
   } 
   else {
     valid <- query |> 
       sf::st_is_valid()
+    
+    check_crs(query)  # check whether crs is epsg:4326
+   
+
   }
   
   if (valid != TRUE) {

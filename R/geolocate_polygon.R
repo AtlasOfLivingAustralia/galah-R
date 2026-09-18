@@ -1,7 +1,7 @@
 #' @rdname geolocate
 #' @order 3
 #' @export
-galah_polygon <- function(...){
+geolocate_polygon <- function(...){
   # check to see if any of the inputs are a data request
   query <- list(...)
   if(length(query) > 1 & inherits(query[[1]], "data_request")){
@@ -90,6 +90,8 @@ parse_polygon <- function(query,
       x = "Polygon must have 500 or fewer vertices, not {n_verts}.") |>
     cli::cli_abort(call = error_call)
   }
+  
+  check_crs(query)  # check whether crs is epsg:4326
   
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons are converted to multipolygons

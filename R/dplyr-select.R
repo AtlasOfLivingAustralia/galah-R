@@ -48,9 +48,8 @@
 #' require thousands or millions of records at a time. To reduce time taken to 
 #' download data, and limit complexity of the resulting `tibble`, it is sensible 
 #' to restrict the fields returned by occurrence queries. The full list of 
-#' available fields can be viewed with `show_all(fields)`. Note that `select()` 
-#' and `galah_select()` are supported for all atlases that allow downloads, with 
-#' the exception of GBIF, for which all columns are returned.
+#' available fields can be viewed with `show_all(fields)`. `select()` 
+#' is supported for all atlases that allow downloads.
 #' 
 #' Calling the argument `group = "basic"` returns the following columns:
 #'
@@ -123,22 +122,17 @@
 #' # When used in a pipe, `galah_select()` and `select()` are synonymous.
 #' # Hence the previous example can be rewritten as:
 #' galah_call() |>
-#'   galah_identify("perameles") |>
-#'   galah_select(basisOfRecord, group = "basic") |>
+#'   identify("perameles") |>
+#'   select(basisOfRecord, group = "basic") |>
 #'   collect()
 #' }
 #' @export
 select.data_request <- function(.data, ..., group = NULL){
-  # if(is_gbif()){
-  #  cli::cli_text("`select()` is not supported for GBIF occurrence downloads API v1: skipping")
-  #  .data
-  # }else{
-    dots <- rlang::enquos(..., .ignore_empty = "all")
-    list(quosure = dots,
-         summary = generate_summary(dots)) |>
-      add_group(group) |>
-      update_request_object(.data, select = _)  
-  # }
+  dots <- rlang::enquos(..., .ignore_empty = "all")
+  list(quosure = dots,
+        summary = generate_summary(dots)) |>
+    add_group(group) |>
+    update_request_object(.data, select = _)  
 }
 
 #' @rdname select.data_request

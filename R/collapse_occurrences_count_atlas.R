@@ -171,6 +171,7 @@ collapse_occurrences_count_atlas_groupby_crossed <- function(.query,
 check_facet_count <- function(.query,
                               warn = TRUE,
                               error_call = rlang::caller_env()){
+  
   url <- httr2::url_parse(.query$url)
   current_limit <- url$query$flimit
   
@@ -193,26 +194,4 @@ check_facet_count <- function(.query,
   }else{
     purrr::map(result, function(a){a$count}) |> unlist()
   }
-  # if(inherits(result, "data.frame")){ # group_by arg present
-  #   n_available <- result$count
-  #   if(length(n_available) > 1){ # is this correct? What about multiple fields?
-  #     n_available
-  #   }else{
-  #     n_available <- n_available[[1]]
-  #     if(warn &
-  #        pour("package", "verbose") & 
-  #        n_requested < n_available &
-  #        !.query$arrange$slice_called &
-  #        .query$arrange$direction == "descending" # for ascending, n_requested is always zero (TRUE?)
-  #     ){ 
-  #       bullets <- c(
-  #         glue("This query will return {n_requested} rows, but there are {n_available} rows in total."),
-  #         i = "Use `slice_head()` to set a higher number of rows to return.")
-  #       inform(bullets)
-  #     }
-  #     n_available
-  #   }
-  # }else{
-  #   NA
-  # }
 }

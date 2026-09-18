@@ -4,11 +4,11 @@
 check_queue <- function(.query, wait = FALSE){
   # process supplied object
   if(.query$status == "incomplete"){
-    download_response <- c(list(type = .query$type),
+    download_response <- c(.query[c("type", "atlas")],
                            check_occurrence_status(.query)) |>
       structure(class = "computed_query")
     if(wait){
-      c(list(type = .query$type),
+      c(.query[c("type", "atlas")],
         check_queue_loop(.query)) |>
         structure(class = "computed_query")
     }else{

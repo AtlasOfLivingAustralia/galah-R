@@ -6,6 +6,8 @@ capture_media_files <- function(.query,
                                  thumbnail = FALSE,
                                  error_call = rlang::caller_env()
                                  ){
+  .query$type <- "files/media"
+
   # handle filters
   if(is.null(.query$filter)){
     cli::cli_abort("`This function requires a `filter()` argument",
@@ -27,8 +29,10 @@ capture_media_files <- function(.query,
   }
 
   # create output
-  list(type = "files/media",
-       url = build_media_tibble(identifiers,
+  list(type = .query$type,
+       atlas = .query$atlas,
+       url = build_media_tibble(.query,
+                                identifiers,
                                 df$mime_type,
                                 thumbnail),
        headers = build_headers()) |>
@@ -39,7 +43,8 @@ capture_media_files <- function(.query,
 #' Internal function to create API urls AND file paths
 #' @noRd
 #' @keywords Internal
-build_media_tibble <- function(identifiers,
+build_media_tibble <- function(.query, 
+                               identifiers,
                                mimetype,
                                thumbnail = FALSE){
   # create a `size` vector
@@ -54,7 +59,7 @@ build_media_tibble <- function(identifiers,
   
   # return a result
   tibble::tibble(
-    url = url_lookup("files/media",
+    url = url_lookup(.query,
                      id = identifiers,
                      size = size_vec),
     path = build_file_path(ids = identifiers,

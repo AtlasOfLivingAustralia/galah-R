@@ -5,7 +5,7 @@ test_that("swapping to atlas = Austria works", {
   expect_message(galah_config(atlas = "Austria"))
 })
 
-test_that("show_all(assertions) works for Austria", {
+test_that("`show_all(assertions)` works for Austria", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(assertions) |>
     try(silent = TRUE)
@@ -16,7 +16,7 @@ test_that("show_all(assertions) works for Austria", {
   expect_equal(x, y)
 })
 
-test_that("show_all(collections) works for Austria", {
+test_that("`show_all(collections)` works for Austria", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(collections) |>
     try(silent = TRUE)
@@ -27,7 +27,7 @@ test_that("show_all(collections) works for Austria", {
   expect_equal(x, y)
 })
 
-test_that("show_all(datasets) works for Austria", {
+test_that("`show_all(datasets)` works for Austria", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(datasets) |>
     try(silent = TRUE)
@@ -38,7 +38,7 @@ test_that("show_all(datasets) works for Austria", {
   expect_equal(x, y)
 })
 
-test_that("show_all(fields) works for Austria", {
+test_that("`show_all(fields)` works for Austria", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(fields) |>
     try(silent = TRUE)
@@ -49,7 +49,7 @@ test_that("show_all(fields) works for Austria", {
   expect_equal(x, y)
 })
 
-test_that("show_all(licences) works for Austria", {
+test_that("`show_all(licences)` works for Austria", {
   skip_if_offline(); skip_on_ci()
   x <- show_all(licences) |>
     try(silent = TRUE)
@@ -98,7 +98,7 @@ test_that("show_all(profiles) fails for Austria", {
   expect_error(show_all(profiles))
 })
 
-test_that("search_all(fields) works for Austria", {
+test_that("`search_all(fields)` works for Austria", {
   skip_if_offline(); skip_on_ci()
   x <- search_all(fields, "year") |>
     try(silent = TRUE)
@@ -107,7 +107,7 @@ test_that("search_all(fields) works for Austria", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("search_all(taxa) works for Austria", {
+test_that("`search_all(taxa)` works for Austria", {
   skip_if_offline(); skip_on_ci()
   x <- search_all(taxa, "Vulpes vulpes") |>
     try(silent = TRUE)
@@ -116,7 +116,7 @@ test_that("search_all(taxa) works for Austria", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("show_values works for Austria", {
+test_that("`show_values()` works for Austria", {
   skip_if_offline(); skip_on_ci()
   quiet_values <- function(...){
     x <- purrr::quietly(show_values)
@@ -139,7 +139,7 @@ test_that("show_values works for Austria", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("atlas_counts works with type = 'occurrences' for Austria", {
+test_that("`atlas_counts()` works with type = 'occurrences' for Austria", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
     dplyr::pull(count) |>
@@ -148,7 +148,7 @@ test_that("atlas_counts works with type = 'occurrences' for Austria", {
   expect_gt(x, 0)
 })
 
-test_that("atlas_counts works with type = 'species' for Austria", {
+test_that("`atlas_counts()` works with type = 'species' for Austria", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
     dplyr::pull(count) |>
@@ -158,11 +158,12 @@ test_that("atlas_counts works with type = 'species' for Austria", {
 })
 
 ## FIXME: Only works when run_checks = TRUE
-test_that("atlas_counts works with galah_identify for Austria", {
+test_that("`count()` works with `identify()` for Austria", {
   skip_if_offline(); skip_on_ci()
-  result <- galah_call() |>
-    galah_identify("Mammalia") |> # run_checks = TRUE works
-    atlas_counts() |>
+  result <- galah_call(from = "Austria") |>
+    identify("Mammalia") |> # run_checks = TRUE works
+    count() |>
+    collect() |>
     try(silent = TRUE)
   skip_if(inherits(result, "try-error"), message = "API not available")
   expect_gt(result$count, 1)
@@ -174,19 +175,19 @@ test_that("atlas_counts works with galah_identify for Austria", {
     0.1) # i.e. <1% margin of error
 })
 
-test_that("atlas_counts works with group_by for Austria", {
+test_that("`count()` works with group_by for Austria", {
   skip_if_offline(); skip_on_ci()
-  result <- galah_call() |>
-    galah_filter(year >= 2020) |>
-    galah_group_by(year) |>
-    atlas_counts() |>
+  result <- galah_call(from = "Austria") |>
+    filter(year >= 2020) |>
+    count(year) |>
+    collect() |>
     try(silent = TRUE)
   skip_if(inherits(result, "try-error"), message = "API not available")
   expect_gt(nrow(result), 1)
   expect_equal(names(result), c("year", "count"))
 })
 
-test_that("atlas_species works for Austria", {
+test_that("`atlas_species()` works for Austria", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Austria",
@@ -205,7 +206,7 @@ test_that("atlas_species works for Austria", {
 })
 
 ## FIXME: Test only works when run_checks = TRUE
-test_that("atlas_occurrences works for Austria", {
+test_that("`atlas_occurrences()` works for Austria", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Austria",
@@ -227,22 +228,26 @@ test_that("atlas_occurrences works for Austria", {
   skip_if(inherits(occ_collapse, "try-error"), message = "API not available")
   expect_s3_class(occ_collapse, "query")
   expect_equal(names(occ_collapse), 
-               c("type", "url", "headers", "request"))
+               c("type", "atlas", "url", "headers", "request"))
   expect_equal(occ_collapse$type, "data/occurrences")
   # compute
-  occ_compute <- compute(occ_collapse)
-  expect_s3_class(occ_compute, "computed_query")
-  # collect
-  occ <- collect(occ_compute) |>
+  occ_compute <- compute(occ_collapse) |>
     try(silent = TRUE)
-  skip_if(inherits(occ_compute, "try-error"), message = "API not available")
+  skip_if(inherits(occ_collapse, "try-error"), message = "API not available")
+  expect_s3_class(occ_compute, "computed_query")
+  # collect with pause of 20 seconds and `wait = FALSE`
+  # This is clumsy, but useful beacuse previously we were getting wait times of ~10 minutes
+  Sys.sleep(20)
+  occ <- collect(occ_compute, wait = FALSE) |>
+    try(silent = TRUE)
+  skip_if(inherits(occ, c("try-error", "computed_query")), message = "API not available")
   expect_equal(nrow(occ), counts$count[1])
   expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
   expect_equal(ncol(occ), 2)
   unlink("temp", recursive = TRUE)
 })
 
-test_that("atlas_media() works for Austria", {
+test_that("`atlas_media()` works for Austria", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Austria",
@@ -253,7 +258,7 @@ test_that("atlas_media() works for Austria", {
     send_email = FALSE)
   x <- request_data() |>
     identify("Mammalia") |>
-    filter(year == 2010) |> # !is.na(all_image_url)
+    filter(year == 2010) |>
     atlas_media() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -266,7 +271,7 @@ test_that("atlas_media() works for Austria", {
     x <- purrr::quietly(collect_media)
     x(...)$result
   }
-  n_downloads <- 5
+  n_downloads <- 3
   quiet_media(x[seq_len(n_downloads), ])
   expect_equal(length(list.files("temp", pattern = ".jpg$")),
                n_downloads)

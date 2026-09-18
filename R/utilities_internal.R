@@ -9,22 +9,32 @@
 #' only happen at the end of a pipe.
 #' @noRd
 #' @keywords Internal
-parse_select <- function(df, .query){
+parse_select <- function(df, 
+                         .query,
+                         call = rlang::caller_env()){
+  if(is.null(df)){
+    cli::cli_abort("Unable to call `select()` without supplying a `tibble`", call = call)
+  }
   # get quosures captured by `select()`
   quo_list <- purrr::pluck(.query, "request", "select", "quosure")
-  # map() over list of quosures
-  # honestly I don't know why `!!quo_list` fails here, but it does, so used this instead
-  pos <- purrr::map(quo_list, \(a){
-    tidyselect::eval_select(expr = a, data = df)
-  }) |>
-    unlist()
-  # apply tidy selection to `df`
-  # note: this code taken from `tidyselect` documentation; it could be argued that `df[pos]` is sufficient
-  rlang::set_names(df[pos], names(pos)) 
+
+  if(length(quo_list) > 0){
+    # map() over list of quosures
+    # honestly I don't know why `!!quo_list` fails here, but it does, so used this instead
+    pos <- purrr::map(quo_list, \(a){
+      tidyselect::eval_select(expr = a, data = df)
+    }) |>
+      unlist()
+    # apply tidy selection to `df`
+    # note: this code taken from `tidyselect` documentation; it could be argued that `df[pos]` is sufficient
+    rlang::set_names(df[pos], names(pos))
+  }else{
+    df
+  }
 }
 
 #' equivalent to `parse_select()` but for filter
-#' mainly called for delayed filter arugments on APIs that don't support `q`
+#' mainly called for delayed filter arguments on APIs that don't support `q`
 #' @noRd
 #' @keywords Internal
 parse_filter <- function(df, query){
@@ -88,6 +98,23 @@ lookup_select_columns <- function(type) {
                             "description",
                             "category",
                             "type"),
+           "classification" = {
+             classification_columns <- c("taxonConceptID",
+                                         "scientificName",
+                                         "scientificNameAuthorship",
+                                         "vernacularName",
+                                         "rank",
+                                         "kindom",
+                                         "phylum",
+                                         "class",
+                                         "order",
+                                         "family",
+                                         "genus",
+                                         "species")
+             c("species_list_uid",
+               "suppliedName",
+               glue::glue("classification_{classification_columns}"),
+               "properties")},
            "fields" = c("id",
                         "description",
                         "type"),
@@ -98,12 +125,13 @@ lookup_select_columns <- function(type) {
                           "url"),
            "lists" = c("species_list_uid",
                        "list_name",
+                       "title", # ALA v2
                        "description",
                        "list_type",
-                       "item_count"),
-           "lists-unnest" = c("scientific_name",
-                              "vernacular_name",
-                              "taxon_concept_id"),
+                       "item_count",
+                       "row_count", # ALA v2
+                       "is_authoritative",
+                       "is_threatened"),
            "media" = c("media_id",
                        "occurrence_id",
                        "creator", 
@@ -286,8 +314,8 @@ add_email_notify <- function(x) {
 #' @noRd
 #' @keywords Internal
 add_email_address <- function(x, query){
-  if(is.null(query$authenticate)){
-    x$email <- potions::pour("user", "email")
+  if(isFALSE(query$authenticate$use_jwt)){
+    x$email <- query$authenticate$email
   }
   x
 }
@@ -295,9 +323,10 @@ add_email_address <- function(x, query){
 #' Add a DOI request
 #' @noRd
 #' @keywords Internal
-add_doi_request <- function(x, mint_doi = FALSE){
-  if(isTRUE(mint_doi) & 
-     potions::pour("atlas", "region") == "Australia"){
+add_doi_request <- function(x,
+                            mint_doi = FALSE,
+                            atlas = "Australia"){
+  if(isTRUE(mint_doi) & atlas == "Australia"){
     x$mintDoi <- TRUE 
   }
   x
@@ -307,33 +336,22 @@ add_doi_request <- function(x, mint_doi = FALSE){
 ##  Functions to change behaviour depending on selected `atlas` --
 ##----------------------------------------------------------------
 
-#' Internal function for determining if we should call GBIF or not
-#' @noRd
-#' @keywords Internal
-is_gbif <- function(){
-  potions::pour("atlas", "region") == "Global"
-}
-
-#' Internal function for determining if we should call ALA or not
-#' @noRd
-#' @keywords Internal
-is_ala <- function(){
-  potions::pour("atlas", "region") == "Australia"
-}
-
 #' Internal function to populate `groups` arg in `select()`
 #' @noRd
 #' @keywords Internal
-preset_groups <- function(group_name) {
+preset_groups <- function(group_name, atlas = NULL) {
+  if(is.null(atlas)){
+    atlas <- potions::pour("atlas", "region", .pkg = "galah")
+  }
   cols <- switch(group_name,
-                 "basic" = default_columns(),
+                 "basic" = default_columns(atlas),
                  "event" = c("eventRemarks",
                              "eventTime",
                              "eventID",
                              "eventDate",
                              "samplingEffort",
                              "samplingProtocol"),
-                 "media" = image_fields(),
+                 "media" = image_fields(atlas),
                  "taxonomy" = c("kingdom",
                                 "phylum",
                                 "class", 
@@ -349,8 +367,10 @@ preset_groups <- function(group_name) {
 #' Internal function to specify 'basic' columns in `select()`
 #' @noRd
 #' @keywords Internal
-default_columns <- function() {
-  atlas <- potions::pour("atlas", "region")
+default_columns <- function(atlas = NULL) {
+  if(is.null(atlas)){
+    atlas <- potions::pour("atlas", "region", .pkg = "galah")
+  }
   if(atlas %in% c("Austria", 
                   "Brazil", 
                   "Guatemala", 
@@ -389,6 +409,16 @@ default_columns <- function() {
       "basisOfRecord",
       "occurrenceStatus",
       "dataResourceName")
+  }else if(atlas == "Global"){
+    c("occurrenceId",
+      "scientificName",
+      "taxonConceptID",
+      "decimalLatitude",
+      "decimalLongitude",
+      "eventDate",
+      "basisOfRecord",
+      "occurrenceStatus",
+      "datasetName")
   }else{
     cli::cli_abort("Unknown `atlas`")
   }
@@ -396,8 +426,10 @@ default_columns <- function() {
 
 #' @noRd
 #' @keywords Internal
-image_fields <- function() {
-  atlas <- potions::pour("atlas", "region")
+image_fields <- function(atlas = NULL) {
+  if(is.null(atlas)){
+    atlas <- potions::pour("atlas", "region", .pkg = "galah")
+  }
   if(atlas %in% c("Austria", 
                   "Brazil", 
                   "Guatemala", 
@@ -420,9 +452,11 @@ image_fields <- function() {
 #' @noRd
 #' @keywords Internal
 image_filters <- function(present_fields,
+                          atlas = NULL,
                           error_call = rlang::caller_env()){
-  
-  atlas <- potions::pour("atlas", "region")
+  if(is.null(atlas)){
+    atlas <- potions::pour("atlas", "region", .pkg = "galah")
+  }
   switch(atlas,
          "Austria" = "(all_image_url:*)",
          "Australia" = glue::glue("({present_fields}:*)"),
@@ -432,40 +466,98 @@ image_filters <- function(present_fields,
          "Kew" =  "(images:*)",
          "Portugal" = "(all_image_url:*)",
          "Spain" = "(multimedia:*)",
-         "Sweden" = {filter_fields <- present_fields |>
-                       stringr::str_remove("s$") |>
-                       paste0("IDsCount")
-                     glue::glue("{filter_fields}:[1 TO *]")},
+         "Sweden" = "(multimedia:*)",
          "United Kingdom" = "(all_image_url:*)",
-         cli::cli_abort("`atlas_media` is not supported for atlas = {atlas}",
+         cli::cli_abort("`atlas_media()` is not supported for atlas = {atlas}",
                         call = error_call)
   )
 }
 
 #' @noRd
 #' @keywords Internal
-species_facets <- function(){
-  atlas <- potions::pour("atlas", "region")
-  if(atlas %in% c("Australia",
-                  "Flanders",
-                  "France",
-                  "Spain",
-                  "Sweden",
-                  "United Kingdom")) {
+species_facets <- function(.query){
+  if(.query$atlas %in% 
+     c("Australia",
+       "Flanders",
+       "France",
+       "Kew",
+       "Spain",
+       "Sweden",
+       "United Kingdom")) {
     "speciesID"
   }else{
     "species_guid"
   }
 }
 
+#' Internal function to test whether authentication is supported
 #' @noRd
 #' @keywords Internal
-profiles_supported <- function(){
-  atlas <- potions::pour("atlas", "region")
-  if(atlas %in% c("Australia",
-                  "Flanders",
-                  "Sweden",
-                  "Spain")) {
+authentication_supported <- function(atlas){
+  if(atlas %in% 
+    c("Australia",
+      "Flanders")){
+    TRUE
+  }else{
+    FALSE
+  }
+}
+
+#' Internal function to test whether authentication is provided by the expected host
+#' 
+#' This is a security check to prevent someone intercepting the request from the network,
+#' and replacing it with their own credentials. Apparently this is a 'severe' risk. I am
+#' sceptical of that, but it's cheap to implement, so here we are.
+#' @noRd
+#' @keywords Internal
+authentication_host <- function(url,
+                                atlas,
+                                error_call = rlang::caller_env()){
+  supplied_host <- url |>
+    httr2::url_parse() |>
+    purrr::pluck("hostname")
+  accepted_host <- switch(atlas,
+                          "Australia" = "auth.ala.org.au",
+                          "Flanders" = "auth.inbo.be")
+  if(supplied_host != accepted_host){
+    c("OAuth request returned unexpected domain",
+      i = glue::glue("expected: {accepted_host}"),
+      i = glue::glue("observed: {supplied_host}")) |>
+    cli::cli_abort(call = error_call)
+  }
+}
+
+#' Internal function to test whether authentication is required
+#' @noRd
+#' @keywords Internal
+authentication_required <- function(x){
+  # only required for downloads (in current version)
+  download_check <- x$type %in% c("occurrences", "species") &
+    # downloads never happen for `glimpse()` or `describe()` 
+    is.null(x$describe) &
+    # downloads only happen for GBIF counts, otherwise count invalidates need for auth
+    (is.null(x$count) | (!is.null(x$count) & x$atlas == "Global")) &
+    # ditto glimpse
+    (is.null(x$glimpse) | (!is.null(x$glimpse) & x$atlas == "Global")) 
+  # is.null(x$group_by) & # <- not needed, as group_by() can preface count() or distinct()
+
+  # `distinct()` only requires authentication if 1. it is present and 2. keep_all = TRUE
+  if(is.null(x$distinct)){
+    download_check
+  }else{
+    (x$distinct$keep_all | is.null(x$group_by)) & download_check
+  }
+}
+
+#' Internal function to test whether profiles are supported
+#' @noRd
+#' @keywords Internal
+profiles_supported <- function(atlas){
+  if(atlas %in% 
+     c("Australia",
+       "Flanders",
+       "Sweden",
+       "Spain")) {
     TRUE
   }else{
     FALSE
@@ -477,8 +569,10 @@ profiles_supported <- function(){
 #' checked in `compute()`)
 #' @noRd
 #' @keywords Internal
-reasons_supported <- function(){
-  atlas <- potions::pour("atlas", "region")
+reasons_supported <- function(atlas = NULL){
+  if(is.null(atlas)){
+    atlas <- potions::pour("atlas", "region", .pkg = "galah")
+  }
   supported_atlases <- request_metadata(type = "apis") |>
     collect() |>
     dplyr::filter(.data$type == "metadata/reasons") |>
@@ -488,11 +582,36 @@ reasons_supported <- function(){
 
 #' @noRd
 #' @keywords Internal
-media_supported <- function(){
-  atlas <- potions::pour("atlas", "region",
-                         .pkg = "galah")
+media_supported <- function(atlas = NULL){
+  if(is.null(atlas)){
+    atlas <- potions::pour("atlas", "region", .pkg = "galah")
+  }
   unsupported_atlases <- c("France", "Global")
   if(atlas %in% unsupported_atlases){
     cli::cli_abort("`atlas_media` is not supported for atlas = {atlas}")
   }
+}
+
+#' Internal function for checking whether spatial objects passed to 
+#' `geolocate_polygon()` and `geolocate_bbox()` use correct CRS (EPSG:4326) 
+#' for Living Atlas data
+#' @noRd
+#' @keywords Internal
+check_crs <- function(query) {
+  crs <- sf::st_crs(query)$epsg
+  # allow situations where crs is not set at all, e.g. from wkt strings
+  if(is.na(crs)){
+    c("No CRS given, assuming WGS84 (EPSG:4326)") |>
+    cli::cli_inform()
+  # otherwise set error when CRS is set to anything other than 4326, or is not an integer
+  }else{
+    crs_check <- ifelse(is.integer(crs), crs != 4326L, TRUE)
+    if(crs_check) {
+      c("Spatial object CRS is not WGS 84 (EPSG:4326).",
+        i = "Results of this query may be incorrect because geolocate object uses different CRS to data.",
+        x = "Occurrence data in GBIF nodes uses EPSG:4326, not EPSG:{crs}." # NOTE: All supported LAs use EPSG:4326
+      )  |>
+        cli::cli_warn()
+    }
+  } 
 }

@@ -7,20 +7,26 @@ collect_fields_unnest <- function(.query,
   facet <- .query |>
     purrr::pluck("url") |>
     httr2::url_parse()
-  
-  if(is_gbif()){
+
+  if(.query$atlas == "Global"){
     # get name of facet in question
     facet <-  purrr::pluck(facet, "query", "facet") # NOTE: "facet" (singular)
     check_missing_fields(facet, call = error_call)
     # get result from API
-    .query |>
+    result <- .query |>
       query_API() |>
-      purrr::pluck(!!!list("facets", 1, "counts")) |>
+      purrr::pluck(!!!list("facets", 1, "counts")) 
+    # add an error catcher here, as next step is sensitive to column missingness
+    # this should be caught because `pluck()` generates NULL for missing data
+    if(is.null(result)){
+      tibble::tibble()
+    }else{
+      result |>
       dplyr::bind_rows() |>
       dplyr::rename_with(camel_to_snake_case) |>
       dplyr::rename({{facet}} := "name") |>
       parse_select(.query)
-    
+    }
   }else{ 
     facet <-  purrr::pluck(facet, "query", "facets") # NOTE: "facets" (plural)
     check_missing_fields(facet, call = error_call)
@@ -60,42 +66,163 @@ check_missing_fields <- function(x, call){
 #' @keywords Internal
 collect_lists_unnest <- function(.query){
 
-  clean_common_names <- function(df){
-    if(any(colnames(df) == "commonName")){
-      df$commonName <- as.character(df$commonName)
-      if(any(df$commonName == "NULL")){
-        df$commonName[df$commonName == "NULL"] <- NA
-      }
-    }
-    df
-  }
-
-  # extract additional raw fields columns
-  clean_kvp_values <- function(df){
-    if(any(colnames(df) == "kvpValues")){
-      if(any(lengths(df$kvpValues) > 0)){
-        df <- df |>
-          tidyr::unnest(cols = "kvpValues") |>
-          tidyr::unnest_wider("kvpValues") |>
-          tidyr::pivot_wider(names_from = "key",
-                             values_from = "value")
-      }
-    }
-    df
-  }
-
   # get data
   result <- query_API(.query)
+  
+  if(stringr::str_detect(.query$url, "/v1/") | .query$atlas != "Australia") { # version 1 API
+    # old
+    result |>
+      purrr::list_transpose() |>
+      tibble::as_tibble() |>
+      clean_common_names() |>
+      clean_kvp_values() |>
+      dplyr::rename_with(camel_to_snake_case) |>
+      parse_rename(.query) |>
+      parse_select(.query)
+  } else {
+    # new
+    # first, add `classification` which captures ALA-matched information
+    x <- result |>
+      purrr::list_transpose() |>
+      tibble::as_tibble() |>
+      clean_common_names() |>
+      # species_list_uid is no longer retained in v2 API results.
+      # this adds info again as column (which matches old v1 output)
+      dplyr::mutate(species_list_uid = .query$request$filter$value) |> 
+      parse_classification() |>
+      dplyr::rename_with(camel_to_snake_case) |>
+      parse_rename(.query) |>
+      parse_properties(.query) |>
+      parse_select(.query)
 
-  # process
-  result |>
-    purrr::list_transpose() |>
-    tibble::as_tibble() |>
-    clean_common_names() |>
-    clean_kvp_values() |>
-    dplyr::rename_with(camel_to_snake_case) |>
-    parse_rename(.query) |>
-    parse_select(.query)
+    verbose <- potions::pour("package", "verbose", .pkg = "galah")
+    if(verbose){
+      # inform user about duplicated taxon_concept_ids
+      duplicate_taxa <- x |> 
+        filter(dplyr::n() > 1, .by = "taxon_concept_id") |>
+        distinct(.data$taxon_concept_id) |> 
+        nrow()
+
+      if(duplicate_taxa > 0) {
+        bullets <- c("List contains {duplicate_taxa} taxon_concept_id(s) with > 1 row.",
+                    "i" = "This happens because {.field taxon_concept_id} can match multiple {.field supplied_name} values with unique metadata",
+                    "i" = "To see duplicated rows, save list as object then run: {.code {{your_object}} |> dplyr::filter(dplyr::n() > 1, .by = taxon_concept_id)}")
+        cli::cli_inform(bullets)
+      }
+    }
+
+    return(x)
+  }
+}
+
+#' Internal function for cleaning common names
+#' @noRd
+#' @keywords Internal
+clean_common_names <- function(df){
+  if(any(colnames(df) == "commonName")){
+    df$commonName <- as.character(df$commonName)
+    if(any(df$commonName == "NULL")){
+      df$commonName[df$commonName == "NULL"] <- NA
+    }
+  }
+  df
+}
+
+#' Internal function to extract additional raw fields columns
+#' @noRd
+#' @keywords Internal
+clean_kvp_values <- function(df){
+  if(any(colnames(df) == "kvpValues")){
+    if(any(lengths(df$kvpValues) > 0)){
+      df <- df |>
+        tidyr::unnest(cols = "kvpValues") |>
+        tidyr::unnest_wider("kvpValues") |>
+        tidyr::pivot_wider(names_from = "key",
+                            values_from = "value")
+    }
+  }
+  df
+}
+
+#' Internal function to parse user-supplied information on species lists 
+#' via `show_values()` / `request_metadata(type = "lists") |> unnest()`
+#' @noRd
+#' @keywords Internal
+parse_properties <- function(df, .query){
+  
+  # second, `properties` contains status information and other raw fields.
+  if(any(colnames(df) == "properties")){
+    
+    simple_columns <- df |>
+     dplyr::select(tidyselect::any_of(
+      c("taxon_concept_id", "supplied_name", "scientific_name", "properties")))
+
+    # where `properties` contains multiple key:value pairs per row, we have to unnest
+    # or the code breaks.
+    single_properties_check <- purrr::map(df$properties, 
+      \(a){length(a) == 2 & all(names(a)[1:2] == c("key", "value"))}) |>
+      unlist() |>
+      all()
+    if(!single_properties_check){
+      raw_columns <- simple_columns |> tidyr::unnest(cols = "properties")
+    }else{
+      raw_columns <- simple_columns
+    }
+    
+    # if unnested properties column is not empty, reformat
+    if(nrow(raw_columns) > 0) {
+      # resume pipe
+      raw_columns <- raw_columns |>
+        tidyr::unnest_wider("properties", names_sep = "_") |>
+        dplyr::mutate(key = camel_to_snake_case(.data$properties_key)) |>
+        dplyr::mutate(key = dplyr::if_else(.data$key %in% colnames(df), glue::glue("{key}_raw"), .data$key)) |> # rename prior to pivot to avoid name conflicts
+        tidyr::pivot_wider(names_from = "key",
+                           values_from = "properties_value",
+                           names_repair = "minimal",
+                           values_fn = list) |>
+        tidyr::unnest(cols = tidyselect::everything())
+      
+      # merge
+      result_final <- df |>
+        dplyr::left_join(raw_columns, 
+                         dplyr::join_by("taxon_concept_id", "supplied_name", "scientific_name")) |>
+        dplyr::select(-tidyselect::starts_with("properties")) |> # also excludes `properties_key`
+        parse_rename(.query)
+      
+      # if unnested properties column is empty, remove it
+    } else {
+      result_final <- simple_columns |>
+        dplyr::select(-tidyselect::starts_with("properties")) |> # also excludes `properties_key`
+        parse_rename(.query)
+    }
+    
+    return(result_final)
+    
+  }else{
+    return(df)
+  }
+}
+
+#' Internal function to parse ALA-matched taxonomic information of species lists 
+#' via `show_values()` / `request_metadata(type = "lists") |> unnest()`
+#' @noRd
+#' @keywords Internal
+parse_classification <- function(df){
+  
+  if(any(colnames(df) == "classification")){
+    df <- df |>
+      tidyr::unnest_wider("classification", 
+                          names_repair = "minimal", 
+                          names_sep = "_") |> 
+      # select ALA-matched columns
+      select(dplyr::any_of(lookup_select_columns("classification"))) |>
+      # remove prefix
+      dplyr::rename_with( 
+        ~ stringr::str_remove(., "classification_"),
+        tidyselect::starts_with("classification_")
+      )
+  }
+  df
 }
 
 #' Internal function to run `compute()` for 
@@ -123,4 +250,9 @@ collect_taxa_unnest <- function(.query){
     dplyr::rename_with(camel_to_snake_case) |>
     parse_rename(.query) |>
     parse_select(.query)
+
+  ## if useful to retain supplied taxon, do so here
+  # supplied_df <- .query$supplied_taxon |>
+  #  dplyr::select(tidyselect::any_of(colnames(result_df)))
+  # dplyr::bind_rows(supplied_df, result_df)
 }

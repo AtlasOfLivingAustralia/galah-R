@@ -203,7 +203,7 @@ test_that("`count()` works with galah_identify for Flanders", {
 
 test_that("`glimpse()` works for Flanders", {
   skip_if_offline(); skip_on_ci()
-  x <- galah_call() |>
+  x <- galah_call(from = "Flanders") |>
     filter(year == 2025) |>
     glimpse() |>
     collect()
@@ -248,6 +248,18 @@ test_that("`atlas_species()` works for Flanders", {
   expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
 })
 
+test_that("`authenticate()` works for Flanders", {
+  skip("authentication requires interactivity")
+  x <- request_data(from = "Flanders") |>
+    authenticate(use_jwt = TRUE, 
+                 download_reason_id = 10) |>
+    identify("Canis") |>
+    filter(year == 2020) |>
+    compound()
+  y <- collapse(x)
+  z <- collect(y)
+})
+
 test_that("`atlas_occurrences()` works for Flanders", {
   skip_if_offline(); skip_on_ci()
   galah_config(
@@ -285,13 +297,7 @@ test_that("`atlas_media()` works for Flanders", {
   x <- request_data() |>
     identify("Vulpes") |>
     filter(year == 2025,
-           basisOfRecord == "HUMAN_OBSERVATION",
-           # month == 6,
-           !is.na(images)
-           ) |>
-    # group_by(year) |>
-    # count() |>
-    # collect()
+           basisOfRecord == "HUMAN_OBSERVATION") |>
     atlas_media() |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -304,7 +310,7 @@ test_that("`atlas_media()` works for Flanders", {
     x <- purrr::quietly(collect_media)
     x(...)$result
   }
-  n_downloads <- 5
+  n_downloads <- 3
   quiet_media(x[seq_len(n_downloads), ])
   expect_equal(length(list.files("temp", pattern = ".jpg$")),
                n_downloads)

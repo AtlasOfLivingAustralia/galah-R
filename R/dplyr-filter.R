@@ -9,12 +9,16 @@
 #' @name filter.data_request
 #' @order 1
 #' @param .data An object of class `data_request`, `metadata_request` 
-#' or `files_request`, created using [galah_call()] or related functions.
+#' or `files_request`, created using [request_data()] or related functions.
 #' @param ... Expressions that return a logical value, and are defined in terms 
 #' of the variables in the selected atlas (and checked using `show_all(fields)`. 
 #' If multiple expressions are included, they are combined with the & operator. 
 #' Only rows for which all conditions evaluate to `TRUE` are kept.
-#' @return A tibble containing filter values.
+#' @return An object of the same class as supplied, but containing a populated
+#' `filter` slot. The slot itself will contain an object of class `data_filter` 
+#' or `metadata_filter` if called for a living atlas query; these formats are 
+#' `tibble`-like. For GBIF it will be an object of class `predicates_filter`,
+#' which is `list`-like.
 #' @seealso \code{\link[=select.data_request]{select()}}, 
 #' \code{\link[=group_by.data_request]{group_by()}} and [geolocate()] for 
 #' other ways to amend the information returned by [atlas_()] functions. Use 
@@ -63,10 +67,15 @@
 #'   filter(doi = "a-long-doi-string") |> 
 #'   collect()}
 #' 
-#' For taxonomic metadata, the `taxa` field is valid:
+#' For metadata that support [unnest()], the lhs of the equation sets the `type`,
+#' while the rhs sets the value: 
 #' \preformatted{request_metadata() |> 
-#'   filter(taxa == "Chordata") |> 
-#'   unnest()}
+#'   filter(field == "basisOfRecord") |> 
+#'   unnest() |>
+#'   collect()}
+#' This can be used for types `list`, `field`, `profile` and `taxa`,
+#' noting that for `taxa` it requires a valid `taxonConceptID`; if
+#' you have a taxonomic name, use [identify()] instead.
 #'  
 #' For building taxonomic trees, the `rank` field is valid:
 #' \preformatted{request_data() |>
@@ -114,7 +123,7 @@
 filter.data_request <- function(.data, ...){
   dots <- rlang::enquos(..., .ignore_empty = "all")
   check_named_input(dots)
-  if(is_gbif()){
+  if(.data$atlas == "Global"){
     filters <- parse_quosures_data_gbif(dots)  # `handle_quosures_GBIF.R`
   }else{
     filters <- parse_quosures_data(dots) # `handle_quosures.R`

@@ -4,8 +4,10 @@
 collapse_occurrences <- function(x){
   if(any(names(x) == "body")){
     result <- list(
-      creator = potions::pour("user", "username", .pkg = "galah"),
-      notificationAddresses = list(potions::pour("user", "email", .pkg = "galah")),
+      creator = x$request$authenticate$username,
+      notificationAddresses = list(x$request$authenticate$email), 
+        # note that in the above line, list() *must* be kept
+        # as it wraps the address in [] and API calls fail without it.
       sendNotification = potions::pour("package", "send_email", .pkg = "galah"),
       format = x$body$format,
       predicate = build_predicates(x$body)) |>

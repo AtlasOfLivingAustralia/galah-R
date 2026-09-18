@@ -33,25 +33,8 @@ Load the package
 library(galah)
 ```
 
-# Configuration
-Begin by choosing which organisation you would like `galah` to query,
-and providing your registration information for that organisation.
-
-```{r, galah-config, eval=FALSE}
-galah_config(atlas = "GBIF",
-             username = "user1",
-             email = "email@email.com",
-             password = "my_password")
-
-```
-
-The full list of supported queries by organisation is as follows:
-
-```{r, atlas-support, echo = FALSE, out.width = "100%", fig.cap="Fig 1: Organisations and APIs supported by galah"}
-knitr::include_graphics('../man/figures/atlases_plot.png')
-```
-
 # Getting data
+
 `galah` is a `dplyr` extension package; rather than using pipes to amend 
 a `tibble` in your workspace, you amend a query, which is then sent to your
 chosen organisation. These pipes differ from traditional syntax in two ways:
@@ -59,29 +42,87 @@ chosen organisation. These pipes differ from traditional syntax in two ways:
 - they begin with a function - usually `galah_call()` - instead of a `tibble`
 - they end with one of `dplyr`'s evaluation functions, usually `collect()`
 
-So an example query might be to find the number of records per year:
+So an example query might be to find the number of records:
 
 ```{r, count-example}
-galah_config(atlas = "Australia")
-
-galah_call() |>            # open a pipe
-  filter(year >= 2020) |>  # choose rows to keep
-  count(year) |>           # count the number of rows
-  collect()                # retrieve query from the server
+galah_call() |>    # open a pipe
+  count() |>       # count the number of rows
+  collect()        # retrieve query from the server
 ```
 
-Or to find the number of categories present in a dataset, for example how many 
-species are present:
+By default, queries are sent to the Atlas of Living Australia, but this can
+be changed using the `from` argument:
 
-```{r, distinct-example}
-galah_call() |>
-  identify("Crinia") |>   # filters by taxonomic names
-  distinct(speciesID) |>  # keep only unique values
+```{r, spain-example}
+galah_call(from = "Spain") |>
   count() |>
   collect()
 ```
 
-You can 'glimpse' a data download before you run it, to check all the data 
+The `from` argument accepts the `acronym`, `region`, or `institution` fields from 
+`show_all(atlases)`. The full list of supported queries by organisation is as follows:
+
+```{r, atlas-support, echo = FALSE, out.width = "100%", fig.cap="Figure 1: Organisations (rows) and APIs (columns) supported by galah"}
+knitr::include_graphics('../man/figures/atlases_plot.png')
+```
+
+# Filtering
+
+You can pass taxonomic filters to your query with `identify()`:
+
+```{r, identify-example}
+galah_call() |>
+  identify("Eolophus roseicapilla") |>
+  count() |>
+  collect()
+```
+
+To choose records using non-taxonomic criteria, you'll need to use `filter()`.
+This reqires that you find out:
+
+- what **fields** (columns) are present in the dataset you are searching
+- what **values** exist for those fields
+
+You can answer the first question with `describe()`:
+
+```{r, describe-example}
+galah_call() |>
+  describe() |>
+  collect()
+```
+
+Once you find a variable you are interested in, see what values it contains
+using `distinct()`:
+
+```{r, distinct-example}
+galah_call() |>
+  distinct(basisOfRecord) |>
+  collect()
+```
+
+Then you can combine these within a `filter()` query:
+
+```{r, count-filter-example}
+galah_call() |>
+  filter(basisOfRecord == "PRESERVED_SPECIMEN") |>
+  count() |> 
+  collect()
+```
+
+These functions can be combined in a number of ways, for example to
+learn how many species from the genus 'Crinia' have records from 
+each country with records in the ALA:
+
+```{r, species-count-example}
+galah_call() |>
+  identify("Crinia") |>   # filters by taxonomic names
+  group_by(country) |>    # grouping variable
+  distinct(species) |>    # keep only unique values
+  count() |>
+  collect()
+```
+
+You can `glimpse()` a data download before you run it, to check all the data 
 you need is included:
 
 ```{r, glimpse-example}
@@ -95,22 +136,30 @@ galah_call() |>
 And, once satisfied that your parameters are correct, download the records 
 themselves:
 
-```{r, cache-email, echo = FALSE}
-galah_config(email = "ala4r@ala.org.au",
-             verbose = FALSE)
-```
 
-```{r, occurrence-example, message = FALSE}
+```{r, occurrence-example, eval = FALSE}
 galah_call() |>
+  authenticate(email = "registered_email@wherever.com") |>
   identify("Eolophus roseicapilla") |> 
   filter(year == 2010) |>
   select(eventDate, decimalLatitude, species) |>
   collect()
 ```
 
+```{r, cache-email, echo = FALSE}
+galah_call() |>
+  authenticate(email = "ala4r@ala.org.au") |>
+  identify("Eolophus roseicapilla") |> 
+  filter(year == 2010) |>
+  select(eventDate, decimalLatitude, species) |>
+  collect()
+```
+
+# Architecture
+
 This works because many of the functions in `dplyr` are "generic", meaning
 it is possible to write extensions that apply them to new object classes. 
-In our case, `galah_call()` creates a new object class called a 
+In our case, `request_data()` creates a new object class called a 
 `data_request` for which we have written new extensions. This means that galah 
 will not interfere with your use of `filter()` and friends on your tibbles.
 Supported `dplyr` verbs that modify queries are as follows:
@@ -127,6 +176,7 @@ Supported `dplyr` verbs that modify queries are as follows:
 Additional verbs are: 
 
 - `apply_profile()`
+- `describe()`
 - `geolocate()` or `st_crop.data_request()`
 - `identify.data_request()`
 - `unnest()`
@@ -136,34 +186,6 @@ to minimize impacts on the server, and to ensure you can get a single
 DOI for your data. See the 
 [download data reproducibly](download-data-reproducibly.html) vignette 
 for details.
-
-# Finding information
-
-Building queries using `filter()` requires that you know two things:
-
-- what **fields** (columns) are present in the dataset you are searching
-- what **values** exist for those fields
-
-Finding this information requires looking for metadata:
-
-```{r, metadata-fields}
-request_metadata(type = "fields") |>
-  collect()
-```
-
-You can browser this tibble using `View()` or search it using `filter()`.
-Once you have found a field that you want to include in your query, you 
-can find values for that field using `unnest()`:
-
-```{r, metadata-fields-unnest}
-request_metadata() |>
-  filter(fields == "cl22") |>
-  unnest() |>
-  collect()
-```
-
-Different types of metadata are available; see `?request_metadata` for
-a full list.
 
 # Wrapper functions
 
@@ -193,10 +215,10 @@ galah_call() |>
 ```
 
 `atlas_species()` replaces the need for `distinct()` call, while `atlas_media()`
-is a shortcut to a complex workflow that incorporates both data and metadata
+is a shortcut to a more complex workflow that incorporates both data and metadata
 calls. Finally, metadata calls can be made more efficiently using the `show_all()` 
 and `show_values()` functions. These take the same arguments as the `type`
-argument in `request_metadata()`, but use non-standard evaluation, so they
+argument in `request_metadata()`, but us non-standard evaluation, so they
 don't require quotes. They are also evaluated immediately rather than lazily:
 
 ```{r, show-all-fields}

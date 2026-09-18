@@ -36,13 +36,7 @@ test_that("`show_values()` accepts search & show_all inputs from profiles", {
   expect_gt(nrow(values_search), 0)
 })
 
-test_that("`show_values()` accepts search & show_all inputs from lists", {
-  skip_if_offline(); skip_on_ci()
-  values_search <- search_all(lists, "dr650") |>
-    quiet_values()
-  expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
-  expect_gt(nrow(values_search), 0)
-})
+## NOTE: search_lists() tests removed 2026-06-04 because v2 specieslist API has become too slow to test adequately
 
 test_that("`search_values()` returns helpful error when missing query", {
   skip_if_offline(); skip_on_ci()
@@ -71,20 +65,6 @@ test_that("`search_values()` returns filtered results for profiles", {
   values_show <- search |> quiet_values()
   search_result_check <- all(grepl(pattern = "kingdom", 
                                    paste(values_search$description),
-                                   ignore.case = TRUE))
-  expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(names(values_search), names(values_show))
-  expect_lt(nrow(values_search), nrow(values_show))
-  expect_true(search_result_check)
-})
-
-test_that("`search_values()` returns filtered results for lists", {
-  skip_if_offline(); skip_on_ci()
-  base_df <- search_all(lists, "dr650")
-  values_search <- base_df |> quiet_search("frog")
-  values_show <- base_df |> quiet_values()
-  search_result_check <- all(grepl(pattern = "frog", 
-                                   paste(values_search$vernacular_name, values_search$scientific_name),
                                    ignore.case = TRUE))
   expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
   expect_equal(names(values_search), names(values_show))
@@ -122,26 +102,62 @@ test_that("`show_values()` returns unformatted names", {
                expected)
 })
 
-test_that("`show_values()` all_fields = TRUE works for lists", {
+test_that("`show_values()` returns nested columns within 'properties'", {
   skip_if_offline(); skip_on_ci()
   # simple, fake version for testing `show_values()`
   df <- tibble::tibble(species_list_uid = "dr650")
   attr(df, "call") <- "lists"
-  show_values_query <- quiet_values(df, all_fields = TRUE)
+  show_values_query <- quiet_values(df)
   # NOTE: above is same as following code, but much faster  
   # search <- search_all(lists, "dr650") |>
-  #   show_values(all_fields = TRUE)
+  #   show_values()
+  
   extra_cols <- c("raw_scientificName", "status", "sourceStatus", "IUCN_equivalent_status")
   expect_s3_class(show_values_query, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(show_values_query), 0)
   expect_true(any(colnames(show_values_query) %in% extra_cols))
   expect_gt(ncol(show_values_query), 6) # adds additional columns
+  
   # doesn't work for fields
   x <- search_all(fields, "cl22") |>
-    purrr_values(all_fields = TRUE)
+    purrr_values()
   stringr::str_detect(x$messages, "cl22") |>
     any() |>
     expect_true()
+})
+
+test_that("`show_values()` returns message when there are duplicated taxon concept ids", {
+  skip_if_offline(); skip_on_ci()
+  # simple, fake version for testing `show_values()`
+  df <- tibble::tibble(species_list_uid = "dr650")
+  galah_config(verbose = TRUE)
+  attr(df, "call") <- "lists"
+  show_values_query <- purrr_values(df)
+  # NOTE: above is same as following code, but much faster  
+  # search <- search_all(lists, "dr650") |>
+  #   show_values()
+  
+  # message expected
+  grepl("^List contains", show_values_query$messages) |>
+    any() |>
+    expect_true()
+  galah_config(verbose = FALSE)
+})
+
+test_that("`show_values()` doesn't return message when there are no duplicated taxon concept ids", {
+  skip_if_offline(); skip_on_ci()
+  # simple, fake version for testing `show_values()`
+  df <- tibble::tibble(species_list_uid = "dr30561")
+  attr(df, "call") <- "lists"
+  galah_config(verbose = TRUE)
+  show_values_query <- purrr_values(df)
+  # NOTE: above is same as following code, but much faster  
+  # search <- search_all(lists, "dr650") |>
+  #   show_values()
+  
+  # message not expected
+  expect_length(show_values_query$warnings, 0)
+  galah_config(verbose = FALSE)
 })
 
 rm(purrr_values, quiet_values, purrr_search, quiet_search)

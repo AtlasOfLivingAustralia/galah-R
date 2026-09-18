@@ -78,7 +78,7 @@ compute.query <- function(x, ...){
          "data/occurrences" = compute_occurrences(x),
          "data/occurrences-doi" = compute_occurrences_doi(x),
          "data/species" = {
-           if(is_gbif()){
+           if(x$atlas == "Global"){
              compute_occurrences(x)
            }else{
              as_computed_query(x)

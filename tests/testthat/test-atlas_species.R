@@ -73,7 +73,7 @@ test_that("`atlas_species()` returns correct results when piped", {
   expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
 })
 
-test_that("`atlas_species()` returns correct results filtered by galah_geolocate", {
+test_that("`atlas_species()` returns correct results filtered by `geolocate()`", {
   skip_if_offline(); skip_on_ci()
   galah_config(run_checks = TRUE)
   wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 
@@ -131,9 +131,10 @@ test_that("collapse works when no `filter()` is supplied", {
   # but `group_by` wasn't being called, so checks weren't constructed properly
   skip_if_offline(); skip_on_ci()
   wkt <- "POLYGON((73.0 -53, 95.6 -11.5, 105.6 -10.1, 123 -12.1, 130.7 -9.5, 142.2 -9.8, 168.1 -29.05, 159.1 -54.9, 73.0 -53))"
-  expect_no_error({x <- galah_call(type = "species") |>
+  x <- galah_call(type = "species") |>
     st_crop(wkt) |>
-    collapse()})
+    collapse() |>
+    expect_no_error()
   expect_s3_class(x, "query")
 })
 
