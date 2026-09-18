@@ -33,7 +33,7 @@ test_that("`describe()` adheres to user-provided `select()`", {
     describe() |>
     collect()
   y <- default_columns()
-  expect_true(all(x$name %in% y))
+  expect_true(all(x$id %in% y))
   expect_s3_class(x, c("tbl", "tbl_df", "data.frame"))
 })
 

@@ -199,10 +199,11 @@ test_that("`atlas_occurrences()` works for Brazil", {
     try(silent = TRUE)
   skip_if(inherits(occ_compute, "try-error"), message = "API not available")
   expect_s3_class(occ_compute, "computed_query")
+  Sys.sleep(20)
   occ <- occ_compute |>
-    collect(wait = TRUE) |>
+    collect(wait = FALSE) |>
     try(silent = TRUE)
-  skip_if(inherits(occ, "try-error"), message = "API not available")
+  skip_if(inherits(occ, c("try-error", "computed_query")), message = "API not available")
   expect_gt(nrow(occ), 0)
   expect_equal(ncol(occ), 9)
   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))

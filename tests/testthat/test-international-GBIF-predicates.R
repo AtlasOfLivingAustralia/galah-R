@@ -74,6 +74,8 @@ test_that("`filter()` handles multiple (`AND`) queries for GBIF", {
 test_that("`count()` errors when real but non-indexed fields are requested", {
   skip_if_offline(); skip_on_ci()
 
+  galah_config(run_checks = TRUE)
+
   # invalid fields
   galah_call() |>
     filter(something == 9) |>
@@ -88,6 +90,8 @@ test_that("`count()` errors when real but non-indexed fields are requested", {
     count() |>
     collapse() |>
     expect_error()
+
+   galah_config(run_checks = FALSE)
 })
 
 test_that("`count()` works with `identify()` for GBIF", {

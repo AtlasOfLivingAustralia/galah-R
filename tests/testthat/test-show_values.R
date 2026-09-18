@@ -130,15 +130,18 @@ test_that("`show_values()` returns message when there are duplicated taxon conce
   skip_if_offline(); skip_on_ci()
   # simple, fake version for testing `show_values()`
   df <- tibble::tibble(species_list_uid = "dr650")
+  galah_config(verbose = TRUE)
   attr(df, "call") <- "lists"
   show_values_query <- purrr_values(df)
   # NOTE: above is same as following code, but much faster  
   # search <- search_all(lists, "dr650") |>
   #   show_values()
   
-  # warning expected
-  expect_match(show_values_query$warnings,
-               "^List contains")
+  # message expected
+  grepl("^List contains", show_values_query$messages) |>
+    any() |>
+    expect_true()
+  galah_config(verbose = FALSE)
 })
 
 test_that("`show_values()` doesn't return message when there are no duplicated taxon concept ids", {
@@ -146,13 +149,15 @@ test_that("`show_values()` doesn't return message when there are no duplicated t
   # simple, fake version for testing `show_values()`
   df <- tibble::tibble(species_list_uid = "dr30561")
   attr(df, "call") <- "lists"
+  galah_config(verbose = TRUE)
   show_values_query <- purrr_values(df)
   # NOTE: above is same as following code, but much faster  
   # search <- search_all(lists, "dr650") |>
   #   show_values()
   
-  # warning not expected
+  # message not expected
   expect_length(show_values_query$warnings, 0)
+  galah_config(verbose = FALSE)
 })
 
 rm(purrr_values, quiet_values, purrr_search, quiet_search)

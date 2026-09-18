@@ -102,7 +102,7 @@
       User
       x authentication
       username [Provided]
-      email ala4r@ala.org.au
+      email random_email_for_testing@email.com
       password [Provided]
       download_reason_id 10
       

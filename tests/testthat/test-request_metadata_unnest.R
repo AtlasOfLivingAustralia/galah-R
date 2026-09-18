@@ -61,6 +61,8 @@ test_that("request_metadata() |> select() |> unnest() works for type = 'fields'"
 
 test_that("request_metadata() |> unnest() works for type = 'lists'", {
   skip_if_offline(); skip_on_ci()
+  galah_config(verbose = FALSE)
+
   x1 <- request_metadata() |> 
     filter(list == "dr947") |> 
     collect()

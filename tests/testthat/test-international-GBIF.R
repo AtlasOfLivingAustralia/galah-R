@@ -66,11 +66,13 @@ test_that("`show_values()` works for GBIF fields", {
 
 test_that("`show_values()` fails for unsearchable GBIF fields", {
   skip_if_offline(); skip_on_ci()
-  request_metadata(from = "GBIF") |>
+  galah_config(run_checks = TRUE)
+  x <- request_metadata(from = "GBIF") |>
     filter(field == "accessRights") |>
     unnest() |>
     collapse() |>
     expect_error()
+  galah_config(run_checks = FALSE)
 })
 
 test_that("`show_all(collections)` works for GBIF", {
@@ -215,6 +217,7 @@ test_that("`count()` works with 2 `group_by` args for GBIF", {
   y <- compute(x)
   expect_s3_class(y, "computed_query")
   # collect
+  Sys.sleep(pause_time * 5)
   z <- collect(y)
   expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(z), 1)
@@ -260,7 +263,10 @@ test_that("`count()` works with `identify` for GBIF when `run_checks` = TRUE", {
   y <- compute(x)
   expect_s3_class(y, "computed_query")
   # collect
-  z <- collect(y)
+  Sys.sleep(pause_time * 5)
+  z <- collect(y, wait = FALSE) |>
+    try(silent = TRUE)
+  skip_if(inherits(z, c("try-error", "computed_query")), message = "API not available")
   expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
   expect_gt(z$count, 1)
   expect_equal(nrow(z), 1)
@@ -318,11 +324,15 @@ test_that("`glimpse()` works with `identify()` for GBIF", {
 test_that("`atlas_occurrences()` works for GBIF", {
   skip_if_offline(); skip_on_ci()
   Sys.sleep(pause_time)
-  x <- galah_call(from = "GBIF") |>
+  x_compute <- galah_call(from = "GBIF") |>
     filter(year == 1890,
            classKey == "359",
            country == "AU") |>
-    collect()
+    compute()
+  Sys.sleep(pause_time * 5)
+  x <- collect(x_compute, wait = FALSE) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, c("try-error", "computed_query")), message = "API not available")
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(x), 10)
   expect_gt(ncol(x), 10)
@@ -331,12 +341,16 @@ test_that("`atlas_occurrences()` works for GBIF", {
 test_that("`atlas_occurrences()` works with `select()` for GBIF", {
   skip_if_offline(); skip_on_ci()
   Sys.sleep(pause_time)
-  x <- galah_call(from = "GBIF") |>
+  x_compute <- galah_call(from = "GBIF") |>
     filter(year == 1890,
            classKey == "359",
            country == "AU") |>
     select(countryCode, species, eventDate) |>
-    collect()
+    compute()
+  Sys.sleep(pause_time * 5)
+  x <- collect(x_compute, wait = FALSE) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, c("try-error", "computed_query")), message = "API not available")
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(x), 10)
   expect_equal(ncol(x), 3)
@@ -345,12 +359,14 @@ test_that("`atlas_occurrences()` works with `select()` for GBIF", {
 test_that("invalid fields are caught from `select()` for GBIF", {
   skip_if_offline(); skip_on_ci()
   Sys.sleep(pause_time)
-  galah_call(from = "GBIF") |>
+  x <- galah_call(from = "GBIF") |>
     filter(year == 1890,
            classKey == "359",
            country == "AU") |> # this uses `check_fields_gbif_predicates()`
     select(country, species, eventDate) |> # this uses `check_fields_gbif_counts()`
-    collect() |>
+    compute()
+  Sys.sleep(pause_time * 5)
+  collect(x, wait = FALSE) |>  
     expect_error()
 })
 
@@ -372,7 +388,10 @@ test_that("`atlas_species()` works for GBIF", {
   expect_equal(x$type, "data/species")
   y <- compute(x)
   expect_s3_class(y, "computed_query")
-  z <- collect(y)
+  Sys.sleep(pause_time * 5)
+  z <- collect(y, wait = FALSE) |>
+    try(silent = TRUE)
+  skip_if(inherits(z, c("try-error", "computed_query")), message = "API not available")
   expect_gt(nrow(z), 10) # n = 14
   expect_gt(ncol(z), 5)  # n = 22
   expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
@@ -381,13 +400,17 @@ test_that("`atlas_species()` works for GBIF", {
 test_that("`count()` queries work with `authenticate()` for GBIF", {
   skip_if_offline(); skip_on_ci()
   Sys.sleep(pause_time)
-  x <- request_data(from = "GBIF") |>
+  x_compute <- request_data(from = "GBIF") |>
     authenticate(username = "atlasoflivingaustralia",
                  email = "ala4r@ala.org.au",
                  password = "galah-gbif-test-login") |>
     filter(year == 2010) |>
     count() |>
-    collect()
+    compute()
+  Sys.sleep(pause_time * 5)
+  x <- collect(x_compute, wait = FALSE) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, c("try-error", "computed_query")), message = "API not available")
   expect_equal(nrow(x), 1)
   expect_equal(ncol(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
@@ -396,7 +419,7 @@ test_that("`count()` queries work with `authenticate()` for GBIF", {
 test_that("`distinct()` queries accept `select()` for GBIF", {
   skip_if_offline(); skip_on_ci()
   Sys.sleep(pause_time)
-  x <- request_data(from = "GBIF") |>
+  x_compute <- request_data(from = "GBIF") |>
     authenticate(username = "atlasoflivingaustralia",
                  email = "ala4r@ala.org.au",
                  password = "galah-gbif-test-login") |>
@@ -404,7 +427,11 @@ test_that("`distinct()` queries accept `select()` for GBIF", {
     distinct(species_guid, .keep_all = TRUE) |>
     identify("Crinia") |>
     select(scientificName, speciesKey) |>
-    collect()
+    compute()
+  Sys.sleep(pause_time * 5)
+  x <- collect(x_compute, wait = FALSE) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, c("try-error", "computed_query")), message = "API not available")
   expect_gt(nrow(x), 10) # 
   expect_equal(ncol(x), 2)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
@@ -442,7 +469,10 @@ test_that("`collect()` works for GBIF with `type = 'occurrences' or 'occurrences
   expect_true(y$type == "data/occurrences")  
   expect_true(any(names(y) == "status"))
   # collect
-  z <- collect(y)
+  Sys.sleep(pause_time * 5)
+  z <- collect(y, wait = FALSE) |>
+    try(silent = TRUE)
+  skip_if(inherits(z, c("try-error", "computed_query")), message = "API not available")
   expect_gt(nrow(z), 0)
   expect_gt(ncol(z), 0)
   expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))

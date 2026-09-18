@@ -187,7 +187,7 @@ test_that("`count()` works with group_by for Austria", {
   expect_equal(names(result), c("year", "count"))
 })
 
-test_that("atlas_species works for Austria", {
+test_that("`atlas_species()` works for Austria", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Austria",
@@ -206,7 +206,7 @@ test_that("atlas_species works for Austria", {
 })
 
 ## FIXME: Test only works when run_checks = TRUE
-test_that("atlas_occurrences works for Austria", {
+test_that("`atlas_occurrences()` works for Austria", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Austria",
@@ -231,19 +231,23 @@ test_that("atlas_occurrences works for Austria", {
                c("type", "atlas", "url", "headers", "request"))
   expect_equal(occ_collapse$type, "data/occurrences")
   # compute
-  occ_compute <- compute(occ_collapse)
-  expect_s3_class(occ_compute, "computed_query")
-  # collect
-  occ <- collect(occ_compute) |>
+  occ_compute <- compute(occ_collapse) |>
     try(silent = TRUE)
-  skip_if(inherits(occ_compute, "try-error"), message = "API not available")
+  skip_if(inherits(occ_collapse, "try-error"), message = "API not available")
+  expect_s3_class(occ_compute, "computed_query")
+  # collect with pause of 20 seconds and `wait = FALSE`
+  # This is clumsy, but useful beacuse previously we were getting wait times of ~10 minutes
+  Sys.sleep(20)
+  occ <- collect(occ_compute, wait = FALSE) |>
+    try(silent = TRUE)
+  skip_if(inherits(occ, c("try-error", "computed_query")), message = "API not available")
   expect_equal(nrow(occ), counts$count[1])
   expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
   expect_equal(ncol(occ), 2)
   unlink("temp", recursive = TRUE)
 })
 
-test_that("atlas_media() works for Austria", {
+test_that("`atlas_media()` works for Austria", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Austria",

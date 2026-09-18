@@ -128,7 +128,7 @@ test_that("show_values works for UK", {
   expect_gt(nrow(x), 1)
 })
 
-test_that("atlas_counts works with type = 'occurrences' for United Kingdom", {
+test_that("`atlas_counts()` works with type = 'occurrences' for United Kingdom", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts() |>
     dplyr::pull(count) |>
@@ -137,7 +137,7 @@ test_that("atlas_counts works with type = 'occurrences' for United Kingdom", {
   expect_gt(x, 0)
 })
 
-test_that("atlas_counts works with type = 'species' for United Kingdom", {
+test_that("`atlas_counts()` works with type = 'species' for United Kingdom", {
   skip_if_offline(); skip_on_ci()
   x <- atlas_counts(type = "species") |>
     dplyr::pull(count) |>
@@ -146,7 +146,7 @@ test_that("atlas_counts works with type = 'species' for United Kingdom", {
   expect_gt(x, 0)
 })
 
-test_that("atlas_counts works with `identify()` for United Kingdom", {
+test_that("`count()` works with `identify()` for United Kingdom", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     identify("Vulpes") |>
@@ -168,19 +168,20 @@ test_that("atlas_counts works with `identify()` for United Kingdom", {
 # Note: canonical example is to use class == Mammalia, but that fails,
 # possibly because name-matching is going wrong somewhere
   
-test_that("atlas_counts works with group_by for United Kingdom", {
+test_that("`count()` works with group_by for United Kingdom", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
     filter(year >= 2020) |>
     group_by(year) |>
-    atlas_counts() |>
+    count() |>
+    collect() |>
     try(silent = TRUE)
   skip_if(inherits(result, "try-error"), message = "API not available")
   expect_gt(nrow(result), 1)
   expect_equal(names(result), c("year", "count"))
 })
 
-test_that("atlas_species works for United Kingdom", {
+test_that("`atlas_species()` works for United Kingdom", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "United Kingdom",
@@ -196,7 +197,7 @@ test_that("atlas_species works for United Kingdom", {
   expect_gte(ncol(x), 1)
 })
 
-test_that("atlas_occurrences works for United Kingdom", {
+test_that("`atlas_occurrences()` works for United Kingdom", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "United Kingdom",
@@ -232,9 +233,10 @@ test_that("atlas_occurrences works for United Kingdom", {
   occ_compute <- compute(occ_collapse)
   expect_s3_class(occ_compute, "computed_query")
   # collect
-  occ <- collect(occ_compute) |>
+  Sys.sleep(20)
+  occ <- collect(occ_compute, wait = FALSE) |>
     try(silent = TRUE)
-  skip_if(inherits(occ_compute, "try-error"), message = "API not available")
+  skip_if(inherits(occ, c("try-error", "computed_query")), message = "API not available")
   expect_equal(nrow(occ), counts$count[1])
   expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
   expect_equal(ncol(occ), length(default_columns()))
@@ -243,7 +245,7 @@ test_that("atlas_occurrences works for United Kingdom", {
   unlink("temp", recursive = TRUE)
 })
 
-test_that("atlas_media() works for UK", {
+test_that("`atlas_media()` works for UK", {
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "United Kingdom",

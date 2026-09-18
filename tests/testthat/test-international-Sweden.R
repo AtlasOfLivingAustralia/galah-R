@@ -79,6 +79,7 @@ test_that("show_all(assertions) works for Sweden", {
 })
 
 test_that("show_all(profiles) works for Sweden", {
+  skip("API not available")
   skip_if_offline(); skip_on_ci()
   x <- show_all(profiles) |>
     try(silent = TRUE)
@@ -229,6 +230,7 @@ test_that("atlas_counts works with group_by for Sweden", {
 })
 
 test_that("atlas_counts works with apply_profile for Sweden", {
+  skip("API not available")
   skip_if_offline(); skip_on_ci()
   without_profile <- galah_call() |>
     count() |>
@@ -243,6 +245,7 @@ test_that("atlas_counts works with apply_profile for Sweden", {
 })
 
 test_that("atlas_species works for Sweden", {
+  skip("API not available")
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Sweden",
@@ -259,6 +262,7 @@ test_that("atlas_species works for Sweden", {
 })
 
 test_that("atlas_occurrences works for Sweden", {
+  skip("API not available")
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Sweden",
@@ -287,6 +291,7 @@ test_that("atlas_occurrences works for Sweden", {
 })
 
 test_that("atlas_media() works for Sweden", {
+  skip("API not available")
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Sweden",
@@ -306,6 +311,7 @@ test_that("atlas_media() works for Sweden", {
 })
 
 test_that("collect_media() works for Sweden", {
+  skip("API not available")
   skip_if_offline(); skip_on_ci()
   galah_config(
     atlas = "Sweden",
