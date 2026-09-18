@@ -20,8 +20,6 @@ for details.
 ``` r
 # S3 method for class 'data_request'
 group_by(.data, ...)
-
-galah_group_by(...)
 ```
 
 ## Arguments

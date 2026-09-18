@@ -1,6 +1,76 @@
 # Changelog
 
+## galah 2.3.0
+
+#### New functions and options
+
+- New function
+  [`describe()`](https://galah.ala.org.au/R/reference/describe.md) to
+  check what fields are available
+  ([\#291](https://github.com/AtlasOfLivingAustralia/galah-R/issues/291)).
+- [`authenticate()`](https://galah.ala.org.au/R/reference/authenticate.md)
+  gains arguments to allow in-pipe email- or JWT-based authentication.
+  Support added for JWT-based authentication on VBP
+  ([\#296](https://github.com/AtlasOfLivingAustralia/galah-R/issues/296)).
+- [`request_data()`](https://galah.ala.org.au/R/reference/galah_call.md)
+  and friends gain a `from` argument, allowing in-pipe atlas
+  specification
+  ([\#297](https://github.com/AtlasOfLivingAustralia/galah-R/issues/297)).
+- New names for spatial functions:
+  [`geolocate_polygon()`](https://galah.ala.org.au/R/reference/geolocate.md),
+  [`geolocate_bbox()`](https://galah.ala.org.au/R/reference/geolocate.md)
+  and
+  [`geolocate_radius()`](https://galah.ala.org.au/R/reference/geolocate.md).
+- Now possible to call
+  [`select()`](https://dplyr.tidyverse.org/reference/select.html) on
+  GBIF occurrence queries, though they are applied post-hoc.
+
+#### Bug fixes & performance improvements
+
+- `isAuthoritative` and `isThreatened` returned by default by
+  [`search_all()`](https://galah.ala.org.au/R/reference/search_all.md)
+  ([\#293](https://github.com/AtlasOfLivingAustralia/galah-R/issues/293)).
+- Calling functions using `pkg::fun()` syntax work without first calling
+  [`library(galah)`](https://galah.ala.org.au/R/)
+  ([\#294](https://github.com/AtlasOfLivingAustralia/galah-R/issues/294),
+  [\#298](https://github.com/AtlasOfLivingAustralia/galah-R/issues/298)).
+- `query_API()` now uses
+  [`cli::cli_progress_step()`](https://cli.r-lib.org/reference/cli_progress_step.html),
+  [`httr2::req_retry()`](https://httr2.r-lib.org/reference/req_retry.html)
+  and `httr::req_perform_parallel()` for improved performance. Timeout
+  is now 60 seconds, rather than 20.
+- Misc bug fixes for
+  [`atlas_occurrences()`](https://galah.ala.org.au/R/reference/atlas_.md),
+  [`glimpse()`](https://pillar.r-lib.org/reference/glimpse.html) and
+  [`show_values()`](https://galah.ala.org.au/R/reference/show_values.md)
+  for GBIF
+  ([\#299](https://github.com/AtlasOfLivingAustralia/galah-R/issues/299)).
+- Upgraded to v2 of specieslist API for ALA
+  ([\#300](https://github.com/AtlasOfLivingAustralia/galah-R/issues/300)).
+- `galah` now auto-populates the `q` parameter for living atlas API
+  calls for server-side performance reasons
+  ([\#301](https://github.com/AtlasOfLivingAustralia/galah-R/issues/301)).
+- Added check that object has correct Coordinate Reference System when
+  using
+  [`geolocate()`](https://galah.ala.org.au/R/reference/geolocate.md)
+  ([\#302](https://github.com/AtlasOfLivingAustralia/galah-R/issues/302))
+- Improved query parsing for more complex text strings
+  ([\#303](https://github.com/AtlasOfLivingAustralia/galah-R/issues/303))
+
+#### Lifecycle
+
+- `galah_` prefix functions for piping formally superseded by their
+  `dplyr` alternatives.
+- Using `filter`, `select` etc as arguments to the `atlas_` family
+  formally superseded in favor of piping.
+- `all_fields` argument in
+  [`show_values()`](https://galah.ala.org.au/R/reference/show_values.md)
+  used to return all columns in a specified list superseded to supplying
+  all columns by default.
+
 ## galah 2.2.0
+
+CRAN release: 2026-02-11
 
 #### Improved organisational support
 
@@ -36,7 +106,7 @@
   [`collapse()`](https://dplyr.tidyverse.org/reference/compute.html)
   ([\#278](https://github.com/AtlasOfLivingAustralia/galah-R/issues/278)).
 
-### Changes to metadata functions
+#### Changes to metadata functions
 
 - All metadata requests now accept
   [`select()`](https://dplyr.tidyverse.org/reference/select.html).
@@ -78,7 +148,7 @@
   `select(group = "basic")`).
   ([\#281](https://github.com/AtlasOfLivingAustralia/galah-R/issues/281))
 - `query` objects now have a `request` slot showing the request that
-  generated them .
+  generated them.
 
 ## galah 2.1.2
 
@@ -126,9 +196,9 @@ CRAN release: 2025-02-07
 #### Bug fixes
 
 - Improved documentation to use
-  [`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md)
+  [`galah_filter()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   to specify a `taxon_concept_id` rather than
-  [`galah_identify()`](https://galah.ala.org.au/R/reference/identify.data_request.md)
+  [`galah_identify()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   ([\#245](https://github.com/AtlasOfLivingAustralia/galah-R/issues/245))
 - Adding a `field` without data breaks occurrence downloads
   ([\#248](https://github.com/AtlasOfLivingAustralia/galah-R/issues/248))
@@ -195,11 +265,11 @@ CRAN release: 2024-04-12
   filtering by point location and radius (in km)
   ([\#216](https://github.com/AtlasOfLivingAustralia/galah-R/issues/216))
 - Support
-  [`galah_geolocate()`](https://galah.ala.org.au/R/reference/geolocate.md)
+  [`galah_geolocate()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   and associated sub-functions for GBIF queries
-- [`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md)
+- [`galah_filter()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   no longer fails when assertions are specified in
-  [`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md)
+  [`galah_filter()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   ([\#199](https://github.com/AtlasOfLivingAustralia/galah-R/issues/199))
 - Improved behaviour and robustness of
   [`atlas_species()`](https://galah.ala.org.au/R/reference/atlas_.md),
@@ -221,7 +291,7 @@ CRAN release: 2024-04-12
 - [`collect_media()`](https://galah.ala.org.au/R/reference/collect_media.md)
   no longer fails when a thumbnail is missing
   ([\#215](https://github.com/AtlasOfLivingAustralia/galah-R/issues/215))
-- [`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md)
+- [`galah_filter()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   parses apostrophes correctly in value names
   ([\#214](https://github.com/AtlasOfLivingAustralia/galah-R/issues/214))
 - `group_by() |> atlas_counts()` no longer truncates rows at 30
@@ -236,7 +306,7 @@ CRAN release: 2024-04-12
   ([\#233](https://github.com/AtlasOfLivingAustralia/galah-R/issues/233))
 - [`atlas_occurrences()`](https://galah.ala.org.au/R/reference/atlas_.md)
   no longer overwrites returned field names with user-supplied ones
-- [`galah_apply_profile()`](https://galah.ala.org.au/R/reference/apply_profile.md)
+- [`galah_apply_profile()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   now works as expected
 - List items are no longer truncated when using
   [`show_values()`](https://galah.ala.org.au/R/reference/show_values.md)
@@ -296,8 +366,8 @@ CRAN release: 2023-11-20
   numbers of records
   ([\#180](https://github.com/AtlasOfLivingAustralia/galah-R/issues/180),
   [\#192](https://github.com/AtlasOfLivingAustralia/galah-R/issues/192))
-- [`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md),
-  [`galah_select()`](https://galah.ala.org.au/R/reference/select.data_request.md)
+- [`galah_filter()`](https://galah.ala.org.au/R/reference/superseded_functions.md),
+  [`galah_select()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   and related functions now evaluated lazily; no API calls are made
   until
   [`compute()`](https://dplyr.tidyverse.org/reference/compute.html) is
@@ -306,15 +376,15 @@ CRAN release: 2023-11-20
 
 #### Major improvements to `galah_filter()`
 
-- [`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md)
+- [`galah_filter()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   has been upgraded to use a hierarchical parsing architecture suggested
   by [Advanced R](https://adv-r.hadley.nz/expressions.html). As a
   result,
-  [`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md)
+  [`galah_filter()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   is faster and evaluates expressions more consistently
   ([\#196](https://github.com/AtlasOfLivingAustralia/galah-R/issues/196),
   [\#169](https://github.com/AtlasOfLivingAustralia/galah-R/issues/169))
-- [`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md)
+- [`galah_filter()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   now supports `is.na`, `!`, [`c()`](https://rdrr.io/r/base/c.html) &
   `%in%`
   ([\#196](https://github.com/AtlasOfLivingAustralia/galah-R/issues/196))
@@ -338,7 +408,7 @@ CRAN release: 2023-11-20
 #### Bug fixes
 
 - Fixed parsing of `|` in
-  [`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md)
+  [`galah_filter()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   ([\#169](https://github.com/AtlasOfLivingAustralia/galah-R/issues/169))
 - [`show_values()`](https://galah.ala.org.au/R/reference/show_values.md)
   errors nicely when API is down
@@ -385,7 +455,7 @@ Minor release to resolve issues on CRAN, and a few recent bugs.
 - Better error message when email address is required, but not given
   ([\#179](https://github.com/AtlasOfLivingAustralia/galah-R/issues/179))
 - Add an informative message when users call
-  [`galah_select()`](https://galah.ala.org.au/R/reference/select.data_request.md)
+  [`galah_select()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   while atlas = GBIF (which is not supported;
   [\#181](https://github.com/AtlasOfLivingAustralia/galah-R/issues/181))
 - Ensure DOIs are added to downloads when requested
@@ -394,7 +464,7 @@ Minor release to resolve issues on CRAN, and a few recent bugs.
   atlases are down
   ([\#184](https://github.com/AtlasOfLivingAustralia/galah-R/issues/184))
 - Resolve problem where some queries were replaced by `...` in
-  [`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md)
+  [`galah_filter()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   ([\#186](https://github.com/AtlasOfLivingAustralia/galah-R/issues/186))
 
 ## galah 1.5.1
@@ -410,20 +480,20 @@ as synonyms for `galah_` functions. These are:
 
 - [`identify()`](https://rdrr.io/r/graphics/identify.html)
   (`{graphics}`) as a synonym for
-  [`galah_identify()`](https://galah.ala.org.au/R/reference/identify.data_request.md)
+  [`galah_identify()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
 - [`select()`](https://dplyr.tidyverse.org/reference/select.html)
   ([dplyr](https://dplyr.tidyverse.org)) as a synonym for
-  [`galah_select()`](https://galah.ala.org.au/R/reference/select.data_request.md)
+  [`galah_select()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
 - [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
   ([dplyr](https://dplyr.tidyverse.org)) as a synonym for
-  [`galah_group_by()`](https://galah.ala.org.au/R/reference/group_by.data_request.md)
+  [`galah_group_by()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
 - [`slice_head()`](https://dplyr.tidyverse.org/reference/slice.html)
   ([dplyr](https://dplyr.tidyverse.org)) as a synonym for the `limit`
   argument in
   [`atlas_counts()`](https://galah.ala.org.au/R/reference/atlas_.md)
 - [`st_crop()`](https://r-spatial.github.io/sf/reference/st_crop.html)
   ([sf](https://r-spatial.github.io/sf/)) as a synonym for
-  [`galah_polygon()`](https://galah.ala.org.au/R/reference/geolocate.md)
+  [`galah_polygon()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
 - [`count()`](https://dplyr.tidyverse.org/reference/count.html)
   ([dplyr](https://dplyr.tidyverse.org)) as a synonym for
   [`atlas_counts()`](https://galah.ala.org.au/R/reference/atlas_.md)
@@ -540,14 +610,14 @@ CRAN release: 2022-10-27
 
 #### Updates to `galah_geolocate()`
 
-- [`galah_geolocate()`](https://galah.ala.org.au/R/reference/geolocate.md)
+- [`galah_geolocate()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   now supports filtering queries using polygons and bounding boxes.
   Overall improvements and bug fixes to
-  [`galah_geolocate()`](https://galah.ala.org.au/R/reference/geolocate.md)
+  [`galah_geolocate()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   through new internal functions
-  [`galah_polygon()`](https://galah.ala.org.au/R/reference/geolocate.md)
+  [`galah_polygon()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   and
-  [`galah_bbox()`](https://galah.ala.org.au/R/reference/geolocate.md)
+  [`galah_bbox()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   ([\#125](https://github.com/AtlasOfLivingAustralia/galah-R/issues/125))
 
 #### `show_all()`, `search_all()` & `show_values()`, `search_values()`
@@ -580,12 +650,12 @@ CRAN release: 2022-10-27
 #### Minor improvements
 
 - Apply data quality profiles in a pipe with the
-  [`galah_apply_profile()`](https://galah.ala.org.au/R/reference/apply_profile.md)
+  [`galah_apply_profile()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   function
   ([\#130](https://github.com/AtlasOfLivingAustralia/galah-R/issues/130))
 - Improved internal consistency of `galah_` functions
   ([\#133](https://github.com/AtlasOfLivingAustralia/galah-R/issues/133))
-- [`galah_geolocate()`](https://galah.ala.org.au/R/reference/geolocate.md)
+- [`galah_geolocate()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   no longer depends on archived {wellknown} package
   ([\#141](https://github.com/AtlasOfLivingAustralia/galah-R/issues/141))
 - Added support for queries to exclude/include missing values
@@ -598,14 +668,14 @@ CRAN release: 2022-10-27
 
 #### Bug fixes
 
-- [`galah_select()`](https://galah.ala.org.au/R/reference/select.data_request.md)
+- [`galah_select()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   no longer adds “basic” group of columns automatically
   ([\#128](https://github.com/AtlasOfLivingAustralia/galah-R/issues/128))
 - [`galah_config()`](https://galah.ala.org.au/R/reference/galah_config.md)
   doesn’t display incorrect `preserve = TRUE` message
   ([\#136](https://github.com/AtlasOfLivingAustralia/galah-R/issues/136))
 - Fixes error when selecting assertion columns with
-  [`galah_select()`](https://galah.ala.org.au/R/reference/select.data_request.md)
+  [`galah_select()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   ([\#137](https://github.com/AtlasOfLivingAustralia/galah-R/issues/137))
 - [`atlas_counts()`](https://galah.ala.org.au/R/reference/atlas_.md) and
   [`atlas_occurrences()`](https://galah.ala.org.au/R/reference/atlas_.md)
@@ -613,7 +683,7 @@ CRAN release: 2022-10-27
   ([\#138](https://github.com/AtlasOfLivingAustralia/galah-R/issues/138))
 - [`atlas_media()`](https://galah.ala.org.au/R/reference/atlas_.md)
   results no longer differ to results returned by
-  [`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md)
+  [`galah_filter()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   & [`atlas_counts()`](https://galah.ala.org.au/R/reference/atlas_.md)
   ([\#151](https://github.com/AtlasOfLivingAustralia/galah-R/issues/151))
 
@@ -654,7 +724,7 @@ CRAN release: 2022-01-24
 #### `galah_group_by`
 
 - Group fields using
-  [`galah_group_by()`](https://galah.ala.org.au/R/reference/group_by.data_request.md),
+  [`galah_group_by()`](https://galah.ala.org.au/R/reference/superseded_functions.md),
   which groups and summarises record counts based on categorical field
   values, similar to
   [`dplyr::group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
@@ -789,7 +859,7 @@ CRAN release: 2021-08-06
   `galah_config(run_checks = FALSE)`. This helps users avoid slowing
   down data request download speeds when many requests are made in quick
   succession via
-  [`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md)
+  [`galah_filter()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   or `ala_occurrences()`
   ([\#61](https://github.com/AtlasOfLivingAustralia/galah-R/issues/61),
   [\#80](https://github.com/AtlasOfLivingAustralia/galah-R/issues/80))
@@ -851,7 +921,7 @@ CRAN release: 2021-07-02
 - Caching functionality for `ala_occurrences()` uses the `columns` as
   expected
   ([\#30](https://github.com/AtlasOfLivingAustralia/galah-R/issues/30))
-- [`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md)
+- [`galah_filter()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
   negates assertion filters when required, fixing the issue of assertion
   values being ignored
   ([\#27](https://github.com/AtlasOfLivingAustralia/galah-R/issues/27))

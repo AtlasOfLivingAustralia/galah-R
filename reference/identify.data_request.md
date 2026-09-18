@@ -12,8 +12,9 @@ It is good to use
 [`search_taxa()`](https://galah.ala.org.au/R/reference/search_all.md)
 and
 [`search_identifiers()`](https://galah.ala.org.au/R/reference/search_all.md)
-first to check that the taxa you provide to `galah_identify()` return
-the correct results.
+first to check that the taxa you provide to
+[`galah_identify()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
+return the correct results.
 
 ## Usage
 
@@ -23,8 +24,6 @@ identify(x, ...)
 
 # S3 method for class 'metadata_request'
 identify(x, ...)
-
-galah_identify(...)
 ```
 
 ## Arguments

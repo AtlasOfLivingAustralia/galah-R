@@ -28,9 +28,7 @@ which takes names and provides identifiers.
 Note that when taxonomic look-up is required within a pipe, the
 equivalent to
 [`search_taxa()`](https://galah.ala.org.au/R/reference/search_all.md) is
-[`identify()`](https://galah.ala.org.au/R/reference/identify.data_request.md)
-(or
-[`galah_identify()`](https://galah.ala.org.au/R/reference/identify.data_request.md)).
+[`identify()`](https://galah.ala.org.au/R/reference/identify.data_request.md).
 The equivalent to
 [`search_identifiers()`](https://galah.ala.org.au/R/reference/search_all.md)
 is to use

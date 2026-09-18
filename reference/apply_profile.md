@@ -17,8 +17,6 @@ For more bespoke editing of filters within a profile, use
 
 ``` r
 apply_profile(.data, ...)
-
-galah_apply_profile(...)
 ```
 
 ## Arguments

@@ -1,11 +1,10 @@
-# Force evaluation of a database query
+# Create a list of all API calls needed to evaluate a request
 
 `compound()` shows the full set of queries required to properly evaluate
 the user's request, run prior to
-[`collapse()`](https://dplyr.tidyverse.org/reference/compute.html).
-
-The number of total queries to send for a single data request is often
-broader than the single query returned by
+[`collapse()`](https://dplyr.tidyverse.org/reference/compute.html). The
+number of total queries to send for a single data request is often
+greater than the single query returned by
 [`collapse()`](https://dplyr.tidyverse.org/reference/compute.html). If,
 for example, the user's query includes a call to
 [`identify()`](https://galah.ala.org.au/R/reference/identify.data_request.md),

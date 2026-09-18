@@ -39,6 +39,7 @@ simplest way is to ‘switch on’ authentication using
 [`galah_config()`](https://galah.ala.org.au/R/reference/galah_config.md):
 
 ``` r
+
 galah_config(authenticate = TRUE)
 ```
 
@@ -49,6 +50,7 @@ use the
 function in-pipe:
 
 ``` r
+
 df <- galah_call() |>
   identify("Mammalia") |>
   filter(year == 2025) |>

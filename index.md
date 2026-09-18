@@ -42,12 +42,14 @@ us](mailto:support@ala.org.au).
 Install from CRAN:
 
 ``` r
+
 install.packages("galah")
 ```
 
 Install the development version from GitHub:
 
 ``` r
+
 install.packages("remotes")
 remotes::install_github("AtlasOfLivingAustralia/galah-R")
 ```
@@ -67,6 +69,7 @@ To generate a citation for the package version you are using, you can
 run
 
 ``` r
+
 citation(package = "galah")
 ```
 
@@ -79,6 +82,7 @@ To generate a citation for the downloaded occurrence records, pass the
 [`atlas_citation()`](https://galah.ala.org.au/R/reference/atlas_citation.md).
 
 ``` r
+
 # Download occurrence records with a DOI 
 occ <- atlas_occurrences(..., mint_doi = TRUE)
 

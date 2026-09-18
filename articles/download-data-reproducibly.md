@@ -56,6 +56,7 @@ currently supported for queries to the Atlas of Living Australia and
 GBIF. Other atlases don’t support DOIs at all (yet).
 
 ``` r
+
 library(galah)
 galah_config(email = "your-email-here",
              directory = "ALA_downloads")
@@ -89,6 +90,7 @@ Atlas. We can view the new DOI assigned to `occs` by checking its
 attributes.
 
 ``` r
+
 attributes(occs)$doi
 ```
 
@@ -97,6 +99,7 @@ attributes(occs)$doi
 We can also view information on how to cite this dataset:
 
 ``` r
+
 atlas_citation(occs)
 ```
 
@@ -120,6 +123,7 @@ calling
 [`read_zip()`](https://galah.ala.org.au/R/reference/read_zip.md):
 
 ``` r
+
 read_zip("./ALA_downloads/bandicoots_2003_data.zip") |>
   print(n = 5)
 ```
@@ -148,11 +152,12 @@ plot of chunk atlas-support
 ## Download data using a DOI
 
 To use a DOI to return the results of a query again, we’ll use
-[`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md).
+[`galah_filter()`](https://galah.ala.org.au/R/reference/superseded_functions.md).
 We can specify that we would like to filter our results to only the
 records returned by our DOI.
 
 ``` r
+
 occs_again <- galah_call() |>
   filter(doi == attributes(occs)$doi) |> # filter by doi
   atlas_occurrences()

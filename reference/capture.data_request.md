@@ -1,4 +1,4 @@
-# Capture a request
+# Convert a request into a query
 
 The first step in evaluating a request is to capture and parse the
 information it contains. The resulting object has class `prequery` for

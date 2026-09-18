@@ -17,6 +17,7 @@ of class `data_request`, galah triggers functions to use specific
 methods for this object class, e.g.
 
 ``` r
+
 galah_call() |> 
   filter(genus == "Crinia", year == 2020) |>
   group_by(species) |>
@@ -102,6 +103,7 @@ stages
 We can use these in sequence, or just leap ahead to the stage we want:
 
 ``` r
+
 x <- request_data() |>
   filter(genus == "Crinia", year == 2020) |>
   group_by(species) |>
@@ -116,6 +118,7 @@ capture(x)
     ## • url: https://api.ala.org.au/occurrences/occurrences/facets?fq=%28genus%3A%2...
 
 ``` r
+
 compound(x)
 ```
 
@@ -128,6 +131,7 @@ compound(x)
     ## • data/occurrences-count-groupby url: https://api.ala.org.au/occurrences/occurr...
 
 ``` r
+
 collapse(x)
 ```
 
@@ -136,6 +140,7 @@ collapse(x)
     ## • url: https://api.ala.org.au/occurrences/occurrences/facets?fq=%28genus%3A%2...
 
 ``` r
+
 collect(x) |> head()
 ```
 
@@ -159,6 +164,7 @@ download data once the query has finished — downloading with
 — rather than waiting for the request to finish within R.
 
 ``` r
+
 # Create and send query to be calculated server-side
 request <- request_data() |>
   identify("perameles") |>
@@ -180,6 +186,7 @@ this end, `galah` supports metadata requests, in addition to the data
 requests described above.
 
 ``` r
+
 request_metadata(type = "fields") |>
   collect()
 ```
@@ -187,6 +194,7 @@ request_metadata(type = "fields") |>
 Or to show values for states and territories:
 
 ``` r
+
 request_metadata() |>
   filter(field == "cl22") |>
   unnest() |>

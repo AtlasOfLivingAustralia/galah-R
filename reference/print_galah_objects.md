@@ -20,10 +20,10 @@ configuration information.
 # S3 method for class 'data_request'
 print(x, ...)
 
-# S3 method for class 'files_request'
+# S3 method for class 'metadata_request'
 print(x, ...)
 
-# S3 method for class 'metadata_request'
+# S3 method for class 'files_request'
 print(x, ...)
 
 # S3 method for class 'query'

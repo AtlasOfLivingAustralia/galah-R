@@ -21,8 +21,6 @@ filter(.data, ...)
 
 # S3 method for class 'files_request'
 filter(.data, ...)
-
-galah_filter(...)
 ```
 
 ## Arguments
@@ -31,7 +29,7 @@ galah_filter(...)
 
   An object of class `data_request`, `metadata_request` or
   `files_request`, created using
-  [`galah_call()`](https://galah.ala.org.au/R/reference/galah_call.md)
+  [`request_data()`](https://galah.ala.org.au/R/reference/galah_call.md)
   or related functions.
 
 - ...:
@@ -44,7 +42,11 @@ galah_filter(...)
 
 ## Value
 
-A tibble containing filter values.
+An object of the same class as supplied, but containing a populated
+`filter` slot. The slot itself will contain an object of class
+`data_filter` or `metadata_filter` if called for a living atlas query;
+these formats are `tibble`-like. For GBIF it will be an object of class
+`predicates_filter`, which is `list`-like.
 
 ## Details
 
@@ -104,11 +106,19 @@ i.e.:
       filter(doi = "a-long-doi-string") |>
       collect()
 
-For taxonomic metadata, the `taxa` field is valid:
+For metadata that support
+[`unnest()`](https://galah.ala.org.au/R/reference/unnest.md), the lhs of
+the equation sets the `type`, while the rhs sets the value:
 
     request_metadata() |>
-      filter(taxa == "Chordata") |>
-      unnest()
+      filter(field == "basisOfRecord") |>
+      unnest() |>
+      collect()
+
+This can be used for types `list`, `field`, `profile` and `taxa`, noting
+that for `taxa` it requires a valid `taxonConceptID`; if you have a
+taxonomic name, use
+[`identify()`](https://rdrr.io/r/graphics/identify.html) instead.
 
 For building taxonomic trees, the `rank` field is valid:
 

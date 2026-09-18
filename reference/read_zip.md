@@ -2,11 +2,9 @@
 
 Living atlases supply data downloads as zip files. This function reads
 these data efficiently, i.e. without unzipping them first, using the
-`readr` package. Although this function has been part of galah for some
-time, it was previously internal to
-[`atlas_occurrences()`](https://galah.ala.org.au/R/reference/atlas_.md).
-It has been exported now to support easy re-importing of downloaded
-files, without the need to re-run a query.
+`readr` package. Although this function is mostly called internally, it
+is exported to allow easy re-importing of downloaded files, without the
+need to re-run a query.
 
 ## Usage
 

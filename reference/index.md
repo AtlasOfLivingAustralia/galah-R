@@ -13,7 +13,6 @@
 ## Update a request object
 
 - [`apply_profile()`](https://galah.ala.org.au/R/reference/apply_profile.md)
-  [`galah_apply_profile()`](https://galah.ala.org.au/R/reference/apply_profile.md)
   : Apply a data quality profile
 - [`arrange(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/arrange.data_request.md)
   [`arrange(`*`<metadata_request>`*`)`](https://galah.ala.org.au/R/reference/arrange.data_request.md)
@@ -23,33 +22,30 @@
 - [`count(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/count.data_request.md)
   [`add_count(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/count.data_request.md)
   : Count the observations in each group
+- [`describe()`](https://galah.ala.org.au/R/reference/describe.md)
+  **\[experimental\]** : Describe what fields are available
 - [`distinct(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/distinct.data_request.md)
   : Keep distinct/unique rows
 - [`filter(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/filter.data_request.md)
   [`filter(`*`<metadata_request>`*`)`](https://galah.ala.org.au/R/reference/filter.data_request.md)
   [`filter(`*`<files_request>`*`)`](https://galah.ala.org.au/R/reference/filter.data_request.md)
-  [`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md)
   : Keep rows that match a condition
 - [`geolocate()`](https://galah.ala.org.au/R/reference/geolocate.md)
-  [`galah_geolocate()`](https://galah.ala.org.au/R/reference/geolocate.md)
-  [`galah_polygon()`](https://galah.ala.org.au/R/reference/geolocate.md)
-  [`galah_bbox()`](https://galah.ala.org.au/R/reference/geolocate.md)
-  [`galah_radius()`](https://galah.ala.org.au/R/reference/geolocate.md)
+  [`geolocate_polygon()`](https://galah.ala.org.au/R/reference/geolocate.md)
+  [`geolocate_bbox()`](https://galah.ala.org.au/R/reference/geolocate.md)
+  [`geolocate_radius()`](https://galah.ala.org.au/R/reference/geolocate.md)
   [`st_crop(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/geolocate.md)
   : Narrow a query to within a specified area
 - [`glimpse(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/glimpse.data_request.md)
   [`print(`*`<occurrences_glimpse>`*`)`](https://galah.ala.org.au/R/reference/glimpse.data_request.md)
   **\[experimental\]** : Get a glimpse of your data
 - [`group_by(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/group_by.data_request.md)
-  [`galah_group_by()`](https://galah.ala.org.au/R/reference/group_by.data_request.md)
   : Group by one or more variables
 - [`identify(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/identify.data_request.md)
   [`identify(`*`<metadata_request>`*`)`](https://galah.ala.org.au/R/reference/identify.data_request.md)
-  [`galah_identify()`](https://galah.ala.org.au/R/reference/identify.data_request.md)
   : Narrow a query by passing taxonomic identifiers
 - [`select(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/select.data_request.md)
   [`select(`*`<metadata_request>`*`)`](https://galah.ala.org.au/R/reference/select.data_request.md)
-  [`galah_select()`](https://galah.ala.org.au/R/reference/select.data_request.md)
   : Keep or drop columns using their names
 - [`slice_head(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/slice_head.data_request.md)
   [`slice_head(`*`<metadata_request>`*`)`](https://galah.ala.org.au/R/reference/slice_head.data_request.md)
@@ -76,9 +72,9 @@
 ## Create and execute a query
 
 - [`capture()`](https://galah.ala.org.au/R/reference/capture.data_request.md)
-  : Capture a request
+  : Convert a request into a query
 - [`compound()`](https://galah.ala.org.au/R/reference/compound.md) :
-  Force evaluation of a database query
+  Create a list of all API calls needed to evaluate a request
 - [`collapse(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/collapse.data_request.md)
   [`collapse(`*`<metadata_request>`*`)`](https://galah.ala.org.au/R/reference/collapse.data_request.md)
   [`collapse(`*`<files_request>`*`)`](https://galah.ala.org.au/R/reference/collapse.data_request.md)
@@ -174,11 +170,22 @@
   queries
 
 - [`print(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/print_galah_objects.md)
-  [`print(`*`<files_request>`*`)`](https://galah.ala.org.au/R/reference/print_galah_objects.md)
   [`print(`*`<metadata_request>`*`)`](https://galah.ala.org.au/R/reference/print_galah_objects.md)
+  [`print(`*`<files_request>`*`)`](https://galah.ala.org.au/R/reference/print_galah_objects.md)
   [`print(`*`<query>`*`)`](https://galah.ala.org.au/R/reference/print_galah_objects.md)
   [`print(`*`<prequery>`*`)`](https://galah.ala.org.au/R/reference/print_galah_objects.md)
   [`print(`*`<computed_query>`*`)`](https://galah.ala.org.au/R/reference/print_galah_objects.md)
   [`print(`*`<query_set>`*`)`](https://galah.ala.org.au/R/reference/print_galah_objects.md)
   [`print(`*`<galah_config>`*`)`](https://galah.ala.org.au/R/reference/print_galah_objects.md)
   : Print galah objects
+
+- [`galah_apply_profile()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
+  [`galah_filter()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
+  [`galah_geolocate()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
+  [`galah_polygon()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
+  [`galah_bbox()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
+  [`galah_radius()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
+  [`galah_group_by()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
+  [`galah_identify()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
+  [`galah_select()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
+  : Superseded functions

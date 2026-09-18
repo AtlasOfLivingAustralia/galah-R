@@ -72,22 +72,22 @@ There are five categories of information, each with their own specific
 sub-functions to look-up each type of information. The available types
 of information for `show_all_` are:
 
-|                |               |                                                                             |                          |
-|----------------|---------------|-----------------------------------------------------------------------------|--------------------------|
-| **Category**   | **Type**      | **Description**                                                             | **Sub-functions**        |
-| Configuration  | `atlases`     | Show what atlases are available                                             | `show_all_atlases()`     |
-|                | `apis`        | Show what APIs & functions are available for each atlas                     | `show_all_apis()`        |
-|                | `config`      | Show information necessary for authentication                               | `show_all_config()`      |
-|                | `reasons`     | Show what values are acceptable as 'download reasons' for a specified atlas | `show_all_reasons()`     |
-| Data providers | `providers`   | Show which institutions have provided data                                  | `show_all_providers()`   |
-|                | `collections` | Show the specific collections within those institutions                     | `show_all_collections()` |
-|                | `datasets`    | Shows all the data groupings within those collections                       | `show_all_datasets()`    |
-| Filters        | `assertions`  | Show results of data quality checks run by each atlas                       | `show_all_assertions()`  |
-|                | `fields`      | Show fields that are stored in an atlas                                     | `show_all_fields()`      |
-|                | `licenses`    | Show what copyright licenses are applied to media                           | `show_all_licenses()`    |
-|                | `profiles`    | Show what data profiles are available                                       | `show_all_profiles()`    |
-| Taxonomy       | `lists`       | Show what species lists are available                                       | `show_all_lists()`       |
-|                | `ranks`       | Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.)               | `show_all_ranks()`       |
+|  |  |  |  |
+|----|----|----|----|
+| **Category** | **Type** | **Description** | **Sub-functions** |
+| Configuration | `atlases` | Show what atlases are available | `show_all_atlases()` |
+|  | `apis` | Show what APIs & functions are available for each atlas | `show_all_apis()` |
+|  | `config` | Show information necessary for authentication | `show_all_config()` |
+|  | `reasons` | Show what values are acceptable as 'download reasons' for a specified atlas | `show_all_reasons()` |
+| Data providers | `providers` | Show which institutions have provided data | `show_all_providers()` |
+|  | `collections` | Show the specific collections within those institutions | `show_all_collections()` |
+|  | `datasets` | Shows all the data groupings within those collections | `show_all_datasets()` |
+| Filters | `assertions` | Show results of data quality checks run by each atlas | `show_all_assertions()` |
+|  | `fields` | Show fields that are stored in an atlas | `show_all_fields()` |
+|  | `licenses` | Show what copyright licenses are applied to media | `show_all_licenses()` |
+|  | `profiles` | Show what data profiles are available | `show_all_profiles()` |
+| Taxonomy | `lists` | Show what species lists are available | `show_all_lists()` |
+|  | `ranks` | Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) | `show_all_ranks()` |
 
 ## References
 

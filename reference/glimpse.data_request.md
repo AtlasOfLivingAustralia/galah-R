@@ -36,6 +36,13 @@ involves changing the API call sent to the server, then returning a
 novel object class with it's own
 [`print()`](https://rdrr.io/r/base/print.html) method.
 
+## See also
+
+[`describe()`](https://galah.ala.org.au/R/reference/describe.md) for a
+different way to see fields returned by a query;
+[`show_all_fields()`](https://galah.ala.org.au/R/reference/show_all.md)
+to see all available fields.
+
 ## Examples
 
 ``` r

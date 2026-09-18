@@ -60,8 +60,6 @@ select(.data, ..., group = NULL)
 
 # S3 method for class 'metadata_request'
 select(.data, ...)
-
-galah_select(..., group = NULL)
 ```
 
 ## Arguments
@@ -95,10 +93,8 @@ often require thousands or millions of records at a time. To reduce time
 taken to download data, and limit complexity of the resulting `tibble`,
 it is sensible to restrict the fields returned by occurrence queries.
 The full list of available fields can be viewed with `show_all(fields)`.
-Note that
-[`select()`](https://dplyr.tidyverse.org/reference/select.html) and
-`galah_select()` are supported for all atlases that allow downloads,
-with the exception of GBIF, for which all columns are returned.
+[`select()`](https://dplyr.tidyverse.org/reference/select.html) is
+supported for all atlases that allow downloads.
 
 Calling the argument `group = "basic"` returns the following columns:
 
@@ -208,8 +204,8 @@ galah_call() |>
 # When used in a pipe, `galah_select()` and `select()` are synonymous.
 # Hence the previous example can be rewritten as:
 galah_call() |>
-  galah_identify("perameles") |>
-  galah_select(basisOfRecord, group = "basic") |>
+  identify("perameles") |>
+  select(basisOfRecord, group = "basic") |>
   collect()
 } # }
 ```

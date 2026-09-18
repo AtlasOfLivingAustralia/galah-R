@@ -86,24 +86,24 @@ There are six categories of information, each with their own specific
 sub-functions to look-up each type of information. The available types
 of information for `search_all()` are:
 
-|                |               |                                                                                   |                        |
-|----------------|---------------|-----------------------------------------------------------------------------------|------------------------|
-| **Category**   | **Type**      | **Description**                                                                   | **Sub-functions**      |
-| configuration  | `atlases`     | Search for what atlases are available                                             | `search_atlases()`     |
-|                | `apis`        | Search for what APIs & functions are available for each atlas                     | `search_apis()`        |
-|                | `reasons`     | Search for what values are acceptable as 'download reasons' for a specified atlas | `search_reasons()`     |
-| taxonomy       | `taxa`        | Search for one or more taxonomic names                                            | `search_taxa()`        |
-|                | `identifiers` | Take a universal identifier and return taxonomic information                      | `search_identifiers()` |
-|                | `ranks`       | Search for valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.)               | `search_ranks()`       |
-| filters        | `fields`      | Search for fields that are stored in an atlas                                     | `search_fields()`      |
-|                | `assertions`  | Search for results of data quality checks run by each atlas                       | `search_assertions()`  |
-|                | `licenses`    | Search for copyright licences applied to media                                    | `search_licenses()`    |
-| group filters  | `profiles`    | Search for what data profiles are available                                       | `search_profiles()`    |
-|                | `lists`       | Search for what species lists are available                                       | `search_lists()`       |
-| data providers | `providers`   | Search for which institutions have provided data                                  | `search_providers()`   |
-|                | `collections` | Search for the specific collections within those institutions                     | `search_collections()` |
-|                | `datasets`    | Search for the data groupings within those collections                            | `search_datasets()`    |
-| media          | `media`       | Search for images or sounds using a vector of IDs                                 | `search_media()`       |
+|  |  |  |  |
+|----|----|----|----|
+| **Category** | **Type** | **Description** | **Sub-functions** |
+| configuration | `atlases` | Search for what atlases are available | `search_atlases()` |
+|  | `apis` | Search for what APIs & functions are available for each atlas | `search_apis()` |
+|  | `reasons` | Search for what values are acceptable as 'download reasons' for a specified atlas | `search_reasons()` |
+| taxonomy | `taxa` | Search for one or more taxonomic names | `search_taxa()` |
+|  | `identifiers` | Take a universal identifier and return taxonomic information | `search_identifiers()` |
+|  | `ranks` | Search for valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) | `search_ranks()` |
+| filters | `fields` | Search for fields that are stored in an atlas | `search_fields()` |
+|  | `assertions` | Search for results of data quality checks run by each atlas | `search_assertions()` |
+|  | `licenses` | Search for copyright licences applied to media | `search_licenses()` |
+| group filters | `profiles` | Search for what data profiles are available | `search_profiles()` |
+|  | `lists` | Search for what species lists are available | `search_lists()` |
+| data providers | `providers` | Search for which institutions have provided data | `search_providers()` |
+|  | `collections` | Search for the specific collections within those institutions | `search_collections()` |
+|  | `datasets` | Search for the data groupings within those collections | `search_datasets()` |
+| media | `media` | Search for images or sounds using a vector of IDs | `search_media()` |
 
 ## See also
 

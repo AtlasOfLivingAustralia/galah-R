@@ -24,6 +24,7 @@
 <url><loc>https://galah.ala.org.au/R/reference/compound.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/compute.data_request.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/count.data_request.html</loc></url>
+<url><loc>https://galah.ala.org.au/R/reference/describe.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/distinct.data_request.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/filter.data_request.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/filter_object_classes.html</loc></url>
@@ -43,6 +44,7 @@
 <url><loc>https://galah.ala.org.au/R/reference/show_all.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/show_values.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/slice_head.data_request.html</loc></url>
+<url><loc>https://galah.ala.org.au/R/reference/superseded_functions.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/taxonomic_searches.html</loc></url>
 <url><loc>https://galah.ala.org.au/R/reference/unnest.html</loc></url>
 </urlset>

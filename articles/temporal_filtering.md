@@ -15,12 +15,12 @@ are two ways users can filter temporal queries:
 - filter within a bespoke date and/or time range
 
 All temporal filtering is conducted using
-[`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md).
+[`galah_filter()`](https://galah.ala.org.au/R/reference/superseded_functions.md).
 All temporal fields described below can be queried for exact matches
 (`==`), greater/less than (`>`, `<`) or greater/less than or equal to
 (`<=`, `>=`). Queries for multiple fields or multiple queries of the
 same field can be combined in a single
-[`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md)
+[`galah_filter()`](https://galah.ala.org.au/R/reference/superseded_functions.md)
 call to filter a time window.
 
 ### Year, Month and Day
@@ -35,6 +35,7 @@ For instance, we can get monthly counts of amphibians from 2021 using
 the `year` and `month` fields.
 
 ``` r
+
 library(galah)
 library(tidyverse)
 library(gt)
@@ -42,10 +43,12 @@ library(lubridate)
 ```
 
 ``` r
+
 galah_config(email = "your_email_here", verbose = FALSE)
 ```
 
 ``` r
+
 galah_call() |>
   filter(class == "Amphibia", year == 2021) |>
   group_by(month) |>
@@ -88,6 +91,7 @@ last 10 years. The following query does not provide all results between
 within all 3 windows at once.
 
 ``` r
+
 galah_call() |>
   filter(species == "Chamaescilla corymbosa",
          year >= 2013, 
@@ -151,6 +155,7 @@ novaeangliae*) have occurred since the species was removed from the
 Australian threatened species list on 26/02/2022.
 
 ``` r
+
 galah_call() |>
   filter(species == "Megaptera novaeangliae", 
          eventDate >= "2022-02-26T00:00:00Z") |>
@@ -170,6 +175,7 @@ took the above date (26/02/2022), it could be converted to this form
 using base R or lubridate as follows:
 
 ``` r
+
 humpback_date <- "26/02/2022"
 # Base R
 paste0(as.Date(humpback_date, format = "%d/%m/%Y"), "T00:00:00Z")
@@ -178,6 +184,7 @@ paste0(as.Date(humpback_date, format = "%d/%m/%Y"), "T00:00:00Z")
     ## [1] "2022-02-26T00:00:00Z"
 
 ``` r
+
 # lubridate
 paste0(dmy(humpback_date), "T00:00:00Z")
 ```
@@ -203,6 +210,7 @@ many observations of Sulphur-Crested Cockatoos recorded in the first
 week of 2023 were actually loaded into the ALA by the following week:
 
 ``` r
+
 # Total records of Cactua galerita in Jan 1-7
 galah_call() |>
   filter(species == "Cacatua galerita",
@@ -218,6 +226,7 @@ galah_call() |>
     ## 1   407
 
 ``` r
+
 # Records of Cactua galerita uploaded in Jan 1-14
 galah_call() |>
   filter(species == "Cacatua galerita",

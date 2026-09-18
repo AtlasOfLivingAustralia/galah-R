@@ -13,29 +13,39 @@ data with `dplyr` and the `tidyverse`. It is synonymous with
 ``` r
 galah_call(
   type = c("occurrences", "occurrences-count", "occurrences-doi", "species",
-    "species-count")
+    "species-count"),
+  from = NULL
 )
 
 request_data(
   type = c("occurrences", "occurrences-count", "occurrences-doi", "species",
-    "species-count")
+    "species-count"),
+  from = NULL
 )
 
 request_metadata(
   type = c("fields", "apis", "assertions", "atlases", "collections", "config",
     "datasets", "licences", "lists", "media", "profiles", "providers", "ranks",
-    "reasons", "taxa", "identifiers")
+    "reasons", "taxa", "identifiers"),
+  from = NULL
 )
 
-request_files(type = "media")
+request_files(type = "media", from = NULL)
 ```
 
 ## Arguments
 
 - type:
 
-  string: what form of data should be returned? Acceptable values are
+  string: What form of data should be returned? Acceptable values are
   specified by the corresponding `request` function
+
+- from:
+
+  string: Which organisation should be queried. Accepts an organisation
+  name, acronym, or region (see
+  [`show_all_atlases()`](https://galah.ala.org.au/R/reference/show_all.md)
+  for admissible values)
 
 ## Value
 
@@ -116,6 +126,13 @@ galah_config(email = "your-email@email.com")
 galah_call() |>
   identify("Eolophus") |>
   filter(year > 2000 & year < 2005) |>
+  collect()
+  
+# Use `from` argument to change query organisation
+galah_call(from = "Spain") |>
+  identify("Aves") |>
+  filter(year > 2000 & year < 2005) |>
+  count() |>
   collect()
 } # }
 ```

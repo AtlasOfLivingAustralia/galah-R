@@ -3,12 +3,12 @@
 Restrict results to those from a specified area. Areas can be specified
 as either polygons or bounding boxes, depending on `type`.
 Alternatively, users can call the underlying functions directly via
-`galah_polygon()`, `galah_bbox()` or `galah_radius()`. It is possible to
-use `sf` syntax by calling
+`geolocate_polygon()`, `geolocate_bbox()` or `geolocate_radius()`. It is
+possible to use `sf` syntax by calling
 [`st_crop()`](https://r-spatial.github.io/sf/reference/st_crop.html),
-which is synonymous with `galah_polygon()`.
+which is synonymous with `geolocate_polygon()`.
 
-**Use a polygon** If calling `galah_geolocate()`, the default `type` is
+**Use a polygon** If calling `geolocate()`, the default `type` is
 `"polygon"`, which narrows queries to within an area supplied as a
 `POLYGON` or `MULTIPOLYGON`. Polygons must be specified as either an
 `sf` object, a 'well-known text' (WKT) string, or a shapefile.
@@ -32,13 +32,11 @@ numbers or as an `sf` object (`sfc_POINT`). Area is supplied as a
 ``` r
 geolocate(..., type = c("polygon", "bbox", "radius"))
 
-galah_geolocate(..., type = c("polygon", "bbox", "radius"))
+geolocate_polygon(...)
 
-galah_polygon(...)
+geolocate_bbox(...)
 
-galah_bbox(...)
-
-galah_radius(...)
+geolocate_radius(...)
 
 # S3 method for class 'data_request'
 st_crop(x, y, ...)
@@ -54,11 +52,11 @@ st_crop(x, y, ...)
 
 - type:
 
-  `string`: one of `c("polygon", "bbox")`. Defaults to `"polygon"`. If
-  `type = "polygon"`, a multipolygon will be built via
-  `galah_polygon()`. If `type = "bbox"`, a multipolygon will be built
-  via `galah_bbox()`. The multipolygon is used to narrow a query to the
-  ALA.
+  `string`: one of `"polygon"`, `"bbox"` or `"radius"`. Defaults to
+  `"polygon"`. If `type = "polygon"`, a multipolygon will be built via
+  `geolocate_polygon()`. If `type = "bbox"`, a multipolygon will be
+  built via `geolocate_bbox()`. The multipolygon is used to narrow a
+  query to the ALA.
 
 - x:
 
@@ -110,7 +108,7 @@ location <- "POLYGON((142.3 -29.0,142.7 -29.1,142.7 -29.4,142.3 -29.0))" |>
  sf::st_as_sfc()
 galah_call() |>
   identify("reptilia") |>
-  galah_polygon(location) |>
+  geolocate_polygon(location) |>
   count() |>
   collect()
   
@@ -127,7 +125,7 @@ location <- "POLYGON((142.3 -29.0,142.7 -29.1,142.7 -29.4,142.3 -29.0))" |>
   sf::st_as_sfc()
 galah_call() |>
   identify("vulpes") |>
-  galah_geolocate(location, type = "bbox") |>
+  geolocate(location, type = "bbox") |>
   count() |>
   collect()
 
@@ -136,7 +134,7 @@ b_box <- sf::st_bbox(c(xmin = 143, xmax = 148, ymin = -29, ymax = -28),
                      crs = sf::st_crs("WGS84"))
 galah_call() |>
   identify("reptilia") |>
-  galah_geolocate(b_box, type = "bbox") |>
+  geolocate(b_box, type = "bbox") |>
   count() |>
   collect()
 
@@ -144,17 +142,17 @@ galah_call() |>
 b_box <- tibble::tibble(xmin = 148, ymin = -29, xmax = 143, ymax = -21)
 galah_call() |>
   identify("vulpes") |>
-  galah_geolocate(b_box, type = "bbox") |>
+  geolocate(b_box, type = "bbox") |>
   count() |>
   collect()
 
 # Search for records within a radius around a point's coordinates
 galah_call() |>
   identify("manorina melanocephala") |>
-  galah_geolocate(lat = -33.7,
-                  lon = 151.3,
-                  radius = 5,
-                  type = "radius") |>
+  geolocate(lat = -33.7,
+            lon = 151.3,
+            radius = 5,
+            type = "radius") |>
   count() |>
   collect()
 
@@ -162,9 +160,9 @@ galah_call() |>
 point <- sf::st_sfc(sf::st_point(c(-33.66741, 151.3174)), crs = 4326)
 galah_call() |>
   identify("manorina melanocephala") |>
-  galah_geolocate(point,
-                  radius = 5,
-                  type = "radius") |>
+  geolocate(point,
+            radius = 5,
+            type = "radius") |>
   count() |>
   collect()
 } # }

@@ -8,6 +8,7 @@ wish to look up; for example to see what fields are available to filter
 a query by, use:
 
 ``` r
+
 show_all(fields)
 ```
 
@@ -29,6 +30,7 @@ show_all(fields)
 And to search for a specific field:
 
 ``` r
+
 search_all(fields, "australian states")
 ```
 
@@ -42,26 +44,26 @@ Here is a list of information types that can be used with
 [`show_all()`](https://galah.ala.org.au/R/reference/show_all.md) and
 [`search_all()`](https://galah.ala.org.au/R/reference/search_all.md):
 
-| Information type   | Description                                                                 | Sub-functions                                |
-|--------------------|-----------------------------------------------------------------------------|----------------------------------------------|
-| **Configuration**  |                                                                             |                                              |
-| atlases            | Show what living atlases are available                                      | show_all_atlases(), search_atlases()         |
-| apis               | Show what APIs & functions are available for each atlas                     | show_all_apis(), search_apis()               |
-| reasons            | Show what values are acceptable as ‘download reasons’ for a specified atlas | show_all_reasons(), search_reasons()         |
-| **Taxonomy**       |                                                                             |                                              |
-| taxa               | Search for one or more taxonomic names                                      | search_taxa()                                |
-| identifiers        | Take a universal identifier and return taxonomic information                | search_identifiers()                         |
-| ranks              | Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.)               | show_all_ranks(), search_ranks())            |
-| **Filters**        |                                                                             |                                              |
-| fields             | Show fields that are stored in an atlas                                     | show_all_fields(), search_fields()           |
-| assertions         | Show results of data quality checks run by each atlas                       | show_all_assertions(), search_assertions()   |
-| **Group filters**  |                                                                             |                                              |
-| profiles           | Show what data quality profiles are available                               | show_all_profiles(), search_profiles()       |
-| lists              | Show what species lists are available                                       | show_lists(), search_lists()                 |
-| **Data providers** |                                                                             |                                              |
-| providers          | Show which institutions have provided data                                  | show_all_providers(), search_providers()     |
-| collections        | Show the specific collections within those institutions                     | show_all_collections(), search_collections() |
-| datasets           | Shows all the data groupings within those collections                       | show_all_datasets(), search_datasets()       |
+| Information type | Description | Sub-functions |
+|----|----|----|
+| **Configuration** |  |  |
+| atlases | Show what living atlases are available | show_all_atlases(), search_atlases() |
+| apis | Show what APIs & functions are available for each atlas | show_all_apis(), search_apis() |
+| reasons | Show what values are acceptable as ‘download reasons’ for a specified atlas | show_all_reasons(), search_reasons() |
+| **Taxonomy** |  |  |
+| taxa | Search for one or more taxonomic names | search_taxa() |
+| identifiers | Take a universal identifier and return taxonomic information | search_identifiers() |
+| ranks | Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) | show_all_ranks(), search_ranks()) |
+| **Filters** |  |  |
+| fields | Show fields that are stored in an atlas | show_all_fields(), search_fields() |
+| assertions | Show results of data quality checks run by each atlas | show_all_assertions(), search_assertions() |
+| **Group filters** |  |  |
+| profiles | Show what data quality profiles are available | show_all_profiles(), search_profiles() |
+| lists | Show what species lists are available | show_lists(), search_lists() |
+| **Data providers** |  |  |
+| providers | Show which institutions have provided data | show_all_providers(), search_providers() |
+| collections | Show the specific collections within those institutions | show_all_collections(), search_collections() |
+| datasets | Shows all the data groupings within those collections | show_all_datasets(), search_datasets() |
 
 ## `show_all_` subfunctions
 
@@ -71,6 +73,7 @@ the underlying subfunctions if you prefer. Functions with the prefix
 category specified.
 
 ``` r
+
 show_all_atlases()
 ```
 
@@ -89,6 +92,7 @@ show_all_atlases()
     ## 10 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
 
 ``` r
+
 show_all_reasons()
 ```
 
@@ -121,6 +125,7 @@ an especially useful function in galah. It let’s you search for a single
 taxon or multiple taxa by name.
 
 ``` r
+
 search_taxa("reptilia")
 ```
 
@@ -130,6 +135,7 @@ search_taxa("reptilia")
     ## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228… class exactMatch Animal… Chord… Rept… noIss…
 
 ``` r
+
 search_taxa("reptilia", "aves", "mammalia", "pisces")
 ```
 
@@ -146,6 +152,7 @@ If we already know a taxonomic identifier, we can search for which taxa
 the identifier belongs to.
 
 ``` r
+
 search_identifiers("urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550efd40c399")
 ```
 
@@ -163,6 +170,7 @@ to understand the information contained within that field. For example,
 we can show the values contained in the field `basisOfRecord`.
 
 ``` r
+
 search_all(fields, "basisOfRecord") |> show_values()
 ```
 
@@ -183,9 +191,10 @@ search_all(fields, "basisOfRecord") |> show_values()
     ## 9 FOSSIL_SPECIMEN
 
 Use this information to pass meaningful queries to
-[`galah_filter()`](https://galah.ala.org.au/R/reference/filter.data_request.md).
+[`galah_filter()`](https://galah.ala.org.au/R/reference/superseded_functions.md).
 
 ``` r
+
 galah_call() |> 
   galah_filter(basisOfRecord == "LIVING_SPECIMEN") |> 
   atlas_counts()
@@ -199,6 +208,7 @@ galah_call() |>
 This works for other types of query, such as data profiles:
 
 ``` r
+
 search_all(profiles, "ALA") |> 
   show_values() |> 
   head()
