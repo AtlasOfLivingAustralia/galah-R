@@ -29,7 +29,7 @@ test_that("`geolocate_radius()` assigns default radius when missing argument", {
 })
 
 test_that("`geolocate_radius()` returns radius for sf_POINT object", {
-  point <- sf::st_sfc(sf::st_point(c(-33.66741, 151.3174)), 
+  point <- sf::st_sfc(sf::st_point(c(151.3174, -33.66741)),
                       crs = 4326)
   expected_object <- list(lat = -33.66741,
                           lon = 151.3174,
