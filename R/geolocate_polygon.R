@@ -97,11 +97,11 @@ parse_polygon <- function(query,
   # to avoid any issues, any polygons are converted to multipolygons
   if(inherits(query, "sf") || inherits(query, "sfc")) {
 
-    if(length(query$geometry) < 2) {
+    if(length(sf::st_geometry(query)) < 2) {
     out_query <- build_wkt(query)
     } else {
     # multiple polygons
-      n_polygons <- length(query$geometry)
+      n_polygons <- length(sf::st_geometry(query))
       c("Too many polygons.",
         i = "`galah_polygon` cannot accept more than 1 polygon at a time.",
         x = "{n_polygons} polygons detected in spatial object.") |>
