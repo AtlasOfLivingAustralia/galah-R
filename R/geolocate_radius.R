@@ -57,8 +57,8 @@ parse_point_radius <- function(...,
     }
     
     # extract point coordinate values
-    lat <- sf::st_coordinates(coords)[1]
-    lon <- sf::st_coordinates(coords)[2]
+    lon <- sf::st_coordinates(coords)[1]
+    lat <- sf::st_coordinates(coords)[2]
     
   } else { # Coords are supplied as lon/lat arguments
     
