@@ -37,12 +37,14 @@ collect_taxa_namematching <- function(.query,
                              }
                            }) |>
     unlist()
+  
   # add issues to result
   result <- result |>
     dplyr::select(-"issues") |>
     dplyr::mutate("search_term" = search_terms, 
                   .before = "success",
                   issues = issues_vec)
+  
   # Check for homonyms
   check_homonyms(result, error_call = error_call)
   # Check for invalid search terms
@@ -85,11 +87,22 @@ collect_taxa_la <- function(.query){
 #' @keywords Internal
 collect_taxa_gbif <- function(.query){
   search_terms <- .query$url$search_term
-  query_API(.query) |>
+  result <- query_API(.query) |>
     clean_gbif_taxa() |>
+    purrr::map(build_tibble_from_nested_list) |> 
     dplyr::bind_rows() |>
     dplyr::mutate("search_term" = search_terms, 
-                  .before = 1) |>
+                  .before = 1)
+  
+  # Check for homonyms
+  # check_homonyms(result, error_call = error_call) # TODO: Add this functionality
+  # Check for invalid search terms
+  if (galah_config()$package$verbose) {
+    check_search_terms(result,
+                       atlas = .query$atlas)
+  }
+  
+  result |>
     dplyr::rename_with(camel_to_snake_case) |>
     parse_rename(.query) |>
     parse_select(.query)
@@ -214,38 +227,50 @@ collect_identifiers <- function(.query){
 #' @noRd
 #' @keywords Internal
 check_search_terms <- function(result, atlas) {
-  if (!all(result$success)) {
+  
+  invalid_taxa <- 
+    if (atlas == "Global") { # GBIF
+      if (any(result$matchType == "NONE")) {
+        result$search_term[result$matchType == "NONE"] 
+      }
+    } else {                 # ALA & other atlases
+      if (!all(result$success)) {
+        result$search_term[!result$success] 
+      }
+    } # if all search terms are valid, returns NULL
+  
+  if(!is.null(invalid_taxa)) {
+  
+  n_invalid <- length(invalid_taxa)
+  n_all <- nrow(result)
+  n_valid <- n_all - n_invalid
     
-    d <- cli::cli_div(theme = list(span.bold = list("font-weight" = "bold"),
-                                   span.yellow = list(color = "yellow")))
-    
-    invalid_taxa <- result[!result$success,]$search_term
-    n_invalid <- length(invalid_taxa)
-    n_all <- nrow(result)
-    n_valid <- n_all - n_invalid
-    
-    bullets <- c(
-      cli::cli_text("Matched {.bold {n_valid} of {n_all}} taxonomic search terms in selected atlas ({atlas})."),
-      "!" = cli::cli_text("{.yellow {n_invalid} unmatched search term{?s}:}")
-    )
-    if (n_invalid > 3) {
-      invalid_taxa_truncated <- c(invalid_taxa[1:3], glue::glue("+ {n_invalid - 3} more"))
-      list_invalid_taxa <- glue::glue_collapse(invalid_taxa_truncated, 
-                                               sep = "\", \"", 
-                                               last = "\" ")
-    } else {
-      list_invalid_taxa <- glue::glue_collapse(invalid_taxa, 
-                                               sep = "\", \"")
-    }
-    bullets <- c(
-      bullets,
-      c("{.yellow \"{list_invalid_taxa}\"}") |>
-        rlang::format_error_bullets() |>
-        cli::cli_text())
-    
-    cli::cli_text(bullets)
-    cli::cli_end(d)
+  d <- cli::cli_div(theme = list(span.bold = list("font-weight" = "bold"),
+                                 span.yellow = list(color = "yellow")))
+  
+  bullets <- c(
+    cli::cli_text("Matched {.bold {n_valid} of {n_all}} taxonomic search terms in selected atlas ({atlas})."),
+    "!" = cli::cli_text("{.yellow {n_invalid} unmatched search term{?s}:}")
+  )
+  if (n_invalid > 3) {
+    invalid_taxa_truncated <- c(invalid_taxa[1:3], glue::glue("+ {n_invalid - 3} more"))
+    list_invalid_taxa <- glue::glue_collapse(invalid_taxa_truncated, 
+                                             sep = "\", \"", 
+                                             last = "\" ")
+  } else {
+    list_invalid_taxa <- glue::glue_collapse(invalid_taxa, 
+                                             sep = "\", \"")
   }
+  bullets <- c(
+    bullets,
+    c("{.yellow \"{list_invalid_taxa}\"}") |>
+      rlang::format_error_bullets() |>
+      cli::cli_text())
+  
+  cli::cli_text(bullets)
+  cli::cli_end(d)
+  }
+  
 }
 
 #' Internal function to check for homonyms in search term provided to 
