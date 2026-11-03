@@ -98,6 +98,9 @@ collect_assertions <- function(.query){
       dplyr::bind_rows() |>
       dplyr::rename_with(camel_to_snake_case) |>
       parse_rename(.query) |>
+      dplyr::bind_rows(galah_internal_archived$assertions) |>
+      dplyr::distinct(.data$id, .keep_all = TRUE) |>
+      dplyr::arrange(tolower(.data$id)) |>
       dplyr::mutate(type = "assertions") |> # for consistency with `collect_fields()`
       update_attributes(type = "assertions",
                         atlas = .query$atlas)

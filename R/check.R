@@ -706,7 +706,8 @@ check_select <- function(.query,
 build_select_df_from_query <- function(.query){
   valid_fields <- .query[["metadata/fields"]]$id
   valid_assertions <- .query[["metadata/assertions"]]$id
-  valid_any <- c(valid_fields, valid_assertions)
+  valid_any <- c(valid_fields, valid_assertions) |> 
+    unique() # prevents errors from duplicates
   matrix(data = NA,
          nrow = 0,
          ncol = length(valid_any),

@@ -86,6 +86,13 @@ galah_internal_archived <- list(
     id = c("multimedia", "images", "videos", "sounds"),
     description = "Media filter field",
     type = "media"),
+  assertions = tibble(
+    id = c("userAssertions", "assertionUserId"),
+    code = NA,
+    description = c("Status of user assertion", "Identity of user making an assertion"),
+    category = "Comment",
+    fatal = FALSE
+  ),
   other_fields = tibble(
     id = c("qid", 
            "lsid", 

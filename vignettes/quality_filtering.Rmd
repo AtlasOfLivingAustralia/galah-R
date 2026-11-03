@@ -1,0 +1,1340 @@
+---
+title: "Quality filtering"
+author: "Martin Westgate"
+date: '2026-11-20'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Quality filtering}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+### What is 'data quality'?
+
+Databases containing biodiversity information - such as those that can be queried using 
+galah - contain millions of records supplied by hundreds of organisations, having been 
+collected over centuries. It is unsurprising, therefore, that they contain some errors.
+In this context, two key questions for users of that data are:
+
+- How large a problem are those errors for their use case? and
+- What tools exist to help us solve them?
+
+Data quality systems in galah are built on a set of fields called 'assertions'.
+These are usually binary (true/false) variables that flag that something might be wrong 
+with the data, generated either programmatically or by users. You can see them by calling 
+`show_all_assertions()`:
+
+
+```
+## # A tibble: 126 × 4
+##    id                                 description                          category type      
+##    <chr>                              <chr>                                <chr>    <chr>     
+##  1 AMBIGUOUS_COLLECTION               Ambiguous collection                 Comment  assertions
+##  2 AMBIGUOUS_INSTITUTION              Ambiguous institution                Comment  assertions
+##  3 assertionUserId                    Identity of user making an assertion Comment  assertions
+##  4 BASIS_OF_RECORD_INVALID            Basis of record badly formed         Warning  assertions
+##  5 biosecurityIssue                   Biosecurity issue                    Error    assertions
+##  6 COLLECTION_MATCH_FUZZY             Collection match fuzzy               Comment  assertions
+##  7 COLLECTION_MATCH_NONE              Collection not matched               Comment  assertions
+##  8 CONTINENT_COORDINATE_MISMATCH      continent coordinate mismatch        Warning  assertions
+##  9 CONTINENT_COUNTRY_MISMATCH         Continent country mismatch           Warning  assertions
+## 10 CONTINENT_DERIVED_FROM_COORDINATES Continent derived from coordinates   Warning  assertions
+## # ℹ 116 more rows
+```
+
+The easiest thing to do with these is simply download them with your chosen records, and 
+do your own checking on the data. This can be achived via `select()`:
+
+
+``` r
+df <- galah_call() |>
+  identify("Eolophus roseicapilla") |>
+  filter(year >= 2020,
+         basisOfRecord == "PRESERVED_SPECIMEN") |>
+  select(group = c("basic", "assertions")) |>
+  collect()
+```
+
+```
+## Retrying in 1 seconds.
+## Retrying in 2 seconds.
+## Retrying in 4 seconds.
+## Retrying in 8 seconds.
+```
+
+``` r
+df
+```
+
+```
+## # A tibble: 42 × 133
+##    recordID              scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           basisOfRecord occurrenceStatus dataResourceName AMBIGUOUS_COLLECTION AMBIGUOUS_INSTITUTION BASIS_OF_RECORD_INVA…¹ biosecurityIssue COLLECTION_MATCH_FUZZY COLLECTION_MATCH_NONE
+##    <chr>                 <chr>          <chr>                    <dbl>            <dbl> <dttm>              <chr>         <chr>            <chr>            <lgl>                <lgl>                 <lgl>                  <lgl>            <lgl>                  <lgl>                
+##  1 03e1c487-f3be-4469-a… Eolophus rose… https://biodi…           -34.8             148. 2022-01-14 00:00:00 PRESERVED_SP… PRESENT          Australian Nati… FALSE                FALSE                 FALSE                  FALSE            FALSE                  FALSE                
+##  2 0a24639a-1387-4a53-b… Eolophus rose… https://biodi…           -34.8             148. 2022-01-14 00:00:00 PRESERVED_SP… PRESENT          Australian Nati… FALSE                FALSE                 FALSE                  FALSE            FALSE                  FALSE                
+##  3 0eaf52fc-6659-41ea-8… Eolophus rose… https://biodi…           -24.2             139. 2026-08-26 00:00:00 PRESERVED_SP… PRESENT          Australian Nati… FALSE                FALSE                 FALSE                  FALSE            FALSE                  FALSE                
+##  4 10081d36-abf8-4928-9… Eolophus rose… https://biodi…           -33.8             151. 2024-12-11 00:00:00 PRESERVED_SP… PRESENT          Australian Muse… FALSE                FALSE                 FALSE                  FALSE            FALSE                  FALSE                
+##  5 10e9d3c3-1fb2-4362-8… Eolophus rose… https://biodi…           -33.6             151. NA                  PRESERVED_SP… PRESENT          Australian Muse… FALSE                FALSE                 FALSE                  FALSE            FALSE                  FALSE                
+##  6 11663284-5f43-4cf2-a… Eolophus rose… https://biodi…           -28.2             144. 2025-09-04 00:00:00 PRESERVED_SP… PRESENT          Australian Nati… FALSE                FALSE                 FALSE                  FALSE            FALSE                  FALSE                
+##  7 1baea6d4-a2d1-4e69-8… Eolophus rose… https://biodi…           -36.4             144. 2024-09-21 00:00:00 PRESERVED_SP… PRESENT          Museums Victori… FALSE                FALSE                 FALSE                  FALSE            FALSE                  FALSE                
+##  8 1fe45f99-a245-44d7-b… Eolophus rose… https://biodi…           -28.3             136. 2025-08-02 00:00:00 PRESERVED_SP… PRESENT          Australian Nati… FALSE                FALSE                 FALSE                  FALSE            FALSE                  FALSE                
+##  9 3810878b-8ad7-4a86-a… Eolophus rose… https://biodi…           -32.6             150. 2022-05-14 00:00:00 PRESERVED_SP… PRESENT          Australian Muse… FALSE                FALSE                 FALSE                  FALSE            FALSE                  FALSE                
+## 10 3e6152db-aef1-4e32-b… Eolophus rose… https://biodi…           -30.1             138. 2025-08-01 00:00:00 PRESERVED_SP… PRESENT          Australian Nati… FALSE                FALSE                 FALSE                  FALSE            FALSE                  FALSE                
+## # ℹ 32 more rows
+## # ℹ abbreviated name: ¹​BASIS_OF_RECORD_INVALID
+## # ℹ 118 more variables: CONTINENT_COORDINATE_MISMATCH <lgl>, CONTINENT_COUNTRY_MISMATCH <lgl>, CONTINENT_DERIVED_FROM_COORDINATES <lgl>, CONTINENT_DERIVED_FROM_COUNTRY <lgl>, CONTINENT_INVALID <lgl>, COORDINATE_INVALID <lgl>, COORDINATE_OUT_OF_RANGE <lgl>,
+## #   COORDINATE_PRECISION_INVALID <lgl>, COORDINATE_REPROJECTED <lgl>, COORDINATE_REPROJECTION_FAILED <lgl>, COORDINATE_REPROJECTION_SUSPICIOUS <lgl>, COORDINATE_ROUNDED <lgl>, COORDINATE_UNCERTAINTY_METERS_INVALID <lgl>, COORDINATES_CENTRE_OF_COUNTRY <lgl>,
+## #   COORDINATES_CENTRE_OF_STATEPROVINCE <lgl>, COUNTRY_COORDINATE_MISMATCH <lgl>, COUNTRY_DERIVED_FROM_COORDINATES <lgl>, COUNTRY_INVALID <lgl>, COUNTRY_MISMATCH <lgl>, DEPTH_MIN_MAX_SWAPPED <lgl>, DEPTH_NON_NUMERIC <lgl>, DEPTH_NOT_METRIC <lgl>, DEPTH_UNLIKELY <lgl>,
+## #   detectedOutlier <lgl>, DIFFERENT_OWNER_INSTITUTION <lgl>, ELEVATION_MIN_MAX_SWAPPED <lgl>, ELEVATION_NON_NUMERIC <lgl>, ELEVATION_NOT_METRIC <lgl>, ELEVATION_UNLIKELY <lgl>, FIRST_OF_CENTURY <lgl>, FIRST_OF_MONTH <lgl>, FIRST_OF_YEAR <lgl>, FOOTPRINT_SRS_INVALID <lgl>,
+## #   FOOTPRINT_WKT_INVALID <lgl>, FOOTPRINT_WKT_MISMATCH <lgl>, GEODETIC_DATUM_ASSUMED_WGS84 <lgl>, GEODETIC_DATUM_INVALID <lgl>, GEOREFERENCE_POST_OCCURRENCE <lgl>, GEOREFERENCED_DATE_INVALID <lgl>, GEOREFERENCED_DATE_UNLIKELY <lgl>, geospatialIssue <lgl>, habitatMismatch <lgl>, …
+```
+
+As you can see, there are a huge number of assertions, and they will take some processing.
+It is also inefficient to download data we don't need, only to filter it later. Therefore,
+it is worth considering filtering out some problematic records as part of our usual filtering
+strategy.
+
+### Data quality profiles
+
+Data quality 'profiles' are pre-populated filter statements curated by the ALA that are 
+designed to remove problematic records. They provide a quick and straightforward way to 
+remove these records without having to construct elaborate filter statements.
+
+
+``` r
+show_all_profiles()
+```
+
+```
+## # A tibble: 5 × 4
+##      id short_name name                                  description                                                                                                                                             
+##   <int> <chr>      <chr>                                 <chr>                                                                                                                                                   
+## 1    92 ALA        ALA General                           "The default ALA profile filters out records based on the filter groups outlined below.  This is a moderately restricted set of data."                  
+## 2   124 CSDM       Species Distribution Modelling (CSDM) "Base filters for the Collaborative Species Distribution Modelling program"                                                                             
+## 3   133 re-usable  Data licensed for all uses            "Data licensed for re-use, including commercial uses. This profile only filters on license, no \"quality\" filters are applied."                        
+## 4   224 AVH        AVH                                   "AVH data quality profile"                                                                                                                              
+## 5   252 ALA-test   ALA General Test                      "A test version of the default ALA profile filters out records based on the filter groups outlined below.  This is a moderately restricted set of data."
+```
+
+Let's take a look at the most obvious one first:
+
+
+``` r
+search_all(profiles, "CSDM") |>
+  show_values() |>
+  gt::gt()
+```
+
+```
+## • Showing values for 'CSDM'.
+```
+
+<!--html_preserve--><div id="grkajxllru" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#grkajxllru table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#grkajxllru thead, #grkajxllru tbody, #grkajxllru tfoot, #grkajxllru tr, #grkajxllru td, #grkajxllru th {
+  border-style: none;
+}
+
+#grkajxllru p {
+  margin: 0;
+  padding: 0;
+}
+
+#grkajxllru .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#grkajxllru .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#grkajxllru .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#grkajxllru .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#grkajxllru .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#grkajxllru .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#grkajxllru .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#grkajxllru .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#grkajxllru .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#grkajxllru .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#grkajxllru .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#grkajxllru .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#grkajxllru .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#grkajxllru .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#grkajxllru .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#grkajxllru .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#grkajxllru .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#grkajxllru .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#grkajxllru .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#grkajxllru .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#grkajxllru .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#grkajxllru .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#grkajxllru .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#grkajxllru .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#grkajxllru .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#grkajxllru .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#grkajxllru .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#grkajxllru .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#grkajxllru .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#grkajxllru .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#grkajxllru .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#grkajxllru .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#grkajxllru .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#grkajxllru .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#grkajxllru .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#grkajxllru .gt_left {
+  text-align: left;
+}
+
+#grkajxllru .gt_center {
+  text-align: center;
+}
+
+#grkajxllru .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#grkajxllru .gt_font_normal {
+  font-weight: normal;
+}
+
+#grkajxllru .gt_font_bold {
+  font-weight: bold;
+}
+
+#grkajxllru .gt_font_italic {
+  font-style: italic;
+}
+
+#grkajxllru .gt_super {
+  font-size: 65%;
+}
+
+#grkajxllru .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#grkajxllru .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#grkajxllru .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#grkajxllru .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#grkajxllru .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#grkajxllru .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#grkajxllru .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#grkajxllru .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#grkajxllru div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="id">id</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="description">description</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="filter">filter</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="enabled">enabled</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="id" class="gt_row gt_right">126</td>
+<td headers="description" class="gt_row gt_left">Include only records where Spatial validity is "true"</td>
+<td headers="filter" class="gt_row gt_left">spatiallyValid:"true"</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">128</td>
+<td headers="description" class="gt_row gt_left">Exclude potential duplicate records</td>
+<td headers="filter" class="gt_row gt_left">-isDuplicateOf:*</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">130</td>
+<td headers="description" class="gt_row gt_left">Exclude all records that are an outlier against any environmental layer</td>
+<td headers="filter" class="gt_row gt_left">-outlierLayerCount:[1 TO *]</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">132</td>
+<td headers="description" class="gt_row gt_left">Include only records where Year is 1970 to 2099</td>
+<td headers="filter" class="gt_row gt_left">year:[1970 TO *]</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+  </tbody>
+  
+</table>
+</div><!--/html_preserve-->
+
+This is ok, but also needs unpacking. 
+
+`spatiallyValid` is an amalgam of other assertions. At time of writing, `true` means that the 
+latitude and longitude are known and within +/- 90 and 180 degrees (respectively), but are not 
+0,0, and that there isn't a mismatch between the observed country and the country listed by 
+the data provider. There are some minor other points, but that's about it.
+
+Excluding potentially duplicate records is fairly clear and sensible, albeit also easily achieved
+using thinning.
+
+The remaining points are more contentious. The choice to include records since 1970 is clearly 
+context-specific. More importantly, excluding points that are an outlier against any environmental
+layer is a high penalty, particularly for rare species. This is likely to falsely exclude records
+on a frequent basis.
+
+Let's look at the 'ALA general' approach:
+
+
+``` r
+ search_all(profiles, "ALA") |>
+  show_values() |>
+  gt::gt()
+```
+
+```
+## ! Search returned 2 matched profiles.
+```
+
+```
+## • Showing values for 'ALA'.
+```
+
+<!--html_preserve--><div id="iivtgeoobe" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#iivtgeoobe table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#iivtgeoobe thead, #iivtgeoobe tbody, #iivtgeoobe tfoot, #iivtgeoobe tr, #iivtgeoobe td, #iivtgeoobe th {
+  border-style: none;
+}
+
+#iivtgeoobe p {
+  margin: 0;
+  padding: 0;
+}
+
+#iivtgeoobe .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#iivtgeoobe .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#iivtgeoobe .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#iivtgeoobe .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#iivtgeoobe .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#iivtgeoobe .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#iivtgeoobe .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#iivtgeoobe .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#iivtgeoobe .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#iivtgeoobe .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#iivtgeoobe .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#iivtgeoobe .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#iivtgeoobe .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#iivtgeoobe .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#iivtgeoobe .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#iivtgeoobe .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#iivtgeoobe .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#iivtgeoobe .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#iivtgeoobe .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iivtgeoobe .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#iivtgeoobe .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#iivtgeoobe .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#iivtgeoobe .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iivtgeoobe .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#iivtgeoobe .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#iivtgeoobe .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#iivtgeoobe .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iivtgeoobe .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#iivtgeoobe .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#iivtgeoobe .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#iivtgeoobe .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#iivtgeoobe .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#iivtgeoobe .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iivtgeoobe .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#iivtgeoobe .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iivtgeoobe .gt_left {
+  text-align: left;
+}
+
+#iivtgeoobe .gt_center {
+  text-align: center;
+}
+
+#iivtgeoobe .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#iivtgeoobe .gt_font_normal {
+  font-weight: normal;
+}
+
+#iivtgeoobe .gt_font_bold {
+  font-weight: bold;
+}
+
+#iivtgeoobe .gt_font_italic {
+  font-style: italic;
+}
+
+#iivtgeoobe .gt_super {
+  font-size: 65%;
+}
+
+#iivtgeoobe .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#iivtgeoobe .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#iivtgeoobe .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#iivtgeoobe .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#iivtgeoobe .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#iivtgeoobe .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#iivtgeoobe .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#iivtgeoobe .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#iivtgeoobe div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="id">id</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="description">description</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="filter">filter</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="enabled">enabled</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="id" class="gt_row gt_right">94</td>
+<td headers="description" class="gt_row gt_left">Exclude all records where spatial validity is "false"</td>
+<td headers="filter" class="gt_row gt_left">-spatiallyValid:"false"</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">96</td>
+<td headers="description" class="gt_row gt_left">Exclude all records with an assertion that the scientific name provided does not match any of the names lists used by the ALA.  For a full explanation of the ALA name matching process see https://github.com/AtlasOfLivingAustralia/ala-name-matching</td>
+<td headers="filter" class="gt_row gt_left">-assertions:TAXON_MATCH_NONE</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">97</td>
+<td headers="description" class="gt_row gt_left">Exclude all records with an assertion that the scientific name provided is not structured as a valid scientific name. Also catches rank values or values such as "UNKNOWN"</td>
+<td headers="filter" class="gt_row gt_left">-assertions:INVALID_SCIENTIFIC_NAME</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">99</td>
+<td headers="description" class="gt_row gt_left">Exclude all records with an assertion that kingdom provided doesn't match a known kingdom e.g. Animalia, Plantae</td>
+<td headers="filter" class="gt_row gt_left">-assertions:UNKNOWN_KINGDOM</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">100</td>
+<td headers="description" class="gt_row gt_left">Exclude all records with an assertion that the scientific name provided in the record does not match the expected taxonomic scope of the resource e.g. Mammal records attributed to bird watch group</td>
+<td headers="filter" class="gt_row gt_left">-assertions:TAXON_SCOPE_MISMATCH</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">98</td>
+<td headers="description" class="gt_row gt_left">Exclude all records with an assertion that the name and classification supplied can't be used to choose between 2 homonyms</td>
+<td headers="filter" class="gt_row gt_left">-assertions:TAXON_HOMONYM</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">103</td>
+<td headers="description" class="gt_row gt_left">Exclude all records with an assertion of latitude value provided is zero</td>
+<td headers="filter" class="gt_row gt_left">-decimalLatitude:0</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">104</td>
+<td headers="description" class="gt_row gt_left">Exclude all records with an assertion of longitude value provided is zero</td>
+<td headers="filter" class="gt_row gt_left">-decimalLongitude:0</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">105</td>
+<td headers="description" class="gt_row gt_left">Exclude all records with an assertion of  latitude and longitude have been transposed</td>
+<td headers="filter" class="gt_row gt_left">-assertions:"PRESUMED_SWAPPED_COORDINATE"</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">106</td>
+<td headers="description" class="gt_row gt_left">Exclude all records with an assertion of coordinates are the exact centre of the state or territory</td>
+<td headers="filter" class="gt_row gt_left">-assertions:"COORDINATES_CENTRE_OF_STATEPROVINCE"</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">107</td>
+<td headers="description" class="gt_row gt_left">Exclude all records with an assertion of  coordinates are the exact centre of the country</td>
+<td headers="filter" class="gt_row gt_left">-assertions:"COORDINATES_CENTRE_OF_COUNTRY"</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">219</td>
+<td headers="description" class="gt_row gt_left">Exclude all records with "Latitude is negated" warning</td>
+<td headers="filter" class="gt_row gt_left">-assertions:"PRESUMED_NEGATED_LATITUDE"</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">220</td>
+<td headers="description" class="gt_row gt_left">Exclude all records with "Longitude is negated" warning</td>
+<td headers="filter" class="gt_row gt_left">-assertions:"PRESUMED_NEGATED_LONGITUDE"</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">251</td>
+<td headers="description" class="gt_row gt_left">Exclude duplicates from different datasets that are not the representative record</td>
+<td headers="filter" class="gt_row gt_left">-(duplicate_status:"ASSOCIATED" AND duplicateType:"DIFFERENT_DATASET")</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">111</td>
+<td headers="description" class="gt_row gt_left">Exclude all records where coordinate uncertainty (in metres) is greater than 10km</td>
+<td headers="filter" class="gt_row gt_left">-coordinateUncertaintyInMeters:[10001 TO *]</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">113</td>
+<td headers="description" class="gt_row gt_left">Exclude all records with unresolved user  assertions</td>
+<td headers="filter" class="gt_row gt_left">-userAssertions:50001</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">114</td>
+<td headers="description" class="gt_row gt_left">Exclude all records with unconfirmed  user assertions</td>
+<td headers="filter" class="gt_row gt_left">-userAssertions:50005</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">116</td>
+<td headers="description" class="gt_row gt_left">Exclude all records where outlier layer count is 3 or more</td>
+<td headers="filter" class="gt_row gt_left">-outlierLayerCount:[3 TO *]</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">118</td>
+<td headers="description" class="gt_row gt_left">Exclude all records where Record type is "Fossil specimen"</td>
+<td headers="filter" class="gt_row gt_left">-basisOfRecord:"FOSSIL_SPECIMEN"</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">119</td>
+<td headers="description" class="gt_row gt_left">Exclude all records where Record type is "EnvironmentalDNA"</td>
+<td headers="filter" class="gt_row gt_left">-(basisOfRecord:"MATERIAL_SAMPLE" AND contentTypes:"Environmental DNA")</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">121</td>
+<td headers="description" class="gt_row gt_left">Exclude all records where Presence/Absence is "absent"</td>
+<td headers="filter" class="gt_row gt_left">-occurrenceStatus:ABSENT</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">123</td>
+<td headers="description" class="gt_row gt_left">Exclude all records where year is prior to 1700</td>
+<td headers="filter" class="gt_row gt_left">-year:[* TO 1700]</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">289</td>
+<td headers="description" class="gt_row gt_left">Exclude NEEDS ID records from iNaturalist</td>
+<td headers="filter" class="gt_row gt_left">-identificationVerificationStatus:"needs_id"</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">297</td>
+<td headers="description" class="gt_row gt_left">Exclude records stated as not yet verified</td>
+<td headers="filter" class="gt_row gt_left">-identificationVerificationStatus:"verification required"</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">294</td>
+<td headers="description" class="gt_row gt_left">Exclude cultivated records</td>
+<td headers="filter" class="gt_row gt_left">-degreeOfEstablishment:"cultivated"</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+    <tr><td headers="id" class="gt_row gt_right">295</td>
+<td headers="description" class="gt_row gt_left">Exclude captive records</td>
+<td headers="filter" class="gt_row gt_left">-degreeOfEstablishment:"captive"</td>
+<td headers="enabled" class="gt_row gt_center">TRUE</td></tr>
+  </tbody>
+  
+</table>
+</div><!--/html_preserve-->
+
+There is a lot here and we won't go through it all; but two points are potentially useful.
+First, this makes a lot of assumptions about what is and is not useful, with 26 separate
+filters. This is a lot, and while most of them are useful in some contexts, equally this 
+may be too stringent a set of tests for some applications. Applying it to our earlier example,
+we see it only removes two records, but your milage will vary for different queries:
+
+
+``` r
+galah_call() |>
+  identify("Eolophus roseicapilla") |>
+  filter(year >= 2020,
+         basisOfRecord == "PRESERVED_SPECIMEN") |>
+  apply_profile("ALA") |>
+  count() |>
+  collect()
+```
+
+```
+## # A tibble: 1 × 1
+##   count
+##   <int>
+## 1    40
+```
+
+Second, the `filter` column lists how the query is sent to the ALA; this can be useful 
+for replicating parts of the workflow that are useful for your specific application.
+We'll try this out below.
+
+### Bespoke filters using assertions
+
+For example purposes, let's say we wanted to implement assertions based on the new
+[TDWG Data Quality Standard](https://bdq.tdwg.org/draft/docs/list/bdquc/index.html#bdquc_SDM-Trees).
+How would we do that?
+
+
+### User assertions
+
+An alternative approach is to call 'user assertions'; flags placed by users on individual 
+suspect records. You can find records flagged in this way as follows:
+
+
+``` r
+galah_call() |>
+  count(userAssertions) |>
+  collect()
+```
+
+```
+## # A tibble: 4 × 3
+##   userAssertions_id userAssertions_label count
+##   <chr>             <chr>                <int>
+## 1 50005             Unconfirmed           9831
+## 2 50003             Corrected             3489
+## 3 50002             Verified               416
+## 4 50001             Open issue              86
+```
+
+The categories here are a little obscure, but cross-referencing with the ALA data quality profile,
+it appears that only issues that are 'Open' (code `50001`) or 'Unconfirmed' (code `50005`) have some
+likelihood of being 'true' errors. Another point to consider is *who* is making these assertions:
+
+
+``` r
+galah_call() |>
+  filter(userAssertions %in% c("50001", "50005")) |>
+  count(assertionUserId) |>
+  slice_head(n = 10) |>
+  collect()
+```
+
+```
+## Limiting to first 10 of 1,297 rows.
+## Use `atlas_counts(limit = )` to return more rows.
+```
+
+```
+## # A tibble: 10 × 3
+##    assertionUserId_id assertionUserId_label count
+##    <chr>              <chr>                 <int>
+##  1 124186             Cameron Slatyer        1257
+##  2 57159              Thomas Mesaglio        1232
+##  3 2126               Niels Klazenga          932
+##  4 3334               Penelope Mills          287
+##  5 8902               ralph FOSTER            203
+##  6 11936              Kay Durham              187
+##  7 1108               Allen Sundholm          178
+##  8 29516              Wendy Potts             165
+##  9 25919              Matthew Connors         148
+## 10 34050              Kimberi Pullen          141
+```
+
+This isn't actually terribly informative unless we know who these people are. But it likely
+that the types of errors flagged by a single user will reflect their spatial and taxonomic
+knowledge of the Australian biota.
+
+To remove any records with user assertions, use `is.na(userAssertions)` within your filter 
+statement:
+
+
+``` r
+galah_call() |>
+  filter(is.na(userAssertions)) |>
+  count() |>
+  collect()
+```
+
+```
+## # A tibble: 1 × 1
+##       count
+##       <int>
+## 1 186070186
+```
+
+### Concluding remarks
+
+Data quality is an ongoing topic of investigation for researchers and data infrastructures.
+The tools described above are the current best available toolset implemented at the 
+institutional level. For a more general assessment of how to handle data quality issues in 
+R, see [Cleaning Biodiversity Data in R](https://cleaning-data-r.ala.org.au) by 
+Dax Kellie et al. (2026, https://doi.org/10.54102/ala.77009).
+
+A critical limitation of data quality assertions and their derivatives is that they focus 
+exclusively on rule-based methods. There is no probabilistic element to them. Users seeking 
+to draw probabilistic inference from these data will need to consider carefully whether there
+are classes of outlier relevant to their use case, but utterly invisible to the systems in 
+question.

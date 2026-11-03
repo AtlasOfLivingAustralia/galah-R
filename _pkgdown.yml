@@ -34,14 +34,15 @@ navbar:
         href: articles/download-data-reproducibly.html
       - text: Object oriented programming
         href: articles/object-oriented-programming.html
-      - text: ---
-      - text: Filtering
+      - text: Filtering  
       - text: Taxonomic filtering
         href: articles/taxonomic_filtering.html
       - text: Spatial filtering
         href: articles/spatial_filtering.html
       - text: Temporal filtering
-        href: articles/temporal_filtering.html         
+        href: articles/temporal_filtering.html
+      - text: Quality filtering
+        href: articles/quality_filtering.html       
     news:
       text: News
       href: news/index.html

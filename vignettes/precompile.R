@@ -22,5 +22,4 @@ purrr::map(
 # knitr::knit("README.Rmd", "README.md")
 
 # # next steps
-devtools::build_vignettes()
 pkgdown::build_site()

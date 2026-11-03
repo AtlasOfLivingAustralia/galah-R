@@ -69,8 +69,12 @@ body { font-family: Roboto; }
   background-color: #707070;
 }
 
+.dropdown-item {
+  color: #707070;
+}
+
 .dropdown-item:hover {
-  background-color: #707070;
+  background-color: #78CCCC;
 }
 
 .navlink:hover {
@@ -79,12 +83,20 @@ body { font-family: Roboto; }
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus .navbar-nav>.drop>a:hover{
     color: #ffffff;
-    background-color: #707070;
+    background-color: #78CCCC;
 }
 
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
     color: #ffffff;
-    background-color: #707070;
+    background-color: #78CCCC;
+}
+
+.navbar-toggler {
+  background-color: #78CCCC;
+}
+
+.dropdown-menu {
+  max-height: 300px;
 }
 
 .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
@@ -112,7 +124,7 @@ pre {
 }
 
 .dropdown-menu {
-  --bs-dropdown-bg: #d7eaf7;
+  --bs-dropdown-bg: #bbe3e3;
 }
 
 /*

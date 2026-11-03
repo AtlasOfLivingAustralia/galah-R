@@ -110,7 +110,14 @@ clean_labels <- function(df){
     variable <- df$i18nCode[1] |>
       stringr::str_extract("^[:alnum:]+\\.") |>
       stringr::str_replace("\\.$", "")
-    df[[variable]] <- values
+    if(!is.null(df$label)){
+      df2 <- data.frame(id = values,
+                        label = df$label)
+      colnames(df2) <- glue::glue("{variable}_{colnames(df2)}")
+      df <- dplyr::bind_cols(df, df2)
+    }else{
+      df[[variable]] <- values
+    }
     df |>
       dplyr::relocate("count", 
                       .after = dplyr::last_col())

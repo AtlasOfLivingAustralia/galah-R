@@ -1,0 +1,173 @@
+---
+title: "Quality filtering"
+author: "Martin Westgate"
+date: '2026-11-20'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Quality filtering}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+# set up galah session
+galah_config(email = "ala4r@ala.org.au", verbose = FALSE)
+```
+
+### What is 'data quality'?
+
+Databases containing biodiversity information - such as those that can be queried using 
+galah - contain millions of records supplied by hundreds of organisations, having been 
+collected over centuries. It is unsurprising, therefore, that they contain some errors.
+In this context, two key questions for users of that data are:
+
+- How large a problem are those errors for their use case? and
+- What tools exist to help us solve them?
+
+Data quality systems in galah are built on a set of fields called 'assertions'.
+These are usually binary (true/false) variables that flag that something might be wrong 
+with the data, generated either programmatically or by users. You can see them by calling 
+`show_all_assertions()`:
+
+```{r echo=FALSE}
+show_all_assertions()
+```
+
+The easiest thing to do with these is simply download them with your chosen records, and 
+do your own checking on the data. This can be achived via `select()`:
+
+```{r}
+df <- galah_call() |>
+  identify("Eolophus roseicapilla") |>
+  filter(year >= 2020,
+         basisOfRecord == "PRESERVED_SPECIMEN") |>
+  select(group = c("basic", "assertions")) |>
+  collect()
+
+df
+```
+
+As you can see, there are a huge number of assertions, and they will take some processing.
+It is also inefficient to download data we don't need, only to filter it later. Therefore,
+it is worth considering filtering out some problematic records as part of our usual filtering
+strategy.
+
+### Data quality profiles
+
+Data quality 'profiles' are pre-populated filter statements curated by the ALA that are 
+designed to remove problematic records. They provide a quick and straightforward way to 
+remove these records without having to construct elaborate filter statements.
+
+```{r}
+show_all_profiles()
+```
+
+Let's take a look at the most obvious one first:
+
+```{r}
+search_all(profiles, "CSDM") |>
+  show_values() |>
+  gt::gt()
+```
+
+This is ok, but also needs unpacking. 
+
+`spatiallyValid` is an amalgam of other assertions. At time of writing, `true` means that the 
+latitude and longitude are known and within +/- 90 and 180 degrees (respectively), but are not 
+0,0, and that there isn't a mismatch between the observed country and the country listed by 
+the data provider. There are some minor other points, but that's about it.
+
+Excluding potentially duplicate records is fairly clear and sensible, albeit also easily achieved
+using thinning.
+
+The remaining points are more contentious. The choice to include records since 1970 is clearly 
+context-specific. More importantly, excluding points that are an outlier against any environmental
+layer is a high penalty, particularly for rare species. This is likely to falsely exclude records
+on a frequent basis.
+
+Let's look at the 'ALA general' approach:
+
+```{r}
+ search_all(profiles, "ALA") |>
+  show_values() |>
+  gt::gt()
+```
+
+There is a lot here and we won't go through it all; but two points are potentially useful.
+First, this makes a lot of assumptions about what is and is not useful, with 26 separate
+filters. This is a lot, and while most of them are useful in some contexts, equally this 
+may be too stringent a set of tests for some applications. Applying it to our earlier example,
+we see it only removes two records, but your milage will vary for different queries:
+
+```{r}
+galah_call() |>
+  identify("Eolophus roseicapilla") |>
+  filter(year >= 2020,
+         basisOfRecord == "PRESERVED_SPECIMEN") |>
+  apply_profile("ALA") |>
+  count() |>
+  collect()
+```
+
+Second, the `filter` column lists how the query is sent to the ALA; this can be useful 
+for replicating parts of the workflow that are useful for your specific application.
+We'll try this out below.
+
+### Bespoke filters using assertions
+
+For example purposes, let's say we wanted to implement assertions based on the new
+[TDWG Data Quality Standard](https://bdq.tdwg.org/draft/docs/list/bdquc/index.html#bdquc_SDM-Trees).
+How would we do that?
+
+
+### User assertions
+
+An alternative approach is to call 'user assertions'; flags placed by users on individual 
+suspect records. You can find records flagged in this way as follows:
+
+```{r}
+galah_call() |>
+  count(userAssertions) |>
+  collect()
+```
+
+The categories here are a little obscure, but cross-referencing with the ALA data quality profile,
+it appears that only issues that are 'Open' (code `50001`) or 'Unconfirmed' (code `50005`) have some
+likelihood of being 'true' errors. Another point to consider is *who* is making these assertions:
+
+```{r}
+galah_call() |>
+  filter(userAssertions %in% c("50001", "50005")) |>
+  count(assertionUserId) |>
+  slice_head(n = 10) |>
+  collect()
+```
+
+This isn't actually terribly informative unless we know who these people are. But it likely
+that the types of errors flagged by a single user will reflect their spatial and taxonomic
+knowledge of the Australian biota.
+
+To remove any records with user assertions, use `is.na(userAssertions)` within your filter 
+statement:
+
+```{r}
+galah_call() |>
+  filter(is.na(userAssertions)) |>
+  count() |>
+  collect()
+```
+
+### Concluding remarks
+
+Data quality is an ongoing topic of investigation for researchers and data infrastructures.
+The tools described above are the current best available toolset implemented at the 
+institutional level. For a more general assessment of how to handle data quality issues in 
+R, see [Cleaning Biodiversity Data in R](https://cleaning-data-r.ala.org.au) by 
+Dax Kellie et al. (2026, https://doi.org/10.54102/ala.77009).
+
+A critical limitation of data quality assertions and their derivatives is that they focus 
+exclusively on rule-based methods. There is no probabilistic element to them. Users seeking 
+to draw probabilistic inference from these data will need to consider carefully whether there
+are classes of outlier relevant to their use case, but utterly invisible to the systems in 
+question.
