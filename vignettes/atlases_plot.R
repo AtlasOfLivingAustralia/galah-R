@@ -6,16 +6,18 @@ library(dplyr)
 library(readr)
 library(glue)
 library(ggh4x)
+library(here)
 
 # get new copies of raw atlas data
-data_dir <- getwd()
-node_metadata <- paste0(data_dir, "/data-raw/node_metadata.csv") |>
+node_metadata <- here::here("data-raw", "node_metadata.csv") |>
   read_csv(show_col_types = FALSE) |>
   filter(supported == TRUE) |>
   select(-supported)
 
-df <- paste0(data_dir, "/data-raw/node_config.csv") |>
-  read_csv(show_col_types = FALSE) |> 
+df <- here::here("data-raw", "node_config.csv") |>
+  read_csv(show_col_types = FALSE)
+
+df <- df |>
   filter(atlas %in% node_metadata$region,
          functional == TRUE,
          !is.na(type) # this happens rn because of GBIF collectory search not being properly integrated
@@ -61,14 +63,13 @@ df$group <- factor(
              "Files"))
 
 df$subgroup <- factor(
-  case_match(df$api_group, 
-             "sources" ~ 1, 
-             "taxa" ~ 2, 
-             "filters" ~ 3,
-             "occurrences" ~ 4,
-             "species" ~ 5,
-             "other" ~ 6
-             ),
+  dplyr::recode_values(df$api_group, 
+                       "sources" ~ 1, 
+                       "taxa" ~ 2, 
+                       "filters" ~ 3,
+                       "occurrences" ~ 4,
+                       "species" ~ 5,
+                       "other" ~ 6),
   levels = seq_len(6),
   labels = c("Sources",
              "Taxa",
@@ -78,36 +79,27 @@ df$subgroup <- factor(
              "Other"))
 
 df$atlas_label <- factor(
-  case_match(df$atlas,
+  dplyr::recode_values(df$atlas,
              "Global" ~ 1,
              "Australia" ~ 2,
              "Spain" ~ 3,
-             "Sweden" ~ 4,
-             "Flanders" ~ 5,
-             "United Kingdom" ~ 6,
-             "Kew" ~ 7,
-             "Austria" ~ 8,
-             "Brazil" ~ 9,
-             "Guatemala" ~ 10,
-             "Portugal" ~ 11,
-             "France" ~ 12
-  ),
-  levels = seq_len(12),
+             "Flanders" ~ 4,
+             "United Kingdom" ~ 5,
+             "Kew" ~ 6,
+             "Austria" ~ 7,
+             "Brazil" ~ 8,
+             "Portugal" ~ 9),
+  levels = seq_len(9),
   labels = c(
     "<span style='font-size:9pt'>Global</span><br>\n<span style='font-size:6pt'>gbif.org</span>",
     "<span style='font-size:9pt'>Australia</span><br>\n<span style='font-size:6pt'>www.ala.org.au</span>",
     "<span style='font-size:9pt'>Spain</span><br>\n<span style='font-size:6pt'>gbif.es</span>",
-    "<span style='font-size:9pt'>Sweden</span><br>\n<span style='font-size:6pt'>biodiversitydata.se</span>" ,
     "<span style='font-size:9pt'>Flanders</span><br>\n<span style='font-size:6pt'>natuurdata.inbo.be</span>",
     "<span style='font-size:9pt'>United Kingdom</span><br>\n<span style='font-size:6pt'>nbn.org.uk</span>",
     "<span style='font-size:9pt'>Kew</span><br>\n<span style='font-size:6pt'>data.kew.org</span>",
     "<span style='font-size:9pt'>Austria</span><br>\n<span style='font-size:6pt'>biodiversityatlas.at</span>",
     "<span style='font-size:9pt'>Brazil</span><br>\n<span style='font-size:6pt'>sibbr.gov.br</span>",
-    "<span style='font-size:9pt'>Guatemala</span><br>\n<span style='font-size:6pt'>snib.conap.gob.gt</span>",
-    "<span style='font-size:9pt'>Portugal</span><br>\n<span style='font-size:6pt'>www.gbif.pt</span>",
-    "<span style='font-size:9pt'>France</span><br>\n<span style='font-size:6pt'>openobs.mnhn.fr</span>"
-  )
-)
+    "<span style='font-size:9pt'>Portugal</span><br>\n<span style='font-size:6pt'>www.gbif.pt</span>"))
 
 df$type_label <- factor(
   case_match(df$type, 
@@ -222,5 +214,5 @@ p <- ggplot(df,
 
 ggsave("./man/figures/atlases_plot.png",
        width = 8,
-       height = 6.0,
+       height = 4.5,
        units = "in")
