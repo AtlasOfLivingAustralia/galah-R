@@ -2,16 +2,17 @@
 #' @keywords Internal
 #' @param .query an object of class `data_request`
 #' @noRd
-capture_occurrences_count <- function(.query){
+capture_occurrences_count <- function(.query, call = rlang::caller_env()){
   switch(.query$atlas,
-         "Global" = capture_occurrences_count_gbif(.query),
-         capture_occurrences_count_atlas(.query))
+         "Global" = capture_occurrences_count_gbif(.query, call = call),
+         capture_occurrences_count_atlas(.query, call = call))
   }
 
 #' capture() for counts on LAs
 #' @keywords Internal
 #' @noRd
-capture_occurrences_count_atlas <- function(.query){
+capture_occurrences_count_atlas <- function(.query,
+                                            call = rlang::caller_env()){
   query <- build_query(identify = .query$identify, 
                        filter = .query$filter, 
                        geolocate = .query$geolocate, 
@@ -20,7 +21,7 @@ capture_occurrences_count_atlas <- function(.query){
   # set behaviour depending on `group_by()`
   if(is.null(.query$group_by) & is.null(.query$distinct)){
     .query$type <- "data/occurrences-count"
-    url <- url_lookup(.query) |> 
+    url <- url_lookup(.query, error_call = call) |> 
       httr2::url_parse()
     url$query <- c(query, pageSize = 0)
     result <- list(type = .query$type,
@@ -29,7 +30,7 @@ capture_occurrences_count_atlas <- function(.query){
                    headers = build_headers())
   }else{
     .query$type <- "data/occurrences-count-groupby"
-    url <- url_lookup(.query) |> 
+    url <- url_lookup(.query, error_call = call) |> 
       httr2::url_parse()
     if(!is.null(.query$group_by)){
       facets <- .query$group_by$name
@@ -68,7 +69,8 @@ parse_slice_arrange <- function(df){
 #' capture() for counts on GBIF
 #' @keywords Internal
 #' @noRd
-capture_occurrences_count_gbif <- function(.query){
+capture_occurrences_count_gbif <- function(.query,
+                                           call = rlang::caller_env()){
   # compile supplied arguments into a list
   # honestly this is a little messy, but the alternative is to call 
   # [build_predicates()], which is messier as taxonomic info hasn't yet been 
@@ -99,7 +101,7 @@ capture_occurrences_count_gbif <- function(.query){
   ## by `collapse()` rather than here.
   list(type = .query$type,
        atlas = .query$atlas,
-       url = url_lookup(.query),
+       url = url_lookup(.query, error_call = call),
        headers =  list(
          `User-Agent` = galah_version_string(), 
          `X-USER-AGENT` = galah_version_string(),

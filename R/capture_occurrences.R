@@ -11,16 +11,17 @@ capture_occurrences <- function(.query,
                    call = call)
   }
   switch(.query$atlas,
-         "Global" = capture_occurrences_gbif(.query, ...),
-         capture_occurrences_la(.query, ...))
+         "Global" = capture_occurrences_gbif(.query, call = call, ...),
+         capture_occurrences_la(.query, call = call, ...))
 }
 
 #' calculate the query to be returned for GBIF
 #' @noRd
 #' @keywords Internal
 capture_occurrences_gbif <- function(.query, 
-                                      format = "SIMPLE_CSV", # or "SPECIES_LIST"
-                                      ...){
+                                     format = "SIMPLE_CSV", # or "SPECIES_LIST",
+                                     call = rlang::caller_env(),
+                                     ...){
   # get user string
   .query$type <- "data/occurrences"
   username <- .query$authenticate$username
@@ -30,7 +31,7 @@ capture_occurrences_gbif <- function(.query,
   # build object
   list(type = .query$type,
        atlas = .query$atlas,
-       url = url_lookup(.query),
+       url = url_lookup(.query, error_call = call),
        headers =  list(
          `User-Agent` = galah_version_string(), 
          `X-USER-AGENT` = galah_version_string(),
@@ -51,6 +52,7 @@ capture_occurrences_gbif <- function(.query,
 #' @noRd
 #' @keywords Internal
 capture_occurrences_la <- function(.query,
+                                   call = rlang::caller_env(),
                                    mint_doi = FALSE){
   .query$type <- "data/occurrences"
   # build a query
@@ -71,7 +73,7 @@ capture_occurrences_la <- function(.query,
                     atlas = .query$atlas)
 
   # build url
-  url <- url_lookup(.query) |>
+  url <- url_lookup(.query, error_call = call) |>
     httr2::url_parse()
   url$query <- query
   
@@ -87,7 +89,7 @@ capture_occurrences_la <- function(.query,
 #' @noRd
 #' @keywords Internal
 capture_occurrences_doi <- function(.query, 
-                                    error_call = rlang::caller_env()){
+                                    call = rlang::caller_env()){
   .query$type <- "data/occurrences-doi"
 
   # check for a doi filter
@@ -134,6 +136,7 @@ capture_occurrences_doi <- function(.query,
   list(type = .query$type,
        atlas = .query$atlas,
        url = url_lookup(.query, 
+                        error_call = call,
                         doi_string = doi),
        headers = build_headers(),
        download = TRUE) |>
@@ -143,7 +146,7 @@ capture_occurrences_doi <- function(.query,
 #' Internal function to convert `data_request` with `type = "occurrences-glimpse"` to a `query`
 #' @noRd
 #' @keywords Internal
-capture_occurrences_glimpse <- function(.query){
+capture_occurrences_glimpse <- function(.query, call = call){
 
   if(.query$atlas == "Global"){
     result <- capture_occurrences_count(.query)
@@ -159,7 +162,7 @@ capture_occurrences_glimpse <- function(.query){
     url$path <- list(type = "data/occurrences-count",
                      atlas = .query$atlas) |>
       structure(class = c("data_request", "list")) |>
-      url_lookup() |>
+      url_lookup(error_call = call) |>
       httr2::url_parse() |>
       purrr::pluck("path") 
     url$query$pageSize <- 3 # add a pageSize arg

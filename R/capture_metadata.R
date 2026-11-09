@@ -6,10 +6,10 @@
 #' @param query_type the sting used to define that query type; see `show_all_apis()`
 #' @noRd
 #' @keywords Internal
-default_query <- function(x){
+default_query <- function(x, call = rlang::caller_env()){
   list(type = x$type,
        atlas = x$atlas,
-       url = url_lookup(x),
+       url = url_lookup(x, error_call = call),
        headers = build_headers())
 }
 
@@ -26,8 +26,8 @@ default_cache <- function(x){
 #' Modified version of `default_query()` that supports filtering
 #' @noRd
 #' @keywords Internal
-filtered_query <- function(x){
-  url <- url_lookup(x) |>
+filtered_query <- function(x, call = rlang::caller_env()){
+  url <- url_lookup(x, error_call = call) |>
     httr2::url_parse()
   url$query <- list(q = x$filter$value[1])
   list(type = x$type,
@@ -52,7 +52,7 @@ capture_apis <- function(x){
 #' NOTE: API doesn't accept any arguments - could post-filter for search
 #' @noRd
 #' @keywords Internal
-capture_assertions <- function(x){
+capture_assertions <- function(x, call = rlang::caller_env()){
   x$type <- "metadata/assertions"
   if(x$atlas == "Global"){
     result <- list(type = x$type,
@@ -60,7 +60,7 @@ capture_assertions <- function(x){
                    data = "galah:::gbif_internal_archived$assertions")
   }else{
     if(check_if_cache_update_needed(x, "assertions")){
-      result <- default_query(x)
+      result <- default_query(x, call = call)
     }else{
       result <- default_cache(x)
     }
@@ -83,20 +83,20 @@ capture_atlases <- function(x){
 #' Internal function to create a collections query
 #' @noRd
 #' @keywords Internal
-capture_collections <- function(x){
+capture_collections <- function(x, call = rlang::caller_env()){
   # set `type`
   x$type <- "metadata/collections"
   # If `filter()` is supplied, we always need a query
   if(x$atlas == "Global" & !missing(x)){
     if(!is.null(x$filter)){
-      result <- filtered_query(x)
+      result <- filtered_query(x, call = call)
     }else{
-      result <- default_query(x)
+      result <- default_query(x, call = call)
     }
   # If no `filter()`, check cache instead
   }else{
     if(check_if_cache_update_needed(x, "collections")){
-      result <- default_query(x)
+      result <- default_query(x, call = call)
     }else{
       result <- default_cache(x)
     }
@@ -110,10 +110,10 @@ capture_collections <- function(x){
 #' Internal function to create an auth-config query
 #' @noRd
 #' @keywords Internal
-capture_config <- function(x){
+capture_config <- function(x, call = rlang::caller_env()){
   x$type <- "metadata/config"
   if(check_if_cache_update_needed(x, "config")){
-    result <- default_query(x)
+    result <- default_query(x, call = call)
   }else{
     result <- default_cache(x)     
   }
@@ -124,20 +124,20 @@ capture_config <- function(x){
 #' Internal function to create a datasets query
 #' @noRd
 #' @keywords Internal
-capture_datasets <- function(x){
+capture_datasets <- function(x, call = rlang::caller_env()){
   # set `type`
   x$type <- "metadata/datasets"
   # If `filter()` is supplied, we always need a query
   if(x$atlas == "Global" & !missing(x)){
     if(!is.null(x$filter)){
-      result <- filtered_query(x)
+      result <- filtered_query(x, call = call)
     }else{
-      result <- default_query(x)
+      result <- default_query(x, call = call)
     }
     # If no `filter()`, check cache instead
   }else{
     if(check_if_cache_update_needed(x, "datasets")){
-      result <- default_query(x)
+      result <- default_query(x, call = call)
     }else{
       result <- default_cache(x)
     }
@@ -149,10 +149,10 @@ capture_datasets <- function(x){
 #' Internal function to create a fields query
 #' @noRd
 #' @keywords Internal
-capture_fields <- function(x){
+capture_fields <- function(x, call = rlang::caller_env()){
   x$type <- "metadata/fields"
   if(check_if_cache_update_needed(x, "fields")){
-    default_query(x) |> as_query()
+    default_query(x, call = call) |> as_query()
   }else{
     default_cache(x) |> as_query()  
   }
@@ -161,10 +161,10 @@ capture_fields <- function(x){
 #' Internal function to create a licences query
 #' @noRd
 #' @keywords Internal
-capture_licences <- function(x){
+capture_licences <- function(x, call = rlang::caller_env()){
   x$type <- "metadata/licences"
   if(check_if_cache_update_needed(x, "licences")){
-    default_query(x) |> as_query()
+    default_query(x, call = call) |> as_query()
   }else{
     default_cache(x) |> as_query()  
   }
@@ -174,14 +174,14 @@ capture_licences <- function(x){
 #' @noRd
 #' @keywords Internal
 capture_lists <- function(x,
-                          error_call = rlang::caller_env()){
+                          call = rlang::caller_env()){
   x$type <- "metadata/lists"
   # if filter is supplied, lookup a specified list by dr number
   if(!is.null(x$filter)){
     dr_lookup <- stringr::str_detect(x$filter$value, "^dr")
     if(any(dr_lookup)){
       dr_values <- x$filter$value[dr_lookup]
-      base_url <- url_lookup(x)
+      base_url <- url_lookup(x, error_call = call)
       url <- glue::glue("{base_url}/{dr_values}")
       if(length(url) > 1){
         result <- list(type = x$type,
@@ -197,12 +197,12 @@ capture_lists <- function(x,
     }else{
       cli::cli_abort(c("`filter()` arguments to `lists` only accept a data resource number.",
                        i = "e.g. {.code request_metadata() |> filter(lists == 'dr656')}"),
-                     call = error_call)
+                     call = call)
     }
   # if filter isn't supplied, check cache etc
   }else{
     if(check_if_cache_update_needed(x, "lists")){
-      url <- url_lookup(x)
+      url <- url_lookup(x, error_call = call)
       if(!missing(x)){
         url <- url |> httr2::url_parse()
         # note: page size is set in `collapse()` rather than here
@@ -229,7 +229,7 @@ capture_lists <- function(x,
 #' @noRd
 #' @keywords Internal
 capture_media_metadata <- function(.query,
-                                    error_call = rlang::caller_env()){
+                                    call = rlang::caller_env()){
   # NOTE:
   # this function currently assumes that the user has passed an occurrence 
   # tibble verbatim to filter, i.e.
@@ -238,30 +238,15 @@ capture_media_metadata <- function(.query,
   # `request_metadata() |> filter(media = occurrences$images`) |> collapse()
   if(is.null(.query$filter)){
     cli::cli_abort("Requests for metadata of type = \"media\" must have information passed via `filter()`",
-                   call = error_call)
+                   call = call)
   }
   
-  ## Move this to `atlas_media()`
-  # occ <- .query$filter$data
-  # if(any(colnames(occ) %in% c("images", "videos", "sounds"))){ # Australia, Sweden, Spain
-  #   media_cols <- which(colnames(occ) %in% c("images", "videos", "sounds"))
-  #   media_ids <- do.call(c, occ[, media_cols]) |>
-  #     unlist()
-  #   media_ids <- media_ids[!is.na(media_ids)]
-  #   names(media_ids) <- NULL
-  # }else if(any(colnames(occ) == "all_image_url")){ # Austria, Sweden, UK
-  #   media_ids <- dplyr::pull(occ, "all_image_url")
-  #   media_ids <- media_ids[!is.na(media_ids)]
-  #   names(media_ids) <- NULL
-  # }else{
-  #   cli::cli_abort("Media metadata not found in supplied tibble",
-  #                  call = error_call)
-  # }
   .query$type <- "metadata/media"
   list(type = .query$type,
        atlas = .query$atlas,
        url = tibble::tibble(url = url_lookup(.query,
-                                             id = .query$filter$value)),
+                                             id = .query$filter$value,
+                                             error_call = call)),
        headers = build_headers()) |>
     as_query()
   
@@ -270,10 +255,10 @@ capture_media_metadata <- function(.query,
 #' Internal function to create a profiles query
 #' @noRd
 #' @keywords Internal
-capture_profiles <- function(x){
+capture_profiles <- function(x, call = rlang::caller_env()){
   x$type <- "metadata/profiles"
   if(check_if_cache_update_needed(x, "profiles")){
-    result <- default_query(x)
+    result <- default_query(x, call = call)
   }else{
     result <- default_cache(x)     
   }
@@ -284,20 +269,20 @@ capture_profiles <- function(x){
 #' Internal function to create a providers query
 #' @noRd
 #' @keywords Internal
-capture_providers <- function(x){
+capture_providers <- function(x, call = rlang::caller_env()){
   # set `type`
   x$type <- "metadata/providers"
   # If `filter()` is supplied, we always need a query
   if(x$atlas == "Global" & !missing(x)){
     if(!is.null(x$filter)){
-      result <- filtered_query(x)
+      result <- filtered_query(x, call = call)
     }else{
-      result <- default_query(x)
+      result <- default_query(x, call = call)
     }
     # If no `filter()`, check cache instead
   }else{
     if(check_if_cache_update_needed(x, "providers")){
-      result <- default_query(x)
+      result <- default_query(x, call = call)
     }else{
       result <- default_cache(x)
     }
@@ -309,10 +294,10 @@ capture_providers <- function(x){
 #' Internal function to create a reasons query
 #' @noRd
 #' @keywords Internal
-capture_reasons <- function(x){
+capture_reasons <- function(x, call = rlang::caller_env()){
   x$type <- "metadata/reasons"
   if(check_if_cache_update_needed(x, "reasons")){
-    result <- default_query(x)
+    result <- default_query(x, call = call)
   }else{
     result <- default_cache(x)     
   }

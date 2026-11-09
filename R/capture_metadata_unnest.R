@@ -2,9 +2,9 @@
 #' `request_metadata(type = "fields") |> unnest()`
 #' @noRd
 #' @keywords Internal
-capture_fields_unnest <- function(.query){
+capture_fields_unnest <- function(.query, call = rlang::caller_env()){
   .query$type <- "metadata/fields-unnest"
-  url <- url_lookup(.query) |> 
+  url <- url_lookup(.query, error_call = call) |> 
     httr2::url_parse()
   if(.query$atlas == "Global"){
     url$query <- list(limit = 0,
@@ -24,11 +24,12 @@ capture_fields_unnest <- function(.query){
 #' `request_metadata(type = "lists") |> unnest()`
 #' @noRd
 #' @keywords Internal
-capture_lists_unnest <- function(.query){
+capture_lists_unnest <- function(.query, call = rlang::caller_env()){
   .query$type <- "metadata/lists-unnest"
   # get list lookup url
   url <- url_lookup(.query,
-                    list_id = .query$filter$value[1]) |>
+                    list_id = .query$filter$value[1], 
+                    error_call = call) |>
     httr2::url_parse()
   
   # set a default query
@@ -49,12 +50,13 @@ capture_lists_unnest <- function(.query){
 #' `request_metadata(type = "profiles") |> unnest()`
 #' @noRd
 #' @keywords Internal
-capture_profiles_unnest <- function(.query){
+capture_profiles_unnest <- function(.query, call = rlang::caller_env()){
   .query$type <- "metadata/profiles-unnest"
   list(type = .query$type,
        atlas = .query$atlas,
        url = url_lookup(.query, 
-                        profile = .query$filter$value[1]))  |>
+                        profile = .query$filter$value[1], 
+                        error_call = call))  |>
     as_prequery()
 }
 
@@ -76,7 +78,7 @@ capture_taxa_unnest <- function(.query, call = rlang::caller_env()){
   }
   list(type = .query$type,
        atlas = .query$atlas,
-       url = url_lookup(.query, id = id),
+       url = url_lookup(.query, id = id, error_call = call),
        headers = build_headers()) |>
     as_prequery()
 }

@@ -10,7 +10,7 @@ capture_taxa <- function(.query, call = rlang::caller_env()){
        colnames(.query$identify)[1] != "search_term"){
       result <- capture_taxa_multiple(.query, call = call)
     }else{
-      result <- capture_taxa_single(.query)
+      result <- capture_taxa_single(.query, call = call)
     }
   }
   result |>
@@ -20,7 +20,7 @@ capture_taxa <- function(.query, call = rlang::caller_env()){
 #' Internal function to `capture()` for a single taxonomic name 
 #' @noRd
 #' @keywords Internal
-capture_taxa_single <- function(.query){
+capture_taxa_single <- function(.query, call = rlang::caller_env()){
   .query$type <- "metadata/taxa-single"
   terms <- .query$identify$search_term
   
@@ -31,7 +31,8 @@ capture_taxa_single <- function(.query){
     utils::URLencode(reserved = TRUE) |>
     gsub("%20", "+", x = _, fixed = TRUE)
   url <- url_lookup(.query,
-                    name = terms_formatted)
+                    name = terms_formatted,
+                    error_call = call)
   
   # For GBIF (only), switch to CoL taxonomy
   if(.query$atlas == "Global"){
@@ -103,7 +104,7 @@ capture_taxa_multiple <- function(.query, call = rlang::caller_env()){
                       seq_len(nrow(identify_df)))
   
   # create a set of valid urls
-  base_url <- url_lookup(.query) |>
+  base_url <- url_lookup(.query, error_call = call) |>
     httr2::url_parse()
   urls <- purrr::map(split_list,
                      function(a){
@@ -133,15 +134,15 @@ capture_taxa_multiple <- function(.query, call = rlang::caller_env()){
 #' Internal function to create an identifiers query
 #' @noRd
 #' @keywords Internal
-capture_identifiers <- function(.query){
+capture_identifiers <- function(.query, call = rlang::caller_env()){
   .query$type <- "metadata/identifiers"
   if(is.null(.query$filter)){
-    url_list <- url_lookup(.query)
+    url_list <- url_lookup(.query, error_call = call)
     names(url_list) <- "no-name-supplied"
   }else{
     search_terms <- .query$filter$value
     query <- as.list(search_terms)
-    base_url <- url_lookup(.query)
+    base_url <- url_lookup(.query, error_call = call)
     # create query urls
     if(grepl("api.gbif.org", base_url)){ # NOTE: This is not `.query$atlas == "GBIF"` because other atlases use this API
       base_url <- utils::URLdecode(base_url)
