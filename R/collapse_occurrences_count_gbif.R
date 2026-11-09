@@ -20,7 +20,8 @@ collapse_occurrences_count_gbif <- function(x, limit = 0){
 collapse_occurrences_count_gbif_groupby_basic <- function(x){
   x$body <- list(predicate = build_predicates(x$body),
                  limit = 0,
-                 facets = parse_predicates_groupby(x$body$group_by)) |>
+                 facets = parse_predicates_groupby(x$body$group_by),
+                 facetLimit = x$request$slice_arrange$slice_n) |>
     remove_nulls_from_list() |>
     jsonlite::toJSON(auto_unbox = TRUE,
                      pretty = TRUE)

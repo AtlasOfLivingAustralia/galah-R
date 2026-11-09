@@ -372,6 +372,7 @@ check_slice_arrange <- function(x){
   if(!stringr::str_detect(x$type, "-count$")){
     x
   }else{
+    # first handle slice
     if(is.null(x$slice)){
       # limits to 10,000 rows
       # TODO: This should ultimately be set by `slice` or `atlas_counts(limit = )`, not internally.
@@ -380,10 +381,16 @@ check_slice_arrange <- function(x){
     }else{
       slice <- x$slice
     }
+
+    # then arrange
     if(is.null(x$arrange)){
       arrange <- tibble::tibble(variable = "count", 
                                 direction = "descending")
     }else{
+      if(x$atlas == "Global"){
+      c("`arrange()` is not currently supported by the GBIF occurrence count API: Ignoring.") |>
+        cli::cli_warn()
+      }
       arrange <- x$arrange
     }
     x$slice_arrange <- dplyr::bind_cols(slice, arrange)

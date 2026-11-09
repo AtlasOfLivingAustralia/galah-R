@@ -64,6 +64,20 @@ test_that("`show_values()` works for GBIF fields", {
   expect_equal(x, y)
 })
 
+test_that("slice_head() works with `count(country)` for GBIF", {
+  skip_if_offline(); skip_on_ci()
+  galah_config(atlas = "GBIF")
+  x_default <- request_data() |>
+    count(country) |>
+    collect()
+  x_5 <- request_data() |>
+    count(country) |>
+    slice_head(n = 5) |>
+    collect()
+  expect_gte(nrow(x_default), 200)
+  expect_equal(nrow(x_5), 5)
+})
+
 test_that("`show_values()` fails for unsearchable GBIF fields", {
   skip_if_offline(); skip_on_ci()
   galah_config(run_checks = TRUE)

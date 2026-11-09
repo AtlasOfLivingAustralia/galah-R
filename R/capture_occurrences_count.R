@@ -79,7 +79,7 @@ capture_occurrences_count_gbif <- function(.query){
                           group_by = .query$group_by,
                           slice = ifelse(is.null(.query$slice),
                                          tibble::tibble(slice_n = 30, slice_called = FALSE),
-                                         .query$slice), 
+                                         .query$slice),
                           limit = 0)
   
   # get strings
