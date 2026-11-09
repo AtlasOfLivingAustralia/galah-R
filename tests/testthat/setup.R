@@ -19,7 +19,7 @@ quiet_collect <- function(x, ...){
     purrr::pluck("result")
 }
 
-# set up bespoke skip_ function to enforce preferred test behaviour
+# set up bespoke skip_ functions to enforce preferred test behaviour
 
 # check status and cache *before* running tests
 is_online_realtime <- function(){!is.null(curl::nslookup("captive.apple.com", error = FALSE))}
@@ -46,4 +46,18 @@ skip_galah <- function(){
   skip_on_cran()
   skip_if(!is_online_cached(), "offline") 
   skip_on_ci()
+}
+
+# new function to silently skip failed tests
+skip_unavailable <- function(x, other_classes = c()){
+  # capture with `try()`
+  result <- x |>
+    try(silent = TRUE)
+  # skip if `try()` fails
+  default_class <- "try_error"
+  if(inherits(result, c(default_class, other_classes))){
+    testthat::skip(message = "API not available")
+  }else{
+    return(result)
+  }
 }

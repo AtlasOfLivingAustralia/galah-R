@@ -8,8 +8,7 @@ test_that("swapping to atlas = Austria works", {
 test_that("`show_all(assertions)` works for Austria", {
   skip_galah()
   x <- show_all(assertions) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   y <- request_metadata(type = "assertions") |> collect()
@@ -19,8 +18,7 @@ test_that("`show_all(assertions)` works for Austria", {
 test_that("`show_all(collections)` works for Austria", {
   skip_galah()
   x <- show_all(collections) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   y <- request_metadata(type = "collections") |> collect()
@@ -30,8 +28,7 @@ test_that("`show_all(collections)` works for Austria", {
 test_that("`show_all(datasets)` works for Austria", {
   skip_galah()
   x <- show_all(datasets) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   y <- request_metadata(type = "datasets") |> collect()
@@ -41,8 +38,7 @@ test_that("`show_all(datasets)` works for Austria", {
 test_that("`show_all(fields)` works for Austria", {
   skip_galah()
   x <- show_all(fields) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   y <- request_metadata(type = "fields") |> collect()
@@ -52,8 +48,7 @@ test_that("`show_all(fields)` works for Austria", {
 test_that("`show_all(licences)` works for Austria", {
   skip_galah()
   x <- show_all(licences) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_lte(nrow(x), 10)
   # this API exists, but is empty at time of writing (2024-02-26)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
@@ -61,48 +56,44 @@ test_that("`show_all(licences)` works for Austria", {
   expect_equal(x, y)
 })
 
-test_that("show_all(lists) works for Austria", {
+test_that("`show_all(lists)` works for Austria", {
   skip_galah()
   x <- show_all(lists) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   y <- request_metadata(type = "lists") |> collect()
   expect_equal(x, y)
 })
 
-test_that("show_all(providers) works for Austria", {
+test_that("`show_all(providers)` works for Austria", {
   skip_galah()
   x <- show_all(providers) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   y <- request_metadata(type = "providers") |> collect()
   expect_equal(x, y)
 })
 
-test_that("show_all(reasons) works for Austria", {
+test_that("`show_all(reasons)` works for Austria", {
   skip_galah()
   x <- show_all(reasons) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   y <- request_metadata(type = "reasons") |> collect()
   expect_equal(x, y)
 })
 
-test_that("show_all(profiles) fails for Austria", {
+test_that("`show_all(profiles)` fails for Austria", {
   expect_error(show_all(profiles))
 })
 
 test_that("`search_all(fields)` works for Austria", {
   skip_galah()
   x <- search_all(fields, "year") |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -110,8 +101,7 @@ test_that("`search_all(fields)` works for Austria", {
 test_that("`search_all(taxa)` works for Austria", {
   skip_galah()
   x <- search_all(taxa, "Vulpes vulpes") |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -143,8 +133,7 @@ test_that("`atlas_counts()` works with type = 'occurrences' for Austria", {
   skip_galah()
   x <- atlas_counts() |>
     dplyr::pull(count) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gt(x, 0)
 })
 
@@ -152,8 +141,7 @@ test_that("`atlas_counts()` works with type = 'species' for Austria", {
   skip_galah()
   x <- atlas_counts(type = "species") |>
     dplyr::pull(count) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gt(x, 0)
 })
 
@@ -164,8 +152,7 @@ test_that("`count()` works with `identify()` for Austria", {
     identify("Mammalia") |> # run_checks = TRUE works
     count() |>
     collect() |>
-    try(silent = TRUE)
-  skip_if(inherits(result, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gt(result$count, 1)
   result2 <- galah_call() |>
     galah_filter(class == "Mammalia") |>
@@ -181,8 +168,7 @@ test_that("`count()` works with group_by for Austria", {
     filter(year >= 2020) |>
     count(year) |>
     collect() |>
-    try(silent = TRUE)
-  skip_if(inherits(result, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gt(nrow(result), 1)
   expect_equal(names(result), c("year", "count"))
 })
@@ -197,8 +183,7 @@ test_that("`atlas_species()` works for Austria", {
   spp <- galah_call(type = "species") |>
     identify("Mammalia") |> # NOTE: testing with Reptilia failed as this taxon not uniquely matched
     collect() |>
-    try(silent = TRUE)
-  skip_if(inherits(spp, "try-error"), message = "API not available")
+    skip_unavailable()
   skip_if((nrow(spp) < 1 & ncol(spp) < 1), message = "API not available")
   expect_gt(nrow(spp), 100) # actual number 569 spp on 2024-08-22
   expect_gt(ncol(spp), 8) # actually 10
@@ -224,23 +209,20 @@ test_that("`atlas_occurrences()` works for Austria", {
   occ_collapse <- base_query |>
     select(species, year) |>
     collapse() |>
-    try(silent = TRUE)
-  skip_if(inherits(occ_collapse, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_s3_class(occ_collapse, "query")
   expect_equal(names(occ_collapse), 
                c("type", "atlas", "url", "headers", "request"))
   expect_equal(occ_collapse$type, "data/occurrences")
   # compute
   occ_compute <- compute(occ_collapse) |>
-    try(silent = TRUE)
-  skip_if(inherits(occ_collapse, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_s3_class(occ_compute, "computed_query")
   # collect with pause of 20 seconds and `wait = FALSE`
   # This is clumsy, but useful beacuse previously we were getting wait times of ~10 minutes
   Sys.sleep(20)
   occ <- collect(occ_compute, wait = FALSE) |>
-    try(silent = TRUE)
-  skip_if(inherits(occ, c("try-error", "computed_query")), message = "API not available")
+    skip_unavailable(other_classes = "computed_query") 
   expect_equal(nrow(occ), counts$count[1])
   expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
   expect_equal(ncol(occ), 2)
@@ -260,8 +242,7 @@ test_that("`atlas_media()` works for Austria", {
     identify("Mammalia") |>
     filter(year == 2010) |>
     atlas_media() |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gte(nrow(x), 1)
   expect_equal(colnames(x)[1:2],
@@ -284,7 +265,7 @@ test_that("atlas_taxonomy works for Austria", {
     identify("Aves") |>
     filter(rank >= order) |>
     atlas_taxonomy() |>
-    try(silent = TRUE)
+    skip_unavailable()
   skip_if(inherits(y, "try-error"), message = "API not available")
   # add tests
   expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))

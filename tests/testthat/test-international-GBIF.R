@@ -159,8 +159,7 @@ test_that("`search_all(taxa)` works using a tibble for GBIF", {
   x <- search_all(taxa, 
                   data.frame(kingdom = "Animalia", 
                              phylum = "Chordata")) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_equal(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -181,8 +180,7 @@ test_that("`search_all(taxa)` works using a muti-row tibble for GBIF", {
                   data.frame(kingdom = "Animalia", 
                              phylum = "Chordata",
                              class = c("Aves", "Amphibia"))) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_equal(nrow(x), 2)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   # check that no taxon concept IDs consist solely of numbers (i.e. no letters)
@@ -195,8 +193,7 @@ test_that("`search_all(taxa)` works using a muti-row tibble for GBIF", {
 test_that("`search_all(identifiers)` works for GBIF", {
   skip_galah()
   x <- search_all(identifiers, "359") |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_equal(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -306,8 +303,7 @@ test_that("`count()` works with `identify` for GBIF when `run_checks` = TRUE", {
   # collect
   Sys.sleep(pause_time * 5)
   z <- collect(y, wait = FALSE) |>
-    try(silent = TRUE)
-  skip_if(inherits(z, c("try-error", "computed_query")), message = "API not available")
+    skip_unavailable(other_classes = "computed_query")
   expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
   expect_gt(z$count, 1)
   expect_equal(nrow(z), 1)
@@ -372,8 +368,7 @@ test_that("`atlas_occurrences()` works for GBIF", {
     compute()
   Sys.sleep(pause_time * 5)
   x <- collect(x_compute, wait = FALSE) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, c("try-error", "computed_query")), message = "API not available")
+    skip_unavailable(other_classes = "computed_query")
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(x), 10)
   expect_gt(ncol(x), 10)
@@ -390,8 +385,7 @@ test_that("`atlas_occurrences()` works with `select()` for GBIF", {
     compute()
   Sys.sleep(pause_time * 5)
   x <- collect(x_compute, wait = FALSE) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, c("try-error", "computed_query")), message = "API not available")
+    skip_unavailable(other_classes = "computed_query")
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(x), 10)
   expect_equal(ncol(x), 3)
@@ -431,8 +425,7 @@ test_that("`atlas_species()` works for GBIF", {
   expect_s3_class(y, "computed_query")
   Sys.sleep(pause_time * 5)
   z <- collect(y, wait = FALSE) |>
-    try(silent = TRUE)
-  skip_if(inherits(z, c("try-error", "computed_query")), message = "API not available")
+    skip_unavailable(other_classes = "computed_query")
   expect_gt(nrow(z), 10) # n = 14
   expect_gt(ncol(z), 5)  # n = 22
   expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
@@ -450,8 +443,7 @@ test_that("`count()` queries work with `authenticate()` for GBIF", {
     compute()
   Sys.sleep(pause_time * 5)
   x <- collect(x_compute, wait = FALSE) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, c("try-error", "computed_query")), message = "API not available")
+    skip_unavailable(other_classes = "computed_query")
   expect_equal(nrow(x), 1)
   expect_equal(ncol(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
@@ -471,8 +463,7 @@ test_that("`distinct()` queries accept `select()` for GBIF", {
     compute()
   Sys.sleep(pause_time * 5)
   x <- collect(x_compute, wait = FALSE) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, c("try-error", "computed_query")), message = "API not available")
+    skip_unavailable(other_classes = "computed_query")
   expect_gt(nrow(x), 10) # 
   expect_equal(ncol(x), 2)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
@@ -512,8 +503,7 @@ test_that("`collect()` works for GBIF with `type = 'occurrences' or 'occurrences
   # collect
   Sys.sleep(pause_time * 5)
   z <- collect(y, wait = FALSE) |>
-    try(silent = TRUE)
-  skip_if(inherits(z, c("try-error", "computed_query")), message = "API not available")
+    skip_unavailable(other_classes = "computed_query")
   expect_gt(nrow(z), 0)
   expect_gt(ncol(z), 0)
   expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))

@@ -8,8 +8,7 @@ test_that("swapping to atlas = Portugal works", {
 test_that("show_all(fields) works for Portugal", {
   skip_galah()
   x <- show_all(fields) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -17,8 +16,7 @@ test_that("show_all(fields) works for Portugal", {
 test_that("show_all(collections) works for Portugal", {
   skip_galah()
   x <- show_all(collections, limit = 10) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -26,8 +24,7 @@ test_that("show_all(collections) works for Portugal", {
 test_that("show_all(datasets) works for Portugal", {
   skip_galah()
   x <- show_all(datasets, limit = 10) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -35,8 +32,7 @@ test_that("show_all(datasets) works for Portugal", {
 test_that("show_all(providers) works for Portugal", {
   skip_galah()
   x <- show_all(providers, limit = 10) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -44,8 +40,7 @@ test_that("show_all(providers) works for Portugal", {
 test_that("show_all(reasons) works for Portugal", {
   skip_galah()
   x <- show_all(reasons) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -53,8 +48,7 @@ test_that("show_all(reasons) works for Portugal", {
 test_that("show_all(assertions) works for Portugal", {
   skip_galah()
   x <- show_all(assertions) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -70,8 +64,7 @@ test_that("show_all(lists) fails for Portugal", {
 test_that("search_all(fields) works for Portugal", {
   skip_galah()
   x <- search_all(fields, "year") |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -79,8 +72,7 @@ test_that("search_all(fields) works for Portugal", {
 test_that("search_all(taxa) works for Portugal", {
   skip_galah()
   x <- search_all(taxa, "Mammalia") |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -93,8 +85,7 @@ test_that("show_values works for fields for Portugal", {
   }
   x <- search_all(fields, "basisOfRecord") |> 
     quiet_values() |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -103,8 +94,7 @@ test_that("`atlas_counts()` works for Portugal", {
   skip_galah()
   x <- atlas_counts() |>
     dplyr::pull(count) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gt(x, 0)
 })
 
@@ -112,8 +102,7 @@ test_that("`atlas_counts()` works with type = 'species' for Portugal", {
   skip_galah()
   x <- atlas_counts(type = "species") |>
     dplyr::pull(count) |>
-    try(silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_gt(x, 0)
 })
 
@@ -123,15 +112,13 @@ test_that("`count()` works with `identify()` for Portugal", {
     identify("Mammalia") |>
     count() |>
     collect() |>
-    try(silent = TRUE)
-  skip_if(inherits(result, "try-error"), message = "API not available")
+skip_unavailable()
   expect_gt(result$count, 1)
   result2 <- galah_call() |>
     filter(class == "Mammalia") |>
     count() |>
     collect() |>
-    try(silent = TRUE)
-  skip_if(inherits(result2, "try-error"), message = "API not available")
+    skip_unavailable()
   expect_lt(
     sqrt((result2$count - result$count)^2) / result$count, 
     0.1) # i.e. <1% margin of error
@@ -144,8 +131,7 @@ test_that("`count()` works with `group_by()` for Portugal", {
     group_by(basisOfRecord) |>
     count() |>
     collect() |>
-    try(silent = TRUE)
-  skip_if(inherits(result, "try-error"), message = "API not available")
+skip_unavailable()
   expect_gt(nrow(result), 1)
   expect_equal(names(result), c("basisOfRecord", "count"))
 })
