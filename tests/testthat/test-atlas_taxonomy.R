@@ -24,7 +24,7 @@ test_that("`atlas_taxonomy()` requires a single taxon", {
 })
 
 test_that("`atlas_taxonomy()` makes a `tibble` when piped", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   tree <- galah_call() |>
     identify("fungi") |>
     filter(rank >= phylum) |>
@@ -35,7 +35,7 @@ test_that("`atlas_taxonomy()` makes a `tibble` when piped", {
 })
 
 test_that("`atlas_taxonomy()` example runs", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   df <- galah_call() |> 
     identify("chordata") |>
     filter(rank == class) |>

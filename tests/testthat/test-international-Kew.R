@@ -8,7 +8,7 @@ test_that("swapping to atlas = Kew works", {
 })
 
 test_that("show_all(fields) works for Kew", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(fields) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -21,7 +21,7 @@ test_that("show_all(fields) works for Kew", {
 
 test_that("show_all(licences) works for Kew", {
   # NOTE: When tested on 2025-07-04 this API works, but contains no data
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(licences) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -30,7 +30,7 @@ test_that("show_all(licences) works for Kew", {
 })
 
 test_that("show_all(collections) works for Kew", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(collections, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -39,7 +39,7 @@ test_that("show_all(collections) works for Kew", {
 })
 
 test_that("show_all(datasets) works for Kew", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(datasets, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -48,7 +48,7 @@ test_that("show_all(datasets) works for Kew", {
 })
 
 test_that("show_all(providers) works for Kew", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(providers, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -57,7 +57,7 @@ test_that("show_all(providers) works for Kew", {
 })
 
 test_that("show_all(reasons) works for Kew", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(reasons) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -66,7 +66,7 @@ test_that("show_all(reasons) works for Kew", {
 })
 
 test_that("show_all(assertions) works for Kew", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(assertions) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -81,7 +81,7 @@ test_that("show_all(profiles) unavailable for Kew", {
 
 ##  NOTE: When tested on 2025-07-04 this API works, but contains no data
 # test_that("show_all(lists) works for Kew", {
-#  skip_if_offline(); skip_on_ci()
+#  skip_galah()
 #  x <- show_all(lists, limit = 10) |>
 #    try(silent = TRUE)
 #  skip_if(inherits(x, "try-error"), message = "API not available")
@@ -90,7 +90,7 @@ test_that("show_all(profiles) unavailable for Kew", {
 # })
 
 test_that("search_all(fields) works for Kew", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- search_all(fields, "year") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -99,7 +99,7 @@ test_that("search_all(fields) works for Kew", {
 })
 
 test_that("search_all(taxa) works for Kew", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- search_all(taxa, "Acer") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -115,7 +115,7 @@ test_that("search_all(identifiers) unavailable for Kew", {
 ## Currently failing; API exists but doesn't return data
 ## Server-side problem?
 # test_that("show_values works for fields for Kew", {
-#   skip_if_offline(); skip_on_ci()
+#   skip_galah()
 #   x <- search_all(fields, "basis_of_record") |> 
 #     show_values() |>
 #     try(silent = TRUE)
@@ -125,7 +125,7 @@ test_that("search_all(identifiers) unavailable for Kew", {
 # })
 
 test_that("atlas_counts works for Kew", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- atlas_counts() |>
     dplyr::pull(count) |>
     try(silent = TRUE)
@@ -136,7 +136,7 @@ test_that("atlas_counts works for Kew", {
 ## Currently failing: see `show_values()` comment above
 ## which calls the same API
 # test_that("atlas_counts works with type = 'species' for Kew", {
-#   skip_if_offline(); skip_on_ci()
+#   skip_galah()
 #   x <- atlas_counts(type = "species") |>
 #     pull(count) |>
 #     try(silent = TRUE)
@@ -145,7 +145,7 @@ test_that("atlas_counts works for Kew", {
 # })
 
 test_that("`atlas_counts()` works with `identify()` for Kew", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call() |>
     identify("Acer") |>
     count() |>
@@ -166,7 +166,7 @@ test_that("`atlas_counts()` works with `identify()` for Kew", {
 
 ## Again, facetting not functional yet
 # test_that("`atlas_counts()` works with `group_by()` for Kew", {
-#   skip_if_offline(); skip_on_ci()
+#   skip_galah()
 #   result <- galah_call() |>
 #     filter(year >= 2000) |>
 #     group_by(basis_of_record) |>
@@ -179,7 +179,7 @@ test_that("`atlas_counts()` works with `identify()` for Kew", {
 #   })
 
 test_that("`atlas_species()` works for Kew", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(
     atlas = "Kew",
     email = "ala4r@ala.org.au",
@@ -195,7 +195,7 @@ test_that("`atlas_species()` works for Kew", {
 })
 
 test_that("`atlas_occurrences()` works for Kew", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(
     atlas = "Kew",
     email = "ala4r@ala.org.au",
@@ -218,7 +218,7 @@ test_that("`atlas_occurrences()` works for Kew", {
 })
 
 test_that("`atlas_media()` works for Kew", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(
     atlas = "Kew",
     email = "ala4r@ala.org.au",

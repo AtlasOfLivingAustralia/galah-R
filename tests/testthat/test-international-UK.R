@@ -6,7 +6,7 @@ test_that("swapping to atlas = United Kingdom works", {
 })
 
 test_that("show_all(fields) works for UK", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(fields) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -18,7 +18,7 @@ test_that("show_all(fields) works for UK", {
 })
 
 test_that("show_all(collections) works for UK", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(collections, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -27,7 +27,7 @@ test_that("show_all(collections) works for UK", {
 })
 
 test_that("show_all(datasets) works for UK", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(datasets, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -36,7 +36,7 @@ test_that("show_all(datasets) works for UK", {
 })
 
 test_that("show_all(providers) works for UK", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(providers, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -45,7 +45,7 @@ test_that("show_all(providers) works for UK", {
 })
 
 test_that("show_all(reasons) works for UK", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(reasons) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -54,7 +54,7 @@ test_that("show_all(reasons) works for UK", {
 })
 
 test_that("show_all(assertions) works for UK", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(assertions) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -67,7 +67,7 @@ test_that("show_all(profiles) fails for UK", {
 })
 
 test_that("show_all(lists) works for UK", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(lists) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -76,7 +76,7 @@ test_that("show_all(lists) works for UK", {
 })
 
 test_that("search_all(fields) works for UK", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- search_all(fields, "year") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -85,7 +85,7 @@ test_that("search_all(fields) works for UK", {
 })
 
 test_that("search_all(taxa) works for UK", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- search_all(taxa, "Mammalia") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -94,7 +94,7 @@ test_that("search_all(taxa) works for UK", {
 })
 
 test_that("search_taxa works for multiple queries", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   taxa <- search_taxa(c("Vulpes vulpes", "Meles meles")) |>
     try(silent = TRUE)
   skip_if(inherits(taxa, "try-error"), message = "API not available")
@@ -102,12 +102,12 @@ test_that("search_taxa works for multiple queries", {
 })
 
 test_that("search_taxa doesn't break with typos", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   expect_silent(search_taxa("Vlpes"))
 })
 
 test_that("show_values works for UK", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   quiet_values <- function(...){
     x <- purrr::quietly(show_values)
     x(...)$result
@@ -129,7 +129,7 @@ test_that("show_values works for UK", {
 })
 
 test_that("`atlas_counts()` works with type = 'occurrences' for United Kingdom", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- atlas_counts() |>
     dplyr::pull(count) |>
     try(silent = TRUE)
@@ -138,7 +138,7 @@ test_that("`atlas_counts()` works with type = 'occurrences' for United Kingdom",
 })
 
 test_that("`atlas_counts()` works with type = 'species' for United Kingdom", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- atlas_counts(type = "species") |>
     dplyr::pull(count) |>
     try(silent = TRUE)
@@ -147,7 +147,7 @@ test_that("`atlas_counts()` works with type = 'species' for United Kingdom", {
 })
 
 test_that("`count()` works with `identify()` for United Kingdom", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call() |>
     identify("Vulpes") |>
     count() |>
@@ -169,7 +169,7 @@ test_that("`count()` works with `identify()` for United Kingdom", {
 # possibly because name-matching is going wrong somewhere
   
 test_that("`count()` works with group_by for United Kingdom", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call() |>
     filter(year >= 2020) |>
     group_by(year) |>
@@ -182,7 +182,7 @@ test_that("`count()` works with group_by for United Kingdom", {
 })
 
 test_that("`atlas_species()` works for United Kingdom", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(
     atlas = "United Kingdom",
     email = "ala4r@ala.org.au",
@@ -198,7 +198,7 @@ test_that("`atlas_species()` works for United Kingdom", {
 })
 
 test_that("`atlas_occurrences()` works for United Kingdom", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(
     atlas = "United Kingdom",
     email = "ala4r@ala.org.au",
@@ -246,7 +246,7 @@ test_that("`atlas_occurrences()` works for United Kingdom", {
 })
 
 test_that("`atlas_media()` works for UK", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(
     atlas = "United Kingdom",
     email = "ala4r@ala.org.au",

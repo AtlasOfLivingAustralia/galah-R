@@ -8,14 +8,14 @@ test_that("show_all checks for valid type input", {
 })
 
 test_that("show_all parses ... correctly", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   fields1 <- show_all(fields)
   fields2 <- show_all("fields")
   expect_equal(fields1, fields2)
 })
 
 test_that("all `show_all()` functions return correctly with all syntax", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   valid_types <- c("apis",
                    "assertions",
                    "atlases",
@@ -45,7 +45,7 @@ test_that("all `show_all()` functions return correctly with all syntax", {
 
 # lists queries are noisy, so run separately
 test_that("`show_all_lists()` functions work correctly", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   quiet_lists <- function(...){
     list_fun <- purrr::quietly(show_all_lists)
     list_fun(...) |>

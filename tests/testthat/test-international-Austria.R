@@ -6,7 +6,7 @@ test_that("swapping to atlas = Austria works", {
 })
 
 test_that("`show_all(assertions)` works for Austria", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(assertions) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -17,7 +17,7 @@ test_that("`show_all(assertions)` works for Austria", {
 })
 
 test_that("`show_all(collections)` works for Austria", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(collections) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -28,7 +28,7 @@ test_that("`show_all(collections)` works for Austria", {
 })
 
 test_that("`show_all(datasets)` works for Austria", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(datasets) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -39,7 +39,7 @@ test_that("`show_all(datasets)` works for Austria", {
 })
 
 test_that("`show_all(fields)` works for Austria", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(fields) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -50,7 +50,7 @@ test_that("`show_all(fields)` works for Austria", {
 })
 
 test_that("`show_all(licences)` works for Austria", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(licences) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -62,7 +62,7 @@ test_that("`show_all(licences)` works for Austria", {
 })
 
 test_that("show_all(lists) works for Austria", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(lists) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -73,7 +73,7 @@ test_that("show_all(lists) works for Austria", {
 })
 
 test_that("show_all(providers) works for Austria", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(providers) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -84,7 +84,7 @@ test_that("show_all(providers) works for Austria", {
 })
 
 test_that("show_all(reasons) works for Austria", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(reasons) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -99,7 +99,7 @@ test_that("show_all(profiles) fails for Austria", {
 })
 
 test_that("`search_all(fields)` works for Austria", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- search_all(fields, "year") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -108,7 +108,7 @@ test_that("`search_all(fields)` works for Austria", {
 })
 
 test_that("`search_all(taxa)` works for Austria", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- search_all(taxa, "Vulpes vulpes") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -117,7 +117,7 @@ test_that("`search_all(taxa)` works for Austria", {
 })
 
 test_that("`show_values()` works for Austria", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   quiet_values <- function(...){
     x <- purrr::quietly(show_values)
     x(...)$result
@@ -140,7 +140,7 @@ test_that("`show_values()` works for Austria", {
 })
 
 test_that("`atlas_counts()` works with type = 'occurrences' for Austria", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- atlas_counts() |>
     dplyr::pull(count) |>
     try(silent = TRUE)
@@ -149,7 +149,7 @@ test_that("`atlas_counts()` works with type = 'occurrences' for Austria", {
 })
 
 test_that("`atlas_counts()` works with type = 'species' for Austria", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- atlas_counts(type = "species") |>
     dplyr::pull(count) |>
     try(silent = TRUE)
@@ -159,7 +159,7 @@ test_that("`atlas_counts()` works with type = 'species' for Austria", {
 
 ## FIXME: Only works when run_checks = TRUE
 test_that("`count()` works with `identify()` for Austria", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call(from = "Austria") |>
     identify("Mammalia") |> # run_checks = TRUE works
     count() |>
@@ -176,7 +176,7 @@ test_that("`count()` works with `identify()` for Austria", {
 })
 
 test_that("`count()` works with group_by for Austria", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call(from = "Austria") |>
     filter(year >= 2020) |>
     count(year) |>
@@ -188,7 +188,7 @@ test_that("`count()` works with group_by for Austria", {
 })
 
 test_that("`atlas_species()` works for Austria", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(
     atlas = "Austria",
     email = "ala4r@ala.org.au", 
@@ -207,7 +207,7 @@ test_that("`atlas_species()` works for Austria", {
 
 ## FIXME: Test only works when run_checks = TRUE
 test_that("`atlas_occurrences()` works for Austria", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(
     atlas = "Austria",
     email = "ala4r@ala.org.au", 
@@ -248,7 +248,7 @@ test_that("`atlas_occurrences()` works for Austria", {
 })
 
 test_that("`atlas_media()` works for Austria", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(
     atlas = "Austria",
     email = "ala4r@ala.org.au",
@@ -279,7 +279,7 @@ test_that("`atlas_media()` works for Austria", {
 })
 
 test_that("atlas_taxonomy works for Austria", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   y <- galah_call() |>
     identify("Aves") |>
     filter(rank >= order) |>

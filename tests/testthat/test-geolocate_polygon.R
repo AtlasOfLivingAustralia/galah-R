@@ -26,7 +26,7 @@ test_that("`geolocate_polygon()` checks inputs", {
 })
 
 test_that("`geolocate_polygon()` finds polygon errors 1" , {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   invalid_wkt <- "POLYGON((145.71622941565508 -32.17848852726597,))"
   geolocate_polygon(invalid_wkt) |>
     expect_error()

@@ -14,7 +14,7 @@ test_that("swapping to atlas = GBIF works", {
 })
 
 test_that("`show_all(fields)` works for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   # first ensure underlying syntax is valid
   x <- request_metadata() |> 
     collapse()
@@ -29,7 +29,7 @@ test_that("`show_all(fields)` works for GBIF", {
 })
 
 test_that("`search_all(fields)` works for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- search_all(fields, "year")
   expect_gte(nrow(result), 2)
   result |> 
@@ -41,7 +41,7 @@ test_that("`search_all(fields)` works for GBIF", {
 })
 
 test_that("`show_values()` works for GBIF fields", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(atlas = "GBIF")
   # query syntax
   x <- request_metadata() |>
@@ -65,7 +65,7 @@ test_that("`show_values()` works for GBIF fields", {
 })
 
 test_that("slice_head() works with `count(country)` for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(atlas = "GBIF")
   x_default <- request_data() |>
     count(country) |>
@@ -79,7 +79,7 @@ test_that("slice_head() works with `count(country)` for GBIF", {
 })
 
 test_that("`show_values()` fails for unsearchable GBIF fields", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(run_checks = TRUE)
   x <- request_metadata(from = "GBIF") |>
     filter(field == "accessRights") |>
@@ -90,7 +90,7 @@ test_that("`show_values()` fails for unsearchable GBIF fields", {
 })
 
 test_that("`show_all(collections)` works for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(collections, limit = 10)
   expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
@@ -106,7 +106,7 @@ test_that("`show_all(collections)` works for GBIF", {
 })
 
 test_that("`show_all(datasets)` works for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(datasets, limit = 10)
   expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
@@ -117,7 +117,7 @@ test_that("`show_all(datasets)` works for GBIF", {
 })
 
 test_that("`show_all(providers)` works for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(providers, limit = 10)
   expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
@@ -146,7 +146,7 @@ test_that("`show_all(lists)` fails for GBIF", {
 })
 
 test_that("`search_all(taxa)` works for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- search_taxa("Mammalia")
   expect_equal(nrow(x), 1)
   expect_gte(ncol(x), 1)
@@ -155,7 +155,7 @@ test_that("`search_all(taxa)` works for GBIF", {
 })
 
 test_that("`search_all(taxa)` works using a tibble for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- search_all(taxa, 
                   data.frame(kingdom = "Animalia", 
                              phylum = "Chordata")) |>
@@ -176,7 +176,7 @@ test_that("`unnest()` fails for taxonomic queries to GBIF", {
 })
 
 test_that("`search_all(taxa)` works using a muti-row tibble for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- search_all(taxa, 
                   data.frame(kingdom = "Animalia", 
                              phylum = "Chordata",
@@ -193,7 +193,7 @@ test_that("`search_all(taxa)` works using a muti-row tibble for GBIF", {
 })
 
 test_that("`search_all(identifiers)` works for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- search_all(identifiers, "359") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -204,21 +204,21 @@ test_that("`search_all(identifiers)` works for GBIF", {
 galah_config(verbose = TRUE)
 
 test_that("`search_all(datasets)` works for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- search_all(datasets, "Mammals")
   expect_lte(nrow(x), 20)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`search_all(collections)` works for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- search_all(collections, "Museum")
   expect_lte(nrow(x), 20)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`search_all(providers)` works for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- search_all(providers, "Frog")
   expect_lte(nrow(x), 20)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
@@ -227,7 +227,7 @@ test_that("`search_all(providers)` works for GBIF", {
 galah_config(verbose = FALSE)
 
 test_that("`count()` works for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_call() |>
     count() |>
     collect() |>
@@ -242,7 +242,7 @@ test_that("`atlas_counts()` fails for GBIF when `type = 'species'`", {
 galah_config(run_checks = TRUE)
 
 test_that("`count()` works with 2 `group_by` args for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   Sys.sleep(pause_time)
   x <- galah_call() |>
     filter(year >= 2020) |>
@@ -284,7 +284,7 @@ test_that("`count()` works with 2 `group_by` args for GBIF", {
 # FIXME: `slice_head()` not tested for GBIF
 
 test_that("`count()` works with `identify` for GBIF when `run_checks` = TRUE", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   Sys.sleep(pause_time)
   galah_config(run_checks = TRUE)
   # collapse
@@ -314,7 +314,7 @@ test_that("`count()` works with `identify` for GBIF when `run_checks` = TRUE", {
 })
 
 test_that("`glimpse()` works for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   Sys.sleep(pause_time)
   galah_config(atlas = "GBIF",
               username = "atlasoflivingaustralia",
@@ -337,7 +337,7 @@ test_that("`glimpse()` works for GBIF", {
 })
 
 test_that("`glimpse()` works with `identify()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   Sys.sleep(pause_time)
   galah_config(atlas = "GBIF",
               username = "atlasoflivingaustralia",
@@ -363,7 +363,7 @@ test_that("`glimpse()` works with `identify()` for GBIF", {
 # FIXME: add test for `select()` paired with `glimpse()`
 
 test_that("`atlas_occurrences()` works for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   Sys.sleep(pause_time)
   x_compute <- galah_call(from = "GBIF") |>
     filter(year == 1890,
@@ -380,7 +380,7 @@ test_that("`atlas_occurrences()` works for GBIF", {
 })
 
 test_that("`atlas_occurrences()` works with `select()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   Sys.sleep(pause_time)
   x_compute <- galah_call(from = "GBIF") |>
     filter(year == 1890,
@@ -398,7 +398,7 @@ test_that("`atlas_occurrences()` works with `select()` for GBIF", {
 })
 
 test_that("invalid fields are caught from `select()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   Sys.sleep(pause_time)
   x <- galah_call(from = "GBIF") |>
     filter(year == 1890,
@@ -412,7 +412,7 @@ test_that("invalid fields are caught from `select()` for GBIF", {
 })
 
 test_that("`atlas_species()` works for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   Sys.sleep(pause_time)
   x <- request_data(type = "species",
                     from = "GBIF") |>
@@ -439,7 +439,7 @@ test_that("`atlas_species()` works for GBIF", {
 })
 
 test_that("`count()` queries work with `authenticate()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   Sys.sleep(pause_time)
   x_compute <- request_data(from = "GBIF") |>
     authenticate(username = "atlasoflivingaustralia",
@@ -458,7 +458,7 @@ test_that("`count()` queries work with `authenticate()` for GBIF", {
 })
 
 test_that("`distinct()` queries accept `select()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   Sys.sleep(pause_time)
   x_compute <- request_data(from = "GBIF") |>
     authenticate(username = "atlasoflivingaustralia",
@@ -479,7 +479,7 @@ test_that("`distinct()` queries accept `select()` for GBIF", {
 })
 
 test_that("`atlas_media()` fails for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   expect_error({galah_call() |>
     identify("perameles") |>
     atlas_media()
@@ -487,7 +487,7 @@ test_that("`atlas_media()` fails for GBIF", {
 })
 
 test_that("`collect()` works for GBIF with `type = 'occurrences' or 'occurrences-doi'` ", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   Sys.sleep(pause_time)
   # collapse
   base_query <- request_data() |>

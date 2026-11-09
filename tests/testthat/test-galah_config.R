@@ -13,7 +13,7 @@ test_that("galah_config creates nested folders where requested", {
 })
 
 test_that("galah_config checks download_id", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(verbose = TRUE)
   expect_error(galah_config(download_reason_id = 17))
   expect_error(galah_config(download_reason_id = "NOTHING"))
@@ -24,7 +24,7 @@ test_that("galah_config checks download_id", {
 })
 
 test_that("galah_config checks inputs", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   expect_error(galah_config(caching = "value"))
   expect_error(galah_config(verbose = "value"))
   expect_error(galah_config(email = 4))

@@ -1,7 +1,7 @@
 galah_config(email = "ala4r@ala.org.au")
 
 test_that("`group_by()` without `distinct()` returns occurrences, not species", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   query <- galah_call() |>
     filter(year == 2024,
            genus == "Crinia") |>
@@ -20,7 +20,7 @@ test_that("`group_by()` without `distinct()` returns occurrences, not species", 
 })
 
 test_that("distinct() with no arguments and no `group_by()` returns occurrences (i.e. does nothing)", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   query <- galah_call() |>
     filter(year == 2024,
            genus == "Crinia")
@@ -38,7 +38,7 @@ test_that("distinct() with no arguments and no `group_by()` returns occurrences 
 })
 
 test_that("`group_by() |> distinct(.keep_all = FALSE)` uses occurrences-count, but *doesn't* return counts", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- galah_call() |>
     filter(year == 2024,
            genus == "Crinia") |>
@@ -54,7 +54,7 @@ test_that("`group_by() |> distinct(.keep_all = FALSE)` uses occurrences-count, b
 })
 
 test_that("`group_by() |> distinct(.keep_all = TRUE)` converts type from occurrences to species", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   query <- galah_call() |>
     filter(year == 2024,
            genus == "Crinia") |>
@@ -70,7 +70,7 @@ test_that("`group_by() |> distinct(.keep_all = TRUE)` converts type from occurre
 })
 
 test_that("distinct(variable, .keep_all = FALSE) returns field values", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call() |>
     distinct(cl11226) |>
     quiet_collect()
@@ -82,7 +82,7 @@ test_that("distinct(variable, .keep_all = FALSE) returns field values", {
 })
 
 test_that("`distinct(.keep_all = TRUE)` sets species queries", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call() |>
     identify("Osphranter") |>
     distinct(speciesID, .keep_all = TRUE) |>
@@ -95,7 +95,7 @@ test_that("`distinct(.keep_all = TRUE)` sets species queries", {
 })
 
 test_that("`distinct(.keep_all = TRUE)` accepts non-species-level groupings", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   genera <- galah_call() |>
     identify("Limnodynastidae") |>
     distinct(genusID, .keep_all = TRUE) |>
@@ -109,7 +109,7 @@ test_that("`distinct(.keep_all = TRUE)` accepts non-species-level groupings", {
 test_that("`distinct(variable) |> count()` can be used to count the number of levels", {
   # NOTE: This is set to `basisOfRecord` because the number of values is easy to verify
   # taxonomic identifiers are more slippery and therefore less reliable to test
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   levels_all <- galah_call() |>
     distinct(basisOfRecord) |>
     quiet_collect()
@@ -124,7 +124,7 @@ test_that("`distinct(variable) |> count()` can be used to count the number of le
 })
 
 test_that("`group_by(something) |> distinct(speciesID) |> count()` gives grouped number of categories", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call() |>
     identify("perameles") |>
     group_by(basisOfRecord) |>
@@ -139,7 +139,7 @@ test_that("`group_by(something) |> distinct(speciesID) |> count()` gives grouped
 
 # FIXME: not implemented
 # test_that("`add_count() |> distinct()` adds record counts to each species", {
-#  skip_if_offline(); skip_on_ci()
+#  skip_galah()
 #  query <- galah_call() |>
 #    filter(year == 2024,
 #           genus == "Crinia") |>

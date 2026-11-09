@@ -31,7 +31,7 @@ test_that("`atlas_occurrences()` gives a nice error for invalid emails", {
 })
 
 test_that("collapse(type = 'occurrences') creates an object", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(email = "ala4r@ala.org.au")
   result <- galah_call() |> 
     identify("Perameles") |>
@@ -41,7 +41,7 @@ test_that("collapse(type = 'occurrences') creates an object", {
 })
 
 test_that("`compute(type = 'occurrences')` works", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(email = "ala4r@ala.org.au")
   base_query <- galah_call() |>
     identify("Vulpes vulpes") |>
@@ -71,7 +71,7 @@ test_that("`compute(type = 'occurrences')` works", {
 
 # test all filters and type of columns in one call
 test_that("`atlas_occurrences()` accepts all narrowing functions inline", { 
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(email = "ala4r@ala.org.au")
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "basisOfRecord", "scientificName", "taxonConceptID", 
@@ -107,7 +107,7 @@ test_that("`atlas_occurrences()` accepts all narrowing functions inline", {
 
 # repeat above using `galah_` functions
 test_that("`atlas_occurrences()` accepts all narrowing functions in pipe", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "basisOfRecord", "scientificName", "taxonConceptID", 
                      "recordID", "dataResourceName", "occurrenceStatus",
@@ -127,7 +127,7 @@ test_that("`atlas_occurrences()` accepts all narrowing functions in pipe", {
 })
 
 test_that("`atlas_occurrences()`() and friends accept a file name", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   # set up directory for testing purposes
   directory <- "TEMP"
   unlink(directory, recursive = TRUE)
@@ -178,7 +178,7 @@ test_that("`atlas_occurrences()`() errors with an invalid DOI", {
 })
 
 test_that("`atlas_occurrences()` downloads data from a DOI", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   doi <- "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060"
   result1 <- quiet_occurrences(doi = doi)
   expect_s3_class(result1, c("tbl_df", "tbl", "data.frame" ))
@@ -202,7 +202,7 @@ test_that("`atlas_occurrences()` downloads data from a DOI", {
 
 # NOTE: This test is *very* slow - worth investigating why
 test_that("`atlas_occurrences()` places DOI in `attr()` correctly", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   directory <- "TEMP"
   unlink(directory, recursive = TRUE)
   dir.create(directory)
@@ -233,7 +233,7 @@ test_that("`atlas_occurrences()` places DOI in `attr()` correctly", {
 })
 
 test_that("`atlas_occurrences()`() doesn't return secret information", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   RUN <- FALSE
   skip_if((!file.exists("testdata/SECRETS.txt") | !RUN),
           message = "Secret information not provided")

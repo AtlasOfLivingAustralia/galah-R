@@ -6,19 +6,19 @@ test_that("`search_taxa()` checks inputs", {
 })
 
 test_that("`search_taxa()` works for simple queries", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   taxa <- search_taxa("Microseris lanceolata")
   expect_equal(nrow(taxa), 1)
 })
 
 test_that("`search_taxa()` works for multiple queries", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   taxa <- search_taxa(c("Eucalyptus", "Banksia", "Acacia"))
   expect_equal(nrow(taxa), 3)
 })
 
 test_that("`search_taxa()` handles data.frame input", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   test_df <- data.frame(genus = c("Banksia", "Microseris"),
                         kingdom = "Plantae")
   x <- request_metadata() |>
@@ -30,7 +30,7 @@ test_that("`search_taxa()` handles data.frame input", {
 })
 
 test_that("`search_taxa()` errors when no columns match a taxon rank", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   test_df <- tibble::tibble(c("Banksia", "Microseris"),
                             "Plantae")
   search_taxa(test_df) |>
@@ -38,7 +38,7 @@ test_that("`search_taxa()` errors when no columns match a taxon rank", {
 })
 
 test_that("`search_taxa()` warns when some columns don't match a taxon rank", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   test_df <- tibble::tibble(genus = c("Banksia", "Microseris"),
                             kingdoom = "Plantae")
   search_taxa(test_df) |>
@@ -46,7 +46,7 @@ test_that("`search_taxa()` warns when some columns don't match a taxon rank", {
 })
 
 test_that("`search_taxa()` gives a message for invalid names", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(verbose = TRUE)
   taxa <- purrr_taxa("bad_term")
   taxa |>
@@ -58,7 +58,7 @@ test_that("`search_taxa()` gives a message for invalid names", {
 })
 
 test_that("`search_taxa()` handles a mix of valid and invalid queries", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(verbose = TRUE)
   taxa <- c("Eucalyptus", "Banksia", "Wattle", "wootle") |>
     purrr_taxa()
@@ -75,7 +75,7 @@ test_that("`search_taxa()` handles a mix of valid and invalid queries", {
 })
 
 test_that("`search_taxa()` searches using multiple ranks", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   taxa <- search_taxa(data.frame(genus = "Acacia", kingdom = "Plantae"))
   expect_s3_class(taxa, c("tbl_df", "tbl", "data.frame"))
   expect_equal(taxa$rank, "genus")
@@ -83,17 +83,17 @@ test_that("`search_taxa()` searches using multiple ranks", {
 })
 
 test_that("`search_taxa()` gives an error when homonyms are returned", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   expect_warning(search_taxa("ACANTHOCEPHALA"))
 })
 
 test_that("`search_taxa()` handles name issues", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   expect_warning(search_taxa("Microseris"))
 })
 
 test_that("`search_taxa()` give an error when homonym is returned with other issues", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   expect_warning(search_taxa("Gallinago sp."))
 })
 
@@ -102,7 +102,7 @@ test_that("`search_taxa()` errors nicely when piped in `galah_call()`", {
 })
 
 test_that("`search_taxa()` handles complex strings", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   taxa <- search_taxa("Commelina sp. (Lakefield NP P.I.Forster+ PIF12943)")
   expect_s3_class(taxa, c("tbl_df", "tbl", "data.frame"))
   expect_equal(taxa$scientific_name, "Commelina sp. Lakefield NP (P.I.Forster+ PIF12943)")
@@ -110,7 +110,7 @@ test_that("`search_taxa()` handles complex strings", {
 })
 
 test_that("`search_identifiers()` searches using identifier", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   # check different types of id
   identifier <- c("urn:lsid:biodiversity.org.au:afd.taxon:08b9a1f0-62ae-45ca-9208-e773b00021ed",
                   "NZOR-6-1742", "https://id.biodiversity.org.au/node/apni/2910467")
@@ -120,7 +120,7 @@ test_that("`search_identifiers()` searches using identifier", {
 })
 
 test_that("`search_identifiers()` gives a message for invalid ids", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(verbose = TRUE)
   taxa <- purrr_identifiers("1234")
   taxa |>
@@ -132,7 +132,7 @@ test_that("`search_identifiers()` gives a message for invalid ids", {
 })
 
 test_that("`search_identifiers()` works when one value is missing", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   # check different types of id
   identifier <- c("urn:lsid:biodiversity.org.au:afd.taxon:08b9a1f0-62ae-45ca-9208-e773b00021ed",
                   "something")
@@ -154,7 +154,7 @@ test_that("`search_identifiers()` works when one value is missing", {
 })
 
 test_that("`search_identifiers()` works via `search_all()`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   id <- "urn:lsid:biodiversity.org.au:afd.taxon:08b9a1f0-62ae-45ca-9208-e773b00021ed"
   search <- search_identifiers(id)
   search2 <- search_all(identifiers, id)
@@ -164,7 +164,7 @@ test_that("`search_identifiers()` works via `search_all()`", {
 })
 
 test_that("`request_metadata()` works for `type = 'taxa'`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- request_metadata() |>
     identify("crinia") 
   expect_s3_class(x, "metadata_request")

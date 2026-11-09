@@ -1,5 +1,5 @@
 test_that("`collapse()` creates a query object for type = `'occurrences-count'`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- request_data() |>
     filter(year == 2010) |>
     count() |>
@@ -9,7 +9,7 @@ test_that("`collapse()` creates a query object for type = `'occurrences-count'`"
 })
 
 test_that("count() |> collect() works with no arguments", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   count <- galah_call() |>
     count() |>
     collect()
@@ -18,7 +18,7 @@ test_that("count() |> collect() works with no arguments", {
 })
 
 test_that("`identify()` reduces the number of records returned by `count()`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   counts_all <- galah_call() |>
     count() |>
     collect()
@@ -31,7 +31,7 @@ test_that("`identify()` reduces the number of records returned by `count()`", {
 })
 
 test_that("`filter()` works with dates", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   counts <- galah_call() |>
     filter(species == "Cacatua galerita",
            eventDate >= "2023-01-07T00:00:00Z", 
@@ -42,7 +42,7 @@ test_that("`filter()` works with dates", {
 })
 
 test_that("`identify()` works for counts", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   counts_all <- galah_call() |>
     count() |>
     collect()
@@ -54,7 +54,7 @@ test_that("`identify()` works for counts", {
 })
 
 test_that("`count(year)` groups by `year`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call() |>
     filter(year >= 2015) |>
     count(year) |>
@@ -67,7 +67,7 @@ test_that("`count(year)` groups by `year`", {
 })
 
 test_that("`count()` handles multiple variables", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   counts <- galah_call() |>
     filter(year >= 2021,
            month >= 10) |>
@@ -80,7 +80,7 @@ test_that("`count()` handles multiple variables", {
 })
 
 test_that("`count()` handles 'species' as a 'group by' variable", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   counts <- galah_call() |>
     filter(year > 2020) |>
     identify("Perameles") |>
@@ -94,7 +94,7 @@ test_that("`count()` handles 'species' as a 'group by' variable", {
 })
 
 test_that("`count()` handles 'taxonConceptID' as a 'group by' variable", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   counts <- galah_call() |>
     identify("Perameles") |>
     filter(year >= 2015) |>
@@ -108,7 +108,7 @@ test_that("`count()` handles 'taxonConceptID' as a 'group by' variable", {
 })
 
 test_that("`count()` handles 'speciesID' as a 'group by' variable", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   # FIXME: Currently returns colname `speciesID.https://biodiversity.org`
   counts <- galah_call() |>
     filter(year == 1900,
@@ -122,7 +122,7 @@ test_that("`count()` handles 'speciesID' as a 'group by' variable", {
 
 # test added to address Issue #265
 test_that("`count()` handles `identify()` in combination with `OR` statements in `filter()`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   regions <- c("Dampierland","Wet Tropics")
   counts <- galah_call() |>
     identify("Squamata") |>
@@ -137,7 +137,7 @@ test_that("`count()` handles `identify()` in combination with `OR` statements in
 })
 
 test_that("`count()` returns same result with filter using `,` and `&`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   count_comma <- galah_call() |>
     filter(year >= 2010, year < 2020) |>
     count() |>
@@ -150,7 +150,7 @@ test_that("`count()` returns same result with filter using `,` and `&`", {
 })
 
 test_that("`count()` filters correctly with galah_geolocate/galah_polygon", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))" |>
     sf::st_as_sfc()
   base_query <- galah_call() |>
@@ -168,7 +168,7 @@ test_that("`count()` filters correctly with galah_geolocate/galah_polygon", {
 })
 
 test_that("`count()` filters correctly with galah_geolocate/galah_bbox/galah_radius", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))" |>
     sf::st_as_sfc()
   base_query <- galah_call() |>
@@ -194,7 +194,7 @@ test_that("`count()` filters correctly with galah_geolocate/galah_bbox/galah_rad
 })
 
 test_that("`count()` returns species counts", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   count_species <- galah_call(type = "species") |>
     count() |>
     collect()
@@ -208,7 +208,7 @@ test_that("`count()` returns species counts", {
 })
 
 test_that("species counts work with group_by()", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   count_species <- galah_call(type = "species") |>
     identify("Crinia") |>
     filter(year >= 2020) |>
@@ -235,7 +235,7 @@ test_that("species counts work with group_by()", {
 test_that("order of `group_by()` doesn't affect result in `count()", {
   # This is a test for Issue #198 raised by @shandiya
   # https://github.com/AtlasOfLivingAustralia/galah-R/issues/198
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   reg <- c("Gibson Desert", 
            "Little Sandy Desert", 
            "Southern Volcanic Plain",
@@ -268,7 +268,7 @@ test_that("order of `group_by()` doesn't affect result in `count()", {
 })
 
 test_that("`group_by()` works when > 1 `filter()`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   chosen_species <- c("Eolophus roseicapilla", "Platycercus elegans")
   x <- request_data() |>
     filter(species == chosen_species) |>
@@ -301,7 +301,7 @@ test_that("`group_by()` works when > 1 `filter()`", {
 })
 
 test_that("`select()` works for count queries", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- galah_call() |>
     filter(year == 2024,
            genus == "Crinia") |>
@@ -313,7 +313,7 @@ test_that("`select()` works for count queries", {
 })
 
 test_that("user assertion fields return data", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
 
   x <- galah_call() |>
     count(userAssertions) |>

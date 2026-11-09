@@ -19,7 +19,7 @@ test_that("`galah_filter()` returns predicates for GBIF", {
 })
 
 test_that("`filter()` handles a single entry for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- galah_call() |>
     filter(year == 2024) |>
     count() |>
@@ -31,7 +31,7 @@ test_that("`filter()` handles a single entry for GBIF", {
 })
 
 test_that("`filter()` handles multiple (`AND`) queries for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   # get a count limited by two different categories
   x <- galah_call() |>
     filter(year == 2024, basisOfRecord == "HUMAN_OBSERVATION") |>
@@ -72,7 +72,7 @@ test_that("`filter()` handles multiple (`AND`) queries for GBIF", {
 })
 
 test_that("`count()` errors when real but non-indexed fields are requested", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
 
   galah_config(run_checks = TRUE)
 
@@ -95,7 +95,7 @@ test_that("`count()` errors when real but non-indexed fields are requested", {
 })
 
 test_that("`count()` works with `identify()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   # collapse
   x <- request_data() |>
     identify("Mammalia") |>
@@ -109,7 +109,7 @@ test_that("`count()` works with `identify()` for GBIF", {
 })
 
 test_that("`filter()` handles `OR` and `%in%` for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
 
   # first prove that these facets are collected
   x <- request_data() |>
@@ -142,7 +142,7 @@ test_that("`filter()` handles `OR` and `%in%` for GBIF", {
 })
 
 test_that("`filter()` handles multiple queries including != for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
 
   x <- galah_call() |>
     filter(year == 2024, country != "AU") |>  # FIXME: countryCode fails with cryptic warning
@@ -161,7 +161,7 @@ test_that("`filter()` handles multiple queries including != for GBIF", {
 })
 
 test_that("`filter()` handles `between()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
 
   x <- galah_call() |>
     filter(dplyr::between(year, 2010, 2020)) |>
@@ -178,7 +178,7 @@ test_that("`filter()` handles `between()` for GBIF", {
 })
 
 test_that("`filter()` handles `!()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
 
   # exclude some levels of basisOfRecord
   excluded_categories <- c("OCCURRENCE", "LIVING_SPECIMEN", "HUMAN_OBSERVATION")
@@ -204,7 +204,7 @@ test_that("`filter()` handles `!()` for GBIF", {
 })
 
 test_that("`filter()` handles `is.na()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
 
   # missing values
   x <- galah_call() |>
@@ -233,7 +233,7 @@ test_that("`filter()` handles `is.na()` for GBIF", {
 })
 
 test_that("`filter()` handles `c()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
 
   # effectively parses this as 'in' as per GBIF instructions
   country_vector <- c("AU", "US", "NL")
@@ -266,7 +266,7 @@ test_that("`filter()` handles `c()` for GBIF", {
 })
 
 test_that("`count()` works with `geolocate_polygon()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   # errors when points given clockwise
   # FIXME: This has been disabled at some point 
   # `st_sfc()` has a `check_ring_dir` argument that might help
@@ -297,7 +297,7 @@ test_that("`count()` works with `geolocate_polygon()` for GBIF", {
 })
 
 test_that("`count()` works with `geolocate_radius()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   # ditto for a point and radius
   result <- galah_call() |>
     identify("Mammalia") |>

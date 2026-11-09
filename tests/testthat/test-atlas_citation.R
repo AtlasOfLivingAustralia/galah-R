@@ -38,7 +38,7 @@ test_that("atlas_citation attributes GBIF DOIs correctly", {
 })
 
 test_that("atlas_citation works on a real download", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(email = "ala4r@ala.org.au")
   x <- galah_call() |>
     identify("Heleioporus") |>

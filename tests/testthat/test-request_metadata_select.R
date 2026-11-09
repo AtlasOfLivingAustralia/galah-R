@@ -96,7 +96,7 @@ test_that("`request_metadata()` works with `select()` for remote APIs *without* 
 })
 
 test_that("`request_metadata()` works with `select()` for remote APIs *with* default columns", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   type_list <- c("assertions",
                  "fields",
                  "licences",
@@ -169,7 +169,7 @@ test_that("`request_metadata()` works with `select()` for remote APIs *with* def
 
 # implement a smaller test for lists, given how slow it is
 test_that("`request_metdata()` works with `select()` for `type = 'lists'`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- request_metadata(type = "lists") |>
     slice_head(n = 10) |>
     collect()
@@ -189,7 +189,7 @@ test_that("`request_metdata()` works with `select()` for `type = 'lists'`", {
 })
 
 test_that("`request_metdata()` works with `select()` for `type = 'taxa'`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
 
   query <- request_metadata() |>
     identify("Crinia") |>
@@ -214,7 +214,7 @@ test_that("`request_metdata()` works with `select()` for `type = 'taxa'`", {
 })
 
 test_that("`request_metdata()` works with `select()` for complex taxa", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   crinia_tibble <- tibble::tibble(kingdom = "Animalia",
                                   phylum = "Chordata",
                                   genus = "Crinia")
@@ -241,7 +241,7 @@ test_that("`request_metdata()` works with `select()` for complex taxa", {
 })
 
 test_that("`request_metdata()` works with `select()` for `type = 'identifiers'`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   tcid <- search_taxa("Chordata") |>
     dplyr::pull("taxon_concept_id")
   query <- request_metadata() |>

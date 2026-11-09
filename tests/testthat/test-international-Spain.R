@@ -6,7 +6,7 @@ test_that("swapping to atlas = Spain works", {
 })
 
 test_that("show_all(fields) works for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(fields) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -18,7 +18,7 @@ test_that("show_all(fields) works for Spain", {
 })
 
 test_that("show_all(licences) works for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(licences) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -27,7 +27,7 @@ test_that("show_all(licences) works for Spain", {
 })
 
 test_that("show_all(collections) works for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(collections, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -36,7 +36,7 @@ test_that("show_all(collections) works for Spain", {
 })
 
 test_that("show_all(datasets) works for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(datasets, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -45,7 +45,7 @@ test_that("show_all(datasets) works for Spain", {
 })
 
 test_that("show_all(providers) works for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(providers, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -54,7 +54,7 @@ test_that("show_all(providers) works for Spain", {
 })
 
 test_that("show_all(reasons) works for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(reasons) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -63,7 +63,7 @@ test_that("show_all(reasons) works for Spain", {
 })
 
 test_that("show_all(assertions) works for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(assertions) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -72,7 +72,7 @@ test_that("show_all(assertions) works for Spain", {
 })
 
 test_that("show_all(profiles) works for Flanders", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(profiles) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -101,7 +101,7 @@ test_that("show_all(profiles) works for Flanders", {
 })
 
 test_that("show_all(lists) works for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- show_all(lists, limit = 10) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -110,7 +110,7 @@ test_that("show_all(lists) works for Spain", {
 })
 
 test_that("search_all(fields) works for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- search_all(fields, "year") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -119,7 +119,7 @@ test_that("search_all(fields) works for Spain", {
 })
 
 test_that("search_all(taxa) works for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- search_all(taxa, "Mammalia") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -128,7 +128,7 @@ test_that("search_all(taxa) works for Spain", {
 })
 
 test_that("search_all(taxa) works using data.frames for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- search_all(taxa, 
                   data.frame(kingdom = "Animalia", 
                              phylum = "Chordata")) |>
@@ -139,7 +139,7 @@ test_that("search_all(taxa) works using data.frames for Spain", {
 })
 
 test_that("search_all(identifiers) works for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- search_all(identifiers, "359") |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -148,7 +148,7 @@ test_that("search_all(identifiers) works for Spain", {
 })
 
 test_that("show_values works for fields for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   quiet_values <- function(...){
     x <- purrr::quietly(show_values)
     x(...)$result
@@ -162,7 +162,7 @@ test_that("show_values works for fields for Spain", {
 })
 
 test_that("`atlas_counts()` works for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- atlas_counts() |>
     dplyr::pull(count) |>
     try(silent = TRUE)
@@ -171,7 +171,7 @@ test_that("`atlas_counts()` works for Spain", {
 })
 
 test_that("`atlas_counts()` works with type = 'species' for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- atlas_counts(type = "species") |>
     dplyr::pull(count) |>
     try(silent = TRUE)
@@ -180,7 +180,7 @@ test_that("`atlas_counts()` works with type = 'species' for Spain", {
 })
 
 test_that("`atlas_counts()` works with galah_identify for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call() |>
     identify("Mammalia") |>
     count() |>
@@ -200,7 +200,7 @@ test_that("`atlas_counts()` works with galah_identify for Spain", {
 })
 
 test_that("`atlas_counts()` works with apply_profile for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   without_profile <- galah_call() |>
     count() |>
     collect()
@@ -214,7 +214,7 @@ test_that("`atlas_counts()` works with apply_profile for Spain", {
 })
 
 test_that("`atlas_counts()` works with group_by for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call() |>
     filter(year >= 2000) |>
     group_by(basisOfRecord) |>
@@ -227,7 +227,7 @@ test_that("`atlas_counts()` works with group_by for Spain", {
   })
 
 test_that("`atlas_species()` works for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(
     atlas = "Spain",
     email = "test@ala.org.au",
@@ -243,7 +243,7 @@ test_that("`atlas_species()` works for Spain", {
 })
 
 test_that("`galah_select()` works for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- galah_select()
   y <- galah_select(basisOfRecord)
   expect_equal(length(x), 3)
@@ -258,7 +258,7 @@ test_that("`galah_select()` works for Spain", {
 })
 
 test_that("`atlas_occurrences()` works for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(
     atlas = "Spain",
     email = "test@ala.org.au",
@@ -280,7 +280,7 @@ test_that("`atlas_occurrences()` works for Spain", {
 })
 
 test_that("`atlas_media()` works for Spain", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(
     atlas = "Spain",
     email = "test@ala.org.au",

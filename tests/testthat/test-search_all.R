@@ -1,10 +1,10 @@
 test_that("`search_all()` checks inputs, returns helpful error", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   expect_error(search_all(attributes, ""), "Unrecognised metadata requested")
 })
 
 test_that("`search_all()` returns correct output for type", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   fields <- search_all(fields, "year")
   reasons <- search_all(reasons, "genus")
   profiles <- search_all(profiles, "ala")
@@ -24,13 +24,13 @@ test_that("`search_all()` returns correct output for type", {
 })
 
 test_that("`search_all()` returns error when missing query", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   expect_error(search_all(profiles), "We didn't detect a search")
   expect_error(search_all(fields, blah))
 })
 
 test_that("`search_assertions()` returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   all <- show_all_assertions()
   search <- search_assertions("INVALID")
   search2 <- search_all(assertions, "INVALID")
@@ -83,7 +83,7 @@ test_that("`search_atlases()` returns a filtered result", {
 })
 
 test_that("`search_collections()` returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   search_string <- "dna"
   result <- search_all(collections, search_string)
   result |>
@@ -102,7 +102,7 @@ test_that("`search_collections()` returns a filtered result", {
 })
 
 test_that("`search_datasets()` returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   search_string <- "endangered"
   result <- search_all(datasets, search_string)
   result |>
@@ -121,7 +121,7 @@ test_that("`search_datasets()` returns a filtered result", {
 })
 
 test_that("`search_fields()` returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   search_string <- "precipitation"
   result <- search_all(fields, search_string)
   result |>
@@ -140,12 +140,12 @@ test_that("`search_fields()` returns a filtered result", {
 })
 
 test_that("`search_fields()` helpful warning with blank argument", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   expect_error(search_fields(), "We didn't detect a search")
 })
 
 test_that("`search_licenses()` returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   search_string <- "3.0"
   result <- search_all(licences, search_string)
   result |>
@@ -167,7 +167,7 @@ test_that("`search_licenses()` returns a filtered result", {
 # this relies on a 'fake' query to `show_all_lists()` for testing purposes
 # this is bad practice in production, but useful here
 test_that("`search_lists()` returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
 
   # manually override cached lists with something (much) smaller,
   # but still contains the term 'threatened'.
@@ -210,7 +210,7 @@ test_that("`search_lists()` returns a filtered result", {
 })
 
 test_that("`search_reasons()` returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   search_string <- "sci"
   result <- search_all(reasons, search_string)
   result |>
@@ -247,7 +247,7 @@ test_that("`search_ranks()` returns a filtered result", {
 })
 
 test_that("`search_profiles()` returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   search_string <- "base"
   result <- search_all(profiles, search_string)
   result |>
@@ -266,7 +266,7 @@ test_that("`search_profiles()` returns a filtered result", {
 })
 
 test_that("`search_providers()` returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   search_string <- "inaturalist"
   result <- search_all(providers, search_string)
   result |>

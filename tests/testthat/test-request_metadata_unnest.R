@@ -1,5 +1,5 @@
 test_that("request_metadata() |> unnest() works for type = 'fields'", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   # no filter provided causes an error
   expect_error({request_metadata() |> 
       unnest() |>
@@ -37,7 +37,7 @@ test_that("request_metadata() |> unnest() works for type = 'fields'", {
 })
 
 test_that("request_metadata() |> select() |> unnest() works for type = 'fields'", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   base_query <- request_metadata() |> 
     filter(field == "basisOfRecord") |>
     unnest()
@@ -60,7 +60,7 @@ test_that("request_metadata() |> select() |> unnest() works for type = 'fields'"
 })
 
 test_that("request_metadata() |> unnest() works for type = 'lists'", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(verbose = FALSE)
 
   x1 <- request_metadata() |> 
@@ -94,7 +94,7 @@ test_that("request_metadata() |> unnest() works for type = 'lists'", {
 })
 
 test_that("`request_metadata() |> unnest()` fails for invalid profiles", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- request_metadata() |>
     unnest() |>
     filter(profile == "something")
@@ -103,7 +103,7 @@ test_that("`request_metadata() |> unnest()` fails for invalid profiles", {
 })
 
 test_that("`request_metadata() |> unnest() |> collapse()` works for type = profiles", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
     x1 <- request_metadata() |> 
     filter(profile == "ALA") |> 
     collect()
@@ -121,7 +121,7 @@ test_that("`request_metadata() |> unnest() |> collapse()` works for type = profi
 })
 
 test_that("request_metadata() |> unnest() works for type = 'profiles'", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- request_metadata() |>
     filter(profile == "ALA") |>
     unnest() |>
@@ -147,7 +147,7 @@ test_that("request_metadata() |> unnest() works for type = 'profiles'", {
 })
 
 test_that("request_metadata() |> unnest() works for type = 'taxa' using `identify()`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x1 <- request_metadata() |> 
     identify("crinia") |>
     collect()
@@ -171,7 +171,7 @@ test_that("request_metadata() |> unnest() works for type = 'taxa' using `identif
 })
 
 test_that("request_metadata() |> unnest() works for type = 'taxa' using `filter()`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   lookup <- search_taxa("Crinia")$taxon_concept_id
   x <- request_metadata() |>
     filter(taxa == lookup) |>
@@ -190,7 +190,7 @@ test_that("request_metadata() |> unnest() works for type = 'taxa' using `filter(
 })
 
 test_that("`request_metadata() |> unnest() |> select()` works for type = 'taxa'", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   lookup <- search_taxa("Crinia")$taxon_concept_id
   # request one column only
   x <- request_metadata() |>
