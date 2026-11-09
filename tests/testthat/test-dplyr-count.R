@@ -1,9 +1,3 @@
-quiet_collect <- function(x){
-  quiet_fun <- purrr::quietly(dplyr::collect)
-  quiet_fun(x) |>
-    purrr::pluck("result")
-}
-
 test_that("`collapse()` creates a query object for type = `'occurrences-count'`", {
   skip_if_offline(); skip_on_ci()
   result <- request_data() |>
@@ -81,7 +75,7 @@ test_that("`count()` handles multiple variables", {
     collect()
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_equal(names(counts),
-               c("year", "month", "basisOfRecord", "count"))
+               c("year", "month", "basisOfRecord_id", "basisOfRecord_label", "count"))
   expect_true(all(counts$year >= 2021))
 })
 
@@ -316,6 +310,26 @@ test_that("`select()` works for count queries", {
     collect()
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gte(ncol(x), 4) # traditionally this was only two cols
+})
+
+test_that("user assertion fields return data", {
+  skip_if_offline(); skip_on_ci()
+
+  x <- galah_call() |>
+    count(userAssertions) |>
+    collect()
+  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(colnames(x),
+               c("userAssertions_id", "userAssertions_label", "count"))
+  
+  y <- galah_call() |>
+    count(assertionUserId) |>
+    slice_head(n = 5) |>
+    collect()
+  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(nrow(y), 5)
+  expect_equal(colnames(y),
+               c("assertionUserId_id", "assertionUserId_label", "count"))
 })
 
 ## BELOW HERE TESTS WILL FAIL

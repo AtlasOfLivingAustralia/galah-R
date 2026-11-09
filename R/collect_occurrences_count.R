@@ -110,11 +110,18 @@ clean_labels <- function(df){
     variable <- df$i18nCode[1] |>
       stringr::str_extract("^[:alnum:]+\\.") |>
       stringr::str_replace("\\.$", "")
+    # look up and add a labels column
     if(!is.null(df$label)){
       df2 <- data.frame(id = values,
                         label = df$label)
-      colnames(df2) <- glue::glue("{variable}_{colnames(df2)}")
-      df <- dplyr::bind_cols(df, df2)
+      # if `label` duplicates `id`, ignore
+      if(all(df2$id == df2$label)){
+        df[[variable]] <- values
+      # otherwise use `variable_id` and `variable_label` 
+      }else{
+        colnames(df2) <- glue::glue("{variable}_{colnames(df2)}")
+        df <- dplyr::bind_cols(df, df2)
+      }
     }else{
       df[[variable]] <- values
     }
