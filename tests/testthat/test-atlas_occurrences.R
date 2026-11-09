@@ -1,19 +1,4 @@
-# set up quiet functions for testing reasons
-quiet_collapse <- function(x){
-  collapse_fun <- purrr::quietly(dplyr::collapse)
-  collapse_fun(x) |>
-    purrr::pluck("result")
-}
-quiet_compute <- function(x){
-  compute_fun <- purrr::quietly(dplyr::compute)
-  compute_fun(x) |>
-    purrr::pluck("result")
-}
-quiet_collect <- function(x, ...){
-  purrr_collect <- purrr::quietly(dplyr::collect)
-  purrr_collect(x, ...) |> 
-    purrr::pluck("result")
-}
+# setup
 quiet_occurrences <- function(...){
   occ_fun <- purrr::quietly(atlas_occurrences)
   occ_fun(...) |>
@@ -282,4 +267,4 @@ test_that("`atlas_occurrences()`() doesn't return secret information", {
   galah_config(email = "ala4r@ala.org.au")
 })
 
-rm(quiet_collapse, quiet_compute, quiet_collect, quiet_occurrences)
+rm(quiet_occurrences)

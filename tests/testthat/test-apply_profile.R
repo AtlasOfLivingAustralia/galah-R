@@ -70,11 +70,6 @@ test_that("`apply_profile()` filters species", {
 
 test_that("`apply_profile()` filters occurrences", {
   skip_if_offline(); skip_on_ci()
-  quiet_collect <- function(x){
-    purrr_collect <- purrr::quietly(collect.data_request)
-    purrr_collect(x) |> 
-      purrr::pluck("result")
-  }
   galah_config(email = "ala4r@ala.org.au", 
                atlas = "Australia", 
                run_checks = FALSE)
@@ -91,5 +86,4 @@ test_that("`apply_profile()` filters occurrences", {
     quiet_collect()
   expect_gt(nrow(with_profile), 0)
   expect_lt(nrow(with_profile), nrow(without_profile))
-  rm(quiet_collect)
 })

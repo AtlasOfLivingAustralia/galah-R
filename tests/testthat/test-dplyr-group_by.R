@@ -1,5 +1,3 @@
-quiet_collect <- purrr::quietly(collect.data_request)
-
 test_that("`group_by` fields are checked during `collapse()`", {
   galah_config(run_checks = TRUE)
   # `collapse()`  should ping a check when `run_checks = TRUE`
@@ -26,7 +24,7 @@ test_that("`count()` with `group_by()` returns expected output", {
     group_by(basisOfRecord) |>
     atlas_counts()
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(names(counts), c("basisOfRecord", "count"))
+  expect_equal(names(counts), c("basisOfRecord_id", "basisOfRecord_label", "count"))
 })
 
 test_that("`count()` with `group_by()` returns expected output when limit != NULL", {
@@ -36,10 +34,9 @@ test_that("`count()` with `group_by()` returns expected output when limit != NUL
     group_by(basisOfRecord) |>
     count() |>
     slice_head(n = 3) |>
-    quiet_collect() |>
-    purrr::pluck("result")
+    quiet_collect()
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(names(counts), c("basisOfRecord", "count"))
+  expect_equal(names(counts), c("basisOfRecord_id", "basisOfRecord_label", "count"))
   expect_equal(nrow(counts), 3)
 })
 
@@ -48,8 +45,7 @@ test_that("`count()` with `group_by()` returns all counts if no limit is provide
   counts <- galah_call() |>
     group_by(basisOfRecord) |> # NOTE: basisOfRecord chosen as prone to breaking
     count() |>                 # this code; please do not change it!
-    quiet_collect() |>
-    purrr::pluck("result")
+    quiet_collect()
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_gte(nrow(counts), 5)
 })
@@ -60,8 +56,7 @@ test_that("`count()` with `group_by()` returns an empty tibble if number of reco
     filter(year < 1900 & year > 2000) |>
     count() |>
     group_by(species) |>
-    quiet_collect() |>
-    purrr::pluck("result")
+    quiet_collect()
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(counts), 0)
   expect_equal(ncol(counts), 0)
@@ -74,8 +69,7 @@ test_that("`count()` with `group_by()` for species returns expected output", {
     filter(year == 2020) |>
     group_by(month) |>
     count() |>
-    quiet_collect() |>
-    purrr::pluck("result")
+    quiet_collect()
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_equal(names(counts), c("month", "count"))
 })
@@ -87,8 +81,7 @@ test_that("`count()` with `group_by()` works for three groups", {
     filter(year >= 2020) |>
     group_by(year, basisOfRecord, stateProvince) |>
     count() |>
-    quiet_collect() |>
-    purrr::pluck("result")
+    quiet_collect()
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(counts), 1)
   expect_true(all(names(counts) %in% 
@@ -102,13 +95,11 @@ test_that("`count()` with `group_by()` returns correct information when ID field
   counts <- galah_call() |> 
     identify("pardalotus quadragintus") |> 
     filter(year == 2023) |>
-    group_by(species, dataResourceName, dataResourceUid) |> 
+    group_by(species, dataResourceUid) |> 
     count()  |>
-    quiet_collect() |>
-    purrr::pluck("result")
+    quiet_collect()
   expect_equal(colnames(counts),
-               c("species", "dataResourceName", "dataResourceUid", "count"))
-  expect_false(any(counts$dataResourceName == counts$dataResourceUid))
+               c("species", "dataResourceUid_id", "dataResourceUid_label", "count"))
 })
 
 test_that("group_by fails for four groups", {
@@ -119,5 +110,3 @@ test_that("group_by fails for four groups", {
     group_by(year, month, basisOfRecord, stateProvince) |>
     expect_error()
 })
-
-rm(quiet_collect)

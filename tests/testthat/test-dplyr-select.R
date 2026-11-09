@@ -1,9 +1,4 @@
 # set up quiet functions for testing reasons
-quiet_collect <- function(x){
-  purrr_collect <- purrr::quietly(collect.data_request)
-  purrr_collect(x) |> 
-    purrr::pluck("result")
-}
 quiet_occurrences <- purrr::quietly(atlas_occurrences)
 
 config_capture <- galah_config(email = "ala4r@ala.org.au",
@@ -197,4 +192,4 @@ test_that("`select()` warns for invalid field names when type = 'species'", {
     capture()})
 })
 
-rm(quiet_collect, quiet_occurrences, config_capture)
+rm(quiet_occurrences, config_capture)

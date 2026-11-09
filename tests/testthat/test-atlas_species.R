@@ -1,9 +1,3 @@
-quiet_collect <- function(x){
-  quiet_fun <- purrr::quietly(dplyr::collect)
-  quiet_fun(x) |>
-    purrr::pluck("result")
-}
-
 quiet_species <- function(...){
   quiet_fun <- purrr::quietly(atlas_species)
   quiet_fun(...) |>
@@ -172,4 +166,4 @@ test_that("`atlas_species()` accepts `distinct()` to set the grouping variable",
     expect_true()
 })
 
-rm(quiet_collect, quiet_species)
+rm(quiet_species)

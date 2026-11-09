@@ -37,12 +37,6 @@ test_that("atlas_citation attributes GBIF DOIs correctly", {
   expect_true(grepl("GBIF Occurrence Download", citation))
 })
 
-quiet_collect <- function(x){
-  quiet_fun <- purrr::quietly(collect.data_request)
-  quiet_fun(x) |>
-    purrr::pluck("result")
-}
-
 test_that("atlas_citation works on a real download", {
   skip_if_offline(); skip_on_ci()
   galah_config(email = "ala4r@ala.org.au")
@@ -57,5 +51,3 @@ test_that("atlas_citation works on a real download", {
   grepl("Please consider citing R & galah", text_out) |>
     expect_true()
 })
-
-rm(quiet_collect)

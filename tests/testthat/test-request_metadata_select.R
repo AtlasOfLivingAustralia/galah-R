@@ -1,12 +1,6 @@
 # script to test whether `everything()` is respected (present or absent)
 # in metadata requests. Caching is an important consideration here.
 
-purrr_collect <- purrr::quietly(collect)
-quiet_collect <- function(...){
-  purrr_collect(...) |>
-    purrr::pluck("result")
-}
-
 check_select_structure <- function(query){
     purrr::pluck(query, "request", "select") |>
       is.null() |>
@@ -273,4 +267,4 @@ test_that("`request_metdata()` works with `select()` for `type = 'identifiers'`"
                   c("success", "lft", "rgt", "kingdom_id"))
 })
 
-rm(purrr_collect, quiet_collect, check_select_structure)
+rm(check_select_structure)

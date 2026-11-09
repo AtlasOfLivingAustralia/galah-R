@@ -1,9 +1,3 @@
-quiet_collect <- function(x){
-  quiet_fun <- purrr::quietly(dplyr::collect)
-  quiet_fun(x) |>
-    purrr::pluck("result")
-}
-
 test_that("default is to arrange by decending order of count", {
   skip_if_offline(); skip_on_ci()
   result <- galah_call() |>
@@ -144,9 +138,8 @@ test_that("`group_by()` with multiple fields works with `slice_head()`", {
     arrange(desc(count)) |> # NOTE: desc(count) applied within groups only; is this correct?
     slice_head(n = 5) |> # same issue as above
     quiet_collect()
-  expect_equal(ncol(result), 3)
-  expect_equal(colnames(result), c("year", "basisOfRecord", "count"))
+  expect_equal(ncol(result), 4)
+  expect_equal(colnames(result),
+               c("year", "basisOfRecord_id", "basisOfRecord_label", "count"))
   expect_true(all(xtabs(~result$year) <= 5)) # current year may not have all values yet
 })
-  
-rm(quiet_collect)

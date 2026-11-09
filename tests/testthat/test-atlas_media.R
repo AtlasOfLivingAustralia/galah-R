@@ -1,24 +1,13 @@
-quiet_collapse <- function(x, ...){
-  collapse_fun <- purrr::quietly(dplyr::collapse)
-  collapse_fun(x, ...) |>
-    purrr::pluck("result")
-}
-quiet_compute <- function(x){
-  compute_fun <- purrr::quietly(dplyr::compute)
-  compute_fun(x) |>
-    purrr::pluck("result")
-}
-quiet_collect <- function(x, ...){
-  purrr_collect <- purrr::quietly(dplyr::collect)
-  purrr_collect(x, ...) |> 
-    purrr::pluck("result")
-}
+# setup
 purrr_media <- purrr::quietly(atlas_media)
+
 quiet_media <- function(...){
   purrr_media(...) |>
     purrr::pluck("result")
 }
+
 purrr_collect_media <- purrr::quietly(collect_media)
+
 purrr_config <- purrr::quietly(galah_config)
 
 test_that("atlas_media fails when no filters are provided", {
