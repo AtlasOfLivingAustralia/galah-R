@@ -164,16 +164,6 @@ show_all_datasets <- function(limit = NULL,
 }
 
 #' @rdname show_all
-#' @noRd
-#' @keywords Internal
-show_all_distributions <- function(limit = NULL,
-                                   all_fields = FALSE){
-  show_all_generic(type = "distributions",
-                   limit = limit,
-                   all_fields = all_fields)
-}
-
-#' @rdname show_all
 #' @export
 show_all_fields <- function(limit = NULL,
                             all_fields = FALSE){

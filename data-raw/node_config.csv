@@ -1,6 +1,4 @@
 atlas,type,url,functional
-Australia,data/distributions-id,https://api.ala.org.au/spatial-service/distribution/{id},FALSE
-Australia,data/distributions-taxa,https://api.ala.org.au/spatial-service/distribution/lsids/{lsid}?nowkt=false,FALSE
 Australia,data/events,https://api.ala.org.au/event/download,FALSE
 Australia,data/events-count,https://api.ala.org.au/event/graphql,FALSE
 Australia,data/occurrences,https://api.ala.org.au/occurrences/occurrences/offline/download,TRUE
@@ -14,7 +12,6 @@ Australia,metadata/assertions,https://api.ala.org.au/occurrences/assertions/code
 Australia,metadata/collections,https://api.ala.org.au/metadata/ws/collection,TRUE
 Australia,metadata/config,https://api.ala.org.au/common/api/getAuthConfig,TRUE
 Australia,metadata/datasets,https://api.ala.org.au/metadata/ws/dataResource,TRUE
-Australia,metadata/distributions,https://api.ala.org.au/spatial-service/distributions,FALSE
 Australia,metadata/fields,https://api.ala.org.au/occurrences/index/fields,TRUE
 Australia,metadata/fields-unnest,https://api.ala.org.au/occurrences/occurrences/facets,TRUE
 Australia,metadata/identifiers,https://api.ala.org.au/namematching/api/getByTaxonID,TRUE

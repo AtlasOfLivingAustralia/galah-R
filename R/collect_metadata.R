@@ -232,39 +232,6 @@ collect_datasets <- function(.query){
   parse_select(result_df, .query)
 }
 
-#' Internal function to `collect()` distributions
-#' @noRd
-#' @keywords Internal
-collect_distributions_metadata <- function(.query){
-  result <- query_API(.query)
-  result <- result |>
-    dplyr::bind_rows() |>
-    # NOTE: This syntax should be integrated with `lookup_select_columns()` et al before shipping
-    dplyr::select(
-      "spcode", 
-      "family", 
-      "genus_name", 
-      "scientific", 
-      "common_nam",
-      "lsid",
-      "area_name",
-      "area_km",
-      "data_resource_uid") |>
-    dplyr::rename(
-      "id" = "spcode", # this is chosen as ID because it is called by later APIs
-      "genus" = "genus_name",
-      "species" = "scientific",
-      "taxon_concept_id" = "lsid",
-      "label" = "area_name",
-      "common_name" = "common_nam")  |>
-    dplyr::mutate("common_name" = trimws(.data$common_name)) # remove leading or trailing spaces
-  result <- update_attributes(result, 
-                              type = "distributions",
-                              atlas = .query$atlas)
-  update_cache(distributions = result)
-  result 
-}
-
 #' Internal function to `collect()` fields
 #' @noRd
 #' @keywords Internal

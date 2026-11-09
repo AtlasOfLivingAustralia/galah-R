@@ -104,14 +104,6 @@ collapse_run_checks <- function(.query,
   }
 
   collapse_remove_metadata(.query)
-
-  # special cases:
-  # distributions
-  # if(.query$type == "data/distributions" & 
-  #    !is.null(.query[["metadata/distributions"]])){
-  #   .query$url <- tibble(url = glue(utils::URLdecode(.query$url), 
-  #                                   id = .query[["metadata/distributions"]]$id))
-  # }
 }
 
 #' Internal function to collapse metadata
