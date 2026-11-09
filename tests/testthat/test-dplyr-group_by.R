@@ -24,7 +24,7 @@ test_that("`count()` with `group_by()` returns expected output", {
     group_by(basisOfRecord) |>
     atlas_counts()
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(names(counts), c("basisOfRecord_id", "basisOfRecord_label", "count"))
+  expect_equal(names(counts), c("basisOfRecord", "basisOfRecord_label", "count"))
 })
 
 test_that("`count()` with `group_by()` returns expected output when limit != NULL", {
@@ -36,7 +36,7 @@ test_that("`count()` with `group_by()` returns expected output when limit != NUL
     slice_head(n = 3) |>
     quiet_collect()
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(names(counts), c("basisOfRecord_id", "basisOfRecord_label", "count"))
+  expect_equal(names(counts), c("basisOfRecord", "basisOfRecord_label", "count"))
   expect_equal(nrow(counts), 3)
 })
 
@@ -99,7 +99,7 @@ test_that("`count()` with `group_by()` returns correct information when ID field
     count()  |>
     quiet_collect()
   expect_equal(colnames(counts),
-               c("species", "dataResourceUid_id", "dataResourceUid_label", "count"))
+               c("species", "dataResourceUid", "dataResourceUid_label", "count"))
 })
 
 test_that("group_by fails for four groups", {

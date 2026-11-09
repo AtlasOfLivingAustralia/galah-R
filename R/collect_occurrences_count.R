@@ -119,7 +119,7 @@ clean_labels <- function(df){
         df[[variable]] <- values
       # otherwise use `variable_id` and `variable_label` 
       }else{
-        colnames(df2) <- glue::glue("{variable}_{colnames(df2)}")
+        colnames(df2) <- c(variable, glue::glue("{variable}_label"))
         df <- dplyr::bind_cols(df, df2)
       }
     }else{

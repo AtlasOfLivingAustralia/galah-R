@@ -75,7 +75,7 @@ test_that("`count()` handles multiple variables", {
     collect()
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_equal(names(counts),
-               c("year", "month", "basisOfRecord_id", "basisOfRecord_label", "count"))
+               c("year", "month", "basisOfRecord", "basisOfRecord_label", "count"))
   expect_true(all(counts$year >= 2021))
 })
 
@@ -320,7 +320,7 @@ test_that("user assertion fields return data", {
     collect()
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_equal(colnames(x),
-               c("userAssertions_id", "userAssertions_label", "count"))
+               c("userAssertions", "userAssertions_label", "count"))
   
   y <- galah_call() |>
     count(assertionUserId) |>
@@ -329,7 +329,7 @@ test_that("user assertion fields return data", {
   expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(y), 5)
   expect_equal(colnames(y),
-               c("assertionUserId_id", "assertionUserId_label", "count"))
+               c("assertionUserId", "assertionUserId_label", "count"))
 })
 
 ## BELOW HERE TESTS WILL FAIL

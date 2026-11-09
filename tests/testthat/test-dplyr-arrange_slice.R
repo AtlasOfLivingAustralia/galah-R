@@ -140,6 +140,6 @@ test_that("`group_by()` with multiple fields works with `slice_head()`", {
     quiet_collect()
   expect_equal(ncol(result), 4)
   expect_equal(colnames(result),
-               c("year", "basisOfRecord_id", "basisOfRecord_label", "count"))
+               c("year", "basisOfRecord", "basisOfRecord_label", "count"))
   expect_true(all(xtabs(~result$year) <= 5)) # current year may not have all values yet
 })
