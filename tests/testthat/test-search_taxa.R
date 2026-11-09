@@ -29,6 +29,22 @@ test_that("`search_taxa()` handles data.frame input", {
   expect_equal(nrow(taxa), 2)
 })
 
+test_that("`search_taxa()` errors when no columns match a taxon rank", {
+  skip_if_offline(); skip_on_ci()
+  test_df <- tibble::tibble(c("Banksia", "Microseris"),
+                            "Plantae")
+  search_taxa(test_df) |>
+    expect_error()
+})
+
+test_that("`search_taxa()` warns when some columns don't match a taxon rank", {
+  skip_if_offline(); skip_on_ci()
+  test_df <- tibble::tibble(genus = c("Banksia", "Microseris"),
+                            kingdoom = "Plantae")
+  search_taxa(test_df) |>
+    expect_warning()
+})
+
 test_that("`search_taxa()` gives a message for invalid names", {
   skip_if_offline(); skip_on_ci()
   galah_config(verbose = TRUE)

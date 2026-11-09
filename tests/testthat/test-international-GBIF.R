@@ -165,6 +165,33 @@ test_that("`search_all(taxa)` works using a tibble for GBIF", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
+test_that("`unnest()` fails for taxonomic queries to GBIF", {
+  # NOTE: this *should* be temporary, until we can get CoL working.
+  # e.g. see rcol::clb_children() for an example
+  request_metadata() |>
+    identify("Crinia") |>
+    unnest() |>
+    capture() |>
+    expect_error()
+})
+
+test_that("`search_all(taxa)` works using a muti-row tibble for GBIF", {
+  skip_if_offline(); skip_on_ci()
+  x <- search_all(taxa, 
+                  data.frame(kingdom = "Animalia", 
+                             phylum = "Chordata",
+                             class = c("Aves", "Amphibia"))) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_equal(nrow(x), 2)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  # check that no taxon concept IDs consist solely of numbers (i.e. no letters)
+  # Since update to CoL that should be impossible
+  grepl("^[[:digit:]]+$", x$taxon_concept_id) |>
+    any() |>
+    expect_false()
+})
+
 test_that("`search_all(identifiers)` works for GBIF", {
   skip_if_offline(); skip_on_ci()
   x <- search_all(identifiers, "359") |>

@@ -62,7 +62,12 @@ capture_profiles_unnest <- function(.query){
 #' `request_metadata(type = "taxa") |> unnest()`
 #' @noRd
 #' @keywords Internal
-capture_taxa_unnest <- function(.query){
+capture_taxa_unnest <- function(.query, call = rlang::caller_env()){
+  if(.query$atlas == "Global"){
+    c("Querying child taxa is not supported by the GBIF taxon API v2.",
+      i = "Consider trying `rcol::clb_children()` instead.") |>
+      cli::cli_abort(call = call)
+  }
   .query$type <- "metadata/taxa-unnest"
   if(!is.null(.query$filter)){
     id <- .query$filter$value[1]
