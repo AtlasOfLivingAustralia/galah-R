@@ -18,7 +18,8 @@ collapse_occurrences_count_gbif <- function(x, limit = 0){
 #' @noRd
 #' @keywords Internal
 collapse_occurrences_count_gbif_groupby_basic <- function(x){
-  x$body <- list(predicate = build_predicates(x$body),
+  x$body <- list(checklistKey = gbif_checklistKey(),
+                 predicate = build_predicates(x$body),
                  limit = 0,
                  facets = parse_predicates_groupby(x$body$group_by),
                  facetLimit = x$request$slice_arrange$slice_n) |>

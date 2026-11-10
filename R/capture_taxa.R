@@ -36,7 +36,7 @@ capture_taxa_single <- function(.query, call = rlang::caller_env()){
   
   # For GBIF (only), switch to CoL taxonomy
   if(.query$atlas == "Global"){
-    url <- glue::glue("{url}&checklistKey=7ddf754f-d193-4cc9-b351-99906754a03b")
+    url <- glue::glue("{url}&checklistKey={gbif_checklistKey()}")
   }
   
   # build object and return
@@ -115,7 +115,7 @@ capture_taxa_multiple <- function(.query, call = rlang::caller_env()){
 
   # For GBIF (only), switch to CoL taxonomy
   if(.query$atlas == "Global"){
-    urls <- glue::glue("{urls}&checklistKey=7ddf754f-d193-4cc9-b351-99906754a03b")
+    urls <- glue::glue("{urls}&checklistKey={gbif_checklistKey()}")
   }
 
   # create a set of strings to show original search in final tibble

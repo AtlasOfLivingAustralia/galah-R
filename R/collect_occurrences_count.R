@@ -45,7 +45,8 @@ collect_occurrences_count_gbif_single <- function(result){
   if(length(result$facets) < 1){ # first handle single values
     tibble::tibble(count = result$count)
   }else{
-    purrr::map(purrr::pluck(result, "facets"),
+    facet_slot <- purrr::pluck(result, "facets")
+    result_df <- purrr::map(facet_slot,
       \(a){
         df <- a |>
           purrr::pluck("counts") |>
@@ -54,9 +55,12 @@ collect_occurrences_count_gbif_single <- function(result){
           snake_to_camel_case()
         df
       }) |>
-      dplyr::bind_rows() |>
-      dplyr::relocate("count", 
-                      .after = dplyr::last_col())
+      dplyr::bind_rows()
+    if(any(colnames(result_df) == "count")){
+      result_df <- result_df |>
+        dplyr::relocate("count", .after = dplyr::last_col())
+    }
+    result_df
   }
 }
   

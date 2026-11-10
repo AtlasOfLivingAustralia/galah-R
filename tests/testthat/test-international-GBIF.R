@@ -13,6 +13,8 @@ test_that("swapping to atlas = GBIF works", {
                               password = "galah-gbif-test-login"))
 })
 
+## metadata tests
+
 test_that("`show_all(fields)` works for GBIF", {
   skip_galah()
   # first ensure underlying syntax is valid
@@ -20,17 +22,20 @@ test_that("`show_all(fields)` works for GBIF", {
     collapse()
   expect_true(inherits(x, "query"))
   expect_true(x$type == "metadata/fields")
-  x <- collect(x)
+  x <- collect(x) |>
+    skip_unavailable()
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   # then test 'traditional' syntax
-  y <- show_all(fields)
+  y <- show_all(fields) |>
+    skip_unavailable()
   expect_equal(x, y)
 })
 
 test_that("`search_all(fields)` works for GBIF", {
   skip_galah()
-  result <- search_all(fields, "year")
+  result <- search_all(fields, "year") |>
+    skip_unavailable()
   expect_gte(nrow(result), 2)
   result |> 
     inherits(c("tbl_df", "tbl", "data.frame")) |>
@@ -47,14 +52,16 @@ test_that("`show_values()` works for GBIF fields", {
   x <- request_metadata() |>
     filter(fields == "gbifRegion") |>
     unnest() |>
-    collect()
+    collect() |>
+    skip_unavailable()
   # traditional syntax
   quiet_values <- function(...){
     x <- purrr::quietly(show_values)
     x(...)$result
   }
   y <- search_fields("gbifRegion") |>
-    quiet_values()
+    quiet_values()  |>
+    skip_unavailable()
   # tests
   inherits(x, c("tbl_df", "tbl", "data.frame")) |>
     expect_true()
@@ -64,16 +71,18 @@ test_that("`show_values()` works for GBIF fields", {
   expect_equal(x, y)
 })
 
-test_that("slice_head() works with `count(country)` for GBIF", {
+test_that("`slice_head()` works with `count(country)` for GBIF", {
   skip_galah()
   galah_config(atlas = "GBIF")
   x_default <- request_data() |>
     count(country) |>
-    collect()
+    collect() |>
+    skip_unavailable()
   x_5 <- request_data() |>
     count(country) |>
     slice_head(n = 5) |>
-    collect()
+    collect() |>
+    skip_unavailable()
   expect_gte(nrow(x_default), 200)
   expect_equal(nrow(x_5), 5)
 })
@@ -91,7 +100,8 @@ test_that("`show_values()` fails for unsearchable GBIF fields", {
 
 test_that("`show_all(collections)` works for GBIF", {
   skip_galah()
-  x <- show_all(collections, limit = 10)
+  x <- show_all(collections, limit = 10) |>
+    skip_unavailable()
   expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   ## FIXME: not coded slice_head() yet
@@ -101,29 +111,34 @@ test_that("`show_all(collections)` works for GBIF", {
   # expect_equal(x, y)
   z <- request_metadata() |>
     filter(collection == "australia") |>
-    collect()
+    collect() |>
+    skip_unavailable()
   expect_equal(nrow(z), 20)
 })
 
 test_that("`show_all(datasets)` works for GBIF", {
   skip_galah()
-  x <- show_all(datasets, limit = 10)
+  x <- show_all(datasets, limit = 10) |>
+    skip_unavailable()
   expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   z <- request_metadata() |>
     filter(dataset == "avian") |>
-    collect()
+    collect() |>
+    skip_unavailable()
   expect_gte(nrow(z), 10) # historically this was n = 20
 })
 
 test_that("`show_all(providers)` works for GBIF", {
   skip_galah()
-  x <- show_all(providers, limit = 10)
+  x <- show_all(providers, limit = 10) |>
+    skip_unavailable()
   expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   z <- request_metadata() |>
     filter(provider == "herbarium") |>
-    collect()
+    collect() |>
+    skip_unavailable()
   expect_equal(nrow(z), 20)
 })
 
@@ -132,7 +147,8 @@ test_that("`show_all(reasons)` fails for GBIF", {
 })
 
 test_that("`show_all(assertions)` works for GBIF", {
-  x <- show_all(assertions)
+  x <- show_all(assertions) |>
+    skip_unavailable()
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -147,7 +163,8 @@ test_that("`show_all(lists)` fails for GBIF", {
 
 test_that("`search_all(taxa)` works for GBIF", {
   skip_galah()
-  x <- search_taxa("Mammalia")
+  x <- search_taxa("Mammalia") |>
+    skip_unavailable()
   expect_equal(nrow(x), 1)
   expect_gte(ncol(x), 1)
   expect_true(colnames(x)[1] == "search_term")
@@ -202,26 +219,31 @@ galah_config(verbose = TRUE)
 
 test_that("`search_all(datasets)` works for GBIF", {
   skip_galah()
-  x <- search_all(datasets, "Mammals")
+  x <- search_all(datasets, "Mammals") |>
+    skip_unavailable()
   expect_lte(nrow(x), 20)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`search_all(collections)` works for GBIF", {
   skip_galah()
-  x <- search_all(collections, "Museum")
+  x <- search_all(collections, "Museum") |>
+    skip_unavailable()
   expect_lte(nrow(x), 20)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`search_all(providers)` works for GBIF", {
   skip_galah()
-  x <- search_all(providers, "Frog")
+  x <- search_all(providers, "Frog") |>
+    skip_unavailable()
   expect_lte(nrow(x), 20)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 galah_config(verbose = FALSE)
+
+## count() tests
 
 test_that("`count()` works for GBIF", {
   skip_galah()
@@ -232,8 +254,53 @@ test_that("`count()` works for GBIF", {
     expect_gt(0)
 })
 
-test_that("`atlas_counts()` fails for GBIF when `type = 'species'`", {
-  expect_error(atlas_counts(type = "species"))
+test_that("`count()` errors when real but non-indexed fields are requested", {
+  skip_galah()
+
+  galah_config(run_checks = TRUE)
+
+  # invalid fields
+  galah_call() |>
+    filter(something == 9) |>
+    count() |>
+    collapse() |>
+    expect_error()
+
+  # real, but not indexed, group_by statement
+  request_data() |>
+    filter(class == "Mammalia") |>
+    group_by(order) |>
+    count() |>
+    collapse() |>
+    expect_error()
+
+   galah_config(run_checks = FALSE)
+})
+
+test_that("`count()` works with `identify()` for GBIF", {
+  skip_galah()
+  x <- request_data() |>
+    identify("Psittaciformes") |> # check this is returning correct (CoL) names
+    group_by(speciesKey) |>
+    slice_head(n = 10) |>
+    count() |>
+    collect() |>
+    skip_unavailable()
+  expect_equal(nrow(x), 10)
+  expect_equal(ncol(x), 2)
+  # FIXME: returned values are not from CoL but the taxon backbone (all numeric)
+})
+
+test_that("`count()` works with `slice_head()` for GBIF", {
+  skip_galah()
+  # collapse
+  x <- request_data() |>
+    count(country) |>
+    slice_head(n = 5) |>
+    collect() |>
+    skip_unavailable()
+  expect_equal(nrow(x), 5)
+  expect_equal(ncol(x), 2)
 })
 
 galah_config(run_checks = TRUE)
@@ -245,18 +312,21 @@ test_that("`count()` works with 2 `group_by` args for GBIF", {
     filter(year >= 2020) |>
     group_by(year, basisOfRecord) |>
     count() |>
-    collapse()
+    collapse() |>
+    skip_unavailable()
   expect_s3_class(x, "query")
   # expect_equal(length(x), 6) # for some reason this fails on Positron?!?!?!!
   expect_contains(names(x), 
                c("type", "url", "headers", "request")) # "options", "body" ?
   expect_equal(x$type, "data/occurrences-count-groupby")
   # compute
-  y <- compute(x)
+  y <- compute(x) |>
+    skip_unavailable()
   expect_s3_class(y, "computed_query")
   # collect
   Sys.sleep(pause_time * 5)
-  z <- collect(y)
+  z <- collect(y) |>
+    skip_unavailable()
   expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(z), 1)
   expect_equal(names(z), c("year", "basisOfRecord", "count"))
@@ -278,8 +348,6 @@ test_that("`count()` works with 2 `group_by` args for GBIF", {
 #     collect()
 # })
 
-# FIXME: `slice_head()` not tested for GBIF
-
 test_that("`count()` works with `identify` for GBIF when `run_checks` = TRUE", {
   skip_galah()
   Sys.sleep(pause_time)
@@ -290,7 +358,8 @@ test_that("`count()` works with `identify` for GBIF when `run_checks` = TRUE", {
     filter(year >= 2020, 
            basisOfRecord == "HUMAN_OBSERVATION") |>
     count() |>
-    collapse()
+    collapse() |>
+    skip_unavailable()
   expect_s3_class(x, "query")
   expect_equal(length(x), 7)
   expect_equal(names(x), 
@@ -309,6 +378,93 @@ test_that("`count()` works with `identify` for GBIF when `run_checks` = TRUE", {
   expect_equal(nrow(z), 1)
 })
 
+test_that("`count()` works with `geolocate_polygon()` for GBIF", {
+  skip_galah()
+  # errors when points given clockwise
+  # FIXME: This has been disabled at some point 
+  # `st_sfc()` has a `check_ring_dir` argument that might help
+  # wkt <- "POLYGON((142.36 -29.01,142.74 -29.01,142.74 -29.39,142.36 -29.39,142.36 -29.01))"
+  # expect_error({galah_call() |>
+  #    galah_polygon(wkt) |>
+  #    count() |>
+  #    collect()})
+  # works when points given counter-clockwise
+  wkt <- "POLYGON((142.36 -29.01,142.36 -29.39,142.74 -29.39,142.74 -29.01,142.36 -29.01))"
+  result <- galah_call() |>
+    identify("Mammalia") |>
+    geolocate_polygon(wkt) |>
+    count() |>
+    collect() |>
+    skip_unavailable()
+  # compare against a taxonomic query in the same place
+  result_taxa <- galah_call() |>
+    identify("Mammalia") |>
+    count() |>
+    collect() |>
+    skip_unavailable()
+  # compare against a purely spatial query
+  result_space <- galah_call() |>
+    geolocate_polygon(wkt) |>
+    count() |>
+    collect() |>
+    skip_unavailable()
+  expect_lt(result$count, result_taxa$count)
+  expect_lt(result$count, result_space$count)
+})
+
+test_that("`count()` works with `geolocate_radius()` for GBIF", {
+  skip_galah()
+  # ditto for a point and radius
+  result <- galah_call() |>
+    identify("Mammalia") |>
+    geolocate_radius(lat = -33.7,
+                     lon = 151.3,
+                     radius = 5) |>
+    count() |>
+    collect() |>
+    skip_unavailable()
+  result_space <- galah_call() |>
+    geolocate_radius(lat = -33.7,
+                     lon = 151.3,
+                     radius = 5) |>
+    count() |>
+    collect() |>
+    skip_unavailable()
+  result_taxa <- galah_call() |>
+    identify("Mammalia") |>
+    count() |>
+    collect() |>
+    skip_unavailable()
+  expect_lt(result$count, result_taxa$count)
+  expect_lt(result$count, result_space$count)
+})
+
+test_that("`count()` queries work with `authenticate()` for GBIF", {
+  skip_galah()
+  Sys.sleep(pause_time)
+  x_compute <- request_data(from = "GBIF") |>
+    authenticate(username = "atlasoflivingaustralia",
+                 email = "ala4r@ala.org.au",
+                 password = "galah-gbif-test-login") |>
+    filter(year == 2010) |>
+    count() |>
+    compute() |>
+    skip_unavailable()
+  Sys.sleep(pause_time * 5)
+  x <- collect(x_compute, wait = FALSE) |>
+    skip_unavailable(other_classes = "computed_query")
+  expect_equal(nrow(x), 1)
+  expect_equal(ncol(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("`atlas_counts()` fails for GBIF when `type = 'species'`", {
+  expect_error(atlas_counts(type = "species"))
+})
+
+
+## glimpse() tests
+
 test_that("`glimpse()` works for GBIF", {
   skip_galah()
   Sys.sleep(pause_time)
@@ -319,7 +475,8 @@ test_that("`glimpse()` works for GBIF", {
   x <- request_data(from = "GBIF") |>
     filter(year == 2025) |>
     glimpse() |>
-    collect()
+    collect() |>
+    skip_unavailable()
   expect_s3_class(x, c("occurrences_glimpse", "tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(x), 3) # number of rows in the tibble
   quiet_print <- purrr::quietly(print.occurrences_glimpse)
@@ -343,7 +500,8 @@ test_that("`glimpse()` works with `identify()` for GBIF", {
     identify("Eolophus roseicapilla") |>
     filter(year == 2010) |>
     glimpse() |>
-    collect()
+    collect() |>
+    skip_unavailable()
   expect_s3_class(x, c("occurrences_glimpse", "tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(x), 3) # number of rows in the tibble
   quiet_print <- purrr::quietly(print.occurrences_glimpse)
@@ -358,6 +516,8 @@ test_that("`glimpse()` works with `identify()` for GBIF", {
 
 # FIXME: add test for `select()` paired with `glimpse()`
 
+## occurrence tests
+
 test_that("`atlas_occurrences()` works for GBIF", {
   skip_galah()
   Sys.sleep(pause_time)
@@ -365,7 +525,8 @@ test_that("`atlas_occurrences()` works for GBIF", {
     filter(year == 1890,
            classKey == "359",
            country == "AU") |>
-    compute()
+    compute() |>
+    skip_unavailable()
   Sys.sleep(pause_time * 5)
   x <- collect(x_compute, wait = FALSE) |>
     skip_unavailable(other_classes = "computed_query")
@@ -382,7 +543,8 @@ test_that("`atlas_occurrences()` works with `select()` for GBIF", {
            classKey == "359",
            country == "AU") |>
     select(countryCode, species, eventDate) |>
-    compute()
+    compute() |>
+    skip_unavailable()
   Sys.sleep(pause_time * 5)
   x <- collect(x_compute, wait = FALSE) |>
     skip_unavailable(other_classes = "computed_query")
@@ -399,7 +561,8 @@ test_that("invalid fields are caught from `select()` for GBIF", {
            classKey == "359",
            country == "AU") |> # this uses `check_fields_gbif_predicates()`
     select(country, species, eventDate) |> # this uses `check_fields_gbif_counts()`
-    compute()
+    compute() |>
+    skip_unavailable()
   Sys.sleep(pause_time * 5)
   collect(x, wait = FALSE) |>  
     expect_error()
@@ -415,13 +578,15 @@ test_that("`atlas_species()` works for GBIF", {
                  password = "galah-gbif-test-login") |>
     filter(year == 2010) |>
     identify("Crinia") |>
-    collapse()
+    collapse() |>
+    skip_unavailable()
   expect_s3_class(x, "query")
   expect_equal(length(x), 7)
   expect_equal(names(x), 
                c("type", "atlas", "url", "headers", "options", "body", "request"))
   expect_equal(x$type, "data/species")
-  y <- compute(x)
+  y <- compute(x) |>
+    skip_unavailable()
   expect_s3_class(y, "computed_query")
   Sys.sleep(pause_time * 5)
   z <- collect(y, wait = FALSE) |>
@@ -429,24 +594,6 @@ test_that("`atlas_species()` works for GBIF", {
   expect_gt(nrow(z), 10) # n = 14
   expect_gt(ncol(z), 5)  # n = 22
   expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
-})
-
-test_that("`count()` queries work with `authenticate()` for GBIF", {
-  skip_galah()
-  Sys.sleep(pause_time)
-  x_compute <- request_data(from = "GBIF") |>
-    authenticate(username = "atlasoflivingaustralia",
-                 email = "ala4r@ala.org.au",
-                 password = "galah-gbif-test-login") |>
-    filter(year == 2010) |>
-    count() |>
-    compute()
-  Sys.sleep(pause_time * 5)
-  x <- collect(x_compute, wait = FALSE) |>
-    skip_unavailable(other_classes = "computed_query")
-  expect_equal(nrow(x), 1)
-  expect_equal(ncol(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`distinct()` queries accept `select()` for GBIF", {
@@ -460,7 +607,8 @@ test_that("`distinct()` queries accept `select()` for GBIF", {
     distinct(species_guid, .keep_all = TRUE) |>
     identify("Crinia") |>
     select(scientificName, speciesKey) |>
-    compute()
+    compute() |>
+    skip_unavailable()
   Sys.sleep(pause_time * 5)
   x <- collect(x_compute, wait = FALSE) |>
     skip_unavailable(other_classes = "computed_query")
@@ -471,10 +619,10 @@ test_that("`distinct()` queries accept `select()` for GBIF", {
 
 test_that("`atlas_media()` fails for GBIF", {
   skip_galah()
-  expect_error({galah_call() |>
+  galah_call() |>
     identify("perameles") |>
-    atlas_media()
-  })
+    atlas_media() |>
+    expect_error()
 })
 
 test_that("`collect()` works for GBIF with `type = 'occurrences' or 'occurrences-doi'` ", {
@@ -486,17 +634,20 @@ test_that("`collect()` works for GBIF with `type = 'occurrences' or 'occurrences
     filter(year == 1900)
   count <- base_query |> 
     count() |> 
-    collect()
+    collect() |>
+    skip_unavailable()
   Sys.sleep(pause_time)
   x <- base_query |>
-    collapse()
+    collapse() |>
+    skip_unavailable()
   # NOTE: the above query should return 72 records (tested 2025-06-10)
   expect_s3_class(x, "query")
   expect_equal(names(x), 
                c("type", "atlas", "url", "headers", "options", "body", "request"))
   expect_equal(x$type, "data/occurrences")
   # compute
-  y <- compute(x)
+  y <- compute(x) |>
+    skip_unavailable()
   expect_true(inherits(y, "computed_query"))
   expect_true(y$type == "data/occurrences")  
   expect_true(any(names(y) == "status"))
@@ -515,7 +666,8 @@ test_that("`collect()` works for GBIF with `type = 'occurrences' or 'occurrences
   recent_doi <- attributes(z)$doi
   a <- galah_call() |>
    filter(doi == recent_doi) |>
-   collect()
+   collect() |>
+    skip_unavailable()
   expect_equal(a, z, ignore_attr = TRUE)
   expect_equal(attributes(a)$doi, attributes(z)$doi)
 })

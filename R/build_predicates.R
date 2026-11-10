@@ -70,7 +70,8 @@ parse_predicates_identify <- function(x){
     result <- purrr::map(x$taxon_concept_id,
                \(a){list(type = "equals",
                          key = "TAXON_KEY",
-                         value = a)})
+                         value = a,
+                         checklistKey = gbif_checklistKey())})
     if(length(result) > 1){
       list(type = "or",
            result)

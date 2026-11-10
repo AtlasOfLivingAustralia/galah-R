@@ -490,6 +490,13 @@ species_facets <- function(.query){
   }
 }
 
+#' Internal function to specify checklistKey in GBIF functions
+#' @noRd
+#' @keywords Internal
+gbif_checklistKey <- function(){
+  "7ddf754f-d193-4cc9-b351-99906754a03b"
+}
+
 #' Internal function to test whether authentication is supported
 #' @noRd
 #' @keywords Internal
