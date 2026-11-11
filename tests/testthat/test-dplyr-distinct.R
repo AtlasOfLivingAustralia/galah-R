@@ -1,5 +1,11 @@
 galah_config(email = "ala4r@ala.org.au")
 
+test_that("`distinct()` errors for >1 variable", {
+  galah_call() |>
+    distinct(species, basisOfRecord) |>
+    expect_error("Too many fields supplied")
+})
+
 test_that("`group_by()` without `distinct()` returns occurrences, not species", {
   skip_galah()
   query <- galah_call() |>

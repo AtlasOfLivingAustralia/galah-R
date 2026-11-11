@@ -31,11 +31,17 @@
 #' }
 #' @export
 slice_head.data_request <- function(.data, ..., n, prop, by = NULL){
+
+  # warn for `prop`
+  if(!missing(prop)){
+    c("Argument `prop` is not supported for objects of class `data_request`: skipping",
+      i = "Use `n` to restrict the absolute number of records") |>
+    cli::cli_warn()
+  }
+
   # handle inputs
   if(!missing(n)){
      result <- tibble::tibble(slice_n = n)
-  }else if(!missing(prop)){
-    result <- tibble::tibble(slice_prop = prop)
   } else {
     result <- tibble::tibble()
   }
@@ -49,7 +55,7 @@ slice_head.data_request <- function(.data, ..., n, prop, by = NULL){
     .data$slice <- result
     return(.data)    
   }
-}
+  }
 
 #' @rdname slice_head.data_request
 #' @export

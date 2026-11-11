@@ -145,14 +145,10 @@ parse_distinct <- function(dot_names,
         "Too many fields supplied.",
         i = "`distinct.data_request` only accepts one field.") |>
         cli::cli_abort(call = error_call)
-    }
-    if(length(dot_names) > 0){
+    }else{
       names(dot_names) <- NULL # needed to avoid empty strings added as names
       tibble::tibble(name = dot_names,
                      keep_all = keep_all) 
-    }else{
-      tibble::tibble(name = NA,
-                     keep_all = keep_all)
     }
   }else{
     tibble::tibble(name = NA,

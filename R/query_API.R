@@ -142,7 +142,7 @@ query_API_once <- function(.query,
   # and can be allowed to fail otherwise
   }else{
     result <- query |>
-      httr2::req_timeout(seconds = 60) |>
+      httr2::req_timeout(seconds = 20) |>
       httr2::req_perform(verbosity = 0,
                          error_call = error_call)
     if(grepl("^https://api.gbif.org/v1/occurrence/download/request", .query$url)){

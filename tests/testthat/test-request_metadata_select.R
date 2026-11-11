@@ -33,7 +33,8 @@ test_that("`request_metadata()` works with `select()` for local APIs", {
     check_select_structure(query)
     
     # collect result
-    result <- collect(query)
+    result <- collect(query) |>
+     skip_unavailable()
     result |>
       inherits(c("tbl_df", "tbl", "data.frame")) |>
       expect_true()
@@ -45,7 +46,8 @@ test_that("`request_metadata()` works with `select()` for local APIs", {
     first_2_cols <- colnames(result)[1:2]
     result2 <- request_metadata(type = a) |>
       select(tidyselect::any_of(first_2_cols)) |>
-      collect()
+      collect() |>
+      skip_unavailable()
     
     # check has worked
     expect_equal(colnames(result2),
@@ -75,7 +77,8 @@ test_that("`request_metadata()` works with `select()` for remote APIs *without* 
     check_select_structure(query)
     
     # collect result
-    result <- collect(query)
+    result <- collect(query) |>
+      skip_unavailable()
     result |>
       inherits(c("tbl_df", "tbl", "data.frame")) |>
       expect_true()
@@ -87,7 +90,8 @@ test_that("`request_metadata()` works with `select()` for remote APIs *without* 
     first_2_cols <- colnames(result)[1:2]
     result2 <- request_metadata(type = a) |>
       select(tidyselect::any_of(first_2_cols)) |>
-      collect()
+      collect() |>
+      skip_unavailable()
     
     # check has worked
     expect_equal(colnames(result2),
@@ -124,7 +128,8 @@ test_that("`request_metadata()` works with `select()` for remote APIs *with* def
     check_select_structure(query)
     
     # collect that query, and check for expected columns
-    result <- quiet_collect(query)
+    result <- quiet_collect(query) |>
+      skip_unavailable()
     result |>
       ncol() |>
       expect_equal(expected_n)
@@ -183,7 +188,8 @@ test_that("`request_metdata()` works with `select()` for `type = 'lists'`", {
   y <- request_metadata(type = "lists") |>
     slice_head(n = 10) |>
     select(everything()) |>
-    collect()
+    collect() |>
+    skip_unavailable()
   
   expect_gt(ncol(y), ncol(x))
 })
@@ -203,8 +209,10 @@ test_that("`request_metdata()` works with `select()` for `type = 'taxa'`", {
   # check `select` exists, and contains a quosure and a summary
   check_select_structure(query)
   # now run the query
-  basic_search <- search_taxa("Crinia")
-  everything_search <- quiet_collect(query)
+  basic_search <- search_taxa("Crinia") |>
+    skip_unavailable()
+  everything_search <- quiet_collect(query) |>
+    skip_unavailable()
   expect_gt(ncol(everything_search),
             ncol(basic_search))
   expect_equal(nrow(everything_search), 1)
@@ -221,7 +229,8 @@ test_that("`request_metdata()` works with `select()` for complex taxa", {
   query <- request_metadata() |>
     identify(crinia_tibble) |>
     select(everything()) |>
-    collapse()
+    collapse() |>
+    skip_unavailable()
   # check this requests a url
   query |>
     purrr::pluck("url") |>
@@ -230,8 +239,10 @@ test_that("`request_metdata()` works with `select()` for complex taxa", {
   # check `select` exists, and contains a quosure and a summary
   check_select_structure(query)
   # now run the query
-  basic_search <- search_taxa(crinia_tibble)
-  everything_search <- quiet_collect(query)
+  basic_search <- search_taxa(crinia_tibble) |>
+    skip_unavailable()
+  everything_search <- quiet_collect(query) |>
+    skip_unavailable()
   expect_gt(ncol(everything_search),
             ncol(basic_search))
   expect_equal(nrow(everything_search), 1)
@@ -247,7 +258,8 @@ test_that("`request_metdata()` works with `select()` for `type = 'identifiers'`"
   query <- request_metadata() |>
     filter(identifier == tcid) |>
     select(everything()) |>
-    collapse()
+    collapse() |>
+    skip_unavailable()
   # check this requests a url
   query |>
     purrr::pluck("url") |>
@@ -257,8 +269,10 @@ test_that("`request_metdata()` works with `select()` for `type = 'identifiers'`"
   # check `select` exists, and contains a quosure and a summary
   check_select_structure(query)
   # now run the query
-  basic_search <- search_identifiers(tcid)
-  everything_search <- quiet_collect(query)
+  basic_search <- search_identifiers(tcid) |>
+    skip_unavailable()
+  everything_search <- quiet_collect(query) |>
+    skip_unavailable()
   expect_gt(ncol(everything_search),
             ncol(basic_search))
   expect_equal(nrow(everything_search), 1)

@@ -85,9 +85,15 @@ collapse_occurrences_count_atlas_groupby_crossed <- function(.query,
   # run query to get list of count tibbles
   result <- query_API(.query,
                       error_call = call)
+  # NOTE: This is the only place we have a message like this in galah
+  # might be worth checking whether it is necessary at all, or
+  # conversely, whether we need it elsewhere.
   if(is.null(result)){
-    system_down_message("count",
-                        error_call = call)
+    c("Calling the API failed for `{function_name}`.",
+      i = "This might mean that the API is down, or that you are not connected to the internet.",
+      i = "Double check that your query is correct, or try again later."
+    ) |>
+    cli::cli_abort(call = call)
   }
   result <- purrr::map(result, 
                        \(a){a$fieldResult |> 

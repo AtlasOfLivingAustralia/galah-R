@@ -143,3 +143,10 @@ test_that("`group_by()` with multiple fields works with `slice_head()`", {
                c("year", "basisOfRecord", "basisOfRecord_label", "count"))
   expect_true(all(xtabs(~result$year) <= 5)) # current year may not have all values yet
 })
+
+test_that("`slice_head()` warns when `prop` is set", {
+  galah_call() |>
+    count(basisOfRecord) |>
+    slice_head(prop = 0.5) |>
+    expect_warning()
+})

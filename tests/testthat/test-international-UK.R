@@ -235,7 +235,7 @@ test_that("`atlas_media()` works for UK", {
     directory = "temp",
     send_email = FALSE)
   x <- request_data() |>
-    filter(year >= 2020) |>
+    filter(year >= 2020 & year <= 2023) |>
     atlas_media() |>
     skip_unavailable()
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))

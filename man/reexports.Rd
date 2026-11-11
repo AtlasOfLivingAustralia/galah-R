@@ -24,10 +24,10 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{dplyr}{\code{\link[dplyr:count]{add_count}}, \code{\link[dplyr]{arrange}}, \code{\link[dplyr:compute]{collapse}}, \code{\link[dplyr:compute]{collect}}, \code{\link[dplyr]{compute}}, \code{\link[dplyr]{count}}, \code{\link[dplyr]{distinct}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{glimpse}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{select}}, \code{\link[dplyr:slice]{slice_head}}}
+  \item{dplyr}{\code{\link[dplyr:add_count]{add_count()}}, \code{\link[dplyr:arrange]{arrange()}}, \code{\link[dplyr:collapse]{collapse()}}, \code{\link[dplyr:collect]{collect()}}, \code{\link[dplyr:compute]{compute()}}, \code{\link[dplyr:count]{count()}}, \code{\link[dplyr:distinct]{distinct()}}, \code{\link[dplyr:filter]{filter()}}, \code{\link[dplyr:glimpse]{glimpse}}, \code{\link[dplyr:group_by]{group_by()}}, \code{\link[dplyr:select]{select()}}, \code{\link[dplyr:slice_head]{slice_head()}}}
 
-  \item{graphics}{\code{\link[graphics]{identify}}}
+  \item{graphics}{\code{\link[graphics:identify]{identify()}}}
 
-  \item{sf}{\code{\link[sf]{st_crop}}}
+  \item{sf}{\code{\link[sf:st_crop]{st_crop()}}}
 }}
 
