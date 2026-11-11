@@ -1,11 +1,13 @@
 #' Internal function to check queue status, with rate limiting
 #' @noRd
 #' @keywords Internal
-check_queue <- function(.query, wait = FALSE){
+check_queue <- function(.query,
+                        wait = FALSE,
+                        call = rlang::caller_env()){
   # process supplied object
   if(.query$status == "incomplete"){
     download_response <- c(.query[c("type", "atlas")],
-                           check_occurrence_status(.query)) |>
+                           check_occurrence_status(.query, call = call)) |>
       structure(class = "computed_query")
     if(wait){
       c(.query[c("type", "atlas")],
@@ -22,7 +24,8 @@ check_queue <- function(.query, wait = FALSE){
 #' Internal function to check queue status, with rate limiting
 #' @noRd
 #' @keywords Internal
-check_queue_loop <- function(.query){
+check_queue_loop <- function(.query,
+                             call = rlang::caller_env()){
   rate_object <- set_rate()
   current_queue <- .query$queue_size
   continue <- TRUE
@@ -33,7 +36,7 @@ check_queue_loop <- function(.query){
     cli::cli_text(position)
   }
   while(continue == TRUE){
-    .query <- check_occurrence_status(.query)
+    .query <- check_occurrence_status(.query, call = call)
     continue <- continue_while_loop(.query)
     if(continue){    
       iter <- iter + 1
@@ -46,7 +49,8 @@ check_queue_loop <- function(.query){
         })
         return(.query)     
       }else{
-        current_queue <- check_queue_size(.query, current_queue)
+        current_queue <- check_queue_size(.query,
+                                          current_queue)
         purrr::rate_sleep(rate_object, quiet = verbose)
       }
     }else{

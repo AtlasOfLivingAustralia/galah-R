@@ -11,24 +11,26 @@
 collect_occurrences <- function(.query, 
                                 wait, 
                                 file = NULL,
-                                error_call = rlang::caller_env()){
+                                call = rlang::caller_env()){
   switch(.query$atlas,
          "Austria" = collect_occurrences_direct(.query,
                                                 file = file,
-                                                call = error_call),
+                                                call = call),
          collect_occurrences_default(.query,
                                      wait = wait,
                                      file = file,
-                                     call = error_call))
+                                     call = call))
 }
 
 #' Internal function to `collect_occurrences()` for UK
 #' @noRd
 #' @keywords Internal
-collect_occurrences_direct <- function(.query, file, call){
+collect_occurrences_direct <- function(.query,
+                                       file,
+                                       call = rlang::caller_env()){
   .query$download <- TRUE
   .query$file <- check_download_filename(file)
-  query_API(.query)
+  query_API(.query, error_call = call)
   result <- read_zip(.query$file)
   if(is.null(result)){
     download_failed_message(call = call)
@@ -40,10 +42,15 @@ collect_occurrences_direct <- function(.query, file, call){
 #' Internal function to `collect_occurrences()` for living atlases
 #' @noRd
 #' @keywords Internal
-collect_occurrences_default <- function(.query, wait, file, call){
-
+collect_occurrences_default <- function(.query,
+                                        wait,
+                                        file,
+                                        call = rlang::caller_env()){
+  
   # check queue
-  download_response <- check_queue(.query, wait = wait)
+  download_response <- check_queue(.query,
+                                   wait = wait,
+                                   call = call)
   if(is.null(download_response)){
     cli::cli_abort("No response from selected atlas.",
                    call = call)
@@ -62,7 +69,7 @@ collect_occurrences_default <- function(.query, wait, file, call){
                        file = check_download_filename(file)) |>
       as_query()
     # run downloads
-    query_API(new_object)
+    query_API(new_object, error_call = call)
     # import
     result <- read_zip(new_object$file)
   }else{
@@ -73,7 +80,7 @@ collect_occurrences_default <- function(.query, wait, file, call){
     download_failed_message(call = call)
   }else{
     result <- result |>
-      check_field_identities(.query, error_call = call) |>
+      check_field_identities(.query, call = call) |>
       check_media_cols()  # check for, and then clean, media info
 
     # exception for GBIF to post-process `select()`
@@ -101,9 +108,9 @@ collect_occurrences_default <- function(.query, wait, file, call){
 #' @keywords Internal
 collect_occurrences_doi <- function(.query, 
                                     file = NULL, 
-                                    call) {
+                                    call = rlang::caller_env()) {
   .query$file <- check_download_filename(file)
-  query_API(.query)
+  query_API(.query, error_call = call)
   result <- read_zip(.query$file)
   if(is.null(result)){
     download_failed_message(call = call)
@@ -119,19 +126,21 @@ collect_occurrences_doi <- function(.query,
 #' collect type `data/occurrences-glimpse`
 #' @noRd
 #' @keywords Internal
-collect_occurrences_glimpse <- function(.query){
+collect_occurrences_glimpse <- function(.query, 
+                                        call = rlang::caller_env()){
   if(.query$atlas == "Global"){
-    collect_occurrences_glimpse_gbif(.query)
+    collect_occurrences_glimpse_gbif(.query, call = call)
   }else{
-    collect_occurrences_glimpse_la(.query)
+    collect_occurrences_glimpse_la(.query, call = call)
   }
 }
 
 #' collect type `data/occurrences-glimpse` for GBIF
 #' @noRd
 #' @keywords Internal
-collect_occurrences_glimpse_gbif <- function(.query){
-  result <- query_API(.query)
+collect_occurrences_glimpse_gbif <- function(.query, 
+                                             call = rlang::caller_env()){
+  result <- query_API(.query, error_call = call)
 
   # convert to tibble
   df <- result |>
@@ -153,8 +162,9 @@ collect_occurrences_glimpse_gbif <- function(.query){
 #' collect type `data/occurrences-glimpse` for living atlases
 #' @noRd
 #' @keywords Internal
-collect_occurrences_glimpse_la <- function(.query){
-  result <- query_API(.query)
+collect_occurrences_glimpse_la <- function(.query, 
+                                           call = rlang::caller_env()){
+  result <- query_API(.query, error_call = call)
 
   # pull required info from API into a tibble
   df <- result |>
@@ -188,13 +198,14 @@ collect_occurrences_glimpse_la <- function(.query){
 #' collect type `data/occurrences-describe`
 #' @noRd
 #' @keywords Internal
-collect_occurrences_describe <- function(.query){
+collect_occurrences_describe <- function(.query, 
+                                         call = rlang::caller_env()){
 
   if(!is.null(.query$data)){
     result <- retrieve_internal_data(.query) |>
       dplyr::filter(!is.na(.data$id))
   }else{
-    result <- query_API(.query) |>
+    result <- query_API(.query, error_call = call) |>
       dplyr::bind_rows() |>
       dplyr::filter(!is.na(.data$name)) |>
       # below here for consistency with `collect_fields()`

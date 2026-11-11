@@ -1,11 +1,12 @@
 #' Internal function to `compute()` for `type = "occurrences"`
 #' @noRd
 #' @keywords Internal
-compute_occurrences <- function(.query){
+compute_occurrences <- function(.query,
+                                call = rlang::caller_env()){
   switch(.query$atlas,
          "Austria" = compute_occurrences_la_direct(.query),
-         "Global" = compute_occurrences_gbif(.query),
-         compute_occurrences_la(.query))
+         "Global" = compute_occurrences_gbif(.query, call = call),
+         compute_occurrences_la(.query, call = call))
 }
 
 #' Internal function to `compute()` for `type = "occurrences"` for 
@@ -22,12 +23,13 @@ compute_occurrences_la_direct <- function(.query){
 #' Note: this has not been updated and is unlikely to work
 #' @noRd
 #' @keywords Internal
-compute_occurrences_gbif <- function(.query){
-  post_result <- query_API(.query) # returns an id
+compute_occurrences_gbif <- function(.query,
+                                     call = rlang::caller_env()){
+  post_result <- query_API(.query, error_call = call) # returns an id
   status_code <- list(
     type = .query$type,
     url = glue::glue("https://api.gbif.org/v1/occurrence/download/{post_result}")) |>
-    query_API() |>
+    query_API(error_call = call) |>
     check_occurrence_response()
   c(list(type = .query$type,
          atlas = .query$atlas),
@@ -39,9 +41,10 @@ compute_occurrences_gbif <- function(.query){
 #' Internal function to `compute()` for `type = "occurrences"` for ALA
 #' @noRd
 #' @keywords Internal
-compute_occurrences_la <- function(.query){
+compute_occurrences_la <- function(.query,
+                                   call = rlang::caller_env()){
   # ping the API
-  status_code <- query_API(.query) |>
+  status_code <- query_API(.query, error_call = call) |>
     as.list() |>
     check_occurrence_response()
   if(potions::pour("package", "verbose")){
@@ -75,10 +78,11 @@ extract_fields <- function(.query){
 #' Internal function to retrieve a GBIF DOI
 #' @noRd
 #' @keywords Internal
-compute_occurrences_doi <- function(.query){
+compute_occurrences_doi <- function(.query,
+                                    call = rlang::caller_env()){
   if(stringr::str_detect(.query$url, "api.gbif.org")){
     .query$download <- NULL
-    result <- query_API(.query)
+    result <- query_API(.query, error_call = call)
     c(list(type = "data/occurrences-doi",
            atlas = .query$atlas,
            url = result$downloadLink,

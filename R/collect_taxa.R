@@ -1,13 +1,14 @@
 #' Internal function to `collect()` taxa
 #' @noRd
 #' @keywords Internal
-collect_taxa <- function(.query){
+collect_taxa <- function(.query,
+                         call = rlang::caller_env()){
   if(stringr::str_detect(.query$url$url[1], "namematching|name-matching")){
-    collect_taxa_namematching(.query) # Australia, Spain, Sweden
+    collect_taxa_namematching(.query, call = call) # Australia, Spain, Sweden
   }else if(stringr::str_detect(.query$url$url[1], "api.gbif.org")){
-    collect_taxa_gbif(.query)
+    collect_taxa_gbif(.query, call = call)
   }else{
-    collect_taxa_la(.query)  # tested for Austria, UK 
+    collect_taxa_la(.query, call = call)  # tested for Austria, UK 
   }
 }
 
@@ -15,9 +16,9 @@ collect_taxa <- function(.query){
 #' @noRd
 #' @keywords Internal
 collect_taxa_namematching <- function(.query,
-                                      error_call = rlang::caller_env()){
+                                      call = rlang::caller_env()){
   search_terms <- .query$url$search_term
-  result <- purrr::map(query_API(.query), 
+  result <- purrr::map(query_API(.query, error_call = call), 
                        build_tibble_from_nested_list) |> 
     dplyr::bind_rows()
   # break pipe for use case where all search terms are dubious (i.e. no taxonConceptID)
@@ -49,8 +50,7 @@ collect_taxa_namematching <- function(.query,
   check_homonyms(result, error_call = error_call)
   # Check for invalid search terms
   if (galah_config()$package$verbose) {
-    check_search_terms(result,
-                       atlas = .query$atlas)
+    check_search_terms(result, query = .query)
   }
   result |>
     dplyr::rename_with(camel_to_snake_case) |>
@@ -61,15 +61,15 @@ collect_taxa_namematching <- function(.query,
 #' Internal function to `collect()` taxa for other living atlases
 #' @noRd
 #' @keywords Internal
-collect_taxa_la <- function(.query){
+collect_taxa_la <- function(.query,
+                            call = rlang::caller_env()){
   search_terms <- .query$url$search_term
-  result <- query_API(.query) |>
+  result <- query_API(.query, error_call = call) |>
     clean_la_taxa(search_terms = search_terms,
                   atlas = .query$atlas) |>
     dplyr::bind_rows()
   if(ncol(result) > 1){
     name <- switch(.query$atlas,
-                   "France" = "referenceID",
                    "Portugal" = "usageKey",
                    "guid")
     result <- result |>
@@ -85,9 +85,10 @@ collect_taxa_la <- function(.query){
 #' Internal function to `collect()` taxa for GBIF
 #' @noRd
 #' @keywords Internal
-collect_taxa_gbif <- function(.query){
+collect_taxa_gbif <- function(.query,
+                              call = rlang::caller_env()){
   search_terms <- .query$url$search_term
-  result <- query_API(.query) |>
+  result <- query_API(.query, error_call = call) |>
     clean_gbif_taxa() |>
     purrr::map(build_tibble_from_nested_list) |> 
     dplyr::bind_rows() |>
@@ -98,8 +99,7 @@ collect_taxa_gbif <- function(.query){
   # check_homonyms(result, error_call = error_call) # TODO: Add this functionality
   # Check for invalid search terms
   if (galah_config()$package$verbose) {
-    check_search_terms(result,
-                       atlas = .query$atlas)
+    check_search_terms(result, query = .query)
   }
   
   result |>
@@ -190,9 +190,10 @@ clean_la_taxa <- function(result,
 #' Internal function to `collect()` identifiers
 #' @noRd
 #' @keywords Internal
-collect_identifiers <- function(.query){
+collect_identifiers <- function(.query,
+                                call = rlang::caller_env()){
   search_terms <- .query$url$search_term
-  result <- query_API(.query) |>
+  result <- query_API(.query, error_call = call) |>
     purrr::map(tidy_list_columns) |>
     dplyr::bind_rows()
   
@@ -214,7 +215,7 @@ collect_identifiers <- function(.query){
 
   # Check for invalid search terms
   if (galah_config()$package$verbose) {
-    check_search_terms(result, atlas = .query$atlas)
+    check_search_terms(result, query = .query)
   }
   
   result |>
@@ -226,49 +227,54 @@ collect_identifiers <- function(.query){
 #' Internal function to check search terms provided to `search_taxa()`
 #' @noRd
 #' @keywords Internal
-check_search_terms <- function(result, atlas) {
+check_search_terms <- function(result,
+                               query,
+                               call = rlang::caller_env()) {
   
-  invalid_taxa <- 
-    if (atlas == "Global") { # GBIF
-      if (any(result$matchType == "NONE")) {
-        result$search_term[result$matchType == "NONE"] 
-      }
-    } else {                 # ALA & other atlases
-      if (!all(result$success)) {
-        result$search_term[!result$success] 
-      }
-    } # if all search terms are valid, returns NULL
-  
-  if(!is.null(invalid_taxa)) {
-  
-  n_invalid <- length(invalid_taxa)
-  n_all <- nrow(result)
-  n_valid <- n_all - n_invalid
-    
-  d <- cli::cli_div(theme = list(span.bold = list("font-weight" = "bold"),
-                                 span.yellow = list(color = "yellow")))
-  
-  bullets <- c(
-    cli::cli_text("Matched {.bold {n_valid} of {n_all}} taxonomic search terms in selected atlas ({atlas})."),
-    "!" = cli::cli_text("{.yellow {n_invalid} unmatched search term{?s}:}")
-  )
-  if (n_invalid > 3) {
-    invalid_taxa_truncated <- c(invalid_taxa[1:3], glue::glue("+ {n_invalid - 3} more"))
-    list_invalid_taxa <- glue::glue_collapse(invalid_taxa_truncated, 
-                                             sep = "\", \"", 
-                                             last = "\" ")
-  } else {
-    list_invalid_taxa <- glue::glue_collapse(invalid_taxa, 
-                                             sep = "\", \"")
+  # tests depend on whether the GBIF API is used, noting that 
+  # 1. GBIF uses CoL taxonomy
+  # 2. some atlases use GBIF backbone (Flanders & Portugal)
+  invalid_taxa <- NULL
+  uses_gbif_taxonomy <- stringr::str_detect(query$url[[1]], "^https://api.gbif.org") 
+  if (uses_gbif_taxonomy) {
+    if (any(result$matchType == "NONE")) {
+      invalid_taxa <- result$search_term[result$matchType == "NONE"] 
+    }
+  } else {                 # other atlases
+    if (!all(result$success)) {
+      invalid_taxa <- result$search_term[!result$success] 
+    }
   }
-  bullets <- c(
-    bullets,
-    c("{.yellow \"{list_invalid_taxa}\"}") |>
-      rlang::format_error_bullets() |>
-      cli::cli_text())
-  
-  cli::cli_text(bullets)
-  cli::cli_end(d)
+
+  if(!is.null(invalid_taxa)) {
+    n_invalid <- length(invalid_taxa)
+    n_all <- nrow(result)
+    n_valid <- n_all - n_invalid
+      
+    d <- cli::cli_div(theme = list(span.bold = list("font-weight" = "bold"),
+                                  span.yellow = list(color = "yellow")))
+    
+    bullets <- c(
+      cli::cli_text("Matched {.bold {n_valid} of {n_all}} taxonomic search terms in selected atlas ({atlas})."),
+      "!" = cli::cli_text("{.yellow {n_invalid} unmatched search term{?s}:}")
+    )
+    if (n_invalid > 3) {
+      invalid_taxa_truncated <- c(invalid_taxa[1:3], glue::glue("+ {n_invalid - 3} more"))
+      list_invalid_taxa <- glue::glue_collapse(invalid_taxa_truncated, 
+                                              sep = "\", \"", 
+                                              last = "\" ")
+    } else {
+      list_invalid_taxa <- glue::glue_collapse(invalid_taxa, 
+                                              sep = "\", \"")
+    }
+    bullets <- c(
+      bullets,
+      c("{.yellow \"{list_invalid_taxa}\"}") |>
+        rlang::format_error_bullets() |>
+        cli::cli_text())
+    
+    cli::cli_text(bullets)
+    cli::cli_end(d)
   }
   
 }
@@ -278,7 +284,7 @@ check_search_terms <- function(result, atlas) {
 #' @noRd
 #' @keywords Internal
 check_homonyms <- function(result,
-                           error_call = rlang::caller_env()) {
+                           call = rlang::caller_env()) {
   homonym_check <- grepl("homonym", result$issues)
   if(any(homonym_check)){
     homonym_taxa <- result |>
@@ -290,6 +296,6 @@ check_homonyms <- function(result,
       i = "Please provide another rank in your search to clarify taxa.",
       i = "Use a `tibble` to clarify taxa, see `?search_taxa`.", 
       x = "Homonym issue with \"{list_homonym_taxa}\".") |>
-      cli::cli_warn(call = error_call)
+      cli::cli_warn(call = call)
   }
 }

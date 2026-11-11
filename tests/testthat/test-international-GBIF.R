@@ -280,15 +280,15 @@ test_that("`count()` errors when real but non-indexed fields are requested", {
 test_that("`count()` works with `identify()` for GBIF", {
   skip_galah()
   x <- request_data() |>
-    identify("Psittaciformes") |> # check this is returning correct (CoL) names
-    group_by(speciesKey) |>
-    slice_head(n = 10) |>
+    identify("Psittaciformes") |>
+    group_by(classKey) |>
     count() |>
     collect() |>
     skip_unavailable()
-  expect_equal(nrow(x), 10)
+  expect_equal(nrow(x), 1)
   expect_equal(ncol(x), 2)
-  # FIXME: returned values are not from CoL but the taxon backbone (all numeric)
+  stringr::str_detect(x$classKey, "^[:digit:]+$") |>
+    expect_false() # not using old (numeric) backbone
 })
 
 test_that("`count()` works with `slice_head()` for GBIF", {
@@ -391,14 +391,14 @@ test_that("`count()` works with `geolocate_polygon()` for GBIF", {
   # works when points given counter-clockwise
   wkt <- "POLYGON((142.36 -29.01,142.36 -29.39,142.74 -29.39,142.74 -29.01,142.36 -29.01))"
   result <- galah_call() |>
-    identify("Mammalia") |>
+    filter(year == 2022) |>
     geolocate_polygon(wkt) |>
     count() |>
     collect() |>
     skip_unavailable()
-  # compare against a taxonomic query in the same place
+  # compare against a temporal query in the same place
   result_taxa <- galah_call() |>
-    identify("Mammalia") |>
+    filter(year == 2022) |>
     count() |>
     collect() |>
     skip_unavailable()
@@ -416,7 +416,7 @@ test_that("`count()` works with `geolocate_radius()` for GBIF", {
   skip_galah()
   # ditto for a point and radius
   result <- galah_call() |>
-    identify("Mammalia") |>
+    filter(year == 2022) |>
     geolocate_radius(lat = -33.7,
                      lon = 151.3,
                      radius = 5) |>
@@ -431,7 +431,7 @@ test_that("`count()` works with `geolocate_radius()` for GBIF", {
     collect() |>
     skip_unavailable()
   result_taxa <- galah_call() |>
-    identify("Mammalia") |>
+    filter(year == 2022) |>
     count() |>
     collect() |>
     skip_unavailable()
@@ -521,15 +521,12 @@ test_that("`glimpse()` works with `identify()` for GBIF", {
 test_that("`atlas_occurrences()` works for GBIF", {
   skip_galah()
   Sys.sleep(pause_time)
-  x_compute <- galah_call(from = "GBIF") |>
-    filter(year == 1890,
-           classKey == "359",
+  x <- galah_call(from = "GBIF") |>
+    filter(year == 1800,
+           classKey == "V2",
            country == "AU") |>
-    compute() |>
+    atlas_occurrences() |>
     skip_unavailable()
-  Sys.sleep(pause_time * 5)
-  x <- collect(x_compute, wait = FALSE) |>
-    skip_unavailable(other_classes = "computed_query")
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(x), 10)
   expect_gt(ncol(x), 10)
@@ -538,16 +535,13 @@ test_that("`atlas_occurrences()` works for GBIF", {
 test_that("`atlas_occurrences()` works with `select()` for GBIF", {
   skip_galah()
   Sys.sleep(pause_time)
-  x_compute <- galah_call(from = "GBIF") |>
-    filter(year == 1890,
-           classKey == "359",
+  x <- galah_call(from = "GBIF") |>
+    filter(year == 1800,
+           classKey == "V2",
            country == "AU") |>
     select(countryCode, species, eventDate) |>
-    compute() |>
+    atlas_occurrences() |>
     skip_unavailable()
-  Sys.sleep(pause_time * 5)
-  x <- collect(x_compute, wait = FALSE) |>
-    skip_unavailable(other_classes = "computed_query")
   expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(x), 10)
   expect_equal(ncol(x), 3)
@@ -557,14 +551,11 @@ test_that("invalid fields are caught from `select()` for GBIF", {
   skip_galah()
   Sys.sleep(pause_time)
   x <- galah_call(from = "GBIF") |>
-    filter(year == 1890,
-           classKey == "359",
+    filter(year == 1800,
+           classKey == "V2",
            country == "AU") |> # this uses `check_fields_gbif_predicates()`
-    select(country, species, eventDate) |> # this uses `check_fields_gbif_counts()`
-    compute() |>
-    skip_unavailable()
-  Sys.sleep(pause_time * 5)
-  collect(x, wait = FALSE) |>  
+    select(species, eventDate, aRandomTextString) |> # this uses `check_fields_gbif_counts()`
+    atlas_occurrences() |>  
     expect_error()
 })
 
@@ -620,7 +611,7 @@ test_that("`distinct()` queries accept `select()` for GBIF", {
 test_that("`atlas_media()` fails for GBIF", {
   skip_galah()
   galah_call() |>
-    identify("perameles") |>
+    filter(year == 2022) |>
     atlas_media() |>
     expect_error()
 })

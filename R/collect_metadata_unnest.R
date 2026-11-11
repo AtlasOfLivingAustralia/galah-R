@@ -3,7 +3,7 @@
 #' @noRd
 #' @keywords Internal
 collect_fields_unnest <- function(.query,
-                                  error_call = rlang::caller_env()){
+                                  call = rlang::caller_env()){
   facet <- .query |>
     purrr::pluck("url") |>
     httr2::url_parse()
@@ -11,10 +11,10 @@ collect_fields_unnest <- function(.query,
   if(.query$atlas == "Global"){
     # get name of facet in question
     facet <-  purrr::pluck(facet, "query", "facet") # NOTE: "facet" (singular)
-    check_missing_fields(facet, call = error_call)
+    check_missing_fields(facet, call = call)
     # get result from API
     result <- .query |>
-      query_API() |>
+      query_API(error_call = call) |>
       purrr::pluck(!!!list("facets", 1, "counts")) 
     # add an error catcher here, as next step is sensitive to column missingness
     # this should be caught because `pluck()` generates NULL for missing data
@@ -29,9 +29,9 @@ collect_fields_unnest <- function(.query,
     }
   }else{ 
     facet <-  purrr::pluck(facet, "query", "facets") # NOTE: "facets" (plural)
-    check_missing_fields(facet, call = error_call)
+    check_missing_fields(facet, call = call)
     result <- .query |>
-      query_API() |>
+      query_API(error_call = call) |>
       purrr::pluck(!!!list(1, "fieldResult")) |>
       dplyr::bind_rows()
     
@@ -53,7 +53,8 @@ collect_fields_unnest <- function(.query,
 #' Microfunction to prevent later failures due to missing field names
 #' @noRd
 #' @keywords Internal
-check_missing_fields <- function(x, call){
+check_missing_fields <- function(x,
+                                 call = rlang::caller_env()){
   if (x == "NA") {
     cli::cli_abort("No `field` passed to `show_values()`/`search_values()`.",
                    call = call)
@@ -64,10 +65,12 @@ check_missing_fields <- function(x, call){
 #' `request_metadata(type = "lists") |> unnest()`
 #' @noRd
 #' @keywords Internal
-collect_lists_unnest <- function(.query){
+collect_lists_unnest <- function(.query,
+                                 call = rlang::caller_env()){
 
   # get data
-  result <- query_API(.query)
+  result <- query_API(.query,
+                      error_call = call)
   
   if(stringr::str_detect(.query$url, "/v1/") | .query$atlas != "Australia") { # version 1 API
     # old
@@ -229,8 +232,10 @@ parse_classification <- function(df){
 #' `request_metadata(type = "profiles") |> unnest()`
 #' @noRd
 #' @keywords Internal
-collect_profiles_unnest <- function(.query){
-  result <- query_API(.query)
+collect_profiles_unnest <- function(.query,
+                                    call = rlang::caller_env()){
+  result <- query_API(.query,
+                      error_call = call)
   result |>
     purrr::pluck("categories") |>
     dplyr::bind_rows() |>
@@ -244,8 +249,10 @@ collect_profiles_unnest <- function(.query){
 #' `request_metadata(type = "taxa") |> unnest()`
 #' @noRd
 #' @keywords Internal
-collect_taxa_unnest <- function(.query){
-  query_API(.query) |>
+collect_taxa_unnest <- function(.query,
+                                call = rlang::caller_env()){
+  query_API(.query,
+            error_call = call) |>
     dplyr::bind_rows() |>
     dplyr::rename_with(camel_to_snake_case) |>
     parse_rename(.query) |>

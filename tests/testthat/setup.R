@@ -54,7 +54,7 @@ skip_unavailable <- function(x, other_classes = c()){
   result <- x |>
     try(silent = TRUE)
   # skip if `try()` fails
-  default_class <- "try_error"
+  default_class <- "try-error"
   if(inherits(result, c(default_class, other_classes))){
     testthat::skip(message = "API not available")
   }else{

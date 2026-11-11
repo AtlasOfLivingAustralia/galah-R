@@ -4,7 +4,8 @@
 #' Then use `max` and `offset` to paginate up to `n`
 #' @noRd
 #' @keywords Internal
-collapse_lists <- function(.query){
+collapse_lists <- function(.query,
+                           call = rlang::caller_env()){
   if(is.null(.query$url)){
     as_query(.query)
   }else if(inherits(.query$url, "tbl_df")){
@@ -21,7 +22,7 @@ collapse_lists <- function(.query){
     # otherwise calculate it
     }else{
       n_lists <- .query |> 
-        query_API() |>
+        query_API(error_call = call) |>
         purrr::pluck("listCount")
     }
     # calculate urls
@@ -45,7 +46,7 @@ collapse_lists <- function(.query){
     if(n_requested <= 500){ # we haven't hit pagination limit
       as_query(.query)
     }else{ # more lists are requested
-      n <- get_max_n(.query)
+      n <- get_max_n(.query, call = call)
       n_pages <- ceiling(n$max_requested / n$paginate)
       offsets <- (seq_len(n_pages) - 1) * n$paginate
       result <- tibble::tibble(
@@ -69,7 +70,8 @@ collapse_lists <- function(.query){
 #' Internal function to retrieve max number of entries for an API
 #' @noRd
 #' @keywords Internal
-get_max_n <- function(.query){
+get_max_n <- function(.query,
+                      call = rlang::caller_env()){
   url <- httr2::url_parse(.query$url)
   if(.query$atlas == "Global"){
     count_field <- "count"
@@ -83,7 +85,7 @@ get_max_n <- function(.query){
               list(type = "metadata/list-count",
                    url = httr2::url_build(url),
                    headers = .query$headers) |>
-                query_API() |>
+                query_API(error_call = call) |>
                 purrr::pluck(count_field) # NOTE: only tested for ALA                
             })
   n$max_requested <- min(c(n$requested, n$max_available))
@@ -93,7 +95,8 @@ get_max_n <- function(.query){
 #' Internal function to ensure that list values are paginated properly
 #' @noRd
 #' @keywords Internal
-collapse_lists_unnest <- function(.query, error_call){
+collapse_lists_unnest <- function(.query,
+                                  call = rlang::caller_env()){
   # get row length
   list_metadata <- .query$`metadata/lists`
   if(any(colnames(list_metadata) == "row_count")){ # ALA lists API v2
@@ -119,13 +122,13 @@ collapse_lists_unnest <- function(.query, error_call){
 #' @noRd
 #' @keywords Internal
 collapse_profile_values <- function(.query,
-                                    error_call){
+                                    call = rlang::caller_env()){
   url <- .query |>
     purrr::pluck("url") |>
     httr2::url_parse()
   profile_name <- extract_profile_name(.query, url)
   short_name <- profile_short_name(profile_name,
-                                   error_call = error_call)
+                                   call = call)
   if (.query$atlas != "Spain") {
     path_name <- url |>
       purrr::pluck("path") |>
@@ -144,7 +147,7 @@ collapse_profile_values <- function(.query,
 #' @noRd
 #' @keywords Internal
 profile_short_name <- function(profile,
-                               error_call) {
+                               call = rlang::caller_env()) {
   valid_profiles <- show_all_profiles()
   short_name <- NA
   if (suppressWarnings(!is.na(as.numeric(profile)))) {
@@ -166,7 +169,7 @@ profile_short_name <- function(profile,
     c(
       "Unknown profile detected.",
       i = "See a listing of valid data quality profiles with `show_all_profiles()`.") |>
-    cli::cli_abort(call = error_call)
+    cli::cli_abort(call = call)
   }else{
     short_name
   }

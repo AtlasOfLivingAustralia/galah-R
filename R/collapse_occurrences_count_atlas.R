@@ -1,14 +1,15 @@
 #' Internal function to handle facet counting, adjustment etc.
 #' @noRd
 #' @keywords Internal
-collapse_occurrences_count_atlas_basic <- function(.query){
+collapse_occurrences_count_atlas_basic <- function(.query,
+                                                   call = rlang::caller_env()){
   url <- httr2::url_parse(.query$url)
   
   # check if a limit has been set
   if(!is.null(url$query$flimit)){
     
     # check number of total facets in the field
-    n_facets <- check_facet_count(.query)
+    n_facets <- check_facet_count(.query, call = call)
     
     # handle slice_head
     if(as.integer(url$query$flimit) < 1){
@@ -46,7 +47,7 @@ collapse_occurrences_count_atlas_basic <- function(.query){
 #' @noRd
 #' @keywords Internal
 collapse_occurrences_count_atlas_groupby_crossed <- function(.query, 
-                                                             error_call = rlang::caller_env()){
+                                                             call = rlang::caller_env()){
   data_cached <- .query
   # get url
   url <- httr2::url_parse(.query$url)
@@ -72,7 +73,9 @@ collapse_occurrences_count_atlas_groupby_crossed <- function(.query,
   .query$url <- httr2::url_build(url)
   
   # check number of facets
-  n_facets <- check_facet_count(.query, warn = FALSE)
+  n_facets <- check_facet_count(.query,
+                                warn = FALSE,
+                                call = call)
   
   # incorporate this into the query
   url <- httr2::url_parse(.query$url)
@@ -80,10 +83,11 @@ collapse_occurrences_count_atlas_groupby_crossed <- function(.query,
   .query$url <- httr2::url_build(url)
     
   # run query to get list of count tibbles
-  result <- query_API(.query)
+  result <- query_API(.query,
+                      error_call = call)
   if(is.null(result)){
     system_down_message("count",
-                        error_call = error_call)
+                        error_call = call)
   }
   result <- purrr::map(result, 
                        \(a){a$fieldResult |> 
@@ -170,7 +174,7 @@ collapse_occurrences_count_atlas_groupby_crossed <- function(.query,
 #' @keywords Internal
 check_facet_count <- function(.query,
                               warn = TRUE,
-                              error_call = rlang::caller_env()){
+                              call = rlang::caller_env()){
   
   url <- httr2::url_parse(.query$url)
   current_limit <- url$query$flimit
@@ -188,7 +192,8 @@ check_facet_count <- function(.query,
   url$query$flimit <- 0
   temp_data <- .query
   temp_data$url <- httr2::url_build(url)
-  result <- query_API(temp_data)
+  result <- query_API(temp_data,
+                      error_call = call)
   if(length(result) < 1){
     0
   }else{

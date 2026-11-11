@@ -1,8 +1,9 @@
 #' Internal function to collect counts for species
 #' @noRd
 #' @keywords Internal
-collect_species_count <- function(.query){
-  result <- query_API(.query)
+collect_species_count <- function(.query,
+                                  call = rlang::caller_env()){
+  result <- query_API(.query, error_call = call)
   counts <- purrr::map(result, extract_species_count) |> 
     unlist()
   if(nrow(.query$url) > 1){

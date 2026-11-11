@@ -170,7 +170,7 @@ test_that("`count()` works with `identify()` for Flanders", {
     identify("Mammalia") |>
     count() |>
     collect() |>
-skip_unavailable()
+    skip_unavailable()
   expect_gt(result$count, 1)
   result2 <- galah_call() |>
     filter(class == "Mammalia") |>
@@ -207,9 +207,9 @@ test_that("`count()` works with `group_by()` for Flanders", {
     group_by(basisOfRecord) |>
     count() |>
     collect() |>
-skip_unavailable()
+    skip_unavailable()
   expect_gt(nrow(result), 1)
-  expect_equal(names(result), c("basisOfRecord", "count"))
+  expect_equal(names(result), c("basisOfRecord", "basisOfRecord_label", "count"))
   })
 
 test_that("`atlas_species()` works for Flanders", {
@@ -267,7 +267,7 @@ test_that("`atlas_media()` works for Flanders", {
   skip_galah()
   galah_config(
     atlas = "Flanders",
-    email = "test@ala.org.au",
+    email = "galah.natuurdata@inbo.be",
     download_reason_id = 10,
     directory = "temp",
     send_email = FALSE)

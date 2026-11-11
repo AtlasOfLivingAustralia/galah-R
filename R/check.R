@@ -165,7 +165,7 @@ check_fields <- function(.query,
 #' @keywords Internal
 check_field_identities <- function(df, 
                                    .query,
-                                   error_call = rlang::caller_env()){
+                                   call = rlang::caller_env()){
   if(!is.null(.query$fields) & 
      potions::pour("package", "run_checks", .pkg = "galah") & 
      .query$atlas %in% c("Australia", "Spain", "Sweden")
@@ -186,7 +186,7 @@ check_field_identities <- function(df,
       names(missing_fields) <- rep("*", length(missing_fields))
       c("The following fields, requested in your query, were not downloaded:",
         missing_fields) |>
-      cli::cli_warn(call = error_call)
+      cli::cli_warn(call = call)
     }
     # check for additions
     added_check <- !(field_names %in% .query$fields)
@@ -201,7 +201,7 @@ check_field_identities <- function(df,
         names(added_fields) <- rep("*", length(added_fields))
         c("The following fields were downloaded, but weren't requested in your query:",
           added_fields) |>
-          cli::cli_warn(call = error_call)
+          cli::cli_warn(call = call)
       }
     }
   }
@@ -582,11 +582,12 @@ check_occurrence_response <- function(.query,
 #' Internal function to change API response to contain standard headers
 #' @noRd
 #' @keywords Internal
-check_occurrence_status <- function(.query){
+check_occurrence_status <- function(.query,
+                                    call = rlang::caller_env()){
   list(type = "data/occurrences",
        url = .query$status_url) |>
     as_query() |>
-    query_API() |>
+    query_API(error_call = call) |>
     as.list() |>
     check_occurrence_response()
 }

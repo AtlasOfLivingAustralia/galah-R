@@ -2,11 +2,11 @@
 #' @noRd
 #' @keywords Internal
 collect_occurrences_count <- function(.query,
-                                      error_call = rlang::caller_env()){
+                                      call = rlang::caller_env()){
  {if(.query$atlas == "Global"){
-    collect_occurrences_count_gbif(.query, error_call = error_call)
+    collect_occurrences_count_gbif(.query, call = call)
   }else{
-    collect_occurrences_count_la(.query)
+    collect_occurrences_count_la(.query, call = call)
   }} |>
    parse_select(.query)
 }
@@ -15,9 +15,9 @@ collect_occurrences_count <- function(.query,
 #' @noRd
 #' @keywords Internal
 collect_occurrences_count_gbif <- function(.query,
-                                           error_call = rlang::caller_env()){
+                                           call = rlang::caller_env()){
   # get response from GBIF
-  result <- query_API(.query)
+  result <- query_API(.query, error_call = call)
   
   # parse results
   if(inherits(result, "singlequery")){
@@ -34,7 +34,7 @@ collect_occurrences_count_gbif <- function(.query,
     purrr::map2(list1, list2, dplyr::bind_cols) |>
       dplyr::bind_rows() 
   }else{
-    cli::cli_abort("Unknown result class", call = error_call)
+    cli::cli_abort("Unknown result class", call = call)
   }
 }
       
@@ -67,8 +67,9 @@ collect_occurrences_count_gbif_single <- function(result){
 #'  `collect()` for `type = "data/occurrences-count"` for living atlases
 #' @noRd
 #' @keywords Internal
-collect_occurrences_count_la <- function(.query){
-  result <- query_API(.query)
+collect_occurrences_count_la <- function(.query,
+                                         call = rlang::caller_env()){
+  result <- query_API(.query, error_call = call)
   if(length(result$facetResults) < 1 & !is.null(result$totalRecords)){ # first handle single values
     tibble::tibble(count = result$totalRecords)
   }else{  # then when group_by() is specified
