@@ -16,3 +16,6 @@ SECRETS.txt
 .secure-credentials
 /TEST-SENSITIVE-DATA
 .positai
+
+/.quarto/
+**/*.quarto_ipynb
