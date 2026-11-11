@@ -85,10 +85,10 @@ df$atlas_label <- factor(
              "Spain" ~ 3,
              "Flanders" ~ 4,
              "United Kingdom" ~ 5,
-             "Kew" ~ 6,
-             "Austria" ~ 7,
-             "Brazil" ~ 8,
-             "Portugal" ~ 9),
+             "Austria" ~ 6,
+             "Brazil" ~ 7,
+             "Portugal" ~ 8,
+             "Kew" ~ 9),
   levels = seq_len(9),
   labels = c(
     "<span style='font-size:9pt'>Global</span><br>\n<span style='font-size:6pt'>gbif.org</span>",
@@ -96,10 +96,10 @@ df$atlas_label <- factor(
     "<span style='font-size:9pt'>Spain</span><br>\n<span style='font-size:6pt'>gbif.es</span>",
     "<span style='font-size:9pt'>Flanders</span><br>\n<span style='font-size:6pt'>natuurdata.inbo.be</span>",
     "<span style='font-size:9pt'>United Kingdom</span><br>\n<span style='font-size:6pt'>nbn.org.uk</span>",
-    "<span style='font-size:9pt'>Kew</span><br>\n<span style='font-size:6pt'>data.kew.org</span>",
     "<span style='font-size:9pt'>Austria</span><br>\n<span style='font-size:6pt'>biodiversityatlas.at</span>",
     "<span style='font-size:9pt'>Brazil</span><br>\n<span style='font-size:6pt'>sibbr.gov.br</span>",
-    "<span style='font-size:9pt'>Portugal</span><br>\n<span style='font-size:6pt'>www.gbif.pt</span>"))
+    "<span style='font-size:9pt'>Portugal</span><br>\n<span style='font-size:6pt'>www.gbif.pt</span>",
+    "<span style='font-size:9pt'>Kew</span><br>\n<span style='font-size:6pt'>data.kew.org</span>"))
 
 df$type_label <- factor(
   case_match(df$type, 

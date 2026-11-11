@@ -203,7 +203,8 @@ test_that("`atlas_counts()` works with group_by for Spain", {
     collect() |>
 skip_unavailable()
   expect_gt(nrow(result), 1)
-  expect_equal(names(result), c("basisOfRecord", "count"))
+  expect_equal(names(result),
+               c("basisOfRecord", "basisOfRecord_label", "count"))
   })
 
 test_that("`atlas_species()` works for Spain", {

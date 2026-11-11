@@ -18,37 +18,24 @@ test_that("show_all(fields) works for Kew", {
   expect_true(all(y %in% x$id))
 })
 
-test_that("show_all(licences) works for Kew", {
-  # NOTE: When tested on 2025-07-04 this API works, but contains no data
-  skip_galah()
-  x <- show_all(licences) |>
-    skip_unavailable()
-  expect_gte(nrow(x), 0)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+test_that("show_all(licences) fails for Kew", {
+  show_all(licences) |>
+    expect_error()
 })
 
-test_that("show_all(collections) works for Kew", {
-  skip_galah()
-  x <- show_all(collections, limit = 10) |>
-    skip_unavailable()
-  expect_lte(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+test_that("show_all(collections) fails for Kew", {
+  show_all(collections, limit = 10)  |>
+    expect_error()
 })
 
-test_that("show_all(datasets) works for Kew", {
-  skip_galah()
-  x <- show_all(datasets, limit = 10) |>
-    skip_unavailable()
-  expect_lte(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+test_that("show_all(datasets) fails for Kew", {
+  show_all(datasets, limit = 10)  |>
+    expect_error()
 })
 
-test_that("show_all(providers) works for Kew", {
-  skip_galah()
-  x <- show_all(providers, limit = 10) |>
-    skip_unavailable()
-  expect_lte(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+test_that("show_all(providers) fails for Kew", {
+  show_all(providers, limit = 10)  |>
+    expect_error()
 })
 
 test_that("show_all(reasons) works for Kew", {
@@ -134,13 +121,13 @@ test_that("atlas_counts works for Kew", {
 test_that("`atlas_counts()` works with `identify()` for Kew", {
   skip_galah()
   result <- galah_call() |>
-    identify("Acer") |>
+    identify("Quercus robur") |>
     count() |>
     collect() |>
-skip_unavailable()
+    skip_unavailable()
   expect_gt(result$count, 1)
   result2 <- galah_call() |>
-    filter(genus == "Acer") |>
+    filter(species == "Quercus robur") |>
     count() |>
     collect() |>
     skip_unavailable()
@@ -162,6 +149,16 @@ skip_unavailable()
 #   expect_equal(names(result), c("basis_of_record", "count"))
 #   })
 
+# NOTE: Identify fails because the API returns species *within* pinus, 
+# rather than the genus itself. The api accepts a `rank` argument
+# to adjust for this, but it's inconsistent with other atlases, 
+# so `galah` doesn't have syntax for that yet. Would be possible
+# to have something like:
+#
+# request_metadata() |>
+#   identify("Pinus") 
+#   filter(rank == "genus")
+#   collect()
 test_that("`atlas_species()` works for Kew", {
   skip_galah()
   galah_config(
@@ -169,9 +166,9 @@ test_that("`atlas_species()` works for Kew", {
     email = "ala4r@ala.org.au",
     send_email = FALSE)
   spp <- galah_call() |>
-    identify("Pinus") |>
+    filter(genus == "Pinus") |>
     atlas_species() |>
-skip_unavailable()
+    skip_unavailable()
   expect_gt(nrow(spp), 20)
   expect_gte(ncol(spp), 10)
   expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
@@ -184,15 +181,12 @@ test_that("`atlas_occurrences()` works for Kew", {
     email = "ala4r@ala.org.au",
     download_reason_id = 10,
     send_email = FALSE)
-  occ_compute <- galah_call() |>
-    identify("Acer") |>
-    filter(year >= 1999) |>
+  occ <- galah_call() |>
+    filter(genus == "Pinus",
+           year >= 1999) |>
     select(species, year) |>
-    compute()
-  
-  Sys.sleep(20)
-  occ <- collect(occ_compute, wait = FALSE) |>
-    skip_unavailable(other_classes = "computed_query")
+    atlas_occurrences() |>
+    skip_unavailable()
   expect_gt(nrow(occ), 0)
   expect_equal(ncol(occ), 2)
   expect_false(any(occ$year < 1999))
@@ -208,7 +202,7 @@ test_that("`atlas_media()` works for Kew", {
     directory = "temp",
     send_email = FALSE)
   x <- request_data() |>
-    identify("Acer") |>
+    identify("Quercus robur") |>
     filter(year >= 2020) |>
     atlas_media() |>
     skip_unavailable()

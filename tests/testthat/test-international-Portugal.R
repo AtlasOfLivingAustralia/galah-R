@@ -131,9 +131,10 @@ test_that("`count()` works with `group_by()` for Portugal", {
     group_by(basisOfRecord) |>
     count() |>
     collect() |>
-skip_unavailable()
+    skip_unavailable()
   expect_gt(nrow(result), 1)
-  expect_equal(names(result), c("basisOfRecord", "count"))
+  expect_equal(names(result),
+               c("basisOfRecord", "basisOfRecord_label", "count"))
 })
 
 # NOTE: I've so far been unable to register for this atlas,
@@ -141,16 +142,17 @@ skip_unavailable()
 # `atlas_species()`
 test_that("`atlas_species()` returns error for Portugal", {
   skip_galah()
-  expect_error({galah_call(type = "species") |>
-                  identify("Carnivora") |>
-                  collect()
-    })
+  galah_call(type = "species") |>
+    filter(year == 2022) |>
+    collect() |>
+    expect_error()
 })
 test_that("`atlas_occurrences()` returns error for Portugal", {
   skip_galah()
-  expect_error(atlas_occurrences(
-    filter = galah_filter(year == 2020)
-  ))
+  galah_call() |>
+    filter(year == 1900) |>
+    atlas_occurrences() |>
+    expect_error()
 })
 
 # Note: atlas_media() should also work, in theory, but again am unable to test

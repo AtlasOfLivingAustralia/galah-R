@@ -138,15 +138,11 @@ Kew,data/species,https://records-ws.data.kew.org/occurrences/facets/download,TRU
 Kew,data/species-count,https://records-ws.data.kew.org/occurrences/facets,TRUE
 Kew,files/media,https://images.data.kew.org/image/{id}/{size},TRUE
 Kew,metadata/assertions,https://records-ws.data.kew.org/assertions/codes,TRUE
-Kew,metadata/collections,https://collections.data.kew.org/ws/collection,TRUE
-Kew,metadata/datasets,https://collections.data.kew.org/ws/dataResource,TRUE
 Kew,metadata/fields,https://records-ws.data.kew.org/index/fields,TRUE
 Kew,metadata/fields-unnest,https://records-ws.data.kew.org/occurrences/facets,TRUE
-Kew,metadata/licences,https://images.data.kew.org/ws/licence,TRUE
 Kew,metadata/lists,https://lists.data.kew.org/ws/speciesList,TRUE
 Kew,metadata/lists-unnest,https://lists.data/kew.org/ws/speciesListItems/{list_id},TRUE
 Kew,metadata/media,https://images.data.kew.org/ws/image/{id},TRUE
-Kew,metadata/providers,https://collections.data.kew.org/ws/dataProvider,TRUE
 Kew,metadata/reasons,https://logger.data.kew.org/service/logger/reasons,TRUE
 Kew,metadata/taxa-single,https://species-ws.data.kew.org/search?q={name}&pageSize=5,TRUE
 Kew,metadata/taxa-unnest,https://species-ws.data.kew.org/childConcepts/{id},TRUE

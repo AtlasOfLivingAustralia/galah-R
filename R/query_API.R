@@ -136,13 +136,15 @@ query_API_once <- function(.query,
     check_directory(.query$file)
     query |> 
       httr2::req_perform(path = .query$file,
-                         verbosity = 0)
+                         verbosity = 0,
+                         error_call = error_call)
   # then other pings, which should resolve quickly 
   # and can be allowed to fail otherwise
   }else{
     result <- query |>
       httr2::req_timeout(seconds = 60) |>
-      httr2::req_perform(verbosity = 0)
+      httr2::req_perform(verbosity = 0,
+                         error_call = error_call)
     if(grepl("^https://api.gbif.org/v1/occurrence/download/request", .query$url)){
       httr2::resp_body_string(result) |>
         structure(class = c("singlequery", "list"))

@@ -114,7 +114,8 @@ collapse_run_metadata <- function(names_vec, .query){
     !grepl("-unnest$", names_vec) # unnest functions only parse in collect()
   if(any(metadata_lookup)){
     metadata_names <- names_vec[metadata_lookup]
-    metadata_results <- purrr::map(.query[which(metadata_lookup)], collect)
+    metadata_results <- .query[which(metadata_lookup)] |>
+      purrr::map(.f = collect)
     names(metadata_results) <- metadata_names   
     metadata_results
   }else{

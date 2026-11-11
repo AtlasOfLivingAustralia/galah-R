@@ -18,8 +18,10 @@ collect_taxa <- function(.query,
 collect_taxa_namematching <- function(.query,
                                       call = rlang::caller_env()){
   search_terms <- .query$url$search_term
-  result <- purrr::map(query_API(.query, error_call = call), 
-                       build_tibble_from_nested_list) |> 
+  
+  result <- .query |>
+    query_API(error_call = call) |>
+    purrr::map(.f = build_tibble_from_nested_list) |> 
     dplyr::bind_rows()
   # break pipe for use case where all search terms are dubious (i.e. no taxonConceptID)
   # if(any(colnames(result) == "taxonConceptID")){
@@ -47,7 +49,7 @@ collect_taxa_namematching <- function(.query,
                   issues = issues_vec)
   
   # Check for homonyms
-  check_homonyms(result, error_call = error_call)
+  check_homonyms(result, call = call)
   # Check for invalid search terms
   if (galah_config()$package$verbose) {
     check_search_terms(result, query = .query)
@@ -63,6 +65,7 @@ collect_taxa_namematching <- function(.query,
 #' @keywords Internal
 collect_taxa_la <- function(.query,
                             call = rlang::caller_env()){
+
   search_terms <- .query$url$search_term
   result <- query_API(.query, error_call = call) |>
     clean_la_taxa(search_terms = search_terms,
@@ -76,8 +79,18 @@ collect_taxa_la <- function(.query,
       dplyr::filter(!duplicated({{name}})) |>
       dplyr::mutate("search_term" = search_terms)
   }
+
+  # ensure names won't be repeated once corrected
+  col_names <- colnames(result)
+  col_names_snake <- camel_to_snake_case(col_names)
+  col_duplicates <- duplicated(col_names_snake)
+  if(any(col_duplicates)){
+    result <- result[, !col_duplicates]
+  }
+  colnames(result) <- col_names_snake[!col_duplicates]
+
+  # clean and share
   result |>
-    dplyr::rename_with(camel_to_snake_case) |>
     parse_rename(.query) |>
     parse_select(.query)
 }
@@ -183,6 +196,12 @@ clean_la_taxa <- function(result,
       list_of_results <- list_of_results |> 
         unlist()
     }
+
+    # if any missing names, remove
+    if(any(names(list_of_results) == "")){
+      list_of_results <- list_of_results[names(list_of_results) != ""]
+    }
+
     list_of_results
   })
 }
@@ -235,7 +254,13 @@ check_search_terms <- function(result,
   # 1. GBIF uses CoL taxonomy
   # 2. some atlases use GBIF backbone (Flanders & Portugal)
   invalid_taxa <- NULL
-  uses_gbif_taxonomy <- stringr::str_detect(query$url[[1]], "^https://api.gbif.org") 
+  if(inherits(query$url, "data.frame")){
+    sample_url <- query$url$url[[1]]
+  }else{
+    sample_url <- query$url[[1]]
+  }
+  uses_gbif_taxonomy <- stringr::str_detect(sample_url,
+                                            "^https://api.gbif.org") 
   if (uses_gbif_taxonomy) {
     if (any(result$matchType == "NONE")) {
       invalid_taxa <- result$search_term[result$matchType == "NONE"] 
@@ -255,7 +280,7 @@ check_search_terms <- function(result,
                                   span.yellow = list(color = "yellow")))
     
     bullets <- c(
-      cli::cli_text("Matched {.bold {n_valid} of {n_all}} taxonomic search terms in selected atlas ({atlas})."),
+      cli::cli_text("Matched {.bold {n_valid} of {n_all}} taxonomic search terms in selected atlas ({query$atlas})."),
       "!" = cli::cli_text("{.yellow {n_invalid} unmatched search term{?s}:}")
     )
     if (n_invalid > 3) {
