@@ -497,6 +497,15 @@ gbif_checklistKey <- function(){
   "7ddf754f-d193-4cc9-b351-99906754a03b"
 }
 
+#' Internal function to determine whether a `checklistKey` is needed in `filter()`
+#' @noRd
+#' @keywords Internal
+is_gbif_taxon_field <- function(x){
+  ranks <- c("kingdom", "phylum", "class", "order", "family", "genus", "tribe")
+  fields <- glue::glue("{toupper(ranks)}_KEY")
+  any(fields == x)
+}
+
 #' Internal function to test whether authentication is supported
 #' @noRd
 #' @keywords Internal

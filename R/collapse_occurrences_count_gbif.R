@@ -18,7 +18,9 @@ collapse_occurrences_count_gbif <- function(x, limit = 0){
 #' @noRd
 #' @keywords Internal
 collapse_occurrences_count_gbif_groupby_basic <- function(x){
-  x$body <- list(checklistKey = gbif_checklistKey(),
+  x$body <- list(parameters = list(CHECKLIST_KEY = list(gbif_checklistKey())),
+                              # NOTE: double use of `list()` is intentional
+                              # Key *must* be supplied as an array
                  predicate = build_predicates(x$body),
                  limit = 0,
                  facets = parse_predicates_groupby(x$body$group_by),
