@@ -61,3 +61,8 @@ skip_unavailable <- function(x, other_classes = c()){
     return(result)
   }
 }
+
+# simple function to show we expect a tibble
+expect_tibble <- function(x){
+  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+}

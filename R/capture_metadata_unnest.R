@@ -65,20 +65,29 @@ capture_profiles_unnest <- function(.query, call = rlang::caller_env()){
 #' @noRd
 #' @keywords Internal
 capture_taxa_unnest <- function(.query, call = rlang::caller_env()){
-  if(.query$atlas == "Global"){
-    c("Querying child taxa is not supported by the GBIF taxon API v2.",
-      i = "Consider trying `rcol::clb_children()` instead.") |>
-      cli::cli_abort(call = call)
-  }
   .query$type <- "metadata/taxa-unnest"
   if(!is.null(.query$filter)){
     id <- .query$filter$value[1]
   }else if(!is.null(.query$identify)){
     id <- "`TAXON_PLACEHOLDER`"
   }
+  
+  # set url depending on org
+  if(.query$atlas == "Global"){
+    url <- url_lookup(.query,
+                      dataset = gbif_checklistbank_key(),
+                      id = id,
+                      error_call = call)
+  }else{
+    url <- url_lookup(.query,
+                      id = id,
+                      error_call = call)
+  }
+
+  # return prequery object
   list(type = .query$type,
        atlas = .query$atlas,
-       url = url_lookup(.query, id = id, error_call = call),
+       url = url,
        headers = build_headers()) |>
     as_prequery()
 }

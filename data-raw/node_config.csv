@@ -107,11 +107,11 @@ Global,metadata/collections,https://api.gbif.org/v1/grscicoll/collection,TRUE
 Global,metadata/datasets,https://api.gbif.org/v1/dataset,TRUE
 Global,metadata/fields,https://api.gbif.org/v1/occurrence/term,TRUE
 Global,metadata/fields-unnest,https://api.gbif.org/v1/occurrence/search,TRUE
-Global,metadata/identifiers,https://api.gbif.org/v1/species/{id},TRUE
+Global,metadata/identifiers,https://api.checklistbank.org/dataset/{dataset}/nameusage/{id},TRUE
 Global,metadata/providers,https://api.gbif.org/v1/organization,TRUE
 Global,metadata/taxa-single,https://api.gbif.org/v2/species/match?verbose=FALSE&scientificName={name},TRUE
 Global,metadata/taxa-multiple,https://api.gbif.org/v2/species/match,TRUE
-Global,metadata/taxa-unnest,https://api.gbif.org/v1/species/{id}/children,TRUE
+Global,metadata/taxa-unnest,https://api.checklistbank.org/dataset/{dataset}/tree/{id}/children,TRUE
 Global,,https://api.gbif.org/v1/grscicoll/search,TRUE
 Global,,https://api.gbif.org/v1/dataset/search,TRUE
 Guatemala,data/occurrences,https://snib.conap.gob.gt/registros-ws/occurrences/offline/download,FALSE

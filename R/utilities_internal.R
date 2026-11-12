@@ -156,7 +156,9 @@ lookup_select_columns <- function(type) {
            "taxa-unnest" = c("name",
                              "taxon_concept_id",
                              "parent_taxon_concept_id",
-                             "rank"),
+                             "rank",
+                             "authorship",
+                             "status"),
            NULL # When no defaults are set, sending NULL tells the code to call `everything()`
            )
 }
@@ -174,7 +176,8 @@ lookup_select_columns_taxa <- function(){
     "key", # GBIF
     "usage_key", # GBIF
     "guid", # species search
-    "canonical_name", "status", 
+    "canonical_name",
+    "status", 
     "rank",
     "match_type",
     "confidence",
@@ -200,7 +203,10 @@ lookup_select_columns_taxa <- function(){
 lookup_rename_columns <- function(type){
   switch(type, 
          "assertions" = c("id" = "name"),
-         "identifiers" = c("taxonConceptID" = "key"),
+         "identifiers" = c("taxonConceptID" = "key",
+                           "taxonConceptID" = "id",
+                           "scientificName" = "label",
+                           "authority" = "link"),
          "lists" = c("species_list_uid" = "data_resource_uid"),
          "lists-unnest" = c("taxon_concept_id" = "lsid"),
          "media" = c("media_id" = "image_identifier"),
@@ -217,6 +223,8 @@ lookup_rename_columns <- function(type){
                     "rank" = "rank_name",
                     "vernacular_name" = "french_vernacular_name"),
          "taxa-unnest" = c("taxon_concept_id" = "guid",
+                           "taxon_concept_id" = "id",
+                           "parent_taxon_concept_id" = "parent_id",
                            "parent_taxon_concept_id" = "parent_guid"),
          NULL
   )
@@ -497,11 +505,18 @@ gbif_checklistKey <- function(){
   "7ddf754f-d193-4cc9-b351-99906754a03b"
 }
 
+#' Internal function to specify checklistbank dataset ID in GBIF functions
+#' @noRd
+#' @keywords Internal
+gbif_checklistbank_key <- function(){
+  "3LXR"
+}
+
 #' Internal function to determine whether a `checklistKey` is needed in `filter()`
 #' @noRd
 #' @keywords Internal
 is_gbif_taxon_field <- function(x){
-  ranks <- c("kingdom", "phylum", "class", "order", "family", "genus", "tribe")
+  ranks <- c("kingdom", "phylum", "class", "order", "family", "genus", "tribe", "taxon")
   fields <- glue::glue("{toupper(ranks)}_KEY")
   any(fields == x)
 }

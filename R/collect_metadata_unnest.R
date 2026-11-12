@@ -251,9 +251,22 @@ collect_profiles_unnest <- function(.query,
 #' @keywords Internal
 collect_taxa_unnest <- function(.query,
                                 call = rlang::caller_env()){
-  query_API(.query,
-            error_call = call) |>
-    dplyr::bind_rows() |>
+  result <- query_API(.query,
+            error_call = call)
+  
+  # checklistbank nests results in `result` slot
+  if(.query$atlas == "Global"){
+    result_df <- result |>
+      purrr::pluck("result") |>
+      purrr::map(.f = tibble::as_tibble) |>
+      dplyr::bind_rows()
+  }else{
+    result_df <- result |>
+      dplyr::bind_rows()
+  }
+
+  # clean and return
+  result_df |>
     dplyr::rename_with(camel_to_snake_case) |>
     parse_rename(.query) |>
     parse_select(.query)

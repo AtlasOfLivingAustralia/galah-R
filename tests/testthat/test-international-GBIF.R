@@ -25,7 +25,7 @@ test_that("`show_all(fields)` works for GBIF", {
   x <- collect(x) |>
     skip_unavailable()
   expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_tibble(x)
   # then test 'traditional' syntax
   y <- show_all(fields) |>
     skip_unavailable()
@@ -83,6 +83,7 @@ test_that("`slice_head()` works with `count(country)` for GBIF", {
     slice_head(n = 5) |>
     collect() |>
     skip_unavailable()
+  expect_tibble(x_5)
   expect_gte(nrow(x_default), 200)
   expect_equal(nrow(x_5), 5)
 })
@@ -103,7 +104,7 @@ test_that("`show_all(collections)` works for GBIF", {
   x <- show_all(collections, limit = 10) |>
     skip_unavailable()
   expect_equal(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_tibble(x)
   ## FIXME: not coded slice_head() yet
   # y <- request_metadata(type = "collections") |>
   #   slice_head(n = 10) |>
@@ -113,6 +114,7 @@ test_that("`show_all(collections)` works for GBIF", {
     filter(collection == "australia") |>
     collect() |>
     skip_unavailable()
+  expect_tibble(z)
   expect_equal(nrow(z), 20)
 })
 
@@ -121,11 +123,12 @@ test_that("`show_all(datasets)` works for GBIF", {
   x <- show_all(datasets, limit = 10) |>
     skip_unavailable()
   expect_equal(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_tibble(x)
   z <- request_metadata() |>
     filter(dataset == "avian") |>
     collect() |>
     skip_unavailable()
+  expect_tibble(z)
   expect_gte(nrow(z), 10) # historically this was n = 20
 })
 
@@ -133,12 +136,13 @@ test_that("`show_all(providers)` works for GBIF", {
   skip_galah()
   x <- show_all(providers, limit = 10) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_equal(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   z <- request_metadata() |>
     filter(provider == "herbarium") |>
     collect() |>
     skip_unavailable()
+  expect_tibble(z)
   expect_equal(nrow(z), 20)
 })
 
@@ -150,7 +154,7 @@ test_that("`show_all(assertions)` works for GBIF", {
   x <- show_all(assertions) |>
     skip_unavailable()
   expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_tibble(x)
 })
 
 test_that("`show_all(profiles)` fails for GBIF", {
@@ -165,6 +169,7 @@ test_that("`search_all(taxa)` works for GBIF", {
   skip_galah()
   x <- search_taxa("Mammalia") |>
     skip_unavailable()
+  expect_tibble(x)
   expect_equal(nrow(x), 1)
   expect_gte(ncol(x), 1)
   expect_true(colnames(x)[1] == "search_term")
@@ -177,18 +182,9 @@ test_that("`search_all(taxa)` works using a tibble for GBIF", {
                   data.frame(kingdom = "Animalia", 
                              phylum = "Chordata")) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_equal(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-})
-
-test_that("`unnest()` fails for taxonomic queries to GBIF", {
-  # NOTE: this *should* be temporary, until we can get CoL working.
-  # e.g. see rcol::clb_children() for an example
-  request_metadata() |>
-    identify("Crinia") |>
-    unnest() |>
-    capture() |>
-    expect_error()
+  expect_tibble(x)
 })
 
 test_that("`search_all(taxa)` works using a muti-row tibble for GBIF", {
@@ -198,8 +194,8 @@ test_that("`search_all(taxa)` works using a muti-row tibble for GBIF", {
                              phylum = "Chordata",
                              class = c("Aves", "Amphibia"))) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_equal(nrow(x), 2)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   # check that no taxon concept IDs consist solely of numbers (i.e. no letters)
   # Since update to CoL that should be impossible
   grepl("^[[:digit:]]+$", x$taxon_concept_id) |>
@@ -209,11 +205,23 @@ test_that("`search_all(taxa)` works using a muti-row tibble for GBIF", {
 
 test_that("`search_all(identifiers)` works for GBIF", {
   skip_galah()
-  x <- search_all(identifiers, "359") |>
+  x <- search_all(identifiers, "V2") |>  # Aves
     skip_unavailable()
+  expect_tibble(x)
   expect_equal(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
+
+test_that("`unnest()` returns child taxa for taxonomic queries to GBIF", {
+  skip_galah()
+  x <- request_metadata() |>
+    identify("Crinia") |>
+    unnest() |>
+    collect() |>
+    skip_unavailable()
+  expect_tibble(x)
+  expect_gte(nrow(x), 10) # n = 32 on 12-11-2026
+})
+
 
 galah_config(verbose = TRUE)
 
@@ -221,24 +229,24 @@ test_that("`search_all(datasets)` works for GBIF", {
   skip_galah()
   x <- search_all(datasets, "Mammals") |>
     skip_unavailable()
+  expect_tibble(x)
   expect_lte(nrow(x), 20)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`search_all(collections)` works for GBIF", {
   skip_galah()
   x <- search_all(collections, "Museum") |>
     skip_unavailable()
+  expect_tibble(x)
   expect_lte(nrow(x), 20)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`search_all(providers)` works for GBIF", {
   skip_galah()
   x <- search_all(providers, "Frog") |>
     skip_unavailable()
+  expect_tibble(x)
   expect_lte(nrow(x), 20)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 galah_config(verbose = FALSE)
@@ -285,6 +293,7 @@ test_that("`count()` works with `identify()` for GBIF", {
     count() |>
     collect() |>
     skip_unavailable()
+  expect_tibble(x)
   expect_equal(nrow(x), 1)
   expect_equal(ncol(x), 2)
   stringr::str_detect(x$classKey, "^[:digit:]+$") |>
@@ -299,6 +308,7 @@ test_that("`count()` works with `slice_head()` for GBIF", {
     slice_head(n = 5) |>
     collect() |>
     skip_unavailable()
+  expect_tibble(x)
   expect_equal(nrow(x), 5)
   expect_equal(ncol(x), 2)
 })
@@ -327,7 +337,7 @@ test_that("`count()` works with 2 `group_by` args for GBIF", {
   Sys.sleep(pause_time * 5)
   z <- collect(y) |>
     skip_unavailable()
-  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(z)
   expect_gt(nrow(z), 1)
   expect_equal(names(z), c("year", "basisOfRecord", "count"))
   # in early versions, iterating by a variable wasn't working properly
@@ -336,6 +346,20 @@ test_that("`count()` works with 2 `group_by` args for GBIF", {
     dplyr::filter(basisOfRecord == "HUMAN_OBSERVATION") |>
     dplyr::pull(count)
   expect_true(max(z_counts) - min(z_counts) > 0)
+})
+
+test_that("`count()` works with 3 args for GBIF", {
+  skip_galah()
+  x <- galah_call() |>
+    filter(year >= 2000, year <= 2022,
+           month %in% c(11, 12),
+           taxonKey == "62YK7") |> # Limnodynastes
+    # count() |>
+    count(year, month) |>
+    collect() |>
+    skip_unavailable()
+  expect_tibble(z)
+  # NOTE: incomplete test
 })
 
 ## group_by fails when an invalid field is given
@@ -373,7 +397,7 @@ test_that("`count()` works with `identify` for GBIF when `run_checks` = TRUE", {
   Sys.sleep(pause_time * 5)
   z <- collect(y, wait = FALSE) |>
     skip_unavailable(other_classes = "computed_query")
-  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(z)
   expect_gt(z$count, 1)
   expect_equal(nrow(z), 1)
 })
@@ -408,6 +432,7 @@ test_that("`count()` works with `geolocate_polygon()` for GBIF", {
     count() |>
     collect() |>
     skip_unavailable()
+  expect_tibble(result)
   expect_lt(result$count, result_taxa$count)
   expect_lt(result$count, result_space$count)
 })
@@ -435,6 +460,7 @@ test_that("`count()` works with `geolocate_radius()` for GBIF", {
     count() |>
     collect() |>
     skip_unavailable()
+  expect_tibble(result)
   expect_lt(result$count, result_taxa$count)
   expect_lt(result$count, result_space$count)
 })
@@ -453,9 +479,10 @@ test_that("`count()` queries work with `authenticate()` for GBIF", {
   Sys.sleep(pause_time * 5)
   x <- collect(x_compute, wait = FALSE) |>
     skip_unavailable(other_classes = "computed_query")
+  expect_tibble(x)
   expect_equal(nrow(x), 1)
   expect_equal(ncol(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_tibble(x)
 })
 
 test_that("`atlas_counts()` fails for GBIF when `type = 'species'`", {
@@ -527,7 +554,7 @@ test_that("`atlas_occurrences()` works for GBIF", {
            country == "AU") |>
     atlas_occurrences() |>
     skip_unavailable()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_gt(nrow(x), 10)
   expect_gt(ncol(x), 10)
 })
@@ -542,7 +569,7 @@ test_that("`atlas_occurrences()` works with `select()` for GBIF", {
     select(countryCode, species, eventDate) |>
     atlas_occurrences() |>
     skip_unavailable()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_gt(nrow(x), 10)
   expect_equal(ncol(x), 3)
 })
@@ -582,6 +609,7 @@ test_that("`atlas_species()` works for GBIF", {
   Sys.sleep(pause_time * 5)
   z <- collect(y, wait = FALSE) |>
     skip_unavailable(other_classes = "computed_query")
+  expect_tibble(z)
   expect_gt(nrow(z), 10) # n = 14
   expect_gt(ncol(z), 5)  # n = 22
   expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
@@ -603,9 +631,9 @@ test_that("`distinct()` queries accept `select()` for GBIF", {
   Sys.sleep(pause_time * 5)
   x <- collect(x_compute, wait = FALSE) |>
     skip_unavailable(other_classes = "computed_query")
+  expect_tibble(x)
   expect_gt(nrow(x), 10) # 
   expect_equal(ncol(x), 2)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`atlas_media()` fails for GBIF", {
@@ -646,6 +674,7 @@ test_that("`collect()` works for GBIF with `type = 'occurrences' or 'occurrences
   Sys.sleep(pause_time)
   z <- collect(y, wait = TRUE) |>
     skip_unavailable()
+  expect_tibble(z)
   expect_gt(nrow(z), 0)
   expect_gt(ncol(z), 0)
   expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))

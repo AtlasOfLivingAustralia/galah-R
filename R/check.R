@@ -127,7 +127,10 @@ check_fields <- function(.query,
                          error_call = rlang::caller_env()) {
   
   if(potions::pour("package", "run_checks")){
-    if(.query$atlas == "Global"){
+    if(.query$atlas == "Global" & 
+      stringr::str_detect(.query$type, "^data") # this line is intended 
+      # to prevent checks on metadata/taxa-unnest, but may be too general
+    ){
       if(.query$type == "data/occurrences"){
         check_result <- check_fields_gbif_predicates(.query)  
       }else{
@@ -374,13 +377,14 @@ check_groups <- function(group, n){
 #' @keywords Internal
 check_identifiers <- function(.query,
                               error_call = rlang::caller_env()){
+  # default is to replace "(`TAXON_PLACEHOLDER`)"
+  if(.query$atlas != "Global" | 
+     (.query$atlas == "Global" & .query$type == "metadata/taxa-unnest")){
+      check_identifiers_la(.query, error_call)
   # For GBIF, which uses predicates, we 'promote' taxonomic queries to 'predicates'
-  if(.query$atlas == "Global"){
+  }else{
     .query$body$identify <- .query$`metadata/taxa-single`
     .query
-  # otherwise we replace "(`TAXON_PLACEHOLDER`)"
-  }else{
-    check_identifiers_la(.query, error_call)
   }
 }
   

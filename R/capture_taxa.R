@@ -144,10 +144,18 @@ capture_identifiers <- function(.query, call = rlang::caller_env()){
     query <- as.list(search_terms)
     base_url <- url_lookup(.query, error_call = call)
     # create query urls
-    if(grepl("api.gbif.org", base_url)){ # NOTE: This is not `.query$atlas == "GBIF"` because other atlases use this API
-      base_url <- utils::URLdecode(base_url)
-      urls <- glue::glue(base_url, id = query) |>
+    # first for those orgs that use the GBIF taxonomic backbone
+    if(stringr::str_detect(base_url, "api.gbif.org")){
+      urls <- glue::glue(utils::URLdecode(base_url), # necessary to render `{}` correctly
+                         id = query) |>
         unlist()
+    # Then GBIF itself, which uses checklistbank
+    }else if(stringr::str_detect(base_url, "api.checklistbank.org")){
+      urls <- glue::glue(utils::URLdecode(base_url), 
+                         dataset = gbif_checklistbank_key(),
+                         id = query) |>
+        unlist()
+    # then other living atlases
     }else{
       base_url <- httr2::url_parse(base_url)
       urls <- purrr::map(query,
