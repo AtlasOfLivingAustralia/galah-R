@@ -112,6 +112,7 @@ capture.metadata_request <- function(x, ...){
          "taxa" = capture_taxa(x),
          "taxa-unnest" = capture_taxa_unnest(x),
          "identifiers" = capture_identifiers(x),
+         "identifiers-unnest" = capture_identifiers_unnest(x),
          cli::cli_abort("Unrecognised 'type'")
          ) |>
   add_request(x)

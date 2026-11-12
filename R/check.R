@@ -409,7 +409,7 @@ check_identifiers_la <- function(.query,
         identifiers <- .query[[which(metadata_lookup)[1]]]
         
         # End query early when no taxonomic search terms were matched
-        if (nrow(identifiers) > 0 && !("taxon_concept_id" %in% colnames(identifiers))) {
+        if (nrow(identifiers) == 0 | !("taxon_concept_id" %in% colnames(identifiers))) {
           cli::cli_abort("No valid taxonomic identifiers detected.",
                          call = error_call)
         }
@@ -443,6 +443,13 @@ check_identifiers_la <- function(.query,
       metadata_lookup <- grepl("^metadata/taxa", names(.query))
       if(any(metadata_lookup)){ 
         identifiers <- .query[[which(metadata_lookup)[1]]]
+
+        # End query early when no taxonomic search terms were matched
+        if (nrow(identifiers) == 0 | !("taxon_concept_id" %in% colnames(identifiers))) {
+          cli::cli_abort("No valid taxonomic identifiers detected.",
+                         call = error_call)
+        }
+
         taxa_id <- utils::URLencode(identifiers$taxon_concept_id[1],
                                     reserved = TRUE)
         .query$url[1] <- sub("%60TAXON_PLACEHOLDER%60", taxa_id, .query$url[1])

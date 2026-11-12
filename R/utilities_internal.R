@@ -119,6 +119,7 @@ lookup_select_columns <- function(type) {
                         "description",
                         "type"),
            "identifiers" = lookup_select_columns_taxa(),
+           "identifiers-unnest" = lookup_select_columns_taxa_unnest(),
            "licences" = c("id",
                           "name",
                           "acronym",
@@ -153,12 +154,7 @@ lookup_select_columns <- function(type) {
            "reasons" = c("id",
                          "name"),
            "taxa" = lookup_select_columns_taxa(),
-           "taxa-unnest" = c("name",
-                             "taxon_concept_id",
-                             "parent_taxon_concept_id",
-                             "rank",
-                             "authorship",
-                             "status"),
+           "taxa-unnest" = lookup_select_columns_taxa_unnest(),
            NULL # When no defaults are set, sending NULL tells the code to call `everything()`
            )
 }
@@ -197,6 +193,18 @@ lookup_select_columns_taxa <- function(){
   )
 }
 
+#' `lookup_select_columns()` but for taxa-unnest and identifier-unnest queries
+#' @noRd
+#' @keywords Internal
+lookup_select_columns_taxa_unnest <- function(){
+  c("name",
+    "taxon_concept_id",
+    "parent_taxon_concept_id",
+    "rank",
+    "authorship",
+    "status")
+}
+
 #' Choose which columns to rename
 #' @noRd
 #' @keywords Internal
@@ -207,6 +215,10 @@ lookup_rename_columns <- function(type){
                            "taxonConceptID" = "id",
                            "scientificName" = "label",
                            "authority" = "link"),
+         "identifiers-unnest" = c("taxon_concept_id" = "guid",
+                                  "taxon_concept_id" = "id",
+                                  "parent_taxon_concept_id" = "parent_id",
+                                  "parent_taxon_concept_id" = "parent_guid"),
          "lists" = c("species_list_uid" = "data_resource_uid"),
          "lists-unnest" = c("taxon_concept_id" = "lsid"),
          "media" = c("media_id" = "image_identifier"),

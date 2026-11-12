@@ -2,7 +2,8 @@
 #' `request_metadata(type = "fields") |> unnest()`
 #' @noRd
 #' @keywords Internal
-capture_fields_unnest <- function(.query, call = rlang::caller_env()){
+capture_fields_unnest <- function(.query,
+                                  call = rlang::caller_env()){
   .query$type <- "metadata/fields-unnest"
   url <- url_lookup(.query, error_call = call) |> 
     httr2::url_parse()
@@ -24,7 +25,8 @@ capture_fields_unnest <- function(.query, call = rlang::caller_env()){
 #' `request_metadata(type = "lists") |> unnest()`
 #' @noRd
 #' @keywords Internal
-capture_lists_unnest <- function(.query, call = rlang::caller_env()){
+capture_lists_unnest <- function(.query,
+                                 call = rlang::caller_env()){
   .query$type <- "metadata/lists-unnest"
   # get list lookup url
   url <- url_lookup(.query,
@@ -64,7 +66,43 @@ capture_profiles_unnest <- function(.query, call = rlang::caller_env()){
 #' `request_metadata(type = "taxa") |> unnest()`
 #' @noRd
 #' @keywords Internal
-capture_taxa_unnest <- function(.query, call = rlang::caller_env()){
+capture_identifiers_unnest <- function(.query, 
+                                      call = rlang::caller_env()){
+  .query$type <- "metadata/taxa-unnest"
+  if(!is.null(.query$filter)){
+    id <- .query$filter$value[1]
+  }else{
+    c("No `filter()` statement provided.",
+      i = "To pass an identifier, use `filter(identifier == \"V2\")` or similar.") |>
+    cli::cli_abort(call = call)
+  }
+
+  # set url depending on org
+  if(.query$atlas == "Global"){
+    url <- url_lookup(.query,
+                      dataset = gbif_checklistbank_key(),
+                      id = id,
+                      error_call = call)
+  }else{
+    url <- url_lookup(.query,
+                      id = id,
+                      error_call = call)
+  }
+  
+  # return query object
+  list(type = "metadata/identifiers-unnest",
+       atlas = .query$atlas,
+       url = url,
+       headers = build_headers()) |>
+    as_query()
+}
+
+#' Internal function to `capture()` for 
+#' `request_metadata(type = "identifier") |> unnest()`
+#' @noRd
+#' @keywords Internal
+capture_taxa_unnest <- function(.query,
+                                call = rlang::caller_env()){
   .query$type <- "metadata/taxa-unnest"
   if(!is.null(.query$filter)){
     id <- .query$filter$value[1]
