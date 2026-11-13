@@ -7,6 +7,13 @@ test_that("`describe()` amends a query to type = 'occurrences-describe'", {
   expect_s3_class(x, c("query", "list"))
 })
 
+test_that("`describe()` errors for types other than `occurrences`", {
+  galah_call(type = "species") |>
+    describe() |>
+    capture() |>
+    expect_warning(label = "`describe()` is only supported for `type` \"occurrences\" or \"events\": skipping.")
+})
+
 test_that("`describe()` ignores `count()`", {
   skip_galah()
   x <- galah_call() |>

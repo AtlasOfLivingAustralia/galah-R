@@ -259,6 +259,14 @@ test_that("`count()` works for GBIF", {
     expect_gt(0)
 })
 
+test_that("`arrange()` causes a warning for GBIF", {
+  request_data(from = "GBIF") |>
+    count(year) |>
+    arrange(year) |>
+    capture() |>
+    expect_warning(label = "`arrange()` is not currently supported by the GBIF occurrence count API: skipping.")
+})
+
 test_that("`count()` errors when real but non-indexed fields are requested", {
   skip_galah()
 
@@ -539,6 +547,20 @@ test_that("`glimpse()` works with `identify()` for GBIF", {
 # FIXME: add test for `select()` paired with `glimpse()`
 
 ## occurrence tests
+
+test_that("`authenticate(use_jwt = TRUE)` errors for GBIF", {
+  request_data(from = "GBIF") |>
+    authenticate(use_jwt = TRUE) |>
+    expect_warning(label = "JWT-based authentication not supported for GBIF: skipping")
+})
+
+test_that("`authenticate()` errors for GBIF when empty args are supplied", {
+  request_data(from = "GBIF") |>
+    authenticate(email = "", 
+                 username = "",
+                 password = "") |>
+    expect_error(label = "GBIF requires the following information")
+})
 
 test_that("`atlas_occurrences()` works with `select()` for GBIF", {
   skip_galah()

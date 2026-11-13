@@ -11,6 +11,13 @@ test_that("default is to arrange by decending order of count", {
   expect_equal(colnames(result), c("year", "count"))
 })
 
+test_that("`arrange()` returns data unchanged if no arguments are supplied", {
+  x <- galah_call() |>
+    filter(year == 2020) 
+  y <- x |> arrange() 
+  expect_identical(x, y)
+})
+
 test_that("arrange in increasing order of count", {
   skip_galah()
   result <- galah_call() |>

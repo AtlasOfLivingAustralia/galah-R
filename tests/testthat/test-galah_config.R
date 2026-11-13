@@ -1,7 +1,18 @@
 quiet_config <- purrr::quietly(galah_config)
 
+test_that("`default_config()` is structured correctly", {
+  x <- default_config()
+  expect_s3_class(x, "galah_config")
+  expect_equal(names(x), c("package", "user", "atlas"))
+})
+
 test_that("`galah_config()` gives nice error messages for incorrect arguments", {
   expect_error(quiet_config(something = "nothing"))
+})
+
+test_that("`galah_config()` errors when unnamed objects are supplied", {
+  galah_config("something") |>
+    expect_error()
 })
 
 test_that("galah_config creates nested folders where requested", {

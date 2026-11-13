@@ -215,14 +215,11 @@ check_describe <- function(x){
   if(!is.null(x$describe)){
     if(x$type %in% c("occurrences", "events")){
       x$type <- glue::glue("{x$type}-describe")
-      x
     }else{
-      cli::cli_inform("`describe()` is only supported for `type` \"occurrences\" or \"events\" ")
-      x
+      cli::cli_warn("`describe()` is only supported for `type` \"occurrences\" or \"events\" ")
     }
-  }else{
-    x
   }
+  x
 }
 
 #' Internal function to check behaviour of `distinct()`, `group_by()` etc.
@@ -358,7 +355,7 @@ check_glimpse <- function(x){
       x$type <- "occurrences-glimpse"
       x
     }else{
-      cli::cli_inform("`glimpse()` is only supported for `type =\"occurrences\"")
+      cli::cli_warn("`glimpse()` is only supported for `type =\"occurrences\": skipping.")
       x
     }
   }else{
@@ -370,7 +367,7 @@ check_glimpse <- function(x){
 #' @keywords Internal
 #' @noRd
 check_slice_arrange <- function(x){
-  if(!stringr::str_detect(x$type, "-count$")){
+  if(!stringr::str_detect(x$type, "-count")){
     x
   }else{
     # first handle slice
@@ -389,7 +386,7 @@ check_slice_arrange <- function(x){
                                 direction = "descending")
     }else{
       if(x$atlas == "Global"){
-      c("`arrange()` is not currently supported by the GBIF occurrence count API: Ignoring.") |>
+      c("`arrange()` is not currently supported by the GBIF occurrence count API: skipping.") |>
         cli::cli_warn()
       }
       arrange <- x$arrange

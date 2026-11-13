@@ -98,9 +98,10 @@ parse_polygon <- function(query,
   if(inherits(query, "sf") || inherits(query, "sfc")) {
 
     if(length(sf::st_geometry(query)) < 2) {
-    out_query <- build_wkt(query)
+      out_query <- build_wkt(query)
     } else {
-    # multiple polygons
+      # multiple polygons
+      # Q: Is this possible? Should be captured by `check_n_inputs()`
       n_polygons <- length(sf::st_geometry(query))
       c("Too many polygons.",
         i = "`galah_polygon` cannot accept more than 1 polygon at a time.",
@@ -119,7 +120,7 @@ parse_polygon <- function(query,
       #   as_tibble() |>
       #   select(row_id, wkt_string)
     }
-  } else {
+  } else { # i.e. if not object of class `sf` or `sfc`
     
     # remove space after "POLYGON" if present
     if(stringr::str_detect(query, "POLYGON \\(\\("))
@@ -137,14 +138,14 @@ parse_polygon <- function(query,
   out_query
 }
 
-#' Internal function to `galah_polygon`
+#' Internal function to `geolocate_polygon`
 #' @noRd
 #' @keywords Internal
 n_points <- function(x) {
   count_vertices(sf::st_geometry(x))
 }
 
-#' Internal function to `galah_polygon`
+#' Internal function to `geolocate_polygon`
 #' @noRd
 #' @keywords Internal
 count_vertices <- function(wkt_string) {
@@ -161,7 +162,7 @@ count_vertices <- function(wkt_string) {
   unname(out)
 }
 
-#' Internal function to `galah_polygon`
+#' Internal function to `geolocate_polygon`
 #' @noRd
 #' @keywords Internal
 check_wkt_length <- function(wkt,

@@ -13,6 +13,11 @@ test_that("`geolocate_polygon()` uses first argument", {
                    expected_polygon)
 })
 
+test_that("`geolocate_polygon()` checks class of inputs", {
+  geolocate_polygon(logical(3)) |>
+    expect_error(label = "Invalid object detected")
+})
+
 test_that("`geolocate_polygon()` checks inputs", {
   poly_path <- test_path("testdata", "act_state_polygon_shp", "ACT_STATE_POLYGON_shp.shp")
   sf::st_read(poly_path, quiet = TRUE) |>
@@ -95,6 +100,5 @@ test_that("`geolocate_polygon()` warns when CRS isn't EPSG:4326", {
   obj_sf_gda94 <- sf::st_as_sfc(wkt, crs = sf::st_crs(4283)) # wrong GDA94
   expect_warning(geolocate(obj_sf_gda94), "Spatial object CRS")
 })
-
 
 # Future: test that geolocate_polygon accepts nothing as an input and ignores

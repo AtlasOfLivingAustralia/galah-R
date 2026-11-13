@@ -32,20 +32,13 @@ build_API_call <- function(.query,
   if(isTRUE(.query$request$authenticate$use_jwt) & 
      .query$type != "metadata/config" # necessary to prevent circular problems
      ){
+    build_auth_call(httr2_query = query,
+                    galah_query = .query)
 
-    # check whether config data is available
-    auth_info <- get_auth_info(.query)
-    query <- query |>
-      httr2::req_oauth_auth_code(
-        client = auth_info$client,
-        auth_url = dplyr::pull(auth_info$config, "authorize_url"),
-        scope = dplyr::pull(auth_info$config, "scopes"),
-        pkce = TRUE,
-        redirect_uri = "http://localhost:27231/",
-        cache_disk = .query$request$authenticate$cache_disk)
+  }else{
+    query
   }
 
-  return(query)
 }
 
 #' Internal function to run multiple url-based API calls using httr2
@@ -108,17 +101,38 @@ query_API_multiple_url <- function(.query,
 #' @keywords Internal
 query_API_multiple_body <- function(.query,
                                     error_call = rlang::caller_env()){
-  requests <- purrr::map(.x = split(.query$body, 
-                                    seq_len(nrow(.query$body))),
+  query_list <- split(.query$body, 
+                      seq_len(nrow(.query$body)))
+  requests <- purrr::map(query_list,
                .f = \(a){
                  data_tr <- .query
                  data_tr$body <- a$predicate[[1]]
                  build_API_call(data_tr)
                })
   progress_object <- set_progress_bar_behaviour(nrow(.query$body) > 1)
+
+  ## TODO: add httr2::req_throttle()
   result <- httr2::req_perform_parallel(requests,
                                         on_error = "continue",
                                         progress = progress_object)
+
+  # look for errors in returned object
+  httr2_error_check <- result |>
+    purrr::map(.f = \(a) inherits(a, "httr2_error")) |>
+    unlist()
+  httr2_message <- result |>
+    purrr::map(.f = \(a) purrr::pluck(a, "message")) |>
+    unlist() |>
+    unique()
+
+  # this is a little basic as it won't catch single errors
+  if(any(httr2_error_check)){
+    c("Unable to enact request.", i = httr2_message[1]) |>
+      cli::cli_abort(call = error_call)
+  }
+  # TODO add similar tests elsewhere.
+
+  # parse and return
   purrr::map(result, httr2::resp_body_json) |>
     structure(class = c("multiquery", "list"))
 }
@@ -200,6 +214,42 @@ add_options <- function(req, options){
   req
 }
 
+#' Internal function to run an API call using httr2
+#' @param criteria length-1 logical statement as to whether to proceed or not
+#' @noRd
+#' @keywords Internal
+set_progress_bar_behaviour <- function(criteria){
+  verbose <- all(
+    potions::pour("package", "verbose", .pkg = "galah") &
+    isTRUE(criteria))
+  if(verbose){
+    list(name = "Querying API",
+         clear = TRUE)
+  }else{
+    FALSE
+  }
+}
+
+## NOTE: Below here lines can't be tested programmatically, so
+## are excluded in `data-raw/3_codecov.R`. Changes to this file
+## should be reflected in that document as well.
+
+#' Handle auth pipeline
+#' @noRd
+#' @keywords Internal
+build_auth_call <- function(httr2_query, galah_query){
+  # check whether config data is available
+  auth_info <- get_auth_info(galah_query)
+  httr2_query |>
+    httr2::req_oauth_auth_code(
+      client = auth_info$client,
+      auth_url = dplyr::pull(auth_info$config, "authorize_url"),
+      scope = dplyr::pull(auth_info$config, "scopes"),
+      pkce = TRUE,
+      redirect_uri = "http://localhost:27231/",
+      cache_disk = galah_query$request$authenticate$cache_disk)
+}
+
 #' get a client, and if it doesn't exist, make one
 #' @noRd
 #' @keywords Internal
@@ -262,20 +312,4 @@ build_auth_client <- function(config, atlas){
   # cache and return
   update_cache(client = result)
   result
-}
-
-#' Internal function to run an API call using httr2
-#' @param criteria length-1 logical statement as to whether to proceed or not
-#' @noRd
-#' @keywords Internal
-set_progress_bar_behaviour <- function(criteria){
-  verbose <- all(
-    potions::pour("package", "verbose", .pkg = "galah") &
-    isTRUE(criteria))
-  if(verbose){
-    list(name = "Querying API",
-         clear = TRUE)
-  }else{
-    FALSE
-  }
 }

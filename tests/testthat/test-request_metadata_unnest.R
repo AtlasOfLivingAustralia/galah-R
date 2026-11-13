@@ -1,3 +1,19 @@
+test_that("`unnest()` fails for objects of class other than `metadata_request`", {
+  request_data() |>
+    galah::unnest() |>
+    expect_error()
+  list() |>
+    galah::unnest() |>
+    expect_error()
+})
+
+test_that("`unnest()` fails for valid but unsupported `type`", {
+  # note: supplying random strings to `type` will fail at `request_metadata()`, not `unnest()`
+  request_metadata(type = "licences") |>
+    unnest() |>
+    expect_error()
+})
+
 test_that("`request_metadata() |> unnest()` fails when `filter()` is missing", {
   skip_galah()
   request_metadata() |> 
@@ -203,6 +219,27 @@ test_that("request_metadata() |> unnest() works for type = 'taxa' using `filter(
   expect_equal(length(x), 5)
   expect_equal(names(x), c("type", "atlas", "url", "headers", "request"))
   expect_equal(x$type, "metadata/taxa-unnest")
+  y <- compute(x)
+  expect_s3_class(y, "computed_query")
+  z <- collect(y) |>
+    skip_unavailable()
+  expect_tibble(z)
+  expect_equal(ncol(z), 4)
+  expect_gte(nrow(z), 10)
+})
+
+test_that("request_metadata() |> unnest() works for type = 'taxa' using `filter()`", {
+  skip_galah()
+  lookup <- search_taxa("Crinia")$taxon_concept_id
+  x <- request_metadata() |>
+    filter(identifier == lookup) |>
+    unnest() |>
+    collapse()  |>
+    skip_unavailable()
+  expect_s3_class(x, "query")
+  expect_equal(length(x), 5)
+  expect_equal(names(x), c("type", "atlas", "url", "headers", "request"))
+  expect_equal(x$type, "metadata/identifiers-unnest")
   y <- compute(x)
   expect_s3_class(y, "computed_query")
   z <- collect(y) |>
