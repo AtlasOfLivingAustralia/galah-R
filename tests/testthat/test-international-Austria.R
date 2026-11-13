@@ -9,8 +9,8 @@ test_that("`show_all(assertions)` works for Austria", {
   skip_galah()
   x <- show_all(assertions) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   y <- request_metadata(type = "assertions") |> collect()
   expect_equal(x, y)
 })
@@ -19,8 +19,8 @@ test_that("`show_all(collections)` works for Austria", {
   skip_galah()
   x <- show_all(collections) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_gte(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   y <- request_metadata(type = "collections") |> collect()
   expect_equal(x, y)
 })
@@ -29,8 +29,8 @@ test_that("`show_all(datasets)` works for Austria", {
   skip_galah()
   x <- show_all(datasets) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_gte(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   y <- request_metadata(type = "datasets") |> collect()
   expect_equal(x, y)
 })
@@ -39,19 +39,19 @@ test_that("`show_all(fields)` works for Austria", {
   skip_galah()
   x <- show_all(fields) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   y <- request_metadata(type = "fields") |> collect()
   expect_equal(x, y)
 })
 
 test_that("`show_all(licences)` works for Austria", {
+  # this API exists, but is empty at time of writing (2024-02-26)
   skip_galah()
   x <- show_all(licences) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_lte(nrow(x), 10)
-  # this API exists, but is empty at time of writing (2024-02-26)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   y <- request_metadata(type = "licences") |> collect()
   expect_equal(x, y)
 })
@@ -60,8 +60,8 @@ test_that("`show_all(lists)` works for Austria", {
   skip_galah()
   x <- show_all(lists) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   y <- request_metadata(type = "lists") |> collect()
   expect_equal(x, y)
 })
@@ -70,8 +70,8 @@ test_that("`show_all(providers)` works for Austria", {
   skip_galah()
   x <- show_all(providers) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   y <- request_metadata(type = "providers") |> collect()
   expect_equal(x, y)
 })
@@ -80,8 +80,8 @@ test_that("`show_all(reasons)` works for Austria", {
   skip_galah()
   x <- show_all(reasons) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   y <- request_metadata(type = "reasons") |> collect()
   expect_equal(x, y)
 })
@@ -94,16 +94,16 @@ test_that("`search_all(fields)` works for Austria", {
   skip_galah()
   x <- search_all(fields, "year") |>
     skip_unavailable()
+  expect_tibble(x)
   expect_gte(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`search_all(taxa)` works for Austria", {
   skip_galah()
   x <- search_all(taxa, "Vulpes vulpes") |>
     skip_unavailable()
+  expect_tibble(x)
   expect_gte(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`show_values()` works for Austria", {
@@ -113,36 +113,38 @@ test_that("`show_values()` works for Austria", {
     x(...)$result
   }
   # fields
-  x <- try({search_all(fields, "basis_of_record") |> 
-    quiet_values()},
-    silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+  x <- search_all(fields, "basis_of_record") |> 
+    quiet_values() |>
+    skip_unavailable()
+  expect_tibble(x)
   expect_gte(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 
   # lists
-  x <- try({search_all(lists, "dr30") |> 
-    quiet_values()},
-    silent = TRUE)
-  skip_if(inherits(x, "try-error"), message = "API not available")
+  x <- search_all(lists, "dr30") |> 
+    quiet_values() |>
+    skip_unavailable()
+  expect_tibble(x)
   expect_gte(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`atlas_counts()` works with type = 'occurrences' for Austria", {
   skip_galah()
   x <- atlas_counts() |>
-    dplyr::pull(count) |>
     skip_unavailable()
-  expect_gt(x, 0)
+  expect_tibble(x)
+  x |>
+    dplyr::pull(count) |>
+    expect_gt(0)
 })
 
 test_that("`atlas_counts()` works with type = 'species' for Austria", {
   skip_galah()
   x <- atlas_counts(type = "species") |>
-    dplyr::pull(count) |>
     skip_unavailable()
-  expect_gt(x, 0)
+  expect_tibble(x)
+  x |>
+    dplyr::pull(count) |>
+    expect_gt(0)
 })
 
 ## FIXME: Only works when run_checks = TRUE
@@ -153,6 +155,7 @@ test_that("`count()` works with `identify()` for Austria", {
     count() |>
     collect() |>
     skip_unavailable()
+  expect_tibble(result)
   expect_gt(result$count, 1)
   result2 <- galah_call() |>
     galah_filter(class == "Mammalia") |>
@@ -169,6 +172,7 @@ test_that("`count()` works with group_by for Austria", {
     count(year) |>
     collect() |>
     skip_unavailable()
+  expect_tibble(result)
   expect_gt(nrow(result), 1)
   expect_equal(names(result), c("year", "count"))
 })
@@ -184,10 +188,10 @@ test_that("`atlas_species()` works for Austria", {
     identify("Mammalia") |> # NOTE: testing with Reptilia failed as this taxon not uniquely matched
     collect() |>
     skip_unavailable()
+  expect_tibble(spp)
   skip_if((nrow(spp) < 1 & ncol(spp) < 1), message = "API not available")
   expect_gt(nrow(spp), 100) # actual number 569 spp on 2024-08-22
   expect_gt(ncol(spp), 8) # actually 10
-  expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
 })
 
 ## FIXME: Test only works when run_checks = TRUE
@@ -223,8 +227,9 @@ test_that("`atlas_occurrences()` works for Austria", {
   Sys.sleep(20)
   occ <- collect(occ_compute, wait = FALSE) |>
     skip_unavailable(other_classes = "computed_query") 
+  expect_tibble(occ)
   expect_equal(nrow(occ), counts$count[1])
-  expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(occ)
   expect_equal(ncol(occ), 2)
   unlink("temp", recursive = TRUE)
 })
@@ -243,7 +248,7 @@ test_that("`atlas_media()` works for Austria", {
     filter(year == 2010) |>
     atlas_media() |>
     skip_unavailable()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_gte(nrow(x), 1)
   expect_equal(colnames(x)[1:2],
                c("media_id", "media_type"))
@@ -261,17 +266,15 @@ test_that("`atlas_media()` works for Austria", {
 
 test_that("atlas_taxonomy works for Austria", {
   skip_galah()
-  y <- galah_call() |>
+  x <- galah_call() |>
     identify("Aves") |>
     filter(rank >= order) |>
     atlas_taxonomy() |>
     skip_unavailable()
-  skip_if(inherits(y, "try-error"), message = "API not available")
-  # add tests
-  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(colnames(y), 
+  expect_tibble(x)
+  expect_equal(colnames(x), 
                c("name", "rank", "parent_taxon_concept_id", "taxon_concept_id"))
-  expect_gte(nrow(y), 5)
+  expect_gte(nrow(x), 5)
 })
 
 quiet_config <- purrr::quietly(galah_config)

@@ -22,18 +22,18 @@ test_that("`show_values()` checks values", {
 
 test_that("`show_values()` accepts search & show_all inputs from fields", {
   skip_galah()
-  values_search <- search_all(fields, "basisOfRecord") |>
+  x <- search_all(fields, "basisOfRecord") |>
     quiet_values()
-  expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
-  expect_gt(nrow(values_search), 0)
+  expect_tibble(x)
+  expect_gt(nrow(x), 0)
 })
 
 test_that("`show_values()` accepts search & show_all inputs from profiles", {
   skip_galah()
-  values_search <- search_all(profiles, "ALA") |>
+  x <- search_all(profiles, "ALA") |>
     quiet_values()
-  expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
-  expect_gt(nrow(values_search), 0)
+  expect_tibble(x)
+  expect_gt(nrow(x), 0)
 })
 
 ## NOTE: search_lists() tests removed 2026-06-04 because v2 specieslist API has become too slow to test adequately
@@ -52,7 +52,7 @@ test_that("`search_values()` returns filtered results for fields", {
   search_result_check <- all(grepl(pattern = "new", 
                                    paste(values_search[,1]),
                                    ignore.case = TRUE))
-  expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(values_search)
   expect_equal(names(values_search), names(values_show))
   expect_lt(nrow(values_search), nrow(values_show))
   expect_true(search_result_check)
@@ -66,7 +66,7 @@ test_that("`search_values()` returns filtered results for profiles", {
   search_result_check <- all(grepl(pattern = "kingdom", 
                                    paste(values_search$description),
                                    ignore.case = TRUE))
-  expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(values_search)
   expect_equal(names(values_search), names(values_show))
   expect_lt(nrow(values_search), nrow(values_show))
   expect_true(search_result_check)
@@ -113,7 +113,7 @@ test_that("`show_values()` returns nested columns within 'properties'", {
   #   show_values()
   
   extra_cols <- c("raw_scientificName", "status", "sourceStatus", "IUCN_equivalent_status")
-  expect_s3_class(show_values_query, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(show_values_query)
   expect_gt(nrow(show_values_query), 0)
   expect_true(any(colnames(show_values_query) %in% extra_cols))
   expect_gt(ncol(show_values_query), 6) # adds additional columns

@@ -7,14 +7,16 @@ test_that("`search_taxa()` checks inputs", {
 
 test_that("`search_taxa()` works for simple queries", {
   skip_galah()
-  taxa <- search_taxa("Microseris lanceolata")
-  expect_equal(nrow(taxa), 1)
+  x <- search_taxa("Microseris lanceolata")
+  expect_tibble(x)
+  expect_equal(nrow(x), 1)
 })
 
 test_that("`search_taxa()` works for multiple queries", {
   skip_galah()
-  taxa <- search_taxa(c("Eucalyptus", "Banksia", "Acacia"))
-  expect_equal(nrow(taxa), 3)
+  x <- search_taxa(c("Eucalyptus", "Banksia", "Acacia"))
+  expect_tibble(x)
+  expect_equal(nrow(x), 3)
 })
 
 test_that("`search_taxa()` handles data.frame input", {
@@ -24,9 +26,10 @@ test_that("`search_taxa()` handles data.frame input", {
   x <- request_metadata() |>
     identify(test_df) |>
     collect()
-  taxa <- search_taxa(test_df)
-  expect_true(identical(taxa, x))
-  expect_equal(nrow(taxa), 2)
+  y <- search_taxa(test_df)
+  expect_tibble(x)
+  expect_true(identical(x, y))
+  expect_equal(nrow(y), 2)
 })
 
 test_that("`search_taxa()` errors when no columns match a taxon rank", {
@@ -48,8 +51,8 @@ test_that("`search_taxa()` warns when some columns don't match a taxon rank", {
 test_that("`search_taxa()` gives a message for invalid names", {
   skip_galah()
   galah_config(verbose = TRUE)
-  taxa <- purrr_taxa("bad_term")
-  taxa |>
+  x <- purrr_taxa("bad_term")
+  x |>
     purrr::pluck("messages") |>
     stringr::str_detect("^Matched 0 of 1 taxonomic search terms") |>
     any() |>
@@ -60,14 +63,14 @@ test_that("`search_taxa()` gives a message for invalid names", {
 test_that("`search_taxa()` handles a mix of valid and invalid queries", {
   skip_galah()
   galah_config(verbose = TRUE)
-  taxa <- c("Eucalyptus", "Banksia", "Wattle", "wootle") |>
+  x <- c("Eucalyptus", "Banksia", "Wattle", "wootle") |>
     purrr_taxa()
-  taxa |>
+  x |>
     purrr::pluck("messages") |>
     stringr::str_detect("^Matched 3 of 4 taxonomic search terms") |>
     any() |>
     expect_true()
-  taxa |>
+  x |>
     purrr::pluck("result") |>
     nrow() |>
     expect_equal(4)
@@ -76,10 +79,12 @@ test_that("`search_taxa()` handles a mix of valid and invalid queries", {
 
 test_that("`search_taxa()` searches using multiple ranks", {
   skip_galah()
-  taxa <- search_taxa(data.frame(genus = "Acacia", kingdom = "Plantae"))
-  expect_s3_class(taxa, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(taxa$rank, "genus")
-  expect_equal(nrow(taxa), 1)
+  x <- data.frame(genus = "Acacia", 
+                     kingdom = "Plantae") |>
+    search_taxa()
+  expect_tibble(x)
+  expect_equal(x$rank, "genus")
+  expect_equal(nrow(x), 1)
 })
 
 test_that("`search_taxa()` gives an error when homonyms are returned", {
@@ -103,10 +108,11 @@ test_that("`search_taxa()` errors nicely when piped in `galah_call()`", {
 
 test_that("`search_taxa()` handles complex strings", {
   skip_galah()
-  taxa <- search_taxa("Commelina sp. (Lakefield NP P.I.Forster+ PIF12943)")
-  expect_s3_class(taxa, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(taxa$scientific_name, "Commelina sp. Lakefield NP (P.I.Forster+ PIF12943)")
-  expect_equal(nrow(taxa), 1)
+  x <- search_taxa("Commelina sp. (Lakefield NP P.I.Forster+ PIF12943)")
+  expect_tibble(x)
+  expect_equal(x$scientific_name, 
+               "Commelina sp. Lakefield NP (P.I.Forster+ PIF12943)")
+  expect_equal(nrow(x), 1)
 })
 
 test_that("`search_identifiers()` searches using identifier", {
@@ -114,16 +120,16 @@ test_that("`search_identifiers()` searches using identifier", {
   # check different types of id
   identifier <- c("urn:lsid:biodiversity.org.au:afd.taxon:08b9a1f0-62ae-45ca-9208-e773b00021ed",
                   "NZOR-6-1742", "https://id.biodiversity.org.au/node/apni/2910467")
-  taxa <- search_identifiers(identifier)
-  expect_s3_class(taxa, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(nrow(taxa), 3)
+  x <- search_identifiers(identifier)
+  expect_tibble(x)
+  expect_equal(nrow(x), 3)
 })
 
 test_that("`search_identifiers()` gives a message for invalid ids", {
   skip_galah()
   galah_config(verbose = TRUE)
-  taxa <- purrr_identifiers("1234")
-  taxa |>
+  x <- purrr_identifiers("1234")
+  x |>
     purrr::pluck("messages") |>
     stringr::str_detect("^Matched 0 of 1 taxonomic search terms") |>
     any() |>
@@ -137,16 +143,16 @@ test_that("`search_identifiers()` works when one value is missing", {
   identifier <- c("urn:lsid:biodiversity.org.au:afd.taxon:08b9a1f0-62ae-45ca-9208-e773b00021ed",
                   "something")
   galah_config(verbose = TRUE)
-  taxa <- purrr_identifiers(identifier)
-  taxa |>
+  x <- purrr_identifiers(identifier)
+  x |>
     purrr::pluck("messages") |>
     stringr::str_detect("^Matched 1 of 2 taxonomic search terms") |>
     any() |>
     expect_true()
-  taxa |>
+  x |>
     purrr::pluck("result") |>
-    expect_s3_class(c("tbl_df", "tbl", "data.frame"))
-  taxa |>
+    expect_tibble()
+  x |>
     purrr::pluck("result") |>
     nrow() |>
     expect_equal(2)
@@ -158,7 +164,7 @@ test_that("`search_identifiers()` works via `search_all()`", {
   id <- "urn:lsid:biodiversity.org.au:afd.taxon:08b9a1f0-62ae-45ca-9208-e773b00021ed"
   search <- search_identifiers(id)
   search2 <- search_all(identifiers, id)
-  expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(search)
   expect_equal(nrow(search), 1)
   expect_equal(search, search2)
 })
@@ -174,7 +180,7 @@ test_that("`request_metadata()` works for `type = 'taxa'`", {
   expect_s3_class(y, "query")
   expect_equal(names(y), c("type", "atlas", "url", "headers", "request"))
   z <- collect(y)
-  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(z)
   expect_equal(nrow(z), 1)
 })
 

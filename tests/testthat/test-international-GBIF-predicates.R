@@ -25,7 +25,7 @@ test_that("`filter()` handles a single entry for GBIF", {
     count() |>
     collect() |>
     skip_unavailable() 
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_equal(nrow(x), 1)
   expect_equal(ncol(x), 1)
   expect_true(is.integer(x$count))
@@ -39,7 +39,7 @@ test_that("`filter()` handles multiple (`AND`) queries for GBIF", {
     count() |>
     collect() |>
     skip_unavailable()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_equal(nrow(x), 1)
   expect_equal(ncol(x), 1)
 
@@ -50,7 +50,7 @@ test_that("`filter()` handles multiple (`AND`) queries for GBIF", {
     count() |>
     collect() |>
     skip_unavailable()
-  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(y)
   expect_equal(nrow(y), 1)
   expect_equal(ncol(y), 2)
   # verify that the inputs are shown in the response
@@ -63,7 +63,7 @@ test_that("`filter()` handles multiple (`AND`) queries for GBIF", {
     count() |>
     collect() |>
     skip_unavailable()
-  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(z)
   expect_equal(nrow(z), 1)
   expect_equal(ncol(z), 2)
   # verify that the inputs are shown in the response
@@ -85,7 +85,7 @@ test_that("`filter()` handles `OR` and `%in%` for GBIF", {
     count() |>
     collect() |>
     skip_unavailable()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_equal(nrow(x), 2)
   expect_equal(ncol(x), 2)
   expect_contains(x$basisOfRecord,
@@ -119,7 +119,7 @@ test_that("`filter()` handles multiple queries including != for GBIF", {
     count() |>
     collect() |>
     skip_unavailable()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_equal(nrow(x), 1)
   expect_equal(ncol(x), 1)
 
@@ -141,7 +141,7 @@ test_that("`filter()` handles `between()` for GBIF", {
     count() |>
     collect() |>
     skip_unavailable()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_equal(ncol(x), 2)
   expect_gt(nrow(x), 8)
   expect_lt(nrow(x), 12)
@@ -161,7 +161,7 @@ test_that("`filter()` handles `!()` for GBIF", {
     count() |>
     collect() |>
     skip_unavailable()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_equal(ncol(x), 2)
   expect_gt(nrow(x), 3)
 
@@ -186,7 +186,7 @@ test_that("`filter()` handles `is.na()` for GBIF", {
     count() |>
     collect() |>
     skip_unavailable()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_equal(nrow(x), 1)
   expect_equal(ncol(x), 1)
 
@@ -196,7 +196,7 @@ test_that("`filter()` handles `is.na()` for GBIF", {
     count() |>
     collect() |>
     skip_unavailable()
-  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(y)
   expect_equal(nrow(y), 1)
   expect_equal(ncol(y), 1)
 
@@ -205,6 +205,7 @@ test_that("`filter()` handles `is.na()` for GBIF", {
     count() |>
     collect()
 
+  expect_tibble(z)
   expect_lte(((x$count + y$count) - z$count) / z$count, 0.01)
 })
 
@@ -221,7 +222,7 @@ test_that("`filter()` handles `c()` for GBIF", {
     count() |>
     collect() |>
     skip_unavailable()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_equal(nrow(x), 3)
   expect_equal(ncol(x), 2)
   expect_contains(x$country, country_vector)
@@ -233,7 +234,7 @@ test_that("`filter()` handles `c()` for GBIF", {
     count() |>
     collect() |>
     skip_unavailable()
-  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(y)
   expect_equal(nrow(y), 3)
   expect_equal(ncol(y), 2)
   expect_contains(y$country, country_vector)

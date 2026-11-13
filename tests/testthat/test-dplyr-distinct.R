@@ -19,8 +19,7 @@ test_that("`group_by()` without `distinct()` returns occurrences, not species", 
     group_by(speciesID)
   expect_equal(query_final$type, "occurrences")
   x <- quiet_collect(query_final)
-  expect_s3_class(x,
-                  c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_equal(nrow(x), expected_n$count)
   expect_true(length(unique(x$taxonConceptID)) < nrow(x))
 })
@@ -37,8 +36,7 @@ test_that("distinct() with no arguments and no `group_by()` returns occurrences 
     distinct()
   expect_equal(query_final$type, "occurrences")
   x <- quiet_collect(query_final)
-  expect_s3_class(x,
-                  c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_equal(nrow(x), expected_n$count)
   expect_true(length(unique(x$taxonConceptID)) < nrow(x))
 })
@@ -51,8 +49,7 @@ test_that("`group_by() |> distinct(.keep_all = FALSE)` uses occurrences-count, b
     group_by(speciesID) |>
     distinct() |>
     quiet_collect()
-  expect_s3_class(x,
-                  c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_equal(ncol(x), 1)
   expect_equal(colnames(x), "speciesID")
   expect_equal(length(unique(x$speciesID)),
@@ -69,34 +66,31 @@ test_that("`group_by() |> distinct(.keep_all = TRUE)` converts type from occurre
     collapse()
   expect_equal(query$type, "data/species")
   x <- quiet_collect(query)
-  expect_s3_class(x,
-                  c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_equal(length(unique(x$species)),
                nrow(x))
 })
 
 test_that("distinct(variable, .keep_all = FALSE) returns field values", {
   skip_galah()
-  result <- galah_call() |>
+  x <- galah_call() |>
     distinct(cl11226) |>
     quiet_collect()
   # should return values for that field
-  expect_s3_class(result,
-                  c("tbl_df", "tbl", "data.frame"))
-  expect_equal(colnames(result), "cl11226")
-  expect_gte(nrow(result), 10)
+  expect_tibble(x)
+  expect_equal(colnames(x), "cl11226")
+  expect_gte(nrow(x), 10)
 })
 
 test_that("`distinct(.keep_all = TRUE)` sets species queries", {
   skip_galah()
-  result <- galah_call() |>
+  x <- galah_call() |>
     identify("Osphranter") |>
     distinct(speciesID, .keep_all = TRUE) |>
     quiet_collect()
-  expect_gte(nrow(result), 4)
-  expect_s3_class(result,
-                  c("tbl_df", "tbl", "data.frame"))
-  expect_contains(colnames(result),
+  expect_tibble(x)
+  expect_gte(nrow(x), 4)
+  expect_contains(colnames(x),
                   c("species", "species_name", "kingdom"))
 })
 
@@ -106,7 +100,7 @@ test_that("`distinct(.keep_all = TRUE)` accepts non-species-level groupings", {
     identify("Limnodynastidae") |>
     distinct(genusID, .keep_all = TRUE) |>
     quiet_collect()
-  expect_s3_class(genera, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(genera)
   expect_true(nrow(genera) > 4 & nrow(genera) < 10)
   all(genera$taxon_rank == "genus") |>
     expect_true()
@@ -123,23 +117,23 @@ test_that("`distinct(variable) |> count()` can be used to count the number of le
     distinct(basisOfRecord) |>
     count() |>
     quiet_collect()
-  expect_s3_class(levels_count,
-                  c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(levels_count)
   expect_equal(nrow(levels_count), 1)
   expect_equal(nrow(levels_all), levels_count$count)
 })
 
 test_that("`group_by(something) |> distinct(speciesID) |> count()` gives grouped number of categories", {
   skip_galah()
-  result <- galah_call() |>
+  x <- galah_call() |>
     identify("perameles") |>
     group_by(basisOfRecord) |>
     distinct(speciesID) |>
     count() |>
     collect()
-  expect_equal(colnames(result),
+  expect_tibble(x)
+  expect_equal(colnames(x),
                c("basisOfRecord", "count"))
-  all(result$count < 10) |> 
+  all(x$count < 10) |> 
     expect_true()
 })
 
@@ -155,8 +149,7 @@ test_that("`group_by(something) |> distinct(speciesID) |> count()` gives grouped
 #    collapse()
 #  expect_equal(query$type, "data/species")
 #  x <- quiet_collect(query)
-#  expect_s3_class(x,
-#                  c("tbl_df", "tbl", "data.frame"))
+#  expect_tibble(x)
 #  expect_equal(length(unique(x$speciesID)),
 #               nrow(x))
 # })

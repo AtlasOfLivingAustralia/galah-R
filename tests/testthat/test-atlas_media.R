@@ -21,7 +21,7 @@ test_that("`atlas_media()` works", {
     identify("Microseris lanceolata") |>
     filter(year == 2019) |>
     quiet_media()
-  expect_s3_class(media_data, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(media_data)
   expect_gte(nrow(media_data), 3)
   expect_gte(ncol(media_data), 3)
   # set `all_fields` = TRUE
@@ -85,7 +85,7 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
   media_collapse <- request_metadata() |>
     filter(media == unlist(dplyr::pull(occ_collect, "images"))) |>
     quiet_collapse()
-  expect_true(inherits(media_collapse, "query"))
+  expect_s3_class(media_collapse, "query")
   expect_equal(length(media_collapse), 5)
   expect_equal(names(media_collapse), 
                c("type",
@@ -96,7 +96,7 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
   expect_true(media_collapse$type == "metadata/media")
   # compute
   media_compute <- quiet_compute(media_collapse)
-  expect_true(inherits(media_compute, "computed_query"))
+  expect_s3_class(media_compute, "computed_query")
   expect_equal(length(media_compute), 5)
   expect_equal(names(media_compute), 
                c("type",
@@ -106,7 +106,7 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
                  "request"))
   # collect
   media_collect <- quiet_collect(media_compute)
-  expect_s3_class(media_collect, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(media_collect)
   expect_gte(nrow(media_collect), 1)
   expect_gte(ncol(media_collect), 6)
   
@@ -121,7 +121,7 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
   files_collapse <- request_files() |>
     filter(media == df) |>
     quiet_collapse(thumbnail = TRUE)
-  expect_true(inherits(files_collapse, "query"))
+  expect_s3_class(files_collapse, "query")
   expect_equal(length(files_collapse), 5)
   expect_equal(names(files_collapse), 
                c("type",
@@ -132,7 +132,7 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
   expect_equal(files_collapse$type, "files/media")
   # compute
   files_compute <- quiet_compute(files_collapse)
-  expect_true(inherits(files_compute, "computed_query"))
+  expect_s3_class(files_compute, "computed_query")
   expect_equal(length(files_compute), 5)
   expect_equal(names(files_compute), 
                c("type",
@@ -142,7 +142,7 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
                  "request"))
   # collect
   files_collect <- quiet_collect(files_compute)
-  expect_s3_class(files_collect, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(files_collect)
   expect_gte(nrow(files_collect), 1)
   expect_gte(ncol(files_collect), 2)
   expect_equal(length(list.files(media_dir)), 3)

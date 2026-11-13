@@ -409,13 +409,13 @@ test_that("`filter()` builds correct query with `!`, `%in%`, `c()` and `identify
 test_that("`filter()` accepts {{}} on lhs of formula", {
   skip_galah()
   field <- "species"
-  result <- galah_call() |>
+  x <- galah_call() |>
     filter({{field}} == "Eolophus roseicapilla") |>
     count() |>
     collect()
-  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(nrow(result), 1)
-  expect_gte(result$count[1], 100)
+  expect_tibble(x)
+  expect_equal(nrow(x), 1)
+  expect_gte(x$count[1], 100)
 })
 
 

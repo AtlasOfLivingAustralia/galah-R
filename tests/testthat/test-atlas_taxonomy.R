@@ -29,7 +29,7 @@ test_that("`atlas_taxonomy()` makes a `tibble` when piped", {
     identify("fungi") |>
     filter(rank >= phylum) |>
     atlas_taxonomy()
-  expect_s3_class(tree, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(tree)
   expect_equal(ncol(tree), 4)
   expect_gte(nrow(tree), 1)
 })
@@ -40,7 +40,7 @@ test_that("`atlas_taxonomy()` example runs", {
     identify("chordata") |>
     filter(rank == class) |>
     atlas_taxonomy()
-  expect_s3_class(df, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(df)
   expect_equal(ncol(df), 4)
   expect_gte(nrow(df), 1)
 })

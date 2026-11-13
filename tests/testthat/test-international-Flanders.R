@@ -9,8 +9,8 @@ test_that("`show_all(fields)` works for Flanders", {
   skip_galah()
   x <- show_all(fields) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   # also that fields match those returned by default_columns()
   y <- default_columns() # internal function called by `galah_select()`
   expect_true(all(y %in% x$id))
@@ -20,56 +20,56 @@ test_that("`show_all(licences)` works for Flanders", {
   skip_galah()
   x <- show_all(licences) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`show_all(providers)` works for Flanders", {
   skip_galah()
   x <- show_all(providers, limit = 10) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_lte(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`show_all(collections)` works for Flanders", {
   skip_galah()
   x <- show_all(collections, limit = 10) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_lte(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`show_all(datasets)` works for Flanders", {
   skip_galah()
   x <- show_all(datasets, limit = 10) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_lte(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`show_all(reasons)` works for Flanders", {
   skip_galah()
   x <- show_all(reasons) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`show_all(assertions)` works for Flanders", {
   skip_galah()
   x <- show_all(assertions) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`show_all(profiles)` works for Flanders", {
   skip_galah()
   x <- show_all(profiles) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_gte(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   
   # and values
   y <- request_metadata() |>
@@ -77,8 +77,8 @@ test_that("`show_all(profiles)` works for Flanders", {
     unnest() |>
     collect() |>
     skip_unavailable()
+  expect_tibble(y)
   expect_gt(nrow(y), 1)
-  expect_true(inherits(y, c("tbl_df", "tbl", "data.frame")))
   
   # and actually reduces record count
   records_all <- galah_call() |>
@@ -88,6 +88,7 @@ test_that("`show_all(profiles)` works for Flanders", {
     apply_profile(x$short_name[1]) |>
     count() |>
     collect()
+  expect_tibble(records_clean)
   expect_lt(records_clean$count, records_all$count)
 })
 
@@ -95,8 +96,8 @@ test_that("`show_all(lists)` works for Flanders", {
   skip_galah()
   x <- show_all(lists, limit = 10) |>
     skip_unavailable()
+  expect_tibble(x)
   expect_lte(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`unnest()` works for lists in Flanders", {
@@ -106,24 +107,24 @@ test_that("`unnest()` works for lists in Flanders", {
     unnest() |>
     collect() |>
     skip_unavailable()
+  expect_tibble(x)
   expect_gte(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`search_all(fields)` works for Flanders", {
   skip_galah()
   x <- search_all(fields, "year") |>
     skip_unavailable()
+  expect_tibble(x)
   expect_gte(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`search_all(taxa)` works for Flanders", {
   skip_galah()
   x <- search_all(taxa, "Mammalia") |>
     skip_unavailable()
+  expect_tibble(x)
   expect_gte(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   expect_true(any(colnames(x) == "taxon_concept_id"))
 })
 
@@ -131,8 +132,8 @@ test_that("`search_all(identifiers)` works for Flanders", {
   skip_galah()
   x <- search_all(identifiers, "359") |>
     skip_unavailable()
+  expect_tibble(x)
   expect_gte(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`show_values()` works for `fields` for Flanders", {
@@ -144,24 +145,28 @@ test_that("`show_values()` works for `fields` for Flanders", {
   x <- search_all(fields, "basisOfRecord") |>
     quiet_values() |>
     skip_unavailable()
+  expect_tibble(x)
   expect_gte(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`atlas_counts()` works for Flanders", {
   skip_galah()
   x <- atlas_counts() |>
-    dplyr::pull(count) |>
     skip_unavailable()
-  expect_gt(x, 0)
+  expect_tibble(x)
+  x |>
+    dplyr::pull(count) |>
+    expect_gt(0)
 })
 
 test_that("`atlas_counts()` works with `type = 'species'` for Flanders", {
   skip_galah()
   x <- atlas_counts(type = "species") |>
-    dplyr::pull(count) |>
     skip_unavailable()
-  expect_gt(x, 0)
+  expect_tibble(x)
+  x |>
+    dplyr::pull(count) |>
+    expect_gt(0)
 })
 
 test_that("`count()` works with `identify()` for Flanders", {
@@ -171,12 +176,14 @@ test_that("`count()` works with `identify()` for Flanders", {
     count() |>
     collect() |>
     skip_unavailable()
+  expect_tibble(result)
   expect_gt(result$count, 1)
   result2 <- galah_call() |>
     filter(class == "Mammalia") |>
     count() |>
     collect() |>
     skip_unavailable()
+  expect_tibble(result2)
   expect_lt(
     sqrt((result2$count - result$count)^2) / result$count,
     0.1) # i.e. <1% margin of error
@@ -208,6 +215,7 @@ test_that("`count()` works with `group_by()` for Flanders", {
     count() |>
     collect() |>
     skip_unavailable()
+  expect_tibble(result)
   expect_gt(nrow(result), 1)
   expect_equal(names(result), c("basisOfRecord", "basisOfRecord_label", "count"))
   })
@@ -221,10 +229,10 @@ test_that("`atlas_species()` works for Flanders", {
   spp <- galah_call() |>
     identify("Corvus") |>
     atlas_species() |>
-skip_unavailable()
+    skip_unavailable()
+  expect_tibble(spp)
   expect_gt(nrow(spp), 1)
   expect_equal(ncol(spp), 11)
-  expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
 })
 
 test_that("`authenticate()` works for Flanders", {
@@ -258,9 +266,9 @@ test_that("`atlas_occurrences()` works for Flanders", {
   occ <- collect(response) |>
     skip_unavailable()
   
+  expect_tibble(occ)
   expect_gt(nrow(occ), 0)
   expect_equal(ncol(occ), 2)
-  expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`atlas_media()` works for Flanders", {
@@ -277,10 +285,11 @@ test_that("`atlas_media()` works for Flanders", {
            basisOfRecord == "HUMAN_OBSERVATION") |>
     atlas_media() |>
     skip_unavailable()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_gte(nrow(x), 1)
   expect_equal(colnames(x)[1:2],
                c("media_id", "media_type"))
+  
   # download a subset
   quiet_media <- function(...){
     x <- purrr::quietly(collect_media)

@@ -23,7 +23,7 @@ test_that("`describe()` returns all fields by default", {
     describe() |>
     collect()
   expect_gt(nrow(x), 300)
-  expect_s3_class(x, c("tbl", "tbl_df", "data.frame"))
+  expect_tibble(x)
 })
 
 test_that("`describe()` adheres to user-provided `select()`", {
@@ -33,8 +33,8 @@ test_that("`describe()` adheres to user-provided `select()`", {
     describe() |>
     collect()
   y <- default_columns()
+  expect_tibble(x)
   expect_true(all(x$id %in% y))
-  expect_s3_class(x, c("tbl", "tbl_df", "data.frame"))
 })
 
 test_that("`describe()` works for `select(type = 'media')`", {
@@ -43,6 +43,6 @@ test_that("`describe()` works for `select(type = 'media')`", {
     select(group = "media") |>
     describe() |>
     collect()
+  expect_tibble(x)
   expect_gt(nrow(x), 2)
-  expect_s3_class(x, c("tbl", "tbl_df", "data.frame"))
 })

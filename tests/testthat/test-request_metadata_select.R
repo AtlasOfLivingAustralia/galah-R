@@ -35,9 +35,7 @@ test_that("`request_metadata()` works with `select()` for local APIs", {
     # collect result
     result <- collect(query) |>
      skip_unavailable()
-    result |>
-      inherits(c("tbl_df", "tbl", "data.frame")) |>
-      expect_true()
+    expect_tibble(result)
     result |>
       nrow() |>
       expect_gt(0)
@@ -79,9 +77,7 @@ test_that("`request_metadata()` works with `select()` for remote APIs *without* 
     # collect result
     result <- collect(query) |>
       skip_unavailable()
-    result |>
-      inherits(c("tbl_df", "tbl", "data.frame")) |>
-      expect_true()
+    expect_tibble(result)
     result |>
       nrow() |>
       expect_gt(0)

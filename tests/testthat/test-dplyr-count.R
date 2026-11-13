@@ -1,20 +1,20 @@
 test_that("`collapse()` creates a query object for type = `'occurrences-count'`", {
   skip_galah()
-  result <- request_data() |>
+  x <- request_data() |>
     filter(year == 2010) |>
     count() |>
     collapse()
-  expect_true(inherits(result, "query"))
-  expect_equal(result$type, "data/occurrences-count")
+  expect_s3_class(x, "query")
+  expect_equal(x$type, "data/occurrences-count")
 })
 
 test_that("count() |> collect() works with no arguments", {
   skip_galah()
-  count <- galah_call() |>
+  x <- galah_call() |>
     count() |>
     collect()
-  expect_s3_class(count, c("tbl_df", "tbl", "data.frame"))
-  expect_gt(count$count, 0)
+  expect_tibble(x)
+  expect_gt(x$count, 0)
 })
 
 test_that("`identify()` reduces the number of records returned by `count()`", {
@@ -26,97 +26,88 @@ test_that("`identify()` reduces the number of records returned by `count()`", {
     identify("Perameles") |>
     count() |>
     collect()
+  expect_tibble(counts_all)
+  expect_tibble(counts_mammals)
   expect_type(counts_mammals$count, "integer")
   expect_true(counts_mammals$count < counts_all$count)
 })
 
 test_that("`filter()` works with dates", {
   skip_galah()
-  counts <- galah_call() |>
+  x <- galah_call() |>
     filter(species == "Cacatua galerita",
            eventDate >= "2023-01-07T00:00:00Z", 
            eventDate < "2023-01-08T00:00:00Z") |>
     count() |>
     collect()
-  expect_type(counts$count, "integer")
-})
-
-test_that("`identify()` works for counts", {
-  skip_galah()
-  counts_all <- galah_call() |>
-    count() |>
-    collect()
-  counts_mammals <- galah_call() |>
-    galah_identify("Perameles") |>
-    atlas_counts()
-  expect_type(counts_mammals$count, "integer")
-  expect_true(counts_mammals$count < counts_all$count)
+  expect_tibble(x)
+  expect_type(x$count, "integer")
 })
 
 test_that("`count(year)` groups by `year`", {
   skip_galah()
-  result <- galah_call() |>
+  x <- galah_call() |>
     filter(year >= 2015) |>
     count(year) |>
     quiet_collect()
-  expect_true(all(diff(result$count) < 0))
-  expect_true(nrow(result) > 7)
-  expect_true(all(result$year >= 2015))
-  expect_equal(ncol(result), 2)
-  expect_equal(colnames(result), c("year", "count"))
+  expect_tibble(x)
+  expect_true(all(diff(x$count) < 0))
+  expect_true(nrow(x) > 7)
+  expect_true(all(x$year >= 2015))
+  expect_equal(ncol(x), 2)
+  expect_equal(colnames(x), c("year", "count"))
 })
 
 test_that("`count()` handles multiple variables", {
   skip_galah()
-  counts <- galah_call() |>
+  x <- galah_call() |>
     filter(year >= 2021,
            month >= 10) |>
     count(year, month, basisOfRecord) |>
     collect()
-  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(names(counts),
+  expect_tibble(x)
+  expect_equal(names(x),
                c("year", "month", "basisOfRecord", "basisOfRecord_label", "count"))
-  expect_true(all(counts$year >= 2021))
+  expect_true(all(x$year >= 2021))
 })
 
 test_that("`count()` handles 'species' as a 'group by' variable", {
   skip_galah()
-  counts <- galah_call() |>
+  x <- galah_call() |>
     filter(year > 2020) |>
     identify("Perameles") |>
     group_by(species, year) |>
     count() |>
     collect()
-  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_true(all(names(counts) %in% c("species", "year", "count")))
-  expect_true(all(counts$year > 2020))
-  expect_true(all(grepl("^Perameles", counts$species)))
+  expect_tibble(x)
+  expect_true(all(names(x) %in% c("species", "year", "count")))
+  expect_true(all(x$year > 2020))
+  expect_true(all(grepl("^Perameles", x$species)))
 })
 
 test_that("`count()` handles 'taxonConceptID' as a 'group by' variable", {
   skip_galah()
-  counts <- galah_call() |>
+  x <- galah_call() |>
     identify("Perameles") |>
     filter(year >= 2015) |>
     group_by(taxonConceptID, year) |>
     count() |>
     collect()
-  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(names(counts),
+  expect_tibble(x)
+  expect_equal(names(x),
                c("taxonConceptID", "year", "count"))
-  expect_true(all(counts$year >= 2015))
+  expect_true(all(x$year >= 2015))
 })
 
 test_that("`count()` handles 'speciesID' as a 'group by' variable", {
   skip_galah()
-  # FIXME: Currently returns colname `speciesID.https://biodiversity.org`
-  counts <- galah_call() |>
+  x <- galah_call() |>
     filter(year == 1900,
            genus == "Crinia") |> 
     count(speciesID) |>
     collect()
-  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(names(counts),
+  expect_tibble(x)
+  expect_equal(names(x),
                c("speciesID", "count"))
 })
 
@@ -124,16 +115,16 @@ test_that("`count()` handles 'speciesID' as a 'group by' variable", {
 test_that("`count()` handles `identify()` in combination with `OR` statements in `filter()`", {
   skip_galah()
   regions <- c("Dampierland","Wet Tropics")
-  counts <- galah_call() |>
+  x <- galah_call() |>
     identify("Squamata") |>
     filter(cl1048 %in% regions) |>
     group_by(cl1048) |>
     count() |>
     collect()
-  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(nrow(counts), 2)
-  expect_true(all(regions %in% counts$cl1048))
-  expect_true(all(counts$count > 0))
+  expect_tibble(x)
+  expect_equal(nrow(x), 2)
+  expect_true(all(regions %in% x$cl1048))
+  expect_true(all(x$count > 0))
 })
 
 test_that("`count()` returns same result with filter using `,` and `&`", {
@@ -146,6 +137,8 @@ test_that("`count()` returns same result with filter using `,` and `&`", {
     filter(year >= 2010 & year < 2020) |>
     count() |>
     collect()
+  expect_tibble(count_comma)
+  expect_tibble(count_and)
   expect_equal(count_comma, count_and)
 })
 
@@ -161,7 +154,7 @@ test_that("`count()` filters correctly with galah_geolocate/galah_polygon", {
   counts_filtered <- base_query |>
     geolocate(wkt) |>
     quiet_collect()
-  expect_s3_class(counts_filtered, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(counts_filtered)
   count_1 <- counts_filtered$count[1]
   count_2 <- counts$count[1]
   expect_lt(count_1, count_2)
@@ -185,8 +178,8 @@ test_that("`count()` filters correctly with galah_geolocate/galah_bbox/galah_rad
               radius = 20, 
               type = "radius") |>
     quiet_collect()
-  expect_s3_class(counts_filtered, c("tbl_df", "tbl", "data.frame"))
-  expect_s3_class(counts_filtered_radius, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(counts_filtered)
+  expect_tibble(counts_filtered_radius)
   count_1 <- counts_filtered$count[1]
   count_2 <- counts$count[1]
   count_3 <- counts_filtered_radius$count[1]
@@ -201,7 +194,7 @@ test_that("`count()` returns species counts", {
   count_records <- galah_call() |>
     count() |>
     collect()
-  expect_s3_class(count_species, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(count_species)
   expect_type(count_species$count, "integer")
   expect_gt(count_species$count, 0)
   expect_lt(count_species$count, count_records$count)
@@ -223,7 +216,7 @@ test_that("species counts work with group_by()", {
     arrange(year) |>
     count() |>
     collect()
-  expect_s3_class(count_species, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(count_species)
   expect_type(count_species$count, "integer")
   expect_gte(nrow(count_species), 4)
   expect_true(all(count_species$count > 0))
@@ -275,7 +268,7 @@ test_that("`group_by()` works when > 1 `filter()`", {
     group_by(species) |>
     count() |>
     collect()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_equal(x$species, chosen_species)
   expect_equal(colnames(x), c("species", "count"))
   expect_equal(nrow(x), 2)
@@ -286,7 +279,7 @@ test_that("`group_by()` works when > 1 `filter()`", {
     group_by(species) |>
     count() |>
     collect()
-  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(y)
   expect_equal(y$species, chosen_species)
   expect_equal(colnames(y), c("species", "count"))
   expect_equal(nrow(y), 2)
@@ -308,7 +301,7 @@ test_that("`select()` works for count queries", {
     count(speciesID) |>
     select(dplyr::everything()) |>
     collect()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_gte(ncol(x), 4) # traditionally this was only two cols
 })
 
@@ -318,7 +311,7 @@ test_that("user assertion fields return data", {
   x <- galah_call() |>
     count(userAssertions) |>
     collect()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_equal(colnames(x),
                c("userAssertions", "userAssertions_label", "count"))
   
@@ -326,7 +319,7 @@ test_that("user assertion fields return data", {
     count(assertionUserId) |>
     slice_head(n = 5) |>
     collect()
-  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(y)
   expect_equal(nrow(y), 5)
   expect_equal(colnames(y),
                c("assertionUserId", "assertionUserId_label", "count"))
@@ -342,7 +335,7 @@ test_that("user assertion fields return data", {
 #   galah_down_to(species) |>
 #   select(taxonConceptID) |>
 #   count()
-#     expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
+#     expect_tibble(counts)
 #     expect_equal(names(counts), c("year", "count"))
 #     expect_gt(nrow(counts), 0)
 #   })

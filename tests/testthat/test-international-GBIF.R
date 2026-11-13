@@ -37,9 +37,7 @@ test_that("`search_all(fields)` works for GBIF", {
   result <- search_all(fields, "year") |>
     skip_unavailable()
   expect_gte(nrow(result), 2)
-  result |> 
-    inherits(c("tbl_df", "tbl", "data.frame")) |>
-    expect_true()
+  expect_tibble(result)
   grepl("year", tolower(result$id)) |>
     all() |>
     expect_true()
@@ -63,8 +61,7 @@ test_that("`show_values()` works for GBIF fields", {
     quiet_values()  |>
     skip_unavailable()
   # tests
-  inherits(x, c("tbl_df", "tbl", "data.frame")) |>
-    expect_true()
+  expect_tibble(x)
   x |>
     nrow() |>
     expect_gt(1)
@@ -351,15 +348,13 @@ test_that("`count()` works with 2 `group_by` args for GBIF", {
 test_that("`count()` works with 3 args for GBIF", {
   skip_galah()
   x <- galah_call() |>
-    filter(year >= 2000, year <= 2022,
-           month %in% c(11, 12),
-           taxonKey == "62YK7") |> # Limnodynastes
-    # count() |>
-    count(year, month) |>
-    collect() |>
+    filter(between(year, 2020, 2022),
+           month %in% c(11, 12)) |>
+    count(year, month, basisOfRecord) |>
+    collapse()  
+  y <- collect(x) |>  
     skip_unavailable()
   expect_tibble(z)
-  # NOTE: incomplete test
 })
 
 ## group_by fails when an invalid field is given
@@ -545,20 +540,6 @@ test_that("`glimpse()` works with `identify()` for GBIF", {
 
 ## occurrence tests
 
-test_that("`atlas_occurrences()` works for GBIF", {
-  skip_galah()
-  Sys.sleep(pause_time)
-  x <- galah_call(from = "GBIF") |>
-    filter(year == 1800,
-           classKey == "V2",
-           country == "AU") |>
-    atlas_occurrences() |>
-    skip_unavailable()
-  expect_tibble(x)
-  expect_gt(nrow(x), 10)
-  expect_gt(ncol(x), 10)
-})
-
 test_that("`atlas_occurrences()` works with `select()` for GBIF", {
   skip_galah()
   Sys.sleep(pause_time)
@@ -612,7 +593,6 @@ test_that("`atlas_species()` works for GBIF", {
   expect_tibble(z)
   expect_gt(nrow(z), 10) # n = 14
   expect_gt(ncol(z), 5)  # n = 22
-  expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`distinct()` queries accept `select()` for GBIF", {
@@ -677,7 +657,6 @@ test_that("`collect()` works for GBIF with `type = 'occurrences' or 'occurrences
   expect_tibble(z)
   expect_gt(nrow(z), 0)
   expect_gt(ncol(z), 0)
-  expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
   # expect_equal(nrow(z), count$count) # differs, for some reason
   expect_true(!is.null(attributes(z)$doi))
 

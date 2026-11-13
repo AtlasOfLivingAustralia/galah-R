@@ -36,7 +36,7 @@ test_that("collapse(type = 'occurrences') creates an object", {
   result <- galah_call() |> 
     identify("Perameles") |>
     collapse()
-  expect_true(inherits(result, "query"))
+  expect_s3_class(result, "query")
   expect_equal(result$type, "data/occurrences")
 })
 
@@ -49,12 +49,12 @@ test_that("`compute(type = 'occurrences')` works", {
            basisOfRecord == "PRESERVED_SPECIMEN")
   # collapse
   query_collapse <- collapse(base_query)
-  expect_true(inherits(query_collapse, "query"))
+  expect_s3_class(query_collapse, "query")
   expect_equal(length(query_collapse), 5)
   expect_equal(query_collapse$type, "data/occurrences")
   # compute
   response <- quiet_compute(base_query)
-  expect_true(inherits(response, "computed_query"))
+  expect_s3_class(response, "computed_query")
   expect_true(response$type == "data/occurrences")
   expect_equal(names(response),
                c("type",
@@ -70,7 +70,7 @@ test_that("`compute(type = 'occurrences')` works", {
 })
 
 # test all filters and type of columns in one call
-test_that("`atlas_occurrences()` accepts all narrowing functions inline", { 
+test_that("`atlas_occurrences()` accepts `dplyr` functions in pipe", { 
   skip_galah()
   galah_config(email = "ala4r@ala.org.au")
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
@@ -100,13 +100,13 @@ test_that("`atlas_occurrences()` accepts all narrowing functions inline", {
   expect_s3_class(x, "computed_query")
   # collect with wait = TRUE
   y <- quiet_collect(x, wait = TRUE)    
-  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(y)
   expect_setequal(names(y), expected_cols)
   expect_equal(unique(y$stateProvince), "New South Wales")
 })
 
 # repeat above using `galah_` functions
-test_that("`atlas_occurrences()` accepts all narrowing functions in pipe", {
+test_that("`atlas_occurrences()` accepts legacy `galah_` functions in pipe", {
   skip_galah()
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "basisOfRecord", "scientificName", "taxonConceptID", 
@@ -143,7 +143,7 @@ test_that("`atlas_occurrences()`() and friends accept a file name", {
   # test `atlas_occurrences`
   occ1 <- base_query |> 
     quiet_occurrences(file = "crinia_file")
-  expect_s3_class(occ1, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(occ1)
   expect_true(any(list.files(directory) == "crinia_file.zip"))
   # test `collect`
   occ2 <- base_query |> quiet_collect(file = "crinia_collect")
@@ -181,7 +181,7 @@ test_that("`atlas_occurrences()` downloads data from a DOI", {
   skip_galah()
   doi <- "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060"
   result1 <- quiet_occurrences(doi = doi)
-  expect_s3_class(result1, c("tbl_df", "tbl", "data.frame" ))
+  expect_tibble(result1)
   expect_equal(nrow(result1), 9)
   expect_equal(ncol(result1), 68)
   # and with other syntax

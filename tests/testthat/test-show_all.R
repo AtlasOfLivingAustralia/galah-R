@@ -35,7 +35,7 @@ test_that("all `show_all()` functions return correctly with all syntax", {
     syntax2 <- paste0("show_all(", a, ")") |> 
       parse(text = _) |> 
       eval() # e.g. show_all(fields)
-    expect_s3_class(syntax1, c("tbl_df", "tbl", "data.frame"))
+    expect_tibble(syntax1)
     expect_equal(attributes(syntax1)$call, a)
     expect_equal(attributes(syntax1)$region, "Australia")
     expect_equal(syntax1, syntax2)
@@ -52,7 +52,7 @@ test_that("`show_all_lists()` functions work correctly", {
       purrr::pluck("result")
   }
   result <- quiet_lists(limit = 3)
-  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(result)
   expect_equal(attributes(result)$call, "lists")
   expect_equal(attributes(result)$region, "Australia")
   expect_equal(nrow(result), 3)

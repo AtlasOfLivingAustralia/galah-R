@@ -19,72 +19,74 @@ test_that("`group_by` fields are checked during `collapse()`", {
 
 test_that("`count()` with `group_by()` returns expected output", {
   skip_galah()
-  counts <- galah_call() |>
+  x <- galah_call() |>
     identify("Mammalia") |>
     group_by(basisOfRecord) |>
     atlas_counts()
-  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(names(counts), c("basisOfRecord", "basisOfRecord_label", "count"))
+  expect_tibble(x)
+  expect_equal(names(x),
+               c("basisOfRecord", "basisOfRecord_label", "count"))
 })
 
 test_that("`count()` with `group_by()` returns expected output when limit != NULL", {
   skip_galah()
-  counts <- galah_call() |>
+  x <- galah_call() |>
     identify("Mammalia") |>
     group_by(basisOfRecord) |>
     count() |>
     slice_head(n = 3) |>
     quiet_collect()
-  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(names(counts), c("basisOfRecord", "basisOfRecord_label", "count"))
-  expect_equal(nrow(counts), 3)
+  expect_tibble(x)
+  expect_equal(nrow(x), 3)
+  expect_equal(names(x),
+               c("basisOfRecord", "basisOfRecord_label", "count"))
 })
 
 test_that("`count()` with `group_by()` returns all counts if no limit is provided", {
   skip_galah()
-  counts <- galah_call() |>
+  x <- galah_call() |>
     group_by(basisOfRecord) |> # NOTE: basisOfRecord chosen as prone to breaking
     count() |>                 # this code; please do not change it!
     quiet_collect()
-  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_gte(nrow(counts), 5)
+  expect_tibble(x)
+  expect_gte(nrow(x), 5)
 })
 
 test_that("`count()` with `group_by()` returns an empty tibble if number of records = 0", {
   skip_galah()
-  counts <- galah_call() |>
+  x <- galah_call() |>
     filter(year < 1900 & year > 2000) |>
     count() |>
     group_by(species) |>
     quiet_collect()
-  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(nrow(counts), 0)
-  expect_equal(ncol(counts), 0)
+  expect_tibble(x)
+  expect_equal(nrow(x), 0)
+  expect_equal(ncol(x), 0)
 })
 
 test_that("`count()` with `group_by()` for species returns expected output", {
   skip_galah()
-  counts <- galah_call(type = "species") |>
+  x <- galah_call(type = "species") |>
     identify("Mammalia") |>
     filter(year == 2020) |>
     group_by(month) |>
     count() |>
     quiet_collect()
-  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(names(counts), c("month", "count"))
+  expect_tibble(x)
+  expect_equal(names(x), c("month", "count"))
 })
 
 test_that("`count()` with `group_by()` works for three groups", {
   skip_galah()
-  counts <- galah_call() |>
+  x <- galah_call() |>
     identify("cacatuidae") |>
     filter(year >= 2020) |>
     group_by(year, basisOfRecord, stateProvince) |>
     count() |>
     quiet_collect()
-  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_gt(nrow(counts), 1)
-  expect_true(all(names(counts) %in% 
+  expect_tibble(x)
+  expect_gt(nrow(x), 1)
+  expect_true(all(names(x) %in% 
                     c("basisOfRecord", "year", "stateProvince", "count")))
 })
 
@@ -92,13 +94,14 @@ test_that("`count()` with `group_by()` returns correct information when ID field
   # NOTE: previously these were parsed as the `label` for that field, not the 
   # value itself, hence this test
   skip_galah()
-  counts <- galah_call() |> 
+  x <- galah_call() |> 
     identify("pardalotus quadragintus") |> 
     filter(year == 2023) |>
     group_by(species, dataResourceUid) |> 
     count()  |>
     quiet_collect()
-  expect_equal(colnames(counts),
+  expect_tibble(x)
+  expect_equal(colnames(x),
                c("species", "dataResourceUid", "dataResourceUid_label", "count"))
 })
 

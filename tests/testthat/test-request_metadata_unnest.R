@@ -28,7 +28,7 @@ test_that("supplying `filter()` without `unnest()` works", {
   x <- request_metadata() |>
     filter(field == "basisOfRecord") |> 
     collect()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_equal(nrow(x), 1)
   expect_equal(x$id, "basisOfRecord")
 })
@@ -39,7 +39,7 @@ test_that("correctly supplied `filter()` and `unnest()` returns values", {
     unnest() |> 
     collect() |>
     skip_unavailable()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_gte(nrow(x), 4)
   expect_equal(ncol(x), 1)
   expect_equal(colnames(x), "basisOfRecord")
@@ -54,7 +54,7 @@ test_that("request_metadata() |> select() |> unnest() works for type = 'fields'"
   x <-  base_query |>
     collect() |>
     skip_unavailable()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_gte(nrow(x), 4)
   expect_equal(ncol(x), 1)
   expect_equal(colnames(x), "basisOfRecord")
@@ -80,7 +80,7 @@ test_that("request_metadata() |> unnest() works for type = 'lists'", {
     filter(list == "dr947") |> 
     collect() |>
     skip_unavailable()
-  expect_s3_class(x1, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x1)
   expect_equal(nrow(x1), 1)
   expect_equal(x1[[1]], "dr947")
   x <- request_metadata() |> 
@@ -96,7 +96,7 @@ test_that("request_metadata() |> unnest() works for type = 'lists'", {
   expect_s3_class(y, "computed_query")
   z <- collect(y) |>
     skip_unavailable()
-  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(z)
   expect_gte(nrow(z), 10)
   expect_equal(ncol(z), 3)
   # now check `everything()`
@@ -137,7 +137,7 @@ test_that("`request_metadata() |> unnest() |> collect()` works for type = profil
     filter(profile == "ALA") |> 
     collect() |>
     skip_unavailable()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_equal(nrow(x), 1)
   expect_equal(x$short_name, "ALA")
 })
@@ -149,7 +149,7 @@ test_that("request_metadata() |> unnest() works for type = 'profiles'", {
     unnest() |>
     collect()|>
     skip_unavailable()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_gte(ncol(x), 3)
   expect_gte(nrow(x), 10)
   # check `select()` works
@@ -186,7 +186,7 @@ test_that("request_metadata() |> unnest() works for type = 'taxa' using `identif
   expect_s3_class(y, "computed_query")
   z <- collect(y) |>
     skip_unavailable()
-  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(z)
   expect_equal(ncol(z), 4)
   expect_gte(nrow(z), 10)
 })
@@ -207,7 +207,7 @@ test_that("request_metadata() |> unnest() works for type = 'taxa' using `filter(
   expect_s3_class(y, "computed_query")
   z <- collect(y) |>
     skip_unavailable()
-  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(z)
   expect_equal(ncol(z), 4)
   expect_gte(nrow(z), 10)
 })
@@ -222,12 +222,14 @@ test_that("`request_metadata() |> unnest() |> select()` works for type = 'taxa'"
     select(name) |>
     collect() |>
     skip_unavailable()
+  expect_tibble(x)
   # request defaults (4 columns)
   y <- request_metadata() |>
     filter(taxa == lookup) |>
     unnest() |>
     collect() |>
     skip_unavailable()
+  expect_tibble(y)
   # request all columns
   z <- request_metadata() |>
     filter(taxa == lookup) |>
@@ -235,6 +237,7 @@ test_that("`request_metadata() |> unnest() |> select()` works for type = 'taxa'"
     select(everything()) |>
     collect() |>
     skip_unavailable()
+  expect_tibble(z)
   # should all have same number of rows
   expect_equal(nrow(x), nrow(y))
   expect_equal(nrow(x), nrow(z))

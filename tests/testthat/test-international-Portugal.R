@@ -10,7 +10,7 @@ test_that("show_all(fields) works for Portugal", {
   x <- show_all(fields) |>
     skip_unavailable()
   expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_tibble(x)
 })
 
 test_that("show_all(collections) works for Portugal", {
@@ -18,7 +18,7 @@ test_that("show_all(collections) works for Portugal", {
   x <- show_all(collections, limit = 10) |>
     skip_unavailable()
   expect_lte(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_tibble(x)
 })
 
 test_that("show_all(datasets) works for Portugal", {
@@ -26,7 +26,7 @@ test_that("show_all(datasets) works for Portugal", {
   x <- show_all(datasets, limit = 10) |>
     skip_unavailable()
   expect_lte(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_tibble(x)
 })
 
 test_that("show_all(providers) works for Portugal", {
@@ -34,7 +34,7 @@ test_that("show_all(providers) works for Portugal", {
   x <- show_all(providers, limit = 10) |>
     skip_unavailable()
   expect_lte(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_tibble(x)
 })
 
 test_that("show_all(reasons) works for Portugal", {
@@ -42,7 +42,7 @@ test_that("show_all(reasons) works for Portugal", {
   x <- show_all(reasons) |>
     skip_unavailable()
   expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_tibble(x)
 })
 
 test_that("show_all(assertions) works for Portugal", {
@@ -50,7 +50,7 @@ test_that("show_all(assertions) works for Portugal", {
   x <- show_all(assertions) |>
     skip_unavailable()
   expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_tibble(x)
 })
 
 test_that("show_all(profiles) fails for Portugal", {
@@ -66,7 +66,7 @@ test_that("search_all(fields) works for Portugal", {
   x <- search_all(fields, "year") |>
     skip_unavailable()
   expect_gte(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_tibble(x)
 })
 
 test_that("search_all(taxa) works for Portugal", {
@@ -74,7 +74,7 @@ test_that("search_all(taxa) works for Portugal", {
   x <- search_all(taxa, "Mammalia") |>
     skip_unavailable()
   expect_gte(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_tibble(x)
 })
 
 test_that("show_values works for fields for Portugal", {
@@ -87,23 +87,27 @@ test_that("show_values works for fields for Portugal", {
     quiet_values() |>
     skip_unavailable()
   expect_gte(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_tibble(x)
 })
 
 test_that("`atlas_counts()` works for Portugal", {
   skip_galah()
   x <- atlas_counts() |>
-    dplyr::pull(count) |>
     skip_unavailable()
-  expect_gt(x, 0)
+  expect_tibble(x)
+  x |>
+    dplyr::pull(count) |>
+    expect_gt(0)
 })
 
 test_that("`atlas_counts()` works with type = 'species' for Portugal", {
   skip_galah()
   x <- atlas_counts(type = "species") |>
-    dplyr::pull(count) |>
     skip_unavailable()
-  expect_gt(x, 0)
+  expect_tibble(x)
+  x |>
+    dplyr::pull(count) |>
+    expect_gt(0)
 })
 
 test_that("`count()` works with `identify()` for Portugal", {

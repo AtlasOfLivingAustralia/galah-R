@@ -12,7 +12,7 @@ test_that("show_all(fields) works for Kew", {
   x <- show_all(fields) |>
     skip_unavailable()
   expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_tibble(x)
   # also that fields match those returned by default_columns()
   y <- default_columns() # internal function called by `galah_select()`
   expect_true(all(y %in% x$id))
@@ -43,7 +43,7 @@ test_that("show_all(reasons) works for Kew", {
   x <- show_all(reasons) |>
     skip_unavailable()
   expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_tibble(x)
 })
 
 test_that("show_all(assertions) works for Kew", {
@@ -51,7 +51,7 @@ test_that("show_all(assertions) works for Kew", {
   x <- show_all(assertions) |>
     skip_unavailable()
   expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_tibble(x)
 })
 
 test_that("show_all(profiles) unavailable for Kew", {
@@ -65,7 +65,7 @@ test_that("show_all(profiles) unavailable for Kew", {
 #  x <- show_all(lists, limit = 10) |>
 #    skip_unavailable()
 #  expect_lte(nrow(x), 10)
-#  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+#  expect_tibble(x)
 # })
 
 test_that("search_all(fields) works for Kew", {
@@ -73,7 +73,7 @@ test_that("search_all(fields) works for Kew", {
   x <- search_all(fields, "year") |>
     skip_unavailable()
   expect_gte(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_tibble(x)
 })
 
 test_that("search_all(taxa) works for Kew", {
@@ -81,7 +81,7 @@ test_that("search_all(taxa) works for Kew", {
   x <- search_all(taxa, "Acer") |>
     skip_unavailable()
   expect_gte(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_tibble(x)
 })
 
 test_that("search_all(identifiers) unavailable for Kew", {
@@ -97,15 +97,17 @@ test_that("search_all(identifiers) unavailable for Kew", {
 #     show_values() |>
 #     skip_unavailable()
 #   expect_gte(nrow(x), 1)
-#   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+#   expect_tibble(x)
 # })
 
 test_that("atlas_counts works for Kew", {
   skip_galah()
   x <- atlas_counts() |>
-    dplyr::pull(count) |>
     skip_unavailable()
-  expect_gt(x, 0)
+  expect_tibble(x)
+  x |>
+    dplyr::pull(count) |>
+    expect_gt(0)
 })
 
 ## Currently failing: see `show_values()` comment above
@@ -169,9 +171,9 @@ test_that("`atlas_species()` works for Kew", {
     filter(genus == "Pinus") |>
     atlas_species() |>
     skip_unavailable()
+  expect_tibble(spp)
   expect_gt(nrow(spp), 20)
   expect_gte(ncol(spp), 10)
-  expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
 })
 
 test_that("`atlas_occurrences()` works for Kew", {
@@ -187,10 +189,10 @@ test_that("`atlas_occurrences()` works for Kew", {
     select(species, year) |>
     atlas_occurrences() |>
     skip_unavailable()
+  expect_tibble(occ)
   expect_gt(nrow(occ), 0)
   expect_equal(ncol(occ), 2)
   expect_false(any(occ$year < 1999))
-  expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("`atlas_media()` works for Kew", {
@@ -206,7 +208,7 @@ test_that("`atlas_media()` works for Kew", {
     filter(year >= 2020) |>
     atlas_media() |>
     skip_unavailable()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_gte(nrow(x), 1)
   expect_equal(colnames(x)[1:2],
                c("media_id", "media_type"))

@@ -19,7 +19,7 @@ test_that("`atlas_species()` returns a tibble", {
   species <- galah_call() |>
     identify("Osphranter") |>
     quiet_species()
-  expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(species)
   expect_gt(nrow(species), 1)
 })
 
@@ -63,8 +63,8 @@ test_that("`atlas_species()` returns correct results when piped", {
   (expected_species %in% species$species_name) |>
     all() |>
     expect_true()
+  expect_tibble(species)
   expect_gt(nrow(species), 1)
-  expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
 })
 
 test_that("`atlas_species()` returns correct results filtered by `geolocate()`", {
@@ -82,10 +82,10 @@ test_that("`atlas_species()` returns correct results filtered by `geolocate()`",
                      "scientific_name_authorship", "taxon_rank",
                      "kingdom", "phylum", "class", "order", "family",
                      "genus", "vernacular_name")
+  expect_tibble(species)
   expect_setequal(names(species), expected_cols)
   expect_equal(species$species_name[1], expected_species)
   expect_gt(nrow(species), 0)
-  expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
 })
 
 test_that("`atlas_species()` works when no species are present", {
@@ -96,7 +96,7 @@ test_that("`atlas_species()` works when no species are present", {
     identify("eolophus") |>
     filter(cl1048 == "Kimberley") |>
     quiet_species()
-  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(result)
   expect_equal(ncol(result), 11)
   expect_equal(nrow(result), 0)
 })
@@ -110,13 +110,13 @@ test_that("collapse -> compute -> collect workflow is functional", {
   species_collapse <- query |> collapse()
   species_compute <- species_collapse |> compute()
   species_collect <- species_compute |> quiet_collect()
-  atlas_species <- query |> quiet_species()
+  atlas_species_result <- query |> quiet_species()
   
   expect_s3_class(query, "data_request")
   expect_s3_class(species_collapse, "query")
   expect_s3_class(species_compute, "computed_query")
-  expect_s3_class(species_collect, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(species_collect, atlas_species)
+  expect_tibble(species_collect)
+  expect_equal(species_collect, atlas_species_result)
 })
 
 test_that("collapse works when no `filter()` is supplied", {
@@ -146,19 +146,18 @@ test_that("atlas_species reformats column names when empty tibble is returned", 
                      "kingdom", "phylum", "class", "order", "family",
                      "genus", "vernacular_name")
   
+  expect_tibble(species)
   expect_setequal(names(species), expected_cols)
   expect_equal(nrow(species), 0)
-  expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
 })
 
 test_that("`atlas_species()` accepts `distinct()` to set the grouping variable", {
   skip_galah()
-  
   genera <- galah_call() |>
     identify("Limnodynastidae") |>
     distinct(genusID) |>
     quiet_species()
-  expect_s3_class(genera, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(genera)
   expect_true(nrow(genera) > 4 & nrow(genera) < 10)
   expect_gte(ncol(genera), 10) # test that `.keep_all = TRUE` is not required 
   # as this is implied (and asserted) by calling `atlas_species()`

@@ -3,24 +3,40 @@ test_that("`search_all()` checks inputs, returns helpful error", {
   expect_error(search_all(attributes, ""), "Unrecognised metadata requested")
 })
 
-test_that("`search_all()` returns correct output for type", {
+test_that("`search_all(fields)` returns correct output", {
   skip_galah()
-  fields <- search_all(fields, "year")
-  reasons <- search_all(reasons, "genus")
-  profiles <- search_all(profiles, "ala")
-  
-  expect_s3_class(fields, c("tbl_df", "tbl", "data.frame"))
-  expect_s3_class(reasons, c("tbl_df", "tbl", "data.frame"))
-  expect_s3_class(profiles, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(fields, search_fields("year"))
-  expect_equal(reasons, search_reasons("genus"))
-  expect_equal(profiles, search_profiles("ala"))
-  expect_equal(attributes(fields)$call, "fields")
-  expect_equal(attributes(reasons)$call, "reasons")
-  expect_equal(attributes(profiles)$call, "profiles")
-  expect_equal(ncol(fields), 3)
-  expect_equal(ncol(reasons), 2)
-  expect_equal(ncol(profiles), 4)
+  x <- search_all(fields, "year")
+  expect_equal(x, search_fields("year"))
+  expect_tibble(x)
+  expect_equal(attributes(x)$call, "fields")
+  expect_equal(ncol(x), 3)
+})
+
+test_that("`search_all(reasons)` returns correct output", {
+  skip_galah()
+  x <- search_all(reasons, "genus")
+  expect_equal(x, search_fields("genus"))
+  expect_tibble(x)
+  expect_equal(attributes(x)$call, "reasons")
+  expect_equal(ncol(x), 2)
+})
+
+test_that("`search_all(reasons)` returns correct output", {
+  skip_galah()
+  x <- search_all(reasons, "genus")
+  expect_equal(x, search_reasons("genus"))
+  expect_tibble(x)
+  expect_equal(attributes(x)$call, "reasons")
+  expect_equal(ncol(x), 2)
+})
+
+test_that("`search_all(profiles)` returns correct output", {
+  skip_galah()
+  x <- search_all(profiles, "ala")
+  expect_equal(x, search_profiles("ala"))
+  expect_tibble(x)
+  expect_equal(attributes(x)$call, "profiles")
+  expect_equal(ncol(x), 4)
 })
 
 test_that("`search_all()` returns error when missing query", {
@@ -38,9 +54,9 @@ test_that("`search_assertions()` returns a filtered result", {
                                    paste(search$description, search$id),
                                    ignore.case = TRUE))
   
+  expect_tibble(search)
   expect_lt(nrow(search), nrow(all))
   expect_equal(attributes(search)$call, "assertions")
-  expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
   expect_true(search_result_check)
   expect_equal(search, search2)
 })
@@ -54,8 +70,8 @@ test_that("`search_apis()` returns a filtered result", {
     stringr::str_detect(search_string) |>
     all() |>
     expect_true()
+  expect_tibble(result)
   expect_equal(attributes(result)$call, "apis")
-  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
   # check synonymous functions call the above syntax
   # this is a parsimonious way to do checking, as it reduces API calls
   deparse(search_apis) |>
@@ -73,8 +89,8 @@ test_that("`search_atlases()` returns a filtered result", {
     stringr::str_detect(search_string) |>
     all() |>
     expect_true()
+  expect_tibble(result)
   expect_equal(attributes(result)$call, "atlases")
-  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
   # check synonymous function calls the above syntax
   deparse(search_atlases) |>
     stringr::str_detect("search_all\\(\"atlases\"") |>
@@ -92,8 +108,8 @@ test_that("`search_collections()` returns a filtered result", {
     stringr::str_detect(search_string) |>
     all() |>
     expect_true()
+  expect_tibble(result)
   expect_equal(attributes(result)$call, "collections")
-  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
   # check synonymous function calls the above syntax
   deparse(search_collections) |>
     stringr::str_detect("search_all\\(\"collections\"") |>
@@ -111,8 +127,8 @@ test_that("`search_datasets()` returns a filtered result", {
     stringr::str_detect(search_string) |>
     all() |>
     expect_true()
+  expect_tibble(result)
   expect_equal(attributes(result)$call, "datasets")
-  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
   # check synonymous function calls the above syntax
   deparse(search_datasets) |>
     stringr::str_detect("search_all\\(\"datasets\"") |>
@@ -130,8 +146,8 @@ test_that("`search_fields()` returns a filtered result", {
     stringr::str_detect(search_string) |>
     all() |>
     expect_true()
+  expect_tibble(result)
   expect_equal(attributes(result)$call, "fields")
-  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
   # check synonymous function calls the above syntax
   deparse(search_fields) |>
     stringr::str_detect("search_all\\(\"fields\"") |>
@@ -154,8 +170,8 @@ test_that("`search_licenses()` returns a filtered result", {
     stringr::str_detect(search_string) |>
     all() |>
     expect_true()
+  expect_tibble(result)
   expect_equal(attributes(result)$call, "licences")
-  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
   # check synonymous function calls the above syntax
   deparse(search_licences) |>
     stringr::str_detect("search_all\\(\"licences\"") |>
@@ -200,8 +216,8 @@ test_that("`search_lists()` returns a filtered result", {
     unlist() |>
     all() |>
     expect_true()
+  expect_tibble(result)
   expect_equal(attributes(result)$call, "lists")
-  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
   # check synonymous function calls the above syntax
   deparse(search_lists) |>
     stringr::str_detect("search_all\\(\"lists\"") |>
@@ -219,8 +235,8 @@ test_that("`search_reasons()` returns a filtered result", {
     stringr::str_detect(search_string) |>
     all() |>
     expect_true()
+  expect_tibble(result)
   expect_equal(attributes(result)$call, "reasons")
-  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
   # check synonymous function calls the above syntax
   deparse(search_reasons) |>
     stringr::str_detect("search_all\\(\"reasons\"") |>
@@ -237,8 +253,8 @@ test_that("`search_ranks()` returns a filtered result", {
     stringr::str_detect(search_string) |>
     all() |>
     expect_true()
+  expect_tibble(result)
   expect_equal(attributes(result)$call, "ranks")
-  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
   # check synonymous function calls the above syntax
   deparse(search_ranks) |>
     stringr::str_detect("search_all\\(\"ranks\"") |>
@@ -256,8 +272,8 @@ test_that("`search_profiles()` returns a filtered result", {
     stringr::str_detect(search_string) |>
     all() |>
     expect_true()
+  expect_tibble(result)
   expect_equal(attributes(result)$call, "profiles")
-  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
   # check synonymous function calls the above syntax
   deparse(search_profiles) |>
     stringr::str_detect("search_all\\(\"profiles\"") |>
@@ -275,8 +291,8 @@ test_that("`search_providers()` returns a filtered result", {
     stringr::str_detect(search_string) |>
     all() |>
     expect_true()
+  expect_tibble(result)
   expect_equal(attributes(result)$call, "providers")
-  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
   # check synonymous function calls the above syntax
   deparse(search_providers) |>
     stringr::str_detect("search_all\\(\"providers\"") |>
