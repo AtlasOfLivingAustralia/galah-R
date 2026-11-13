@@ -357,12 +357,25 @@ test_that("`count()` works with 3 args for GBIF", {
   skip_galah()
   x <- galah_call() |>
     filter(between(year, 2020, 2022),
-           month %in% c(11, 12)) |>
+           between(month, 11, 12)) |>
     count(year, month, basisOfRecord) |>
-    collapse()  
-  y <- collect(x) |>  
+    capture()
+  
+  # at the collapse stage, the 'final' predicates are added
+  # via a second call to `filter()`
+  y <- collapse(x)
+
+  # finally, we call the result via `collect()`
+  # this workflow is preserved for debugging purposes, 
+  # though `collect()` would probably suffice once stable.
+  z <- collect(y) |>  
     skip_unavailable()
   expect_tibble(z)
+  expect_equal(colnames(z),
+               c("year", "month", "basisOfRecord", "count"))
+  expect_true(all(z$year >= 2020 & z$year <= 2022))
+  expect_true(all(z$month >= 11 & z$month <= 12))
+  expect_true(nrow(z) > 6)
 })
 
 ## group_by fails when an invalid field is given

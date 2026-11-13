@@ -54,11 +54,10 @@ is_and_query <- function(x){
 #' @noRd
 #' @keywords Internal
 check_predicate_wrapping <- function(x){
-  if(length(x) > 2 &
-     any(names(x) %in% c("in", "key", "value"))){
-    list(x)
-  }else{
+  if(is.null(names(x))){
     x
+  }else{
+    list(x)
   }
 }
 
