@@ -1,3 +1,9 @@
+test_that("`check_atlas_inputs()` returns error for objects other than `data.request`", {
+  atlas_counts(request = list(x = 1)) |>
+    expect_error(label = "Argument `.query` requires an object of type `data_request`.")
+})
+
+
 test_that("check_download_filename() works", {
   # missing case (default)
   galah_config(directory = "temp")

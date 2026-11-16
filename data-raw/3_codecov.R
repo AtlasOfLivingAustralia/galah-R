@@ -18,7 +18,7 @@ x <- covr::package_coverage(
     # be skipped by the test suite. These tests exist, but can't
     # be counted by `covr`, so the corresponding code shouldn't either.
     "R/authenticate.R" = c(80:92),
-    "R/query_API.R" = c(233:316)
+    "R/query_API.R" = c(307:390)
   ),
   allow_failures = TRUE,  # pragmatism not idealism
   show_code_output = TRUE)

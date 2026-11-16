@@ -14,17 +14,8 @@ test_that("`search_all(fields)` returns correct output", {
 
 test_that("`search_all(reasons)` returns correct output", {
   skip_galah()
-  x <- search_all(reasons, "genus")
-  expect_equal(x, search_fields("genus"))
-  expect_tibble(x)
-  expect_equal(attributes(x)$call, "reasons")
-  expect_equal(ncol(x), 2)
-})
-
-test_that("`search_all(reasons)` returns correct output", {
-  skip_galah()
-  x <- search_all(reasons, "genus")
-  expect_equal(x, search_reasons("genus"))
+  x <- search_all(reasons, "research")
+  expect_equal(x, search_reasons("research"))
   expect_tibble(x)
   expect_equal(attributes(x)$call, "reasons")
   expect_equal(ncol(x), 2)

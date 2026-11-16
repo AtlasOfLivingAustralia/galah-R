@@ -99,27 +99,6 @@ check_files_filter <- function(x,
   }
 }
 
-#' check that objects passed within `galah_filter` have correct structure
-#' @noRd
-#' @keywords Internal
-check_filter_tibbles <- function(x, # where x is a list of tibbles
-                                 error_call = rlang::caller_env()
-                                 ){ 
-  syntax_valid <- purrr::map(x, \(a){
-    if(length(colnames(a)) == 4){
-      all(colnames(a) %in% c("variable", "logical", "value", "query"))
-    }else{
-      FALSE
-    }
-  }) |>
-    unlist() |>
-    all()
-  if(!syntax_valid){
-    cli::cli_abort("There was a problem with `filter`, did you use correct syntax?",
-                   call = error_call)
-  }
-}
-
 #' Internal function to check whether fields are valid
 #' @noRd
 #' @keywords Internal
@@ -482,29 +461,6 @@ check_media_cols <- function(.query){
   .query
 }
 
-#' Internal function to check whether valid media fields have been supplied
-#' @param .query a `query` object
-#' @noRd
-#' @keywords Internal
-check_media_cols_present <- function(.query, 
-                                     error_call = rlang::caller_env()){
-  fields <- .query |>
-    purrr::pluck("url") |>
-    httr2::url_parse() |> 
-    purrr::pluck("query", "fields") |>
-    strsplit(",") |>
-    purrr::pluck(1)
-  fields_check <- image_fields() %in% fields
-  if(!any(fields_check)){atlas = .query$atlas
-    c("No media fields requested.",
-      i = "Use `select()` to specify which media fields are required.",
-      i = "Valid fields are 'images', 'videos' and 'sounds'.") |>
-    cli::cli_abort(call = error_call)
-  }else{
-    image_fields(atlas = .query$atlas)[fields_check]
-  }
-}
-
 #' Internal function called by `filter()` et al
 #' @noRd
 #' @keywords Internal
@@ -539,39 +495,16 @@ check_occurrence_response <- function(.query,
                                       error_call = rlang::caller_env()){
   names(.query) <- camel_to_snake_case(names(.query))
   
-  if (!is.null(.query$status_code)) {
-    
-    error_type <- sub("\\:.*", "", .query$message) |> 
-      stringr::str_trim()
-    message <- .query$message
-    bullets <- c(
-      "There was a problem with your query.",
-      "*" = glue::glue("message: {message}"))
-    
-    switch(as.character(error_type),
-           "500" = {cli::cli_abort(bullets,
-                                   call = error_call)},
-           "403" = {cli::cli_abort(c(bullets,
-                                     i = "Is the email you provided to `galah_config()` registered with the selected atlas?"),
-                                   call = error_call)},
-           "404" = {cli::cli_abort(c(bullets,
-                                     i = "Is the email you provided to `galah_config()` registered with the selected atlas?"),
-                                   call = error_call)},
-           "504" = {cli::cli_abort(c(bullets,
-                                     i = "This usually means that the selected API is down.",
-                                     i = "If you continue to receive this error, please email support@ala.org.au"),
-                                   call = error_call)},
-           cli::cli_abort("Aborting for unknown reasons.", # FIXME
-                          call = error_call))
+  # error handling should occur within `query_API()`
+  # ergo here we handle only valid responses
+  if (.query$status %in% c("finished", # ALA
+                          "SUCCEEDED") # GBIF
+  ){
+    .query$status <- "complete"
   } else {
-    if (.query$status %in% c("finished", # ALA
-                            "SUCCEEDED") # GBIF
-    ){
-      .query$status <- "complete"
-    } else {
-      .query$status <- "incomplete"
-    }
+    .query$status <- "incomplete"
   }
+
   # harmonisation of GBIF objects
   # change name of `download_link` to `download_url`
   check_download_link <- names(.query) == "download_link"
