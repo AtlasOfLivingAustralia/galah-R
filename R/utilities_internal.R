@@ -393,7 +393,6 @@ default_columns <- function(atlas = NULL) {
   }
   if(atlas %in% c("Austria", 
                   "Brazil", 
-                  "Guatemala", 
                   "Portugal")){
     c("id",
       "taxon_name",
@@ -404,21 +403,11 @@ default_columns <- function(atlas = NULL) {
       "basis_of_record",
       "occurrence_status",
       "data_resource_uid")
-  }else if(atlas %in% c("France")){
-    c("id", # only difference from ALA
-      "scientificName",
-      "taxonConceptID",
-      "decimalLatitude",
-      "decimalLongitude",
-      "eventDate",
-      "basisOfRecord",
-      "occurrenceStatus",
-      "dataResourceName")
   }else if(atlas %in% c("Australia",
                         "Flanders",
+                        "Guatemala",
                         "Kew",
                         "Spain",
-                        "Sweden",
                         "United Kingdom")){
     c("recordID", # note this requires that the ALA name (`id`) be corrected
       "scientificName",
@@ -458,7 +447,6 @@ image_fields <- function(atlas = NULL) {
   }else if(atlas %in% c("Australia",
                         "Flanders",
                         "Spain",
-                        "Sweden",
                         "United Kingdom")){
     c("multimedia", "images", "sounds", "videos")
   }else if(atlas %in% c("Kew")){
@@ -486,7 +474,6 @@ image_filters <- function(present_fields,
          "Kew" =  "(images:*)",
          "Portugal" = "(all_image_url:*)",
          "Spain" = "(multimedia:*)",
-         "Sweden" = "(multimedia:*)",
          "United Kingdom" = "(all_image_url:*)",
          cli::cli_abort("`atlas_media()` is not supported for atlas = {atlas}",
                         call = error_call)
@@ -499,10 +486,9 @@ species_facets <- function(.query){
   if(.query$atlas %in% 
      c("Australia",
        "Flanders",
-       "France",
+       "Guatemala",
        "Kew",
        "Spain",
-       "Sweden",
        "United Kingdom")) {
     "speciesID"
   }else{
