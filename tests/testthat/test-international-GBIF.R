@@ -170,6 +170,7 @@ test_that("`search_all(taxa)` works for GBIF", {
   expect_equal(nrow(x), 1)
   expect_gte(ncol(x), 1)
   expect_true(colnames(x)[1] == "search_term")
+  expect_contains(colnames(x), "taxon_key")
   expect_true(x$class == "Mammalia")
 })
 

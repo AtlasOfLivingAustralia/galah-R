@@ -171,6 +171,7 @@ lookup_select_columns_taxa <- function(){
     "authority", # OpenObs
     "key", # GBIF
     "usage_key", # GBIF
+    "taxon_key", # GBIF/CoL
     "guid", # species search
     "canonical_name",
     "status", 
@@ -226,7 +227,7 @@ lookup_rename_columns <- function(type){
                     "taxon_concept_id" = "usage_key",
                     "taxon_concept_id" = "guid",
                     "taxon_concept_id" = "reference_id",
-                    "taxon_concept_id" = "key",
+                    "taxon_key" = "key",
                     "genus" = "genus_name",
                     "family" = "family_name",
                     "order" = "order_name",
