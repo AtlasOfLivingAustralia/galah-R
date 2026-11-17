@@ -22,5 +22,5 @@ x <- covr::package_coverage(
   ),
   allow_failures = TRUE,  # pragmatism not idealism
   show_code_output = TRUE)
-covr::to_badge(x, "./man/figures/codecov.svg")
+covr:::badge(x, "./man/figures/codecov.svg")
 covr::report(x) # to investigate locally

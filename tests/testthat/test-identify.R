@@ -26,7 +26,7 @@ test_that("`galah_identify()` runs a search on multiple strings wrapped by c()",
 test_that("`identify()` errors when no arguments are supplied", {
   galah_call() |>
     identify() |>
-    expect_error()
+    expect_warning(label = "No query passed to `identify()`: skipping.")
 })
 
 test_that("`identify()` pipes correctly", {

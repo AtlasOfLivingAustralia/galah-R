@@ -84,16 +84,19 @@ check_files_filter <- function(x,
                                error_call = rlang::caller_env()
                                ){ 
   if(!(x$variable %in% c("media"))){
-    cli::cli_abort("Variable name must be a valid `type` accepted by `request_files()`.",
-                   call = error_call)
+    c("Variable name must be a valid `type` accepted by `request_files()`.",
+      i = "Currently only `media` is currently supported.") |>
+    cli::cli_abort(call = error_call)
   }
   if(is.null(x$data)){
-    c("rhs must be a `tibble` containing media information.",
+    c("Suppplied data cannot be `NULL`.",
+      i = "rhs of your `filter` statement should be a `tibble` containing media information.",
       i = "at least, this tibble should contain `media_id` and `mime_type` columns.") |>
     cli::cli_abort(call = error_call)    
   }
   if(!inherits(x$data, "data.frame")){
-    c("rhs must be a `tibble` containing media information.",
+    c("Supplied data should be a `tibble`.",
+      i = "rhs of your `filter()` statement should be a `tibble` containing media information.",
       i = "at least, this tibble should contain `media_id` and `mime_type` columns.") |>
     cli::cli_abort(call = error_call)
   }

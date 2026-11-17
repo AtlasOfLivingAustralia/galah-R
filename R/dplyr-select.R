@@ -130,7 +130,7 @@
 select.data_request <- function(.data, ..., group = NULL){
   dots <- rlang::enquos(..., .ignore_empty = "all")
   list(quosure = dots,
-        summary = generate_summary(dots)) |>
+       summary = generate_summary(dots)) |>
     add_group(group) |>
     update_request_object(.data, select = _)  
 }

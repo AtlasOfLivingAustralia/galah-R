@@ -218,6 +218,20 @@ test_that("collect_media handles different file formats", {
     dplyr::group_by(mime_type) |>
     dplyr::sample_n(size = 2)
 
+  # check that error catching works on `filter.files_request()`
+  # 1. first argument must be 'media'
+  request_files() |>
+    filter(something == media_summary) |>
+    expect_error(label = "Variable name must be a valid `type` accepted by `request_files()`.")
+  # 3. second argument must not be NULL
+  request_files() |>
+    filter(something == as.null()) |>
+    expect_error(label = "Suppplied data cannot be `NULL`.")
+  # 3. second argument must be a tibble
+  request_files() |>
+    filter(something == list(id = "1234")) |>
+    expect_error(label = "Supplied data should be a `tibble`.")
+
   # now run test
   result <- purrr_collect_media(media_summary, thumbnail = TRUE)
   downloads <- list.files(path = media_dir)

@@ -86,21 +86,13 @@ update_request_object <- function(x,
 #' @noRd
 #' @keywords Internal
 update_select <- function(x, y){
-  quosure_check_x <- purrr::map(x, rlang::is_quosure) |> unlist()
-  quosure_check_y <- purrr::map(y, rlang::is_quosure) |> unlist()
-  if(any(quosure_check_y)){
-    result <- append(x[quosure_check_x], y[quosure_check_y])
-  }else if(any(quosure_check_x)){
-    result <- x[quosure_check_x]
-  }else{
-    result <- list()
-  }
+  quosures <- append(x$quosure, y$quosure)
   group_vec <- unique(c(x$group, y$group))
   if(length(group_vec) < 1){
     group_vec <- NULL
   }
-  result |>
-    generate_summary() |>
+  list(quosure = quosures,
+       summary = generate_summary(quosures)) |>
     add_group(group = group_vec)
 }
 

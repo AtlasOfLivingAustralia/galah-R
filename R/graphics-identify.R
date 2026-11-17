@@ -37,7 +37,7 @@
 identify.data_request <- function(x, ...){
   dots_initial <- list(...)
   if (length(dots_initial) < 1) {
-    cli::cli_warn("No query passed to `identify()`.")
+    cli::cli_warn("No query passed to `identify()`: skipping.")
     result <- NULL
   }else{
     if(inherits(dots_initial[[1]], "data.frame") & length(dots_initial) == 1){

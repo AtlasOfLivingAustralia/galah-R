@@ -79,6 +79,23 @@ test_that("`select()` defaults to group = 'basic' when there are no args", {
   expect_equal(y$qa, "none")
 })
 
+test_that("`select()` works when supplied twice", {
+  skip_galah()
+  x <- galah_call() |>
+    select(eventDate, species, decimalLatitude) |>
+    filter(year >= 2022) |>
+    select(basisOfRecord, decimalLongitude) |>
+    collapse()
+  field_names <- httr2::url_parse(x$url) |>
+    purrr::pluck("query", "fields") |>
+    strsplit(",") |>
+    purrr::pluck(1) |>
+    sort()
+  expected_names <- c("eventDate", "species", "decimalLatitude", "basisOfRecord", "decimalLongitude") |>
+    sort()
+  expect_equal(field_names, expected_names)
+})
+
 test_that("`select()` works with group = 'taxonomy'", {
   skip_galah()
   x <- galah_call() |>
