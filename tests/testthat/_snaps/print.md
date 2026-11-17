@@ -104,7 +104,16 @@
 # Object of class `query` containing `slice_head()` formats correctly
 
     Code
-      
+      as_query(capture(arrange(slice_head(count(filter(galah_call(), year == 2025),
+      basisOfRecord), n = 3), basisOfRecord)))
+    Message
+      Object of class query with type data/occurrences-count-groupby
+      * atlas: Australia
+      * url:
+      https://api.ala.org.au/occurrences/occurrences/facets?q=%28year%3A%222...
+      * arrange: basisOfRecord (ascending)
+      * slice: 3
+      * select: ~-dplyr::any_of(c("label", "i18nCode", "fq"))
 
 # object of class `query_set` formats correctly
 

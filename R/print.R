@@ -115,8 +115,8 @@ print.query <- function(x, ...){
   list(atlas = glue::glue("\n
                        atlas: {x$atlas}") |>
                      galah_grey()) |>
-    print_slice_arrange(x = x) |>
     print_url(x = x) |>
+    print_slice_arrange(x = x) |>
     print_select(x = x) |>
     cli::cli_li()
 }
@@ -133,8 +133,8 @@ print.computed_query <- function(x, ...){
   list(atlas = glue::glue("\n
                       atlas: {x$atlas}") |>
                     galah_grey()) |>
-    print_slice_arrange(x = x) |>
     print_url(x = x) |>
+    print_slice_arrange(x = x) |>
     print_status(x = x) |>
     cli::cli_li()
 }
@@ -181,13 +181,13 @@ print_url <- function(print_list, x){
            url: {url_temp}")
     }
   }else if(!is.null(x$data)){
-    url_text <- galah_grey(glue::glue("\n
-                               data: {x$data[1]}"))
+    url_text <- glue::glue("\n
+                           data: {x$data[1]}")
   }else if(!is.null(x$status)){
-    url_text <- galah_grey(glue::glue("\n
-                               status: {x$status[1]}"))
+    url_text <- glue::glue("\n
+                            status: {x$status[1]}")
   }
-  print_list$url <- url_text
+  print_list$url <- galah_grey(url_text)
   print_list
 }
 

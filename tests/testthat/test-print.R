@@ -76,8 +76,9 @@ test_that("Object of class `query` containing `slice_head()` formats correctly",
     slice_head(n = 3) |>
     arrange(basisOfRecord) |>
     capture() |>
-    as_query()
+    as_query() |> 
     expect_snapshot()
+  # test that slice, arrange etc are actually printed
 })
 
 # class `query_set`
