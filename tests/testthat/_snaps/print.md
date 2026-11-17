@@ -1,3 +1,10 @@
+# Empty `data-request` formats correctly
+
+    Code
+      structure(list(), class = c("data_request", "list"))
+    Message
+      An empty object of type data_request
+
 # object of class `data-request` formats correctly
 
     Code
@@ -10,24 +17,28 @@
 # populated `data_request()` prints correctly
 
     Code
-      filter(identify(galah_call(), "crinia"), year == 2025)
+      select(count(group_by(filter(identify(galah_call(), c("crinia", "uperoleia")),
+      year == 2025), species)), species, count)
     Message
       Object of type data_request containing:
       * type occurrences
       * atlas Australia
-      * identify search_term: crinia
+      * identify search_terms: crinia + 1 more
       * filter Object of class `data_filter`: year == 2025
+      * group_by species
+      * count TRUE
+      * select ~species | ~count
 
 # object of class `metadata-request` formats correctly
 
     Code
-      request_data()
+      request_metadata()
     Message
-      Object of type data_request containing:
-      * type occurrences
+      Object of type metadata_request containing:
+      * type fields
       * atlas Australia
 
-# object of class `metadata-request` formats correctly with `filter()
+# populated `metadata_request()` prints correctly
 
     Code
       filter(request_metadata(), list == "dr650")
@@ -57,6 +68,25 @@
       * atlas Australia
       * identify search_term: Crinia
 
+# object of class `files-request` formats correctly
+
+    Code
+      request_files()
+    Message
+      Object of type files_request containing:
+      * type media
+      * atlas Australia
+
+# populated `files_request()` prints correctly
+
+    Code
+      filter(request_files(), media == tibble::tibble(media_id = 1234))
+    Message
+      Object of type files_request containing:
+      * type media
+      * atlas Australia
+      * filter Object of class `files_filter` with 1 rows
+
 # object of class `query` formats correctly
 
     Code
@@ -65,15 +95,16 @@
       Object of class query with type metadata/taxa-single
       * atlas: Australia
       * url: https://api.ala.org.au/namematching/api/search?q=Crinia
+      * select: ~tidyselect::any_of(~c("search_term", "scientific_name",
+      "scientific_name_authorship", "taxon_concept_id", "taxon_concept_lsid",
+      "authority", "key", "usage_key", "guid", "canonical_name", "status", "rank",
+      "match_type", "confidence", "time_taken", "vernacular_name", "issues",
+      "kingdom", "phylum", "class", "order", "family", "genus", "species"))
 
-# object of class `computed_query` formats correctly
+# Object of class `query` containing `slice_head()` formats correctly
 
     Code
-      x
-    Message
-      Object of class computed query with type metadata/taxa-single
-      * atlas: Australia
-      * url: https://api.ala.org.au/namematching/api/search?q=Crinia
+      
 
 # object of class `query_set` formats correctly
 
@@ -89,6 +120,15 @@
       * data/occurrences url:
       https://api.ala.org.au/occurrences/occurrences/offline/...
 
+# object of class `computed_query` formats correctly
+
+    Code
+      x
+    Message
+      Object of class computed query with type metadata/taxa-single
+      * atlas: Australia
+      * url: https://api.ala.org.au/namematching/api/search?q=Crinia
+
 # `galah_config()` formats correctly
 
     Code
@@ -101,9 +141,9 @@
       
       User
       x authentication
-      username [Provided]
+      username [Not Provided]
       email random_email_for_testing@email.com
-      password [Provided]
+      password [Not Provided]
       download_reason_id 10
       
       Package

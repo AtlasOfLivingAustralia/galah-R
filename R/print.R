@@ -62,22 +62,22 @@ print.files_request <- function(x, ...){
 #' @noRd
 #' @keywords Internal
 format_request_text <- function(x, object_type){
-  filled_slots <- !unlist(purrr::map(x, is.null))
-  if(any(filled_slots)){
+  if(length(x) > 0){
+    filled_slots <- !unlist(purrr::map(x, is.null))
     cli::cli_text("Object of type {galah_pink(object_type)} containing:")
     x_names <- names(x)[filled_slots]
     purrr::map(x_names, 
-               function(a){
-                 slot_name <- galah_green(a)
-                 if(a == "filter"){
-                   slot_content <- utils::capture.output(print(x[[a]])) # calls `print.data_filter()` etc.
-                 }else{
-                   slot_content <- switch_slot_text(x, a)
-                 }
-                 glue::glue("{slot_name} {galah_grey(slot_content)}") 
-             }) |>
+              function(a){
+                slot_name <- galah_green(a)
+                if(a == "filter"){
+                  slot_content <- utils::capture.output(print(x[[a]])) # calls `print.data_filter()` etc.
+                }else{
+                  slot_content <- switch_slot_text(x, a)
+                }
+                glue::glue("{slot_name} {galah_grey(slot_content)}") 
+            }) |>
       cli::cli_li()
-  }else{
+  } else{
     cli::cli_text("An empty object of type {galah_pink(object_type)}")
   }
 }
@@ -110,72 +110,15 @@ switch_slot_text <- function(x, a){
 #' @rdname print_galah_objects
 #' @export
 print.query <- function(x, ...){
-  atlas <- glue::glue("\n
-           atlas: {x$atlas}") |>
-    galah_grey()
-  if(!is.null(x$arrange)){
-    arrange <- galah_pale_green(glue::glue("\n
-                              arrange: {x$arrange$variable} ({x$arrange$direction})"))
-    if(x$arrange$slice_called == TRUE){
-      slice <- galah_pale_green(glue::glue("\n
-                              slice: {x$arrange$slice_n}"))
-    }else{
-      slice <- NULL
-    }
-  }else{
-    arrange <- NULL
-    slice <- NULL
-  }
-  if(!is.null(x$url)){
-    if(inherits(x$url, "data.frame")){
-      url_temp <- x$url$url[1]
-      if(nchar(url_temp) > 70){
-        url_temp <- paste0(substr(url_temp, 1, 70), "...")
-      }
-      if(nrow(x$url) > 1){
-        url_text <- glue::glue("\n
-           url: {url_temp} + {nrow(x$url) - 1} more") 
-      }else{
-        url_text <- glue::glue("\n
-           url: {url_temp}")
-      }
-    }else{
-      url_temp <- x$url[1]
-      if(nchar(url_temp) > 70){
-        url_temp <- paste0(substr(url_temp, 1, 70), "...")
-      }
-      url_text <- glue::glue("\n
-           url: {url_temp}")
-    }
-    subtext <- galah_grey(url_text)
-  }else if(!is.null(x$data)){
-    subtext <- galah_grey(glue::glue("\n
-                               data: {x$data[1]}"))
-  }else if(!is.null(x$status)){
-    subtext <- galah_grey(glue::glue("\n
-                               status: {x$status[1]}"))
-  }else{
-    subtext <- NULL
-  }
-  if(!is.null(x$select)){
-    select <- galah_grey(glue::glue("\n
-                               select: {x$select$summary}"))
-  }else{
-    select <- NULL
-  }
-  
-  # keep only populated levels
-  print_list <-  list(atlas,
-                      subtext, # note: need code for url tibbles
-                      select,
-                      arrange,
-                      slice)
-  print_list <- print_list[!unlist(purrr::map(print_list, is.null))]
-
-  # print
   class_tr <- class(x)[1]
   cli::cli_text("Object of class {galah_pink(class_tr)} with type {galah_green(x$type)}")
-  cli::cli_li(print_list)
+  list(atlas = glue::glue("\n
+                       atlas: {x$atlas}") |>
+                     galah_grey()) |>
+    print_slice_arrange(x = x) |>
+    print_url(x = x) |>
+    print_select(x = x) |>
+    cli::cli_li()
 }
 
 #' @rdname print_galah_objects
@@ -185,25 +128,37 @@ print.prequery <- print.query
 #' @rdname print_galah_objects
 #' @export
 print.computed_query <- function(x, ...){
-    atlas <- glue::glue("\n
-           atlas: {x$atlas}") |>
-    galah_grey()
-  # calculate arrange/slice info
-  if(!is.null(x$arrange)){
-    arrange <- galah_pale_green(glue::glue("\n
-                              arrange: {x$arrange$variable} ({x$arrange$direction})"))
-    if(x$arrange$slice_called == TRUE){
-      slice <- galah_pale_green(glue::glue("\n
-                              slice: {x$arrange$slice_n}"))
-    }else{
-      slice <- NULL
+  cli::cli_text("Object of class {galah_pink(\"computed query\")} with type {galah_green(x$type)}")
+
+  list(atlas = glue::glue("\n
+                      atlas: {x$atlas}") |>
+                    galah_grey()) |>
+    print_slice_arrange(x = x) |>
+    print_url(x = x) |>
+    print_status(x = x) |>
+    cli::cli_li()
+}
+
+#' Internal function to format slice/arrange for printing
+#' @noRd
+#' @keywords Internal
+print_slice_arrange <- function(print_list, x){
+ if(!is.null(x$request$slice_arrange)){
+    arrange_arg <- x$request$slice_arrange
+    print_list$arrange <- galah_grey(glue::glue("\n
+                            arrange: {arrange_arg$variable} ({arrange_arg$direction})"))
+    if(isTRUE(arrange_arg$slice_called)){
+      print_list$slice <- galah_grey(glue::glue("\n
+                          slice: {arrange_arg$slice_n}"))
     }
-  }else{
-    arrange <- NULL
-    slice <- NULL
   }
-  
-  # add url
+  print_list
+}
+
+#' Internal function to format slice/arrange for printing
+#' @noRd
+#' @keywords Internal
+print_url <- function(print_list, x){
   if(!is.null(x$url)){
     if(inherits(x$url, "data.frame")){
       url_temp <- x$url$url[1]
@@ -217,7 +172,7 @@ print.computed_query <- function(x, ...){
         url_text <- glue::glue("\n
            url: {url_temp}")
       }
-    }else{
+    }else{ # i.e. single url
       url_temp <- x$url[1]
       if(nchar(url_temp) > 70){
         url_temp <- paste0(substr(url_temp, 1, 70), "...")
@@ -225,37 +180,38 @@ print.computed_query <- function(x, ...){
       url_text <- glue::glue("\n
            url: {url_temp}")
     }
-    subtext <- galah_grey(url_text)
   }else if(!is.null(x$data)){
-    subtext <- galah_grey(glue::glue("\n
+    url_text <- galah_grey(glue::glue("\n
                                data: {x$data[1]}"))
   }else if(!is.null(x$status)){
-    subtext <- galah_grey(glue::glue("\n
+    url_text <- galah_grey(glue::glue("\n
                                status: {x$status[1]}"))
-  }else{
-    subtext <- NULL
   }
-  
-  # add a status ID
+  print_list$url <- url_text
+  print_list
+}
+
+#' Internal function to format select for printing
+#' @noRd
+#' @keywords Internal
+print_select <- function(print_list, x){
+  if(!is.null(x$request$select)){
+    print_list$select <- galah_grey(glue::glue("\n
+                         select: {x$request$select$summary}"))
+  }
+  print_list
+}
+
+#' Internal function to format status for printing
+#' @noRd
+#' @keywords Internal
+print_status <- function(print_list, x){
   if(!is.null(x$status_url)){
     split_url <- strsplit(x$status_url, "\\/")[[1]] 
-    id <- galah_grey(glue::glue("\n
+    print_list$id <- galah_grey(glue::glue("\n
                                 id: {split_url[[length(split_url)]]}"))
-  }else{
-    id <- NULL
   }
-  
-  # keep only populated levels
-  print_list <- list(atlas,
-                     id,
-                     subtext, # note: need code for url tibbles
-                     arrange,
-                     slice)
-  print_list <- print_list[!unlist(purrr::map(print_list, is.null))]
-  
-  # print
-  cli::cli_text("Object of class {galah_pink(\"computed query\")} with type {galah_green(x$type)}")
-  cli::cli_li(print_list)
+  print_list
 }
 
 #' @rdname print_galah_objects
@@ -287,6 +243,8 @@ print.query_set <- function(x, ...){
   }) |>
     cli::cli_li()
 }
+
+# galah_config()
 
 #' @rdname print_galah_objects
 #' @export
