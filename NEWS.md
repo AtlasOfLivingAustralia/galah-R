@@ -1,3 +1,26 @@
+# galah 2.4.0
+
+### GBIF update to Catalogue of Life taxonomy (#310)
+* All functions now call new taxonomy by default.
+* Where a replacement GBIF API isn't available, we use checklistbank APIs instead (types `identifiers` and `taxa-unnest`).
+* `slice_head()` now supported for GBIF `count()` queries, and returns all values by default (#312).
+* Improvements to GBIF error reporting (#311).
+
+### Changes to supported organisations (#314)
+* SBDI (Sweden) have begun trialling a hosted portal architecture (https://beta.biodiversitydata.se) which doesn't provide org-specific APIs. Data collection for Sweden will henceforth be via GBIF.
+* OpenObs (France; https://openobs.mnhn.fr) have not had functional APIs since August 2025.
+* Guatemala (https://snib.conap.gob.gt) are updating their infrastructure at present; we have updated the APIs but performance might be varible.
+
+### Bug fixes & performance improvements
+* Improved test coverage and cleaner test code (#315).
+* Better support for querying user assertions, including new vignette (#313).
+* Fix bugs in `geolocate` functions (#307, #308).
+* Failed API calls report clearer messages, and are consistently triggered by `collect()` (#285)
+* All API calls use `httr2::req_throttle()` to prevent over-burdening servers (#276).
+* When a variable is supplied to `count()`, `collect()` now returns an added `{variable}_label` column where that differs from `id` (#313).
+* Add new metadata type `identifiers-unnest` to support querying child taxa where `taxonConceptId` is already known.
+
+
 # galah 2.3.0
 
 ### New functions and options
