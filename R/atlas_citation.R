@@ -34,9 +34,10 @@ atlas_citation <- function(data) {
     print(style = 'text') |> 
     utils::capture.output() |>
     glue::glue_collapse(sep = " ")
+  package_version <- utils::packageDescription("galah")[["Version"]]
   galah_citation <- c("Westgate M, Kellie D, Stevenson M & Newman P (2025):",
                       "_galah: Biodiversity Data from the GBIF Node Network_.",
-                      "R package version 2.2.0.",
+                      glue::glue("R package version {package_version}"),
                       "doi: 10.32614/CRAN.package.galah") |>
     glue::glue_collapse(sep = " ")
   

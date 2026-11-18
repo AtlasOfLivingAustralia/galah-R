@@ -7,18 +7,21 @@
 * Improvements to GBIF error reporting (#311).
 
 ### Changes to supported organisations (#314)
-* SBDI (Sweden) have begun trialling a hosted portal architecture (https://beta.biodiversitydata.se) which doesn't provide org-specific APIs. Data collection for Sweden will henceforth be via GBIF.
-* OpenObs (France; https://openobs.mnhn.fr) have not had functional APIs since August 2025.
-* Guatemala (https://snib.conap.gob.gt) are updating their infrastructure at present; we have updated the APIs but performance might be varible.
+* SBDI (Sweden; https://www.biodiversitydata.se) have begun trialling a hosted portal architecture which doesn't provide org-specific APIs. Data from Sweden can still be queried from `galah` via GBIF.
+* OpenObs (France; https://openobs.mnhn.fr) have not had functional APIs since August 2025 and have been removed from `galah`.
+* Guatemala (https://snib.conap.gob.gt) are updating their infrastructure. We have updated the APIs but performance may be varible.
+
+### Changes to options & behaviour
+* Support for `slice_head()` in occurrence queries (#258).
+* Better support for querying user assertions, including new vignette (#313).
+* When a variable is supplied to `count()`, `collect()` now returns an added `{variable}_label` column where that differs from `id` (#313).
+* Add new metadata type `identifiers-unnest` to support querying child taxa where `taxonConceptId` is already known.
 
 ### Bug fixes & performance improvements
 * Improved test coverage and cleaner test code (#315).
-* Better support for querying user assertions, including new vignette (#313).
-* Fix bugs in `geolocate` functions (#307, #308).
 * Failed API calls report clearer messages, and are consistently triggered by `collect()` (#285)
 * All API calls use `httr2::req_throttle()` to prevent over-burdening servers (#276).
-* When a variable is supplied to `count()`, `collect()` now returns an added `{variable}_label` column where that differs from `id` (#313).
-* Add new metadata type `identifiers-unnest` to support querying child taxa where `taxonConceptId` is already known.
+* Fix bugs in `geolocate` functions (#307, #308).
 
 
 # galah 2.3.0
