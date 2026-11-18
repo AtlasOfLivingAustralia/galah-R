@@ -107,16 +107,16 @@ check_files_filter <- function(x,
 #' @keywords Internal
 check_fields <- function(.query,
                          error_call = rlang::caller_env()) {
-  
   if(potions::pour("package", "run_checks")){
     if(.query$atlas == "Global" & 
       stringr::str_detect(.query$type, "^data") # this line is intended 
       # to prevent checks on metadata/taxa-unnest, but may be too general
     ){
       if(.query$type == "data/occurrences"){
-        check_result <- check_fields_gbif_predicates(.query)  
+        check_result <- c(gbif_fields_valid_check(.query), NA)
       }else{
-        check_result <- check_fields_gbif_counts(.query)
+        check_result <- c(gbif_fields_valid_check(.query),
+                          gbif_groupby_valid_check(.query))
       }
     }else{
       check_result <- check_fields_la(.query)
@@ -196,29 +196,38 @@ check_field_identities <- function(df,
 #' sub-function to `check_fields()` for GBIF
 #' @noRd
 #' @keywords Internal
-check_fields_gbif_counts <- function(.query){
-
-  # First get filters
-  # set fields that can be queried using predicates or downloaded
+gbif_fields_valid_check <- function(.query){
+    # set fields to check against
   valid_download_fields <- .query[["metadata/fields"]] |>
     dplyr::filter(.data$download_field == TRUE) |>
     dplyr::pull("id")
   valid_assertions <- .query[["metadata/assertions"]]$id
-  valid_any <- c(valid_download_fields, valid_assertions)
+  valid_any <- c(valid_download_fields, valid_assertions) |>
+    camel_to_snake_case() |>
+    toupper()
 
-  # check for invalid fields in predicates
-  filter_vec <- unlist(.query$body$filter)
-  filter_keys <- stringr::str_detect(names(filter_vec), "key$")
+  # extract fields
+  predicates <- .query |>
+    purrr::pluck("body", "filter") |>
+    unlist()
+  keys <- grepl("key$", names(predicates))
+  fields <- predicates[keys]
+
+  # check invalid
   filter_invalid <- NA
-  if(any(filter_keys)){
-    fields <- filter_vec[filter_keys] |>
-      snake_to_camel_case()
+  if (length(fields) > 0) {
     if (!all(fields %in% valid_any)) {
       invalid_fields <- fields[!(fields %in% valid_any)]
       filter_invalid <- glue::glue_collapse(invalid_fields, sep = ", ")
     }
   }
-  
+  filter_invalid
+}
+
+#' sub-function to `check_fields()` for GBIF
+#' @noRd
+#' @keywords Internal
+gbif_groupby_valid_check <- function(.query){
   # then facets  
   # noting this differs between using this for it's original purpose (generating counts),
   # and it's more recent purpose of getting field values
@@ -242,38 +251,7 @@ check_fields_gbif_counts <- function(.query){
        group_by_invalid <- glue::glue_collapse(invalid_facets, sep = ", ")
      }
   }
-  
-  c(filter_invalid, group_by_invalid)
-}
-
-#' sub-function to `check_fields()` for GBIF
-#' @noRd
-#' @keywords Internal
-check_fields_gbif_predicates <- function(.query){
-  
-  # set fields to check against
-  valid_fields <- .query[["metadata/fields"]]$id
-  valid_assertions <- .query[["metadata/assertions"]]$id
-  valid_any <- c(valid_fields, valid_assertions) |>
-    camel_to_snake_case() |>
-    toupper()
-
-  # extract fields
-  predicates <- .query |>
-    purrr::pluck("body", "filter") |>
-    unlist()
-  keys <- grepl(".key$", names(predicates))
-  fields <- predicates[keys]
-
-  # check invalid
-  filter_invalid <- NA
-  if (length(fields) > 0) {
-    if (!all(fields %in% valid_any)) {
-      invalid_fields <- fields[!(fields %in% valid_any)]
-      filter_invalid <- glue::glue_collapse(invalid_fields, sep = ", ")
-    }
-  }
-  c(filter_invalid, NA)
+  group_by_invalid
 }
 
 #' sub-function to `check_fields()` for living atlases
@@ -289,7 +267,7 @@ check_fields_la <- function(.query){
   
   # extract fields from filter & identify
   filter_invalid <- NA
-  if(is.null(.query$filter)){
+  if(is.null(.query$request$filter)){
     # note: above was previously: `exists("fq", where = queries)`
     # Error in as.environment(where) : using 'as.environment(NULL)' is defunct
     filters <- NULL
@@ -297,7 +275,7 @@ check_fields_la <- function(.query){
     # extract field names
     # note: `filter()` often concatenates field names with logical statements
     # hence `strsplit()` step here
-    filters <- .query$filter$variable |>
+    filters <- .query$request$filter$variable |>
       strsplit("\\||\\&") |>
       unlist() |>
       unique()

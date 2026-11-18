@@ -18,6 +18,36 @@ test_that("`galah_filter()` returns predicates for GBIF", {
                  structure(class = c("predicates_filter", "list")))
 })
 
+test_that("`filter()` errors on invalid names for GBIF counts", {
+  skip_galah()
+  galah_call() |>
+    filter(something == 2025) |>
+    count() |>
+    collapse() |>
+    skip_unavailable() |>
+    expect_error(label = "Can't use fields that don't exist")
+})
+
+test_that("`group_by()` errors on invalid names for GBIF counts", {
+  skip_galah()
+  galah_call() |>
+    filter(year == 2025) |>
+    group_by(something) |>
+    count() |>
+    collapse() |>
+    skip_unavailable() |>
+    expect_error(label = "Can't use fields that don't exist")
+})
+
+test_that("`filter()` errors on invalid names for GBIF occurrences", {
+  skip_galah()
+  galah_call() |>
+    filter(something == 2025) |>
+    collapse() |>
+    skip_unavailable() |>
+    expect_error(label = "Can't use fields that don't exist")
+})
+
 test_that("`filter()` handles a single entry for GBIF", {
   skip_galah()
   x <- galah_call() |>

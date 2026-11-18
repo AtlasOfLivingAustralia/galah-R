@@ -20,3 +20,12 @@ test_that("check_download_filename() works", {
   expect_true(grepl("something.zip$", x))
   unlink("temp")
 })
+
+test_that("Invalid fields are caught by `check`", {
+  galah_skip()
+  galah_call() |>
+    filter(contentType != "Environmental DNA") |>
+    count() |>
+    collapse() |>
+    expect_error(label = "Can't use fields that don't exist.")
+})

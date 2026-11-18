@@ -18,8 +18,8 @@ galah_config(email = "ala4r@ala.org.au", verbose = FALSE)
 ### What is 'data quality'?
 
 Databases containing biodiversity information - such as those that can be queried using 
-galah - contain millions of records supplied by hundreds of organisations, having been 
-collected over centuries. It is unsurprising, therefore, that they contain some errors.
+galah - contain millions of records collected over decades or centuries by thousands of 
+observers. It is unsurprising, therefore, that they contain some errors.
 In this context, two key questions for users of that data are:
 
 - How large a problem are those errors for their use case? and
@@ -67,8 +67,7 @@ Let's take a look at the most obvious one first:
 
 ```{r}
 search_all(profiles, "CSDM") |>
-  show_values() |>
-  gt::gt()
+  show_values()
 ```
 
 This is ok, but also needs unpacking. 
@@ -84,14 +83,11 @@ using thinning.
 The remaining points are more contentious. The choice to include records since 1970 is clearly 
 context-specific. More importantly, excluding points that are an outlier against any environmental
 layer is a high penalty, particularly for rare species. This is likely to falsely exclude records
-on a frequent basis.
-
-Let's look at the 'ALA general' approach:
+on a frequent basis. Now let's look at the 'ALA general' approach:
 
 ```{r}
  search_all(profiles, "ALA") |>
-  show_values() |>
-  gt::gt()
+  show_values()
 ```
 
 There is a lot here and we won't go through it all; but two points are potentially useful.
@@ -116,14 +112,62 @@ We'll try this out below.
 
 ### Bespoke filters using assertions
 
-For example purposes, let's say we wanted to implement assertions based on the new
-[TDWG Data Quality Standard](https://bdq.tdwg.org/draft/docs/list/bdquc/index.html#bdquc_SDM-Trees).
-How would we do that?
+Assertions are stored in what is called a 'multi-value field', meaning 
+a column where each cell can contain multiple strings. You remove them using the 'assertions'
+field name in filter:
+
+```{r}
+galah_call() |>
+  filter(assertions != "INVALID_SCIENTIFIC_NAME") |>
+  count() |>
+  collect()
+```
+
+Conversely, if you *only* want records with an invalid name, just use `==`:
+
+```{r}
+galah_call() |>
+  filter(assertions == "INVALID_SCIENTIFIC_NAME") |>
+  count() |>
+  collect()
+```
+
+Of course, we might want to filter out multiple assertions at once. Rather than 
+keep writing `assertions !=`, we can use `%in%` with a leading `!` (meaning `NOT`):
+
+```{r}
+excluded_assertions <- c("INVALID_SCIENTIFIC_NAME", 
+                         "COORDINATES_CENTRE_OF_STATEPROVINCE")
+galah_call() |>
+  filter(!(assertions %in% excluded_assertions)) |>
+  count() |>
+  collect()
+```
+
+It is important to note, however, that a lot of things we want to filter
+out are properties of the data itself, rather than results of checks the 
+organisation has run. For example, the following parameters all 
+involve fields (not assertions), but are included in the general filter:
+
+```{r}
+galah_call() |>
+  filter(basisOfRecord != "FOSSIL_SPECIMEN", # no fossils
+         contentTypes != "Environmental DNA",
+         decimalLatitude != 0,   # no points defaulting to zero-zero
+         decimalLongitude != 0,
+         occurrenceStatus != "ABSENT", # exclude observations of missingness
+         year > 1700,                   # remove very early records
+         -(degreeOfEstablishment %in% c("cultivated", "captive")),  # introduced species
+         -(identificationVerificationStatus %in% c("verification required", "needs_id")) # uncertain cit sci records
+        ) |>
+  count() |>
+  collect()
+```
 
 
 ### User assertions
 
-An alternative approach is to call 'user assertions'; flags placed by users on individual 
+A complementary approach is to call 'user assertions'; flags placed by users on individual 
 suspect records. You can find records flagged in this way as follows:
 
 ```{r}
@@ -167,7 +211,7 @@ R, see [Cleaning Biodiversity Data in R](https://cleaning-data-r.ala.org.au) by
 Dax Kellie et al. (2026, https://doi.org/10.54102/ala.77009).
 
 A critical limitation of data quality assertions and their derivatives is that they focus 
-exclusively on rule-based methods. There is no probabilistic element to them. Users seeking 
+exclusively on rule-based methods; there is no probabilistic component to them. Users seeking 
 to draw probabilistic inference from these data will need to consider carefully whether there
-are classes of outlier relevant to their use case, but utterly invisible to the systems in 
+are classes of outlier relevant to their use case, but which are invisible to the systems in 
 question.

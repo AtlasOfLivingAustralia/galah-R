@@ -97,7 +97,7 @@ collapse_run_checks <- function(.query,
         check_profiles(error_call)
     }
   # as do `unnest()`/`show_values()` functions
-  }else if(stringr::str_detect(.query$type, "-unnest$")){
+  }else if(.query$type == "fields-unnest"){
     .query <- .query |>
       check_identifiers(error_call) |>
       check_fields(error_call)

@@ -17,6 +17,24 @@ test_that("count() |> collect() works with no arguments", {
   expect_gt(x$count, 0)
 })
 
+test_that("count()` works with long `filter()` requests without failing", {
+  skip_galah()
+  x <- galah_call() |>
+    filter(basisOfRecord != "FOSSIL_SPECIMEN", # no fossils
+           contentTypes != "Environmental DNA",
+           decimalLatitude != 0,   # no points defaulting to zero-zero
+           decimalLongitude != 0,
+           occurrenceStatus != "ABSENT", # exclude observations of missingness
+           year > 1700,                   # remove very early records
+           -(degreeOfEstablishment %in% c("cultivated", "captive")),  # introduced species
+           -(identificationVerificationStatus %in% c("verification required", "needs_id")) # uncertain cit sci records
+          ) |>
+    count() |>
+    collect()
+  expect_tibble(x)
+  expect_gt(x$count, 0)
+})
+
 test_that("`identify()` reduces the number of records returned by `count()`", {
   skip_galah()
   counts_all <- galah_call() |>

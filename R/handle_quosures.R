@@ -248,6 +248,7 @@ parse_call <- function(x, ...){
          "is.na" = parse_is_na(x, ...),
          "between" = parse_between(x, ...),
          "%in%" = parse_in(x, ...),
+         "-" = parse_exclamation(x, ...),
          rlang::eval_tidy(x) # if unknown, parse
          # {filter_error()} # if unknown, error
   )
@@ -357,8 +358,8 @@ concatenate_logical_tibbles <- function(df,
   }
   tibble::tibble(
     variable = glue::glue_collapse(df$variable, sep = provided_string),
-    logical  = glue::glue_collapse(df$logical,  sep = provided_string),
-    value    = glue::glue_collapse(df$value,  sep = provided_string),
+    logical  = glue::glue_collapse(df$logical, sep = provided_string),
+    value    = glue::glue_collapse(df$value, sep = provided_string),
     query    = as.character(glue::glue("{query_text}")))
 }
 
@@ -451,16 +452,20 @@ parse_in <- function(x, excl){
   if(any(stringr::str_detect(value, "\\'"))) {
     value <- gsub("'", "\\\\'", value)
   }
-  # convert to formula
-  in_as_or_statements <- glue::glue_collapse(
-    glue::glue("{variable} {logical} '{value}'"), 
-    sep = " | "
-  ) |>
-    rlang::parse_expr()
-  # convert to quosure and pass to `parse_logical()`
-  rlang::as_quosure(x = in_as_or_statements, 
-                    env = rlang::quo_get_env(x)) |>
-    parse_logical()
+  query <- glue::glue("({variable}: {value})") |>
+    glue::glue_collapse(sep = " OR ")
+  # OR statements should always be wrapped in `()`
+  if(missing(excl)){
+    query <- glue::glue("({query})")
+  # negation should happen before brackets, not per statement
+  # BUT opening with `-` causes solr to fail, so we need *more* brackets
+  }else{
+    query <- glue::glue("-({query})")
+  }
+  tibble::tibble(variable = variable,
+                 logical = logical,
+                 value = glue::glue_collapse(value, sep = " | "),
+                 query = query)
 }
 
 #' Parse `call`s that contain `c()`

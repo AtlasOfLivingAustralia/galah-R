@@ -507,7 +507,7 @@ test_that("`atlas_counts()` fails for GBIF when `type = 'species'`", {
 })
 
 
-## glimpse() tests
+## glimpse() and slice() tests
 
 test_that("`glimpse()` works for GBIF", {
   skip_galah()
@@ -556,6 +556,23 @@ test_that("`glimpse()` works with `identify()` for GBIF", {
     which() |>
     length() |>
     expect_equal(3)
+})
+
+test_that("`slice_head()` works for occurrences for GBIF", {
+  skip_galah()
+  Sys.sleep(pause_time)
+  galah_config(atlas = "GBIF",
+              username = "atlasoflivingaustralia",
+              email = "ala4r@ala.org.au",
+              password = "galah-gbif-test-login")
+  x <- galah_call() |>
+    filter(year <= 1800) |>
+    slice_head(n = 5) |>
+    collect() |>
+    skip_unavailable()
+  expect_tibble(x)
+  expect_gte(ncol(x), 10)
+  expect_equal(nrow(x), 5)
 })
 
 # FIXME: add test for `select()` paired with `glimpse()`

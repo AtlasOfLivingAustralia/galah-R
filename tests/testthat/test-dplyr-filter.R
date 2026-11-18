@@ -334,6 +334,18 @@ test_that("`filter()` handles %in% with multiple filters", {
   expect_equal("((year:\"2020\") OR (year:\"2021\") OR (year:\"2022\"))", filters$query[[1]])
 })
 
+test_that("`filter()` handles negated `%in% `statements", {
+  skip_galah()
+  x <- request_data() |>
+    filter(-(degreeOfEstablishment %in% c("cultivated", "captive"))) |>
+    count()
+  filters <- x |>
+    purrr::pluck("filter")
+  expect_equal(nrow(filters), 1)
+  expect_equal(filters$query[[1]],
+               "-((degreeOfEstablishment: cultivated) OR (degreeOfEstablishment: captive))")
+})
+
 test_that("`filter()` parses fields correctly with is.na()", {
   skip_galah()
   expect_no_error(galah_call() |> 
