@@ -126,6 +126,18 @@ test_that("`atlas_occurrences()` accepts legacy `galah_` functions in pipe", {
   expect_equal(unique(occ$stateProvince), "New South Wales")
 })
 
+test_that("`atlas_occurrences()` accepts `slice_head()`", {
+  skip_galah()
+  x <- galah_call() |>
+    filter(year <= 1800) |>
+    slice_head(n = 5) |>
+    collect() |>
+    skip_unavailable()
+  expect_tibble(x)
+  expect_lte(ncol(x), 10)
+  expect_equal(nrow(x), 5)
+})
+
 test_that("`atlas_occurrences()`() and friends accept a file name", {
   skip_galah()
   # set up directory for testing purposes

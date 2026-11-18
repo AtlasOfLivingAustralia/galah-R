@@ -75,7 +75,12 @@ capture.data_request <- function(x,
          "occurrences-count" = capture_occurrences_count(x),
          "occurrences-describe" = capture_occurrences_describe(x),
          "occurrences-doi" = capture_occurrences_doi(x),
-         "occurrences-glimpse" = capture_occurrences_glimpse(x),
+         "occurrences-glimpse" = capture_occurrences_search(x,
+                                                            slice_n = 3,
+                                                            type = "data/occurrences-glimpse"),
+         "occurrences-slice" = capture_occurrences_search(x,
+                                                          slice_n = x$slice$slice_n,
+                                                          type = "data/occurrences-slice"),
          "species" = capture_species(x),
          "species-count" = capture_species_count(x),
          "events" = capture_events(x),
@@ -367,9 +372,7 @@ check_glimpse <- function(x){
 #' @keywords Internal
 #' @noRd
 check_slice_arrange <- function(x){
-  if(!stringr::str_detect(x$type, "-count")){
-    x
-  }else{
+  if(stringr::str_detect(x$type, "-count")){
     # first handle slice
     if(is.null(x$slice)){
       # limits to 10,000 rows
@@ -394,6 +397,13 @@ check_slice_arrange <- function(x){
     x$slice_arrange <- dplyr::bind_cols(slice, arrange)
     x$arrange <- NULL
     x$slice <- NULL
+    x
+  }else if(x$type == "occurrences"){
+    if(!is.null(x$slice)){
+      x$type <- "occurrences-slice"
+    }
+    x
+  }else{
     x
   }
 }

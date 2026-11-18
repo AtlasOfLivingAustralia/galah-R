@@ -123,23 +123,23 @@ collect_occurrences_doi <- function(.query,
   }
 }
 
-#' collect type `data/occurrences-glimpse`
+#' collect type `data/occurrences-glimpse` and `data/occurrences-slice`
 #' @noRd
 #' @keywords Internal
-collect_occurrences_glimpse <- function(.query, 
-                                        call = rlang::caller_env()){
+collect_occurrences_search <- function(.query, 
+                                       call = rlang::caller_env()){
   if(.query$atlas == "Global"){
-    collect_occurrences_glimpse_gbif(.query, call = call)
+    collect_occurrences_search_gbif(.query, call = call)
   }else{
-    collect_occurrences_glimpse_la(.query, call = call)
+    collect_occurrences_search_la(.query, call = call)
   }
 }
 
-#' collect type `data/occurrences-glimpse` for GBIF
+#' collect type `data/occurrences-glimpse` and `data/occurrences-slice` for GBIF
 #' @noRd
 #' @keywords Internal
-collect_occurrences_glimpse_gbif <- function(.query, 
-                                             call = rlang::caller_env()){
+collect_occurrences_search_gbif <- function(.query, 
+                                            call = rlang::caller_env()){
   result <- query_API(.query, error_call = call)
 
   # convert to tibble
@@ -150,48 +150,47 @@ collect_occurrences_glimpse_gbif <- function(.query,
     parse_select(.query)
   attr(df, "total_n") <- result$count
 
-   # assign new object for bespoke printing
-  if(tibble::is_tibble(df)){
-    structure(df, 
-              class = c("occurrences_glimpse", "tbl_df", "tbl", "data.frame")) 
-  }else{
-    df # not sure what use case this is, but probably NULL
+  # for `glimpse`, assign new object for bespoke printing
+  if(.query$type == "data/occurrences-glimpse"){
+    if(tibble::is_tibble(df)){
+      structure(df, 
+                class = c("occurrences_glimpse", "tbl_df", "tbl", "data.frame")) 
+    }else{
+      cli::cli_warn("Expected object of class `tibble`", call = call)
+      df # not sure what use case this is, but probably NULL
+    }
+  }else{ # i.e. for type `data/occurrences-slice`
+    df
   }
 }
 
-#' collect type `data/occurrences-glimpse` for living atlases
+#' collect type `data/occurrences-glimpse` and `data/occurrences-slice` for living atlases
 #' @noRd
 #' @keywords Internal
-collect_occurrences_glimpse_la <- function(.query, 
-                                           call = rlang::caller_env()){
+collect_occurrences_search_la <- function(.query, 
+                                          call = rlang::caller_env()){
   result <- query_API(.query, error_call = call)
 
   # pull required info from API into a tibble
   df <- result |>
     purrr::pluck("occurrences") |>
     purrr::map(build_tibble_from_nested_list) |>
-    dplyr::bind_rows()
-
-   ## OLD CODE
-   ## non-standard fields are nested within `otherProperties`
-   ## extract these
-   # purrr::map(\(a){
-   #   if(any(names(a) == "otherProperties")){
-   #     c(a[names(a) != "otherProperties"],
-   #       a[["otherProperties"]])
-   #   }else{
-   #     a
-   #   }
-   # })
+    dplyr::bind_rows() |>
+    parse_select(.query)
   
   attr(df, "total_n") <- result$totalRecords
 
-  # assign new object for bespoke printing
-  if(tibble::is_tibble(df)){
-    structure(df, 
-              class = c("occurrences_glimpse", "tbl_df", "tbl", "data.frame")) 
-  }else{
-    df # not sure what use case this is, but probably NULL
+  # for `glimpse`, assign new object for bespoke printing
+  if(.query$type == "data/occurrences-glimpse"){
+    if(tibble::is_tibble(df)){
+      structure(df, 
+                class = c("occurrences_glimpse", "tbl_df", "tbl", "data.frame")) 
+    }else{
+      cli::cli_warn("Expected object of class `tibble`", call = call)
+      df # not sure what use case this is, but probably NULL
+    }
+  }else{ # i.e. for type `data/occurrences-slice`
+    df
   }
 }
 

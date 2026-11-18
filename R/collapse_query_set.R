@@ -39,6 +39,12 @@ collapse_query_set <- function(x,
            }else{
              x
            }},
+         "data/occurrences-slice" = {
+           if(x$atlas == "Global"){
+            collapse_occurrences_count_gbif(x, limit = x$request$slice$slice_n)
+           }else{
+             x
+          }},
          "data/species" = collapse_occurrences(x), # optimised for GBIF
          "data/species-count" = collapse_species_count(x),
          # "-unnest" functions require some checks

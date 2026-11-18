@@ -143,18 +143,21 @@ capture_occurrences_doi <- function(.query,
   as_query()
 }
 
-#' Internal function to convert `data_request` with `type = "occurrences-glimpse"` to a `query`
+#' Internal function to convert `data_request` with `type = "occurrences-glimpse"` 
+#' or `occurrences-slice` to a `query`
 #' @noRd
 #' @keywords Internal
-capture_occurrences_glimpse <- function(.query, call = call){
-
+capture_occurrences_search <- function(.query,
+                                       slice_n = 3,
+                                       type = "data/occurrences-glimpse",
+                                       call = rlang::caller_env()){
   if(.query$atlas == "Global"){
     result <- capture_occurrences_count(.query)
-    result$type <- "data/occurrences-glimpse"
-    result$body$limit <- 3
+    result$type <- type
+    result$body$limit <- slice_n
     as_prequery(result)
   }else{
-    .query$type <- "data/occurrences-glimpse"
+    .query$type <- type
     result <- capture_occurrences_la(.query)
     url <- httr2::url_parse(result$url)
 
@@ -165,9 +168,9 @@ capture_occurrences_glimpse <- function(.query, call = call){
       url_lookup(error_call = call) |>
       httr2::url_parse() |>
       purrr::pluck("path") 
-    url$query$pageSize <- 3 # add a pageSize arg
+    url$query$pageSize <- slice_n # add a pageSize arg
     result$url <- httr2::url_build(url) # rebuild
-    result$type <- "data/occurrences-glimpse"
+    result$type <- type
 
     # return
     as_prequery(result)

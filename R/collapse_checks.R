@@ -47,13 +47,20 @@ collapse_run_checks <- function(.query,
   
   # "data/" functions require pre-processing of metadata,
   if(stringr::str_detect(.query$type, "^data/") & 
-    !(.query$type %in% c("data/occurrences-doi", "data/occurrences-describe"))){
+    !(.query$type %in%
+      c("data/occurrences-doi",
+        "data/occurrences-describe"))
+  ){
     # taxon concept ID must always be evaluated
     .query <- check_identifiers(.query, error_call) 
 
     # check_select() is specifically for parsing fields into urls,
     # should only be called for occurrences
-    if(.query$type %in% c("data/occurrences", "data/occurrences-glimpse")){
+    if(.query$type %in% 
+       c("data/occurrences",
+         "data/occurrences-glimpse",
+         "data/occurrences-slice")
+    ){
       .query <- check_select(.query, error_call)
     }
 
@@ -63,8 +70,11 @@ collapse_run_checks <- function(.query,
       # probably best to move this to check_select_GBIF or similar
     }
 
-    # after checking, for type = "glimpse", we need to rename the fields query
-    if(.query$type == "data/occurrences-glimpse"){
+    # after checking, for type = "glimpse" or "slice", we need to rename the fields query
+    if(.query$type %in% 
+       c("data/occurrences-glimpse",
+         "data/occurrences-slice")
+    ){
       url <- httr2::url_parse(.query$url)
       query_names <- names(url$query)
       if(any(query_names == "fields")){
