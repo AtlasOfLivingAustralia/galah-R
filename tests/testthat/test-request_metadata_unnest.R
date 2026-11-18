@@ -41,6 +41,7 @@ test_that("passing a correct `type` but not `value` errors at `collapse()`", {
 })
 
 test_that("supplying `filter()` without `unnest()` works", {
+  skip_galah()
   x <- request_metadata() |>
     filter(field == "basisOfRecord") |> 
     collect()
@@ -50,6 +51,7 @@ test_that("supplying `filter()` without `unnest()` works", {
 })
 
 test_that("correctly supplied `filter()` and `unnest()` returns values", { 
+  skip_galah()
   x <- request_metadata() |> 
     filter(field == "basisOfRecord") |>
     unnest() |> 

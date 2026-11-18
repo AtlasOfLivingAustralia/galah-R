@@ -322,7 +322,7 @@ test_that("`filter()` handles %in%", {
     filter(year %in% list_of_years) |>
     purrr::pluck("filter")
   expect_equal(nrow(filters), 1)
-  expect_equal("((year:\"2020\") OR (year:\"2021\") OR (year:\"2022\"))", filters$query[[1]])
+  expect_equal("(((year:\"2020\") OR (year:\"2021\") OR (year:\"2022\")))", filters$query[[1]])
 })
 
 test_that("`filter()` handles %in% with multiple filters", {
@@ -331,7 +331,7 @@ test_that("`filter()` handles %in% with multiple filters", {
     filter(year %in% list_of_years, cl22 == "Tasmania") |>
     purrr::pluck("filter")
   expect_equal(nrow(filters), 2)
-  expect_equal("((year:\"2020\") OR (year:\"2021\") OR (year:\"2022\"))", filters$query[[1]])
+  expect_equal("(((year:\"2020\") OR (year:\"2021\") OR (year:\"2022\")))", filters$query[[1]])
 })
 
 test_that("`filter()` handles negated `%in% `statements", {
@@ -364,21 +364,21 @@ test_that("`filter()` parses fields correctly with is.na()", {
                     collect()
                   )
   # misspelled or wrong fields
-  expect_error(galah_call() |>
-                 filter(is.na(decimalLongitde)) |>
-                 count() |>
-                 collect()
-               )
-  expect_error(galah_call() |>
-                 filter(year == 2001, is.na(decimalLongitde)) |>
-                 count() |>
-                 collect()
-               )
-  expect_error(galah_call() |>
-                 filter(is.na(bork) | coordinatencertaintyInMeters <= 1000) |>
-                 count() |>
-                 collect()
-               )
+  galah_call() |>
+    filter(is.na(decimalLongitde)) |>
+    count() |>
+    collect() |>
+    expect_error(label = "Can't use fields that don't exist")
+  galah_call() |>
+    filter(year == 2001, is.na(decimalLongitde)) |>
+    count() |>
+    collect() |>
+    expect_error(label = "Can't use fields that don't exist")
+  galah_call() |>
+    filter(is.na(bork) | coordinatencertaintyInMeters <= 1000) |>
+    count() |>
+    collect() |>
+    expect_error(label = "Can't use fields that don't exist")
 })
 
 test_that("`filter()` handles apostrophes (') correctly", {
@@ -391,6 +391,7 @@ test_that("`filter()` handles apostrophes (') correctly", {
     count()
   filters <- purrr::pluck(query, "filter")
   result <- collect(query)
+  expect_tibble()
   expect_equal(nrow(result), 1) # returns result
   expect_gte(result$count[1], 1)
   expect_match(filters$query, "\\(datasetName:\\\"Australia's Virtual Herbarium\\\"")
@@ -415,7 +416,7 @@ test_that("`filter()` builds correct query with `!`, `%in%`, `c()` and `identify
     identify("Crinia signifera") |>
     filter(!cl1048 %in% ibra_subset) |>
     count()
-  expect_equal(query$filter$query, c("-(cl1048:\"Brigalow Belt North\") OR -(cl1048:\"Brigalow Belt South\") OR -(cl1048:\"Central Mackay Coast\")"))
+  expect_equal(query$filter$query, c("-((cl1048:\"Brigalow Belt North\") OR (cl1048:\"Brigalow Belt South\") OR (cl1048:\"Central Mackay Coast\"))"))
 })
 
 test_that("`filter()` accepts {{}} on lhs of formula", {

@@ -452,7 +452,7 @@ parse_in <- function(x, excl){
   if(any(stringr::str_detect(value, "\\'"))) {
     value <- gsub("'", "\\\\'", value)
   }
-  query <- glue::glue("({variable}: {value})") |>
+  query <- glue::glue("({variable}:\"{value}\")") |>
     glue::glue_collapse(sep = " OR ")
   # OR statements should always be wrapped in `()`
   if(missing(excl)){

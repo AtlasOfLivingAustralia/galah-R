@@ -1,5 +1,6 @@
 
 test_that("`query_API()` fails nicely for wrong base url (curl error)", {
+  skip_galah()
   # start with a valid call
   x <- galah_call() |>
     filter(year == 2020) |>
@@ -15,6 +16,7 @@ test_that("`query_API()` fails nicely for wrong base url (curl error)", {
 })
 
 test_that("`query_API()` fails nicely for wrong extention (code 403)", {
+  skip_galah()
   # start with a valid call
   x <- galah_call() |>
     filter(year == 2020) |>

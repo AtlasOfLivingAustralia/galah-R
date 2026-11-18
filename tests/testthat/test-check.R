@@ -22,7 +22,7 @@ test_that("check_download_filename() works", {
 })
 
 test_that("Invalid fields are caught by `check`", {
-  galah_skip()
+  skip_galah()
   galah_call() |>
     filter(contentType != "Environmental DNA") |>
     count() |>
