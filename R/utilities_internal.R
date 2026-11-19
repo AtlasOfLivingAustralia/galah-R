@@ -227,7 +227,7 @@ lookup_rename_columns <- function(type){
                     "taxon_concept_id" = "usage_key",
                     "taxon_concept_id" = "guid",
                     "taxon_concept_id" = "reference_id",
-                    "taxon_key" = "key",
+                    "taxon_concept_id" = "key",
                     "genus" = "genus_name",
                     "family" = "family_name",
                     "order" = "order_name",

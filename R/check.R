@@ -107,9 +107,11 @@ check_files_filter <- function(x,
 #' @keywords Internal
 check_fields <- function(.query,
                          error_call = rlang::caller_env()) {
+
   if(potions::pour("package", "run_checks")){
     if(.query$atlas == "Global" & 
-      stringr::str_detect(.query$type, "^data") # this line is intended 
+      .query$type != "metadata/taxa-unnest"
+      # stringr::str_detect(.query$type, "^data") # this line is intended 
       # to prevent checks on metadata/taxa-unnest, but may be too general
     ){
       if(.query$type == "data/occurrences"){
@@ -272,13 +274,17 @@ check_fields_la <- function(.query){
     # Error in as.environment(where) : using 'as.environment(NULL)' is defunct
     filters <- NULL
   }else{
-    # extract field names
-    # note: `filter()` often concatenates field names with logical statements
-    # hence `strsplit()` step here
-    filters <- .query$request$filter$variable |>
-      strsplit("\\||\\&") |>
-      unlist() |>
-      unique()
+    if(.query$type == "metadata/fields-unnest"){
+      filters <- .query$request$filter$value[1]
+    }else{
+      # extract field names
+      # note: `filter()` often concatenates field names with logical statements
+      # hence `strsplit()` step here
+      filters <- .query$request$filter$variable |>
+        strsplit("\\||\\&") |>
+        unlist() |>
+        unique()
+    } 
     if (length(filters) > 0) {
       if (!all(filters %in% valid_any)) {
         invalid_fields <- filters[!(filters %in% valid_any)]
@@ -399,20 +405,25 @@ check_identifiers_la <- function(.query,
     }
   }else{
     # note: `metadata/taxa-unnest` parses here
-    if(grepl("%60TAXON_PLACEHOLDER%60", .query$url[1])){
+    if(stringr::str_detect(.query$url[1], "%60TAXON_PLACEHOLDER%60")){
       metadata_lookup <- grepl("^metadata/taxa", names(.query))
       if(any(metadata_lookup)){ 
         identifiers <- .query[[which(metadata_lookup)[1]]]
 
         # End query early when no taxonomic search terms were matched
-        if (nrow(identifiers) == 0 | !("taxon_concept_id" %in% colnames(identifiers))) {
+        taxon_colname <- ifelse(.query$atlas == "Global",
+                                "taxon_key",
+                                "taxon_concept_id")
+        if (nrow(identifiers) == 0 | !(taxon_colname %in% colnames(identifiers))) {
           cli::cli_abort("No valid taxonomic identifiers detected.",
                          call = error_call)
         }
 
-        taxa_id <- utils::URLencode(identifiers$taxon_concept_id[1],
+        taxa_id <- utils::URLencode(identifiers[[taxon_colname]][1],
                                     reserved = TRUE)
-        .query$url[1] <- sub("%60TAXON_PLACEHOLDER%60", taxa_id, .query$url[1])
+        .query$url[1] <- stringr::str_replace(.query$url[1],
+                                              "%60TAXON_PLACEHOLDER%60",
+                                              taxa_id)
       }else{
         cli::cli_abort("The query has a taxonomic placeholder, but no taxon search has been run.",
                        call = error_call)

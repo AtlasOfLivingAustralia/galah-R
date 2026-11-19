@@ -3,10 +3,11 @@
 #' @noRd
 collect_species <- function(.query,
                             file = NULL,
+                            wait = TRUE,
                             call = rlang::caller_env()){
   if(.query$atlas == "Global"){
     collect_occurrences(.query,
-                        wait = TRUE,
+                        wait = wait,
                         call = call)
   }else{
     .query$file <- check_download_filename(file, ext = "csv")

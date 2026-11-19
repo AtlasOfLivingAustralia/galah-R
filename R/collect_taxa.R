@@ -114,12 +114,27 @@ collect_taxa_gbif <- function(.query,
   if (galah_config()$package$verbose) {
     check_search_terms(result, query = .query)
   }
-  
+
+  # amend and return result
   result |>
     dplyr::rename_with(camel_to_snake_case) |>
+    clean_gbif_taxon_key(.query) |>
     parse_rename(.query) |>
     parse_select(.query)
 }
+
+#' manual rename of this one column
+#' important as `parse_rename()` interferes with other atlases
+#' @noRd
+#' @keywords Internal
+clean_gbif_taxon_key <- function(df, .query){
+  if(.query$atlas == "Global"){
+    dplyr::rename(df, taxon_key = key)
+  }else{
+    df
+  }
+}
+
 
 #' Internal function to do cleaning for GBIF
 #' @param result a list from a taxonomic web service

@@ -85,7 +85,18 @@ test_that("`slice_head()` works with `count(country)` for GBIF", {
   expect_equal(nrow(x_5), 5)
 })
 
-test_that("`show_values()` fails for unsearchable GBIF fields", {
+test_that("`show_values()` fails for fake GBIF fields", {
+  skip_galah()
+  galah_config(run_checks = TRUE)
+  x <- request_metadata(from = "GBIF") |>
+    filter(field == "something") |>
+    unnest() |>
+    collapse() |>
+    expect_error()
+  galah_config(run_checks = FALSE)
+})
+
+test_that("`show_values()` fails for real but unsearchable GBIF fields", {
   skip_galah()
   galah_config(run_checks = TRUE)
   x <- request_metadata(from = "GBIF") |>
@@ -196,7 +207,7 @@ test_that("`search_all(taxa)` works using a muti-row tibble for GBIF", {
   expect_equal(nrow(x), 2)
   # check that no taxon concept IDs consist solely of numbers (i.e. no letters)
   # Since update to CoL that should be impossible
-  grepl("^[[:digit:]]+$", x$taxon_concept_id) |>
+  grepl("^[[:digit:]]+$", x$taxon_key) |>
     any() |>
     expect_false()
 })
@@ -704,8 +715,8 @@ test_that("`collect()` works for GBIF with `type = 'occurrences' or 'occurrences
   expect_true(y$type == "data/occurrences")  
   expect_true(any(names(y) == "status"))
   # collect
-  Sys.sleep(pause_time)
-  z <- collect(y, wait = TRUE) |>
+  Sys.sleep(pause_time * 5)
+  z <- collect(y, wait = FALSE) |>
     skip_unavailable()
   expect_tibble(z)
   expect_gt(nrow(z), 0)

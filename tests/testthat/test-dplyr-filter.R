@@ -343,7 +343,7 @@ test_that("`filter()` handles negated `%in% `statements", {
     purrr::pluck("filter")
   expect_equal(nrow(filters), 1)
   expect_equal(filters$query[[1]],
-               "-((degreeOfEstablishment: cultivated) OR (degreeOfEstablishment: captive))")
+               "-((degreeOfEstablishment:\"cultivated\") OR (degreeOfEstablishment:\"captive\"))")
 })
 
 test_that("`filter()` parses fields correctly with is.na()", {
@@ -386,15 +386,15 @@ test_that("`filter()` handles apostrophes (') correctly", {
   names <- c("Australia's Virtual Herbarium", 
              "iNaturalist observations",
              "iNaturalist research-grade observations")
-  query <- request_data() |>
+  result <- request_data() |>
     filter(datasetName %in% names) |>
-    count()
-  filters <- purrr::pluck(query, "filter")
-  result <- collect(query)
-  expect_tibble()
-  expect_equal(nrow(result), 1) # returns result
+    group_by(datasetName) |>
+    count() |>
+    collect()
+  expect_tibble(result)
+  expect_equal(nrow(result), 3) # returns result
   expect_gte(result$count[1], 1)
-  expect_match(filters$query, "\\(datasetName:\\\"Australia's Virtual Herbarium\\\"")
+  expect_true(all(result$datasetName %in% names))
 })
 
 test_that("`filter()` handles multiple values with brackets correctly", {

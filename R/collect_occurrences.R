@@ -46,7 +46,6 @@ collect_occurrences_default <- function(.query,
                                         wait,
                                         file,
                                         call = rlang::caller_env()){
-  
   # check queue
   download_response <- check_queue(.query,
                                    wait = wait,

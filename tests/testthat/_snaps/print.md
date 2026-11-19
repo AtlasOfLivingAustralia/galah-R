@@ -97,9 +97,9 @@
       * url: https://api.ala.org.au/namematching/api/search?q=Crinia
       * select: ~tidyselect::any_of(~c("search_term", "scientific_name",
       "scientific_name_authorship", "taxon_concept_id", "taxon_concept_lsid",
-      "authority", "key", "usage_key", "guid", "canonical_name", "status", "rank",
-      "match_type", "confidence", "time_taken", "vernacular_name", "issues",
-      "kingdom", "phylum", "class", "order", "family", "genus", "species"))
+      "authority", "key", "usage_key", "taxon_key", "guid", "canonical_name",
+      "status", "rank", "match_type", "confidence", "time_taken", "vernacular_name",
+      "issues", "kingdom", "phylum", "class", "order", "family", "genus", "species"))
 
 # Object of class `query` containing `slice_head()` formats correctly
 

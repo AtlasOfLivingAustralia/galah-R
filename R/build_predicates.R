@@ -66,7 +66,7 @@ check_predicate_wrapping <- function(x){
 #' @keywords Internal
 parse_predicates_identify <- function(x){
   if(!is.null(x)){
-    result <- purrr::map(x$taxon_concept_id,
+    result <- purrr::map(x$taxon_key,
                \(a){list(type = "equals",
                          key = "TAXON_KEY",
                          value = a,

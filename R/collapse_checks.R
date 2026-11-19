@@ -44,7 +44,6 @@ collapse_build_checks <- function(.query){
 #' @keywords Internal
 collapse_run_checks <- function(.query,
                                 error_call = rlang::caller_env()){
-  
   # "data/" functions require pre-processing of metadata,
   if(stringr::str_detect(.query$type, "^data/") & 
     !(.query$type %in%
@@ -64,10 +63,12 @@ collapse_run_checks <- function(.query,
       .query <- check_select(.query, error_call)
     }
 
-    if(.query$type %in% c("data/species") & .query$atlas == "Global"){ # NOTE: require this for occurrences too? Do LA species queries require it?
+    # Exception for GBIF species queries
+    # Q: require this for occurrences too? Do LA species queries require it?
+    if(.query$type %in% c("data/species") & 
+       .query$atlas == "Global"){
       parse_select_occurrences(.query, 
-                               build_select_df_from_query(.query)) # OK this works, just need to update select() now
-      # probably best to move this to check_select_GBIF or similar
+                               build_select_df_from_query(.query))
     }
 
     # after checking, for type = "glimpse" or "slice", we need to rename the fields query
@@ -97,16 +98,18 @@ collapse_run_checks <- function(.query,
         check_profiles(error_call)
     }
   # as do `unnest()`/`show_values()` functions
-  }else if(.query$type == "fields-unnest"){
+  }else if(.query$type == "metadata/fields-unnest"){
     .query <- .query |>
-      check_identifiers(error_call) |>
       check_fields(error_call)
-  }
-
-  # add an exception to retain to user-supplied taxon for child taxa queries
-  # this is useful because it allows us to retain parent-child relations 
-  # in the resulting tibble
-  if(.query$type == "metadata/taxa-unnest"){
+  }else if(.query$type == "metadata/taxa"){
+    .query <- .query |>
+      check_identifiers(error_call)
+  }else if(.query$type == "metadata/taxa-unnest"){
+    .query <- .query |>
+      check_identifiers(error_call)
+    # add an exception to retain to user-supplied taxon for child taxa queries
+    # this is useful because it allows us to retain parent-child relations 
+    # in the resulting tibble
     supplied_taxon <- names(.query) == "metadata/taxa-single"
     if(any(supplied_taxon)){
       names(.query)[supplied_taxon] <- "supplied_taxon"

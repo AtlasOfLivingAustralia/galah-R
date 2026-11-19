@@ -3,7 +3,8 @@ quiet_config <- purrr::quietly(galah_config)
 gbif_config <- quiet_config(atlas = "GBIF",
                   username = "atlasoflivingaustralia",
                   email = "ala4r@ala.org.au",
-                  password = "galah-gbif-test-login")
+                  password = "galah-gbif-test-login",
+                  run_checks = TRUE)
 
 test_that("`galah_filter()` returns predicates for GBIF", {
   x <- galah_filter(year == 2024) 
@@ -24,7 +25,6 @@ test_that("`filter()` errors on invalid names for GBIF counts", {
     filter(something == 2025) |>
     count() |>
     collapse() |>
-    skip_unavailable() |>
     expect_error(label = "Can't use fields that don't exist")
 })
 
@@ -35,7 +35,6 @@ test_that("`group_by()` errors on invalid names for GBIF counts", {
     group_by(something) |>
     count() |>
     collapse() |>
-    skip_unavailable() |>
     expect_error(label = "Can't use fields that don't exist")
 })
 
@@ -44,7 +43,6 @@ test_that("`filter()` errors on invalid names for GBIF occurrences", {
   galah_call() |>
     filter(something == 2025) |>
     collapse() |>
-    skip_unavailable() |>
     expect_error(label = "Can't use fields that don't exist")
 })
 
