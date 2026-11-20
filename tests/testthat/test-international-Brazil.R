@@ -219,7 +219,7 @@ test_that("`atlas_media()` works for Brazil", {
   expect_tibble(x)
   expect_gte(nrow(x), 1)
   expect_equal(colnames(x)[1:2],
-               c("media_id", "recordID"))
+               c("media_id", "media_type"))
   # download a subset
    quiet_media <- function(...){
     x <- purrr::quietly(collect_media)

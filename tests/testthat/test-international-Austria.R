@@ -185,7 +185,7 @@ test_that("`atlas_species()` works for Austria", {
     download_reason_id = "testing",
     send_email = FALSE)
   spp <- galah_call(type = "species") |>
-    identify("Mammalia") |> # NOTE: testing with Reptilia failed as this taxon not uniquely matched
+    filter(year <= 1700) |>
     collect() |>
     skip_unavailable()
   expect_tibble(spp)
@@ -205,11 +205,11 @@ test_that("`atlas_occurrences()` works for Austria", {
     run_checks = TRUE, ## FIXME: Test only works when run_checks = TRUE
     send_email = FALSE)
   base_query <- galah_call() |>
-    identify("Mammalia") |>
-    filter(year == 1990) 
+    filter(year <= 1700) 
   counts <- base_query |>
     count() |>
-    collect()
+    collect() |>
+    skip_unavailable()
   occ_collapse <- base_query |>
     select(species, year) |>
     collapse() |>

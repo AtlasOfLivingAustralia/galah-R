@@ -174,8 +174,7 @@ collect_occurrences_search_la <- function(.query,
   df <- result |>
     purrr::pluck("occurrences") |>
     purrr::map(build_tibble_from_nested_list) |>
-    dplyr::bind_rows() |>
-    parse_select(.query)
+    dplyr::bind_rows()
   
   attr(df, "total_n") <- result$totalRecords
 

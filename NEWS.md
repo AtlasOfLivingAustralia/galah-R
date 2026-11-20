@@ -9,7 +9,9 @@
 ### Changes to supported organisations (#314)
 * SBDI (Sweden; https://www.biodiversitydata.se) have begun trialling a hosted portal architecture which doesn't provide org-specific APIs. Data from Sweden can still be queried from `galah` via GBIF.
 * OpenObs (France; https://openobs.mnhn.fr) have not had functional APIs since August 2025 and have been removed from `galah`.
-* Guatemala (https://snib.conap.gob.gt) are updating their infrastructure. We have updated the APIs but performance may be varible.
+* It appears that all living atlases now use 'pipelines' infrastructure, with the result that they should
+all use consistent field names for the first time. We have updated code for Austria, Brazil, Guatemala and
+Portugal to reflect this change. Some upgrades are still in progress, so performance may vary.
 
 ### Changes to options & behaviour
 * Support for `slice_head()` in occurrence queries (#258).

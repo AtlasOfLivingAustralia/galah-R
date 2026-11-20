@@ -46,8 +46,13 @@ test_that("atlas_citation works on a real download", {
     quiet_collect()
   text_out <- atlas_citation(x) |>
     suppressMessages()
+  # test formatting is broadly correct
   grepl("^The citation for this dataset is:", text_out) |>
     expect_true()
   grepl("Please consider citing R & galah", text_out) |>
+    expect_true()
+  # test that reference to galah is the current version
+  galah_version <- utils::packageDescription("galah")[["Version"]]
+  grepl(galah_version, text_out) |>
     expect_true()
 })

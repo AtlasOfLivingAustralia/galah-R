@@ -392,34 +392,7 @@ default_columns <- function(atlas = NULL) {
   if(is.null(atlas)){
     atlas <- potions::pour("atlas", "region", .pkg = "galah")
   }
-  if(atlas %in% c("Austria", 
-                  "Brazil", 
-                  "Portugal")){
-    c("id",
-      "taxon_name",
-      "taxon_concept_lsid",
-      "latitude",
-      "longitude",
-      "occurrence_date",
-      "basis_of_record",
-      "occurrence_status",
-      "data_resource_uid")
-  }else if(atlas %in% c("Australia",
-                        "Flanders",
-                        "Guatemala",
-                        "Kew",
-                        "Spain",
-                        "United Kingdom")){
-    c("recordID", # note this requires that the ALA name (`id`) be corrected
-      "scientificName",
-      "taxonConceptID",
-      "decimalLatitude",
-      "decimalLongitude",
-      "eventDate",
-      "basisOfRecord",
-      "occurrenceStatus",
-      "dataResourceName")
-  }else if(atlas == "Global"){
+if(atlas == "Global"){
     c("occurrenceId",
       "scientificName",
       "taxonConceptID",
@@ -430,7 +403,15 @@ default_columns <- function(atlas = NULL) {
       "occurrenceStatus",
       "datasetName")
   }else{
-    cli::cli_abort("Unknown `atlas`")
+    c("recordID", # note this requires that the ALA name (`id`) be corrected
+      "scientificName",
+      "taxonConceptID",
+      "decimalLatitude",
+      "decimalLongitude",
+      "eventDate",
+      "basisOfRecord",
+      "occurrenceStatus",
+      "dataResourceName")
   }
 }
 
@@ -440,20 +421,10 @@ image_fields <- function(atlas = NULL) {
   if(is.null(atlas)){
     atlas <- potions::pour("atlas", "region", .pkg = "galah")
   }
-  if(atlas %in% c("Austria", 
-                  "Brazil", 
-                  "Guatemala", 
-                  "Portugal")){
-    "all_image_url"
-  }else if(atlas %in% c("Australia",
-                        "Flanders",
-                        "Spain",
-                        "United Kingdom")){
-    c("multimedia", "images", "sounds", "videos")
-  }else if(atlas %in% c("Kew")){
+  if(atlas %in% c("Kew")){
     c("multimedia", "images")
   }else{
-    cli::cli_abort("Unknown `atlas`")
+    c("multimedia", "images", "sounds", "videos")
   }
 }
 
@@ -467,15 +438,15 @@ image_filters <- function(present_fields,
     atlas <- potions::pour("atlas", "region", .pkg = "galah")
   }
   switch(atlas,
-         "Austria" = "(all_image_url:*)",
+         "Austria" = "(images:*)",
          "Australia" = glue::glue("({present_fields}:*)"),
-         "Brazil" = "(all_image_url:*)",
+         "Brazil" = "(images:*)",
          "Flanders" = "(images:*)",
-         "Guatemala" = "(all_image_url:*)",
+         "Guatemala" = "(images:*)",
          "Kew" =  "(images:*)",
-         "Portugal" = "(all_image_url:*)",
+         "Portugal" = "(images:*)",
          "Spain" = "(multimedia:*)",
-         "United Kingdom" = "(all_image_url:*)",
+         "United Kingdom" = "(images:*)",
          cli::cli_abort("`atlas_media()` is not supported for atlas = {atlas}",
                         call = error_call)
   )
@@ -484,16 +455,10 @@ image_filters <- function(present_fields,
 #' @noRd
 #' @keywords Internal
 species_facets <- function(.query){
-  if(.query$atlas %in% 
-     c("Australia",
-       "Flanders",
-       "Guatemala",
-       "Kew",
-       "Spain",
-       "United Kingdom")) {
-    "speciesID"
-  }else{
+  if(.query$atlas %in% c("Austria")){
     "species_guid"
+  }else{
+    "speciesID"
   }
 }
 

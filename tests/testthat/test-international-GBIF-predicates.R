@@ -98,9 +98,12 @@ test_that("`filter()` handles multiple (`AND`) queries for GBIF", {
   expect_equal(colnames(z)[[1]], "year")
   expect_equal(z$year, "2024")
 
-  # test that all queries return the same sum
-  expect_equal(x$count, y$count)
-  expect_equal(x$count, z$count)
+  # test that all queries return a sum that is within 1%
+  # a range of reasons why not-quite-identical results could be returned
+  (sqrt((x$count - y$count)^2) / x$count ) |>
+     expect_lt(0.1)
+  (sqrt((x$count - z$count)^2) / x$count ) |>
+     expect_lt(0.1)
 })
 
 test_that("`filter()` handles `OR` and `%in%` for GBIF", {

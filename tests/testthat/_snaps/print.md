@@ -151,12 +151,12 @@
       User
       x authentication
       username [Not Provided]
-      email random_email_for_testing@email.com
+      email
       password [Not Provided]
-      download_reason_id 10
+      download_reason_id 4
       
       Package
-      x verbose
+      v verbose
       v run_checks
       x send_email
       v caching

@@ -108,15 +108,10 @@ test_that("object of class `computed_query` formats correctly", {
 # class `galah_config`
 
 test_that("`galah_config()` formats correctly", {
-  galah_config(atlas = "ALA",
-               email = "random_email_for_testing@email.com",
-               directory = "something",
-               verbose = FALSE,
-               caching = TRUE,
-               run_checks = TRUE,
-               download_reason_id = 10)
+  potions::brew(default_config(), .pkg = "galah") # reset to defaults
+  galah_config(directory = "something") # otherwise `directory` is random and changes between runs
   galah_config() |>
     expect_snapshot()
-  galah_config(directory = tempdir(check = TRUE))
-  unlink("something", recursive = TRUE)
+  galah_config(directory = tempdir(check = TRUE)) # reset to temporary directory
+  unlink("something", recursive = TRUE) # remove testing directory
 })

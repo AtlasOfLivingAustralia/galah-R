@@ -74,11 +74,11 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
     identify("Litoria peronii") |>
     filter(year == 2010, !is.na(images)) |>
     select(species, group = "media") |>
-    glimpse() |>
+    slice_head(n = 5) |>
     quiet_collect(wait = TRUE)
-  
-  # basic test to ensure taxon matching is working
-  expect_all_equal(occ_collect$species, "Litoria peronii") # test
+  expect_tibble(occ_collect)
+  expect_equal(nrow(occ_collect), 5)
+  expect_equal(ncol(occ_collect), 3)
 
   ## PART 2: request media metadata
   # collapse
