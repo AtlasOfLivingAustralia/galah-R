@@ -18,7 +18,7 @@ galah_config(email = "ala4r@ala.org.au", verbose = FALSE)
 ### What is 'data quality'?
 
 Databases containing biodiversity information - such as those that can be queried using 
-galah - contain millions of records collected over decades or centuries by thousands of 
+`galah` - contain millions of records collected over decades or centuries by thousands of 
 observers. It is unsurprising, therefore, that they contain some errors.
 In this context, two key questions for users of that data are:
 
@@ -38,14 +38,12 @@ The easiest thing to do with these is simply download them with your chosen reco
 do your own checking on the data. This can be achived via `select()`:
 
 ```{r}
-df <- galah_call() |>
+galah_call() |>
   identify("Eolophus roseicapilla") |>
   filter(year >= 2020,
          basisOfRecord == "PRESERVED_SPECIMEN") |>
   select(group = c("basic", "assertions")) |>
   collect()
-
-df
 ```
 
 As you can see, there are a huge number of assertions, and they will take some processing.
@@ -70,20 +68,19 @@ search_all(profiles, "CSDM") |>
   show_values()
 ```
 
-This is ok, but also needs unpacking. 
+This is ok, but needs unpacking: 
 
-`spatiallyValid` is an amalgam of other assertions. At time of writing, `true` means that the 
-latitude and longitude are known and within +/- 90 and 180 degrees (respectively), but are not 
-0,0, and that there isn't a mismatch between the observed country and the country listed by 
-the data provider. There are some minor other points, but that's about it.
-
-Excluding potentially duplicate records is fairly clear and sensible, albeit also easily achieved
+ - `spatiallyValid` is an amalgam of other assertions. At the time of writing, `true` means that 
+ the latitude and longitude are known and within +/- 90 and 180 degrees (respectively), but are not 
+ 0,0, *and* that there isn't a mismatch between the observed country and the country listed by the 
+ data provider. 
+- Excluding potentially duplicate records is fairly clear and sensible, though is also easily achieved
 using thinning.
+- Excluding points that are an outlier against any environmental layer is a high penalty, particularly 
+for rare species. This is likely to falsely exclude records on a frequent basis. 
+- The choice to include records since 1970 is fine, albeit clearly context-specific. 
 
-The remaining points are more contentious. The choice to include records since 1970 is clearly 
-context-specific. More importantly, excluding points that are an outlier against any environmental
-layer is a high penalty, particularly for rare species. This is likely to falsely exclude records
-on a frequent basis. Now let's look at the 'ALA general' approach:
+Now let's look at the 'ALA general' approach:
 
 ```{r}
  search_all(profiles, "ALA") |>
@@ -190,9 +187,7 @@ galah_call() |>
 
 This isn't actually terribly informative unless we know who these people are. But it likely
 that the types of errors flagged by a single user will reflect their spatial and taxonomic
-knowledge of the Australian biota.
-
-To remove any records with user assertions, use `is.na(userAssertions)` within your filter 
+knowledge of the Australian biota. To remove any records with user assertions, use `is.na(userAssertions)` within your filter 
 statement:
 
 ```{r}
