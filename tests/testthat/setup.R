@@ -22,8 +22,7 @@ quiet_collect <- function(x, ...){
 # set up bespoke skip_ functions to enforce preferred test behaviour
 
 # check status and cache *before* running tests
-is_online_realtime <- function(){!is.null(curl::nslookup("captive.apple.com", error = FALSE))}
-if(is_online_realtime()){
+if(httr2::is_online()){
   Sys.setenv("NOT_ONLINE" = "")
 }else{
   Sys.setenv("NOT_ONLINE" = "true")

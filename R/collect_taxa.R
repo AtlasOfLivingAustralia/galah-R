@@ -129,7 +129,7 @@ collect_taxa_gbif <- function(.query,
 #' @keywords Internal
 clean_gbif_taxon_key <- function(df, .query){
   if(.query$atlas == "Global"){
-    dplyr::rename(df, taxon_key = key)
+    dplyr::rename(df, "taxon_key" = "key")
   }else{
     df
   }
