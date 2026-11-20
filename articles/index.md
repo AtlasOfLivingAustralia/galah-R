@@ -10,6 +10,8 @@
   information](https://galah.ala.org.au/R/articles/look_up_information.md):
 - [Object-Oriented
   Programming](https://galah.ala.org.au/R/articles/object-oriented-programming.md):
+- [Quality
+  filtering](https://galah.ala.org.au/R/articles/quality_filtering.md):
 - [Quick start
   guide](https://galah.ala.org.au/R/articles/quick_start_guide.md):
 - [Spatial

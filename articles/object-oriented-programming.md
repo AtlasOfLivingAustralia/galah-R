@@ -28,18 +28,18 @@ galah_call() |>
     ## # A tibble: 16 × 2
     ##    species                 count
     ##    <chr>                   <int>
-    ##  1 Crinia signifera        42477
-    ##  2 Crinia parinsignifera    8363
+    ##  1 Crinia signifera        33786
+    ##  2 Crinia parinsignifera    7128
     ##  3 Crinia glauerti          3111
-    ##  4 Crinia georgiana         1509
-    ##  5 Crinia remota             717
-    ##  6 Crinia sloanei            682
+    ##  4 Crinia georgiana         1511
+    ##  5 Crinia remota             720
+    ##  6 Crinia sloanei            688
     ##  7 Crinia insignifera        530
-    ##  8 Crinia tinnula            316
-    ##  9 Crinia deserticola        254
+    ##  8 Crinia tinnula            319
+    ##  9 Crinia deserticola        255
     ## 10 Crinia pseudinsignifera   222
-    ## 11 Crinia tasmaniensis       182
-    ## 12 Crinia bilingua            75
+    ## 11 Crinia tasmaniensis       181
+    ## 12 Crinia bilingua           113
     ## 13 Crinia subinsignifera      46
     ## 14 Crinia riparia             10
     ## 15 Crinia flindersensis        3
@@ -55,6 +55,8 @@ full list of masked functions is:
   ([dplyr](https://dplyr.tidyverse.org))
 - [`count()`](https://dplyr.tidyverse.org/reference/count.html)
   ([dplyr](https://dplyr.tidyverse.org))
+- [`describe()`](https://galah.ala.org.au/R/reference/describe.md)
+  (`SQL`)
 - [`glimpse()`](https://pillar.r-lib.org/reference/glimpse.html)
   ([dplyr](https://dplyr.tidyverse.org))
 - [`identify()`](https://rdrr.io/r/graphics/identify.html)
@@ -115,7 +117,13 @@ capture(x)
 
     ## Object of class prequery with type data/occurrences-count-groupby
 
-    ## • url: https://api.ala.org.au/occurrences/occurrences/facets?fq=%28genus%3A%2...
+    ## • atlas: Australia
+
+    ## • url: https://api.ala.org.au/occurrences/occurrences/facets?q=%28genus%3A%22...
+
+    ## • arrange: species (ascending)
+
+    ## • select: ~-dplyr::any_of(c("label", "i18nCode", "fq"))
 
 ``` r
 
@@ -137,7 +145,13 @@ collapse(x)
 
     ## Object of class query with type data/occurrences-count-groupby
 
-    ## • url: https://api.ala.org.au/occurrences/occurrences/facets?fq=%28genus%3A%2...
+    ## • atlas: Australia
+
+    ## • url: https://api.ala.org.au/occurrences/occurrences/facets?q=%28genus%3A%22...
+
+    ## • arrange: species (ascending)
+
+    ## • select: ~-dplyr::any_of(c("label", "i18nCode", "fq"))
 
 ``` r
 
@@ -147,10 +161,10 @@ collect(x) |> head()
     ## # A tibble: 6 × 2
     ##   species              count
     ##   <chr>                <int>
-    ## 1 Crinia bilingua         75
-    ## 2 Crinia deserticola     254
+    ## 1 Crinia bilingua        113
+    ## 2 Crinia deserticola     255
     ## 3 Crinia flindersensis     3
-    ## 4 Crinia georgiana      1509
+    ## 4 Crinia georgiana      1511
     ## 5 Crinia glauerti       3111
     ## 6 Crinia insignifera     530
 

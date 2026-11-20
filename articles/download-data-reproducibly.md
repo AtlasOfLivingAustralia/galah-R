@@ -72,17 +72,15 @@ occs <- galah_call() |>
 occs |> print(n = 5)
 ```
 
-    ## # A tibble: 201 × 8
-    ##   recordID    scientificName taxonConceptID decimalLatitude decimalLongitude
-    ##   <chr>       <chr>          <chr>                    <dbl>            <dbl>
-    ## 1 00300a96-e… Perameles nas… https://biodi…           -33.7             151.
-    ## 2 0134472a-2… Perameles nas… https://biodi…           -34.7             151.
-    ## 3 01e7b99e-9… Perameles gun… https://biodi…           -42.9             147.
-    ## 4 029c49f0-b… Perameles nas… https://biodi…           -35.1             151.
-    ## 5 0345dbe1-9… Perameles nas… https://biodi…           -35.5             150.
-    ## # ℹ 196 more rows
-    ## # ℹ 3 more variables: eventDate <dttm>, occurrenceStatus <chr>,
-    ## #   dataResourceName <chr>
+    ## # A tibble: 207 × 9
+    ##   recordID                             scientificName   taxonConceptID                            decimalLatitude decimalLongitude eventDate           basisOfRecord occurrenceStatus dataResourceName
+    ##   <chr>                                <chr>            <chr>                                               <dbl>            <dbl> <dttm>              <chr>         <chr>            <chr>           
+    ## 1 00300a96-e91a-4f46-89f9-12146e61f763 Perameles nasuta https://biodiversity.org.au/afd/taxa/ff9…           -33.7             151. 2003-01-07 00:00:00 HUMAN_OBSERV… PRESENT          NSW BioNet Atlas
+    ## 2 0134472a-2598-4a7a-8c9f-c0e14140f5e0 Perameles nasuta https://biodiversity.org.au/afd/taxa/ff9…           -34.7             151. 2003-03-05 00:00:00 HUMAN_OBSERV… PRESENT          NSW BioNet Atlas
+    ## 3 01e7b99e-9c24-44b9-8351-d0ab9cf11fef Perameles gunnii https://biodiversity.org.au/afd/taxa/76b…           -42.9             147. 2003-08-24 00:00:00 OBSERVATION   PRESENT          Tasmanian Natur…
+    ## 4 029c49f0-ba80-402b-9d33-d1235cb33067 Perameles nasuta https://biodiversity.org.au/afd/taxa/ff9…           -35.1             151. 2003-09-04 00:00:00 HUMAN_OBSERV… PRESENT          NSW BioNet Atlas
+    ## 5 0345dbe1-9e61-437a-bb07-e9ab735ec404 Perameles nasuta https://biodiversity.org.au/afd/taxa/ff9…           -35.5             150. 2003-09-01 00:00:00 HUMAN_OBSERV… PRESENT          NSW BioNet Atlas
+    ## # ℹ 202 more rows
 
 galah preserves lots of information in an object’s attributes, many
 which are used to construct the API query sent to the specified Living
@@ -94,7 +92,7 @@ attributes.
 attributes(occs)$doi
 ```
 
-    ## [1] "https://doi.org/10.26197/ala.7605ea98-e90f-46d4-998c-1b6673c48d34"
+    ## [1] "https://doi.org/10.26197/ala.24e3c6ed-f4a6-4c76-8529-da03198d1f50"
 
 We can also view information on how to cite this dataset:
 
@@ -105,18 +103,14 @@ atlas_citation(occs)
 
     ## The citation for this dataset is:
     ## 
-    ## Atlas of Living Australia (7 February 2025) Occurrence download
-    ## https://doi.org/10.26197/ala.7605ea98-e90f-46d4-998c-1b6673c48d34
+    ## Atlas of Living Australia (20 November 2026) Occurrence download https://doi.org/10.26197/ala.24e3c6ed-f4a6-4c76-8529-da03198d1f50
     ## 
     ## Please consider citing R & galah, in addition to your dataset:
     ## 
-    ## R Core Team (2024). _R: A Language and Environment for Statistical
-    ## Computing_. R Foundation for Statistical Computing, Vienna, Austria.
+    ## R Core Team (2026). _R: A Language and Environment for Statistical Computing_. R Foundation for Statistical Computing, Vienna, Austria. doi:10.32614/R.manuals <https://doi.org/10.32614/R.manuals>.
     ## <https://www.R-project.org/>.
     ## 
-    ## Westgate M, Kellie D, Stevenson M & Newman P (2025): _galah: Biodiversity
-    ## Data from the GBIF Node Network_. R package version 2.1.1. doi:
-    ## 10.32614/CRAN.package.galah
+    ## Westgate M, Kellie D, Stevenson M & Newman P (2025): _galah: Biodiversity Data from the GBIF Node Network_. R package version 2.4.0 doi: 10.32614/CRAN.package.galah
 
 If you need to reload this data locally, you can do that by simply
 calling
@@ -128,17 +122,15 @@ read_zip("./ALA_downloads/bandicoots_2003_data.zip") |>
   print(n = 5)
 ```
 
-    ## # A tibble: 201 × 8
-    ##   recordID    scientificName taxonConceptID decimalLatitude decimalLongitude
-    ##   <chr>       <chr>          <chr>                    <dbl>            <dbl>
-    ## 1 00300a96-e… Perameles nas… https://biodi…           -33.7             151.
-    ## 2 0134472a-2… Perameles nas… https://biodi…           -34.7             151.
-    ## 3 01e7b99e-9… Perameles gun… https://biodi…           -42.9             147.
-    ## 4 029c49f0-b… Perameles nas… https://biodi…           -35.1             151.
-    ## 5 0345dbe1-9… Perameles nas… https://biodi…           -35.5             150.
-    ## # ℹ 196 more rows
-    ## # ℹ 3 more variables: eventDate <dttm>, occurrenceStatus <chr>,
-    ## #   dataResourceName <chr>
+    ## # A tibble: 207 × 9
+    ##   recordID                             scientificName   taxonConceptID                            decimalLatitude decimalLongitude eventDate           basisOfRecord occurrenceStatus dataResourceName
+    ##   <chr>                                <chr>            <chr>                                               <dbl>            <dbl> <dttm>              <chr>         <chr>            <chr>           
+    ## 1 00300a96-e91a-4f46-89f9-12146e61f763 Perameles nasuta https://biodiversity.org.au/afd/taxa/ff9…           -33.7             151. 2003-01-07 00:00:00 HUMAN_OBSERV… PRESENT          NSW BioNet Atlas
+    ## 2 0134472a-2598-4a7a-8c9f-c0e14140f5e0 Perameles nasuta https://biodiversity.org.au/afd/taxa/ff9…           -34.7             151. 2003-03-05 00:00:00 HUMAN_OBSERV… PRESENT          NSW BioNet Atlas
+    ## 3 01e7b99e-9c24-44b9-8351-d0ab9cf11fef Perameles gunnii https://biodiversity.org.au/afd/taxa/76b…           -42.9             147. 2003-08-24 00:00:00 OBSERVATION   PRESENT          Tasmanian Natur…
+    ## 4 029c49f0-ba80-402b-9d33-d1235cb33067 Perameles nasuta https://biodiversity.org.au/afd/taxa/ff9…           -35.1             151. 2003-09-04 00:00:00 HUMAN_OBSERV… PRESENT          NSW BioNet Atlas
+    ## 5 0345dbe1-9e61-437a-bb07-e9ab735ec404 Perameles nasuta https://biodiversity.org.au/afd/taxa/ff9…           -35.5             150. 2003-09-01 00:00:00 HUMAN_OBSERV… PRESENT          NSW BioNet Atlas
+    ## # ℹ 202 more rows
 
 More importantly, though, we now have a persistent link to this data
 download. If we paste this DOI into your browser, we can see additional
@@ -165,17 +157,15 @@ occs_again <- galah_call() |>
 occs_again |> print(n = 5)
 ```
 
-    ## # A tibble: 201 × 8
-    ##   recordID    scientificName taxonConceptID decimalLatitude decimalLongitude
-    ##   <chr>       <chr>          <chr>                    <dbl>            <dbl>
-    ## 1 00300a96-e… Perameles nas… https://biodi…           -33.7             151.
-    ## 2 0134472a-2… Perameles nas… https://biodi…           -34.7             151.
-    ## 3 01e7b99e-9… Perameles gun… https://biodi…           -42.9             147.
-    ## 4 029c49f0-b… Perameles nas… https://biodi…           -35.1             151.
-    ## 5 0345dbe1-9… Perameles nas… https://biodi…           -35.5             150.
-    ## # ℹ 196 more rows
-    ## # ℹ 3 more variables: eventDate <dttm>, occurrenceStatus <chr>,
-    ## #   dataResourceName <chr>
+    ## # A tibble: 207 × 9
+    ##   recordID                             scientificName   taxonConceptID                            decimalLatitude decimalLongitude eventDate           basisOfRecord occurrenceStatus dataResourceName
+    ##   <chr>                                <chr>            <chr>                                               <dbl>            <dbl> <dttm>              <chr>         <chr>            <chr>           
+    ## 1 00300a96-e91a-4f46-89f9-12146e61f763 Perameles nasuta https://biodiversity.org.au/afd/taxa/ff9…           -33.7             151. 2003-01-07 00:00:00 HUMAN_OBSERV… PRESENT          NSW BioNet Atlas
+    ## 2 0134472a-2598-4a7a-8c9f-c0e14140f5e0 Perameles nasuta https://biodiversity.org.au/afd/taxa/ff9…           -34.7             151. 2003-03-05 00:00:00 HUMAN_OBSERV… PRESENT          NSW BioNet Atlas
+    ## 3 01e7b99e-9c24-44b9-8351-d0ab9cf11fef Perameles gunnii https://biodiversity.org.au/afd/taxa/76b…           -42.9             147. 2003-08-24 00:00:00 OBSERVATION   PRESENT          Tasmanian Natur…
+    ## 4 029c49f0-ba80-402b-9d33-d1235cb33067 Perameles nasuta https://biodiversity.org.au/afd/taxa/ff9…           -35.1             151. 2003-09-04 00:00:00 HUMAN_OBSERV… PRESENT          NSW BioNet Atlas
+    ## 5 0345dbe1-9e61-437a-bb07-e9ab735ec404 Perameles nasuta https://biodiversity.org.au/afd/taxa/ff9…           -35.5             150. 2003-09-01 00:00:00 HUMAN_OBSERV… PRESENT          NSW BioNet Atlas
+    ## # ℹ 202 more rows
 
 Our query reproduces the the same records as our original query!
 

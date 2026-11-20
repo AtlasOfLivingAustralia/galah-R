@@ -191,6 +191,8 @@ Useful links:
 
 Authors:
 
+- Martin Westgate <martin.westgate@csiro.au>
+
 - Dax Kellie <dax.kellie@csiro.au>
 
 Other contributors:

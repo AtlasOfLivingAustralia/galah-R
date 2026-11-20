@@ -20,7 +20,6 @@
 - [`authenticate()`](https://galah.ala.org.au/R/reference/authenticate.md)
   **\[experimental\]** : Set up authentication
 - [`count(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/count.data_request.md)
-  [`add_count(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/count.data_request.md)
   : Count the observations in each group
 - [`describe()`](https://galah.ala.org.au/R/reference/describe.md)
   **\[experimental\]** : Describe what fields are available

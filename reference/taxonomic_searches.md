@@ -48,7 +48,8 @@ following information:
 - `scientific_name`: The taxonomic name matched to the provided search
   term, to the lowest identified taxonomic rank.
 
-- `taxon_concept_id`: The unique taxonomic identifier.
+- `taxon_concept_id` (living atlases) or `taxon_key` (GBIF): The unique
+  taxonomic identifier.
 
 - `rank`: The taxonomic rank of the returned result.
 

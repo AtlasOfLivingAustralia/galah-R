@@ -30,9 +30,9 @@ for the taxon matched to the provided search term.
 search_taxa("Petroica boodang") |> gt::gt()
 ```
 
-| search_term | scientific_name | scientific_name_authorship | taxon_concept_id | rank | match_type | kingdom | phylum | class | order | family | genus | species | vernacular_name | issues |
+| search_term | scientific_name | scientific_name_authorship | taxon_concept_id | rank | match_type | vernacular_name | issues | kingdom | phylum | class | order | family | genus | species |
 |----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|
-| Petroica boodang | Petroica (Petroica) boodang | (Lesson, 1838) | https://biodiversity.org.au/afd/taxa/a3e5376b-f9e6-4bdf-adae-1e7add9f5c29 | species | exactMatch | Animalia | Chordata | Aves | Passeriformes | Petroicidae | Petroica | Petroica boodang | Scarlet Robin | noIssue |
+| Petroica boodang | Petroica (Petroica) boodang | (Lesson, 1838) | https://biodiversity.org.au/afd/taxa/a3e5376b-f9e6-4bdf-adae-1e7add9f5c29 | species | exactMatch | Scarlet Robin | noIssue | Animalia | Chordata | Aves | Passeriformes | Petroicidae | Petroica | Petroica boodang |
 
 ``` r
 
@@ -41,9 +41,10 @@ search_taxa("Petroica boodang") |> gt::gt()
 search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
 ```
 
-| search_term | scientific_name | scientific_name_authorship | taxon_concept_id | rank | match_type | kingdom | phylum | class | order | family | genus | species | vernacular_name | issues |
+| search_term | scientific_name | scientific_name_authorship | taxon_concept_id | rank | match_type | vernacular_name | issues | kingdom | phylum | class | order | family | genus | species |
 |----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|
-| Muscicapa chrysoptera | Petroica (Littlera) phoenicea | Gould, 1837 | https://biodiversity.org.au/afd/taxa/fe74e658-4848-437a-a23d-f1001a198552 | species | exactMatch | Animalia | Chordata | Aves | Passeriformes | Petroicidae | Petroica | Petroica phoenicea | Flame Robin | noIssue |
+| Muscicapa chrysoptera | Petroica (Littlera) phoenicea | Gould, 1837 | https://biodiversity.org.au/afd/taxa/fe74e658-4848-437a-a23d-f1001a198552 | species | exactMatch | Flame Robin | noIssue | Animalia | Chordata | Aves | Passeriformes | Petroicidae | Petroica | Petroica phoenicea |
+| Guniibuu | Petroica (Petroica) goodenovii | (Vigors & Horsfield, 1827) | https://biodiversity.org.au/afd/taxa/10dbd908-00f3-4ec2-9a9c-a2fd4782eaf1 | species | vernacularMatch | Red-capped Robin | noIssue | Animalia | Chordata | Aves | Passeriformes | Petroicidae | Petroica | Petroica goodenovii |
 
   
 Where homonyms exist,
@@ -57,7 +58,7 @@ genus Morganella in three kingdoms:
 search_taxa("Morganella") |> gt::gt()
 ```
 
-    ## Warning: Search returned multiple taxa due to a homonym issue.
+    ## Warning in collect(compute(collapse(x, ...))): Search returned multiple taxa due to a homonym issue.
     ## ℹ Please provide another rank in your search to clarify taxa.
     ## ℹ Use a `tibble` to clarify taxa, see `?search_taxa`.
     ## ✖ Homonym issue with "Morganella".
@@ -71,9 +72,9 @@ search_taxa("Morganella") |> gt::gt()
 search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
 ```
 
-| search_term | scientific_name | scientific_name_authorship | taxon_concept_id | rank | match_type | kingdom | phylum | class | order | family | genus | issues |
+| search_term | scientific_name | scientific_name_authorship | taxon_concept_id | rank | match_type | issues | kingdom | phylum | class | order | family | genus |
 |----|----|----|----|----|----|----|----|----|----|----|----|----|
-| Fungi_Morganella | Morganella | Zeller | https://id.biodiversity.org.au/node/fungi/60091999 | genus | exactMatch | Fungi | Basidiomycota | Agaricomycetes | Agaricales | Agaricaceae | Morganella | noIssue |
+| Fungi_Morganella | Morganella | Zeller | https://id.biodiversity.org.au/name/fungi/60015036 | genus | exactMatch | noIssue | Fungi | Basidiomycota | Agaricomycetes | Agaricales | Agaricaceae | Morganella |
 
   
 
@@ -95,7 +96,7 @@ galah_call() |>
     ## # A tibble: 1 × 1
     ##    count
     ##    <int>
-    ## 1 132981
+    ## 1 189490
 
 ``` r
 
@@ -105,7 +106,7 @@ galah_call(type = "species") |>
   gt::gt()
 ```
 
-| taxon_concept_id | species_name | scientific_name_authorship | taxon_rank | kingdom | phylum | class | order | family | genus | vernacular_name |
+| species | species_name | scientific_name_authorship | taxon_rank | kingdom | phylum | class | order | family | genus | vernacular_name |
 |----|----|----|----|----|----|----|----|----|----|----|
 | https://biodiversity.org.au/afd/taxa/10dbd908-00f3-4ec2-9a9c-a2fd4782eaf1 | Petroica (Petroica) goodenovii | (Vigors & Horsfield, 1827) | species | Animalia | Chordata | Aves | Passeriformes | Petroicidae | Petroica | Red-capped Robin |
 | https://biodiversity.org.au/afd/taxa/fe74e658-4848-437a-a23d-f1001a198552 | Petroica (Littlera) phoenicea | Gould, 1837 | species | Animalia | Chordata | Aves | Passeriformes | Petroicidae | Petroica | Flame Robin |
@@ -120,15 +121,18 @@ galah_call() |>
 ```
 
     ## Retrying in 1 seconds.
+    ## Retrying in 2 seconds.
+    ## Retrying in 4 seconds.
+    ## Retrying in 8 seconds.
 
-| recordID | scientificName | taxonConceptID | decimalLatitude | decimalLongitude | eventDate | occurrenceStatus | dataResourceName |
-|----|----|----|----|----|----|----|----|
-| 001ec30d-3376-4f63-ba32-b48bc3dd137d | Morganella purpurascens | https://id.biodiversity.org.au/node/fungi/60092001 | -33.66218 | 150.2708 | 2021-04-10 | PRESENT | NSW BioNet Atlas |
-| 005ef5cf-aae1-411c-8476-8ac01dc80e9b | Morganella compacta | NZOR-6-128055 | -36.82343 | 175.0731 | NA | PRESENT | New Zealand Fungal and Plant Disease Collection |
-| 0084789b-e04d-4742-95b5-2e3761d9fd9c | Morganella compacta | NZOR-6-128055 | -38.03175 | 176.4870 | 2019-05-14 | PRESENT | New Zealand Fungal and Plant Disease Collection |
-| 00efd1aa-ebf2-4afb-bd4d-b76af6ff0207 | Morganella compacta | NZOR-6-128055 | -41.09759 | 172.9346 | 2014-05-01 | PRESENT | New Zealand Fungal and Plant Disease Collection |
-| 0688cd3a-2954-45f7-9775-f83331d86519 | Morganella compacta | NZOR-6-128055 | -36.92053 | 174.4585 | 1942-07-12 | PRESENT | New Zealand Fungal and Plant Disease Collection |
-| 08010c5f-19ee-46e2-b6e0-973a5e79d135 | Morganella compacta | NZOR-6-128055 | -42.24482 | 171.3296 | 1986-04-20 | PRESENT | New Zealand Fungal and Plant Disease Collection |
+| recordID | scientificName | taxonConceptID | decimalLatitude | decimalLongitude | eventDate | basisOfRecord | occurrenceStatus | dataResourceName |
+|----|----|----|----|----|----|----|----|----|
+| 001ec30d-3376-4f63-ba32-b48bc3dd137d | Morganella purpurascens | https://id.biodiversity.org.au/name/fungi/60022638 | -33.66218 | 150.2708 | 2021-04-10 | HUMAN_OBSERVATION | PRESENT | NSW BioNet Atlas |
+| 005ef5cf-aae1-411c-8476-8ac01dc80e9b | Morganella compacta | NZOR-6-128055 | -36.82343 | 175.0731 | NA | PRESERVED_SPECIMEN | PRESENT | New Zealand Fungal and Plant Disease Collection |
+| 0084789b-e04d-4742-95b5-2e3761d9fd9c | Morganella compacta | NZOR-6-128055 | -38.03175 | 176.4870 | 2019-05-14 | PRESERVED_SPECIMEN | PRESENT | New Zealand Fungal and Plant Disease Collection |
+| 00efd1aa-ebf2-4afb-bd4d-b76af6ff0207 | Morganella compacta | NZOR-6-128055 | -41.09759 | 172.9346 | 2014-05-01 | PRESERVED_SPECIMEN | PRESENT | New Zealand Fungal and Plant Disease Collection |
+| 05defe84-dc0b-4018-8b25-448ad7d5d33d | Morganella purpurascens | https://id.biodiversity.org.au/name/fungi/60022638 | NA | NA | 1910-04-01 | PRESERVED_SPECIMEN | PRESENT | Royal Botanic Gardens, Kew - Fungarium Specimens |
+| 0688cd3a-2954-45f7-9775-f83331d86519 | Morganella compacta | NZOR-6-128055 | -36.92053 | 174.4585 | 1942-07-12 | PRESERVED_SPECIMEN | PRESENT | New Zealand Fungal and Plant Disease Collection |
 
 ### filter()
 
@@ -147,7 +151,7 @@ galah_call() |>
     ## # A tibble: 1 × 1
     ##    count
     ##    <int>
-    ## 1 132981
+    ## 1 189490
 
 Alternatively, we could use
 [`filter()`](https://dplyr.tidyverse.org/reference/filter.html) after
@@ -166,9 +170,9 @@ galah_call() |>
 ```
 
     ## # A tibble: 1 × 1
-    ##   count
-    ##   <int>
-    ## 1 88434
+    ##    count
+    ##    <int>
+    ## 1 271723
 
 It is also possible to specify several species at once using
 [`filter()`](https://dplyr.tidyverse.org/reference/filter.html):
@@ -189,17 +193,17 @@ galah_call() |>
 
 | species               | vernacularName              | count  |
 |-----------------------|-----------------------------|--------|
-| Petroica boodang      | Scarlet Robin               | 129172 |
-| Petroica boodang      | Eastern Scarlet Robin       | 3593   |
-| Petroica boodang      | South-western Scarlet Robin | 166    |
-| Petroica boodang      | Tasmanian Scarlet Robin     | 50     |
-| Petroica goodenovii   | Red-capped Robin            | 119914 |
-| Petroica phoenicea    | Flame Robin                 | 88434  |
-| Petroica rosea        | Rose Robin                  | 60101  |
-| Petroica rodinogaster | Pink Robin                  | 15640  |
-| Petroica rodinogaster | Mainland Pink Robin         | 60     |
-| Petroica rodinogaster | Tasmanian Pink Robin        | 21     |
-| Petroica multicolor   | Pacific Robin               | 6705   |
+| Petroica boodang      | Scarlet Robin               | 122841 |
+| Petroica boodang      | Eastern Scarlet Robin       | 28540  |
+| Petroica boodang      | Tasmanian Scarlet Robin     | 22737  |
+| Petroica boodang      | South-western Scarlet Robin | 15372  |
+| Petroica goodenovii   | Red-capped Robin            | 162435 |
+| Petroica phoenicea    | Flame Robin                 | 109288 |
+| Petroica rosea        | Rose Robin                  | 87620  |
+| Petroica rodinogaster | Pink Robin                  | 19112  |
+| Petroica rodinogaster | Tasmanian Pink Robin        | 4227   |
+| Petroica rodinogaster | Mainland Pink Robin         | 1116   |
+| Petroica multicolor   | Pacific Robin               | 6874   |
 
 This can be useful in searching for paraphyletic or polyphyletic groups,
 which cannot be done using
@@ -217,14 +221,14 @@ galah_call() |>
   gt::gt()
 ```
 
-| phylum        | count   |
-|---------------|---------|
-| Arthropoda    | 9061922 |
-| Mollusca      | 1498353 |
-| Annelida      | 320916  |
-| Cnidaria      | 283139  |
-| Echinodermata | 206043  |
-| Porifera      | 132106  |
+| phylum        | count    |
+|---------------|----------|
+| Arthropoda    | 12814440 |
+| Mollusca      | 2248208  |
+| Cnidaria      | 414522   |
+| Annelida      | 366344   |
+| Echinodermata | 256984   |
+| Porifera      | 164241   |
 
 ### filter(), identify(), and taxonomic ranks
 
@@ -255,19 +259,19 @@ galah_call() |>
   gt::gt()
 ```
 
-| scientificName                              | taxonRank  | count |
-|---------------------------------------------|------------|-------|
-| Pitta (Pitta) versicolor                    | species    | 30041 |
-| Pitta (Pitta) iris                          | species    | 6550  |
-| Pitta (Erythropitta)                        | subgenus   | 883   |
-| Pitta (Pitta) versicolor versicolor         | subspecies | 311   |
-| Pitta (Erythropitta) erythrogaster          | species    | 181   |
-| Pitta (Pitta) iris iris                     | subspecies | 83    |
-| Pitta                                       | genus      | 68    |
-| Pitta (Pitta) versicolor intermedia         | subspecies | 42    |
-| Pitta (Pitta) versicolor simillima          | subspecies | 38    |
-| Pitta (Pitta) iris johnstoneiana            | subspecies | 27    |
-| Pitta (Erythropitta) erythrogaster digglesi | subspecies | 6     |
+| scientificName | taxonRank | taxonRank_label | count |
+|----|----|----|----|
+| Pitta (Pitta) versicolor | species | Species | 38999 |
+| Pitta (Pitta) iris | species | Species | 8483 |
+| Pitta (Pitta) versicolor versicolor | subspecies | Subspecies | 4412 |
+| Pitta (Pitta) versicolor intermedia | subspecies | Subspecies | 2418 |
+| Pitta (Erythropitta) erythrogaster digglesi | subspecies | Subspecies | 1306 |
+| Pitta (Pitta) iris iris | subspecies | Subspecies | 876 |
+| Pitta (Pitta) versicolor simillima | subspecies | Subspecies | 506 |
+| Pitta | genus | Genus | 239 |
+| Pitta (Erythropitta) erythrogaster | species | Species | 139 |
+| Pitta (Pitta) iris johnstoneiana | subspecies | Subspecies | 27 |
+| Pitta (Erythropitta) | subgenus | Subgenus | 6 |
 
 If, for instance, you have the correct species or subspecies name, then
 searching for matches against the `species` and `subspecies` fields,
@@ -301,14 +305,14 @@ tas_endemic <- c("Sarcophilus", # Tasmanian Devil
 search_taxa(tas_endemic) |> gt::gt()
 ```
 
-| search_term | scientific_name | scientific_name_authorship | taxon_concept_id | rank | match_type | kingdom | phylum | class | order | family | genus | species | vernacular_name | issues |
+| search_term | scientific_name | scientific_name_authorship | taxon_concept_id | rank | match_type | vernacular_name | issues | kingdom | phylum | class | order | family | genus | species |
 |----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|
-| Sarcophilus | Sarcophilus | Cuvier, 1837 | https://biodiversity.org.au/afd/taxa/06455b77-7d50-4ec7-9122-8ab48cfb0c1c | genus | exactMatch | Animalia | Chordata | Mammalia | Dasyuromorphia | Dasyuridae | Sarcophilus | NA | NA | noIssue, noIssue, noIssue, noIssue, noIssue, noIssue |
-| Bettongia gaimardi | Bettongia gaimardi | (Desmarest, 1822) | https://biodiversity.org.au/afd/taxa/8f7da937-6338-4c39-8b11-4f83807afe11 | species | exactMatch | Animalia | Chordata | Mammalia | Diprotodontia | Potoroidae | Bettongia | Bettongia gaimardi | Tasmanian Bettong | noIssue, noIssue, noIssue, noIssue, noIssue, noIssue |
-| Melanodryas vittata | Melanodryas (Amaurodryas) vittata | (Quoy & Gaimard, 1830) | https://biodiversity.org.au/afd/taxa/0f04889f-5489-4369-a545-8a041fba9f6d | species | exactMatch | Animalia | Chordata | Aves | Passeriformes | Petroicidae | Melanodryas | Melanodryas vittata | Dusky Robin | noIssue, noIssue, noIssue, noIssue, noIssue, noIssue |
-| Platycercus caledonicus | Platycercus (Platycercus) caledonicus | (Gmelin, 1788) | https://biodiversity.org.au/afd/taxa/c6e478fe-f199-463f-8576-a77108fd73e2 | species | exactMatch | Animalia | Chordata | Aves | Psittaciformes | Psittacidae | Platycercus | Platycercus caledonicus | Green Rosella | noIssue, noIssue, noIssue, noIssue, noIssue, noIssue |
-| Aquila audax fleayi | Aquila (Uroaetus) audax fleayi | Condon & Amadon, 1954 | https://biodiversity.org.au/afd/taxa/ac93f7f0-0686-4589-801a-5832378cb7c1 | subspecies | exactMatch | Animalia | Chordata | Aves | Accipitriformes | Accipitridae | Aquila | Aquila audax | Tasmanian Wedge-tailed Eagle | noIssue, noIssue, noIssue, noIssue, noIssue, noIssue |
-| Tyto novaehollandiae castanops | Tyto novaehollandiae castanops | (Gould, 1837) | https://biodiversity.org.au/afd/taxa/2c30d58b-572b-4dab-8644-b222c28eb0ec | subspecies | exactMatch | Animalia | Chordata | Aves | Strigiformes | Tytonidae | Tyto | Tyto novaehollandiae | Tasmanian Masked Owl | noIssue, noIssue, noIssue, noIssue, noIssue, noIssue |
+| Sarcophilus | Sarcophilus | Cuvier, 1837 | https://biodiversity.org.au/afd/taxa/aa40a75d-d499-4339-8a5d-c333a29cea1c | genus | exactMatch | NA | noIssue | Animalia | Chordata | Mammalia | Dasyuromorphia | Dasyuridae | Sarcophilus | NA |
+| Bettongia gaimardi | Bettongia gaimardi | (Desmarest, 1822) | https://biodiversity.org.au/afd/taxa/8f7da937-6338-4c39-8b11-4f83807afe11 | species | exactMatch | Tasmanian Bettong | noIssue | Animalia | Chordata | Mammalia | Diprotodontia | Potoroidae | Bettongia | Bettongia gaimardi |
+| Melanodryas vittata | Melanodryas (Amaurodryas) vittata | (Quoy & Gaimard, 1830) | https://biodiversity.org.au/afd/taxa/0f04889f-5489-4369-a545-8a041fba9f6d | species | exactMatch | Dusky Robin | noIssue | Animalia | Chordata | Aves | Passeriformes | Petroicidae | Melanodryas | Melanodryas vittata |
+| Platycercus caledonicus | Platycercus (Platycercus) caledonicus | (Gmelin, 1788) | https://biodiversity.org.au/afd/taxa/c6e478fe-f199-463f-8576-a77108fd73e2 | species | exactMatch | Green Rosella | noIssue | Animalia | Chordata | Aves | Psittaciformes | Psittacidae | Platycercus | Platycercus caledonicus |
+| Aquila audax fleayi | Aquila (Uroaetus) audax fleayi | Condon & Amadon, 1954 | https://biodiversity.org.au/afd/taxa/ac93f7f0-0686-4589-801a-5832378cb7c1 | subspecies | exactMatch | Tasmanian Wedge-tailed Eagle | noIssue | Animalia | Chordata | Aves | Accipitriformes | Accipitridae | Aquila | Aquila audax |
+| Tyto novaehollandiae castanops | Tyto novaehollandiae castanops | (Gould, 1837) | https://biodiversity.org.au/afd/taxa/2c30d58b-572b-4dab-8644-b222c28eb0ec | subspecies | exactMatch | Tasmanian Masked Owl | noIssue | Animalia | Chordata | Aves | Strigiformes | Tytonidae | Tyto | Tyto novaehollandiae |
 
 ``` r
 
@@ -323,16 +327,16 @@ galah_call() |>
 
 | scientificName                                    | count |
 |---------------------------------------------------|-------|
-| Aquila (Uroaetus) audax fleayi                    | 5035  |
-| Bettongia gaimardi                                | 1964  |
-| Bettongia gaimardi cuniculus                      | 41    |
-| Bettongia gaimardi gaimardi                       | 9     |
-| Melanodryas (Amaurodryas) vittata                 | 15719 |
-| Melanodryas (Amaurodryas) vittata kingi           | 16    |
-| Melanodryas (Amaurodryas) vittata vittata         | 46    |
-| Platycercus (Platycercus) caledonicus             | 51180 |
-| Platycercus (Platycercus) caledonicus brownii     | 24    |
-| Platycercus (Platycercus) caledonicus caledonicus | 33    |
-| Sarcophilus                                       | 3     |
-| Sarcophilus harrisii                              | 36376 |
-| Tyto novaehollandiae castanops                    | 67    |
+| Aquila (Uroaetus) audax fleayi                    | 9832  |
+| Bettongia gaimardi                                | 2791  |
+| Bettongia gaimardi cuniculus                      | 50    |
+| Bettongia gaimardi gaimardi                       | 7     |
+| Melanodryas (Amaurodryas) vittata                 | 15775 |
+| Melanodryas (Amaurodryas) vittata kingi           | 752   |
+| Melanodryas (Amaurodryas) vittata vittata         | 7799  |
+| Platycercus (Platycercus) caledonicus             | 59786 |
+| Platycercus (Platycercus) caledonicus brownii     | 478   |
+| Platycercus (Platycercus) caledonicus caledonicus | 32214 |
+| Sarcophilus                                       | 112   |
+| Sarcophilus harrisii                              | 36942 |
+| Tyto novaehollandiae castanops                    | 335   |

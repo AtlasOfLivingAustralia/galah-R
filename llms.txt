@@ -115,7 +115,6 @@ atlas_citation(occ)
 - [`authenticate()`](https://galah.ala.org.au/R/reference/authenticate.md)
   **\[experimental\]** : Set up authentication
 - [`count(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/count.data_request.md)
-  [`add_count(`*`<data_request>`*`)`](https://galah.ala.org.au/R/reference/count.data_request.md)
   : Count the observations in each group
 - [`describe()`](https://galah.ala.org.au/R/reference/describe.md)
   **\[experimental\]** : Describe what fields are available
@@ -297,6 +296,8 @@ atlas_citation(occ)
   information](https://galah.ala.org.au/R/articles/look_up_information.md):
 - [Object-Oriented
   Programming](https://galah.ala.org.au/R/articles/object-oriented-programming.md):
+- [Quality
+  filtering](https://galah.ala.org.au/R/articles/quality_filtering.md):
 - [Quick start
   guide](https://galah.ala.org.au/R/articles/quick_start_guide.md):
 - [Spatial

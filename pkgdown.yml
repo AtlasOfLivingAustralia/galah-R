@@ -6,11 +6,12 @@ articles:
   download-data-reproducibly: download-data-reproducibly.html
   look_up_information: look_up_information.html
   object-oriented-programming: object-oriented-programming.html
+  quality_filtering: quality_filtering.html
   quick_start_guide: quick_start_guide.html
   spatial_filtering: spatial_filtering.html
   taxonomic_filtering: taxonomic_filtering.html
   temporal_filtering: temporal_filtering.html
-last_built: 2026-09-18T06:19Z
+last_built: 2026-11-20T03:34Z
 urls:
   reference: https://galah.ala.org.au/R/reference
   article: https://galah.ala.org.au/R/articles

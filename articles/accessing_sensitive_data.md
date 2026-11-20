@@ -54,7 +54,7 @@ function in-pipe:
 df <- galah_call() |>
   identify("Mammalia") |>
   filter(year == 2025) |>
-  authenticate() |>
+  authenticate(use_jwt = TRUE) |>
   collect()
 ```
 
