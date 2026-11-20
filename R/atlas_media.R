@@ -81,8 +81,16 @@ atlas_media <- function(request = NULL,
 
   # get occurrences, expand to one row per media entry
   occ <- query_collapse |> 
-    collect(wait = TRUE) |>
-    build_media_id(media_fields = present_fields[present_fields != "multimedia"])
+    collect(wait = TRUE) 
+  
+  # Note it is safer before proceeding to re-check that expected fields 
+  # are actually present, hence this section.
+  present_fields <- present_fields[
+    present_fields != "multimedia" & present_fields %in% colnames(occ)]
+
+  # add `media_id` field
+  occ <- occ |>
+    build_media_id(media_fields = present_fields)
   # NOTE: `multimedia` field contains a description of which field has IDs
   # _not_ IDs themselves; hence removal in above processing stage
 

@@ -3,19 +3,20 @@
 #' @param .query an object of class `data_request`
 #' @noRd
 capture_species_count <- function(.query,
-                                   error_call = rlang::caller_env()){
+                                  call = rlang::caller_env()){
   if(.query$atlas == "Global"){
     cli::cli_abort("`count()` is not supported for GBIF with type = 'species'",
-                   call = error_call) 
+                   call = call) 
   }else{
-    capture_species_count_atlas(.query)
+    capture_species_count_atlas(.query, call = call)
   }
 }
 
 #' collapse for counts on LAs
 #' @keywords Internal
 #' @noRd
-capture_species_count_atlas <- function(.query){
+capture_species_count_atlas <- function(.query,
+                                        call = rlang::caller_env()){
   .query$type <- "data/species-count"
   # determine facets
   if(is.null(.query$distinct)){
@@ -25,7 +26,7 @@ capture_species_count_atlas <- function(.query){
   }
   
   # get url
-  url <- url_lookup(.query) |> 
+  url <- url_lookup(.query, error_call = call) |> 
     httr2::url_parse()
   query <- build_query(identify = .query$identify, 
                        filter = .query$filter, 

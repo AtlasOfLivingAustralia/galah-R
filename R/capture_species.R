@@ -1,21 +1,24 @@
 #' Internal function to run capture() for type = "species"
 #' @noRd
 #' @keywords Internal
-capture_species <- function(.query){
+capture_species <- function(.query,
+                            call = rlang::caller_env()){
   if(.query$atlas == "Global"){
     result <- capture_occurrences_gbif(.query, 
-                                       format = "SPECIES_LIST")
+                                       format = "SPECIES_LIST",
+                                       call = call)
     result$type <- "data/species"
     result
   }else{
-    capture_species_atlas(.query)
+    capture_species_atlas(.query, call = call)
   }
 }
 
 #' calculate the query to be returned for a given living atlas
 #' @noRd
 #' @keywords Internal
-capture_species_atlas <- function(.query){
+capture_species_atlas <- function(.query,
+                                  call = rlang::caller_env()){
   .query$type <- "data/species"
 
   # set default columns
@@ -32,7 +35,7 @@ capture_species_atlas <- function(.query){
       if(!is.null(.query$group_by)){
         .query$distinct$name <- .query$group_by$name
       }else{
-        cli::cli_abort("No variable supplied to `distinct()`")
+        cli::cli_abort("No variable supplied to `distinct()`", call = call)
       }
     }
   }
@@ -47,12 +50,12 @@ capture_species_atlas <- function(.query){
     sourceTypeId = 2004,
     reasonTypeId = .query$authenticate$download_reason_id,
     facets = .query$distinct$name,
-    parse_select_species(.query$select)) |>
+    parse_select_species(.query$select, call = call)) |>
     add_email_address(query = .query) |>
     add_email_notify()
   
   # build url
-  url <- url_lookup(.query) |> 
+  url <- url_lookup(.query, call = call) |> 
     httr2::url_parse()
   url$query <- query
   # build output
@@ -67,7 +70,8 @@ capture_species_atlas <- function(.query){
 #' parse `select()` for `atlas_species()`
 #' @noRd
 #' @keywords Internal
-parse_select_species <- function(.select){
+parse_select_species <- function(.select,
+                                 call = rlang::caller_env()){
   # parse labels for supplied field names
   if(length(.select$quosure) > 0){
     named_fields <- purrr::map(.select$quosure, rlang::as_label) |>
@@ -95,7 +99,7 @@ parse_select_species <- function(.select){
       unexpected_names <- glue::glue_collapse(named_fields[name_check], last = " and ")
       c("When type = 'species', `select()` only accepts 'counts', 'synonyms' or 'lists' as valid fields.",
         i = glue::glue("Unexpected fields: {unexpected_names}")) |>
-      cli::cli_warn()
+      cli::cli_warn(call = call)
     }
     # parse 'correct' names
     if(any(named_fields == "counts")){result$count <- "true"}

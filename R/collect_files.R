@@ -2,8 +2,10 @@
 #' @param object of class `files_response`, from `compute()`
 #' @noRd
 #' @keywords Internal
-collect_media_files <- function(.query){
-  result <- query_API(.query)
+collect_media_files <- function(.query,
+                                call = rlang::caller_env()){
+  result <- query_API(.query,
+                      error_call = call)
   status_values <- purrr::map(result,
                               \(a){a$status_code}) |>
     unlist()

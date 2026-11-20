@@ -5,7 +5,7 @@
 # https://techdocs.gbif.org/en/data-use/api-downloads
 
 ## -- Top-level parsers -- ## 
-# These are called 'first' by `galah_` functions
+# These are called 'first' by `filter()`
 
 #' parse quosures for objects of class `data_request`
 #' @noRd
@@ -112,7 +112,7 @@ parse_relational_pred <- function(x){
   # handle cases where someone passes a vector, i.e. year == c(2001, 2002)
   # these can be parse as 'in'
   if(length(rhs) > 1){
-    list(
+    result <- list(
       type = "in",
       key = lhs,
       values = rhs)
@@ -122,7 +122,7 @@ parse_relational_pred <- function(x){
     
     # 'does not equal' is handled hierarchically
     if(operator == "!="){
-      list(
+      result <- list(
         type = "not",
         predicate = list(type = "equals",
                          key = lhs,
@@ -136,11 +136,20 @@ parse_relational_pred <- function(x){
                               "<=" = "lessThanOrEquals",
                               ">" = "greaterThan",
                               ">=" = "greaterThanOrEquals")
-      list(type = operator_text,
+      result <- list(type = operator_text,
            key = lhs,
            value = rhs)
     }
   }
+
+  # handle cases where a taxonomic key is provided
+  # since mid-2026 we must supply checklistKey for these queries to run
+  if(is_gbif_taxon_field(lhs)){
+    result <- append(result, list("checklistKey" = gbif_checklistKey()))
+  }
+
+  # return
+  return(result)
 }
 
 #' Handle & and | statements
@@ -283,8 +292,16 @@ parse_in_pred <- function(x){
   }
   
   # format as list
-  list(
+  result <- list(
     type = "in",
     key = lhs,
     values = rhs)
+  
+  # handle cases where a taxonomic key is provided
+  # since mid-2026 we must supply checklistKey for these queries to run
+  if(is_gbif_taxon_field(lhs)){
+    result <- append(result, list("checklistKey" = gbif_checklistKey()))
+  }
+
+  return(result)
 }

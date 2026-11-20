@@ -84,39 +84,21 @@ check_files_filter <- function(x,
                                error_call = rlang::caller_env()
                                ){ 
   if(!(x$variable %in% c("media"))){
-    cli::cli_abort("Variable name must be a valid `type` accepted by `request_files()`.",
-                   call = error_call)
+    c("Variable name must be a valid `type` accepted by `request_files()`.",
+      i = "Currently only `media` is currently supported.") |>
+    cli::cli_abort(call = error_call)
   }
   if(is.null(x$data)){
-    c("rhs must be a `tibble` containing media information.",
+    c("Suppplied data cannot be `NULL`.",
+      i = "rhs of your `filter` statement should be a `tibble` containing media information.",
       i = "at least, this tibble should contain `media_id` and `mime_type` columns.") |>
     cli::cli_abort(call = error_call)    
   }
   if(!inherits(x$data, "data.frame")){
-    c("rhs must be a `tibble` containing media information.",
+    c("Supplied data should be a `tibble`.",
+      i = "rhs of your `filter()` statement should be a `tibble` containing media information.",
       i = "at least, this tibble should contain `media_id` and `mime_type` columns.") |>
     cli::cli_abort(call = error_call)
-  }
-}
-
-#' check that objects passed within `galah_filter` have correct structure
-#' @noRd
-#' @keywords Internal
-check_filter_tibbles <- function(x, # where x is a list of tibbles
-                                 error_call = rlang::caller_env()
-                                 ){ 
-  syntax_valid <- purrr::map(x, \(a){
-    if(length(colnames(a)) == 4){
-      all(colnames(a) %in% c("variable", "logical", "value", "query"))
-    }else{
-      FALSE
-    }
-  }) |>
-    unlist() |>
-    all()
-  if(!syntax_valid){
-    cli::cli_abort("There was a problem with `filter`, did you use correct syntax?",
-                   call = error_call)
   }
 }
 
@@ -125,13 +107,18 @@ check_filter_tibbles <- function(x, # where x is a list of tibbles
 #' @keywords Internal
 check_fields <- function(.query,
                          error_call = rlang::caller_env()) {
-  
+
   if(potions::pour("package", "run_checks")){
-    if(.query$atlas == "Global"){
+    if(.query$atlas == "Global" & 
+      .query$type != "metadata/taxa-unnest"
+      # stringr::str_detect(.query$type, "^data") # this line is intended 
+      # to prevent checks on metadata/taxa-unnest, but may be too general
+    ){
       if(.query$type == "data/occurrences"){
-        check_result <- check_fields_gbif_predicates(.query)  
+        check_result <- c(gbif_fields_valid_check(.query), NA)
       }else{
-        check_result <- check_fields_gbif_counts(.query)
+        check_result <- c(gbif_fields_valid_check(.query),
+                          gbif_groupby_valid_check(.query))
       }
     }else{
       check_result <- check_fields_la(.query)
@@ -165,7 +152,7 @@ check_fields <- function(.query,
 #' @keywords Internal
 check_field_identities <- function(df, 
                                    .query,
-                                   error_call = rlang::caller_env()){
+                                   call = rlang::caller_env()){
   if(!is.null(.query$fields) & 
      potions::pour("package", "run_checks", .pkg = "galah") & 
      .query$atlas %in% c("Australia", "Spain", "Sweden")
@@ -186,7 +173,7 @@ check_field_identities <- function(df,
       names(missing_fields) <- rep("*", length(missing_fields))
       c("The following fields, requested in your query, were not downloaded:",
         missing_fields) |>
-      cli::cli_warn(call = error_call)
+      cli::cli_warn(call = call)
     }
     # check for additions
     added_check <- !(field_names %in% .query$fields)
@@ -201,7 +188,7 @@ check_field_identities <- function(df,
         names(added_fields) <- rep("*", length(added_fields))
         c("The following fields were downloaded, but weren't requested in your query:",
           added_fields) |>
-          cli::cli_warn(call = error_call)
+          cli::cli_warn(call = call)
       }
     }
   }
@@ -211,29 +198,38 @@ check_field_identities <- function(df,
 #' sub-function to `check_fields()` for GBIF
 #' @noRd
 #' @keywords Internal
-check_fields_gbif_counts <- function(.query){
-
-  # First get filters
-  # set fields that can be queried using predicates or downloaded
+gbif_fields_valid_check <- function(.query){
+    # set fields to check against
   valid_download_fields <- .query[["metadata/fields"]] |>
     dplyr::filter(.data$download_field == TRUE) |>
     dplyr::pull("id")
   valid_assertions <- .query[["metadata/assertions"]]$id
-  valid_any <- c(valid_download_fields, valid_assertions)
+  valid_any <- c(valid_download_fields, valid_assertions) |>
+    camel_to_snake_case() |>
+    toupper()
 
-  # check for invalid fields in predicates
-  filter_vec <- unlist(.query$body$filter)
-  filter_keys <- stringr::str_detect(names(filter_vec), "key$")
+  # extract fields
+  predicates <- .query |>
+    purrr::pluck("body", "filter") |>
+    unlist()
+  keys <- grepl("key$", names(predicates))
+  fields <- predicates[keys]
+
+  # check invalid
   filter_invalid <- NA
-  if(any(filter_keys)){
-    fields <- filter_vec[filter_keys] |>
-      snake_to_camel_case()
+  if (length(fields) > 0) {
     if (!all(fields %in% valid_any)) {
       invalid_fields <- fields[!(fields %in% valid_any)]
       filter_invalid <- glue::glue_collapse(invalid_fields, sep = ", ")
     }
   }
-  
+  filter_invalid
+}
+
+#' sub-function to `check_fields()` for GBIF
+#' @noRd
+#' @keywords Internal
+gbif_groupby_valid_check <- function(.query){
   # then facets  
   # noting this differs between using this for it's original purpose (generating counts),
   # and it's more recent purpose of getting field values
@@ -257,38 +253,7 @@ check_fields_gbif_counts <- function(.query){
        group_by_invalid <- glue::glue_collapse(invalid_facets, sep = ", ")
      }
   }
-  
-  c(filter_invalid, group_by_invalid)
-}
-
-#' sub-function to `check_fields()` for GBIF
-#' @noRd
-#' @keywords Internal
-check_fields_gbif_predicates <- function(.query){
-  
-  # set fields to check against
-  valid_fields <- .query[["metadata/fields"]]$id
-  valid_assertions <- .query[["metadata/assertions"]]$id
-  valid_any <- c(valid_fields, valid_assertions) |>
-    camel_to_snake_case() |>
-    toupper()
-
-  # extract fields
-  predicates <- .query |>
-    purrr::pluck("body", "filter") |>
-    unlist()
-  keys <- grepl(".key$", names(predicates))
-  fields <- predicates[keys]
-
-  # check invalid
-  filter_invalid <- NA
-  if (length(fields) > 0) {
-    if (!all(fields %in% valid_any)) {
-      invalid_fields <- fields[!(fields %in% valid_any)]
-      filter_invalid <- glue::glue_collapse(invalid_fields, sep = ", ")
-    }
-  }
-  c(filter_invalid, NA)
+  group_by_invalid
 }
 
 #' sub-function to `check_fields()` for living atlases
@@ -304,18 +269,22 @@ check_fields_la <- function(.query){
   
   # extract fields from filter & identify
   filter_invalid <- NA
-  if(is.null(.query$filter)){
+  if(is.null(.query$request$filter)){
     # note: above was previously: `exists("fq", where = queries)`
     # Error in as.environment(where) : using 'as.environment(NULL)' is defunct
     filters <- NULL
   }else{
-    # extract field names
-    # note: `filter()` often concatenates field names with logical statements
-    # hence `strsplit()` step here
-    filters <- .query$filter$variable |>
-      strsplit("\\||\\&") |>
-      unlist() |>
-      unique()
+    if(.query$type == "metadata/fields-unnest"){
+      filters <- .query$request$filter$value[1]
+    }else{
+      # extract field names
+      # note: `filter()` often concatenates field names with logical statements
+      # hence `strsplit()` step here
+      filters <- .query$request$filter$variable |>
+        strsplit("\\||\\&") |>
+        unlist() |>
+        unique()
+    } 
     if (length(filters) > 0) {
       if (!all(filters %in% valid_any)) {
         invalid_fields <- filters[!(filters %in% valid_any)]
@@ -374,13 +343,14 @@ check_groups <- function(group, n){
 #' @keywords Internal
 check_identifiers <- function(.query,
                               error_call = rlang::caller_env()){
+  # default is to replace "(`TAXON_PLACEHOLDER`)"
+  if(.query$atlas != "Global" | 
+     (.query$atlas == "Global" & .query$type == "metadata/taxa-unnest")){
+      check_identifiers_la(.query, error_call)
   # For GBIF, which uses predicates, we 'promote' taxonomic queries to 'predicates'
-  if(.query$atlas == "Global"){
+  }else{
     .query$body$identify <- .query$`metadata/taxa-single`
     .query
-  # otherwise we replace "(`TAXON_PLACEHOLDER`)"
-  }else{
-    check_identifiers_la(.query, error_call)
   }
 }
   
@@ -405,7 +375,7 @@ check_identifiers_la <- function(.query,
         identifiers <- .query[[which(metadata_lookup)[1]]]
         
         # End query early when no taxonomic search terms were matched
-        if (nrow(identifiers) > 0 && !("taxon_concept_id" %in% colnames(identifiers))) {
+        if (nrow(identifiers) == 0 | !("taxon_concept_id" %in% colnames(identifiers))) {
           cli::cli_abort("No valid taxonomic identifiers detected.",
                          call = error_call)
         }
@@ -435,13 +405,25 @@ check_identifiers_la <- function(.query,
     }
   }else{
     # note: `metadata/taxa-unnest` parses here
-    if(grepl("%60TAXON_PLACEHOLDER%60", .query$url[1])){
+    if(stringr::str_detect(.query$url[1], "%60TAXON_PLACEHOLDER%60")){
       metadata_lookup <- grepl("^metadata/taxa", names(.query))
       if(any(metadata_lookup)){ 
         identifiers <- .query[[which(metadata_lookup)[1]]]
-        taxa_id <- utils::URLencode(identifiers$taxon_concept_id[1],
+
+        # End query early when no taxonomic search terms were matched
+        taxon_colname <- ifelse(.query$atlas == "Global",
+                                "taxon_key",
+                                "taxon_concept_id")
+        if (nrow(identifiers) == 0 | !(taxon_colname %in% colnames(identifiers))) {
+          cli::cli_abort("No valid taxonomic identifiers detected.",
+                         call = error_call)
+        }
+
+        taxa_id <- utils::URLencode(identifiers[[taxon_colname]][1],
                                     reserved = TRUE)
-        .query$url[1] <- sub("%60TAXON_PLACEHOLDER%60", taxa_id, .query$url[1])
+        .query$url[1] <- stringr::str_replace(.query$url[1],
+                                              "%60TAXON_PLACEHOLDER%60",
+                                              taxa_id)
       }else{
         cli::cli_abort("The query has a taxonomic placeholder, but no taxon search has been run.",
                        call = error_call)
@@ -469,29 +451,6 @@ check_media_cols <- function(.query){
     }
   }
   .query
-}
-
-#' Internal function to check whether valid media fields have been supplied
-#' @param .query a `query` object
-#' @noRd
-#' @keywords Internal
-check_media_cols_present <- function(.query, 
-                                     error_call = rlang::caller_env()){
-  fields <- .query |>
-    purrr::pluck("url") |>
-    httr2::url_parse() |> 
-    purrr::pluck("query", "fields") |>
-    strsplit(",") |>
-    purrr::pluck(1)
-  fields_check <- image_fields() %in% fields
-  if(!any(fields_check)){atlas = .query$atlas
-    c("No media fields requested.",
-      i = "Use `select()` to specify which media fields are required.",
-      i = "Valid fields are 'images', 'videos' and 'sounds'.") |>
-    cli::cli_abort(call = error_call)
-  }else{
-    image_fields(atlas = .query$atlas)[fields_check]
-  }
 }
 
 #' Internal function called by `filter()` et al
@@ -528,39 +487,16 @@ check_occurrence_response <- function(.query,
                                       error_call = rlang::caller_env()){
   names(.query) <- camel_to_snake_case(names(.query))
   
-  if (!is.null(.query$status_code)) {
-    
-    error_type <- sub("\\:.*", "", .query$message) |> 
-      stringr::str_trim()
-    message <- .query$message
-    bullets <- c(
-      "There was a problem with your query.",
-      "*" = glue::glue("message: {message}"))
-    
-    switch(as.character(error_type),
-           "500" = {cli::cli_abort(bullets,
-                                   call = error_call)},
-           "403" = {cli::cli_abort(c(bullets,
-                                     i = "Is the email you provided to `galah_config()` registered with the selected atlas?"),
-                                   call = error_call)},
-           "404" = {cli::cli_abort(c(bullets,
-                                     i = "Is the email you provided to `galah_config()` registered with the selected atlas?"),
-                                   call = error_call)},
-           "504" = {cli::cli_abort(c(bullets,
-                                     i = "This usually means that the selected API is down.",
-                                     i = "If you continue to receive this error, please email support@ala.org.au"),
-                                   call = error_call)},
-           cli::cli_abort("Aborting for unknown reasons.", # FIXME
-                          call = error_call))
+  # error handling should occur within `query_API()`
+  # ergo here we handle only valid responses
+  if (.query$status %in% c("finished", # ALA
+                          "SUCCEEDED") # GBIF
+  ){
+    .query$status <- "complete"
   } else {
-    if (.query$status %in% c("finished", # ALA
-                            "SUCCEEDED") # GBIF
-    ){
-      .query$status <- "complete"
-    } else {
-      .query$status <- "incomplete"
-    }
+    .query$status <- "incomplete"
   }
+
   # harmonisation of GBIF objects
   # change name of `download_link` to `download_url`
   check_download_link <- names(.query) == "download_link"
@@ -582,11 +518,12 @@ check_occurrence_response <- function(.query,
 #' Internal function to change API response to contain standard headers
 #' @noRd
 #' @keywords Internal
-check_occurrence_status <- function(.query){
+check_occurrence_status <- function(.query,
+                                    call = rlang::caller_env()){
   list(type = "data/occurrences",
        url = .query$status_url) |>
     as_query() |>
-    query_API() |>
+    query_API(error_call = call) |>
     as.list() |>
     check_occurrence_response()
 }
@@ -706,7 +643,8 @@ check_select <- function(.query,
 build_select_df_from_query <- function(.query){
   valid_fields <- .query[["metadata/fields"]]$id
   valid_assertions <- .query[["metadata/assertions"]]$id
-  valid_any <- c(valid_fields, valid_assertions)
+  valid_any <- c(valid_fields, valid_assertions) |> 
+    unique() # prevents errors from duplicates
   matrix(data = NA,
          nrow = 0,
          ncol = length(valid_any),

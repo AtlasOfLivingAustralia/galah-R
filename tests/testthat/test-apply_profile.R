@@ -6,7 +6,7 @@ test_that("`apply_profile()` amends a `query", {
 })
 
 test_that("`galah_apply_profile()` matches profile", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   profile_1 <- galah_apply_profile("ALA")
   profile_2 <- galah_apply_profile(AVH)
   expect_equal(profile_1[[1]],  "ALA")
@@ -14,7 +14,7 @@ test_that("`galah_apply_profile()` matches profile", {
 })
 
 test_that("`apply_profile()` errors at `collapse()`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(run_checks = TRUE)
   expect_error(request_data() |>
                  apply_profile(whatever) |>
@@ -25,13 +25,13 @@ test_that("`apply_profile()` errors at `collapse()`", {
 })
 
 test_that("`galah_apply_profile()` allows only one profile at a time", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   expect_error(galah_apply_profile(ALA, CSDM), 
                "Too many data profiles supplied.")
 })
 
 test_that("`apply_profile()` filters counts", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   without_profile <- galah_call() |>
     count() |>
     collect()
@@ -50,7 +50,7 @@ test_that("`apply_profile()` filters counts", {
 })
 
 test_that("`apply_profile()` filters species", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(email = "ala4r@ala.org.au", 
                atlas = "Australia", 
                run_checks = FALSE)
@@ -69,12 +69,7 @@ test_that("`apply_profile()` filters species", {
 })
 
 test_that("`apply_profile()` filters occurrences", {
-  skip_if_offline(); skip_on_ci()
-  quiet_collect <- function(x){
-    purrr_collect <- purrr::quietly(collect.data_request)
-    purrr_collect(x) |> 
-      purrr::pluck("result")
-  }
+  skip_galah()
   galah_config(email = "ala4r@ala.org.au", 
                atlas = "Australia", 
                run_checks = FALSE)
@@ -91,5 +86,4 @@ test_that("`apply_profile()` filters occurrences", {
     quiet_collect()
   expect_gt(nrow(with_profile), 0)
   expect_lt(nrow(with_profile), nrow(without_profile))
-  rm(quiet_collect)
 })

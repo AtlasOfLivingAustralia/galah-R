@@ -1,7 +1,18 @@
 quiet_config <- purrr::quietly(galah_config)
 
+test_that("`default_config()` is structured correctly", {
+  x <- default_config()
+  expect_s3_class(x, "galah_config")
+  expect_equal(names(x), c("package", "user", "atlas"))
+})
+
 test_that("`galah_config()` gives nice error messages for incorrect arguments", {
   expect_error(quiet_config(something = "nothing"))
+})
+
+test_that("`galah_config()` errors when unnamed objects are supplied", {
+  galah_config("something") |>
+    expect_error()
 })
 
 test_that("galah_config creates nested folders where requested", {
@@ -13,7 +24,7 @@ test_that("galah_config creates nested folders where requested", {
 })
 
 test_that("galah_config checks download_id", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(verbose = TRUE)
   expect_error(galah_config(download_reason_id = 17))
   expect_error(galah_config(download_reason_id = "NOTHING"))
@@ -24,7 +35,7 @@ test_that("galah_config checks download_id", {
 })
 
 test_that("galah_config checks inputs", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   expect_error(galah_config(caching = "value"))
   expect_error(galah_config(verbose = "value"))
   expect_error(galah_config(email = 4))

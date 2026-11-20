@@ -38,6 +38,12 @@
 #'   identify("Crinia")
 #'   unnest() |>
 #'   collect()
+#' 
+#' # or directly via an identifier
+#' request_metadata(from = "GBIF") |>
+#'   filter(identifier == "62YK7") |>
+#'   unnest() |>
+#'   collect()
 #' }
 #' @export
 unnest <- function(.query){
@@ -56,10 +62,10 @@ unnest <- function(.query){
     supplied_type <- .query$type
   }
   # ensure only used with certain query types
-  valid_types <- c("fields", "lists", "profiles", "taxa")
+  valid_types <- c("fields", "lists", "profiles", "identifiers", "taxa")
   if(!(supplied_type %in% valid_types)){
     c("Invalid `type` supplied to `unnest()`",
-      i = "Valid types are `fields`, `lists`, `profiles` or `taxa`") |>
+      i = "Valid types are `fields`, `lists`, `profiles`, `identifiers` or `taxa`") |>
       cli::cli_abort()
   }
   .query$type <- glue::glue("{supplied_type}-unnest")

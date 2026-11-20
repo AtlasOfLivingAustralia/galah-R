@@ -13,7 +13,7 @@ test_that("`request_` functions build correct object classes", {
 })
 
 test_that("request_data(from = X) sets `atlas` slot in later objects", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   chosen_atlas <- "Spain"
   query_initial <- request_data(from = chosen_atlas) |> 
     filter(year == 2010) |>
@@ -37,7 +37,7 @@ test_that("request_data(from = X) sets `atlas` slot in later objects", {
 })
 
 test_that("`galah_call()` works with all `dplyr` functions", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call() |> 
     identify("Litoria") |>
     filter(year == 2021, cl22 == "Tasmania") |>
@@ -59,7 +59,7 @@ test_that("`galah_call()` works with all `dplyr` functions", {
 })
 
 test_that("`galah_call()` works irrespective of `galah_` function order", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call() |> 
     apply_profile(ALA) |>
     group_by(year, basisOfRecord) |>
@@ -72,7 +72,7 @@ test_that("`galah_call()` works irrespective of `galah_` function order", {
 })
   
 test_that("repeated calls to `identify()` are added correctly", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call() |> 
     identify("Litoria") |>
     identify("Aves")

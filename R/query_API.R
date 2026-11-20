@@ -9,44 +9,15 @@ query_API <- function(.query,
                       error_call = rlang::caller_env()) {
   # structure for executing queries
   if(inherits(.query$url, "data.frame")){
-    query_API_multiple_url(.query, error_call = error_call)
+    query_API_multiple_url(.query, call = error_call)
   }else if(inherits(.query$body, "data.frame")){ 
-    query_API_multiple_body(.query, error_call = error_call)
+    query_API_multiple_body(.query, call = error_call)
   }else{
-    query_API_once(.query, error_call = error_call)
+    query_API_once(.query, call = error_call)
   }
 }
 
-#' Internal function to build an API call using httr2
-#' @noRd
-#' @keywords Internal
-build_API_call <- function(.query,
-                           error_call = rlang::caller_env()) {
-  query <- httr2::request(.query$url) |>
-    add_headers(.query$headers) |> 
-    add_options(.query$options) |> # used by GBIF
-    add_body(.query$body) |>  # NOTE: adding `body` converts from GET to POST
-    httr2::req_retry(max_tries = 5, backoff = ~ 2)
-    
-  # set authentication behaviour
-  if(isTRUE(.query$request$authenticate$use_jwt) & 
-     .query$type != "metadata/config" # necessary to prevent circular problems
-     ){
-
-    # check whether config data is available
-    auth_info <- get_auth_info(.query)
-    query <- query |>
-      httr2::req_oauth_auth_code(
-        client = auth_info$client,
-        auth_url = dplyr::pull(auth_info$config, "authorize_url"),
-        scope = dplyr::pull(auth_info$config, "scopes"),
-        pkce = TRUE,
-        redirect_uri = "http://localhost:27231/",
-        cache_disk = .query$request$authenticate$cache_disk)
-  }
-
-  return(query)
-}
+# First level down versions of `query_API()`
 
 #' Internal function to run multiple url-based API calls using httr2
 #' 
@@ -56,7 +27,7 @@ build_API_call <- function(.query,
 #' @noRd
 #' @keywords Internal
 query_API_multiple_url <- function(.query,
-                                   error_call = rlang::caller_env()){
+                                   call = rlang::caller_env()){
   
   # get a list of requests
   requests <- purrr::map(.x = seq_len(nrow(.query$url)), 
@@ -78,7 +49,7 @@ query_API_multiple_url <- function(.query,
 
   # set progress bar behaviour
   # note this is pretty basic rn
-  progress_object <- set_progress_bar_behaviour(nrow(.query$url) > 1)
+  progress_object <- set_progress_bar_behaviour(nrow(.query$url) > 3)
 
   # first look for paths; if present, download
   if(all(!is.na(paths))){
@@ -89,12 +60,15 @@ query_API_multiple_url <- function(.query,
                                           on_error = "continue",
                                           progress = progress_object)
     # no `return()` call needed here
+    # Q: should we add `httr2_parallel_error_handler(result)`?
 
   # if no `path`, just run all queries
   }else{
     result <- httr2::req_perform_parallel(requests,
                                           on_error = "continue",
                                           progress = progress_object)
+    httr2_parallel_error_handler(result, call = call)
+
     # return multiquery
     purrr::map(result, httr2::resp_body_json) |>
       structure(class = c("multiquery", "list"))
@@ -107,18 +81,25 @@ query_API_multiple_url <- function(.query,
 #' @noRd
 #' @keywords Internal
 query_API_multiple_body <- function(.query,
-                                    error_call = rlang::caller_env()){
-  requests <- purrr::map(.x = split(.query$body, 
-                                    seq_len(nrow(.query$body))),
+                                    call = rlang::caller_env()){
+  query_list <- split(.query$body, 
+                      seq_len(nrow(.query$body)))
+  requests <- purrr::map(query_list,
                .f = \(a){
                  data_tr <- .query
                  data_tr$body <- a$predicate[[1]]
                  build_API_call(data_tr)
                })
-  progress_object <- set_progress_bar_behaviour(nrow(.query$body) > 1)
+  progress_object <- set_progress_bar_behaviour(nrow(.query$body) > 3)
+
+  ## TODO: add httr2::req_throttle()
   result <- httr2::req_perform_parallel(requests,
                                         on_error = "continue",
                                         progress = progress_object)
+
+  httr2_parallel_error_handler(result)
+
+  # parse and return
   purrr::map(result, httr2::resp_body_json) |>
     structure(class = c("multiquery", "list"))
 }
@@ -127,42 +108,66 @@ query_API_multiple_body <- function(.query,
 #' @noRd
 #' @keywords Internal
 query_API_once <- function(.query,
-                           error_call = rlang::caller_env()) {
+                           call = rlang::caller_env()) {
   # build a query
   query <- build_API_call(.query)
 
   # handle downloads
   if(!is.null(.query$download)){
     check_directory(.query$file)
-    query |> 
+    result <- query |> 
+      httr2::req_error(is_error = \(x) FALSE) |>
       httr2::req_perform(path = .query$file,
-                         verbosity = 0)
+                         verbosity = 0,
+                         error_call = call)
+    
+    # if the above doesn't error, check for httr2 errors
+    httr2_error_handler(result, call = call)
+
   # then other pings, which should resolve quickly 
   # and can be allowed to fail otherwise
   }else{
     result <- query |>
-      httr2::req_timeout(seconds = 60) |>
-      httr2::req_perform(verbosity = 0)
+      httr2::req_timeout(seconds = 20) |>
+      httr2::req_perform(verbosity = 0,
+                         error_call = call)
+    
+    # if the above doesn't error, check for httr2 errors
+    httr2_error_handler(result, call = call)
+    
     if(grepl("^https://api.gbif.org/v1/occurrence/download/request", .query$url)){
       httr2::resp_body_string(result) |>
         structure(class = c("singlequery", "list"))
     }else{
-      httr2::resp_body_json(result)|>  # may not work for invalid URLs 
+        httr2::resp_body_json(result)|>  # may not work for invalid URLs 
         structure(class = c("singlequery", "list")) 
     }
   }
 }
 
-#' If supplied, add `headers` arg to a `request()`
+# Internal builder functions
+
+#' Internal function to build an API call using httr2
 #' @noRd
 #' @keywords Internal
-add_headers <- function(req, headers){
-  if(!is.null(headers)){
-    req$headers <- headers
+build_API_call <- function(.query) {
+  query <- httr2::request(.query$url) |>
+    add_headers(.query$headers) |> 
+    add_options(.query$options) |> # used by GBIF
+    add_body(.query$body) |>  # NOTE: adding `body` converts from GET to POST
+    httr2::req_retry(max_tries = 5, backoff = ~ 2) |>
+    httr2::req_throttle(capacity = c(10, 100), fill_time_s = c(1, 60))
+    
+  # set authentication behaviour
+  if(isTRUE(.query$request$authenticate$use_jwt) & 
+     .query$type != "metadata/config" # necessary to prevent circular problems
+     ){
+    build_auth_call(httr2_query = query,
+                    galah_query = .query)
+
   }else{
-    req$headers <- build_headers()
+    query
   }
-  req
 }
 
 #' If supplied, add `body` arg to a `request()`
@@ -196,6 +201,127 @@ add_options <- function(req, options){
     req$options <- options[names(options) %in% allowed]
   }
   req
+}
+
+#' Internal function to run an API call using httr2
+#' @param criteria length-1 logical statement as to whether to proceed or not
+#' @noRd
+#' @keywords Internal
+set_progress_bar_behaviour <- function(criteria){
+  verbose <- all(
+    potions::pour("package", "verbose", .pkg = "galah") &
+    isTRUE(criteria))
+  if(verbose){
+    list(name = "Querying API",
+         clear = TRUE)
+  }else{
+    FALSE
+  }
+}
+
+
+# Error handlers
+
+#' Internal function to parse httr2 errors
+#' @noRd
+#' @keywords Internal
+httr2_error_handler <- function(result,
+                                call = rlang::caller_env()){
+  # `req_error()` suppresses conversion of 4XX and 5XX error codes from becoming R errors
+  # catch and process those here
+  http_status_code <- as.character(result$status_code) 
+  # handle some specific error messages, while using a sensible default
+  if(stringr::str_detect(http_status_code, "^4")){
+    switch(http_status_code,
+            "403" = default_error_message(
+              result,
+              added_line = "Is the email you provided to `galah_config()` registered with the selected atlas?",
+              call = call),
+            default_error_message(result, call = call)
+    )
+  }else if(stringr::str_detect(http_status_code, "^5")){
+    switch(http_status_code,
+        "504" = default_error_message(
+          result,
+          added_line = "his usually means that the selected API is down - consider trying again later.",
+          call = call),
+        default_error_message(result, call = call)
+    )
+  }else{
+    result
+  }
+}
+
+#' Internal function to handle httr2 errors when run in parallel
+#' @noRd
+#' @keywords Internal
+httr2_parallel_error_handler <- function(result,
+                                         call = rlang::caller_env()){
+  # look for errors in returned object
+  httr2_error_check <- result |>
+    purrr::map(.f = \(a) inherits(a, "httr2_error")) |>
+    unlist()
+  httr2_message <- result |>
+    purrr::map(.f = \(a) purrr::pluck(a, "message")) |>
+    unlist() |>
+    unique()
+
+  # this is a little basic as it won't catch single errors
+  if(any(httr2_error_check)){
+    c("Unable to enact request.", i = httr2_message[1]) |>
+      cli::cli_abort(call = call)
+  }
+  
+  result
+}
+
+#' Internal function to format an error message
+#' @noRd
+#' @keywords Internal
+default_error_message <- function(result, # string encoding 3-digit code
+                                  added_line = NULL,
+                                  call = rlang::caller_env()){
+  http_status_code <- as.character(result$status_code)
+  http_message <- httr2::resp_body_json(result)$message
+  error_message <- c("HTTP Code {http_status_code}: {http_message}")
+  if(!is.null(added_line)){
+    error_message <- append(error_message,
+                            c(i = added_line))
+  }
+  cli::cli_abort(error_message, call = call)
+}
+
+#' If supplied, add `headers` arg to a `request()`
+#' @noRd
+#' @keywords Internal
+add_headers <- function(req, headers){
+  if(!is.null(headers)){
+    req$headers <- headers
+  }else{
+    req$headers <- build_headers()
+  }
+  req
+}
+
+
+## NOTE: Below here lines can't be tested programmatically, so
+## are excluded in `data-raw/3_codecov.R`. Changes to this file
+## should be reflected in that document as well.
+
+#' Handle auth pipeline
+#' @noRd
+#' @keywords Internal
+build_auth_call <- function(httr2_query, galah_query){
+  # check whether config data is available
+  auth_info <- get_auth_info(galah_query)
+  httr2_query |>
+    httr2::req_oauth_auth_code(
+      client = auth_info$client,
+      auth_url = dplyr::pull(auth_info$config, "authorize_url"),
+      scope = dplyr::pull(auth_info$config, "scopes"),
+      pkce = TRUE,
+      redirect_uri = "http://localhost:27231/",
+      cache_disk = galah_query$request$authenticate$cache_disk)
 }
 
 #' get a client, and if it doesn't exist, make one
@@ -260,20 +386,4 @@ build_auth_client <- function(config, atlas){
   # cache and return
   update_cache(client = result)
   result
-}
-
-#' Internal function to run an API call using httr2
-#' @param criteria length-1 logical statement as to whether to proceed or not
-#' @noRd
-#' @keywords Internal
-set_progress_bar_behaviour <- function(criteria){
-  verbose <- all(
-    potions::pour("package", "verbose", .pkg = "galah") &
-    isTRUE(criteria))
-  if(verbose){
-    list(name = "Querying API",
-         clear = TRUE)
-  }else{
-    FALSE
-  }
 }

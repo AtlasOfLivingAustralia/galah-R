@@ -38,7 +38,7 @@
 #'   concatenated using `_`.
 #'   *  `scientific_name`: The taxonomic name matched to the provided search 
 #'   term, to the lowest identified taxonomic rank.
-#'   *  `taxon_concept_id`: The unique taxonomic identifier.
+#'   *  `taxon_concept_id` (living atlases) or `taxon_key` (GBIF): The unique taxonomic identifier.
 #'   *  `rank`: The taxonomic rank of the returned result.
 #'   *  `match_type`: (ALA only) The method of name matching used by the name 
 #'   matching service. More information can be found on the 

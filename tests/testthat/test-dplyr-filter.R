@@ -8,7 +8,7 @@ test_that("`filter()` gives an error for single equals sign", {
 })
 
 test_that("`filter()` works with assertions", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   count_all <- atlas_counts() |>
     dplyr::pull(count)
   count_invalid_spp <- galah_call() |>
@@ -29,7 +29,7 @@ test_that("`filter()` works with assertions", {
 })
 
 test_that("`filter()` handles multiple assertions", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   # OR statements
   all_records <- atlas_counts() |>
     dplyr::pull(count)
@@ -75,7 +75,7 @@ test_that("`filter()` handles multiple assertions", {
 })
 
 test_that("`filter()` handles assertions and taxa", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   problem_families <- galah_call() |>
     filter(assertions == "INVALID_SCIENTIFIC_NAME") |>
     group_by(family) |>
@@ -224,7 +224,7 @@ test_that("`filter()` returns error when equations are passed as a string", {
 })
 
 test_that("`filter()` handles taxonomic queries", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   filters <- request_data() |>
     filter(taxonConceptID == search_taxa("Animalia")$taxon_concept_id) |>
     purrr::pluck("filter")
@@ -242,7 +242,7 @@ test_that("`filter()` handles taxonomic queries when passed as a string", {
 })
 
 test_that("`filter()` handles taxonomic exclusions", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   filters <- request_data() |>
     filter(taxonConceptID == search_taxa("Animalia")$taxon_concept_id,
            taxonConceptID != search_taxa("Chordata")$taxon_concept_id) |>
@@ -252,7 +252,7 @@ test_that("`filter()` handles taxonomic exclusions", {
 })
 
 test_that("`filter()` handles lsid as an input", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   ids <- c("https://biodiversity.org.au/afd/taxa/0df99ece-1982-4605-a2b3-4fcb7660ee2b",
            "https://id.biodiversity.org.au/node/apni/2910467",
            "https://id.biodiversity.org.au/node/apni/291047") # wrong id
@@ -322,7 +322,7 @@ test_that("`filter()` handles %in%", {
     filter(year %in% list_of_years) |>
     purrr::pluck("filter")
   expect_equal(nrow(filters), 1)
-  expect_equal("((year:\"2020\") OR (year:\"2021\") OR (year:\"2022\"))", filters$query[[1]])
+  expect_equal("(((year:\"2020\") OR (year:\"2021\") OR (year:\"2022\")))", filters$query[[1]])
 })
 
 test_that("`filter()` handles %in% with multiple filters", {
@@ -331,11 +331,23 @@ test_that("`filter()` handles %in% with multiple filters", {
     filter(year %in% list_of_years, cl22 == "Tasmania") |>
     purrr::pluck("filter")
   expect_equal(nrow(filters), 2)
-  expect_equal("((year:\"2020\") OR (year:\"2021\") OR (year:\"2022\"))", filters$query[[1]])
+  expect_equal("(((year:\"2020\") OR (year:\"2021\") OR (year:\"2022\")))", filters$query[[1]])
+})
+
+test_that("`filter()` handles negated `%in% `statements", {
+  skip_galah()
+  x <- request_data() |>
+    filter(-(degreeOfEstablishment %in% c("cultivated", "captive"))) |>
+    count()
+  filters <- x |>
+    purrr::pluck("filter")
+  expect_equal(nrow(filters), 1)
+  expect_equal(filters$query[[1]],
+               "-((degreeOfEstablishment:\"cultivated\") OR (degreeOfEstablishment:\"captive\"))")
 })
 
 test_that("`filter()` parses fields correctly with is.na()", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   expect_no_error(galah_call() |> 
                     filter(is.na(decimalLongitude)) |> 
                     count() |>
@@ -352,40 +364,41 @@ test_that("`filter()` parses fields correctly with is.na()", {
                     collect()
                   )
   # misspelled or wrong fields
-  expect_error(galah_call() |>
-                 filter(is.na(decimalLongitde)) |>
-                 count() |>
-                 collect()
-               )
-  expect_error(galah_call() |>
-                 filter(year == 2001, is.na(decimalLongitde)) |>
-                 count() |>
-                 collect()
-               )
-  expect_error(galah_call() |>
-                 filter(is.na(bork) | coordinatencertaintyInMeters <= 1000) |>
-                 count() |>
-                 collect()
-               )
+  galah_call() |>
+    filter(is.na(decimalLongitde)) |>
+    count() |>
+    collect() |>
+    expect_error(label = "Can't use fields that don't exist")
+  galah_call() |>
+    filter(year == 2001, is.na(decimalLongitde)) |>
+    count() |>
+    collect() |>
+    expect_error(label = "Can't use fields that don't exist")
+  galah_call() |>
+    filter(is.na(bork) | coordinatencertaintyInMeters <= 1000) |>
+    count() |>
+    collect() |>
+    expect_error(label = "Can't use fields that don't exist")
 })
 
 test_that("`filter()` handles apostrophes (') correctly", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   names <- c("Australia's Virtual Herbarium", 
              "iNaturalist observations",
              "iNaturalist research-grade observations")
-  query <- request_data() |>
+  result <- request_data() |>
     filter(datasetName %in% names) |>
-    count()
-  filters <- purrr::pluck(query, "filter")
-  result <- collect(query)
-  expect_equal(nrow(result), 1) # returns result
+    group_by(datasetName) |>
+    count() |>
+    collect()
+  expect_tibble(result)
+  expect_equal(nrow(result), 3) # returns result
   expect_gte(result$count[1], 1)
-  expect_match(filters$query, "\\(datasetName:\\\"Australia's Virtual Herbarium\\\"")
+  expect_true(all(result$datasetName %in% names))
 })
 
 test_that("`filter()` handles multiple values with brackets correctly", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   query <- request_data() |>
     filter(scientificName == c("Aviceda (Aviceda) subcristata", 
                                "Todiramphus (Todiramphus) sanctus")) |>
@@ -403,19 +416,19 @@ test_that("`filter()` builds correct query with `!`, `%in%`, `c()` and `identify
     identify("Crinia signifera") |>
     filter(!cl1048 %in% ibra_subset) |>
     count()
-  expect_equal(query$filter$query, c("-(cl1048:\"Brigalow Belt North\") OR -(cl1048:\"Brigalow Belt South\") OR -(cl1048:\"Central Mackay Coast\")"))
+  expect_equal(query$filter$query, c("-((cl1048:\"Brigalow Belt North\") OR (cl1048:\"Brigalow Belt South\") OR (cl1048:\"Central Mackay Coast\"))"))
 })
 
 test_that("`filter()` accepts {{}} on lhs of formula", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   field <- "species"
-  result <- galah_call() |>
+  x <- galah_call() |>
     filter({{field}} == "Eolophus roseicapilla") |>
     count() |>
     collect()
-  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(nrow(result), 1)
-  expect_gte(result$count[1], 100)
+  expect_tibble(x)
+  expect_equal(nrow(x), 1)
+  expect_gte(x$count[1], 100)
 })
 
 

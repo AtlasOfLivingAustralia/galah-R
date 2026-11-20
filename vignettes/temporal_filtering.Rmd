@@ -50,21 +50,21 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 12 × 2
-##    month count
-##    <chr> <int>
-##  1 11    83810
-##  2 10    38208
-##  3 12    36578
-##  4 9     27616
-##  5 1     22352
-##  6 8     18758
-##  7 3     17964
-##  8 2     16550
-##  9 7      8945
-## 10 4      7769
-## 11 6      6961
-## 12 5      5996
+## # A tibble: 12 × 3
+##    month month_label count
+##    <chr> <chr>       <int>
+##  1 11    November    84341
+##  2 10    October     37101
+##  3 12    December    37047
+##  4 9     September   27704
+##  5 1     January     22585
+##  6 8     August      19143
+##  7 3     March       18272
+##  8 2     February    16699
+##  9 7     July         9454
+## 10 4     April        8876
+## 11 6     June         8109
+## 12 5     May          6770
 ```
 
 It is also important to observe that the outputted `month` column is of type 
@@ -101,17 +101,17 @@ galah_call() |>
 ## # A tibble: 11 × 2
 ##    year  count
 ##    <chr> <int>
-##  1 2013      8
-##  2 2014     13
-##  3 2015      8
-##  4 2016      7
-##  5 2017      1
+##  1 2013     11
+##  2 2014     15
+##  3 2015      9
+##  4 2016     10
+##  5 2017      4
 ##  6 2018      9
 ##  7 2019      6
 ##  8 2020     20
-##  9 2021     36
+##  9 2021     38
 ## 10 2022     26
-## 11 2023     54
+## 11 2023     60
 ```
 
 ### Occurrence dates
@@ -156,7 +156,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##   count
 ##   <int>
-## 1  1240
+## 1 13071
 ```
 
 It can be unintuitive to provide dates in this format. Luckily, it is very 
@@ -216,7 +216,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##   count
 ##   <int>
-## 1   407
+## 1   454
 ```
 
 

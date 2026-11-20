@@ -1,7 +1,7 @@
 ---
 title: "Look up information"
 author: "Martin Westgate & Dax Kellie"
-date: '`r Sys.Date()`'
+date: "2024-11-19"
 output:
   rmarkdown::html_vignette
 vignette: >

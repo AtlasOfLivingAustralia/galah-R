@@ -9,6 +9,7 @@ collapse_occurrences <- function(x){
         # note that in the above line, list() *must* be kept
         # as it wraps the address in [] and API calls fail without it.
       sendNotification = potions::pour("package", "send_email", .pkg = "galah"),
+      checklistKey = gbif_checklistKey(),
       format = x$body$format,
       predicate = build_predicates(x$body)) |>
         jsonlite::toJSON(auto_unbox = TRUE, pretty = TRUE)

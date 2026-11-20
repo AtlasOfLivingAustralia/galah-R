@@ -1,7 +1,14 @@
 quiet_print <- purrr::quietly(print.occurrences_glimpse)
 
+test_that("`describe()` errors for types other than `occurrences`", {
+  galah_call(type = "species") |>
+    glimpse() |>
+    capture() |>
+    expect_warning(label = "`glimpse()` is only supported for `type` \"occurrences\": skipping")
+})
+
 test_that("`glimpse()` returns the correct object class", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- galah_call() |>
     filter(year == 2025) |>
     glimpse() |>
@@ -14,7 +21,7 @@ test_that("`glimpse()` returns the correct object class", {
 })
 
 test_that("`glimpse()` works with `select()`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- galah_call() |>
     filter(year == 2025) |>
     select(eventDate, decimalLatitude, year) |>

@@ -119,6 +119,7 @@ lookup_select_columns <- function(type) {
                         "description",
                         "type"),
            "identifiers" = lookup_select_columns_taxa(),
+           "identifiers-unnest" = lookup_select_columns_taxa_unnest(),
            "licences" = c("id",
                           "name",
                           "acronym",
@@ -153,10 +154,7 @@ lookup_select_columns <- function(type) {
            "reasons" = c("id",
                          "name"),
            "taxa" = lookup_select_columns_taxa(),
-           "taxa-unnest" = c("name",
-                             "taxon_concept_id",
-                             "parent_taxon_concept_id",
-                             "rank"),
+           "taxa-unnest" = lookup_select_columns_taxa_unnest(),
            NULL # When no defaults are set, sending NULL tells the code to call `everything()`
            )
 }
@@ -173,8 +171,10 @@ lookup_select_columns_taxa <- function(){
     "authority", # OpenObs
     "key", # GBIF
     "usage_key", # GBIF
+    "taxon_key", # GBIF/CoL
     "guid", # species search
-    "canonical_name", "status", 
+    "canonical_name",
+    "status", 
     "rank",
     "match_type",
     "confidence",
@@ -194,13 +194,32 @@ lookup_select_columns_taxa <- function(){
   )
 }
 
+#' `lookup_select_columns()` but for taxa-unnest and identifier-unnest queries
+#' @noRd
+#' @keywords Internal
+lookup_select_columns_taxa_unnest <- function(){
+  c("name",
+    "taxon_concept_id",
+    "parent_taxon_concept_id",
+    "rank",
+    "authorship",
+    "status")
+}
+
 #' Choose which columns to rename
 #' @noRd
 #' @keywords Internal
 lookup_rename_columns <- function(type){
   switch(type, 
          "assertions" = c("id" = "name"),
-         "identifiers" = c("taxonConceptID" = "key"),
+         "identifiers" = c("taxonConceptID" = "key",
+                           "taxonConceptID" = "id",
+                           "scientificName" = "label",
+                           "authority" = "link"),
+         "identifiers-unnest" = c("taxon_concept_id" = "guid",
+                                  "taxon_concept_id" = "id",
+                                  "parent_taxon_concept_id" = "parent_id",
+                                  "parent_taxon_concept_id" = "parent_guid"),
          "lists" = c("species_list_uid" = "data_resource_uid"),
          "lists-unnest" = c("taxon_concept_id" = "lsid"),
          "media" = c("media_id" = "image_identifier"),
@@ -217,6 +236,8 @@ lookup_rename_columns <- function(type){
                     "rank" = "rank_name",
                     "vernacular_name" = "french_vernacular_name"),
          "taxa-unnest" = c("taxon_concept_id" = "guid",
+                           "taxon_concept_id" = "id",
+                           "parent_taxon_concept_id" = "parent_id",
                            "parent_taxon_concept_id" = "parent_guid"),
          NULL
   )
@@ -371,45 +392,7 @@ default_columns <- function(atlas = NULL) {
   if(is.null(atlas)){
     atlas <- potions::pour("atlas", "region", .pkg = "galah")
   }
-  if(atlas %in% c("Austria", 
-                  "Brazil", 
-                  "Guatemala", 
-                  "Portugal")){
-    c("id",
-      "taxon_name",
-      "taxon_concept_lsid",
-      "latitude",
-      "longitude",
-      "occurrence_date",
-      "basis_of_record",
-      "occurrence_status",
-      "data_resource_uid")
-  }else if(atlas %in% c("France")){
-    c("id", # only difference from ALA
-      "scientificName",
-      "taxonConceptID",
-      "decimalLatitude",
-      "decimalLongitude",
-      "eventDate",
-      "basisOfRecord",
-      "occurrenceStatus",
-      "dataResourceName")
-  }else if(atlas %in% c("Australia",
-                        "Flanders",
-                        "Kew",
-                        "Spain",
-                        "Sweden",
-                        "United Kingdom")){
-    c("recordID", # note this requires that the ALA name (`id`) be corrected
-      "scientificName",
-      "taxonConceptID",
-      "decimalLatitude",
-      "decimalLongitude",
-      "eventDate",
-      "basisOfRecord",
-      "occurrenceStatus",
-      "dataResourceName")
-  }else if(atlas == "Global"){
+if(atlas == "Global"){
     c("occurrenceId",
       "scientificName",
       "taxonConceptID",
@@ -420,7 +403,15 @@ default_columns <- function(atlas = NULL) {
       "occurrenceStatus",
       "datasetName")
   }else{
-    cli::cli_abort("Unknown `atlas`")
+    c("recordID", # note this requires that the ALA name (`id`) be corrected
+      "scientificName",
+      "taxonConceptID",
+      "decimalLatitude",
+      "decimalLongitude",
+      "eventDate",
+      "basisOfRecord",
+      "occurrenceStatus",
+      "dataResourceName")
   }
 }
 
@@ -430,21 +421,10 @@ image_fields <- function(atlas = NULL) {
   if(is.null(atlas)){
     atlas <- potions::pour("atlas", "region", .pkg = "galah")
   }
-  if(atlas %in% c("Austria", 
-                  "Brazil", 
-                  "Guatemala", 
-                  "Portugal")){
-    "all_image_url"
-  }else if(atlas %in% c("Australia",
-                        "Flanders",
-                        "Spain",
-                        "Sweden",
-                        "United Kingdom")){
-    c("multimedia", "images", "sounds", "videos")
-  }else if(atlas %in% c("Kew")){
+  if(atlas %in% c("Kew")){
     c("multimedia", "images")
   }else{
-    cli::cli_abort("Unknown `atlas`")
+    c("multimedia", "images", "sounds", "videos")
   }
 }
 
@@ -458,16 +438,15 @@ image_filters <- function(present_fields,
     atlas <- potions::pour("atlas", "region", .pkg = "galah")
   }
   switch(atlas,
-         "Austria" = "(all_image_url:*)",
+         "Austria" = "(images:*)",
          "Australia" = glue::glue("({present_fields}:*)"),
-         "Brazil" = "(all_image_url:*)",
+         "Brazil" = "(images:*)",
          "Flanders" = "(images:*)",
-         "Guatemala" = "(all_image_url:*)",
+         "Guatemala" = "(images:*)",
          "Kew" =  "(images:*)",
-         "Portugal" = "(all_image_url:*)",
+         "Portugal" = "(images:*)",
          "Spain" = "(multimedia:*)",
-         "Sweden" = "(multimedia:*)",
-         "United Kingdom" = "(all_image_url:*)",
+         "United Kingdom" = "(images:*)",
          cli::cli_abort("`atlas_media()` is not supported for atlas = {atlas}",
                         call = error_call)
   )
@@ -476,18 +455,34 @@ image_filters <- function(present_fields,
 #' @noRd
 #' @keywords Internal
 species_facets <- function(.query){
-  if(.query$atlas %in% 
-     c("Australia",
-       "Flanders",
-       "France",
-       "Kew",
-       "Spain",
-       "Sweden",
-       "United Kingdom")) {
-    "speciesID"
-  }else{
+  if(.query$atlas %in% c("Austria")){
     "species_guid"
+  }else{
+    "speciesID"
   }
+}
+
+#' Internal function to specify checklistKey in GBIF functions
+#' @noRd
+#' @keywords Internal
+gbif_checklistKey <- function(){
+  "7ddf754f-d193-4cc9-b351-99906754a03b"
+}
+
+#' Internal function to specify checklistbank dataset ID in GBIF functions
+#' @noRd
+#' @keywords Internal
+gbif_checklistbank_key <- function(){
+  "3LXR"
+}
+
+#' Internal function to determine whether a `checklistKey` is needed in `filter()`
+#' @noRd
+#' @keywords Internal
+is_gbif_taxon_field <- function(x){
+  ranks <- c("kingdom", "phylum", "class", "order", "family", "genus", "tribe", "taxon")
+  fields <- glue::glue("{toupper(ranks)}_KEY")
+  any(fields == x)
 }
 
 #' Internal function to test whether authentication is supported

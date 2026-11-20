@@ -86,13 +86,16 @@ collect_apis <- function(.query){
 #' Internal function to `collect()` assertions
 #' @noRd
 #' @keywords Internal
-collect_assertions <- function(.query){
+collect_assertions <- function(.query,
+                               call = rlang::caller_env()){
   if(!is.null(.query$data)){
     result_df <- retrieve_internal_data(.query)
   }else{
     # get data from API
-    result_api <- purrr::map(query_API(.query), 
-                         \(a){a[names(a) != "termsRequiredToTest"]})
+    result <- query_API(.query,
+                        error_call = call)
+    result_api <- purrr::map(result, 
+                             \(a){a[names(a) != "termsRequiredToTest"]})
     # set up a pipe to transform results from the API
     result_df <- result_api |>
       dplyr::bind_rows() |>
@@ -120,13 +123,14 @@ collect_atlases <- function(.query){
 #' Internal function to `collect()` collections
 #' @noRd
 #' @keywords Internal
-collect_collections <- function(.query){
+collect_collections <- function(.query,
+                                call = rlang::caller_env()){
   if(!is.null(.query$data)){
     result_df <- retrieve_internal_data(.query)
   }else{
     # Handle GBIF first
     if(.query$atlas == "Global"){
-      result <- query_API(.query)
+      result <- query_API(.query, error_call = call)
       if(any(names(result) == "results")){ # happens when `filter()` not specified
         # Note: This assumes only one API call; will need more potentially
         result <- purrr::pluck(result, "results")
@@ -134,17 +138,10 @@ collect_collections <- function(.query){
       result_df <- result |>
         purrr::map(tidy_list_columns) |>
         dplyr::bind_rows()
-    # Then France
-    }else if(.query$atlas == "France"){
-      result <- .query |>
-        query_API() |>
-        purrr::pluck("_embedded", "producers") |>
-        unlist()
-      result_df <- tibble::tibble(name = result)
-    # Finally, all other Living Atlases
+    # Then Living Atlases
     }else{
       result <- .query |>
-        query_API()
+        query_API(error_call = call)
       result_df <- result |>
         dplyr::bind_rows()  
       if(any(colnames(result_df) == "uid")){
@@ -174,17 +171,15 @@ collect_collections <- function(.query){
 #' - `authorize_url`
 #' - `token_url`
 #' - `scopes`
-#' @details
-#' This is the *ONLY* function in galah that doesn't call `query_API()`, 
-#' for the simple reason that it is sometimes called _inside_ that function,
-#' and we dont' want recursive queries here.
 #' @noRd
 #' @keywords Internal
-collect_config <- function(.query){
+collect_config <- function(.query,
+                           call = rlang::caller_env()){
   if(!is.null(.query$data)){
     result <- retrieve_internal_data(.query)
   }else{
-    result <- query_API(.query) |>
+    result <- .query |>
+      query_API(error_call = call) |>
       tibble::as_tibble() |>
       update_attributes(type = "config",
                         atlas = .query$atlas)
@@ -196,11 +191,13 @@ collect_config <- function(.query){
 #' Internal function to `collect()` datasets
 #' @noRd
 #' @keywords Internal
-collect_datasets <- function(.query){
+collect_datasets <- function(.query,
+                             call = rlang::caller_env()){
   if(!is.null(.query$data)){
     result_df <- retrieve_internal_data(.query)
   }else{
-    result <- query_API(.query)
+    result <- query_API(.query,
+                        error_call = call)
     if(.query$atlas == "Global"){
       if(any(names(result) == "results")){ # happens when `filter()` not specified
         # Note: This assumes only one API call; will need more potentially
@@ -229,47 +226,15 @@ collect_datasets <- function(.query){
   parse_select(result_df, .query)
 }
 
-#' Internal function to `collect()` distributions
-#' @noRd
-#' @keywords Internal
-collect_distributions_metadata <- function(.query){
-  result <- query_API(.query)
-  result <- result |>
-    dplyr::bind_rows() |>
-    # NOTE: This syntax should be integrated with `lookup_select_columns()` et al before shipping
-    dplyr::select(
-      "spcode", 
-      "family", 
-      "genus_name", 
-      "scientific", 
-      "common_nam",
-      "lsid",
-      "area_name",
-      "area_km",
-      "data_resource_uid") |>
-    dplyr::rename(
-      "id" = "spcode", # this is chosen as ID because it is called by later APIs
-      "genus" = "genus_name",
-      "species" = "scientific",
-      "taxon_concept_id" = "lsid",
-      "label" = "area_name",
-      "common_name" = "common_nam")  |>
-    dplyr::mutate("common_name" = trimws(.data$common_name)) # remove leading or trailing spaces
-  result <- update_attributes(result, 
-                              type = "distributions",
-                              atlas = .query$atlas)
-  update_cache(distributions = result)
-  result 
-}
-
 #' Internal function to `collect()` fields
 #' @noRd
 #' @keywords Internal
-collect_fields <- function(.query){
+collect_fields <- function(.query,
+                           call = rlang::caller_env()){
   if(!is.null(.query$data)){
     result_df <- retrieve_internal_data(.query)
   }else{
-    result <- query_API(.query) |>
+    result <- query_API(.query, error_call = call) |>
       dplyr::bind_rows() 
 
     if(.query$atlas == "Global"){
@@ -321,11 +286,12 @@ collect_fields <- function(.query){
 #' Internal function to `collect()` licences
 #' @noRd
 #' @keywords Internal
-collect_licences <- function(.query){
+collect_licences <- function(.query,
+                             call = rlang::caller_env()){
   if(!is.null(.query$data)){
     result_df <- retrieve_internal_data(.query)
   }else{
-    result <- query_API(.query) 
+    result <- query_API(.query, error_call = call) 
     if(length(result) > 0){
       if (any(duplicated(names(result[[1]])))) { # remove duplicate columns (i.e. Spain atlas)
         result <- purrr::map(result, \(x) x[unique(names(x))])
@@ -351,7 +317,8 @@ collect_licences <- function(.query){
 #' Internal function to `collect()` lists
 #' @noRd
 #' @keywords Internal
-collect_lists <- function(.query){
+collect_lists <- function(.query,
+                           call = rlang::caller_env()){
   # NOTE: this function has some quite versatile behaviour, so we need to 
   # explicitly control when caching does (and does not) happen.
   should_update_cache <- FALSE
@@ -361,7 +328,7 @@ collect_lists <- function(.query){
     result_df <- retrieve_internal_data(.query)
   }else{
     # here we run and parse an API call
-    result <- query_API(.query) # this when `url` is a single value or a tibble
+    result <- query_API(.query, error_call = call) # this when `url` is a single value or a tibble
 
     if(inherits(result, "multiquery")){
       # FIXME: haven't checked whether this breaks other living atlases
@@ -412,8 +379,8 @@ collect_lists <- function(.query){
 #' @noRd
 #' @keywords Internal
 collect_media_metadata <- function(.query,
-                                   error_call = rlang::caller_env()){
-  result <- query_API(.query) 
+                                   call = rlang::caller_env()){
+  result <- query_API(.query, error_call = call) 
 
   # ensure list-columns are imported correctly
   result_df <- result |>
@@ -432,11 +399,12 @@ collect_media_metadata <- function(.query,
 #' Internal function to `collect()` profiles
 #' @noRd
 #' @keywords Internal
-collect_profiles <- function(.query){
+collect_profiles <- function(.query,
+                             call = rlang::caller_env()){
   if(!is.null(.query$data)){
     result_df <- retrieve_internal_data(.query)
   }else{
-    result <- query_API(.query) |>
+    result <- query_API(.query, error_call = call) |>
       dplyr::bind_rows() 
     result_df <- result |>
       dplyr::filter(!duplicated(.data$id)) |>
@@ -454,11 +422,12 @@ collect_profiles <- function(.query){
 #' Internal function to `collect()` providers
 #' @noRd
 #' @keywords Internal
-collect_providers <- function(.query){
+collect_providers <- function(.query,
+                              call = rlang::caller_env()){
   if(!is.null(.query$data)){
     result_df <- retrieve_internal_data(.query)
   }else{
-    result <- query_API(.query)
+    result <- query_API(.query, error_call = call)
     if(.query$atlas == "Global"){
       if(any(names(result) == "results")){ # happens when `filter()` not specified
         # Note: This assumes only one API call; will need more potentially
@@ -504,11 +473,13 @@ collect_ranks <- function(.query){
 #' Internal function to `collect()` reasons
 #' @noRd
 #' @keywords Internal
-collect_reasons <- function(.query){
+collect_reasons <- function(.query,
+                            call = rlang::caller_env()){
   if(!is.null(.query$data)){
     result_df <- retrieve_internal_data(.query)
   }else{
-    result <- query_API(.query) |> 
+    result <- .query |>
+      query_API(error_call = call) |> 
       dplyr::bind_rows() 
     result_df <- result |>
       dplyr::filter(!.data$deprecated) |>

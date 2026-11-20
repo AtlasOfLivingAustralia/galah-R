@@ -1,7 +1,7 @@
 ---
 title: "Quick start guide"
 author: "Martin Westgate & Dax Kellie"
-date: '2026-09-16'
+date: '2026-11-20'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -58,7 +58,7 @@ galah_call() |>    # open a pipe
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 184796858
+## 1 199066801
 ```
 
 By default, queries are sent to the Atlas of Living Australia, but this can
@@ -75,7 +75,7 @@ galah_call(from = "Spain") |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 59852882
+## 1 62246706
 ```
 
 The `from` argument accepts the `acronym`, `region`, or `institution` fields from 
@@ -102,7 +102,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 1593848
+## 1 1766285
 ```
 
 To choose records using non-taxonomic criteria, you'll need to use `filter()`.
@@ -148,18 +148,18 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 9 × 1
-##   basisOfRecord      
-##   <chr>              
-## 1 HUMAN_OBSERVATION  
-## 2 PRESERVED_SPECIMEN 
-## 3 OCCURRENCE         
-## 4 OBSERVATION        
-## 5 MACHINE_OBSERVATION
-## 6 MATERIAL_SAMPLE    
-## 7 LIVING_SPECIMEN    
-## 8 FOSSIL_SPECIMEN    
-## 9 MATERIAL_CITATION
+## # A tibble: 9 × 2
+##   basisOfRecord       basisOfRecord_label
+##   <chr>               <chr>              
+## 1 HUMAN_OBSERVATION   Human observation  
+## 2 PRESERVED_SPECIMEN  Preserved specimen 
+## 3 OCCURRENCE          Occurrence         
+## 4 OBSERVATION         Observation        
+## 5 MACHINE_OBSERVATION Machine observation
+## 6 MATERIAL_SAMPLE     Material Sample    
+## 7 LIVING_SPECIMEN     Living specimen    
+## 8 FOSSIL_SPECIMEN     Fossil specimen    
+## 9 MATERIAL_CITATION   Material Citation
 ```
 
 Then you can combine these within a `filter()` query:
@@ -176,7 +176,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 18419249
+## 1 18522009
 ```
 
 These functions can be combined in a number of ways, for example to
@@ -217,15 +217,15 @@ galah_call() |>
 ```
 
 ```
-## Rows: 26,430
+## Rows: 26,686
 ## Columns: 8
-## $ taxonConceptID   <chr> "https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea", "https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea", "https://biodiversity.org.au/afd/taxa/a38ac5ac-3049-4fde-8391-faf8bf7aeb7f"
-## $ eventDate        <dbl> 1.278833e+12, 1.286170e+12, 1.292803e+12
-## $ scientificName   <chr> "Eolophus roseicapilla", "Eolophus roseicapilla", "Eolophus roseicapilla albiceps"
-## $ decimalLatitude  <dbl> -27.57463, -16.06593, -35.88444
-## $ decimalLongitude <dbl> 153.4350, 136.3067, 145.9089
+## $ taxonConceptID   <chr> "https://biodiversity.org.au/afd/taxa/a38ac5ac-3049-4fde-8391-faf8bf7aeb7f", "https://biodiversity.org.au/afd/taxa/a38ac5ac-3049-4fde-8391-faf8bf7aeb7f", "https://biodiver…
+## $ eventDate        <dbl> 1.288051e+12, 1.275955e+12, 1.281053e+12
+## $ scientificName   <chr> "Eolophus roseicapilla albiceps", "Eolophus roseicapilla albiceps", "Eolophus roseicapilla albiceps"
+## $ decimalLatitude  <dbl> -35.02306, -28.89361, -33.68917
+## $ decimalLongitude <dbl> 138.5778, 140.4464, 138.9461
 ## $ basisOfRecord    <chr> "HUMAN_OBSERVATION", "HUMAN_OBSERVATION", "HUMAN_OBSERVATION"
-## $ dataResourceName <chr> "eBird Australia", "eBird Australia", "BirdLife Australia, Birdata"
+## $ dataResourceName <chr> "BirdLife Australia, Birdata", "BirdLife Australia, Birdata", "BirdLife Australia, Birdata"
 ## $ otherProperties  <list> ["PRESENT"], ["PRESENT"], ["PRESENT"]
 ```
 
@@ -245,40 +245,25 @@ galah_call() |>
 
 
 ```
-## Request for 26430 occurrences placed in queue.
+## Retrying in 1 seconds.
+## Retrying in 2 seconds.
 ```
 
 ```
-## Current queue length: 1
-```
-
-```
-## --
-```
-
-```
-## ℹ Downloading
-```
-
-```
-## ✔ Downloading [253ms]
-```
-
-```
-## # A tibble: 26,430 × 3
+## # A tibble: 26,686 × 3
 ##    eventDate decimalLatitude species              
 ##    <dttm>              <dbl> <chr>                
-##  1 NA                  -37.1 Eolophus roseicapilla
+##  1 NA                  -37.0 Eolophus roseicapilla
 ##  2 NA                  -37.0 Eolophus roseicapilla
-##  3 NA                  -37.1 Eolophus roseicapilla
-##  4 NA                  -37.1 Eolophus roseicapilla
+##  3 NA                  -37.0 Eolophus roseicapilla
+##  4 NA                  -37.0 Eolophus roseicapilla
 ##  5 NA                  -37.2 Eolophus roseicapilla
 ##  6 NA                  -37.0 Eolophus roseicapilla
 ##  7 NA                  -37.0 Eolophus roseicapilla
 ##  8 NA                  -37.0 Eolophus roseicapilla
-##  9 NA                  -37.0 Eolophus roseicapilla
+##  9 NA                  -37.1 Eolophus roseicapilla
 ## 10 NA                  -37.1 Eolophus roseicapilla
-## # ℹ 26,420 more rows
+## # ℹ 26,676 more rows
 ```
 
 # Architecture
@@ -334,7 +319,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 10781991
+## 1 15400671
 ```
 
 Or occurrences:
@@ -350,20 +335,16 @@ galah_call() |>
 ```
 
 ```
-## -----
-```
-
-```
-## # A tibble: 2,318 × 9
-##   recordID                             scientificName        taxonConceptID                                                            decimalLatitude decimalLongitude eventDate           basisOfRecord     occurrenceStatus dataResourceName   
-##   <chr>                                <chr>                 <chr>                                                                               <dbl>            <dbl> <dttm>              <chr>             <chr>            <chr>              
-## 1 0026d29f-b6ab-4a1d-9c57-6ee12cfde3a0 Eolophus roseicapilla https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea           -35.4             149. 2000-08-07 00:00:00 HUMAN_OBSERVATION PRESENT          Garden Bird Surveys
-## 2 00a62ee0-1e08-4114-b0d8-9b7905472d53 Eolophus roseicapilla https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea           -35.2             149. 2000-01-29 00:00:00 HUMAN_OBSERVATION PRESENT          Garden Bird Surveys
-## 3 00ab2f4d-326f-4b01-9a8a-1a10c1f77e3c Eolophus roseicapilla https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea           -35.4             149. 2000-09-25 00:00:00 HUMAN_OBSERVATION PRESENT          Garden Bird Surveys
-## 4 00b6c8ec-e7b9-4d9f-9638-d962b1b4acfa Eolophus roseicapilla https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea           -35.2             149. 2000-02-05 00:00:00 HUMAN_OBSERVATION PRESENT          Garden Bird Surveys
-## 5 00e36517-6518-42d5-8b69-90c526095fef Eolophus roseicapilla https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea           -35.4             149. 2000-01-01 00:00:00 HUMAN_OBSERVATION PRESENT          Garden Bird Surveys
-## 6 010b463f-d34f-45ec-8733-91f676a299d8 Eolophus roseicapilla https://biodiversity.org.au/afd/taxa/9b4ad548-8bb3-486a-ab0a-905506c463ea           -35.2             149. 2000-03-12 00:00:00 HUMAN_OBSERVATION PRESENT          Garden Bird Surveys
-## # ℹ 2,312 more rows
+## # A tibble: 2,323 × 9
+##   recordID                             scientificName        taxonConceptID                       decimalLatitude decimalLongitude eventDate           basisOfRecord occurrenceStatus dataResourceName
+##   <chr>                                <chr>                 <chr>                                          <dbl>            <dbl> <dttm>              <chr>         <chr>            <chr>           
+## 1 0026d29f-b6ab-4a1d-9c57-6ee12cfde3a0 Eolophus roseicapilla https://biodiversity.org.au/afd/tax…           -35.4             149. 2000-08-07 00:00:00 HUMAN_OBSERV… PRESENT          Garden Bird Sur…
+## 2 00a62ee0-1e08-4114-b0d8-9b7905472d53 Eolophus roseicapilla https://biodiversity.org.au/afd/tax…           -35.2             149. 2000-01-29 00:00:00 HUMAN_OBSERV… PRESENT          Garden Bird Sur…
+## 3 00ab2f4d-326f-4b01-9a8a-1a10c1f77e3c Eolophus roseicapilla https://biodiversity.org.au/afd/tax…           -35.4             149. 2000-09-25 00:00:00 HUMAN_OBSERV… PRESENT          Garden Bird Sur…
+## 4 00b6c8ec-e7b9-4d9f-9638-d962b1b4acfa Eolophus roseicapilla https://biodiversity.org.au/afd/tax…           -35.2             149. 2000-02-05 00:00:00 HUMAN_OBSERV… PRESENT          Garden Bird Sur…
+## 5 00e36517-6518-42d5-8b69-90c526095fef Eolophus roseicapilla https://biodiversity.org.au/afd/tax…           -35.4             149. 2000-01-01 00:00:00 HUMAN_OBSERV… PRESENT          Garden Bird Sur…
+## 6 010b463f-d34f-45ec-8733-91f676a299d8 Eolophus roseicapilla https://biodiversity.org.au/afd/tax…           -35.2             149. 2000-03-12 00:00:00 HUMAN_OBSERV… PRESENT          Garden Bird Sur…
+## # ℹ 2,317 more rows
 ```
 
 `atlas_species()` replaces the need for `distinct()` call, while `atlas_media()`

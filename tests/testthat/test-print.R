@@ -1,20 +1,34 @@
-test_that("object of class `data-request` formats correctly", {
-  expect_snapshot(request_data())
-})
+# class `data_request`
 
-test_that("populated `data_request()` prints correctly", {
-  galah_call() |>
-    identify("crinia") |>
-    filter(year == 2025) |>
+test_that("Empty `data-request` formats correctly", {
+  list() |>
+    structure(class = c("data_request", "list")) |>
     expect_snapshot()
 })
 
-test_that("object of class `metadata-request` formats correctly", {
+test_that("object of class `data-request` formats correctly", {
   request_data() |>
     expect_snapshot()
 })
 
-test_that("object of class `metadata-request` formats correctly with `filter()", {
+test_that("populated `data_request()` prints correctly", {
+  galah_call() |>
+    identify(c("crinia", "uperoleia")) |>
+    filter(year == 2025) |>
+    group_by(species) |>
+    count() |>
+    select(species, count) |>
+    expect_snapshot()
+})
+
+# class `metadata_request`
+
+test_that("object of class `metadata-request` formats correctly", {
+  request_metadata() |>
+    expect_snapshot()
+})
+
+test_that("populated `metadata_request()` prints correctly", {
   request_metadata() |>
     filter(list == "dr650") |>
     expect_snapshot()
@@ -33,6 +47,21 @@ test_that("object of class `metadata-request` formats correctly with `identify()
     expect_snapshot()
 })
 
+# class `files_request`
+
+test_that("object of class `files-request` formats correctly", {
+  request_files() |>
+    expect_snapshot()
+})
+
+test_that("populated `files_request()` prints correctly", {
+  request_files() |>
+    filter(media == tibble::tibble(media_id = 1234)) |>
+    expect_snapshot()
+})
+
+# class `query`
+
 test_that("object of class `query` formats correctly", {
   request_metadata() |>
     identify("Crinia") |>
@@ -40,13 +69,19 @@ test_that("object of class `query` formats correctly", {
     expect_snapshot()
 })
 
-test_that("object of class `computed_query` formats correctly", {
-  x <- request_metadata() |>
-    identify("Crinia") |>
-    capture()
-  class(x) <- c("computed_query", "list")
-  expect_snapshot(x)
+test_that("Object of class `query` containing `slice_head()` formats correctly", {
+  galah_call() |>
+    filter(year == 2025) |>
+    count(basisOfRecord) |>
+    slice_head(n = 3) |>
+    arrange(basisOfRecord) |>
+    capture() |>
+    as_query() |> 
+    expect_snapshot()
+  # test that slice, arrange etc are actually printed
 })
+
+# class `query_set`
 
 test_that("object of class `query_set` formats correctly", {
   # prevent earlier caching (or lack thereof) affecting the result
@@ -60,16 +95,23 @@ test_that("object of class `query_set` formats correctly", {
     expect_snapshot()
 })
 
+# class `computed_query`
+
+test_that("object of class `computed_query` formats correctly", {
+  x <- request_metadata() |>
+    identify("Crinia") |>
+    capture()
+  class(x) <- c("computed_query", "list")
+  expect_snapshot(x)
+})
+
+# class `galah_config`
+
 test_that("`galah_config()` formats correctly", {
-  galah_config(atlas = "ALA",
-               email = "random_email_for_testing@email.com",
-               directory = "something",
-               verbose = FALSE,
-               caching = TRUE,
-               run_checks = TRUE,
-               download_reason_id = 10)
+  potions::brew(default_config(), .pkg = "galah") # reset to defaults
+  galah_config(directory = "something") # otherwise `directory` is random and changes between runs
   galah_config() |>
     expect_snapshot()
-  galah_config(directory = tempdir(check = TRUE))
-  unlink("something", recursive = TRUE)
+  galah_config(directory = tempdir(check = TRUE)) # reset to temporary directory
+  unlink("something", recursive = TRUE) # remove testing directory
 })

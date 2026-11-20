@@ -75,10 +75,14 @@ capture.data_request <- function(x,
          "occurrences-count" = capture_occurrences_count(x),
          "occurrences-describe" = capture_occurrences_describe(x),
          "occurrences-doi" = capture_occurrences_doi(x),
-         "occurrences-glimpse" = capture_occurrences_glimpse(x),
+         "occurrences-glimpse" = capture_occurrences_search(x,
+                                                            slice_n = 3,
+                                                            type = "data/occurrences-glimpse"),
+         "occurrences-slice" = capture_occurrences_search(x,
+                                                          slice_n = x$slice$slice_n,
+                                                          type = "data/occurrences-slice"),
          "species" = capture_species(x),
          "species-count" = capture_species_count(x),
-         "distributions" = capture_distributions_data(x),
          "events" = capture_events(x),
          "events-count" = capture_events_count(x),
          "events-describe" = capture_events_describe(x),
@@ -99,7 +103,6 @@ capture.metadata_request <- function(x, ...){
          "collections" = capture_collections(x),
          "config" = capture_config(x),
          "datasets" = capture_datasets(x),
-         "distributions" = capture_distributions_metadata(x),
          "fields" = capture_fields(x),
          "fields-unnest" = capture_fields_unnest(x),
          "licences" = capture_licences(x),
@@ -114,6 +117,7 @@ capture.metadata_request <- function(x, ...){
          "taxa" = capture_taxa(x),
          "taxa-unnest" = capture_taxa_unnest(x),
          "identifiers" = capture_identifiers(x),
+         "identifiers-unnest" = capture_identifiers_unnest(x),
          cli::cli_abort("Unrecognised 'type'")
          ) |>
   add_request(x)
@@ -216,14 +220,11 @@ check_describe <- function(x){
   if(!is.null(x$describe)){
     if(x$type %in% c("occurrences", "events")){
       x$type <- glue::glue("{x$type}-describe")
-      x
     }else{
-      cli::cli_inform("`describe()` is only supported for `type` \"occurrences\" or \"events\" ")
-      x
+      cli::cli_warn("`describe()` is only supported for `type` \"occurrences\" or \"events\" ")
     }
-  }else{
-    x
   }
+  x
 }
 
 #' Internal function to check behaviour of `distinct()`, `group_by()` etc.
@@ -359,7 +360,7 @@ check_glimpse <- function(x){
       x$type <- "occurrences-glimpse"
       x
     }else{
-      cli::cli_inform("`glimpse()` is only supported for `type =\"occurrences\"")
+      cli::cli_warn("`glimpse()` is only supported for `type =\"occurrences\": skipping.")
       x
     }
   }else{
@@ -371,9 +372,8 @@ check_glimpse <- function(x){
 #' @keywords Internal
 #' @noRd
 check_slice_arrange <- function(x){
-  if(!stringr::str_detect(x$type, "-count$")){
-    x
-  }else{
+  if(stringr::str_detect(x$type, "-count")){
+    # first handle slice
     if(is.null(x$slice)){
       # limits to 10,000 rows
       # TODO: This should ultimately be set by `slice` or `atlas_counts(limit = )`, not internally.
@@ -382,15 +382,28 @@ check_slice_arrange <- function(x){
     }else{
       slice <- x$slice
     }
+
+    # then arrange
     if(is.null(x$arrange)){
       arrange <- tibble::tibble(variable = "count", 
                                 direction = "descending")
     }else{
+      if(x$atlas == "Global"){
+      c("`arrange()` is not currently supported by the GBIF occurrence count API: skipping.") |>
+        cli::cli_warn()
+      }
       arrange <- x$arrange
     }
     x$slice_arrange <- dplyr::bind_cols(slice, arrange)
     x$arrange <- NULL
     x$slice <- NULL
+    x
+  }else if(x$type == "occurrences"){
+    if(!is.null(x$slice)){
+      x$type <- "occurrences-slice"
+    }
+    x
+  }else{
     x
   }
 }

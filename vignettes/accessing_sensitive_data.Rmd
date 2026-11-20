@@ -60,7 +60,7 @@ use the `authenticate()` function in-pipe:
 df <- galah_call() |>
   identify("Mammalia") |>
   filter(year == 2025) |>
-  authenticate() |>
+  authenticate(use_jwt = TRUE) |>
   collect()
 ```
 
@@ -78,23 +78,23 @@ existing field name prefixed with `sensitive_`. They cannot be requested
 directly. Instead, if you request a field that has a sensitive counterpart, both 
 the public and sensitive version of that field will be returned.
 
-<!--html_preserve--><div id="suepizzkgk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#suepizzkgk table {
+<!--html_preserve--><div id="stxvdmanbb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#stxvdmanbb table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#suepizzkgk thead, #suepizzkgk tbody, #suepizzkgk tfoot, #suepizzkgk tr, #suepizzkgk td, #suepizzkgk th {
+#stxvdmanbb thead, #stxvdmanbb tbody, #stxvdmanbb tfoot, #stxvdmanbb tr, #stxvdmanbb td, #stxvdmanbb th {
   border-style: none;
 }
 
-#suepizzkgk p {
+#stxvdmanbb p {
   margin: 0;
   padding: 0;
 }
 
-#suepizzkgk .gt_table {
+#stxvdmanbb .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -120,12 +120,12 @@ the public and sensitive version of that field will be returned.
   border-left-color: #D3D3D3;
 }
 
-#suepizzkgk .gt_caption {
+#stxvdmanbb .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#suepizzkgk .gt_title {
+#stxvdmanbb .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -137,7 +137,7 @@ the public and sensitive version of that field will be returned.
   border-bottom-width: 0;
 }
 
-#suepizzkgk .gt_subtitle {
+#stxvdmanbb .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -149,7 +149,7 @@ the public and sensitive version of that field will be returned.
   border-top-width: 0;
 }
 
-#suepizzkgk .gt_heading {
+#stxvdmanbb .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -161,13 +161,13 @@ the public and sensitive version of that field will be returned.
   border-right-color: #D3D3D3;
 }
 
-#suepizzkgk .gt_bottom_border {
+#stxvdmanbb .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#suepizzkgk .gt_col_headings {
+#stxvdmanbb .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -182,7 +182,7 @@ the public and sensitive version of that field will be returned.
   border-right-color: #D3D3D3;
 }
 
-#suepizzkgk .gt_col_heading {
+#stxvdmanbb .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -202,7 +202,7 @@ the public and sensitive version of that field will be returned.
   overflow-x: hidden;
 }
 
-#suepizzkgk .gt_column_spanner_outer {
+#stxvdmanbb .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -214,15 +214,15 @@ the public and sensitive version of that field will be returned.
   padding-right: 4px;
 }
 
-#suepizzkgk .gt_column_spanner_outer:first-child {
+#stxvdmanbb .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#suepizzkgk .gt_column_spanner_outer:last-child {
+#stxvdmanbb .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#suepizzkgk .gt_column_spanner {
+#stxvdmanbb .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -234,11 +234,11 @@ the public and sensitive version of that field will be returned.
   width: 100%;
 }
 
-#suepizzkgk .gt_spanner_row {
+#stxvdmanbb .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#suepizzkgk .gt_group_heading {
+#stxvdmanbb .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -264,7 +264,7 @@ the public and sensitive version of that field will be returned.
   text-align: left;
 }
 
-#suepizzkgk .gt_empty_group_heading {
+#stxvdmanbb .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -279,15 +279,15 @@ the public and sensitive version of that field will be returned.
   vertical-align: middle;
 }
 
-#suepizzkgk .gt_from_md > :first-child {
+#stxvdmanbb .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#suepizzkgk .gt_from_md > :last-child {
+#stxvdmanbb .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#suepizzkgk .gt_row {
+#stxvdmanbb .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -306,7 +306,7 @@ the public and sensitive version of that field will be returned.
   overflow-x: hidden;
 }
 
-#suepizzkgk .gt_stub {
+#stxvdmanbb .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -319,7 +319,7 @@ the public and sensitive version of that field will be returned.
   padding-right: 5px;
 }
 
-#suepizzkgk .gt_stub_row_group {
+#stxvdmanbb .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -333,15 +333,15 @@ the public and sensitive version of that field will be returned.
   vertical-align: top;
 }
 
-#suepizzkgk .gt_row_group_first td {
+#stxvdmanbb .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#suepizzkgk .gt_row_group_first th {
+#stxvdmanbb .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#suepizzkgk .gt_summary_row {
+#stxvdmanbb .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -351,16 +351,16 @@ the public and sensitive version of that field will be returned.
   padding-right: 5px;
 }
 
-#suepizzkgk .gt_first_summary_row {
+#stxvdmanbb .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#suepizzkgk .gt_first_summary_row.thick {
+#stxvdmanbb .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#suepizzkgk .gt_last_summary_row {
+#stxvdmanbb .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -370,7 +370,7 @@ the public and sensitive version of that field will be returned.
   border-bottom-color: #D3D3D3;
 }
 
-#suepizzkgk .gt_grand_summary_row {
+#stxvdmanbb .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -380,7 +380,7 @@ the public and sensitive version of that field will be returned.
   padding-right: 5px;
 }
 
-#suepizzkgk .gt_first_grand_summary_row {
+#stxvdmanbb .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -390,7 +390,7 @@ the public and sensitive version of that field will be returned.
   border-top-color: #D3D3D3;
 }
 
-#suepizzkgk .gt_last_grand_summary_row_top {
+#stxvdmanbb .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -400,11 +400,11 @@ the public and sensitive version of that field will be returned.
   border-bottom-color: #D3D3D3;
 }
 
-#suepizzkgk .gt_striped {
+#stxvdmanbb .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#suepizzkgk .gt_table_body {
+#stxvdmanbb .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -413,7 +413,7 @@ the public and sensitive version of that field will be returned.
   border-bottom-color: #D3D3D3;
 }
 
-#suepizzkgk .gt_footnotes {
+#stxvdmanbb .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -427,7 +427,7 @@ the public and sensitive version of that field will be returned.
   border-right-color: #D3D3D3;
 }
 
-#suepizzkgk .gt_footnote {
+#stxvdmanbb .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -436,7 +436,7 @@ the public and sensitive version of that field will be returned.
   padding-right: 5px;
 }
 
-#suepizzkgk .gt_sourcenotes {
+#stxvdmanbb .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -450,7 +450,7 @@ the public and sensitive version of that field will be returned.
   border-right-color: #D3D3D3;
 }
 
-#suepizzkgk .gt_sourcenote {
+#stxvdmanbb .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -458,72 +458,72 @@ the public and sensitive version of that field will be returned.
   padding-right: 5px;
 }
 
-#suepizzkgk .gt_left {
+#stxvdmanbb .gt_left {
   text-align: left;
 }
 
-#suepizzkgk .gt_center {
+#stxvdmanbb .gt_center {
   text-align: center;
 }
 
-#suepizzkgk .gt_right {
+#stxvdmanbb .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#suepizzkgk .gt_font_normal {
+#stxvdmanbb .gt_font_normal {
   font-weight: normal;
 }
 
-#suepizzkgk .gt_font_bold {
+#stxvdmanbb .gt_font_bold {
   font-weight: bold;
 }
 
-#suepizzkgk .gt_font_italic {
+#stxvdmanbb .gt_font_italic {
   font-style: italic;
 }
 
-#suepizzkgk .gt_super {
+#stxvdmanbb .gt_super {
   font-size: 65%;
 }
 
-#suepizzkgk .gt_footnote_marks {
+#stxvdmanbb .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#suepizzkgk .gt_asterisk {
+#stxvdmanbb .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#suepizzkgk .gt_indent_1 {
+#stxvdmanbb .gt_indent_1 {
   text-indent: 5px;
 }
 
-#suepizzkgk .gt_indent_2 {
+#stxvdmanbb .gt_indent_2 {
   text-indent: 10px;
 }
 
-#suepizzkgk .gt_indent_3 {
+#stxvdmanbb .gt_indent_3 {
   text-indent: 15px;
 }
 
-#suepizzkgk .gt_indent_4 {
+#stxvdmanbb .gt_indent_4 {
   text-indent: 20px;
 }
 
-#suepizzkgk .gt_indent_5 {
+#stxvdmanbb .gt_indent_5 {
   text-indent: 25px;
 }
 
-#suepizzkgk .katex-display {
+#stxvdmanbb .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#suepizzkgk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#stxvdmanbb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

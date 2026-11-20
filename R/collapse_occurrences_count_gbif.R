@@ -18,9 +18,13 @@ collapse_occurrences_count_gbif <- function(x, limit = 0){
 #' @noRd
 #' @keywords Internal
 collapse_occurrences_count_gbif_groupby_basic <- function(x){
-  x$body <- list(predicate = build_predicates(x$body),
+  x$body <- list(parameters = list(CHECKLIST_KEY = list(gbif_checklistKey())),
+                              # NOTE: double use of `list()` is intentional
+                              # Key *must* be supplied as an array
+                 predicate = build_predicates(x$body),
                  limit = 0,
-                 facets = parse_predicates_groupby(x$body$group_by)) |>
+                 facets = parse_predicates_groupby(x$body$group_by),
+                 facetLimit = x$request$slice_arrange$slice_n) |>
     remove_nulls_from_list() |>
     jsonlite::toJSON(auto_unbox = TRUE,
                      pretty = TRUE)
@@ -35,11 +39,11 @@ collapse_occurrences_count_gbif_groupby_crossed <- function(x){
   # get a 'basic' query, showing facets for each variable separately 
   facets <- collapse_occurrences_count_gbif_groupby_basic(x) |>
     collect() |> 
-    dplyr::relocate(x$request$group_by$name) # place in supplied order
+    dplyr::select(dplyr::all_of(x$request$group_by$name)) # place in supplied order
 
   # build filters for our next round of queries
   # for 3 facets, we need to expand our crossed variables
-  if(ncol(facets) > 3){
+  if(ncol(facets) >= 3){
 
     filters <- facets |>
       select(!!!names(facets[1:2])) |>
@@ -68,6 +72,7 @@ collapse_occurrences_count_gbif_groupby_crossed <- function(x){
 
   # for 2 facets, we just select the levels we need
   }else{
+
     filters <- facets |>
       select(!!!(colnames(facets)[1])) |>
       tidyr::drop_na()
@@ -92,22 +97,4 @@ collapse_occurrences_count_gbif_groupby_crossed <- function(x){
   filters$predicate <- body_list
   x$body <- filters
   x
-}
-
-#' Internal function to convert a facet df into a predicate
-#' @noRd
-#' @keywords Internal
-tibble_to_predicate <- function(df){
-  # iterate over rows
-  purrr::map(
-    split(df, seq_len(nrow(df))),
-    .f = \(a){
-      # for each row, convert each column (cell) into a list
-      cols_vector <- seq_len(ncol(a))
-      purrr::map(cols_vector, \(b){
-        list(type = "equals",
-             key = gbif_upper_case(names(a)[b]),
-             value = a[[b]][[1]])
-      })
-    })
 }

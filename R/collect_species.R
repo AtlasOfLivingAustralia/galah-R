@@ -1,12 +1,17 @@
 #' workhorse function to get species lists from an atlas
 #' @keywords Internal
 #' @noRd
-collect_species <- function(.query, file = NULL){
+collect_species <- function(.query,
+                            file = NULL,
+                            wait = TRUE,
+                            call = rlang::caller_env()){
   if(.query$atlas == "Global"){
-    collect_occurrences(.query, wait = TRUE)
+    collect_occurrences(.query,
+                        wait = wait,
+                        call = call)
   }else{
     .query$file <- check_download_filename(file, ext = "csv")
-    query_API(.query)
+    query_API(.query, error_call = call)
     readr::read_csv(.query$file,
                     col_names = get_clean_colnames(.query$file,
                                                    facet = .query$group_by$name),

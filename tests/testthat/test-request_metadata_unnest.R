@@ -1,72 +1,104 @@
-test_that("request_metadata() |> unnest() works for type = 'fields'", {
-  skip_if_offline(); skip_on_ci()
-  # no filter provided causes an error
-  expect_error({request_metadata() |> 
-      unnest() |>
-      collapse()},
-      label = "Requests of type `fields-unnest` must supply `filter()`") 
-  # an incorrect filter argument errors at `collapse()`
-  expect_error({request_metadata() |> 
-      filter(something == 10) |> 
-      unnest() |>
-      collapse()},
-      label = "Invalid `type` supplied to `unnest()`")
-  # passing a correct `type` but not `value` errors at `collapse()`...
-  expect_error(request_metadata() |> 
+test_that("`unnest()` fails for objects of class other than `metadata_request`", {
+  request_data() |>
+    galah::unnest() |>
+    expect_error()
+  list() |>
+    galah::unnest() |>
+    expect_error()
+})
+
+test_that("`unnest()` fails for valid but unsupported `type`", {
+  # note: supplying random strings to `type` will fail at `request_metadata()`, not `unnest()`
+  request_metadata(type = "licences") |>
+    unnest() |>
+    expect_error()
+})
+
+test_that("`request_metadata() |> unnest()` fails when `filter()` is missing", {
+  skip_galah()
+  request_metadata() |> 
+    unnest() |>
+    collapse() |>
+    expect_error(label = "Requests of type `fields-unnest` must supply `filter()`") 
+})
+
+test_that("incorrect `filter()` argument errors at `collapse()`", {
+  skip_galah()
+  request_metadata() |> 
+    filter(something == 10)
+    unnest() |>
+    collapse() |>
+    expect_error(label = "Invalid `type` supplied to `unnest()`")
+})
+
+test_that("passing a correct `type` but not `value` errors at `collapse()`", {
+  skip_galah()
+  request_metadata() |> 
     unnest() |>
     filter(field == unknown) |> 
-    collapse(),
-    label = "Can't use fields that don't exist.")
-  # supplying `filter()` without unnest() works
+    collapse() |>
+    expect_error(label = "Can't use fields that don't exist.")
+})
+
+test_that("supplying `filter()` without `unnest()` works", {
+  skip_galah()
   x <- request_metadata() |>
     filter(field == "basisOfRecord") |> 
     collect()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(x)
   expect_equal(nrow(x), 1)
   expect_equal(x$id, "basisOfRecord")
-  # whole thing works when...
-  y <- request_metadata() |> 
+})
+
+test_that("correctly supplied `filter()` and `unnest()` returns values", { 
+  skip_galah()
+  x <- request_metadata() |> 
+    filter(field == "basisOfRecord") |>
     unnest() |> 
-    filter(field == "basisOfRecord") |> 
-    collect()
-  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
-  expect_gte(nrow(y), 4)
-  expect_equal(ncol(y), 1)
-  expect_equal(colnames(y), "basisOfRecord")
-  expect_true(any(y[[1]] == "HUMAN_OBSERVATION"))
+    collect() |>
+    skip_unavailable()
+  expect_tibble(x)
+  expect_gte(nrow(x), 4)
+  expect_equal(ncol(x), 1)
+  expect_equal(colnames(x), "basisOfRecord")
+  expect_true(any(x[[1]] == "HUMAN_OBSERVATION"))
 })
 
 test_that("request_metadata() |> select() |> unnest() works for type = 'fields'", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   base_query <- request_metadata() |> 
     filter(field == "basisOfRecord") |>
     unnest()
   x <-  base_query |>
-    collect()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+    collect() |>
+    skip_unavailable()
+  expect_tibble(x)
   expect_gte(nrow(x), 4)
   expect_equal(ncol(x), 1)
   expect_equal(colnames(x), "basisOfRecord")
   expect_true(any(x[[1]] == "HUMAN_OBSERVATION"))
   y <-  base_query |>
     select(everything()) |>
-    collect()
+    collect() |>
+    skip_unavailable()
   expect_gt(ncol(y), ncol(x))
   z <- base_query |>
     select(label, count) |>
-    collect()
+    collect() |>
+    skip_unavailable()
   expect_gt(ncol(z), ncol(x))
   expect_lt(ncol(z), ncol(y))
 })
 
 test_that("request_metadata() |> unnest() works for type = 'lists'", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(verbose = FALSE)
 
   x1 <- request_metadata() |> 
     filter(list == "dr947") |> 
-    collect()
-  expect_s3_class(x1, c("tbl_df", "tbl", "data.frame"))
+    collect() |>
+    skip_unavailable()
+  expect_tibble(x1)
   expect_equal(nrow(x1), 1)
   expect_equal(x1[[1]], "dr947")
   x <- request_metadata() |> 
@@ -80,8 +112,9 @@ test_that("request_metadata() |> unnest() works for type = 'lists'", {
                c("type", "atlas", "url", "request"))
   y <- compute(x)
   expect_s3_class(y, "computed_query")
-  z <- collect(y)
-  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
+  z <- collect(y) |>
+    skip_unavailable()
+  expect_tibble(z)
   expect_gte(nrow(z), 10)
   expect_equal(ncol(z), 3)
   # now check `everything()`
@@ -89,44 +122,52 @@ test_that("request_metadata() |> unnest() works for type = 'lists'", {
     filter(list == "dr947") |> 
     unnest() |>
     select(everything()) |>
-    collect()
+    collect() |>
+    skip_unavailable()
   expect_gt(ncol(xx), ncol(z))
 })
 
 test_that("`request_metadata() |> unnest()` fails for invalid profiles", {
-  skip_if_offline(); skip_on_ci()
-  x <- request_metadata() |>
+  skip_galah()
+  request_metadata() |>
     unnest() |>
-    filter(profile == "something")
-  expect_error(collapse(x),
-               label = "Unknown profile detected")
+    filter(profile == "something") |>
+    collapse() |>
+    expect_error(label = "Unknown profile detected")
 })
 
 test_that("`request_metadata() |> unnest() |> collapse()` works for type = profiles", {
-  skip_if_offline(); skip_on_ci()
-    x1 <- request_metadata() |> 
-    filter(profile == "ALA") |> 
-    collect()
-  expect_s3_class(x1, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(nrow(x1), 1)
-  expect_equal(x1$short_name, "ALA")
+  skip_galah()
   x <- request_metadata() |>
     filter(profile == "ALA") |>
     unnest() |>
-    collapse()
+    collapse() |>
+    skip_unavailable()
   expect_s3_class(x, "query")
   expect_equal(x$type, "metadata/profiles-unnest")
   expect_equal(names(x), 
                c("type", "atlas", "url", "request"))
 })
 
+test_that("`request_metadata() |> unnest() |> collect()` works for type = profiles", {
+  skip_galah()
+  x <- request_metadata() |> 
+    filter(profile == "ALA") |> 
+    collect() |>
+    skip_unavailable()
+  expect_tibble(x)
+  expect_equal(nrow(x), 1)
+  expect_equal(x$short_name, "ALA")
+})
+
 test_that("request_metadata() |> unnest() works for type = 'profiles'", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- request_metadata() |>
     filter(profile == "ALA") |>
     unnest() |>
-    collect()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+    collect()|>
+    skip_unavailable()
+  expect_tibble(x)
   expect_gte(ncol(x), 3)
   expect_gte(nrow(x), 10)
   # check `select()` works
@@ -134,7 +175,8 @@ test_that("request_metadata() |> unnest() works for type = 'profiles'", {
     filter(profile == "ALA") |>
     unnest() |>
     select(filter, enabled) |>
-    collect()
+    collect() |>
+    skip_unavailable()
   expect_equal(nrow(x), nrow(y))
   expect_equal(ncol(y), 2)
   # now check `everything()`
@@ -142,73 +184,99 @@ test_that("request_metadata() |> unnest() works for type = 'profiles'", {
     filter(profile == "ALA") |> 
     unnest() |>
     select(everything()) |>
-    collect()
+    collect() |>
+    skip_unavailable()
   expect_gt(ncol(z), ncol(x))
 })
 
 test_that("request_metadata() |> unnest() works for type = 'taxa' using `identify()`", {
-  skip_if_offline(); skip_on_ci()
-  x1 <- request_metadata() |> 
-    identify("crinia") |>
-    collect()
-  expect_s3_class(x1, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(nrow(x1), 1)
-  expect_equal(x1[[1]], "crinia")
+  skip_galah()
   x <- request_metadata() |>
     identify("crinia") |>
     unnest() |>
-    collapse()
+    collapse() |>
+    skip_unavailable()
   expect_s3_class(x, "query")
   expect_equal(length(x), 6)
   expect_equal(names(x), c("type", "atlas", "url", "headers", "request", "supplied_taxon"))
   expect_equal(x$type, "metadata/taxa-unnest")
   y <- compute(x)
   expect_s3_class(y, "computed_query")
-  z <- collect(y)
-  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
+  z <- collect(y) |>
+    skip_unavailable()
+  expect_tibble(z)
   expect_equal(ncol(z), 4)
   expect_gte(nrow(z), 10)
 })
 
 test_that("request_metadata() |> unnest() works for type = 'taxa' using `filter()`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   lookup <- search_taxa("Crinia")$taxon_concept_id
   x <- request_metadata() |>
     filter(taxa == lookup) |>
     unnest() |>
-    collapse()
+    collapse()  |>
+    skip_unavailable()
   expect_s3_class(x, "query")
   expect_equal(length(x), 5)
   expect_equal(names(x), c("type", "atlas", "url", "headers", "request"))
   expect_equal(x$type, "metadata/taxa-unnest")
   y <- compute(x)
   expect_s3_class(y, "computed_query")
-  z <- collect(y)
-  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
+  z <- collect(y) |>
+    skip_unavailable()
+  expect_tibble(z)
+  expect_equal(ncol(z), 4)
+  expect_gte(nrow(z), 10)
+})
+
+test_that("request_metadata() |> unnest() works for type = 'taxa' using `filter()`", {
+  skip_galah()
+  lookup <- search_taxa("Crinia")$taxon_concept_id
+  x <- request_metadata() |>
+    filter(identifier == lookup) |>
+    unnest() |>
+    collapse()  |>
+    skip_unavailable()
+  expect_s3_class(x, "query")
+  expect_equal(length(x), 5)
+  expect_equal(names(x), c("type", "atlas", "url", "headers", "request"))
+  expect_equal(x$type, "metadata/identifiers-unnest")
+  y <- compute(x)
+  expect_s3_class(y, "computed_query")
+  z <- collect(y) |>
+    skip_unavailable()
+  expect_tibble(z)
   expect_equal(ncol(z), 4)
   expect_gte(nrow(z), 10)
 })
 
 test_that("`request_metadata() |> unnest() |> select()` works for type = 'taxa'", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   lookup <- search_taxa("Crinia")$taxon_concept_id
   # request one column only
   x <- request_metadata() |>
     filter(taxa == lookup) |>
     unnest() |>
     select(name) |>
-    collect()
+    collect() |>
+    skip_unavailable()
+  expect_tibble(x)
   # request defaults (4 columns)
   y <- request_metadata() |>
     filter(taxa == lookup) |>
     unnest() |>
-    collect()
+    collect() |>
+    skip_unavailable()
+  expect_tibble(y)
   # request all columns
   z <- request_metadata() |>
     filter(taxa == lookup) |>
     unnest() |>
     select(everything()) |>
-    collect()
+    collect() |>
+    skip_unavailable()
+  expect_tibble(z)
   # should all have same number of rows
   expect_equal(nrow(x), nrow(y))
   expect_equal(nrow(x), nrow(z))

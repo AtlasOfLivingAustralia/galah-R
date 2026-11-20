@@ -1,11 +1,5 @@
-quiet_collect <- function(x){
-  quiet_fun <- purrr::quietly(dplyr::collect)
-  quiet_fun(x) |>
-    purrr::pluck("result")
-}
-
 test_that("default is to arrange by decending order of count", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call() |>
     filter(year >= 2015) |>
     group_by(year) |>
@@ -17,8 +11,15 @@ test_that("default is to arrange by decending order of count", {
   expect_equal(colnames(result), c("year", "count"))
 })
 
+test_that("`arrange()` returns data unchanged if no arguments are supplied", {
+  x <- galah_call() |>
+    filter(year == 2020) 
+  y <- x |> arrange() 
+  expect_identical(x, y)
+})
+
 test_that("arrange in increasing order of count", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call() |>
     filter(year >= 2015) |>
     group_by(year) |>
@@ -32,7 +33,7 @@ test_that("arrange in increasing order of count", {
 })
 
 test_that("arrange in decreasing order of count using `desc()`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call() |>
     filter(year >= 2015) |>
     group_by(year) |>
@@ -46,7 +47,7 @@ test_that("arrange in decreasing order of count using `desc()`", {
 })
 
 test_that("arrange in increasing order of year", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call() |>
     filter(year >= 2015) |>
     group_by(year) |>
@@ -60,7 +61,7 @@ test_that("arrange in increasing order of year", {
 })
 
 test_that("arrange in decreasing order of year using `desc()`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call() |>
     filter(year >= 2015) |>
     group_by(year) |>
@@ -74,7 +75,7 @@ test_that("arrange in decreasing order of year using `desc()`", {
 })
 
 test_that("`arrange()` by `count` and `slice_head()` work together", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   # get lower values (bottom 5)
   result <- galah_call() |>
     filter(year >= 2015) |>
@@ -104,7 +105,7 @@ test_that("`arrange()` by `count` and `slice_head()` work together", {
 })
 
 test_that("`arrange()` by `year` and `slice_head()` work together", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   # get lower values (bottom 5)
   result <- galah_call() |>
     filter(year >= 2015) |>
@@ -136,7 +137,7 @@ test_that("`arrange()` by `year` and `slice_head()` work together", {
 })
 
 test_that("`group_by()` with multiple fields works with `slice_head()`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- galah_call() |>
     filter(year >= 2015) |>
     group_by(year, basisOfRecord) |>
@@ -144,9 +145,15 @@ test_that("`group_by()` with multiple fields works with `slice_head()`", {
     arrange(desc(count)) |> # NOTE: desc(count) applied within groups only; is this correct?
     slice_head(n = 5) |> # same issue as above
     quiet_collect()
-  expect_equal(ncol(result), 3)
-  expect_equal(colnames(result), c("year", "basisOfRecord", "count"))
+  expect_equal(ncol(result), 4)
+  expect_equal(colnames(result),
+               c("year", "basisOfRecord", "basisOfRecord_label", "count"))
   expect_true(all(xtabs(~result$year) <= 5)) # current year may not have all values yet
 })
-  
-rm(quiet_collect)
+
+test_that("`slice_head()` warns when `prop` is set", {
+  galah_call() |>
+    count(basisOfRecord) |>
+    slice_head(prop = 0.5) |>
+    expect_warning()
+})

@@ -54,11 +54,10 @@ is_and_query <- function(x){
 #' @noRd
 #' @keywords Internal
 check_predicate_wrapping <- function(x){
-  if(length(x) > 2 &
-     any(names(x) %in% c("in", "key", "value"))){
-    list(x)
-  }else{
+  if(is.null(names(x))){
     x
+  }else{
+    list(x)
   }
 }
 
@@ -67,10 +66,11 @@ check_predicate_wrapping <- function(x){
 #' @keywords Internal
 parse_predicates_identify <- function(x){
   if(!is.null(x)){
-    result <- purrr::map(x$taxon_concept_id,
+    result <- purrr::map(x$taxon_key,
                \(a){list(type = "equals",
                          key = "TAXON_KEY",
-                         value = a)})
+                         value = a,
+                         checklistKey = gbif_checklistKey())})
     if(length(result) > 1){
       list(type = "or",
            result)

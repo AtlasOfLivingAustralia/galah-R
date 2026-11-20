@@ -1,3 +1,9 @@
+test_that("`check_atlas_inputs()` returns error for objects other than `data.request`", {
+  atlas_counts(request = list(x = 1)) |>
+    expect_error(label = "Argument `.query` requires an object of type `data_request`.")
+})
+
+
 test_that("check_download_filename() works", {
   # missing case (default)
   galah_config(directory = "temp")
@@ -13,4 +19,13 @@ test_that("check_download_filename() works", {
   expect_true(grepl(galah_config()$package$directory, x)) # contains directory
   expect_true(grepl("something.zip$", x))
   unlink("temp")
+})
+
+test_that("Invalid fields are caught by `check`", {
+  skip_galah()
+  galah_call() |>
+    filter(contentType != "Environmental DNA") |>
+    count() |>
+    collapse() |>
+    expect_error(label = "Can't use fields that don't exist.")
 })

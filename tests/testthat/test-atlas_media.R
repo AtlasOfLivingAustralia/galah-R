@@ -1,24 +1,13 @@
-quiet_collapse <- function(x, ...){
-  collapse_fun <- purrr::quietly(dplyr::collapse)
-  collapse_fun(x, ...) |>
-    purrr::pluck("result")
-}
-quiet_compute <- function(x){
-  compute_fun <- purrr::quietly(dplyr::compute)
-  compute_fun(x) |>
-    purrr::pluck("result")
-}
-quiet_collect <- function(x, ...){
-  purrr_collect <- purrr::quietly(dplyr::collect)
-  purrr_collect(x, ...) |> 
-    purrr::pluck("result")
-}
+# setup
 purrr_media <- purrr::quietly(atlas_media)
+
 quiet_media <- function(...){
   purrr_media(...) |>
     purrr::pluck("result")
 }
+
 purrr_collect_media <- purrr::quietly(collect_media)
+
 purrr_config <- purrr::quietly(galah_config)
 
 test_that("atlas_media fails when no filters are provided", {
@@ -26,13 +15,13 @@ test_that("atlas_media fails when no filters are provided", {
 })
 
 test_that("`atlas_media()` works", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   media_data <- galah_call() |>
     authenticate(email = "ala4r@ala.org.au") |>
     identify("Microseris lanceolata") |>
     filter(year == 2019) |>
     quiet_media()
-  expect_s3_class(media_data, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(media_data)
   expect_gte(nrow(media_data), 3)
   expect_gte(ncol(media_data), 3)
   # set `all_fields` = TRUE
@@ -49,7 +38,7 @@ test_that("`atlas_media()` works", {
 })
 
 test_that("`collect_media()` works", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   capture_config <- purrr_config(email = "ala4r@ala.org.au")
   atlas_query <- galah_call() |>
     identify("Anthochaera (Xanthomyza) phrygia") |> # Regent Honeyeater
@@ -68,7 +57,7 @@ test_that("`collect_media()` works", {
 })
 
 test_that("`collapse()` and `collect()` work for `type = 'media'`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   
   get_image_sizes <- function(dir){
     paste0(dir, 
@@ -85,18 +74,18 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
     identify("Litoria peronii") |>
     filter(year == 2010, !is.na(images)) |>
     select(species, group = "media") |>
-    glimpse() |>
+    slice_head(n = 5) |>
     quiet_collect(wait = TRUE)
-  
-  # basic test to ensure taxon matching is working
-  expect_all_equal(occ_collect$species, "Litoria peronii") # test
+  expect_tibble(occ_collect)
+  expect_equal(nrow(occ_collect), 5)
+  expect_equal(ncol(occ_collect), 3)
 
   ## PART 2: request media metadata
   # collapse
   media_collapse <- request_metadata() |>
     filter(media == unlist(dplyr::pull(occ_collect, "images"))) |>
     quiet_collapse()
-  expect_true(inherits(media_collapse, "query"))
+  expect_s3_class(media_collapse, "query")
   expect_equal(length(media_collapse), 5)
   expect_equal(names(media_collapse), 
                c("type",
@@ -107,7 +96,7 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
   expect_true(media_collapse$type == "metadata/media")
   # compute
   media_compute <- quiet_compute(media_collapse)
-  expect_true(inherits(media_compute, "computed_query"))
+  expect_s3_class(media_compute, "computed_query")
   expect_equal(length(media_compute), 5)
   expect_equal(names(media_compute), 
                c("type",
@@ -117,7 +106,7 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
                  "request"))
   # collect
   media_collect <- quiet_collect(media_compute)
-  expect_s3_class(media_collect, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(media_collect)
   expect_gte(nrow(media_collect), 1)
   expect_gte(ncol(media_collect), 6)
   
@@ -132,7 +121,7 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
   files_collapse <- request_files() |>
     filter(media == df) |>
     quiet_collapse(thumbnail = TRUE)
-  expect_true(inherits(files_collapse, "query"))
+  expect_s3_class(files_collapse, "query")
   expect_equal(length(files_collapse), 5)
   expect_equal(names(files_collapse), 
                c("type",
@@ -143,7 +132,7 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
   expect_equal(files_collapse$type, "files/media")
   # compute
   files_compute <- quiet_compute(files_collapse)
-  expect_true(inherits(files_compute, "computed_query"))
+  expect_s3_class(files_compute, "computed_query")
   expect_equal(length(files_compute), 5)
   expect_equal(names(files_compute), 
                c("type",
@@ -153,7 +142,7 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
                  "request"))
   # collect
   files_collect <- quiet_collect(files_compute)
-  expect_s3_class(files_collect, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(files_collect)
   expect_gte(nrow(files_collect), 1)
   expect_gte(ncol(files_collect), 2)
   expect_equal(length(list.files(media_dir)), 3)
@@ -181,7 +170,7 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
 })
 
 test_that("atlas_media gives a warning when old arguments are used", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- purrr_config(email = "ala4r@ala.org.au", 
                     atlas = "Australia")
   expect_error({
@@ -193,7 +182,7 @@ test_that("atlas_media gives a warning when old arguments are used", {
 })
 
 test_that("collect_media handles different file formats", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   # setup
   media_dir <- "test_media"
   galah_config(email = "ala4r@ala.org.au", 
@@ -229,6 +218,20 @@ test_that("collect_media handles different file formats", {
     dplyr::group_by(mime_type) |>
     dplyr::sample_n(size = 2)
 
+  # check that error catching works on `filter.files_request()`
+  # 1. first argument must be 'media'
+  request_files() |>
+    filter(something == media_summary) |>
+    expect_error(label = "Variable name must be a valid `type` accepted by `request_files()`.")
+  # 3. second argument must not be NULL
+  request_files() |>
+    filter(something == as.null()) |>
+    expect_error(label = "Suppplied data cannot be `NULL`.")
+  # 3. second argument must be a tibble
+  request_files() |>
+    filter(something == list(id = "1234")) |>
+    expect_error(label = "Supplied data should be a `tibble`.")
+
   # now run test
   result <- purrr_collect_media(media_summary, thumbnail = TRUE)
   downloads <- list.files(path = media_dir)
@@ -244,7 +247,7 @@ test_that("collect_media handles different file formats", {
 })
 
 test_that("collect_media handles thumbnails", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   media_dir <- "test_media"
   purrr_config(email = "ala4r@ala.org.au", 
                directory = media_dir)

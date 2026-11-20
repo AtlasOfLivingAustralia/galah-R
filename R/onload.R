@@ -26,13 +26,6 @@ set_up_potions <- function(){
   }
 }
 
-#' Remove galah-specific information when `unloadNamespace` is called
-#' @noRd
-#' @keywords Internal
-.onUnload <- function(libpath) {
-  potions::drain_package("galah")
-}
-
 #' Set-up for galah when `library()` is called
 #' @noRd
 #' @keywords Internal

@@ -6,7 +6,7 @@ test_that("checking authentication host works", {
 })
 
 test_that("`request_metadata()` works for type = `config`", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   result <- request_metadata(type = "config") |>
     collect()
   expect_equal(nrow(result), 1)
@@ -17,7 +17,7 @@ test_that("`request_metadata()` works for type = `config`", {
 })
 
 test_that("`request_metadata()` caches type `config` correctly", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   reset_cache()
   x <- request_metadata(type = "config") |>
     collect()

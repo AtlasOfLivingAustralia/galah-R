@@ -132,6 +132,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Martin Westgate \email{martin.westgate@csiro.au}
   \item Dax Kellie \email{dax.kellie@csiro.au}
 }
 

@@ -52,5 +52,11 @@ request_metadata() |>
   identify("Crinia")
   unnest() |>
   collect()
+
+# or directly via an identifier
+request_metadata(from = "GBIF") |>
+  filter(identifier == "62YK7") |>
+  unnest() |>
+  collect()
 }
 }

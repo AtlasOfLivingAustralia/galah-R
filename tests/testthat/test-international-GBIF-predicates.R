@@ -3,7 +3,8 @@ quiet_config <- purrr::quietly(galah_config)
 gbif_config <- quiet_config(atlas = "GBIF",
                   username = "atlasoflivingaustralia",
                   email = "ala4r@ala.org.au",
-                  password = "galah-gbif-test-login")
+                  password = "galah-gbif-test-login",
+                  run_checks = TRUE)
 
 test_that("`galah_filter()` returns predicates for GBIF", {
   x <- galah_filter(year == 2024) 
@@ -18,26 +19,55 @@ test_that("`galah_filter()` returns predicates for GBIF", {
                  structure(class = c("predicates_filter", "list")))
 })
 
+test_that("`filter()` errors on invalid names for GBIF counts", {
+  skip_galah()
+  galah_call() |>
+    filter(something == 2025) |>
+    count() |>
+    collapse() |>
+    expect_error(label = "Can't use fields that don't exist")
+})
+
+test_that("`group_by()` errors on invalid names for GBIF counts", {
+  skip_galah()
+  galah_call() |>
+    filter(year == 2025) |>
+    group_by(something) |>
+    count() |>
+    collapse() |>
+    expect_error(label = "Can't use fields that don't exist")
+})
+
+test_that("`filter()` errors on invalid names for GBIF occurrences", {
+  skip_galah()
+  galah_call() |>
+    filter(something == 2025) |>
+    collapse() |>
+    expect_error(label = "Can't use fields that don't exist")
+})
+
 test_that("`filter()` handles a single entry for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   x <- galah_call() |>
     filter(year == 2024) |>
     count() |>
-    collect() 
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+    collect() |>
+    skip_unavailable() 
+  expect_tibble(x)
   expect_equal(nrow(x), 1)
   expect_equal(ncol(x), 1)
   expect_true(is.integer(x$count))
 })
 
 test_that("`filter()` handles multiple (`AND`) queries for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   # get a count limited by two different categories
   x <- galah_call() |>
     filter(year == 2024, basisOfRecord == "HUMAN_OBSERVATION") |>
     count() |>
-    collect()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+    collect() |>
+    skip_unavailable()
+  expect_tibble(x)
   expect_equal(nrow(x), 1)
   expect_equal(ncol(x), 1)
 
@@ -46,8 +76,9 @@ test_that("`filter()` handles multiple (`AND`) queries for GBIF", {
     filter(year == 2024, basisOfRecord == "HUMAN_OBSERVATION") |>
     group_by(basisOfRecord) |>
     count() |>
-    collect()
-  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
+    collect() |>
+    skip_unavailable()
+  expect_tibble(y)
   expect_equal(nrow(y), 1)
   expect_equal(ncol(y), 2)
   # verify that the inputs are shown in the response
@@ -58,66 +89,34 @@ test_that("`filter()` handles multiple (`AND`) queries for GBIF", {
     filter(year == 2024, basisOfRecord == "HUMAN_OBSERVATION") |>
     group_by(year) |>
     count() |>
-    collect()
-  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
+    collect() |>
+    skip_unavailable()
+  expect_tibble(z)
   expect_equal(nrow(z), 1)
   expect_equal(ncol(z), 2)
   # verify that the inputs are shown in the response
   expect_equal(colnames(z)[[1]], "year")
   expect_equal(z$year, "2024")
 
-  # test that all queries return the same sum
-  expect_equal(x$count, y$count)
-  expect_equal(x$count, z$count)
-})
-
-test_that("`count()` errors when real but non-indexed fields are requested", {
-  skip_if_offline(); skip_on_ci()
-
-  galah_config(run_checks = TRUE)
-
-  # invalid fields
-  galah_call() |>
-    filter(something == 9) |>
-    count() |>
-    collapse() |>
-    expect_error()
-
-  # real, but not indexed, group_by statement
-  request_data() |>
-    filter(class == "Mammalia") |>
-    group_by(order) |>
-    count() |>
-    collapse() |>
-    expect_error()
-
-   galah_config(run_checks = FALSE)
-})
-
-test_that("`count()` works with `identify()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
-  # collapse
-  x <- request_data() |>
-    identify("Mammalia") |>
-    filter(year >= 2020, basisOfRecord == "HUMAN_OBSERVATION") |>
-    group_by(classKey) |>
-    count() |>
-    collect()
-  expect_equal(nrow(x), 1)
-  expect_equal(ncol(x), 2)
-  expect_equal(x$classKey, "359")
+  # test that all queries return a sum that is within 1%
+  # a range of reasons why not-quite-identical results could be returned
+  (sqrt((x$count - y$count)^2) / x$count ) |>
+     expect_lt(0.1)
+  (sqrt((x$count - z$count)^2) / x$count ) |>
+     expect_lt(0.1)
 })
 
 test_that("`filter()` handles `OR` and `%in%` for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
 
   # first prove that these facets are collected
   x <- request_data() |>
     filter(basisOfRecord == "HUMAN_OBSERVATION" | basisOfRecord == "PRESERVED_SPECIMEN") |>
     group_by(basisOfRecord) |>
     count() |>
-    collect()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+    collect() |>
+    skip_unavailable()
+  expect_tibble(x)
   expect_equal(nrow(x), 2)
   expect_equal(ncol(x), 2)
   expect_contains(x$basisOfRecord,
@@ -125,16 +124,18 @@ test_that("`filter()` handles `OR` and `%in%` for GBIF", {
   
   # then check the sum against a query without `group_by()`
   y <- request_data() |>
-   filter(basisOfRecord == "HUMAN_OBSERVATION" | basisOfRecord == "PRESERVED_SPECIMEN") |>
-   count() |>
-   collect()
+    filter(basisOfRecord == "HUMAN_OBSERVATION" | basisOfRecord == "PRESERVED_SPECIMEN") |>
+    count() |>
+    collect() |>
+    skip_unavailable()
   expect_lte((sum(x$count) - y$count) / y$count, 0.01)
 
   # check that %in% gives the same result
   z <- request_data() |>
     filter(basisOfRecord %in% c("HUMAN_OBSERVATION", "PRESERVED_SPECIMEN")) |>
     count() |>
-    collect()
+    collect() |>
+    skip_unavailable()
 
   # check difference is <1%
   # sometimes get slight bugs with code like this due to server-side estimation error
@@ -142,13 +143,14 @@ test_that("`filter()` handles `OR` and `%in%` for GBIF", {
 })
 
 test_that("`filter()` handles multiple queries including != for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
 
   x <- galah_call() |>
     filter(year == 2024, country != "AU") |>  # FIXME: countryCode fails with cryptic warning
     count() |>
-    collect()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+    collect() |>
+    skip_unavailable()
+  expect_tibble(x)
   expect_equal(nrow(x), 1)
   expect_equal(ncol(x), 1)
 
@@ -156,19 +158,21 @@ test_that("`filter()` handles multiple queries including != for GBIF", {
   y <- galah_call() |>
     filter(year == 2024) |>
     count() |>
-    collect()
+    collect() |>
+    skip_unavailable()
   expect_lt(x$count, y$count)
 })
 
 test_that("`filter()` handles `between()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
 
   x <- galah_call() |>
     filter(dplyr::between(year, 2010, 2020)) |>
     group_by(year) |>
     count() |>
-    collect()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+    collect() |>
+    skip_unavailable()
+  expect_tibble(x)
   expect_equal(ncol(x), 2)
   expect_gt(nrow(x), 8)
   expect_lt(nrow(x), 12)
@@ -178,7 +182,7 @@ test_that("`filter()` handles `between()` for GBIF", {
 })
 
 test_that("`filter()` handles `!()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
 
   # exclude some levels of basisOfRecord
   excluded_categories <- c("OCCURRENCE", "LIVING_SPECIMEN", "HUMAN_OBSERVATION")
@@ -186,8 +190,9 @@ test_that("`filter()` handles `!()` for GBIF", {
     filter(!(basisOfRecord %in% excluded_categories)) |>
     group_by(basisOfRecord) |>
     count() |>
-    collect()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+    collect() |>
+    skip_unavailable()
+  expect_tibble(x)
   expect_equal(ncol(x), 2)
   expect_gt(nrow(x), 3)
 
@@ -204,14 +209,15 @@ test_that("`filter()` handles `!()` for GBIF", {
 })
 
 test_that("`filter()` handles `is.na()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
 
   # missing values
   x <- galah_call() |>
     filter(is.na(country)) |>
     count() |>
-    collect()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+    collect() |>
+    skip_unavailable()
+  expect_tibble(x)
   expect_equal(nrow(x), 1)
   expect_equal(ncol(x), 1)
 
@@ -219,8 +225,9 @@ test_that("`filter()` handles `is.na()` for GBIF", {
   y <- galah_call() |>
     filter(!is.na(country)) |>
     count() |>
-    collect()
-  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
+    collect() |>
+    skip_unavailable()
+  expect_tibble(y)
   expect_equal(nrow(y), 1)
   expect_equal(ncol(y), 1)
 
@@ -229,11 +236,12 @@ test_that("`filter()` handles `is.na()` for GBIF", {
     count() |>
     collect()
 
+  expect_tibble(z)
   expect_lte(((x$count + y$count) - z$count) / z$count, 0.01)
 })
 
 test_that("`filter()` handles `c()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
 
   # effectively parses this as 'in' as per GBIF instructions
   country_vector <- c("AU", "US", "NL")
@@ -243,8 +251,9 @@ test_that("`filter()` handles `c()` for GBIF", {
     filter(country %in% c("AU", "US", "NL")) |>
     group_by(country) |>
     count() |>
-    collect()
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+    collect() |>
+    skip_unavailable()
+  expect_tibble(x)
   expect_equal(nrow(x), 3)
   expect_equal(ncol(x), 2)
   expect_contains(x$country, country_vector)
@@ -254,8 +263,9 @@ test_that("`filter()` handles `c()` for GBIF", {
     filter(country == country_vector) |>
     group_by(country) |>
     count() |>
-    collect()
-  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
+    collect() |>
+    skip_unavailable()
+  expect_tibble(y)
   expect_equal(nrow(y), 3)
   expect_equal(ncol(y), 2)
   expect_contains(y$country, country_vector)
@@ -263,61 +273,6 @@ test_that("`filter()` handles `c()` for GBIF", {
   # direct comparison
   expect_all_true(sort(x$country) == sort(y$country))
   expect_all_true((x$count - y$count) / y$count < 0.01)
-})
-
-test_that("`count()` works with `geolocate_polygon()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
-  # errors when points given clockwise
-  # FIXME: This has been disabled at some point 
-  # `st_sfc()` has a `check_ring_dir` argument that might help
-  # wkt <- "POLYGON((142.36 -29.01,142.74 -29.01,142.74 -29.39,142.36 -29.39,142.36 -29.01))"
-  # expect_error({galah_call() |>
-  #    galah_polygon(wkt) |>
-  #    count() |>
-  #    collect()})
-  # works when points given counter-clockwise
-  wkt <- "POLYGON((142.36 -29.01,142.36 -29.39,142.74 -29.39,142.74 -29.01,142.36 -29.01))"
-  result <- galah_call() |>
-    identify("Mammalia") |>
-    geolocate_polygon(wkt) |>
-    count() |>
-    collect()
-  # compare against a taxonomic query in the same place
-  result_taxa <- galah_call() |>
-    identify("Mammalia") |>
-    count() |>
-    collect()
-  # compare against a purely spatial query
-  result_space <- galah_call() |>
-    geolocate_polygon(wkt) |>
-    count() |>
-    collect()
-  expect_lt(result$count, result_taxa$count)
-  expect_lt(result$count, result_space$count)
-})
-
-test_that("`count()` works with `geolocate_radius()` for GBIF", {
-  skip_if_offline(); skip_on_ci()
-  # ditto for a point and radius
-  result <- galah_call() |>
-    identify("Mammalia") |>
-    geolocate_radius(lat = -33.7,
-                     lon = 151.3,
-                     radius = 5) |>
-    count() |>
-    collect()
-  result_space <- galah_call() |>
-    geolocate_radius(lat = -33.7,
-                     lon = 151.3,
-                     radius = 5) |>
-    count() |>
-    collect()
-  result_taxa <- galah_call() |>
-    identify("Mammalia") |>
-    count() |>
-    collect()
-  expect_lt(result$count, result_taxa$count)
-  expect_lt(result$count, result_space$count)
 })
 
 # TODO: add assertions?

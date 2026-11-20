@@ -39,7 +39,7 @@ terms are provided in a tibble, these are displayed in this column,
 concatenated using \verb{_}.
 \item \code{scientific_name}: The taxonomic name matched to the provided search
 term, to the lowest identified taxonomic rank.
-\item \code{taxon_concept_id}: The unique taxonomic identifier.
+\item \code{taxon_concept_id} (living atlases) or \code{taxon_key} (GBIF): The unique taxonomic identifier.
 \item \code{rank}: The taxonomic rank of the returned result.
 \item \code{match_type}: (ALA only) The method of name matching used by the name
 matching service. More information can be found on the

@@ -84,8 +84,6 @@ compound.prequery <- function(x, mint_doi = FALSE, ...){
   }else if(stringr::str_detect(x$type, "^files")){
     list(capture_media_files(x, ...)) |>
       as_query_set()
-  }else if(x$type == "data/distributions"){
-    build_query_set_distributions(x)
   }else{
     build_query_set_data(x, mint_doi = mint_doi, ...)
   }
@@ -258,30 +256,5 @@ build_query_set_data <- function(x, mint_doi, ...){
   result[[(length(result) + 1)]] <- x
   
   # return
-  as_query_set(result)
-}
-
-#' Internal function to build a `query_set` object 
-#' for object of class `data_request` when `type = distributions`
-#' @noRd
-#' @keywords Internal
-build_query_set_distributions <- function(x, ...){
-  if(is.null(x$identify) & is.null(x$filter)){
-    # find all expert distributions
-    result <- list(
-      capture_distributions_metadata(),
-      capture_distributions_data(x)
-    )
-  }else{
-    if(!is.null(x$identify)){
-      result <- list(
-        capture_taxa(list(identify = x$identify)) # wrong syntax?
-      )
-      result[[2]] <- capture_distributions_data(x) # NOTE: shouldn't call microfunctions directly
-    }else{
-      # i.e. !is.null(x$filter)
-      result <- list(capture_distributions_data(x))
-    }
-  }
   as_query_set(result)
 }

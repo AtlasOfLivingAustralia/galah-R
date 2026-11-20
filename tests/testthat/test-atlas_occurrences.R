@@ -1,19 +1,4 @@
-# set up quiet functions for testing reasons
-quiet_collapse <- function(x){
-  collapse_fun <- purrr::quietly(dplyr::collapse)
-  collapse_fun(x) |>
-    purrr::pluck("result")
-}
-quiet_compute <- function(x){
-  compute_fun <- purrr::quietly(dplyr::compute)
-  compute_fun(x) |>
-    purrr::pluck("result")
-}
-quiet_collect <- function(x, ...){
-  purrr_collect <- purrr::quietly(dplyr::collect)
-  purrr_collect(x, ...) |> 
-    purrr::pluck("result")
-}
+# setup
 quiet_occurrences <- function(...){
   occ_fun <- purrr::quietly(atlas_occurrences)
   occ_fun(...) |>
@@ -46,17 +31,17 @@ test_that("`atlas_occurrences()` gives a nice error for invalid emails", {
 })
 
 test_that("collapse(type = 'occurrences') creates an object", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(email = "ala4r@ala.org.au")
   result <- galah_call() |> 
     identify("Perameles") |>
     collapse()
-  expect_true(inherits(result, "query"))
+  expect_s3_class(result, "query")
   expect_equal(result$type, "data/occurrences")
 })
 
 test_that("`compute(type = 'occurrences')` works", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   galah_config(email = "ala4r@ala.org.au")
   base_query <- galah_call() |>
     identify("Vulpes vulpes") |>
@@ -64,12 +49,12 @@ test_that("`compute(type = 'occurrences')` works", {
            basisOfRecord == "PRESERVED_SPECIMEN")
   # collapse
   query_collapse <- collapse(base_query)
-  expect_true(inherits(query_collapse, "query"))
+  expect_s3_class(query_collapse, "query")
   expect_equal(length(query_collapse), 5)
   expect_equal(query_collapse$type, "data/occurrences")
   # compute
   response <- quiet_compute(base_query)
-  expect_true(inherits(response, "computed_query"))
+  expect_s3_class(response, "computed_query")
   expect_true(response$type == "data/occurrences")
   expect_equal(names(response),
                c("type",
@@ -85,8 +70,8 @@ test_that("`compute(type = 'occurrences')` works", {
 })
 
 # test all filters and type of columns in one call
-test_that("`atlas_occurrences()` accepts all narrowing functions inline", { 
-  skip_if_offline(); skip_on_ci()
+test_that("`atlas_occurrences()` accepts `dplyr` functions in pipe", { 
+  skip_galah()
   galah_config(email = "ala4r@ala.org.au")
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "basisOfRecord", "scientificName", "taxonConceptID", 
@@ -115,14 +100,14 @@ test_that("`atlas_occurrences()` accepts all narrowing functions inline", {
   expect_s3_class(x, "computed_query")
   # collect with wait = TRUE
   y <- quiet_collect(x, wait = TRUE)    
-  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(y)
   expect_setequal(names(y), expected_cols)
   expect_equal(unique(y$stateProvince), "New South Wales")
 })
 
 # repeat above using `galah_` functions
-test_that("`atlas_occurrences()` accepts all narrowing functions in pipe", {
-  skip_if_offline(); skip_on_ci()
+test_that("`atlas_occurrences()` accepts legacy `galah_` functions in pipe", {
+  skip_galah()
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "basisOfRecord", "scientificName", "taxonConceptID", 
                      "recordID", "dataResourceName", "occurrenceStatus",
@@ -141,8 +126,20 @@ test_that("`atlas_occurrences()` accepts all narrowing functions in pipe", {
   expect_equal(unique(occ$stateProvince), "New South Wales")
 })
 
+test_that("`atlas_occurrences()` accepts `slice_head()`", {
+  skip_galah()
+  x <- galah_call() |>
+    filter(year <= 1800) |>
+    slice_head(n = 5) |>
+    collect() |>
+    skip_unavailable()
+  expect_tibble(x)
+  expect_lte(ncol(x), 10)
+  expect_equal(nrow(x), 5)
+})
+
 test_that("`atlas_occurrences()`() and friends accept a file name", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   # set up directory for testing purposes
   directory <- "TEMP"
   unlink(directory, recursive = TRUE)
@@ -158,7 +155,7 @@ test_that("`atlas_occurrences()`() and friends accept a file name", {
   # test `atlas_occurrences`
   occ1 <- base_query |> 
     quiet_occurrences(file = "crinia_file")
-  expect_s3_class(occ1, c("tbl_df", "tbl", "data.frame"))
+  expect_tibble(occ1)
   expect_true(any(list.files(directory) == "crinia_file.zip"))
   # test `collect`
   occ2 <- base_query |> quiet_collect(file = "crinia_collect")
@@ -193,10 +190,10 @@ test_that("`atlas_occurrences()`() errors with an invalid DOI", {
 })
 
 test_that("`atlas_occurrences()` downloads data from a DOI", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   doi <- "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060"
   result1 <- quiet_occurrences(doi = doi)
-  expect_s3_class(result1, c("tbl_df", "tbl", "data.frame" ))
+  expect_tibble(result1)
   expect_equal(nrow(result1), 9)
   expect_equal(ncol(result1), 68)
   # and with other syntax
@@ -217,7 +214,7 @@ test_that("`atlas_occurrences()` downloads data from a DOI", {
 
 # NOTE: This test is *very* slow - worth investigating why
 test_that("`atlas_occurrences()` places DOI in `attr()` correctly", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   directory <- "TEMP"
   unlink(directory, recursive = TRUE)
   dir.create(directory)
@@ -248,7 +245,7 @@ test_that("`atlas_occurrences()` places DOI in `attr()` correctly", {
 })
 
 test_that("`atlas_occurrences()`() doesn't return secret information", {
-  skip_if_offline(); skip_on_ci()
+  skip_galah()
   RUN <- FALSE
   skip_if((!file.exists("testdata/SECRETS.txt") | !RUN),
           message = "Secret information not provided")
@@ -282,4 +279,4 @@ test_that("`atlas_occurrences()`() doesn't return secret information", {
   galah_config(email = "ala4r@ala.org.au")
 })
 
-rm(quiet_collapse, quiet_compute, quiet_collect, quiet_occurrences)
+rm(quiet_occurrences)

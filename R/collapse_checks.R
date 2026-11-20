@@ -44,27 +44,38 @@ collapse_build_checks <- function(.query){
 #' @keywords Internal
 collapse_run_checks <- function(.query,
                                 error_call = rlang::caller_env()){
-  
   # "data/" functions require pre-processing of metadata,
   if(stringr::str_detect(.query$type, "^data/") & 
-    !(.query$type %in% c("data/occurrences-doi", "data/occurrences-describe"))){
+    !(.query$type %in%
+      c("data/occurrences-doi",
+        "data/occurrences-describe"))
+  ){
     # taxon concept ID must always be evaluated
     .query <- check_identifiers(.query, error_call) 
 
     # check_select() is specifically for parsing fields into urls,
     # should only be called for occurrences
-    if(.query$type %in% c("data/occurrences", "data/occurrences-glimpse")){
+    if(.query$type %in% 
+       c("data/occurrences",
+         "data/occurrences-glimpse",
+         "data/occurrences-slice")
+    ){
       .query <- check_select(.query, error_call)
     }
 
-    if(.query$type %in% c("data/species") & .query$atlas == "Global"){ # NOTE: require this for occurrences too? Do LA species queries require it?
+    # Exception for GBIF species queries
+    # Q: require this for occurrences too? Do LA species queries require it?
+    if(.query$type %in% c("data/species") & 
+       .query$atlas == "Global"){
       parse_select_occurrences(.query, 
-                               build_select_df_from_query(.query)) # OK this works, just need to update select() now
-      # probably best to move this to check_select_GBIF or similar
+                               build_select_df_from_query(.query))
     }
 
-    # after checking, for type = "glimpse", we need to rename the fields query
-    if(.query$type == "data/occurrences-glimpse"){
+    # after checking, for type = "glimpse" or "slice", we need to rename the fields query
+    if(.query$type %in% 
+       c("data/occurrences-glimpse",
+         "data/occurrences-slice")
+    ){
       url <- httr2::url_parse(.query$url)
       query_names <- names(url$query)
       if(any(query_names == "fields")){
@@ -87,16 +98,18 @@ collapse_run_checks <- function(.query,
         check_profiles(error_call)
     }
   # as do `unnest()`/`show_values()` functions
-  }else if(stringr::str_detect(.query$type, "-unnest$")){
+  }else if(.query$type == "metadata/fields-unnest"){
     .query <- .query |>
-      check_identifiers(error_call) |>
       check_fields(error_call)
-  }
-
-  # add an exception to retain to user-supplied taxon for child taxa queries
-  # this is useful because it allows us to retain parent-child relations 
-  # in the resulting tibble
-  if(.query$type == "metadata/taxa-unnest"){
+  }else if(.query$type == "metadata/taxa"){
+    .query <- .query |>
+      check_identifiers(error_call)
+  }else if(.query$type == "metadata/taxa-unnest"){
+    .query <- .query |>
+      check_identifiers(error_call)
+    # add an exception to retain to user-supplied taxon for child taxa queries
+    # this is useful because it allows us to retain parent-child relations 
+    # in the resulting tibble
     supplied_taxon <- names(.query) == "metadata/taxa-single"
     if(any(supplied_taxon)){
       names(.query)[supplied_taxon] <- "supplied_taxon"
@@ -104,14 +117,6 @@ collapse_run_checks <- function(.query,
   }
 
   collapse_remove_metadata(.query)
-
-  # special cases:
-  # distributions
-  # if(.query$type == "data/distributions" & 
-  #    !is.null(.query[["metadata/distributions"]])){
-  #   .query$url <- tibble(url = glue(utils::URLdecode(.query$url), 
-  #                                   id = .query[["metadata/distributions"]]$id))
-  # }
 }
 
 #' Internal function to collapse metadata
@@ -122,7 +127,8 @@ collapse_run_metadata <- function(names_vec, .query){
     !grepl("-unnest$", names_vec) # unnest functions only parse in collect()
   if(any(metadata_lookup)){
     metadata_names <- names_vec[metadata_lookup]
-    metadata_results <- purrr::map(.query[which(metadata_lookup)], collect)
+    metadata_results <- .query[which(metadata_lookup)] |>
+      purrr::map(.f = collect)
     names(metadata_results) <- metadata_names   
     metadata_results
   }else{
