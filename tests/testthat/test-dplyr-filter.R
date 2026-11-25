@@ -289,8 +289,28 @@ test_that("`filter()` fails when given invalid OR syntax", {
     expect_error()
 })
 
-# TODOL test that `filter()` handles between() even with multiple filters
-# NOTE: not implemented yet
+test_that("`filter()` handles `between()`", {
+  filters <- galah_call() |>
+    filter(basisOfRecord == "PRESERVED_SPECIMEN",
+          between(decimalLongitude, 110, 155),
+          between(decimalLatitude, -45, -5),
+          year == 1900) |>
+    purrr::pluck("filter")
+  expect_equal(nrow(filters), 4)
+  expect_equal(filters$query[2],
+               "(decimalLongitude:[110 TO 155])")
+  expect_equal(filters$query[3],
+               "(decimalLatitude:[-45 TO -5])")
+})
+
+test_that("`filter()` handles `!between()`", {
+  filters <- galah_call() |>
+    filter(!between(decimalLongitude, 110, 155)) |>
+    purrr::pluck("filter")
+  expect_equal(nrow(filters), 1)
+  expect_equal(filters$query[1],
+               "(-decimalLongitude:[110 TO 155])")
+})
 
 test_that("`filter()` accepts an OR statement for different fields", {
   filters <- request_data() |>

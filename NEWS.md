@@ -1,3 +1,8 @@
+# galah 2.4.1
+
+### Bug fixes
+* queries no longer fail when `between()` is called within `filter()`  (#318)
+
 # galah 2.4.0
 
 ### GBIF update to Catalogue of Life taxonomy (#310)

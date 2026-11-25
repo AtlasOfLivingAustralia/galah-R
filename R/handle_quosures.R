@@ -396,13 +396,13 @@ parse_is_na <- function(x, ...){
     filter_error()
   }
   dots <- list(...)
-  logical <- ifelse(rlang::is_empty(dots), "==", "!=")
+  logical_string <- ifelse(rlang::is_empty(dots), "==", "!=")
   # for LA cases
   result <- tibble::tibble(
     variable = rlang::quo_get_expr(x)[[2]] |>
       rlang::as_quosure(env = rlang::quo_get_env(x)) |>
       switch_expr_type(),
-    logical = logical,
+    logical = logical_string,
     value = as.character(""))
   result$query <- parse_solr(result)
   return(result)
@@ -412,27 +412,30 @@ parse_is_na <- function(x, ...){
 #' Where this happens, they are always length-4, with "between" as the first entry.
 #' @noRd
 #' @keywords internal
-parse_between <- function(x, excl){ 
+parse_between <- function(x, excl = FALSE){ 
   if(length(rlang::quo_get_expr(x)) < 4L){
     filter_error()
   }
-  # for LA cases
-  if(isTRUE(excl)) {
-    logical <- c(as.character(">"), c(as.character("<")))
-  } else{
-    logical <- c(as.character("<"), c(as.character(">")))
+
+  # get basic info
+  variable <- rlang::as_label(rlang::quo_get_expr(x)[[2]])
+  lower_bound <- rlang::as_label(rlang::quo_get_expr(x)[[3]])
+  upper_bound <- rlang::as_label(rlang::quo_get_expr(x)[[4]])
+
+  # first handle default case (i.e. no negation)
+  if(isFALSE(excl)){
+    logical_string <- ">= & <="
+    negation_string <- ""
+  }else{
+    logical_string <- "< & >"
+    negation_string <- "-"
   }
-  result <- tibble::tibble(
-    variable = c(rep(rlang::as_label(rlang::quo_get_expr(x)[[2]]))),
-    logical = logical,
-    value = as.character(
-      c(switch_expr_type(rlang::as_quosure(rlang::quo_get_expr(x)[[3]], 
-                                           env = rlang::quo_get_env(x))),
-        switch_expr_type(rlang::as_quosure(rlang::quo_get_expr(x)[[4]], 
-                                           env = rlang::quo_get_env(x))))))
-  result$query <- c(parse_solr(result[1,]), 
-                    parse_solr(result[2,]))
-  return(result)
+  tibble::tibble(
+    variable = variable,
+    logical = logical_string,
+    value = glue::glue("{lower_bound} - {upper_bound}"),
+    query = glue::glue("({negation_string}{variable}:[{lower_bound} TO {upper_bound}])")
+  )
 }
 
 #' Parse `call`s that contain `%in%`
